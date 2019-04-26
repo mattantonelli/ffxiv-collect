@@ -1,0 +1,8 @@
+<% flash.to_hash.each do |key, value| %>
+  <div class="alert alert-dismissable fade show <%= flash_class(key) %>">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+      <%= fa_icon 'times' %>
+    </button>
+    <%= value %>
+  </div>
+<% end %>

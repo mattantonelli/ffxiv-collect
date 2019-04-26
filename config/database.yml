@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= Rails.application.credentials.dig(:mysql, :development, :username) %>
+  password: <%= Rails.application.credentials.dig(:mysql, :development, :password) %>
+  socket: /var/lib/mysql/mysql.sock
+
+development:
+  <<: *default
+  database: ffxiv_collect_development
+
+test:
+  <<: *default
+  database: ffxiv_collect_test
+
+production:
+  <<: *default
+  database: ffxiv_collect_production
+  username: <%= Rails.application.credentials.dig(:mysql, :production, :username) %>
+  password: <%= Rails.application.credentials.dig(:mysql, :production, :password) %>

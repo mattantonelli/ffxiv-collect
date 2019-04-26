@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FFXIV Collect</title>
+    <meta name="description" content="Another website for tracking your Final Fantasy XIV collectables.">
+    <meta property="og:title" content="FFXIV Collect">
+    <meta property="og:description" content="Another website for tracking your Final Fantasy XIV collectables.">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <% if Rails.env.production? && ga_tid.present? %>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga_tid %>"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<%= ga_tid %>');
+      </script>
+    <% end %>
+  </head>
+
+  <body>
+    <header class="container mb-4">
+      <%# <%= render 'layouts/navbar' %1> %>
+      <%= render 'layouts/alerts' %>
+    </header>
+
+    <main role="main" class="container">
+      <%= yield %>
+    </main>
+
+    <footer class="text-center">
+      <span class='d-block d-sm-inline'>Created by Raelys Skyborn of Behemoth</span>
+      <span class="d-none d-sm-inline"> | </span>
+      <span class="d-block d-sm-inline">Powered by <%= link_to 'XIVAPI', 'https://xivapi.com/', target: '_blank' %></span>
+    </footer>
+  </body>
+</html>
