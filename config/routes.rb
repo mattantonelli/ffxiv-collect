@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   #   get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   # end
 
+  post 'locale/set', to: 'locale#update'
+
+  resources :mounts, only: [:index, :show]
+
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
                                               ['{"status": 404, "error": "Not found"}'] ] }

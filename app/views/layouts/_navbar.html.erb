@@ -1,0 +1,24 @@
+<div class="navbar navbar-expand-md navbar-dark mb-2">
+  <%= link_to root_path, class: 'navbar-brand' do %>
+    <%= image_tag('logo.png') %>
+  <% end %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent"
+          aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <div class="navbar-nav mr-auto">
+      <%= nav_link('Mounts', mounts_path) %>
+    </div>
+    <div class="navbar-nav nav-item dropdown">
+      <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><%= cookies[:locale].upcase %></a>
+      <div class="dropdown-menu" aria-labelledBy="localeDropdown">
+        <% %w(EN DE FR JA).each do |locale| %>
+          <%= link_to locale, locale_set_path(locale: locale), class: 'dropdown-item', method: :post %>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to 'Sign in with Discord', nil, class: 'btn btn-secondary' %>
+  </div>
+</div>
