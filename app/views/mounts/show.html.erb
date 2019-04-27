@@ -11,10 +11,20 @@
         <div class="d-flex flex-column ml-4 mount-info">
           <div class="d-flex">
             <div>
+              <dt>Movement</dt>
+              <dd><%= @mount.movement %></dd>
+            </div>
+            <div>
               <dt>Flying</dt>
               <dd><%= flying(@mount) %></dd>
             </div>
-            <div class="ml-5">
+            <% if @mount.seats > 1 %>
+              <div>
+                <dt>Seats</dt>
+                <dd><%= @mount.seats %></dd>
+              </div>
+            <% end %>
+            <div>
               <dt>Patch</dt>
               <dd><%= @mount.patch %></dd>
             </div>
@@ -25,10 +35,10 @@
           <dd><%= format_text(@mount.enhanced_description) %></dd>
           <dt>Tooltip</dt>
           <dd><%= format_text(@mount.tooltip) %></dd>
-          <div class="mount-footprint">
-            <%= mount_footprint(@mount) %>
-          </div>
         </div>
+      </div>
+      <div class="mount-footprint">
+        <%= mount_footprint(@mount) %>
       </div>
     </div>
   </div>

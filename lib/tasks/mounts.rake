@@ -1,4 +1,5 @@
-MOUNT_COLUMNS = %w(ID Description_* DescriptionEnhanced_* Icon IconSmall IconID IsFlying Name_* Order Tooltip_* GamePatch.Version).freeze
+MOUNT_COLUMNS = %w(ID Description_* DescriptionEnhanced_* Icon IconSmall IconID IsFlying Name_* Order Tooltip_*
+GamePatch.Version IsAirborne ExtraSeats).freeze
 
 namespace :mounts do
   desc 'Create the mounts'
@@ -7,7 +8,8 @@ namespace :mounts do
     count = Mount.count
 
     XIVAPI_CLIENT.search(indexes: 'Mount', columns: MOUNT_COLUMNS, filters: 'Order>=0', limit: 1000).each do |mount|
-      data = { id: mount.id, flying: mount.is_flying != 0, order: mount.order, patch: mount.game_patch.version }
+      data = { id: mount.id, flying: mount.is_flying != 0, order: mount.order, patch: mount.game_patch.version,
+               movement: mount.is_airborne == 1 ? 'Airborne' : 'Terrestrial', seats: mount.extra_seats + 1 }
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(mount["name_#{locale}"])

@@ -14,8 +14,8 @@ img.mount-icon {
 
 .mount-footprint {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 0.25rem;
+  bottom: 0.25rem;
   width: 128px;
   height: 128px;
   img {
@@ -23,6 +23,14 @@ img.mount-icon {
   }
 }
 
-.mount-info > dt {
-  margin-top: 0.5rem;
+.mount-info {
+  z-index: 2;
+
+  > dt {
+    margin-top: 0.5rem;
+  }
+
+  .d-flex div:not(:last-child) {
+    margin-right: 2rem;
+  }
 }

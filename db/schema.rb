@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_26_130609) do
+ActiveRecord::Schema.define(version: 2019_04_27_182105) do
 
   create_table "mounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2019_04_26_130609) do
     t.string "tooltip_ja", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "movement", null: false
+    t.integer "seats", null: false
     t.index ["name_de"], name: "index_mounts_on_name_de"
     t.index ["name_en"], name: "index_mounts_on_name_en"
     t.index ["name_fr"], name: "index_mounts_on_name_fr"
