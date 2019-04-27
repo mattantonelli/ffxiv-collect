@@ -1,0 +1,28 @@
+img.mount-icon {
+  width: 40px;
+  height: 40px;
+  background: url(asset_path('mounts/small.png')) no-repeat;
+}
+
+.mount-large {
+  width: 192px;
+  height: 192px;
+  img {
+    background: url(asset_path('mounts/large.png')) no-repeat;
+  }
+}
+
+.mount-footprint {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 128px;
+  height: 128px;
+  img {
+    background: url(asset_path('mounts/footprint.png')) no-repeat;
+  }
+}
+
+.mount-info > dt {
+  margin-top: 0.5rem;
+}

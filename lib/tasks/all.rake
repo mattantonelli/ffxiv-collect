@@ -25,7 +25,7 @@ end
 
 # Fix lowercase names and German gender tags
 def sanitize_name(name)
-  name = name.titleize if name =~ /^[a-z]/
+  name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
   name.gsub('[t]', 'der')
     .gsub('[a]', 'e')
     .gsub('[A]', 'er')

@@ -1,0 +1,35 @@
+<div class="col-12 col-lg-10 offset-0 offset-lg-1">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title"><%= @mount.name %></h5>
+    </div>
+    <div class="card-body">
+      <div class="d-flex">
+        <div class="mount-large">
+          <%= mount_large(@mount) %>
+        </div>
+        <div class="d-flex flex-column ml-4 mount-info">
+          <div class="d-flex">
+            <div>
+              <dt>Flying</dt>
+              <dd><%= flying(@mount) %></dd>
+            </div>
+            <div class="ml-5">
+              <dt>Patch</dt>
+              <dd><%= @mount.patch %></dd>
+            </div>
+          </div>
+          <dt>Description</dt>
+          <dd><%= format_text(@mount.description) %></dd>
+          <dt>Journal</dt>
+          <dd><%= format_text(@mount.enhanced_description) %></dd>
+          <dt>Tooltip</dt>
+          <dd><%= format_text(@mount.tooltip) %></dd>
+          <div class="mount-footprint">
+            <%= mount_footprint(@mount) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@ namespace :mounts do
     count = Mount.count
 
     XIVAPI_CLIENT.search(indexes: 'Mount', columns: MOUNT_COLUMNS, filters: 'Order>=0', limit: 1000).each do |mount|
-      data = { id: mount.id, flying: mount.flying == 1, order: mount.order, patch: mount.game_patch.version }
+      data = { id: mount.id, flying: mount.is_flying != 0, order: mount.order, patch: mount.game_patch.version }
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(mount["name_#{locale}"])

@@ -1,0 +1,24 @@
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable" id="npcs">
+  <thead>
+    <tr>
+      <th scope="col"></th> <!-- Image -->
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Patch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mounts.each do |mount| %>
+      <tr>
+        <td>
+          <%= link_to(mount_path(mount)) do %>
+            <%= mount_icon(mount) %>
+          <% end %>
+        </td>
+        <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
+        <td><%= mount.enhanced_description.truncate(80) %></td>
+        <td><%= mount.patch %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

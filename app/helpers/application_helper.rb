@@ -30,6 +30,12 @@ module ApplicationHelper
     image_tag(user.avatar_url, class: 'avatar')
   end
 
+  def format_text(text)
+    text.gsub("\n\n", '<br>')
+      .gsub(/\*(.*?)\*/, '<i>\1</i>')
+      .html_safe
+  end
+
   def ga_tid
     Rails.application.credentials.dig(:google_analytics, :tracking_id)
   end
