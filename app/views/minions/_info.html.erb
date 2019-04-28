@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title"><%= minion.name %></h5>
+  </div>
+  <div class="card-body">
+    <div class="d-flex">
+      <div class="minion-large">
+        <%= minion_large(minion) %>
+      </div>
+      <div class="d-flex flex-column flex-info ml-4">
+        <div class="d-flex">
+          <div>
+            <dt>Behavior</dt>
+            <dd><%= minion.behavior.name %></dd>
+          </div>
+          <div>
+            <dt>Patch</dt>
+            <dd><%= minion.patch %></dd>
+          </div>
+        </div>
+        <dt>Description</dt>
+        <dd><%= format_text(minion.description) %></dd>
+        <dt>Tooltip</dt>
+        <dd><%= format_text(minion.tooltip) %></dd>
+      </div>
+    </div>
+    <div class="minion-footprint">
+      <%= minion_footprint(minion) %>
+    </div>
+  </div>
+</div>

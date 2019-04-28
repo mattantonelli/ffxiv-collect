@@ -1,0 +1,80 @@
+<div class="card h-100">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h6 class="card-title">
+      <% if local_assigns[:variant] %>
+        <div class="d-flex align-items-center">
+          <%= minion_icon(minion) %>
+          <span class="ml-2"><%= minion.name %></span>
+        </div>
+      <% else %>
+        Lord of Verminion
+      <% end %>
+    </h6>
+    <div class="d-flex align-items-center">
+      <span class="mr-1"><%= minion.race.name %></span>
+      <%= minion_type(minion) %>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="d-flex flex-column flex-info">
+      <div class="d-flex flex-wrap">
+        <div>
+          <dt>HP</dt>
+          <dd><%= minion.hp %></dd>
+        </div>
+        <div>
+          <dt>ATK</dt>
+          <dd><%= minion.attack %></dd>
+        </div>
+        <div>
+          <dt>DEF</dt>
+          <dd><%= minion.defense %></dd>
+        </div>
+        <div>
+          <dt>SPD</dt>
+          <dd><%= speed(minion) %></dd>
+        </div>
+        <div>
+          <dt>Cost</dt>
+          <dd><%= minion.cost %></dd>
+        </div>
+        <div>
+          <dt>Auto-attack</dt>
+          <dd><%= auto_attack(minion) %></dd>
+        </div>
+        <% if minion.strengths.values.any? %>
+          <div>
+            <dt>Strengths</dt>
+            <dd>
+              <% minion.strengths.each_with_index do |(type, strong), i| %>
+                <% if strong %>
+                  <%= minion_strength(type, i) %>
+                <% end %>
+              <% end %>
+            </dd>
+          </div>
+        <% end %>
+      </div>
+      <hr>
+      <div class="d-flex">
+        <div class="d-flex flex-column mr-3">
+          <b><u><%= minion.skill %></u></b>
+          <span><%= format_text(minion.skill_description) %></span>
+        </div>
+        <div class="minion-skill-angle mt-4">
+          <%= minion_skill_angle(minion) %>
+        </div>
+      </div>
+      <div class="d-flex flex-wrap mt-3">
+        <div>
+          <dt>Points</dt>
+          <dd><%= minion.skill_cost %></dd>
+        </div>
+        <div>
+          <dt>Type</dt>
+          <dd><%= minion.skill_type.name %></dd>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
