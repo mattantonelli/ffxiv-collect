@@ -1,4 +1,4 @@
-<div class="card h-100">
+<div class="card<%= ' h-100' if local_assigns[:variant] %>">
   <div class="card-header d-flex justify-content-between align-items-center">
     <h6 class="card-title">
       <% if local_assigns[:variant] %>
@@ -42,18 +42,20 @@
           <dt>Auto-attack</dt>
           <dd><%= auto_attack(minion) %></dd>
         </div>
-        <% if minion.strengths.values.any? %>
-          <div>
-            <dt>Strengths</dt>
-            <dd>
+        <div>
+          <dt>Strengths</dt>
+          <dd>
+            <% if minion.strengths.values.any? %>
               <% minion.strengths.each_with_index do |(type, strong), i| %>
                 <% if strong %>
                   <%= minion_strength(type, i) %>
                 <% end %>
               <% end %>
-            </dd>
-          </div>
-        <% end %>
+            <% else %>
+              None
+            <% end %>
+          </dd>
+        </div>
       </div>
       <hr>
       <div class="d-flex">

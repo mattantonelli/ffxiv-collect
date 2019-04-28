@@ -1,6 +1,7 @@
-MINION_COLUMNS = %w(ID BehaviorTargetID Cost Attack Defense Description_* GamePatch.Version HP HasAreaAttack Icon
-IconSmall IconID MinionRaceTargetID Name_* SkillAngle SkillCost SpecialActionName_* SpecialActionDescription_* Speed
-StrengthArcana StrengthEye StrengthGate StrengthShield Tooltip_* MinionSkillTypeTargetID).freeze
+MINION_COLUMNS = %w(ID BehaviorTargetID Cost Attack Defense Description_* DescriptionEnhanced_*
+GamePatch.Version HP HasAreaAttack Icon IconSmall IconID MinionRaceTargetID Name_* SkillAngle
+SkillCost SpecialActionName_* SpecialActionDescription_* Speed StrengthArcana StrengthEye StrengthGate
+StrengthShield Tooltip_* MinionSkillTypeTargetID).freeze
 
 namespace :minions do
   desc 'Create the minions'
@@ -38,6 +39,7 @@ namespace :minions do
         data["name_#{locale}"] = sanitize_name(minion["name_#{locale}"])
         data["skill_#{locale}"] = sanitize_name(minion["special_action_name_#{locale}"])
         data["skill_description_#{locale}"] = sanitize_text(minion["special_action_description_#{locale}"])
+        data["enhanced_description_#{locale}"] = sanitize_text(minion["description_enhanced_#{locale}"])
 
         %w(description tooltip).each do |field|
           data["#{field}_#{locale}"] = sanitize_text(minion["#{field}_#{locale}"])

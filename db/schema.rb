@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_28_152552) do
+ActiveRecord::Schema.define(version: 2019_04_28_185019) do
 
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -78,6 +78,10 @@ ActiveRecord::Schema.define(version: 2019_04_28_152552) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "skill_cost", null: false
+    t.string "enhanced_description_en", limit: 1000, null: false
+    t.string "enhanced_description_de", limit: 1000, null: false
+    t.string "enhanced_description_fr", limit: 1000, null: false
+    t.string "enhanced_description_ja", limit: 1000, null: false
     t.index ["behavior_id"], name: "index_minions_on_behavior_id"
     t.index ["name_de"], name: "index_minions_on_name_de"
     t.index ["name_en"], name: "index_minions_on_name_en"
