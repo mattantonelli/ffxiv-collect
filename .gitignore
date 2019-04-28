@@ -28,4 +28,7 @@
 
 # Images
 app/assets/images/mounts/*
+app/assets/images/minions/*
+
 public/images/mounts/*
+public/images/minions/*
