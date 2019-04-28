@@ -40,6 +40,7 @@
 #  skill_description_ja :string(255)      not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  skill_cost           :integer          not null
 #
 
 class Minion < ApplicationRecord
@@ -48,4 +49,14 @@ class Minion < ApplicationRecord
   belongs_to :behavior, class_name: 'MinionBehavior'
   belongs_to :race, class_name: 'MinionRace'
   belongs_to :skill_type, class_name: 'MinionSkillType', optional: true
+
+  scope :summonable, -> { where.not(id: [68, 69, 70, 72, 73, 74]) }
+
+  def strengths
+    { 'Gates' => gate, 'Search Eyes' => eye, 'Shields' => shield, 'Arcana Stones' => arcana }
+  end
+
+  def self.angles
+    [0, 30, 120, 360].freeze
+  end
 end

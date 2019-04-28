@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   post 'locale/set', to: 'locale#update'
 
-  resources :mounts, only: [:index, :show]
+  %i(mounts minions).each do |resource|
+    resources resource, only: [:index, :show]
+  end
 
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },

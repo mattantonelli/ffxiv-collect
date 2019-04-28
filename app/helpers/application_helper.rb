@@ -32,6 +32,7 @@ module ApplicationHelper
 
   def format_text(text)
     text.gsub("\n\n", '<br>')
+      .gsub(/\*\*(.*?)\*\*/, '<b>\1</b>')
       .gsub(/\*(.*?)\*/, '<i>\1</i>')
       .html_safe
   end

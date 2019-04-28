@@ -26,8 +26,8 @@ namespace :minions do
       skill_type_id = minion.minion_skill_type_target_id.to_i
       skill_type_id = nil if skill_type_id == 0
 
-      data = { id: minion.id, cost: minion.cost, attack: minion.attack, defense: minion.defense,
-               hp: minion.hp, speed: minion.speed, skill_angle: minion.skill_angle,
+      data = { id: minion.id, cost: minion.cost, attack: minion.attack, defense: minion.defense, hp: minion.hp,
+               speed: minion.speed, skill_angle: minion.skill_angle, skill_cost: minion.skill_cost,
                area_attack: minion.has_area_attack == 1, patch: minion.game_patch.version,
                arcana: minion.strength_arcana == 1, eye: minion.strength_eye == 1,
                gate: minion.strength_gate == 1, shield: minion.strength_shield == 1,

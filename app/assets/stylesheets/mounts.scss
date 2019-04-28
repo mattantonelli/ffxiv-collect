@@ -20,17 +20,6 @@ img.mount-icon {
   height: 128px;
   img {
     background: url(asset_path('mounts/footprint.png')) no-repeat;
-  }
-}
-
-.mount-info {
-  z-index: 2;
-
-  > dt {
-    margin-top: 0.5rem;
-  }
-
-  .d-flex div:not(:last-child) {
-    margin-right: 2rem;
+    opacity: 0.6;
   }
 }
