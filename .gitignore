@@ -29,6 +29,8 @@
 # Images
 app/assets/images/mounts/*
 app/assets/images/minions/*
+app/assets/images/achievements.png
 
 public/images/mounts/*
 public/images/minions/*
+public/images/achievements/*
