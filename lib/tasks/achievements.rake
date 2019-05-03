@@ -1,5 +1,5 @@
 ACHIEVEMENT_COLUMNS = %w(ID Name_* Description_* GamePatch.Version AchievementCategoryTargetID Icon Points Order
-Title.IsPrefix Title.Name_*).freeze
+Title.IsPrefix Title.Name_* Item.ID Item.Icon Item.Name_*).freeze
 
 namespace :achievements do
   desc 'Create the achievements'
@@ -31,6 +31,14 @@ namespace :achievements do
           name = achievement.title["name_#{locale}"]
           name = achievement.title.is_prefix == 1 ? "#{name}…" : "…#{name}"
           data["title_#{locale}"] = name
+        end
+
+        if achievement.item.id.present?
+          data[:item_id] = achievement.item.id
+          data["item_name_#{locale}"] = achievement.item["name_#{locale}"]
+          download_image(achievement.item.id, achievement.item.icon, 'items')
+          download_image(achievement.item.id, achievement.item.icon,
+                         Rails.root.join('app/assets/images/items', "#{achievement.item.id}.png"))
         end
       end
 

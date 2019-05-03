@@ -21,6 +21,11 @@
 #  title_ja       :string(255)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  item_id        :integer
+#  item_name_en   :string(255)
+#  item_name_de   :string(255)
+#  item_name_fr   :string(255)
+#  item_name_ja   :string(255)
 #
 
 class Achievement < ApplicationRecord

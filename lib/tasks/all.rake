@@ -48,7 +48,7 @@ def updated?(model, data)
 end
 
 def download_image(id, url, path, mask_from = nil, mask_to = nil)
-  path = Rails.root.join('public/images', path, "#{id}.png")
+  path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
 
   unless path.exist?
     image_url = "https://xivapi.com#{url}"
