@@ -12,6 +12,8 @@
 #
 
 class AchievementType < ApplicationRecord
-  has_many :categories, class_name: 'AchievementCategory'
+  has_many :categories, class_name: 'AchievementCategory', foreign_key: 'type_id'
+  has_many :achievements, through: :categories
+
   translates :name
 end

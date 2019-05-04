@@ -10,6 +10,18 @@
     <div class="navbar-nav mr-auto">
       <%= nav_link('Mounts', mounts_path, 'mounts') %>
       <%= nav_link('Minions', minions_path, 'minions') %>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle<%= ' active' if active_link?(achievements_path, 'achievement') %>" href="#"
+          id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Achievements
+        </a>
+        <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
+          <%= link_to 'Overview', achievements_path, class: 'dropdown-item bold' %>
+          <% AchievementType.order(:id).all.each do |type| %>
+            <%= link_to type.name, achievement_type_path(type), class: 'dropdown-item' %>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="navbar-nav nav-item dropdown">
       <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"

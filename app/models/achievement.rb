@@ -30,5 +30,6 @@
 
 class Achievement < ApplicationRecord
   belongs_to :category, class_name: 'AchievementCategory'
-  translates :name, :description, :title
+  delegate :type, to: :category
+  translates :name, :description, :title, :item_name
 end

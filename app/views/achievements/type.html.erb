@@ -1,0 +1,51 @@
+<div class="text-right">
+  <button class="btn btn-secondary btn-sm mb-2 mr-1" id="collapseToggle" data-expanded="false">
+    <%= fa_icon('expand', text: 'Expand All') %>
+  </button>
+</div>
+<div id="achievementCategories">
+  <% @categories.each do |category| %>
+    <div class="card mb-3">
+      <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title">
+            <%= category.name %>
+          </h5>
+          <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+        </div>
+      <% end %>
+      <div class="collapse" id="collapse-<%= category.id %>">
+        <div class="card-body card-table">
+          <table class="table table-striped table-sm shadow">
+            <thead>
+              <tr>
+                <th scope="col"></th> <!-- Image -->
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col"><%= fa_icon('star-o') %></th>
+                <th scope="col" class="text-center">Points</th>
+                <th scope="col" class="text-center">Patch</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% category.achievements.sort_by(&:order).each do |achievement| %>
+                <tr>
+                  <td>
+                    <%= link_to(achievement_path(achievement)) do %>
+                      <%= achievement_icon(achievement) %>
+                    <% end %>
+                  </td>
+                  <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
+                  <td><%= truncate_text(achievement.description, 70) %></td>
+                  <td><%= achievement_reward(achievement) %></td>
+                  <td class="text-center"><%= achievement.points %></td>
+                  <td class="text-center"><%= achievement.patch %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

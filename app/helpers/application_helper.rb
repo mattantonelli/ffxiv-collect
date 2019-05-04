@@ -8,13 +8,16 @@ module ApplicationHelper
     end
   end
 
-  def nav_link(text, path, path_controller = nil)
+  def active_link?(path, path_controller = nil)
     if path_controller.present?
-      active = path_controller == controller_name
+      controller_name.include?(path_controller)
     else
-      active = current_page?(path)
+      current_page?(path)
     end
+  end
 
+  def nav_link(text, path, path_controller = nil)
+    active = active_link?(path, path_controller)
     link_to text, path, class: "nav-link#{' active' if active}"
   end
 
@@ -36,6 +39,10 @@ module ApplicationHelper
       .gsub(/\*\*(.*?)\*\*/, '<b>\1</b>')
       .gsub(/\*(.*?)\*/, '<i>\1</i>')
       .html_safe
+  end
+
+  def truncate_text(text, length)
+    content_tag(:span, text.truncate(length), data: { toggle: 'tooltip', title: text })
   end
 
   def ga_tid

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     resources resource, only: [:index, :show]
   end
 
+  resources :achievements, only: [:index, :show]
+  get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
+
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
                                               ['{"status": 404, "error": "Not found"}'] ] }

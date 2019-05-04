@@ -1,0 +1,20 @@
+a > .card {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.achievement-icon {
+  width: 40px;
+  height: 40px;
+}
+
+img.achievement-icon {
+  width: 40px;
+  height: 40px;
+  background: url(asset_path('achievements.png')) no-repeat;
+}
