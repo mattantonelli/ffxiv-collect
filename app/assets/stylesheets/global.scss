@@ -64,8 +64,20 @@ a.unstyled {
   text-decoration: none;
 }
 
-.btn-dark:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+.btn.btn-dark {
+  background-color: #292929;
+  border-color: #282828;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  &:not(:disabled) {
+    &:active, &.active {
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+  }
 }
 
 label, input[type="checkbox"] {

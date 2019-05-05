@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-6 offset-sm-1 offset-md-2 offset-lg-3">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <%= image_tag('orchestrion.png') %>
+        <h5 class="card-title ml-2">
+          <%= orchestrion_number(@orchestrion) %>
+          <%= @orchestrion.name %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-column flex-info">
+          <div class="d-flex">
+            <div>
+              <dt>Category</dt>
+              <dd>
+                <%= link_to @orchestrion.category.name,
+                  orchestrions_path(category: @orchestrion.category_id), class: 'unstyled' %>
+              </dd>
+            </div>
+            <div>
+              <dt>Patch</dt>
+              <dd><%= @orchestrion.patch %></dd>
+            </div>
+          </div>
+          <div>
+            <dt><u>How to obtain</u></dt>
+            <dd class="mb-0"><%= @orchestrion.description %></dd>
+          </div>
+          <hr>
+          <div>
+            <h6 class="pb-2">Audio sample</h6>
+            <audio controls="" controlslist="nodownload">
+              <source src="http://www.garlandtools.org/files/orchestrion/<%= @orchestrion.id %>.ogg" type="audio/ogg">
+            </audio>
+            <p class="mb-0">Powered by <%= link_to 'Garland Tools', 'http://www.garlandtools.org/db', target: '_blank' %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
