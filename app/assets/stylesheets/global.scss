@@ -321,3 +321,13 @@ pre {
     margin-right: 2rem;
   }
 }
+
+.category-buttons {
+  button:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+
+tr.hidden {
+  display: none;
+}

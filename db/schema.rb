@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_084222) do
+ActiveRecord::Schema.define(version: 2019_05_06_224040) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -70,6 +70,35 @@ ActiveRecord::Schema.define(version: 2019_05_05_084222) do
     t.index ["name_fr"], name: "index_achievements_on_name_fr"
     t.index ["name_ja"], name: "index_achievements_on_name_ja"
     t.index ["order"], name: "index_achievements_on_order"
+  end
+
+  create_table "emote_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_de"], name: "index_emote_categories_on_name_de"
+    t.index ["name_en"], name: "index_emote_categories_on_name_en"
+    t.index ["name_fr"], name: "index_emote_categories_on_name_fr"
+    t.index ["name_ja"], name: "index_emote_categories_on_name_ja"
+  end
+
+  create_table "emotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "patch"
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_emotes_on_category_id"
+    t.index ["name_de"], name: "index_emotes_on_name_de"
+    t.index ["name_en"], name: "index_emotes_on_name_en"
+    t.index ["name_fr"], name: "index_emotes_on_name_fr"
+    t.index ["name_ja"], name: "index_emotes_on_name_ja"
   end
 
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

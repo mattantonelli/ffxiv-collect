@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('#orchestrion').length > 0
+  return unless $('#orchestrion, #emote').length > 0
 
   buttons = $('.category-buttons button')
   buttons.click ->
@@ -8,7 +8,7 @@ $(document).on 'turbolinks:load', ->
     $(@).addClass('active')
     history.replaceState({ category: category }, '', "?category=#{category}")
 
-    if category == '1'
+    if category == '0'
       $('table').fadeOut('fast', ->
         $('tbody tr').removeClass('hidden')
         $('table').fadeIn()

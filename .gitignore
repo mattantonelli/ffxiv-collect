@@ -31,8 +31,10 @@ app/assets/images/mounts/*
 app/assets/images/minions/*
 app/assets/images/items/*
 app/assets/images/achievements.png
+app/assets/images/emotes.png
 
 public/images/mounts/*
 public/images/minions/*
 public/images/achievements/*
 public/images/items/*
+public/images/emotes/*
