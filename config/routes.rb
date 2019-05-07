@@ -12,10 +12,12 @@ Rails.application.routes.draw do
     resources resource, only: [:index, :show]
   end
 
+  %i(emotes bardings).each do |resource|
+    resources resource, only: :index
+  end
+
   resources :achievements, only: [:index, :show]
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
-
-  resources :emotes, only: :index
 
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },

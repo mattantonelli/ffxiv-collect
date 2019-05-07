@@ -32,9 +32,11 @@ app/assets/images/minions/*
 app/assets/images/items/*
 app/assets/images/achievements.png
 app/assets/images/emotes.png
+app/assets/images/bardings.png
 
 public/images/mounts/*
 public/images/minions/*
 public/images/achievements/*
 public/images/items/*
 public/images/emotes/*
+public/images/bardings/*
