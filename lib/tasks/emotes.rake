@@ -10,7 +10,8 @@ namespace :emotes do
     end
 
     count = Emote.count
-    XIVAPI_CLIENT.search(indexes: 'Emote', columns: EMOTE_COLUMNS, limit: 1000, filters: 'UnlockLink>0,IconID>0').each do |emote|
+    XIVAPI_CLIENT.search(indexes: 'Emote', columns: EMOTE_COLUMNS, limit: 1000,
+                         filters: 'UnlockLink>0,TextCommandTargetID>0').each do |emote|
       data = { id: emote.id, patch: emote.game_patch.version, category_id: emote.emote_category_target_id }
 
       %w(en de fr ja).each do |locale|
