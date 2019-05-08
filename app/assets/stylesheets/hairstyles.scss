@@ -1,0 +1,16 @@
+img.hairstyle-icon {
+  width: 96px;
+  height: 96px;
+}
+
+.hairstyle-small {
+  img {
+    background-size: 1400% !important;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.hairstyle-list img {
+  margin: 0 0.5rem 0.5rem 0;
+}

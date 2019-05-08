@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_07_022412) do
+ActiveRecord::Schema.define(version: 2019_05_07_165951) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -113,6 +113,24 @@ ActiveRecord::Schema.define(version: 2019_05_07_022412) do
     t.index ["name_en"], name: "index_emotes_on_name_en"
     t.index ["name_fr"], name: "index_emotes_on_name_fr"
     t.index ["name_ja"], name: "index_emotes_on_name_ja"
+  end
+
+  create_table "hairstyles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "description_en", limit: 1000
+    t.string "description_de", limit: 1000
+    t.string "description_fr", limit: 1000
+    t.string "description_ja", limit: 1000
+    t.string "patch"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_de"], name: "index_hairstyles_on_name_de"
+    t.index ["name_en"], name: "index_hairstyles_on_name_en"
+    t.index ["name_fr"], name: "index_hairstyles_on_name_fr"
+    t.index ["name_ja"], name: "index_hairstyles_on_name_ja"
   end
 
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

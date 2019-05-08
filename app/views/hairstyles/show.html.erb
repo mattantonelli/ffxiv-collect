@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+    <div class="card">
+      <h5 class="card-header"><%= @hairstyle.name %></h5>
+      <div class="card-body d-flex flex-column">
+        <div>
+          <dt>Patch</dt>
+          <dd><%= @hairstyle.patch %></dd>
+        </div>
+        <% if @hairstyle.description.present? %>
+          <div>
+            <dt>Description</dt>
+            <dd class="mb-0"><%= format_text(@hairstyle.description) %></dd>
+          </div>
+        <% end %>
+        <hr>
+        <div class="d-flex flex-wrap hairstyle-list">
+          <% 14.times do |i| %>
+            <%= hairstyle_icon(@hairstyle, i) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
