@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     resources resource, only: [:index, :show]
   end
 
-  %i(emotes bardings).each do |resource|
+  %i(emotes bardings armoires).each do |resource|
     resources resource, only: :index
   end
 

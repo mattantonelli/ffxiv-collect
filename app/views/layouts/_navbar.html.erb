@@ -8,6 +8,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarContent">
     <div class="navbar-nav mr-auto">
+      <%= nav_link('Mounts', mounts_path, 'mounts') %>
+      <%= nav_link('Minions', minions_path, 'minions') %>
+      <%= nav_link('Orchestrion', orchestrions_path, 'orchestrions') %>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle<%= ' active' if active_link?(achievements_path, 'achievement') %>" href="#"
           id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -19,9 +22,16 @@
           <% end %>
         </div>
       </div>
-      <% %w(Mounts Minions Orchestrion Emotes Bardings Hairstyles).each do |collectable| %>
-        <%= nav_link(collectable, url_for(controller: collectable.pluralize.downcase), collectable.downcase) %>
-      <% end %>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="otherDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">Other</a>
+        <div class="dropdown-menu" aria-labelledBy="otherDropdown">
+          <%= link_to 'Emotes', emotes_path, class: 'dropdown-item' %>
+          <%= link_to 'Bardings', bardings_path, class: 'dropdown-item' %>
+          <%= link_to 'Hairstyles', hairstyles_path, class: 'dropdown-item' %>
+          <%= link_to 'Armoire', armoires_path, class: 'dropdown-item' %>
+        </div>
+      </div>
     </div>
     <div class="navbar-nav nav-item dropdown">
       <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"

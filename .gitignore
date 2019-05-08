@@ -34,6 +34,7 @@ app/assets/images/hairstyles/*
 app/assets/images/achievements.png
 app/assets/images/emotes.png
 app/assets/images/bardings.png
+app/assets/images/armoires.png
 
 public/images/mounts/*
 public/images/minions/*
@@ -42,3 +43,4 @@ public/images/items/*
 public/images/emotes/*
 public/images/bardings/*
 public/images/hairstyles/*
+public/images/armoires/*

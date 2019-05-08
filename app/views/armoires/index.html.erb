@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-12 col-lg-8 offset-lg-2">
+    <div class="d-flex flex-wrap justify-content-center category-buttons">
+      <button type="button" class="btn btn-dark bold shadow-none mb-1<%= ' active' unless @category.present? %>" id="0">
+        All
+      </button>
+      <% @categories.each do |category| %>
+        <button type="button" class="btn btn-dark shadow-none mb-1<%= ' active' if category.id == @category %>"
+                              id="<%= category.id %>"><%= category.name %></button>
+      <% end %>
+    </div>
+  </div>
+</div>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5" id="armoire">
+  <thead>
+    <tr>
+      <th scope="col"></th><!-- Image -->
+      <th scope="col">Name</th>
+      <th scope="col">Source</th>
+      <th scope="col" class="text-center">Category</th>
+      <th scope="col" class="text-center">Patch</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @armoires.each do |armoire| %>
+      <tr class="<%= category_row_classes(armoire, @category) %>">
+        <td><%= armoire_icon(armoire) %></td>
+        <td><%= armoire.name %></td>
+        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        <td class="text-center"><%= armoire.category.name %></td>
+        <td class="text-center"><%= armoire.patch %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
