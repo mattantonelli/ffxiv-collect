@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
 
+  def new_session_path(scope)
+    new_user_session_path
+  end
+
   private
   def set_locale
     locale = cookies['locale']

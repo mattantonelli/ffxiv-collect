@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_025435) do
+ActiveRecord::Schema.define(version: 2019_05_08_204836) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -310,6 +310,21 @@ ActiveRecord::Schema.define(version: 2019_05_08_025435) do
     t.index ["name_en"], name: "index_orchestrions_on_name_en"
     t.index ["name_fr"], name: "index_orchestrions_on_name_fr"
     t.index ["name_ja"], name: "index_orchestrions_on_name_ja"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "username"
+    t.integer "discriminator"
+    t.string "avatar_url"
+    t.string "provider"
+    t.string "uid"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
