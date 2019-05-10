@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_204836) do
+ActiveRecord::Schema.define(version: 2019_05_09_175716) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -118,6 +118,105 @@ ActiveRecord::Schema.define(version: 2019_05_08_204836) do
     t.index ["name_en"], name: "index_bardings_on_name_en"
     t.index ["name_fr"], name: "index_bardings_on_name_fr"
     t.index ["name_ja"], name: "index_bardings_on_name_ja"
+  end
+
+  create_table "character_achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "achievement_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id"], name: "index_character_achievements_on_achievement_id"
+    t.index ["character_id", "achievement_id"], name: "index_character_achievements_on_character_id_and_achievement_id", unique: true
+    t.index ["character_id"], name: "index_character_achievements_on_character_id"
+  end
+
+  create_table "character_armoires", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "armoire_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["armoire_id"], name: "index_character_armoires_on_armoire_id"
+    t.index ["character_id", "armoire_id"], name: "index_character_armoires_on_character_id_and_armoire_id", unique: true
+    t.index ["character_id"], name: "index_character_armoires_on_character_id"
+  end
+
+  create_table "character_bardings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "barding_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["barding_id"], name: "index_character_bardings_on_barding_id"
+    t.index ["character_id", "barding_id"], name: "index_character_bardings_on_character_id_and_barding_id", unique: true
+    t.index ["character_id"], name: "index_character_bardings_on_character_id"
+  end
+
+  create_table "character_emotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "emote_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "emote_id"], name: "index_character_emotes_on_character_id_and_emote_id", unique: true
+    t.index ["character_id"], name: "index_character_emotes_on_character_id"
+    t.index ["emote_id"], name: "index_character_emotes_on_emote_id"
+  end
+
+  create_table "character_hairstyles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "hairstyle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "hairstyle_id"], name: "index_character_hairstyles_on_character_id_and_hairstyle_id", unique: true
+    t.index ["character_id"], name: "index_character_hairstyles_on_character_id"
+    t.index ["hairstyle_id"], name: "index_character_hairstyles_on_hairstyle_id"
+  end
+
+  create_table "character_minions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "minion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "minion_id"], name: "index_character_minions_on_character_id_and_minion_id", unique: true
+    t.index ["character_id"], name: "index_character_minions_on_character_id"
+    t.index ["minion_id"], name: "index_character_minions_on_minion_id"
+  end
+
+  create_table "character_mounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "mount_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "mount_id"], name: "index_character_mounts_on_character_id_and_mount_id", unique: true
+    t.index ["character_id"], name: "index_character_mounts_on_character_id"
+    t.index ["mount_id"], name: "index_character_mounts_on_mount_id"
+  end
+
+  create_table "character_orchestrions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "orchestrion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "orchestrion_id"], name: "index_character_orchestrions_on_character_id_and_orchestrion_id", unique: true
+    t.index ["character_id"], name: "index_character_orchestrions_on_character_id"
+    t.index ["orchestrion_id"], name: "index_character_orchestrions_on_orchestrion_id"
+  end
+
+  create_table "characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "server", null: false
+    t.string "portrait", null: false
+    t.string "avatar", null: false
+    t.datetime "last_parsed", null: false
+    t.integer "verified_user_id"
+    t.integer "achievements_count", default: 0
+    t.integer "mounts_count", default: 0
+    t.integer "minions_count", default: 0
+    t.integer "orchestrions_count", default: 0
+    t.integer "emotes_count", default: 0
+    t.integer "bardings_count", default: 0
+    t.integer "hairstyles_count", default: 0
+    t.integer "armoires_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "emote_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -325,6 +424,8 @@ ActiveRecord::Schema.define(version: 2019_05_08_204836) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "character_id"
+    t.index ["character_id"], name: "index_users_on_character_id"
   end
 
 end

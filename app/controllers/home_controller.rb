@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
+    puts @character
   end
 
   def not_found

@@ -3,6 +3,6 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
       <%= fa_icon 'times' %>
     </button>
-    <%= value %>
+    <%= sanitize(value) %>
   </div>
 <% end %>

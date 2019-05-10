@@ -1,4 +1,26 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :bigint(8)        not null, primary key
+#  username           :string(255)
+#  discriminator      :integer
+#  avatar_url         :string(255)
+#  provider           :string(255)
+#  uid                :string(255)
+#  sign_in_count      :integer          default(0), not null
+#  current_sign_in_at :datetime
+#  last_sign_in_at    :datetime
+#  current_sign_in_ip :string(255)
+#  last_sign_in_ip    :string(255)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  character_id       :integer
+#
+
 class User < ApplicationRecord
+  belongs_to :character, required: false
+
   devise :trackable, :omniauthable, omniauth_providers: [:discord]
 
   def self.from_omniauth(auth)

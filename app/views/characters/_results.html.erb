@@ -1,0 +1,13 @@
+<div class="card shadow">
+  <h5 class="card-header">Select a character</h5>
+  <div class="card-body card-table d-flex flex-column character-select">
+    <% @characters.each do |character| %>
+      <%= link_to character_select_path(character.id), class: 'name', method: :post do %>
+        <div class="d-flex align-items-center">
+          <%= image_tag(character.avatar, class: 'avatar mr-3') %>
+          <%= character.name %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

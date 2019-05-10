@@ -105,6 +105,7 @@ hr {
 
   .dropdown-menu {
     background-color: #292929;
+    white-space: nowrap;
 
     a {
       color: rgba(255, 255, 255, 0.5);
@@ -330,4 +331,12 @@ pre {
 
 tr.hidden {
   display: none;
+}
+
+.alert a {
+  color: inherit;
+}
+
+tr.owned {
+  opacity: 0.3;
 }

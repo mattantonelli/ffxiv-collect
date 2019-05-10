@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
+  before_action :set_character
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
 
@@ -22,5 +23,12 @@ class ApplicationController < ActionController::Base
     end
 
     I18n.locale = cookies['locale']
+  end
+
+  def set_character
+    if user_signed_in?
+    else
+      # @character = Character.find(7660136)
+    end
   end
 end

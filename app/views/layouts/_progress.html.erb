@@ -1,0 +1,6 @@
+<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: <%= (value / max.to_f) * 100 %>%;"
+    aria-valuenow="<%= value %>" aria-valuemin="0" aria-valuemax="<%= max %>">
+    <b class="px-2"><%= value %>/<%= max %> (<%= ((value / max.to_f) * 100).to_i %>%)</b>
+  </div>
+</div>

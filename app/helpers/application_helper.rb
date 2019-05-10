@@ -42,7 +42,20 @@ module ApplicationHelper
   end
 
   def truncate_text(text, length)
-    content_tag(:span, text.truncate(length), data: { toggle: 'tooltip', title: text })
+    data = { toggle: 'tooltip', title: text } if text.size > length
+    content_tag(:span, text.truncate(length), data: data)
+  end
+
+  def character_selected?
+    current_user&.character_id&.present?
+  end
+
+  def owned(ids, id)
+    if ids.include?(id)
+      fa_icon('check-square')
+    else
+      fa_icon('square')
+    end
   end
 
   def ga_tid

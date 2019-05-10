@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/xivapi/xivapi-ruby.git
-  revision: 6e310483685c6d4b3e858ad7cb27c20d92ffb485
-  tag: v0.2.0
+  revision: 914f35de29bf2734ece58e345feaa1e0fd322b18
+  tag: v0.2.1
   specs:
-    xivapi (0.2.0)
+    xivapi (0.2.1)
       rest-client (~> 2.0.2)
 
 GEM

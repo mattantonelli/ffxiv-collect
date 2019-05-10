@@ -1,4 +1,5 @@
-<div class="text-right">
+<div class="d-flex justify-content-between mb-2">
+  <h3><%= @type.name %> Achievements</h3>
   <button class="btn btn-secondary btn-sm mb-2 mr-1" id="collapseToggle" data-expanded="false">
     <%= fa_icon('expand', text: 'Expand All') %>
   </button>
@@ -11,7 +12,13 @@
           <h5 class="card-title">
             <%= category.name %>
           </h5>
-          <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+          <% if character_selected? %>
+            <h6 <%= 'class="complete"'.html_safe if completed?(category, @achievement_ids) %>>
+              <%= achievement_completion(category, @achievement_ids) %>
+            </h6>
+          <% else %>
+            <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+          <% end %>
         </div>
       <% end %>
       <div class="collapse" id="collapse-<%= category.id %>">
@@ -25,11 +32,14 @@
                 <th scope="col"><%= fa_icon('star-o') %></th>
                 <th scope="col" class="text-center">Points</th>
                 <th scope="col" class="text-center">Patch</th>
+                <% if character_selected? %>
+                  <th scope="col" class="text-center">Done</th>
+                <% end %>
               </tr>
             </thead>
             <tbody>
               <% category.achievements.sort_by(&:order).each do |achievement| %>
-                <tr>
+                <tr class="collectable<%= ' owned' if @achievement_ids.include?(achievement.id) %>">
                   <td>
                     <%= link_to(achievement_path(achievement)) do %>
                       <%= achievement_icon(achievement) %>
@@ -40,6 +50,9 @@
                   <td><%= achievement_reward(achievement) %></td>
                   <td class="text-center"><%= achievement.points %></td>
                   <td class="text-center"><%= achievement.patch %></td>
+                  <% if character_selected? %>
+                    <td class="text-center"><%= owned(@achievement_ids, achievement.id) %></td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>
