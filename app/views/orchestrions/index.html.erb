@@ -9,7 +9,7 @@
   <thead>
     <tr>
       <th scope="col"></th><!-- Image -->
-      <th scope="col" class="text-center">#</th>
+      <th scope="col" class="text-center all-hide<%= ' hidden' unless @category.present? %>">#</th>
       <th scope="col" class="orchestrion-name">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="orchestrion-category text-center">Category</th>
@@ -20,7 +20,7 @@
     <% @orchestrions.each do |orchestrion| %>
       <tr class="<%= category_row_classes(orchestrion, @category) %>">
         <td><%= image_tag('orchestrion.png') %></td>
-        <td class="text-center"><%= orchestrion_number(orchestrion) %></td>
+        <td class="text-center all-hide<%= ' hidden' unless @category.present? %>"><%= orchestrion_number(orchestrion) %></td>
         <td><%= link_to(orchestrion.name, orchestrion_path(orchestrion), class: 'name') %></td>
         <td><%= orchestrion.description.gsub("\n", '<br>').html_safe %></td>
         <td class="text-center"><%= orchestrion.category.name %></td>

@@ -11,11 +11,13 @@ $(document).on 'turbolinks:load', ->
     if category == '0'
       $('table').fadeOut('fast', ->
         $('tbody tr').removeClass('hidden')
+        $('.all-hide').addClass('hidden')
         $('table').fadeIn()
       )
     else
       $('table').fadeOut('fast', ->
         $('tbody tr').addClass('hidden')
         $("tbody tr.category-#{category}").removeClass('hidden')
+        $('.all-hide').removeClass('hidden')
         $('table').fadeIn()
       )
