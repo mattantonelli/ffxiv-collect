@@ -1,6 +1,6 @@
 class OrchestrionsController < ApplicationController
   def index
-    @orchestrions = Orchestrion.includes(:category).order(:category_id, patch: :desc, order: :desc, id: :desc).all
+    @orchestrions = Orchestrion.includes(:category).order(patch: :desc, order: :desc, id: :desc).all
     @categories = OrchestrionCategory.all.order(:id)
 
     @category = params[:category].to_i
