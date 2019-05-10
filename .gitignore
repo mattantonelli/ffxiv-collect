@@ -27,20 +27,20 @@
 /config/master.key
 
 # Images
-app/assets/images/mounts/*
-app/assets/images/minions/*
-app/assets/images/items/*
-app/assets/images/hairstyles/*
-app/assets/images/achievements.png
-app/assets/images/emotes.png
-app/assets/images/bardings.png
-app/assets/images/armoires.png
+/app/assets/images/mounts/*
+/app/assets/images/minions/*
+/app/assets/images/items/*
+/app/assets/images/hairstyles/*
+/app/assets/images/achievements.png
+/app/assets/images/emotes.png
+/app/assets/images/bardings.png
+/app/assets/images/armoires.png
 
-public/images/mounts/*
-public/images/minions/*
-public/images/achievements/*
-public/images/items/*
-public/images/emotes/*
-public/images/bardings/*
-public/images/hairstyles/*
-public/images/armoires/*
+/public/images/mounts/*
+/public/images/minions/*
+/public/images/achievements/*
+/public/images/items/*
+/public/images/emotes/*
+/public/images/bardings/*
+/public/images/hairstyles/*
+/public/images/armoires/*
