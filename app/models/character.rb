@@ -34,31 +34,19 @@ class Character < ApplicationRecord
     Character.fetch(self.id, true)
   end
 
-  def self.sync(ids)
-    ids.each { |id| Character.fetch(id, true) }
-  end
-
   def self.fetch(id, skip_cache = false)
-    character = Character.find_by(id: id)
-    if !skip_cache && character.present?
+    if !skip_cache && character = Character.find_by(id: id)
       return character
     end
 
     result = XIVAPI_CLIENT.character(id: id, all_data: true, poll: true)
-    data = result.character.to_h.slice(:id, :name, :server, :portrait, :avatar)
-    data[:last_parsed] = Time.at(result.character.parse_date)
+    Character.update(result)
+  end
 
-    if character.present?
-      character.update(data)
-    else
-      character = Character.create!(data)
+  def self.sync(ids)
+    XIVAPI_CLIENT.characters(ids: ids, all_data: true).each do |data|
+      Character.update(data)
     end
-
-    Character.bulk_insert(data[:id], CharacterAchievement, :achievement,
-                          (result.achievements&.list&.map(&:id) || []) - character.achievement_ids)
-    Character.bulk_insert(data[:id], CharacterMount, :mount, result.character.mounts - character.mount_ids)
-    Character.bulk_insert(data[:id], CharacterMinion, :minion, result.character.minions - character.minion_ids)
-    Character.find(id)
   end
 
   def self.search(server, name)
@@ -74,6 +62,23 @@ class Character < ApplicationRecord
   end
 
   private
+  def self.update(data)
+    info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar)
+    info[:last_parsed] = Time.at(data.character.parse_date)
+
+    if character = Character.find_by(id: info[:id])
+      character.update(info)
+    else
+      character = Character.create!(info)
+    end
+
+    Character.bulk_insert(info[:id], CharacterAchievement, :achievement,
+                          (data.achievements&.list&.map(&:id) || []) - character.achievement_ids)
+    Character.bulk_insert(info[:id], CharacterMount, :mount, data.character.mounts - character.mount_ids)
+    Character.bulk_insert(info[:id], CharacterMinion, :minion, data.character.minions - character.minion_ids)
+    Character.find(info[:id])
+  end
+
   def self.bulk_insert(character_id, model, model_name, ids)
     return unless ids.present?
     date = Time.now.to_formatted_s(:db)
