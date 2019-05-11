@@ -22,35 +22,43 @@
 #
 
 class Character < ApplicationRecord
+  after_destroy :clear_user_characters
+
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end
 
   def refresh
-    Character.fetch(self.id)
+    XIVAPI_CLIENT.character_update(id: self.id)
+    Character.fetch(self.id, true)
   end
 
-  def self.fetch(id)
-    result = XIVAPI_CLIENT.character(id: id, all_data: true, poll: true)
-    character = result.character
-    data = { id: character.id, name: character.name, server: character.server,
-             portrait: character.portrait, avatar: character.avatar,
-             last_parsed: Time.at(character.parse_date),
-             achievement_ids: result.achievements&.list&.map(&:id) || [],
-             mount_ids: character.mounts, minion_ids: character.minions }
+  def self.sync(ids)
+    ids.each { |id| Character.fetch(id, true) }
+  end
 
-    puts character.mounts.join(',')
-    puts character.minions.join(',')
-
-    unless Character.exists?(id)
-      Character.create!(data.except(:achievement_ids, :mount_ids, :minion_ids))
+  def self.fetch(id, skip_cache = false)
+    character = Character.find_by(id: id)
+    if !skip_cache && character.present?
+      return character
     end
 
-    Character.bulk_insert(data[:id], CharacterAchievement, :achievement_id, data[:achievement_ids])
-    Character.bulk_insert(data[:id], CharacterMount, :mount_id, data[:mount_ids])
-    Character.bulk_insert(data[:id], CharacterMinion, :minion_id, data[:minion_ids])
-    Character.reset_counters(data[:id], :achievements_count, :mounts_count, :minions_count)
+    result = XIVAPI_CLIENT.character(id: id, all_data: true, poll: true)
+    data = result.character.to_h.slice(:id, :name, :server, :portrait, :avatar)
+    data[:last_parsed] = Time.at(result.character.parse_date)
+
+    if character.present?
+      character.update(data)
+    else
+      character = Character.create!(data)
+    end
+
+    Character.bulk_insert(data[:id], CharacterAchievement, :achievement,
+                          (result.achievements&.list&.map(&:id) || []) - character.achievement_ids)
+    Character.bulk_insert(data[:id], CharacterMount, :mount, result.character.mounts - character.mount_ids)
+    Character.bulk_insert(data[:id], CharacterMinion, :minion, result.character.minions - character.minion_ids)
+    Character.find(id)
   end
 
   def self.search(server, name)
@@ -66,11 +74,16 @@ class Character < ApplicationRecord
   end
 
   private
-  def self.bulk_insert(character_id, model, model_column, ids)
+  def self.bulk_insert(character_id, model, model_name, ids)
     return unless ids.present?
     date = Time.now.to_formatted_s(:db)
     values = ids.map { |id| "(#{character_id}, #{id}, '#{date}', '#{date}')" }
-    model.connection.execute("INSERT IGNORE INTO #{model.table_name}(character_id, #{model_column}, created_at, updated_at)" \
+    model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
                              " values #{values.join(',')}")
+    Character.reset_counters(character_id, "#{model_name}s_count")
+  end
+
+  def clear_user_characters
+    User.where(character_id: self.id).update_all(character_id: nil)
   end
 end

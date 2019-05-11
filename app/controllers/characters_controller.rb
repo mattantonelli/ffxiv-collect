@@ -12,10 +12,10 @@ class CharactersController < ApplicationController
 
   def select
     begin
-      Character.fetch(params[:id]) unless Character.exists?(params[:id])
+      character = Character.fetch(params[:id])
       current_user.update(character_id: params[:id])
 
-      if Character.find(params[:id]).achievements_count == 0
+      if character.achievements_count == 0
         flash[:alert] = 'Achievements for this character are set to private. You can make your achievements public ' \
           "#{view_context.link_to('here', 'https://na.finalfantasyxiv.com/lodestone/my/setting/account/')}.".html_safe
       else
