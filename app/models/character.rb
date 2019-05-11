@@ -30,8 +30,9 @@ class Character < ApplicationRecord
   end
 
   def refresh
-    XIVAPI_CLIENT.character_update(id: self.id)
-    Character.fetch(self.id, true)
+    if XIVAPI_CLIENT.character_update(id: self.id)
+      Character.fetch(self.id, true)
+    end
   end
 
   def self.fetch(id, skip_cache = false)

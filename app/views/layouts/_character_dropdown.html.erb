@@ -1,0 +1,14 @@
+<div class="d-flex flex-column current-character mx-3">
+  <div class="d-flex">
+    <%= image_tag(character.avatar, class: 'avatar mr-2') %>
+    <div>
+      <b><%= character.name %></b><br>
+      <%= character.server %>
+    </div>
+  </div>
+  <span>Last updated <%= time_ago_in_words(character.last_parsed) %> ago.</span>
+</div>
+<hr class="my-2">
+<%= link_to fa_icon('undo', text: 'Change Character'), character_search_path, class: 'dropdown-item' %>
+<%= link_to fa_icon('refresh', text: 'Refresh Character'), character_refresh_path(character.id),
+  method: :post, class: 'dropdown-item' %>

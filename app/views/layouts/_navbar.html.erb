@@ -54,15 +54,7 @@
            aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
         <div class="dropdown-menu" aria-labelledby="userDropdown">
           <% if current_user.character_id.present? %>
-            <div class="d-flex current-character mx-3">
-              <%= image_tag(current_user.character.avatar, class: 'avatar mr-2') %>
-              <div>
-                <b><%= current_user.character.name %></b><br>
-                <%= current_user.character.server %>
-              </div>
-            </div>
-            <hr class="my-2">
-            <%= link_to fa_icon('undo', text: 'Change Character'), character_search_path, class: 'dropdown-item' %>
+            <%= render 'layouts/character_dropdown', character: current_user.character %>
           <% end %>
           <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
         </div>

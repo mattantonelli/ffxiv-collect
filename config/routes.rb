@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   get 'characters/search', as: :character_search
   post 'characters/:id/select', to: 'characters#select', as: :character_select
+  post 'characters/:id/refresh', to: 'characters#refresh', as: :character_refresh
 
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },

@@ -7,6 +7,8 @@ class CharactersController < ApplicationController
       if @characters.empty?
         flash.now[:alert] = 'No characters found.'
       end
+    else
+      session[:return_to] = request.referer
     end
   end
 
@@ -22,10 +24,21 @@ class CharactersController < ApplicationController
         flash[:success] = "Your character has been set."
       end
 
-      redirect_to root_path
+      redirect_to session.delete(:return_to)
     rescue
       flash[:error] = 'There was a problem selecting that character.'
       render :search
+    end
+  end
+
+  def refresh
+    character = Character.find(params[:id])
+    if character.refresh
+      flash[:success] = 'Your character has been refreshed.'
+      redirect_to request.referer
+    else
+      flash[:alert] = 'Sorry, you can only request a manual refresh every 12 hours.'
+      redirect_to request.referer
     end
   end
 end
