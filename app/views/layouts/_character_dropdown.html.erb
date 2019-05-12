@@ -1,15 +1,15 @@
 <div class="d-flex flex-column current-character mx-3">
   <div class="d-flex align-items-center">
-    <%= image_tag(character.avatar, class: 'avatar mr-2') %>
+    <%= image_tag(character.avatar, class: 'avatar mr-2') if user_signed_in? %>
     <div>
       <b><%= character.name %></b><br>
-      <%= character.server %> <%= verified(character) %>
+      <%= character.server %> <%= verified(character) if user_signed_in? %>
     </div>
   </div>
   <span class="updated">Last updated <%= time_ago_in_words(character.last_parsed) %> ago.</span>
 </div>
 <hr class="my-2">
-<% unless character.verified_user? %>
+<% if user_signed_in? && !character.verified_user? %>
   <%= link_to fa_icon('check-circle', text: 'Verify Character'), character_verify_path(character), class: 'dropdown-item' %>
 <% end %>
 <%= link_to fa_icon('refresh', text: 'Refresh Character'), character_refresh_path(character),

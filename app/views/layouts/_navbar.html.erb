@@ -42,8 +42,20 @@
         <% end %>
       </div>
     </div>
-    <% if user_signed_in? && !current_user.character_id.present? %>
+    <% unless @character.present? %>
       <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary mr-3' %>
+    <% end %>
+    <% if @character.present? && !user_signed_in? %>
+      <div class="navbar-nav nav-item mr-2">
+        <%= image_tag(@character.avatar, class: 'avatar') %>
+      </div>
+      <div class="navbar-nav nav-item dropdown mr-3">
+        <a class="nav-link dropdown-toggle p-0" href="#" id="characterDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false"><%= @character.name %></a>
+        <div class="dropdown-menu" aria-labelledby="characterDropdown">
+          <%= render 'layouts/character_dropdown', character: @character %>
+        </div>
+      </div>
     <% end %>
     <% if user_signed_in? %>
       <div class="navbar-nav nav-item mr-2">
@@ -53,8 +65,8 @@
         <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
         <div class="dropdown-menu" aria-labelledby="userDropdown">
-          <% if current_user.character_id.present? %>
-            <%= render 'layouts/character_dropdown', character: current_user.character %>
+          <% if @character.present? %>
+            <%= render 'layouts/character_dropdown', character: @character %>
           <% end %>
           <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
         </div>

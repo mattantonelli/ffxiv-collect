@@ -11,6 +11,6 @@ class AchievementsController < ApplicationController
     @type = AchievementType.find(params[:id])
     @achievements = @type.achievements
     @categories = @type.categories.includes(:achievements)
-    @achievement_ids = current_user&.character&.achievement_ids || []
+    @achievement_ids = @character&.achievement_ids || []
   end
 end

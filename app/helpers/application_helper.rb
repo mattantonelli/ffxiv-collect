@@ -47,7 +47,7 @@ module ApplicationHelper
   end
 
   def character_selected?
-    current_user&.character_id&.present?
+    @character.present?
   end
 
   def owned(ids, id)

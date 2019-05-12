@@ -1,5 +1,6 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate]
+  skip_before_action :set_current_character, only: [:refresh, :verify, :validate]
   before_action :set_character, only: [:refresh, :verify, :validate]
   before_action :set_code, only: [:verify, :validate]
 
@@ -19,7 +20,12 @@ class CharactersController < ApplicationController
   def select
     begin
       character = Character.fetch(params[:character_id])
-      current_user.update(character_id: params[:character_id])
+
+      if user_signed_in?
+        current_user.update(character_id: params[:character_id])
+      else
+        cookies[:character] = params[:character_id]
+      end
 
       if character.achievements_count == 0
         flash[:alert] = 'Achievements for this character are set to private. You can make your achievements public ' \
@@ -38,10 +44,10 @@ class CharactersController < ApplicationController
   def refresh
     if @character.refresh
       flash[:success] = 'Your character has been refreshed.'
-      redirect_to_previous
+      redirect_back(fallback_location: root_path)
     else
       flash[:alert] = 'Sorry, you can only request a manual refresh every 12 hours.'
-      redirect_to_previous
+      redirect_back(fallback_location: root_path)
     end
   end
 

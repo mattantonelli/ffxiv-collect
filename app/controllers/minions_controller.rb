@@ -1,10 +1,7 @@
 class MinionsController < ApplicationController
   def index
     @minions = Minion.summonable.includes(:behavior, :race, :skill_type).order(patch: :desc)
-
-    if user_signed_in?
-      @minion_ids = current_user.character.minion_ids
-    end
+    @minion_ids = @character&.minion_ids || []
   end
 
   def show
