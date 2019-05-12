@@ -1,4 +1,5 @@
 class CharactersController < ApplicationController
+  before_action :verify_signed_in!, only: [:verify, :validate]
   before_action :set_character, only: [:refresh, :verify, :validate]
   before_action :set_code, only: [:verify, :validate]
 
@@ -27,7 +28,7 @@ class CharactersController < ApplicationController
         flash[:success] = "Your character has been set."
       end
 
-      redirect_to session.delete(:return_to)
+      redirect_to_previous
     rescue
       flash[:error] = 'There was a problem selecting that character.'
       render :search
@@ -37,10 +38,10 @@ class CharactersController < ApplicationController
   def refresh
     if @character.refresh
       flash[:success] = 'Your character has been refreshed.'
-      redirect_to request.referer
+      redirect_to_previous
     else
       flash[:alert] = 'Sorry, you can only request a manual refresh every 12 hours.'
-      redirect_to request.referer
+      redirect_to_previous
     end
   end
 
@@ -52,7 +53,7 @@ class CharactersController < ApplicationController
     if XIVAPI_CLIENT.character_verified?(id: @character.id, token: @character.verification_code(current_user))
       @character.update!(verified_user_id: current_user.id)
       flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
-      redirect_to session.delete(:return_to)
+      redirect_to_previous
     else
       flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
       render :verify

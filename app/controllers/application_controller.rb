@@ -8,6 +8,17 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
+  def redirect_to_previous
+    redirect_to session.delete(:return_to) || root_path
+  end
+
+  def verify_signed_in!
+    unless user_signed_in?
+      flash[:alert] = 'You must be signed in to do that.'
+      redirect_to_previous
+    end
+  end
+
   private
   def set_locale
     locale = cookies['locale']
