@@ -1,4 +1,7 @@
 class CharactersController < ApplicationController
+  before_action :set_character, only: [:refresh, :verify, :validate]
+  before_action :set_code, only: [:verify, :validate]
+
   def search
     @server, @name = params.values_at(:server, :name)
 
@@ -14,8 +17,8 @@ class CharactersController < ApplicationController
 
   def select
     begin
-      character = Character.fetch(params[:id])
-      current_user.update(character_id: params[:id])
+      character = Character.fetch(params[:character_id])
+      current_user.update(character_id: params[:character_id])
 
       if character.achievements_count == 0
         flash[:alert] = 'Achievements for this character are set to private. You can make your achievements public ' \
@@ -32,13 +35,36 @@ class CharactersController < ApplicationController
   end
 
   def refresh
-    character = Character.find(params[:id])
-    if character.refresh
+    if @character.refresh
       flash[:success] = 'Your character has been refreshed.'
       redirect_to request.referer
     else
       flash[:alert] = 'Sorry, you can only request a manual refresh every 12 hours.'
       redirect_to request.referer
     end
+  end
+
+  def verify
+    session[:return_to] = request.referer
+  end
+
+  def validate
+    if XIVAPI_CLIENT.character_verified?(id: @character.id, token: @character.verification_code(current_user))
+      @character.update!(verified_user_id: current_user.id)
+      flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
+      redirect_to session.delete(:return_to)
+    else
+      flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
+      render :verify
+    end
+  end
+
+  private
+  def set_character
+    @character = Character.find(params[:character_id])
+  end
+
+  def set_code
+    @code = @character.verification_code(current_user)
   end
 end

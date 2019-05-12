@@ -43,7 +43,7 @@
       </div>
     </div>
     <% if user_signed_in? && !current_user.character_id.present? %>
-      <%= link_to 'Select Character', character_search_path, class: 'btn btn-primary mr-3' %>
+      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary mr-3' %>
     <% end %>
     <% if user_signed_in? %>
       <div class="navbar-nav nav-item mr-2">

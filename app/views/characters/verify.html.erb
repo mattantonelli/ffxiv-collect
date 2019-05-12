@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-6 offset-3">
+    <div class="card shadow">
+      <h5 class="card-header">Verify Character</h5>
+      <div class="card-body">
+        <p>You are verifying your ownership of the following character:</p>
+        <hr>
+        <div class="d-flex my-3 align-items-center">
+          <%= image_tag(@character.avatar, class: 'avatar mr-3') %>
+          <div>
+            <b><%= @character.name %></b><br>
+            <%= @character.server %>
+          </div>
+        </div>
+        <hr>
+        <p>
+          Add this code to your <%= link_to 'Lodestone profile',
+            "https://#{region}.finalfantasyxiv.com/lodestone/my/setting/profile/", target: '_blank'  %>,
+            then click <b>Verify</b> below.
+        </p>
+        <pre id="verification"><%= @code %></pre>
+        <div class="d-flex justify-content-between">
+          <%= button_tag fa_icon('copy', text: 'Copy to clipboard'), class: 'btn btn-secondary btn-sm clipboard mt-0',
+            data: { clipboard_action: 'copy', clipboard_target: '#verification'} %>
+          <%= link_to 'Verify', character_validate_path(@character), method: :post, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

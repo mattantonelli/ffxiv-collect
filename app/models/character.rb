@@ -35,6 +35,19 @@ class Character < ApplicationRecord
     end
   end
 
+  def verification_code(user)
+    code = Digest::SHA2.hexdigest("#{user.id}-#{self.id}")
+    "ffxivcollect:#{code}"
+  end
+
+  def verified?(user)
+    user.id == verified_user_id
+  end
+
+  def verified_user?
+    verified_user_id.present?
+  end
+
   def self.fetch(id, skip_cache = false)
     if !skip_cache && character = Character.find_by(id: id)
       return character

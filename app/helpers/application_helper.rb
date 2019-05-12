@@ -58,6 +58,15 @@ module ApplicationHelper
     end
   end
 
+  def region
+    case(I18n.locale)
+    when :fr then 'fr'
+    when :de then 'de'
+    when :ja then 'jp'
+    else 'na'
+    end
+  end
+
   def ga_tid
     Rails.application.credentials.dig(:google_analytics, :tracking_id)
   end
