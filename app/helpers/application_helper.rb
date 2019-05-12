@@ -52,9 +52,9 @@ module ApplicationHelper
 
   def owned(ids, id)
     if ids.include?(id)
-      fa_icon('check-square')
+      fa_icon('check')
     else
-      fa_icon('square')
+      fa_icon('times')
     end
   end
 
