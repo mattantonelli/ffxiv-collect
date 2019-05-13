@@ -346,3 +346,22 @@ pre {
 tr.owned {
   opacity: 0.3;
 }
+
+table.sortable > thead th:not([data-defaultsort=disabled]) {
+  text-decoration: underline;
+
+  &:hover {
+    background: none;
+    cursor: pointer;
+  }
+
+  .sign.arrow {
+    position: relative;
+    display: inline;
+    margin: 0 0 0 0.5rem;
+
+    &.up {
+      bottom: 0.5rem;
+    }
+  }
+}

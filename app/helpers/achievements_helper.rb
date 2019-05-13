@@ -11,6 +11,18 @@ module AchievementsHelper
     end
   end
 
+  def achievement_reward_value(achievement)
+    if achievement.title.present?
+      value = 2
+    elsif achievement.item_id.present?
+      value = 1
+    else
+      value = 0
+    end
+
+    "#{value}#{achievement.id}"
+  end
+
   def achievement_item_link(achievement)
     link_to achievement.item_name, "http://www.garlandtools.org/db/#item/#{achievement.item_id}", target: '_blank'
   end

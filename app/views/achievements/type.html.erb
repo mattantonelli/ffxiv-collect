@@ -23,13 +23,13 @@
       <% end %>
       <div class="collapse" id="collapse-<%= category.id %>">
         <div class="card-body card-table">
-          <table class="table table-striped table-sm shadow">
+          <table class="table table-striped table-sm shadow sortable">
             <thead>
               <tr>
-                <th scope="col"></th> <!-- Image -->
+                <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
-                <th scope="col"><%= fa_icon('star-o') %></th>
+                <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
                 <th scope="col" class="text-center">Points</th>
                 <th scope="col" class="text-center">Patch</th>
                 <% if character_selected? %>
@@ -47,11 +47,15 @@
                   </td>
                   <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
                   <td><%= truncate_text(achievement.description, 70) %></td>
-                  <td><%= achievement_reward(achievement) %></td>
+                  <td data-value="<%= achievement_reward_value(achievement) %>">
+                    <%= achievement_reward(achievement) %>
+                  </td>
                   <td class="text-center"><%= achievement.points %></td>
-                  <td class="text-center"><%= achievement.patch %></td>
+                  <td class="text-center" data-value="<%= achievement.patch %><%= achievement.id %>">
+                    <%= achievement.patch %>
+                  </td>
                   <% if character_selected? %>
-                    <td class="text-center"><%= owned(@achievement_ids, achievement.id) %></td>
+                    <%= td_owned(@achievement_ids, achievement.id) %>
                   <% end %>
                 </tr>
               <% end %>

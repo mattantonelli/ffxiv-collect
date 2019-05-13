@@ -5,10 +5,10 @@
                           id="<%= category.id %>"><%= category.name %></button>
   <% end %>
 </div>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5" id="emote">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable" id="emote">
   <thead>
     <tr>
-      <th scope="col"></th><!-- Image -->
+      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Category</th>
@@ -22,7 +22,7 @@
         <td><%= emote.name %></td>
         <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
         <td class="text-center"><%= emote.category.name %></td>
-        <td class="text-center"><%= emote.patch %></td>
+        <td class="text-center" data-value="<%= emote.patch %><%= emote.id %>"><%= emote.patch %></td>
       </tr>
     <% end %>
   </tbody>

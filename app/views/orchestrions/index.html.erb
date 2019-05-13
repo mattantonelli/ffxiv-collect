@@ -5,10 +5,10 @@
                           id="<%= category.id %>"><%= category.name %></button>
   <% end %>
 </div>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5" id="orchestrion">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable" id="orchestrion">
   <thead>
     <tr>
-      <th scope="col"></th><!-- Image -->
+      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
       <th scope="col" class="text-center all-hide<%= ' hidden' unless @category.present? %>">#</th>
       <th scope="col" class="orchestrion-name">Name</th>
       <th scope="col">Source</th>
@@ -24,7 +24,7 @@
         <td><%= link_to(orchestrion.name, orchestrion_path(orchestrion), class: 'name') %></td>
         <td><%= orchestrion.description.gsub("\n", '<br>').html_safe %></td>
         <td class="text-center"><%= orchestrion.category.name %></td>
-        <td class="text-center"><%= orchestrion.patch %></td>
+        <td class="text-center" data-value="<%= orchestrion.patch %><%= orchestrion.id %>"><%= orchestrion.patch %></td>
       </tr>
     <% end %>
   </tbody>

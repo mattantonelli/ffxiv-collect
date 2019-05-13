@@ -29,6 +29,9 @@ gem 'will_paginate-bootstrap4'
 gem 'traco'
 gem 'rest-client'
 gem 'clipboard-rails'
+gem 'sortable-rails'
+gem 'momentjs-rails'
+gem 'rails_bootstrap_sortable'
 gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.2.3'
 
 group :development, :test do

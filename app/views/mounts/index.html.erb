@@ -4,10 +4,10 @@
     <%= render 'layouts/progress', value: @mount_ids.size, min: 0, max: Mount.count %>
   </div>
 <% end %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable" id="npcs">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
   <thead>
     <tr>
-      <th scope="col"></th> <!-- Image -->
+      <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Description</th>
       <th scope="col" class="text-center">Patch</th>
@@ -26,9 +26,9 @@
         </td>
         <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
         <td><%= mount.enhanced_description.truncate(80) %></td>
-        <td class="text-center"><%= mount.patch %></td>
+        <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
         <% if character_selected? %>
-          <td class="text-center"><%= owned(@mount_ids, mount.id) %></td>
+          <%= td_owned(@mount_ids, mount.id) %>
         <% end %>
       </tr>
     <% end %>

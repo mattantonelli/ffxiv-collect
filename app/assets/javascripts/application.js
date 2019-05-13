@@ -16,4 +16,6 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require clipboard
+//= require moment
+//= require bootstrap-sortable
 //= require_tree .

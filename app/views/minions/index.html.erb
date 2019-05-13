@@ -4,10 +4,10 @@
     <%= render 'layouts/progress', value: @minion_ids.size, min: 0, max: Minion.count %>
   </div>
 <% end %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable" id="npcs">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
   <thead>
     <tr>
-      <th scope="col"></th> <!-- Image -->
+      <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Type</th>
       <th scope="col">Description</th>
@@ -26,11 +26,11 @@
           <% end %>
         </td>
         <td><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
-        <td class="text-center"><%= minion_type(minion) %></td>
+        <td class="text-center" data-value="<%= minion.race_id %>"><%= minion_type(minion) %></td>
         <td><%= minion.description.truncate(80) %></td>
-        <td class="text-center"><%= minion.patch %></td>
+        <td class="text-center" data-value="<%= minion.patch %><%= minion.id %>"><%= minion.patch %></td>
         <% if character_selected? %>
-          <td class="text-center"><%= owned(@minion_ids, minion.id) %></td>
+          <%= td_owned(@minion_ids, minion.id) %>
         <% end %>
       </tr>
     <% end %>
