@@ -13,14 +13,12 @@ module AchievementsHelper
 
   def achievement_reward_value(achievement)
     if achievement.title.present?
-      value = 2
+      2
     elsif achievement.item_id.present?
-      value = 1
+      1
     else
-      value = 0
+      0
     end
-
-    "#{value}#{achievement.id}"
   end
 
   def achievement_item_link(achievement)
