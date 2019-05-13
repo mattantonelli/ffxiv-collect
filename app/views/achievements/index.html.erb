@@ -1,13 +1,21 @@
 <div class="d-flex flex-wrap justify-content-around justify-content-md-start">
   <% @types.each do |type| %>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-      <%= link_to achievement_type_path(type), class: 'unstyled' do %>
-        <div class="card">
-          <div class="card-body text-center">
-            <%= type.name %>
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card">
+        <h5 class="card-header text-center">
+          <%= link_to type.name, achievement_type_path(type), class: 'unstyled' %>
+        </h5>
+        <div class="card-body py-3">
+          <div class="count">
+          <%= render 'layouts/progress', value: type_count(@achievement_ids, type),
+            min: 0, max: type.achievements.size, text: 'complete' %>
+          </div>
+          <div class="points mt-3">
+            <%= render 'layouts/progress', value: type_points(@achievement_ids, type),
+              min: 0, max: type.achievements.pluck(:points).sum, text: 'points' %>
           </div>
         </div>
-      <% end %>
+      </div>
     </div>
   <% end %>
 </div>

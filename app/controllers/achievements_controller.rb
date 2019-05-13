@@ -1,6 +1,7 @@
 class AchievementsController < ApplicationController
   def index
-    @types = AchievementType.all.order(:id).includes(:categories)
+    @types = AchievementType.all.order(:id).includes(:categories, :achievements)
+    @achievement_ids = @character&.achievement_ids || []
   end
 
   def show

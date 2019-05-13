@@ -27,4 +27,12 @@ module AchievementsHelper
   def completed?(category, ids)
     (category.achievements.map(&:id) - ids).size == 0
   end
+
+  def type_count(achievement_ids, type)
+    (type.achievements.pluck(:id) & achievement_ids).size
+  end
+
+  def type_points(achievement_ids, type)
+    Achievement.where(id: type.achievements.pluck(:id) & achievement_ids).pluck(:points).sum
+  end
 end
