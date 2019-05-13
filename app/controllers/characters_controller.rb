@@ -46,7 +46,7 @@ class CharactersController < ApplicationController
       flash[:success] = 'Your character has been refreshed.'
       redirect_back(fallback_location: root_path)
     else
-      flash[:alert] = 'Sorry, you can only request a manual refresh every 12 hours.'
+      flash[:alert] = 'Sorry, you can only request a manual refresh every 24 hours.'
       redirect_back(fallback_location: root_path)
     end
   end
