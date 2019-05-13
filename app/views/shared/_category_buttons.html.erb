@@ -1,0 +1,7 @@
+<div class="d-flex flex-wrap justify-content-center category-buttons">
+  <button type="button" class="btn btn-dark bold shadow-none mb-1<%= ' active' unless selected.present? %>" id="0">All</button>
+  <% categories.each do |category| %>
+    <button type="button" class="btn btn-dark shadow-none mb-1<%= ' active' if category.id == selected %>"
+                          id="<%= category.id %>"><%= category.name %></button>
+  <% end %>
+</div>

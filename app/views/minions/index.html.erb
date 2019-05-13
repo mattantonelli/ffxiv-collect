@@ -1,7 +1,7 @@
 <% if character_selected? %>
-  <%= render 'layouts/toggle_owned' %>
+  <%= render 'shared/toggle_owned' %>
   <div class="mt-2">
-    <%= render 'layouts/progress', value: @minion_ids.size, min: 0, max: Minion.count %>
+    <%= render 'shared/progress', value: @minion_ids.size, min: 0, max: Minion.count %>
   </div>
 <% end %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">

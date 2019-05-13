@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('#orchestrion, #emote, #armoire').length > 0
+  return unless $('.categorized').length > 0
 
   buttons = $('.category-buttons button')
   buttons.click ->

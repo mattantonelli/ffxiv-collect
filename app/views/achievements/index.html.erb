@@ -7,11 +7,11 @@
         </h5>
         <div class="card-body py-3">
           <div class="count">
-          <%= render 'layouts/progress', value: type_count(@achievement_ids, type),
+          <%= render 'shared/progress', value: type_count(@achievement_ids, type),
             min: 0, max: type.achievements.size, text: 'complete' %>
           </div>
           <div class="points mt-3">
-            <%= render 'layouts/progress', value: type_points(@achievement_ids, type),
+            <%= render 'shared/progress', value: type_points(@achievement_ids, type),
               min: 0, max: type.achievements.pluck(:points).sum, text: 'points' %>
           </div>
         </div>
