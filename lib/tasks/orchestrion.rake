@@ -1,7 +1,7 @@
 ORCHESTRION_COLUMNS = %w(ID Description_* GamePatch.Version Name_* OrchestrionUiparam.OrchestrionCategoryTargetID
 OrchestrionUiparam.Order).freeze
 
-namespace :orchestrion do
+namespace :orchestrions do
   desc 'Create the orchestrion rolls'
   task create: :environment do
     puts 'Creating orchestrion rolls'
@@ -23,6 +23,7 @@ namespace :orchestrion do
       end
 
       if existing = Orchestrion.find_by(id: orchestrion.id)
+        data = without_names(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Orchestrion.create!(data)

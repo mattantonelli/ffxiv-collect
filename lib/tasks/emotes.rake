@@ -21,6 +21,7 @@ namespace :emotes do
       download_image(emote.id, emote.icon, 'emotes')
 
       if existing = Emote.find_by(id: emote.id)
+        data = without_names(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Emote.create!(data)

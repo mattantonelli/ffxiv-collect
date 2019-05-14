@@ -18,6 +18,7 @@ namespace :hairstyles do
       end
 
       if existing = Hairstyle.find_by(id: data[:id])
+        data = without_names(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Hairstyle.create!(data)

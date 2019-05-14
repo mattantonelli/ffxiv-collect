@@ -19,6 +19,7 @@ namespace :bardings do
       download_image(barding.id, image_url, 'bardings')
 
       if existing = Barding.find_by(id: barding.id)
+        data = without_names(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Barding.create!(data)

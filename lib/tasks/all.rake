@@ -33,6 +33,10 @@ def sanitize_name(name)
     .gsub('[p]', '')
 end
 
+def without_names(data)
+  data.except('name_en', 'name_fr', 'name_de', 'name_ja')
+end
+
 def updated?(model, data)
   current = model.attributes.symbolize_keys.select { |k, _| data.keys.include?(k) }
 

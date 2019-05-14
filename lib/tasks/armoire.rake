@@ -28,6 +28,7 @@ namespace :armoires do
       download_image(data[:id], armoire.item.icon, 'armoires')
 
       if existing = Armoire.find_by(id: data[:id])
+        data = without_names(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
         nil
       else
