@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('#toggle-owned').length > 0
+  return unless $('#toggle-owned, .categorized').length > 0
 
   restripe = ->
     $('tbody tr:visible').each (index) ->
@@ -33,7 +33,7 @@ $(document).on 'turbolinks:load', ->
         location.reload()
     })
 
-  $('input.own').change ->
+  $('td input.own').change ->
     collectable = $(this)
 
     if !this.checked
@@ -53,6 +53,21 @@ $(document).on 'turbolinks:load', ->
     collectable.data('path', path)
     restripe()
 
+  $('.orchestrion-select input.own').change ->
+    collectable = $(this)
+
+    if !this.checked
+      updateCollection(collectable)
+      path = collectable.data('path').replace('remove', 'add')
+      collectable.closest('.category-row').addClass('owned')
+    else
+      updateCollection(collectable)
+      path = collectable.data('path').replace('add', 'remove')
+      collectable.closest('td').attr('data-value', 1)
+      row = collectable.closest('.category-row').removeClass('owned')
+
+    collectable.data('path', path)
+
   restripe() if $('.categorized').length > 0
 
   buttons = $('.category-buttons button')
@@ -63,17 +78,17 @@ $(document).on 'turbolinks:load', ->
     history.replaceState({ category: category }, '', "?category=#{category}")
 
     if category == '0'
-      $('table').fadeOut('fast', ->
-        $('tbody tr').removeClass('hidden')
+      $('.categorized').fadeOut('fast', ->
+        $('.category-row').removeClass('hidden')
         $('.all-hide').addClass('hidden')
         toggleOwned()
-        $('table').fadeIn()
+        $('.categorized').fadeIn()
       )
     else
-      $('table').fadeOut('fast', ->
-        $('tbody tr').addClass('hidden')
-        $("tbody tr.category-#{category}").removeClass('hidden')
+      $('.categorized').fadeOut('fast', ->
+        $('.category-row').addClass('hidden')
+        $(".category-row.category-#{category}").removeClass('hidden')
         $('.all-hide').removeClass('hidden')
         toggleOwned()
-        $('table').fadeIn()
+        $('.categorized').fadeIn()
       )

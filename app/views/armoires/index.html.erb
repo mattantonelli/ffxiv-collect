@@ -22,7 +22,7 @@
   </thead>
   <tbody>
     <% @armoires.each do |armoire| %>
-      <tr class="<%= category_row_classes(armoire, @category) %><%= ' owned' if @armoire_ids.include?(armoire.id) %>">
+      <tr class="<%= category_row_classes(armoire, @category, @armoire_ids) %>">
         <td><%= armoire_icon(armoire) %></td>
         <td><%= armoire.name %></td>
         <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>

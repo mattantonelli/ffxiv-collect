@@ -45,7 +45,7 @@ class Character < ApplicationRecord
   end
 
   def verified_user?(user)
-    verified? && user&.id == verified_user_id
+    user.present? && verified? && user.id == verified_user_id
   end
 
   def self.fetch(id, skip_cache = false)

@@ -8,8 +8,13 @@ Rails.application.routes.draw do
 
   post 'locale/set', to: 'locale#update'
 
-  %i(mounts minions orchestrions).each do |resource|
+  %i(mounts minions).each do |resource|
     resources resource, only: [:index, :show]
+  end
+
+  resources :orchestrions, only: [:index, :show] do
+    post :add, :remove, on: :member
+    get :select, on: :collection
   end
 
   resources :hairstyles, only: [:index, :show] do

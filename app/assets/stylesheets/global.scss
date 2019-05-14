@@ -343,8 +343,8 @@ input[type="checkbox"] {
   color: inherit;
 }
 
-tr.owned {
-  opacity: 0.3;
+.owned {
+  opacity: 0.4;
 }
 
 table.sortable > thead th:not([data-defaultsort=disabled]) {

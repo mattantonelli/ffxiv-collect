@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @emotes.each do |emote| %>
-      <tr class="<%= category_row_classes(emote, @category) %><%= ' owned' if @emote_ids.include?(emote.id) %>">
+      <tr class="<%= category_row_classes(emote, @category, @emote_ids) %>">
         <td><%= emote_icon(emote) %></td>
         <td><%= emote.name %></td>
         <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
