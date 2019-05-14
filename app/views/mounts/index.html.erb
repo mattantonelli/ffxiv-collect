@@ -28,7 +28,7 @@
         <td><%= mount.enhanced_description.truncate(80) %></td>
         <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@mount_ids, mount.id) %>
+          <%= td_owned(@mount_ids, mount, false) %>
         <% end %>
       </tr>
     <% end %>

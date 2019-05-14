@@ -30,7 +30,7 @@
         <td><%= minion.description.truncate(80) %></td>
         <td class="text-center" data-value="<%= minion.patch %><%= minion.id %>"><%= minion.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@minion_ids, minion.id) %>
+          <%= td_owned(@minion_ids, minion, false) %>
         <% end %>
       </tr>
     <% end %>

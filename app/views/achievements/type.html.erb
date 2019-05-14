@@ -58,7 +58,7 @@
                     <%= achievement.patch %>
                   </td>
                   <% if character_selected? %>
-                    <%= td_owned(@achievement_ids, achievement.id) %>
+                    <%= td_owned(@achievement_ids, achievement, false) %>
                   <% end %>
                 </tr>
               <% end %>

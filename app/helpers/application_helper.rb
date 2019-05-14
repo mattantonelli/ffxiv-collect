@@ -1,10 +1,10 @@
 module ApplicationHelper
   def flash_class(level)
     case level
-    when 'notice'  then 'alert-info'
-    when 'success' then 'alert-success'
-    when 'error'   then 'alert-danger'
-    when 'alert'   then 'alert-warning'
+    when /notice/  then 'alert-info'
+    when /success/ then 'alert-success'
+    when /error/   then 'alert-danger'
+    when /alert/   then 'alert-warning'
     end
   end
 
@@ -50,11 +50,19 @@ module ApplicationHelper
     @character.present?
   end
 
-  def td_owned(ids, id)
-    if ids.include?(id)
-      content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
+  def td_owned(ids, collectable, manual = true)
+    owned = ids.include?(collectable.id)
+    if manual && current_user&.id == @character.verified_user_id
+      content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0 }) do
+        check_box_tag(nil, nil, owned, class: 'own',
+                      data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
+      end
     else
-      content_tag(:td, fa_icon('times'), class: 'text-center', data: { value: 0 })
+      if owned
+        content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
+      else
+        content_tag(:td, fa_icon('times'), class: 'text-center', data: { value: 0 })
+      end
     end
   end
 
