@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_09_175716) do
+ActiveRecord::Schema.define(version: 2019_05_14_135146) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -399,7 +399,7 @@ ActiveRecord::Schema.define(version: 2019_05_09_175716) do
     t.string "description_de", null: false
     t.string "description_fr", null: false
     t.string "description_ja", null: false
-    t.string "order"
+    t.integer "order"
     t.string "patch"
     t.integer "category_id", null: false
     t.datetime "created_at", null: false

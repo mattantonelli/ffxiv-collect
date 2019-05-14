@@ -1,7 +1,7 @@
 module OrchestrionHelper
   def orchestrion_number(orchestrion)
     if orchestrion.order.present?
-      orchestrion.order.rjust(3, '0')
+      orchestrion.order.to_s.rjust(3, '0')
     else
       '-'
     end

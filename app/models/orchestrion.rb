@@ -11,7 +11,7 @@
 #  description_de :string(255)      not null
 #  description_fr :string(255)      not null
 #  description_ja :string(255)      not null
-#  order          :string(255)
+#  order          :integer
 #  patch          :string(255)
 #  category_id    :integer          not null
 #  created_at     :datetime         not null
