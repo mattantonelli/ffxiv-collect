@@ -25,6 +25,13 @@ module ManualCollection
 
   private
   def verified?
-    current_user&.id == @character.verified_user_id
+    @character.verified_user?(current_user)
+  end
+
+  def display_verify_alert!
+    if user_signed_in? && @character.present? && !@character.verified?
+      flash.now[:alert_fixed] = 'This character is unverified. If you wish to track manual collections for this ' \
+        "character, please #{view_context.link_to 'verify your ownership', character_verify_path(@character)}."
+    end
   end
 end

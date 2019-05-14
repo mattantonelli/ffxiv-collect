@@ -40,12 +40,12 @@ class Character < ApplicationRecord
     "ffxivcollect:#{code}"
   end
 
-  def verified?(user)
-    user.id == verified_user_id
+  def verified?
+    verified_user_id.present?
   end
 
-  def verified_user?
-    verified_user_id.present?
+  def verified_user?(user)
+    verified? && user&.id == verified_user_id
   end
 
   def self.fetch(id, skip_cache = false)

@@ -52,7 +52,7 @@ module ApplicationHelper
 
   def td_owned(ids, collectable, manual = true)
     owned = ids.include?(collectable.id)
-    if manual && current_user&.id == @character.verified_user_id
+    if manual && @character.verified_user?(current_user)
       content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0 }) do
         check_box_tag(nil, nil, owned, class: 'own',
                       data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
