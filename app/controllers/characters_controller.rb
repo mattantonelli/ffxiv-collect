@@ -8,9 +8,13 @@ class CharactersController < ApplicationController
     @server, @name = params.values_at(:server, :name)
 
     if @server.present? && @name.present?
-      @characters = Character.search(@server, @name)
-      if @characters.empty?
-        flash.now[:alert] = 'No characters found.'
+      begin
+        @characters = Character.search(@server, @name)
+        if @characters.empty?
+          flash.now[:alert] = 'No characters found.'
+        end
+      rescue XIVAPI::Errors::RequestError
+        flash.now[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
       end
     else
       session[:return_to] = request.referer
@@ -42,13 +46,17 @@ class CharactersController < ApplicationController
   end
 
   def refresh
-    if @character.refresh
-      flash[:success] = 'Your character has been refreshed.'
-      redirect_back(fallback_location: root_path)
-    else
-      flash[:alert] = 'Sorry, you can only request a manual refresh once every 24 hours.'
-      redirect_back(fallback_location: root_path)
+    begin
+      if @character.refresh
+        flash[:success] = 'Your character has been refreshed.'
+      else
+        flash[:alert] = 'Sorry, you can only request a manual refresh once every 24 hours.'
+      end
+    rescue XIVAPI::Errors::RequestError
+      flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
     end
+
+    redirect_back(fallback_location: root_path)
   end
 
   def verify
@@ -56,12 +64,17 @@ class CharactersController < ApplicationController
   end
 
   def validate
-    if XIVAPI_CLIENT.character_verified?(id: @character.id, token: @character.verification_code(current_user))
-      @character.update!(verified_user_id: current_user.id)
-      flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
-      redirect_to_previous
-    else
-      flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
+    begin
+      if XIVAPI_CLIENT.character_verified?(id: @character.id, token: @character.verification_code(current_user))
+        @character.update!(verified_user_id: current_user.id)
+        flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
+        redirect_to_previous
+      else
+        flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
+        render :verify
+      end
+    rescue XIVAPI::Errors::RequestError
+      flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
       render :verify
     end
   end
