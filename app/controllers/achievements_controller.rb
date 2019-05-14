@@ -13,5 +13,6 @@ class AchievementsController < ApplicationController
     @achievements = @type.achievements
     @categories = @type.categories.includes(:achievements)
     @achievement_ids = @character&.achievement_ids || []
+    @achievement_dates = @character&.character_achievements&.pluck(:achievement_id, :created_at).to_h || {}
   end
 end

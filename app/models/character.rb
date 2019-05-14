@@ -86,10 +86,13 @@ class Character < ApplicationRecord
       character = Character.create!(info)
     end
 
-    Character.bulk_insert(info[:id], CharacterAchievement, :achievement,
-                          (data.achievements&.list&.map(&:id) || []) - character.achievement_ids)
+    achievement_ids = character.achievement_ids
+    achievements = data.achievements&.list&.reject { |achievement| achievement_ids.include?(achievement.id) } || []
+    Character.bulk_insert_achievements(info[:id], achievements)
+
     Character.bulk_insert(info[:id], CharacterMount, :mount, data.character.mounts - character.mount_ids)
     Character.bulk_insert(info[:id], CharacterMinion, :minion, data.character.minions - character.minion_ids)
+
     Character.find(info[:id])
   end
 
@@ -100,6 +103,20 @@ class Character < ApplicationRecord
     model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
                              " values #{values.join(',')}")
     Character.reset_counters(character_id, "#{model_name}s_count")
+  end
+
+  def self.bulk_insert_achievements(character_id, achievements)
+    return unless achievements.present?
+
+    values = achievements.map do |achievement|
+      date = Time.at(achievement.date).to_formatted_s(:db)
+      "(#{character_id}, #{achievement.id}, '#{date}', '#{date}')"
+    end
+
+    CharacterAchievement.connection
+      .execute("INSERT INTO character_achievements(character_id, achievement_id, created_at, updated_at)" \
+               " values #{values.join(',')}")
+    Character.reset_counters(character_id, :achievements_count)
   end
 
   def clear_user_characters

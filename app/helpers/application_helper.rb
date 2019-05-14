@@ -26,7 +26,7 @@ module ApplicationHelper
   end
 
   def format_date_short(date)
-    date.strftime('%b %Y')
+    date&.utc&.strftime('%b %-d, %Y')
   end
 
   def avatar(user)

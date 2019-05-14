@@ -36,7 +36,7 @@
                 <th scope="col" class="text-center">Points</th>
                 <th scope="col" class="text-center">Patch</th>
                 <% if character_selected? %>
-                  <th scope="col" class="text-center">Done</th>
+                  <th scope="col" data-firstsort="desc" class="text-center">Done</th>
                 <% end %>
               </tr>
             </thead>
@@ -58,7 +58,7 @@
                     <%= achievement.patch %>
                   </td>
                   <% if character_selected? %>
-                    <%= td_owned(@achievement_ids, achievement, false) %>
+                    <%= td_owned(@achievement_ids, achievement, false, @achievement_dates[achievement.id]) %>
                   <% end %>
                 </tr>
               <% end %>
