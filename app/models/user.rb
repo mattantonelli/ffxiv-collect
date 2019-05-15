@@ -20,6 +20,8 @@
 
 class User < ApplicationRecord
   belongs_to :character, required: false
+  has_many :user_characters
+  has_many :characters, through: :user_characters
 
   devise :trackable, :omniauthable, omniauth_providers: [:discord]
 

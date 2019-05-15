@@ -1,13 +1,36 @@
 <div class="card shadow">
-  <h5 class="card-header">Select a character</h5>
+  <div class="card-header d-flex justify-content-between">
+    <% if @search %>
+      <h5 class="card-title">Search Results</h5>
+      <%= link_to fa_icon('chevron-left', text: 'Back'), search_characters_path, class: 'btn btn-secondary btn-sm' %>
+    <% else %>
+      <h5 class="card-title">Saved Characters</h5>
+    <% end %>
+    </h5>
+  </div>
+  </h5>
   <div class="card-body card-table d-flex flex-column character-select">
     <% @characters.each do |character| %>
-      <%= link_to character_select_path(character.id), class: 'name', method: :post do %>
-        <div class="d-flex align-items-center">
-          <%= image_tag(character.avatar, class: 'avatar mr-3') %>
-          <%= character.name %>
-        </div>
-      <% end %>
+      <div class="d-flex align-items-center">
+        <%= link_to character_select_path(character.id), class: 'name w-100', method: :post do %>
+          <div class="d-flex align-items-center">
+            <%= image_tag(character.avatar, class: 'avatar mr-3') %>
+            <div class="d-flex flex-column">
+              <% if @search %>
+                <%= character.name %>
+              <% else %>
+                <b><%= character.name %></b>
+                <span><%= character.server %> <%= verified(character, true) %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <% unless @search %>
+          <%= link_to character_path(character), class: 'character-delete', method: :delete do %>
+            <%= fa_icon('times') %>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

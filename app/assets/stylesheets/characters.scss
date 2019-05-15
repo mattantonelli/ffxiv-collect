@@ -1,5 +1,5 @@
 .character-select {
-  a {
+  > div {
     padding: 0.75rem;
     border-bottom: 1px solid #eee;
 
@@ -15,10 +15,14 @@
       cursor: pointer;
       background-color: rgba(0, 0, 0, 0.4);
     }
+
+    &:last-child {
+      border-bottom: none;
+    }
   }
 
-  a:last-child {
-    border-bottom: none;
+  a.character-delete:hover {
+    color: #dc3545;
   }
 }
 

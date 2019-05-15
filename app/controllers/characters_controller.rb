@@ -1,13 +1,14 @@
 class CharactersController < ApplicationController
-  before_action :verify_signed_in!, only: [:verify, :validate]
+  before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   skip_before_action :set_current_character, only: [:refresh, :verify, :validate]
   before_action :set_character, only: [:refresh, :verify, :validate]
   before_action :set_code, only: [:verify, :validate]
 
   def search
     @server, @name = params.values_at(:server, :name)
+    @search = @server.present? && @name.present?
 
-    if @server.present? && @name.present?
+    if @search
       begin
         @characters = Character.search(@server, @name)
         if @characters.empty?
@@ -17,7 +18,10 @@ class CharactersController < ApplicationController
         flash.now[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
       end
     else
-      session[:return_to] = request.referer
+      if user_signed_in?
+        @characters = current_user.characters.order(:server, :name).to_a
+          .sort_by { |character| character.verified_user_id == current_user.id ? 0 : 1 }
+      end
     end
   end
 
@@ -26,6 +30,7 @@ class CharactersController < ApplicationController
       character = Character.fetch(params[:character_id])
 
       if user_signed_in?
+        current_user.characters << character unless current_user.characters.exists?(character.id)
         current_user.update(character_id: params[:character_id])
       else
         cookies[:character] = params[:character_id]
@@ -38,11 +43,27 @@ class CharactersController < ApplicationController
         flash[:success] = "Your character has been set."
       end
 
-      redirect_to_previous
+      redirect_to root_path
     rescue
       flash[:error] = 'There was a problem selecting that character.'
       render :search
     end
+  end
+
+  def forget
+    if user_signed_in?
+      current_user.update(character_id: nil)
+    else
+      cookies[:character] = nil
+    end
+
+    flash[:success] = 'You are no longer tracking a character.'
+    redirect_to root_path
+  end
+
+  def destroy
+    current_user.characters.delete(params[:id])
+    redirect_to search_characters_path
   end
 
   def refresh

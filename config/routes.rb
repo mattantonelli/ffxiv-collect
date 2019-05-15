@@ -30,11 +30,12 @@ Rails.application.routes.draw do
   resources :achievements, only: [:index, :show]
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
 
-  resources :characters, only: [] do
+  resources :characters, only: [:destroy] do
     get :search, on: :collection
     get :verify
     post :select, :refresh, :validate
   end
+  delete 'character/forget', to: 'characters#forget', as: :forget_character
 
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },

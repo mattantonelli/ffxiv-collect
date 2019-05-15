@@ -1,14 +1,10 @@
 <div class="row">
+  <div class="col-6 col-lg-5 offset-lg-1<%= ' mx-auto' unless @characters.present? %>">
+    <%= render 'form' %>
+  </div>
   <% if @characters.present? %>
-    <div class="col-6 col-lg-5 offset-lg-1">
-      <%= render 'form' %>
-    </div>
     <div class="col-6 col-lg-5">
       <%= render 'results' %>
-    </div>
-  <% else %>
-    <div class="col-12 col-md-5 mx-auto">
-      <%= render 'form' %>
     </div>
   <% end %>
 </div>

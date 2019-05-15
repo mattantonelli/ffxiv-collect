@@ -1,9 +1,9 @@
 <div class="d-flex flex-column current-character mx-3">
   <div class="d-flex align-items-center">
     <%= image_tag(character.avatar, class: 'avatar mr-2') if user_signed_in? %>
-    <div>
-      <b><%= character.name %></b><br>
-      <%= character.server %> <%= verified(character) if user_signed_in? %>
+    <div class="d-flex flex-column">
+      <b><%= character.name %></b>
+      <span><%= character.server %> <%= verified(character) if user_signed_in? %></span>
     </div>
   </div>
   <span class="updated">Last updated <%= time_ago_in_words(character.last_parsed) %> ago.</span>
@@ -15,3 +15,4 @@
 <%= link_to fa_icon('refresh', text: 'Refresh Character'), character_refresh_path(character),
   method: :post, class: 'dropdown-item' %>
 <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
+<%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
