@@ -19,7 +19,7 @@
       <tr <%= 'class="owned"'.html_safe if @barding_ids.include?(barding.id) %>>
         <td><%= barding_icon(barding) %></td>
         <td><%= barding.name %></td>
-        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        <td><%= sources(barding) %></td>
         <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@barding_ids, barding) %>

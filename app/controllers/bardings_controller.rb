@@ -2,7 +2,7 @@ class BardingsController < ApplicationController
   include ManualCollection
 
   def index
-    @bardings = Barding.all.order(patch: :desc, id: :desc)
+    @bardings = Barding.includes(sources: :type).order(patch: :desc, id: :desc).all
     @barding_ids = @character&.barding_ids || []
   end
 

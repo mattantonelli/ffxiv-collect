@@ -14,4 +14,5 @@
 
 class Barding < ApplicationRecord
   translates :name
+  has_many :sources, as: :collectable
 end

@@ -53,6 +53,7 @@ class Minion < ApplicationRecord
   belongs_to :behavior, class_name: 'MinionBehavior'
   belongs_to :race, class_name: 'MinionRace'
   belongs_to :skill_type, class_name: 'MinionSkillType', optional: true
+  has_many :sources, as: :collectable
 
   scope :summonable, -> { where.not(id: [68, 69, 70, 72, 73, 74]) }
 

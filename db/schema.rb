@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_15_160256) do
+ActiveRecord::Schema.define(version: 2019_05_15_203531) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -410,6 +410,24 @@ ActiveRecord::Schema.define(version: 2019_05_15_160256) do
     t.index ["name_en"], name: "index_orchestrions_on_name_en"
     t.index ["name_fr"], name: "index_orchestrions_on_name_fr"
     t.index ["name_ja"], name: "index_orchestrions_on_name_ja"
+  end
+
+  create_table "source_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_source_types_on_name"
+  end
+
+  create_table "sources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "collectable_id", null: false
+    t.string "collectable_type", null: false
+    t.string "text"
+    t.integer "type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
+    t.index ["type_id"], name: "index_sources_on_type_id"
   end
 
   create_table "user_characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -16,4 +16,5 @@
 class Emote < ApplicationRecord
   translates :name
   belongs_to :category, class_name: 'EmoteCategory'
+  has_many :sources, as: :collectable
 end

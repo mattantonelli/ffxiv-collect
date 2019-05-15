@@ -18,4 +18,5 @@
 
 class Hairstyle < ApplicationRecord
   translates :name, :description
+  has_many :sources, as: :collectable
 end

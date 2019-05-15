@@ -23,7 +23,7 @@
           <% end %>
         </td>
         <td><%= link_to hairstyle.name, hairstyle_path(hairstyle), class: 'name' %></td>
-        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        <td><%= sources(hairstyle) %></td>
         <td class="text-center" data-value="<%= hairstyle.patch %><%= hairstyle.id %>"><%= hairstyle.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@hairstyle_ids, hairstyle) %>

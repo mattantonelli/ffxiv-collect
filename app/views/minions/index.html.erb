@@ -10,7 +10,7 @@
       <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Type</th>
-      <th scope="col">Description</th>
+      <th scope="col">Source</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -27,7 +27,7 @@
         </td>
         <td><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
         <td class="text-center" data-value="<%= minion.race_id %>"><%= minion_type(minion) %></td>
-        <td><%= minion.description.truncate(80) %></td>
+        <td><%= sources(minion) %></td>
         <td class="text-center" data-value="<%= minion.patch %><%= minion.id %>"><%= minion.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@minion_ids, minion, false) %>

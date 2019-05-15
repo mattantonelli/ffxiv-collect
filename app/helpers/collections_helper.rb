@@ -29,4 +29,16 @@ module CollectionsHelper
       end
     end
   end
+
+  def sources(collectable)
+    sources = collectable.sources.map do |source|
+      case(source.type.name)
+      when 'Mog Station' then 'Mog Station'
+      when 'Achievement' then "Achievement: #{source.text}"
+      else source.text
+      end
+    end
+
+    sources.join('<br>').html_safe
+  end
 end

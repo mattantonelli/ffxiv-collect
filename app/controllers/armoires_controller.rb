@@ -2,7 +2,7 @@ class ArmoiresController < ApplicationController
   include ManualCollection
 
   def index
-    @armoires = Armoire.includes(:category).all.order(patch: :desc, order: :desc)
+    @armoires = Armoire.includes(:category, sources: :type).order(patch: :desc, order: :desc).all
     @armoire_ids = @character&.armoire_ids || []
     @categories = ArmoireCategory.all.order(:order)
 

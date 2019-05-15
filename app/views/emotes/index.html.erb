@@ -21,7 +21,7 @@
       <tr class="<%= category_row_classes(emote, @category, @emote_ids) %>">
         <td><%= emote_icon(emote) %></td>
         <td><%= emote.name %></td>
-        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        <td><%= sources(emote) %></td>
         <td class="text-center"><%= emote.category.name %></td>
         <td class="text-center" data-value="<%= emote.patch %><%= emote.id %>"><%= emote.patch %></td>
         <% if character_selected? %>

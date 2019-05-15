@@ -25,7 +25,7 @@
       <tr class="<%= category_row_classes(armoire, @category, @armoire_ids) %>">
         <td><%= armoire_icon(armoire) %></td>
         <td><%= armoire.name %></td>
-        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+        <td><%= sources(armoire) %></td>
         <td class="text-center"><%= armoire.category.name %></td>
         <td class="text-center" data-value="<%= armoire.patch %><%= armoire.id %>"><%= armoire.patch %></td>
         <% if character_selected? %>

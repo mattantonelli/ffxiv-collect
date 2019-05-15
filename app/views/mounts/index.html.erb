@@ -9,7 +9,7 @@
     <tr>
       <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Description</th>
+      <th scope="col">Source</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -25,7 +25,7 @@
           <% end %>
         </td>
         <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
-        <td><%= mount.enhanced_description.truncate(80) %></td>
+        <td><%= sources(mount) %></td>
         <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@mount_ids, mount, false) %>

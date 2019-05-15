@@ -17,4 +17,5 @@
 class Armoire < ApplicationRecord
   translates :name
   belongs_to :category, class_name: 'ArmoireCategory'
+  has_many :sources, as: :collectable
 end
