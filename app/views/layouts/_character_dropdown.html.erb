@@ -15,4 +15,7 @@
 <%= link_to fa_icon('refresh', text: 'Refresh Character'), refresh_character_path(character),
   method: :post, class: 'dropdown-item' %>
 <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
+<% if user_signed_in? && character.verified? %>
+  <%= link_to fa_icon('wrench', text: 'Character Settings'), settings_character_path(character), class: 'dropdown-item' %>
+<% end %>
 <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>

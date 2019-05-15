@@ -46,10 +46,6 @@ module ApplicationHelper
     content_tag(:span, text.truncate(length), data: data)
   end
 
-  def character_selected?
-    @character.present?
-  end
-
   def region
     case(I18n.locale)
     when :fr then 'fr'

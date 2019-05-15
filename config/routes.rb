@@ -30,11 +30,12 @@ Rails.application.routes.draw do
   resources :achievements, only: [:index, :show]
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
 
-  resources :characters, only: [:destroy] do
+  resources :characters, only: [:update, :destroy] do
     get :search, on: :collection
 
     member do
       get :verify
+      get :settings, action: :edit
       post :select, :refresh, :validate
     end
   end

@@ -19,10 +19,12 @@
 #  armoires_count     :integer          default(0)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  public             :boolean          default(TRUE)
 #
 
 class Character < ApplicationRecord
   after_destroy :clear_user_characters
+  belongs_to :verified_user, class_name: 'User', required: false
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
@@ -46,6 +48,14 @@ class Character < ApplicationRecord
 
   def verified_user?(user)
     user.present? && user.id == verified_user_id
+  end
+
+  def private?(user = nil)
+    if user.present?
+      !self.public && verified_user_id != user.id
+    else
+      !self.public
+    end
   end
 
   def self.fetch(id, skip_cache = false)

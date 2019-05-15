@@ -1,4 +1,6 @@
 class AchievementsController < ApplicationController
+  include Collection
+
   def index
     @types = AchievementType.all.order(:id).includes(:categories, :achievements)
     @achievement_ids = @character&.achievement_ids || []

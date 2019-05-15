@@ -1,4 +1,6 @@
 class MinionsController < ApplicationController
+  include Collection
+
   def index
     @minions = Minion.summonable.includes(:behavior, :race, :skill_type).order(patch: :desc)
     @minion_ids = @character&.minion_ids || []

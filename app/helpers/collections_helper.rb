@@ -1,4 +1,8 @@
 module CollectionsHelper
+  def character_selected?
+    @character.present?
+  end
+
   def category_row_classes(collectable, active_category, ids = [])
     hidden = active_category.present? && collectable.category_id != active_category
     owned = ids.include?(collectable.id)

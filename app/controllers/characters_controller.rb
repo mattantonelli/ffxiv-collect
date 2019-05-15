@@ -1,7 +1,8 @@
 class CharactersController < ApplicationController
-  before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
-  skip_before_action :set_current_character, only: [:refresh, :verify, :validate]
-  before_action :set_character, only: [:refresh, :verify, :validate]
+  before_action :verify_signed_in!, only: [:verify, :validate, :edit, :update, :destroy]
+  skip_before_action :set_current_character, only: [:refresh, :verify, :validate, :edit, :update]
+  before_action :set_character, only: [:refresh, :verify, :validate, :edit, :update]
+  before_action :verify_user!, only: [:edit, :update]
   before_action :set_code, only: [:verify, :validate]
 
   def search
@@ -29,24 +30,29 @@ class CharactersController < ApplicationController
     begin
       character = Character.fetch(params[:id])
 
-      if user_signed_in?
-        current_user.characters << character unless current_user.characters.exists?(character.id)
-        current_user.update(character_id: params[:id])
+      if character.private?(current_user)
+        flash[:alert] = "Sorry, this character's verified user has set their collections to private."
+        redirect_back(fallback_location: root_path)
       else
-        cookies[:character] = params[:id]
-      end
+        if user_signed_in?
+          current_user.characters << character unless current_user.characters.exists?(character.id)
+          current_user.update(character_id: params[:id])
+        else
+          cookies[:character] = params[:id]
+        end
 
-      if character.achievements_count == 0
-        flash[:alert] = 'Achievements for this character are set to private. You can make your achievements public ' \
-          "#{view_context.link_to('here', 'https://na.finalfantasyxiv.com/lodestone/my/setting/account/')}.".html_safe
-      else
-        flash[:success] = "Your character has been set."
-      end
+        if character.achievements_count == 0
+          flash[:alert] = 'Achievements for this character are set to private. You can make your achievements public ' \
+            "#{view_context.link_to('here', 'https://na.finalfantasyxiv.com/lodestone/my/setting/account/')}.".html_safe
+        else
+          flash[:success] = "Your character has been set."
+        end
 
-      redirect_to root_path
-    rescue
+        redirect_to root_path
+      end
+    rescue XIVAPI::Errors::RequestError
       flash[:error] = 'There was a problem selecting that character.'
-      render :search
+      redirect_back(fallback_location: root_path)
     end
   end
 
@@ -59,6 +65,19 @@ class CharactersController < ApplicationController
 
     flash[:success] = 'You are no longer tracking a character.'
     redirect_to root_path
+  end
+
+  def edit
+  end
+
+  def update
+    if @character.update(settings_params)
+      flash[:success] = 'Your settings have been updated.'
+      redirect_to settings_character_path(@character)
+    else
+      flash[:error] = 'There was a problem updating your settings.'
+      render :edit
+    end
   end
 
   def destroy
@@ -107,5 +126,16 @@ class CharactersController < ApplicationController
 
   def set_code
     @code = @character.verification_code(current_user)
+  end
+
+  def verify_user!
+    unless @character.verified_user?(current_user)
+      flash[:error] = 'You must verify your character before you can change its settings.'
+      redirect_to root_path
+    end
+  end
+
+  def settings_params
+    params.require(:character).permit(:public)
   end
 end

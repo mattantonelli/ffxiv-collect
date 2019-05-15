@@ -1,5 +1,6 @@
 module ManualCollection
   extend ActiveSupport::Concern
+  include Collection
 
   included do
     before_action :display_verify_alert!, only: :index
@@ -33,11 +34,15 @@ module ManualCollection
   end
 
   def display_verify_alert!
-    if @character.present? && !user_signed_in?
-      flash.now[:alert_fixed] = 'You must be signed in and verified in order to track manual collections.'
-    elsif verified_user? && !@character.verified?
-      flash.now[:alert_fixed] = 'This character is unverified. If you wish to track manual collections for this ' \
-        "character, please #{view_context.link_to 'verify your ownership', verify_character_path(@character)}."
+    return unless @character.present?
+
+    unless @character.verified?
+      if user_signed_in?
+        flash.now[:alert_fixed] = 'This character is unverified. If you wish to track manual collections for this ' \
+          "character, please #{view_context.link_to 'verify your ownership', verify_character_path(@character)}."
+      else
+        flash.now[:alert_fixed] = 'You must be signed in and verified in order to track manual collections.'
+      end
     end
   end
 end

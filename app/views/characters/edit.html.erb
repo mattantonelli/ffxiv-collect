@@ -1,0 +1,18 @@
+<div class="col-6 offset-3">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Privacy</h5>
+    </div>
+    <div class="card-body pt-4 pb-3">
+      <%= form_for(@character) do |f| %>
+        <div class="form-group form-check">
+          <%= f.check_box :public %>
+          <%= f.label :public, "Make this character's collections publicly available" %>
+        </div>
+        <div class="text-right mt-2">
+          <%= f.submit 'Save Settings', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
