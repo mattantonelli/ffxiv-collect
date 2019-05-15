@@ -12,7 +12,7 @@
   <div class="card-body card-table d-flex flex-column character-select">
     <% @characters.each do |character| %>
       <div class="d-flex align-items-center">
-        <%= link_to character_select_path(character.id), class: 'name w-100', method: :post do %>
+        <%= link_to select_character_path(character.id), class: 'name w-100', method: :post do %>
           <div class="d-flex align-items-center">
             <%= image_tag(character.avatar, class: 'avatar mr-3') %>
             <div class="d-flex flex-column">

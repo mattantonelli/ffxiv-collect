@@ -22,7 +22,7 @@
         <div class="d-flex justify-content-between">
           <%= button_tag fa_icon('copy', text: 'Copy to clipboard'), class: 'btn btn-secondary btn-sm clipboard mt-0',
             data: { clipboard_action: 'copy', clipboard_target: '#verification'} %>
-          <%= link_to 'Verify', character_validate_path(@character), method: :post, class: 'btn btn-primary' %>
+          <%= link_to 'Verify', validate_character_path(@character), method: :post, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>

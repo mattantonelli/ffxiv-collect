@@ -32,8 +32,11 @@ Rails.application.routes.draw do
 
   resources :characters, only: [:destroy] do
     get :search, on: :collection
-    get :verify
-    post :select, :refresh, :validate
+
+    member do
+      get :verify
+      post :select, :refresh, :validate
+    end
   end
   delete 'character/forget', to: 'characters#forget', as: :forget_character
 

@@ -27,13 +27,13 @@ class CharactersController < ApplicationController
 
   def select
     begin
-      character = Character.fetch(params[:character_id])
+      character = Character.fetch(params[:id])
 
       if user_signed_in?
         current_user.characters << character unless current_user.characters.exists?(character.id)
-        current_user.update(character_id: params[:character_id])
+        current_user.update(character_id: params[:id])
       else
-        cookies[:character] = params[:character_id]
+        cookies[:character] = params[:id]
       end
 
       if character.achievements_count == 0
@@ -102,7 +102,7 @@ class CharactersController < ApplicationController
 
   private
   def set_character
-    @character = Character.find(params[:character_id])
+    @character = Character.find(params[:id])
   end
 
   def set_code
