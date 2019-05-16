@@ -1,6 +1,7 @@
 namespace :patches do
 	desc 'Sets initial patch data for various collectables'
 	task set: :environment do
+    puts 'Filling in initial patch data'
 		Barding.where(name_en: ['Behemoth Barding', 'Black Mage Barding', 'Butlery Barding', 'Far Eastern Barding',
 													'Gridanian Barding', 'Gridanian Crested Barding', 'Gridanian Half Barding', 'Lominsan Barding',
 													'Lominsan Crested Barding', 'Lominsan Half Barding', 'Sleipnir Barding', "Ul'dahn Barding",
