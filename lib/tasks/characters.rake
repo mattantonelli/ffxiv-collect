@@ -11,9 +11,9 @@ namespace :characters do
     if stale_characters.present?
       Character.sync(stale_characters.pluck(:id))
       count = stale_characters.size
-      puts "[#{Time.now.utc}] #{count} #{'update'.pluralize(count)} complete.\n\n"
+      puts "[#{Time.now.utc}] #{count} #{'character'.pluralize(count)} checked.\n\n"
     else
-      puts "No updates required.\n\n"
+      puts "No stale characters.\n\n"
     end
   end
 end
