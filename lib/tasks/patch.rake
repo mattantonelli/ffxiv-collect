@@ -1,4 +1,4 @@
-namespace :patch do
+namespace :patches do
 	desc 'Sets initial patch data for various collectables'
 	task set: :environment do
 		Barding.where(name_en: ['Behemoth Barding', 'Black Mage Barding', 'Butlery Barding', 'Far Eastern Barding',

@@ -53,6 +53,7 @@ namespace :minions do
       download_image(minion.id, "/i/069000/#{footprint_id}.png", 'minions/footprint', '#151515ff')
 
       if existing = Minion.find_by(id: minion.id)
+        data = without_custom(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Minion.create!(data)

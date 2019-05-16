@@ -23,7 +23,7 @@ namespace :orchestrions do
       end
 
       if existing = Orchestrion.find_by(id: orchestrion.id)
-        data = without_names(data)
+        data = without_custom(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Orchestrion.create!(data)

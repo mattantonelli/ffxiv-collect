@@ -1,14 +1,20 @@
 namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
-    puts 'Loading all data'
-    Rake::Task['mounts:create'].invoke
+    Rake::Task['data:update'].invoke
+    Rake::Task['patches:set'].invoke
+    Rake::Task['sources:set'].invoke
   end
 
   desc 'Updates all data'
   task update: :environment do
-    puts 'Updating all data'
     Rake::Task['mounts:create'].invoke
+    Rake::Task['minions:create'].invoke
+    Rake::Task['orchestrions:create'].invoke
+    Rake::Task['emotes:create'].invoke
+    Rake::Task['bardings:create'].invoke
+    Rake::Task['hairstyles:create'].invoke
+    Rake::Task['armoires:create'].invoke
   end
 end
 
@@ -33,8 +39,8 @@ def sanitize_name(name)
     .gsub('[p]', '')
 end
 
-def without_names(data)
-  data.except('name_en', 'name_fr', 'name_de', 'name_ja')
+def without_custom(data)
+  data.except('name_en', 'name_fr', 'name_de', 'name_ja', 'patch')
 end
 
 def updated?(model, data)
@@ -87,4 +93,16 @@ def create_spritesheet(model, source, destination, width, height)
   end
 
   sheet.save(Rails.root.join('app/assets/images', destination).to_s)
+end
+
+def create_hair_spritesheets
+  Hairstyle.all.each do |hairstyle|
+    sheet = ChunkyPNG::Image.new(96 * 14, 96)
+
+    Dir.glob(Rails.root.join('public/images/hairstyles', hairstyle.id.to_s, '*.png')).sort.each_with_index do |image, i|
+      sheet.compose!(ChunkyPNG::Image.from_file(image), 96 * i, 0)
+    end
+
+    sheet.save(Rails.root.join('app/assets/images/hairstyles', "#{hairstyle.id}.png").to_s)
+  end
 end

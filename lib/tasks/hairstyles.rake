@@ -18,7 +18,7 @@ namespace :hairstyles do
       end
 
       if existing = Hairstyle.find_by(id: data[:id])
-        data = without_names(data)
+        data = without_custom(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Hairstyle.create!(data)
@@ -35,15 +35,7 @@ namespace :hairstyles do
       download_image(nil, custom.icon, path.join("#{custom.icon.scan(/\d+\.png/).first}"))
     end
 
-    Hairstyle.all.each do |hairstyle|
-      sheet = ChunkyPNG::Image.new(96 * 14, 96)
-
-      Dir.glob(Rails.root.join('public/images/hairstyles', hairstyle.id.to_s, '*.png')).sort.each_with_index do |image, i|
-        sheet.compose!(ChunkyPNG::Image.from_file(image), 96 * i, 0)
-      end
-
-      sheet.save(Rails.root.join('app/assets/images/hairstyles', "#{hairstyle.id}.png").to_s)
-    end
+    create_hair_spritesheets
 
     puts "Created #{Hairstyle.count - count} new hairstyles"
   end

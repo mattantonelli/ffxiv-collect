@@ -35,6 +35,7 @@ namespace :mounts do
       download_image(mount.id, "/i/#{footprint_offset}/#{footprint_id}.png", 'mounts/footprint', '#151515ff')
 
       if existing = Mount.find_by(id: mount.id)
+        data = without_custom(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Mount.create!(data)

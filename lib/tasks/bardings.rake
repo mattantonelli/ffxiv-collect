@@ -9,7 +9,7 @@ namespace :bardings do
     XIVAPI_CLIENT.content(name: 'BuddyEquip', columns: BARDING_COLUMNS, limit: 1000).each do |barding|
       next unless barding.name_en.present?
 
-      data = { id: barding.id, patch: 'N/A' }
+      data = { id: barding.id }
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(barding["name_#{locale}"])
@@ -19,7 +19,7 @@ namespace :bardings do
       download_image(barding.id, image_url, 'bardings')
 
       if existing = Barding.find_by(id: barding.id)
-        data = without_names(data)
+        data = without_custom(data)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Barding.create!(data)
