@@ -4,8 +4,9 @@ class OrchestrionsController < ApplicationController
   before_action :validate_user!, only: :select
 
   def index
-    @orchestrions = Orchestrion.includes(:category).order(patch: :desc, order: :desc, id: :desc).all
     @category = nil if @category < 2
+    @q = Orchestrion.ransack(params[:q])
+    @orchestrions = @q.result.includes(:category).order(patch: :desc, order: :desc, id: :desc).distinct
   end
 
   def select

@@ -9,5 +9,5 @@
 #
 
 class SourceType < ApplicationRecord
-  has_many :sources
+  has_many :sources, foreign_key: 'type_id'
 end

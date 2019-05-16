@@ -2,7 +2,9 @@ class HairstylesController < ApplicationController
   include ManualCollection
 
   def index
-    @hairstyles = Hairstyle.includes(sources: :type).order(patch: :desc, id: :desc).all
+    @q = Hairstyle.ransack(params[:q])
+    @hairstyles = @q.result.includes(sources: :type).order(patch: :desc, id: :desc).distinct
+    @types = source_types(:hairstyle)
     @hairstyle_ids = @character&.hairstyle_ids || []
   end
 

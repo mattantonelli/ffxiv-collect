@@ -2,7 +2,9 @@ class MountsController < ApplicationController
   include Collection
 
   def index
-    @mounts = Mount.includes(sources: :type).order(patch: :desc, order: :desc).all
+    @q = Mount.ransack(params[:q])
+    @mounts = @q.result.includes(sources: :type).order(patch: :desc, order: :desc).distinct
+    @types = source_types(:mount)
     @mount_ids = @character&.mount_ids || []
   end
 

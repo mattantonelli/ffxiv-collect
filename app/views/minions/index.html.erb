@@ -1,5 +1,22 @@
+<div class="row">
+  <div class="col-8 offset-0 offset-lg-2">
+    <%= search_form_for(@q, url: minions_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+      <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name',
+        class: 'form-control form-control-sm flex-grow-1' %>
+      <%= f.collection_select :race_id_eq, MinionRace.all.order("name_#{I18n.locale}"), :id, :name,
+        { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
+      <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+        { include_blank: 'All Sources' }, class: 'form-control form-control-sm' %>
+      <%= f.submit 'Search', name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
+    <% end %>
+  </div>
+  <div class="col-4 col-lg-2 d-flex align-items-center justify-content-end mt-2 mt-lg-0">
+    <% if character_selected? %>
+      <%= render 'shared/toggle_owned' %>
+    <% end %>
+  </div>
+</div>
 <% if character_selected? %>
-  <%= render 'shared/toggle_owned' %>
   <div class="mt-2">
     <%= render 'shared/progress', value: @minion_ids.size, min: 0, max: Minion.count %>
   </div>
@@ -9,7 +26,7 @@
     <tr>
       <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Type</th>
+      <th scope="col" class="text-center">Type</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>

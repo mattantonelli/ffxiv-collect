@@ -2,7 +2,9 @@ class EmotesController < ApplicationController
   include ManualCollection
 
   def index
-    @emotes = Emote.includes(:category, sources: :type).order(patch: :desc, id: :desc).all
+    @q = Emote.ransack(params[:q])
+    @emotes = @q.result.includes(:category, sources: :type).order(patch: :desc, id: :desc).distinct
+    @types = source_types(:emote)
     @emote_ids = @character&.emote_ids || []
     @categories = EmoteCategory.all.order(:id)
 

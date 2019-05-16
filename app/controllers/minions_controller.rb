@@ -2,7 +2,9 @@ class MinionsController < ApplicationController
   include Collection
 
   def index
-    @minions = Minion.summonable.includes(:behavior, :race, :skill_type, sources: :type).order(patch: :desc)
+    @q = Minion.summonable.ransack(params[:q])
+    @minions = @q.result.includes(:behavior, :race, :skill_type, sources: :type).order(patch: :desc).distinct
+    @types = source_types(:minion)
     @minion_ids = @character&.minion_ids || []
   end
 

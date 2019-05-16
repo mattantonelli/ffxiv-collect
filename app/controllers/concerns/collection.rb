@@ -5,6 +5,10 @@ module Collection
     before_action :verify_privacy!, only: [:index, :type]
   end
 
+  def source_types(model)
+    SourceType.joins(:sources).where('sources.collectable_type = ?', model).order(:name).distinct
+  end
+
   private
   def verify_privacy!
     if @character.present?
