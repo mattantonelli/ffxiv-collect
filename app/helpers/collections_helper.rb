@@ -6,7 +6,7 @@ module CollectionsHelper
   def category_row_classes(collectable, active_category, ids = [])
     hidden = active_category.present? && collectable.category_id != active_category
     owned = ids.include?(collectable.id)
-    "category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned}"
+    "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned}"
   end
 
   def td_owned(ids, collectable, manual = true, date = nil)

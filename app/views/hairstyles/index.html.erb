@@ -34,7 +34,7 @@
   </thead>
   <tbody>
     <% @hairstyles.each do |hairstyle| %>
-      <tr <%= 'class="owned"'.html_safe if @hairstyle_ids.include?(hairstyle.id) %>>
+      <tr class="collectable<%= ' owned' if @hairstyle_ids.include?(hairstyle.id) %>">
         <td>
           <%= link_to hairstyle_path(hairstyle), class: 'hairstyle-small' do %>
             <%= hairstyle_icon(hairstyle) %>

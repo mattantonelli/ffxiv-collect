@@ -34,7 +34,7 @@
   </thead>
   <tbody>
     <% @bardings.each do |barding| %>
-      <tr <%= 'class="owned"'.html_safe if @barding_ids.include?(barding.id) %>>
+      <tr class="collectable<%= ' owned' if @barding_ids.include?(barding.id) %>">
         <td><%= barding_icon(barding) %></td>
         <td><%= barding.name %></td>
         <td><%= sources(barding) %></td>

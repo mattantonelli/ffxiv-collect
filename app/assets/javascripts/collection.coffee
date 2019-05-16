@@ -5,6 +5,15 @@ $(document).on 'turbolinks:load', ->
     $('tbody tr:visible').each (index) ->
       $(this).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
+    progress = $('.progress-bar')
+    current = $('.owned:not(.hidden)').length
+    max = $('.collectable:not(.hidden)').length
+    completion = (current / max) * 100
+
+    progress.attr('aria-valuenow', current)
+    progress.attr('style', "width: #{completion}%")
+    progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+
   toggleOwned = ->
     if !$('#toggle-owned').prop('checked')
       localStorage.setItem('display-owned', 'true')
@@ -59,12 +68,12 @@ $(document).on 'turbolinks:load', ->
     if !this.checked
       updateCollection(collectable)
       path = collectable.data('path').replace('remove', 'add')
-      collectable.closest('.category-row').addClass('owned')
+      collectable.closest('.collectable').addClass('owned')
     else
       updateCollection(collectable)
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('td').attr('data-value', 1)
-      row = collectable.closest('.category-row').removeClass('owned')
+      row = collectable.closest('.collectable').removeClass('owned')
 
     collectable.data('path', path)
 
@@ -79,15 +88,15 @@ $(document).on 'turbolinks:load', ->
 
     if category == '0'
       $('.categorized').fadeOut('fast', ->
-        $('.category-row').removeClass('hidden')
+        $('.collectable').removeClass('hidden')
         $('.all-hide').addClass('hidden')
         toggleOwned()
         $('.categorized').fadeIn()
       )
     else
       $('.categorized').fadeOut('fast', ->
-        $('.category-row').addClass('hidden')
-        $(".category-row.category-#{category}").removeClass('hidden')
+        $('.collectable').addClass('hidden')
+        $(".collectable.category-#{category}").removeClass('hidden')
         $('.all-hide').removeClass('hidden')
         toggleOwned()
         $('.categorized').fadeIn()
