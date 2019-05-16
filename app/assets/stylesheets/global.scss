@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Noto Sans CJK JP';
+  src: url(asset_path('noto_sans_cjk_jp.otf')) format('opentype');
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -7,6 +12,10 @@ body {
   background-color: #333;
   color: #eee;
   margin-bottom: 40px;
+}
+
+.ja {
+  font-family: 'Noto Sans CJK JP'
 }
 
 // Below sm

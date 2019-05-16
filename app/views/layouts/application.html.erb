@@ -31,7 +31,7 @@
       <%= render 'layouts/alerts' %>
     </header>
 
-    <main role="main" class="container">
+    <main role="main" class="container<%= ' ja' if I18n.locale == :ja %>">
       <%= yield %>
     </main>
 
