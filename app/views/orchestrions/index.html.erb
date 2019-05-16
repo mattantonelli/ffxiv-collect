@@ -32,9 +32,9 @@
     <tr>
       <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
       <th scope="col" class="text-center all-hide<%= ' hidden' unless @category.present? %>">#</th>
-      <th scope="col" class="orchestrion-name">Name</th>
+      <th scope="col" class="name">Name</th>
       <th scope="col">Source</th>
-      <th scope="col" class="orchestrion-category text-center">Category</th>
+      <th scope="col" class="category text-center">Category</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -47,7 +47,7 @@
         <td><%= image_tag('orchestrion.png') %></td>
         <td class="text-center all-hide<%= ' hidden' unless @category.present? %>"><%= orchestrion_number(orchestrion) %></td>
         <td><%= link_to(orchestrion.name, orchestrion_path(orchestrion), class: 'name') %></td>
-        <td><%= orchestrion.description.gsub("\n", '<br>').html_safe %></td>
+        <td><%= format_text_long(orchestrion.description) %></td>
         <td class="text-center"><%= orchestrion.category.name %></td>
         <td class="text-center" data-value="<%= orchestrion.patch %><%= orchestrion.id %>"><%= orchestrion.patch %></td>
         <% if character_selected? %>

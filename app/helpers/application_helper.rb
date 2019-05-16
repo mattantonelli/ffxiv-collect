@@ -41,6 +41,10 @@ module ApplicationHelper
       .html_safe
   end
 
+  def format_text_long(text)
+    format_text(text.gsub(/\n+/, '<br>'))
+  end
+
   def truncate_text(text, length)
     data = { toggle: 'tooltip', title: text } if text.size > length
     content_tag(:span, text.truncate(length), data: data)

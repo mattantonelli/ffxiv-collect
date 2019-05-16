@@ -26,7 +26,7 @@
         </div>
         <div>
           <dt><u>How to obtain</u></dt>
-          <dd class="mb-0"><%= @achievement.description %></dd>
+          <dd class="mb-0"><%= format_text_long(@achievement.description) %></dd>
         </div>
         <% if @achievement.title.present? %>
           <hr>

@@ -365,3 +365,11 @@ table.sortable > thead th:not([data-defaultsort=disabled]) {
     }
   }
 }
+
+th.name {
+  width: 220px;
+}
+
+th.category {
+  width: 150px;
+}

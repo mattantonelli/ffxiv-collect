@@ -30,7 +30,7 @@
             <thead>
               <tr>
                 <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-                <th scope="col">Name</th>
+                <th scope="col" class="name">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
                 <th scope="col" class="text-center">Points</th>
@@ -49,7 +49,7 @@
                     <% end %>
                   </td>
                   <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
-                  <td><%= truncate_text(achievement.description, 70) %></td>
+                  <td><%= format_text_long(achievement.description) %></td>
                   <td data-value="<%= achievement_reward_value(achievement) %>">
                     <%= achievement_reward(achievement) %>
                   </td>
