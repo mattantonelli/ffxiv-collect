@@ -84,7 +84,7 @@ Rails.application.configure do
   config.lograge.enabled = true
 
   config.lograge.ignore_custom = lambda do |event|
-    event.payload[:format] == :js
+    %w(add remove).include?(event.payload[:action]) || event.payload[:format] == :js
   end
 
   config.lograge.custom_options = lambda do |event|

@@ -81,7 +81,7 @@ $(document).on 'turbolinks:load', ->
 
   buttons = $('.category-buttons button')
   buttons.click ->
-    category = $(@).attr('id')
+    category = $(@).attr('id').match(/\d+$/)[0]
     buttons.removeClass('active')
     $(@).addClass('active')
     history.replaceState({ category: category }, '', "?category=#{category}")
