@@ -60,9 +60,9 @@ namespace :minions do
       end
     end
 
-    create_spritesheet(Minion, 'minions/large', 'minions/large.png', 192, 192)
-    create_spritesheet(Minion, 'minions/small', 'minions/small.png', 40, 40)
-    create_spritesheet(Minion, 'minions/footprint', 'minions/footprint.png', 128, 128)
+    create_spritesheet('minions/large')
+    create_spritesheet('minions/small')
+    create_spritesheet('minions/footprint')
 
     puts "Created #{Minion.count - count} new minions"
   end

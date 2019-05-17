@@ -35,7 +35,7 @@
   <tbody>
     <% @bardings.each do |barding| %>
       <tr class="collectable<%= ' owned' if @barding_ids.include?(barding.id) %>">
-        <td><%= barding_icon(barding) %></td>
+        <td><%= sprite(barding, 'barding') %></td>
         <td><%= barding.name %></td>
         <td><%= sources(barding) %></td>
         <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>

@@ -1,3 +1,5 @@
+require 'sprite_factory'
+
 namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
@@ -80,20 +82,26 @@ def download_image(id, url, path, mask_from = nil, mask_to = nil)
   end
 end
 
-def create_spritesheet(model, source, destination, width, height)
-  ids = model.order(:id).pluck(:id)
-  sheet = ChunkyPNG::Image.new(width * model.pluck(:id).max, height)
+def create_spritesheet(path)
+  output_image = path.sub('/', '-')
+  class_name = output_image.singularize
+  options = { style: :scss, layout: :packed, library: :chunkypng,
+              nocomments: true, output_image: Rails.root.join('app/assets/images', "#{output_image}.png"),
+              output_style: Rails.root.join('app/assets/stylesheets/images', "#{output_image}.scss") }
 
-  ids.each do |id|
-    image = Rails.root.join('public/images', source, "#{id}.png")
-    if image.exist?
-      sheet.compose!(ChunkyPNG::Image.from_file(image), width * (id - 1), 0)
-    else
-      puts "Could not locate image: #{image}"
+  SpriteFactory.run!(Rails.root.join('public/images', path), options) do |images|
+    rules = []
+    image = images.values.first
+
+    rules << "img.#{class_name} { width: #{image[:width]}px; height: #{image[:height]}px; " \
+      "background: url(asset_path('#{output_image}.png')) no-repeat }"
+
+    images.each do |_, image|
+      rules << "img.#{class_name}-#{image[:name]} { background-position: #{-image[:cssx]}px #{-image[:cssy]}px }"
     end
-  end
 
-  sheet.save(Rails.root.join('app/assets/images', destination).to_s)
+    rules.join("\n")
+  end
 end
 
 def create_hair_spritesheets

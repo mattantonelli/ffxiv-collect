@@ -45,7 +45,7 @@
                 <tr class="collectable<%= ' owned' if @achievement_ids.include?(achievement.id) %>">
                   <td>
                     <%= link_to(achievement_path(achievement)) do %>
-                      <%= achievement_icon(achievement) %>
+                      <%= sprite(achievement, 'achievement') %>
                     <% end %>
                   </td>
                   <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>

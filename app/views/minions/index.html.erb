@@ -39,7 +39,7 @@
       <tr class="collectable<%= ' owned' if @minion_ids.include?(minion.id) %>">
         <td>
           <%= link_to(minion_path(minion)) do %>
-            <%= minion_icon(minion) %>
+            <%= sprite(minion, 'minions-small') %>
           <% end %>
         </td>
         <td><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>

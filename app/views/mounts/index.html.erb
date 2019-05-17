@@ -36,7 +36,7 @@
       <tr class="collectable<%= ' owned' if @mount_ids.include?(mount.id) %>">
         <td>
           <%= link_to(mount_path(mount)) do %>
-            <%= mount_icon(mount) %>
+            <%= sprite(mount, 'mounts-small') %>
           <% end %>
         </td>
         <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>

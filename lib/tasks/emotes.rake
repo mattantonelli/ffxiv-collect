@@ -28,7 +28,7 @@ namespace :emotes do
       end
     end
 
-    create_spritesheet(Emote, 'emotes', 'emotes.png', 40, 40)
+    create_spritesheet('emotes')
 
     puts "Created #{Emote.count - count} new emotes"
   end

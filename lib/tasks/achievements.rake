@@ -1,4 +1,4 @@
-ACHIEVEMENT_COLUMNS = %w(ID Name_* Description_* GamePatch.Version AchievementCategoryTargetID Icon Points Order
+ACHIEVEMENT_COLUMNS = %w(ID Name_* Description_* GamePatch.Version AchievementCategoryTargetID Icon IconID Points Order
 Title.IsPrefix Title.Name_* Item.ID Item.Icon Item.Name_*).freeze
 
 namespace :achievements do
@@ -21,7 +21,7 @@ namespace :achievements do
       next if achievement.achievement_category_target_id == 0
 
       data = { id: achievement.id, patch: achievement.game_patch.version, points: achievement.points,
-               order: achievement.order, category_id: achievement.achievement_category_target_id }
+               order: achievement.order, category_id: achievement.achievement_category_target_id, icon_id: achievement.icon_id }
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(achievement["name_#{locale}"])
@@ -36,13 +36,12 @@ namespace :achievements do
         if achievement.item.id.present?
           data[:item_id] = achievement.item.id
           data["item_name_#{locale}"] = achievement.item["name_#{locale}"]
-          download_image(achievement.item.id, achievement.item.icon, 'items')
           download_image(achievement.item.id, achievement.item.icon,
                          Rails.root.join('app/assets/images/items', "#{achievement.item.id}.png"))
         end
       end
 
-      download_image(achievement.id, achievement.icon, 'achievements')
+      download_image(achievement.icon_id, achievement.icon, 'achievements')
 
       if existing = Achievement.find_by(id: achievement.id)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
@@ -51,7 +50,7 @@ namespace :achievements do
       end
     end
 
-    create_spritesheet(Achievement, 'achievements', 'achievements.png', 40, 40)
+    create_spritesheet('achievements')
 
     puts "Created #{Achievement.count - count} new achievements"
   end

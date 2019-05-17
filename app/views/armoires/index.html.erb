@@ -41,7 +41,7 @@
   <tbody>
     <% @armoires.each do |armoire| %>
       <tr class="<%= category_row_classes(armoire, @category, @armoire_ids) %>">
-        <td><%= armoire_icon(armoire) %></td>
+        <td><%= sprite(armoire, 'armoire') %></td>
         <td><%= armoire.name %></td>
         <td><%= sources(armoire) %></td>
         <td class="text-center"><%= armoire.category.name %></td>

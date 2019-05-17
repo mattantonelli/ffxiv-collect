@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_15_203531) do
+ActiveRecord::Schema.define(version: 2019_05_17_134131) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_05_15_203531) do
     t.string "item_name_de"
     t.string "item_name_fr"
     t.string "item_name_ja"
+    t.integer "icon_id"
     t.index ["category_id"], name: "index_achievements_on_category_id"
     t.index ["name_de"], name: "index_achievements_on_name_de"
     t.index ["name_en"], name: "index_achievements_on_name_en"

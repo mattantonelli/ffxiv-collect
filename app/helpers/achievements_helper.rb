@@ -1,8 +1,4 @@
 module AchievementsHelper
-  def achievement_icon(achievement)
-    image_tag('blank.png', class: 'achievement-icon', style: "background-position: -#{40 * (achievement.id - 1)}px 0")
-  end
-
   def achievement_reward(achievement)
     if achievement.title.present?
       image_tag('title.png', data: { toggle: 'tooltip', title: achievement.title })

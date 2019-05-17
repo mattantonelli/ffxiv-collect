@@ -31,14 +31,16 @@ Capfile
 config/deploy*
 
 # Images
-/app/assets/images/mounts/*
-/app/assets/images/minions/*
+/app/assets/images/mounts*
+/app/assets/images/minions*
 /app/assets/images/items/*
 /app/assets/images/hairstyles/*
 /app/assets/images/achievements.png
 /app/assets/images/emotes.png
 /app/assets/images/bardings.png
 /app/assets/images/armoires.png
+
+/app/assets/stylesheets/images/*
 
 /public/images/mounts/*
 /public/images/minions/*

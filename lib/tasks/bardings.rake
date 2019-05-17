@@ -26,7 +26,7 @@ namespace :bardings do
       end
     end
 
-    create_spritesheet(Barding, 'bardings', 'bardings.png', 40, 40)
+    create_spritesheet('bardings')
 
     puts "Created #{Barding.count - count} new bardings"
   end

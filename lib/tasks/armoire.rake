@@ -46,7 +46,7 @@ namespace :armoires do
       end
     end
 
-    create_spritesheet(Armoire, 'armoires', 'armoires.png', 40, 40)
+    create_spritesheet('armoires')
 
     puts "Created #{Armoire.count - count} new armoire items"
   end

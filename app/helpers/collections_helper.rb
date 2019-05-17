@@ -1,4 +1,9 @@
 module CollectionsHelper
+  def sprite(collectable, model)
+    id = model == 'achievement' ? collectable.icon_id : collectable.id
+    image_tag('blank.png', class: "#{model} #{model}-#{id}")
+  end
+
   def character_selected?
     @character.present?
   end

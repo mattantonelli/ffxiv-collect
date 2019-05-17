@@ -1,27 +1,7 @@
-img.minion-icon {
-  width: 40px;
-  height: 40px;
-  background: url(asset_path('minions/small.png')) no-repeat;
-}
-
-.minion-large {
-  width: 192px;
-  height: 192px;
-  img {
-    background: url(asset_path('minions/large.png')) no-repeat;
-  }
-}
-
 .minion-footprint {
   position: absolute;
   right: 0.25rem;
   bottom: 0.25rem;
-  width: 128px;
-  height: 128px;
-  img {
-    background: url(asset_path('minions/footprint.png')) no-repeat;
-    opacity: 0.6;
-  }
 }
 
 img.minion-type {

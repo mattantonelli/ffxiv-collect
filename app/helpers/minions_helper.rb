@@ -1,16 +1,4 @@
 module MinionsHelper
-  def minion_icon(minion)
-    image_tag('blank.png', class: 'minion-icon', style: "background-position: -#{40 * (minion.id - 1)}px 0")
-  end
-
-  def minion_large(minion)
-    image_tag('blank.png', class: 'minion-large', style: "background-position: -#{192 * (minion.id - 1)}px 0")
-  end
-
-  def minion_footprint(minion)
-    image_tag('blank.png', class: 'minion-footprint', style: "background-position: -#{128 * (minion.id - 1)}px 0")
-  end
-
   def minion_type(minion)
     image_tag('blank.png', class: 'minion-type', style: "background-position: -#{24 * (minion.race_id - 1)}px 0")
   end

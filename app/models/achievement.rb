@@ -26,6 +26,7 @@
 #  item_name_de   :string(255)
 #  item_name_fr   :string(255)
 #  item_name_ja   :string(255)
+#  icon_id        :integer
 #
 
 class Achievement < ApplicationRecord
