@@ -7,19 +7,19 @@
 img.minion-type {
   width: 24px;
   height: 24px;
-  background: url(asset_path('minions/race.png')) no-repeat;
+  background: url(image_path('minions/race.png')) no-repeat;
 }
 
 img.minion-strength {
   width: 24px;
   height: 24px;
-  background: url(asset_path('minions/strength.png')) no-repeat;
+  background: url(image_path('minions/strength.png')) no-repeat;
 }
 
 .minion-skill-angle {
   width: 40px;
   height: 40px;
   img {
-    background: url(asset_path('minions/area.png')) no-repeat;
+    background: url(image_path('minions/area.png')) no-repeat;
   }
 }

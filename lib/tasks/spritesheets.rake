@@ -23,7 +23,7 @@ namespace :spritesheets do
     puts 'Creating armoire spritesheet'
     create_spritesheet('armoires')
 
-    puts 'Creating hair spritesheets'
+    puts 'Creating hairstyle spritesheets'
     create_hair_spritesheets
   end
 end

@@ -94,7 +94,7 @@ def create_spritesheet(path)
     image = images.values.first
 
     rules << "img.#{class_name} { width: #{image[:width]}px; height: #{image[:height]}px; " \
-      "background: url(asset_path('#{output_image}.png')) no-repeat }"
+      "background: url(image_path('#{output_image}.png')) no-repeat }"
 
     images.each do |_, image|
       rules << "img.#{class_name}-#{image[:name]} { background-position: #{-image[:cssx]}px #{-image[:cssy]}px }"
