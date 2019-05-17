@@ -2,8 +2,8 @@ $(document).on 'turbolinks:load', ->
   return unless $('#toggle-owned, .categorized').length > 0
 
   restripe = ->
-    $('tbody tr:visible').each (index) ->
-      $(this).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
+    $('.collectable:not(.hidden)').each (index) ->
+      $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
     progress = $('.progress-bar')
     current = $('.owned:not(.hidden)').length
