@@ -18,6 +18,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga_tid %>"></script>
       <script>
         window.dataLayer = window.dataLayer || [];
+        window._ga_tid = '<%= ga_tid %>'
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', '<%= ga_tid %>');
