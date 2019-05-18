@@ -27,8 +27,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :achievements, only: [:index, :show]
+  get 'achievements/types', to: redirect('404')
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
+  resources :achievements, only: [:index, :show]
 
   resources :characters, only: [:update, :destroy] do
     get :search, on: :collection

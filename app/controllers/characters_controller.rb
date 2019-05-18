@@ -3,7 +3,7 @@ class CharactersController < ApplicationController
   skip_before_action :set_current_character, only: [:refresh, :verify, :validate, :edit, :update]
   before_action :set_character, only: [:refresh, :verify, :validate, :edit, :update]
   before_action :verify_user!, only: [:edit, :update]
-  before_action :set_code, only: [:verify, :validate]
+  before_action :verify_selected!, :confirm_unverified!, :set_code, only: [:verify, :validate]
 
   def search
     @server, @name = params.values_at(:server, :name)
@@ -121,7 +121,12 @@ class CharactersController < ApplicationController
 
   private
   def set_character
-    @character = Character.find(params[:id])
+    @character = Character.find_by(id: params[:id])
+
+    unless @character.present?
+      flash[:error] = 'Your character could not be found.'
+      redirect_to root_path
+    end
   end
 
   def set_code
@@ -131,6 +136,20 @@ class CharactersController < ApplicationController
   def verify_user!
     unless @character.verified_user?(current_user)
       flash[:error] = 'You must verify your character before you can change its settings.'
+      redirect_to root_path
+    end
+  end
+
+  def verify_selected!
+    unless @character == current_user.character
+      flash[:error] = 'You have not selected this character!'
+      redirect_to root_path
+    end
+  end
+
+  def confirm_unverified!
+    if @character.verified?
+      flash[:error] = 'This character has already been verified!'
       redirect_to root_path
     end
   end
