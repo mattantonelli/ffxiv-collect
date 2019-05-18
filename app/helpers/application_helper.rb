@@ -33,6 +33,10 @@ module ApplicationHelper
     image_tag(user.avatar_url, class: 'avatar')
   end
 
+  def username(user)
+    "#{user.username}##{user.discriminator.to_s.rjust(4, '0')}"
+  end
+
   def format_text(text)
     text.gsub("\n\n", ' ')
       .gsub('   -', "<br>&nbsp;&nbsp;&nbsp;-")

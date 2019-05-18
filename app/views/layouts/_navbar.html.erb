@@ -45,36 +45,13 @@
       </div>
     </div>
     <% unless @character.present? %>
-      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary mr-3' %>
+      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary' %>
     <% end %>
-    <% if @character.present? && !user_signed_in? %>
-      <div class="navbar-nav nav-item mr-2">
-        <%= image_tag(@character.avatar, class: 'avatar') %>
-      </div>
-      <div class="navbar-nav nav-item dropdown mr-3">
-        <a class="nav-link dropdown-toggle p-0" href="#" id="characterDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false"><%= @character.name %></a>
-        <div class="dropdown-menu" aria-labelledby="characterDropdown">
-          <%= render 'layouts/character_dropdown', character: @character %>
-        </div>
-      </div>
+    <% if @character.present? || user_signed_in? %>
+      <%= render 'layouts/user_dropdown' %>
     <% end %>
-    <% if user_signed_in? %>
-      <div class="navbar-nav nav-item mr-2">
-        <%= avatar(current_user) %>
-      </div>
-      <div class="navbar-nav nav-item dropdown">
-        <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
-        <div class="dropdown-menu" aria-labelledby="userDropdown">
-          <% if @character.present? %>
-            <%= render 'layouts/character_dropdown', character: @character %>
-          <% end %>
-          <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
-        </div>
-      </div>
-    <% else %>
-      <%= link_to 'Sign in with Discord', user_discord_omniauth_authorize_path, class: 'btn btn-secondary' %>
+    <% unless user_signed_in? %>
+      <%= link_to 'Sign in with Discord', user_discord_omniauth_authorize_path, class: 'btn btn-secondary ml-2' %>
     <% end %>
   </div>
 </div>

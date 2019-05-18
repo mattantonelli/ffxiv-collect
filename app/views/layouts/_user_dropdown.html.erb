@@ -1,0 +1,41 @@
+<div class="navbar-nav nav-item mx-2">
+  <% if @character.present? %>
+    <%= image_tag(@character.avatar, class: 'avatar') %>
+  <% else %>
+    <%= avatar(current_user) %>
+  <% end %>
+</div>
+<div class="navbar-nav nav-item dropdown">
+  <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false"><%= @character.present? ? @character.name : current_user.username %></a>
+  <div class="dropdown-menu" aria-labelledby="userDropdown">
+    <% if @character.present? %>
+      <div class="d-flex flex-column current-character mx-3">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between">
+            <b><%= @character.name %></b>
+            <% if user_signed_in? %>
+              <span class="ml-2"><%= username(current_user) %></span>
+            <% end %>
+          </div>
+          <span><%= @character.server %> <%= verified(@character) if user_signed_in? %></span>
+        </div>
+        <span class="updated">Last updated <%= time_ago_in_words(@character.last_parsed) %> ago.</span>
+      </div>
+      <hr class="my-2">
+      <% if user_signed_in? && !@character.verified? %>
+        <%= link_to fa_icon('check-circle', text: 'Verify Character'), verify_character_path, class: 'dropdown-item' %>
+      <% end %>
+      <%= link_to fa_icon('refresh', text: 'Refresh Character'), refresh_character_path,
+        method: :post, class: 'dropdown-item' %>
+      <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
+      <% if user_signed_in? && @character.verified_user?(current_user) %>
+        <%= link_to fa_icon('wrench', text: 'Character Settings'), character_settings_path, class: 'dropdown-item' %>
+      <% end %>
+      <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
+    <% end %>
+    <% if user_signed_in? %>
+      <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
+    <% end %>
+  </div>
+</div>
