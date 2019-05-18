@@ -24,7 +24,7 @@
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable categorized">
   <thead>
     <tr>
-      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
+      <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Category</th>
@@ -37,7 +37,7 @@
   <tbody>
     <% @emotes.each do |emote| %>
       <tr class="<%= category_row_classes(emote, @category, @emote_ids) %>">
-        <td><%= sprite(emote, :emote) %></td>
+        <td data-value="<%= emote.id %>"><%= sprite(emote, :emote) %></td>
         <td><%= emote.name %></td>
         <td><%= sources(emote) %></td>
         <td class="text-center"><%= emote.category.name %></td>

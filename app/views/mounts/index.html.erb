@@ -22,7 +22,7 @@
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
   <thead>
     <tr>
-      <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+      <th scope="col">#</th> <!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Patch</th>
@@ -34,7 +34,7 @@
   <tbody>
     <% @mounts.each do |mount| %>
       <tr class="collectable<%= ' owned' if @mount_ids.include?(mount.id) %>">
-        <td>
+        <td data-value="<%= mount.order %>">
           <%= link_to(mount_path(mount)) do %>
             <%= sprite(mount, 'mounts-small') %>
           <% end %>

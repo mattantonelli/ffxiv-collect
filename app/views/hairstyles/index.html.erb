@@ -23,7 +23,7 @@
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
   <thead>
     <tr>
-      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
+      <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Patch</th>
@@ -35,7 +35,7 @@
   <tbody>
     <% @hairstyles.each do |hairstyle| %>
       <tr class="collectable<%= ' owned' if @hairstyle_ids.include?(hairstyle.id) %>">
-        <td>
+        <td data-value="<%= hairstyle.id %>">
           <%= link_to hairstyle_path(hairstyle), class: 'hairstyle-small' do %>
             <%= hairstyle_icon(hairstyle) %>
           <% end %>

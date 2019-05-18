@@ -24,7 +24,7 @@
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
   <thead>
     <tr>
-      <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+      <th scope="col">#</th> <!-- Image -->
       <th scope="col">Name</th>
       <th scope="col" class="text-center">Type</th>
       <th scope="col">Source</th>
@@ -37,7 +37,7 @@
   <tbody>
     <% @minions.each do |minion| %>
       <tr class="collectable<%= ' owned' if @minion_ids.include?(minion.id) %>">
-        <td>
+        <td data-value="<%= minion.id %>">
           <%= link_to(minion_path(minion)) do %>
             <%= sprite(minion, 'minions-small') %>
           <% end %>

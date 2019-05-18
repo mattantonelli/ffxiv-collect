@@ -28,7 +28,7 @@
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable categorized">
   <thead>
     <tr>
-      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
+      <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Category</th>
@@ -41,7 +41,7 @@
   <tbody>
     <% @armoires.each do |armoire| %>
       <tr class="<%= category_row_classes(armoire, @category, @armoire_ids) %>">
-        <td><%= sprite(armoire, 'armoire') %></td>
+        <td data-value="<%= armoire.order %>"><%= sprite(armoire, 'armoire') %></td>
         <td><%= armoire.name %></td>
         <td><%= sources(armoire) %></td>
         <td class="text-center"><%= armoire.category.name %></td>

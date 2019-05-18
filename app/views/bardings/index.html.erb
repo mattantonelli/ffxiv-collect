@@ -23,7 +23,7 @@
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
   <thead>
     <tr>
-      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
+      <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col">Source</th>
       <th scope="col" class="text-center">Patch</th>
@@ -35,7 +35,7 @@
   <tbody>
     <% @bardings.each do |barding| %>
       <tr class="collectable<%= ' owned' if @barding_ids.include?(barding.id) %>">
-        <td><%= sprite(barding, 'barding') %></td>
+        <td data-value="<%= barding.id %>"><%= sprite(barding, 'barding') %></td>
         <td><%= barding.name %></td>
         <td><%= sources(barding) %></td>
         <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
