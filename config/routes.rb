@@ -31,16 +31,17 @@ Rails.application.routes.draw do
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
   resources :achievements, only: [:index, :show]
 
-  resources :characters, only: [:update, :destroy] do
+  resources :characters, only: [:destroy] do
     get :search, on: :collection
-
-    member do
-      get :verify
-      get :settings, action: :edit
-      post :select, :refresh, :validate
-    end
+    post :select, on: :member
   end
-  delete 'character/forget', to: 'characters#forget', as: :forget_character
+
+  get 'character/verify',     to: 'characters#verify',   as: :verify_character
+  get 'character/settings',   to: 'characters#edit',     as: :character_settings
+  post 'character/refresh',   to: 'characters#refresh',  as: :refresh_character
+  post 'character/validate',  to: 'characters#validate', as: :validate_character
+  patch 'character/update',   to: 'characters#update',   as: :update_character
+  delete 'character/forget',  to: 'characters#forget',   as: :forget_character
 
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
