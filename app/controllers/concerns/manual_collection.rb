@@ -39,7 +39,7 @@ module ManualCollection
     unless @character.verified?
       if user_signed_in?
         flash.now[:alert_fixed] = 'This character is unverified. If you wish to track manual collections for this ' \
-          "character, please #{view_context.link_to 'verify your ownership', verify_character_path(@character)}."
+          "character, please #{view_context.link_to 'verify your ownership', verify_character_path}."
       else
         flash.now[:alert_fixed] = 'You must be signed in and verified in order to track manual collections.'
       end
