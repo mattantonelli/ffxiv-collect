@@ -5,6 +5,6 @@
         <%= fa_icon 'times' %>
       </button>
     <% end %>
-    <%= sanitize(value) %>
+    <%= value.html_safe %>
   </div>
 <% end %>

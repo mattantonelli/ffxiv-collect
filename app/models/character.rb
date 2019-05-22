@@ -32,9 +32,8 @@ class Character < ApplicationRecord
   end
 
   def refresh
-    if XIVAPI_CLIENT.character_update(id: self.id)
-      Character.fetch(self.id, true)
-    end
+    XIVAPI_CLIENT.character_update(id: self.id)
+    Character.fetch(self.id, true)
   end
 
   def verification_code(user)
@@ -89,6 +88,7 @@ class Character < ApplicationRecord
   def self.update(data)
     info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar)
     info[:last_parsed] = Time.at(data.character.parse_date)
+    info[:achievements_count] = -1 if data.info.achievements.state == 5 # Achievements set to private
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
@@ -96,9 +96,11 @@ class Character < ApplicationRecord
       character = Character.create!(info)
     end
 
-    achievement_ids = character.achievement_ids
-    achievements = data.achievements&.list&.reject { |achievement| achievement_ids.include?(achievement.id) } || []
-    Character.bulk_insert_achievements(info[:id], achievements)
+    if data.achievements.present?
+      achievement_ids = character.achievement_ids
+      achievements = data.achievements.list.reject { |achievement| achievement_ids.include?(achievement.id) }
+      Character.bulk_insert_achievements(info[:id], achievements)
+    end
 
     Character.bulk_insert(info[:id], CharacterMount, :mount, data.character.mounts - character.mount_ids)
     Character.bulk_insert(info[:id], CharacterMinion, :minion, data.character.minions - character.minion_ids)
