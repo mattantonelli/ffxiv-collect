@@ -13,7 +13,7 @@
           id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">Achievements</a>
         <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
-          <%= link_to 'Overview', achievements_path, class: 'dropdown-item bold' %>
+          <%= link_to 'Overview', achievements_path, class: 'dropdown-item bold' if @character.present? %>
           <% AchievementType.order(:id).all.each do |type| %>
             <%= link_to type.name, achievement_type_path(type), class: 'dropdown-item' %>
           <% end %>

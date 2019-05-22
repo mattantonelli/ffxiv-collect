@@ -19,6 +19,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def verify_character!
+    unless @character.present?
+      flash[:alert] = 'You have not selected a character.'
+      redirect_to root_path
+    end
+  end
+
   private
   def set_locale
     locale = cookies['locale']

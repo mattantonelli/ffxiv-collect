@@ -1,5 +1,6 @@
 class AchievementsController < ApplicationController
   include Collection
+  before_action :verify_character!, only: :index
 
   def index
     @types = AchievementType.all.order(:id).includes(:categories, :achievements)
