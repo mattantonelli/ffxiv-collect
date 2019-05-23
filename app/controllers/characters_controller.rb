@@ -40,7 +40,12 @@ class CharactersController < ApplicationController
         end
 
         flash[:success] = 'Your character has been set.'
-        redirect_to root_path
+
+        if user_signed_in?
+          redirect_to search_characters_path
+        else
+          redirect_to root_path
+        end
       end
     rescue XIVAPI::Errors::RequestError
       flash[:error] = 'There was a problem selecting that character.'
