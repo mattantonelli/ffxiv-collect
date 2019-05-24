@@ -4,10 +4,10 @@ set :output, 'log/whenever.log'
 
 # Sync stale verified characters hourly
 every '0 * * * *' do
-  rake 'characters:sync_verified'
+  rake 'characters:verified:sync'
 end
 
 # Sync stale unverified characters daily
 every '30 0 * * *' do
-  rake 'characters:sync_unverified'
+  rake 'characters:unverified:sync'
 end
