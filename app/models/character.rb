@@ -26,6 +26,9 @@ class Character < ApplicationRecord
   after_destroy :clear_user_characters
   belongs_to :verified_user, class_name: 'User', required: false
 
+  CHARACTER_COLUMNS = %w(Achievements Character.Avatar Character.ID Character.Minions Character.Mounts Character.Name
+  Character.ParseDate Character.Portrait Character.Server Info).freeze
+
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
@@ -62,7 +65,7 @@ class Character < ApplicationRecord
       return character
     end
 
-    result = XIVAPI_CLIENT.character(id: id, all_data: true, poll: true)
+    result = XIVAPI_CLIENT.character(id: id, all_data: true, poll: true, columns: CHARACTER_COLUMNS)
     Character.update(result)
   end
 
