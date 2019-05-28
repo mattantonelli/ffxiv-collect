@@ -3,7 +3,7 @@
     <h6 class="card-title">
       <% if local_assigns[:variant] %>
         <div class="d-flex align-items-center">
-          <%= minion_icon(minion) %>
+          <%= sprite(minion, 'minions-small') %>
           <span class="ml-2"><%= minion.name %></span>
         </div>
       <% else %>
