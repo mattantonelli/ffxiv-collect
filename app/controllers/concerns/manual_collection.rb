@@ -17,7 +17,7 @@ module ManualCollection
 
   def remove_collectable(collection, collectable)
     if verified?
-      collection.delete(collectable)
+      collection.destroy(collectable)
       head :no_content
     else
       head :not_found

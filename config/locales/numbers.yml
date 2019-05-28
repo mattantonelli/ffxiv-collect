@@ -1,0 +1,8 @@
+fr:
+  number:
+    format:
+      delimiter: ' '
+de:
+  number:
+    format:
+      delimiter: '.'

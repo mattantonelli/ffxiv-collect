@@ -217,6 +217,10 @@ hr {
       }
     }
   }
+
+  .card-footer {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }
 
 .form {
@@ -391,4 +395,8 @@ th.category {
 .image-large {
   width: 192px;
   height: 192px;
+}
+
+.font-small {
+  font-size: 0.8rem;
 }

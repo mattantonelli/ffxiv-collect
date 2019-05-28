@@ -20,9 +20,10 @@
           </div>
           <span><%= @character.server %> <%= verified(@character) if user_signed_in? %></span>
         </div>
-        <span class="updated">Last updated <%= time_ago_in_words(@character.last_parsed) %> ago.</span>
+        <%= last_updated(@character) %>
       </div>
       <hr class="my-2">
+      <%= link_to fa_icon('user', text: 'Character Profile'), character_path(@character), class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified? %>
         <%= link_to fa_icon('check-circle', text: 'Verify Character'), verify_character_path, class: 'dropdown-item' %>
       <% end %>
@@ -35,6 +36,7 @@
       <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
     <% end %>
     <% if user_signed_in? %>
+      <hr class="my-1">
       <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>

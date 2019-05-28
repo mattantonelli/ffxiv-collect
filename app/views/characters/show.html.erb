@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title">
+          Character Profile
+        </h5>
+        <% unless @character == @profile %>
+          <%= link_to fa_icon('exchange', text: 'Select this character'), select_character_path(@profile, location: :profile),
+            method: :post, class: 'btn btn-primary btn-sm' %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="portrait mr-4 d-none d-lg-block">
+            <%= image_tag(@profile.portrait) %>
+          </div>
+          <div class="d-flex flex-column w-100">
+            <div class="d-flex align-items-center">
+              <%= image_tag(@profile.avatar, class: 'avatar-profile mr-3 d-lg-none') %>
+              <div class="d-flex flex-column">
+                <h5 class="mb-1"><%= @profile.name %></h5>
+                <div>
+                  <%= @profile.server %>
+                  <% unless @profile.public? %>
+                    <span class="badge badge-danger">Private</span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex flex-wrap">
+              <div class="profile-progress">
+                <h6>Achievements</h6>
+                <% if @profile.achievements_count == -1 %>
+                  <span>Set to private.</span>
+                <% else %>
+                  <div class="d-flex flex-column">
+                    <div class="count">
+                      <%= render 'shared/progress', value: @profile.achievements_count,
+                        min: 0, max: Achievement.count, text: 'complete' %>
+                    </div>
+                    <div class="points mt-2">
+                      <%= render 'shared/progress', value: @profile.achievements.sum(:points),
+                        min: 0, max: Achievement.sum(:points), text: 'points' %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+              <% %w(mount minion orchestrion emote barding hairstyle armoire).each do |collectable| %>
+                <% if %w(mount minion).include?(collectable) || @profile.send("#{collectable}s_count") > 0 %>
+                  <div class="profile-progress">
+                    <h6><%= collectable.capitalize.pluralize %></h6>
+                    <div class="count">
+                      <%= render 'shared/progress', value: @profile.send("#{collectable}s_count"), min: 0,
+                        max: collectable.capitalize.constantize.count %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+              <% if @triad.present? %>
+                <div class="profile-progress">
+                  <h6>
+                    Triple Triad
+                    <span data-toggle="tooltip" title="Based on the character's verified user.">
+                      <%= fa_icon('exclamation-circle') %>
+                    </span>
+                  </h6>
+                  <% if @triad[:status] == :private %>
+                    <span>Set to private.</span>
+                  <% else %>
+                    <div class="count">
+                      <%= render 'shared/progress', value: @triad[:cards][:owned], min: 0, max: @triad[:cards][:total] %>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer py-2 pr-2">
+        <div class="text-right font-small">
+          <%= last_updated(@profile) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

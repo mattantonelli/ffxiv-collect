@@ -6,4 +6,8 @@ module CharactersHelper
       content_tag(:span, 'Unverified', class: 'badge badge-pill badge-secondary')
     end
   end
+
+  def last_updated(character)
+    content_tag(:span, "Last updated #{time_ago_in_words(character.last_parsed)} ago.", class: 'updated')
+  end
 end

@@ -39,6 +39,18 @@ class Character < ApplicationRecord
     Character.fetch(self.id, true)
   end
 
+  def triple_triad
+    if verified?
+      begin
+        response = RestClient.get("https://triad.raelys.com/api/users/#{verified_user.uid}?limit_missing=0")
+        JSON.parse(response, symbolize_names: true).merge(status: :ok)
+      rescue RestClient::Forbidden
+        { status: :private }
+      rescue RestClient::NotFound
+      end
+    end
+  end
+
   def verification_code(user)
     code = Digest::SHA2.hexdigest("#{user.id}-#{self.id}")
     "ffxivcollect:#{code}"

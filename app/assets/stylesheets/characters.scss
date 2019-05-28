@@ -32,3 +32,26 @@
     color: rgba(255, 255, 255, 0.7);
   }
 }
+
+.avatar-profile {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+div.portrait {
+  min-width: 293px;
+  min-height: 400px;
+
+  img {
+    width: 293px;
+    height: 400px;
+    border-radius: 3%;
+  }
+}
+
+.profile-progress {
+  width: 50% !important;
+  padding-right: 1rem !important;
+  margin-bottom: 1rem !important;
+}

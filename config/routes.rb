@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
   resources :achievements, only: [:index, :show]
 
-  resources :characters, only: [:destroy] do
+  resources :characters, only: [:show, :destroy] do
     get :search, on: :collection
     post :select, on: :member
   end

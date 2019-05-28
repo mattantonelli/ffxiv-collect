@@ -3,6 +3,17 @@ class CharactersController < ApplicationController
   before_action :verify_user!, only: [:edit, :update]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
 
+  def show
+    @profile = Character.find(params[:id])
+
+    unless @profile.public? || @profile.verified_user?(current_user)
+      flash[:error] = "This character's profile has been set to private."
+      redirect_back(fallback_location: root_path)
+    end
+
+    @triad = @profile.triple_triad
+  end
+
   def search
     @server, @name = params.values_at(:server, :name)
     @search = @server.present? && @name.present?
@@ -41,7 +52,9 @@ class CharactersController < ApplicationController
 
         flash[:success] = 'Your character has been set.'
 
-        if user_signed_in?
+        if params[:location] == 'profile'
+          redirect_to character_path(character)
+        elsif user_signed_in?
           redirect_to search_characters_path
         else
           redirect_to root_path
