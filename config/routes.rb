@@ -12,14 +12,14 @@ Rails.application.routes.draw do
     resources resource, only: [:index, :show]
   end
 
+  resources :orchestrions, only: [] do
+    get :select, on: :collection
+  end
+
   %i(orchestrions emotes bardings hairstyles armoires).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
     end
-  end
-
-  resources :orchestrions, only: [] do
-    get :select, on: :collection
   end
 
   get 'achievements/types', to: redirect('404')
