@@ -24,7 +24,7 @@
     <tr>
       <th scope="col">#</th> <!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Source</th>
+      <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -40,7 +40,7 @@
           <% end %>
         </td>
         <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
-        <td><%= sources(mount) %></td>
+        <td class="hide-xs"><%= sources(mount) %></td>
         <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@mount_ids, mount, false) %>

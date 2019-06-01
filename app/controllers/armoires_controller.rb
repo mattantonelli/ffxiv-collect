@@ -12,6 +12,10 @@ class ArmoiresController < ApplicationController
     @category = nil if @category < 1
   end
 
+  def show
+    @armoire = Armoire.find(params[:id])
+  end
+
   def add
     add_collectable(@character.armoires, Armoire.find(params[:id]))
   end

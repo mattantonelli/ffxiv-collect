@@ -12,6 +12,10 @@ class EmotesController < ApplicationController
     @category = nil if @category < 1
   end
 
+  def show
+    @emote = Emote.find(params[:id])
+  end
+
   def add
     add_collectable(@character.emotes, Emote.find(params[:id]))
   end

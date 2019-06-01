@@ -35,7 +35,7 @@ module CollectionsHelper
     end
   end
 
-  def sources(collectable)
+  def sources(collectable, list: false)
     sources = collectable.sources.map do |source|
       case(source.type.name)
       when 'Mog Station' then 'Mog Station'
@@ -44,6 +44,14 @@ module CollectionsHelper
       end
     end
 
-    sources.join('<br>').html_safe
+    if list && sources.size > 1
+      content_tag(:ul, class: 'list-unstyled mb-0') do
+        sources.each do |source|
+          concat content_tag(:li, "\u2022 #{source}")
+        end
+      end
+    else
+      sources.join('<br>').html_safe
+    end
   end
 end

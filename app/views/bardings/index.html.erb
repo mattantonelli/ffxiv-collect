@@ -25,7 +25,7 @@
     <tr>
       <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Source</th>
+      <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -36,8 +36,8 @@
     <% @bardings.each do |barding| %>
       <tr class="collectable<%= ' owned' if @barding_ids.include?(barding.id) %>">
         <td data-value="<%= barding.id %>"><%= sprite(barding, 'barding') %></td>
-        <td><%= barding.name %></td>
-        <td><%= sources(barding) %></td>
+        <td><%= link_to(barding.name, barding_path(barding), class: 'name') %></td>
+        <td class="hide-xs"><%= sources(barding) %></td>
         <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@barding_ids, barding) %>

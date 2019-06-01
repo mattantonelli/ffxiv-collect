@@ -1,15 +1,18 @@
 <div class="row">
   <div class="col-12 col-lg-10 offset-0 offset-lg-1">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header d-flex align-items-center">
+        <div class="d-lg-none mr-2">
+          <%= sprite(@mount, 'mounts-small') %>
+        </div>
         <h5 class="card-title"><%= @mount.name %></h5>
       </div>
       <div class="card-body">
         <div class="d-flex">
-          <div class="mount-large">
+          <div class="mount-large d-none d-lg-block mr-4">
             <%= sprite(@mount, 'mounts-large') %>
           </div>
-          <div class="d-flex flex-column flex-info ml-4">
+          <div class="d-flex flex-column flex-info">
             <div class="d-flex">
               <div>
                 <dt>Movement</dt>
@@ -30,6 +33,8 @@
                 <dd><%= @mount.patch %></dd>
               </div>
             </div>
+            <dt>Source</dt>
+            <dd><%= sources(@mount, list: true) %></dd>
             <dt>Description</dt>
             <dd><%= format_text(@mount.description) %></dd>
             <dt>Journal</dt>

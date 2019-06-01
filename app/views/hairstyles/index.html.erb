@@ -25,7 +25,7 @@
     <tr>
       <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Source</th>
+      <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -41,7 +41,7 @@
           <% end %>
         </td>
         <td><%= link_to hairstyle.name, hairstyle_path(hairstyle), class: 'name' %></td>
-        <td><%= sources(hairstyle) %></td>
+        <td class="hide-xs"><%= sources(hairstyle) %></td>
         <td class="text-center" data-value="<%= hairstyle.patch %><%= hairstyle.id %>"><%= hairstyle.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@hairstyle_ids, hairstyle) %>

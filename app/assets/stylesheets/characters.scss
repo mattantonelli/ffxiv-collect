@@ -40,12 +40,12 @@
 }
 
 div.portrait {
-  min-width: 293px;
-  min-height: 400px;
+  min-width: 308px;
+  min-height: 420px;
 
   img {
-    width: 293px;
-    height: 400px;
+    width: 308px;
+    height: 420px;
     border-radius: 3%;
   }
 }
@@ -53,5 +53,5 @@ div.portrait {
 .profile-progress {
   width: 50% !important;
   padding-right: 1rem !important;
-  margin-bottom: 1rem !important;
+  margin-top: 1rem !important;
 }

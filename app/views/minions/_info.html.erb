@@ -1,14 +1,17 @@
 <div class="card">
-  <div class="card-header">
+  <div class="card-header d-flex align-items-center">
+    <div class="d-lg-none mr-2">
+      <%= sprite(@minion, 'minions-small') %>
+    </div>
     <h5 class="card-title"><%= minion.name %></h5>
   </div>
   <div class="card-body">
     <div class="d-flex">
-      <div class="image-large">
+      <div class="image-large d-none d-lg-block mr-4">
         <%= sprite(minion, 'minions-large') %>
       </div>
-      <div class="d-flex flex-column flex-info ml-4">
-        <div class="d-flex">
+      <div class="d-flex flex-column flex-info">
+        <div class="d-flex mb-0">
           <div>
             <dt>Behavior</dt>
             <dd><%= minion.behavior.name %></dd>
@@ -18,6 +21,8 @@
             <dd><%= minion.patch %></dd>
           </div>
         </div>
+        <dt>Source</dt>
+        <dd><%= sources(minion, list: true) %></dd>
         <dt>Description</dt>
         <dd><%= format_text(minion.description) %></dd>
         <dt>Journal</dt>

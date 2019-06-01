@@ -26,7 +26,7 @@
     <tr>
       <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Source</th>
+      <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center">Category</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
@@ -38,8 +38,8 @@
     <% @emotes.each do |emote| %>
       <tr class="<%= category_row_classes(emote, @category, @emote_ids) %>">
         <td data-value="<%= emote.id %>"><%= sprite(emote, :emote) %></td>
-        <td><%= emote.name %></td>
-        <td><%= sources(emote) %></td>
+        <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
+        <td class="hide-xs"><%= sources(emote) %></td>
         <td class="text-center"><%= emote.category.name %></td>
         <td class="text-center" data-value="<%= emote.patch %><%= emote.id %>"><%= emote.patch %></td>
         <% if character_selected? %>

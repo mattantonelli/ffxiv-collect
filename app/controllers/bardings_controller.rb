@@ -8,6 +8,10 @@ class BardingsController < ApplicationController
     @barding_ids = @character&.barding_ids || []
   end
 
+  def show
+    @barding = Barding.find(params[:id])
+  end
+
   def add
     add_collectable(@character.bardings, Barding.find(params[:id]))
   end
