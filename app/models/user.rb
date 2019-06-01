@@ -22,8 +22,19 @@ class User < ApplicationRecord
   belongs_to :character, required: false
   has_many :user_characters
   has_many :characters, through: :user_characters
+  has_many :verified_characters, -> (user) { where(verified_user: user) }, through: :user_characters, source: :character
 
   devise :trackable, :omniauthable, omniauth_providers: [:discord]
+
+  def triple_triad
+    begin
+      response = RestClient.get("https://triad.raelys.com/api/users/#{self.uid}?limit_missing=0")
+      JSON.parse(response, symbolize_names: true).merge(status: :ok)
+    rescue RestClient::Forbidden
+      { status: :private }
+    rescue RestClient::NotFound
+    end
+  end
 
   def self.from_omniauth(auth)
     # Clean up any special characters in the username

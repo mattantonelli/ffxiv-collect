@@ -38,6 +38,11 @@ Rails.application.routes.draw do
   patch 'character/update',   to: 'characters#update',   as: :update_character
   delete 'character/forget',  to: 'characters#forget',   as: :forget_character
 
+  namespace :api do
+    resources :characters, only: :show
+    resources :users, only: :show
+  end
+
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
                                               ['{"status": 404, "error": "Not found"}'] ] }

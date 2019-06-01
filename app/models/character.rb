@@ -26,6 +26,9 @@ class Character < ApplicationRecord
   after_destroy :clear_user_characters
   belongs_to :verified_user, class_name: 'User', required: false
 
+  scope :verified, -> (user) { where(verified_user: user) }
+  scope :visible, -> { where(public: true) }
+
   CHARACTER_COLUMNS = %w(Achievements Character.Avatar Character.ID Character.Minions Character.Mounts Character.Name
   Character.ParseDate Character.Portrait Character.Server Info).freeze
 
@@ -40,15 +43,7 @@ class Character < ApplicationRecord
   end
 
   def triple_triad
-    if verified?
-      begin
-        response = RestClient.get("https://triad.raelys.com/api/users/#{verified_user.uid}?limit_missing=0")
-        JSON.parse(response, symbolize_names: true).merge(status: :ok)
-      rescue RestClient::Forbidden
-        { status: :private }
-      rescue RestClient::NotFound
-      end
-    end
+    verified_user&.triple_triad
   end
 
   def verification_code(user)
