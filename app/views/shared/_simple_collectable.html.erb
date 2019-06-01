@@ -3,8 +3,10 @@
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-          <%= sprite(collectable, collectable.class.to_s.downcase) %>
-          <h5 class="card-title ml-2"><%= collectable.name %></h5>
+          <div class="image-small">
+            <%= sprite(collectable, collectable.class.to_s.downcase) %>
+          </div>
+          <h5 class="card-title mx-2"><%= collectable.name %></h5>
         </div>
         <h5 class="mb-0"><%= collectable.patch %></h5>
       </div>
