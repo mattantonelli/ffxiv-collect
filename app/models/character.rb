@@ -77,7 +77,7 @@ class Character < ApplicationRecord
   end
 
   def self.sync(ids)
-    XIVAPI_CLIENT.characters(ids: ids, all_data: true).each do |data|
+    XIVAPI_CLIENT.characters(ids: ids, all_data: true, columns: CHARACTER_COLUMNS).each do |data|
       Character.update(data)
     end
   end
