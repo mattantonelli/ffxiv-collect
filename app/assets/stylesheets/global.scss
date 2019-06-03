@@ -357,7 +357,9 @@ input[type="checkbox"] {
 }
 
 .owned {
-  opacity: 0.4;
+  td, div {
+    opacity: 0.4;
+  }
 }
 
 table.sortable > thead th:not([data-defaultsort=disabled]) {
