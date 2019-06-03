@@ -34,9 +34,11 @@
         <%= link_to fa_icon('wrench', text: 'Character Settings'), character_settings_path, class: 'dropdown-item' %>
       <% end %>
       <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
+      <% if user_signed_in? %>
+        <hr class="my-1">
+      <% end %>
     <% end %>
     <% if user_signed_in? %>
-      <hr class="my-1">
       <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>
