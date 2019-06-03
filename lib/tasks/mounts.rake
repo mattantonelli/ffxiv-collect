@@ -42,9 +42,7 @@ namespace :mounts do
       end
     end
 
-    create_spritesheet('mounts/large')
     create_spritesheet('mounts/small')
-    create_spritesheet('mounts/footprint')
 
     puts "Created #{Mount.count - count} new mounts"
   end

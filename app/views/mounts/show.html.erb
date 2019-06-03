@@ -9,8 +9,8 @@
       </div>
       <div class="card-body">
         <div class="d-flex">
-          <div class="image-large d-none d-lg-block mr-4">
-            <%= sprite(@mount, 'mounts-large') %>
+          <div class="d-none d-lg-block mr-4">
+            <%= image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>
           </div>
           <div class="d-flex flex-column flex-info">
             <div class="d-flex">
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="mount-footprint">
-          <%= sprite(@mount, 'mounts-footprint') %>
+          <%= image_tag("mounts/footprint/#{@mount.id}.png") %>
         </div>
       </div>
     </div>

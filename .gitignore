@@ -31,8 +31,8 @@ Capfile
 config/deploy*
 
 # Images
-/app/assets/images/mounts*
-/app/assets/images/minions-*.png
+/app/assets/images/mounts-small.png
+/app/assets/images/minions-small.png
 /app/assets/images/items/*
 /app/assets/images/hairstyles/*
 /app/assets/images/achievements.png
