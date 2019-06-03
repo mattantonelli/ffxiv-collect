@@ -8,6 +8,12 @@ module CollectionsHelper
     @character.present?
   end
 
+  def collection_progress(collection, ids)
+    if collection.size > 0
+      render 'shared/progress', value: (collection.map(&:id) & ids).size, min: 0, max: collection.size
+    end
+  end
+
   def category_row_classes(collectable, active_category, ids = [])
     hidden = active_category.present? && collectable.category_id != active_category
     owned = ids.include?(collectable.id)

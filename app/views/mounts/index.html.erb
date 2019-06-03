@@ -16,7 +16,7 @@
 </div>
 <% if character_selected? %>
   <div class="my-2">
-    <%= render 'shared/progress', value: @mount_ids.size, min: 0, max: Mount.count %>
+    <%= collection_progress(@mounts, @mount_ids) %>
   </div>
 <% end %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">

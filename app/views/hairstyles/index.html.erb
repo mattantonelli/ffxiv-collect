@@ -16,7 +16,7 @@
 </div>
 <% if character_selected? %>
   <div class="my-2">
-    <%= render 'shared/progress', value: @hairstyle_ids.size, min: 0, max: Hairstyle.count %>
+    <%= collection_progress(@hairstyles, @hairstyle_ids) %>
   </div>
 <% end %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>

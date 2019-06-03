@@ -17,8 +17,8 @@
   </div>
 </div>
 <% if character_selected? %>
-  <div class="mt-2">
-    <%= render 'shared/progress', value: @minion_ids.size, min: 0, max: Minion.count %>
+  <div class="my-2">
+    <%= collection_progress(@minions, @minion_ids) %>
   </div>
 <% end %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable">
