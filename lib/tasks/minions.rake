@@ -9,15 +9,24 @@ namespace :minions do
     puts 'Creating minions'
 
     XIVAPI_CLIENT.content(name: 'CompanionMove', columns: %w(ID Name_*)).each do |type|
-      MinionBehavior.find_or_create_by!(type.to_h) if type[:name_en].present?
+      if type[:name_en].present?
+        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        MinionBehavior.find_or_create_by!(data)
+      end
     end
 
     XIVAPI_CLIENT.content(name: 'MinionRace', columns: %w(ID Name_*)).each do |race|
-      MinionRace.find_or_create_by!(race.to_h) if race[:name_en].present?
+      if race[:name_en].present?
+        data = race.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        MinionRace.find_or_create_by!(data)
+      end
     end
 
     XIVAPI_CLIENT.content(name: 'MinionSkillType', columns: %w(ID Name_*)).each do |type|
-      MinionSkillType.find_or_create_by!(type.to_h) if type[:name_en].present?
+      if type[:name_en].present?
+        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        MinionSkillType.find_or_create_by!(data)
+      end
     end
 
     count = Minion.count

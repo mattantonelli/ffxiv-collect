@@ -7,7 +7,10 @@ namespace :achievements do
     puts 'Creating achievements'
 
     XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_*)).each do |type|
-      AchievementType.find_or_create_by!(type.to_h) if type[:name_en].present?
+      if type[:name_en].present?
+        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        AchievementType.find_or_create_by!(data)
+      end
     end
 
     XIVAPI_CLIENT.content(name: 'AchievementCategory', columns: %w(ID Name_* AchievementKindTargetID)).each do |category|

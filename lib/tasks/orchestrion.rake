@@ -8,7 +8,10 @@ namespace :orchestrions do
 
     XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_*)).each do |category|
       next if category.id == 1
-      OrchestrionCategory.find_or_create_by!(category.to_h) if category[:name_en].present?
+      if category[:name_en].present?
+        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        OrchestrionCategory.find_or_create_by!(data)
+      end
     end
 
     count = Orchestrion.count
