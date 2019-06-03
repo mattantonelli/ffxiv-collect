@@ -14,6 +14,7 @@
 #  patch          :string(255)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  item_id        :integer
 #
 
 class Hairstyle < ApplicationRecord

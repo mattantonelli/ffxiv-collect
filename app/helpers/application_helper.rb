@@ -66,4 +66,12 @@ module ApplicationHelper
   def ga_tid
     Rails.application.credentials.dig(:google_analytics, :tracking_id)
   end
+
+  def teamcraft_url(item_id)
+    "https://ffxivteamcraft.com/db/#{I18n.locale}/item/#{item_id}"
+  end
+
+  def mogboard_url(item_id)
+    "https://mogboard.com/market/#{item_id}"
+  end
 end

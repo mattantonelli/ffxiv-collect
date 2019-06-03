@@ -45,6 +45,7 @@
 #  enhanced_description_de :string(1000)     not null
 #  enhanced_description_fr :string(1000)     not null
 #  enhanced_description_ja :string(1000)     not null
+#  item_id                 :integer
 #
 
 class Minion < ApplicationRecord

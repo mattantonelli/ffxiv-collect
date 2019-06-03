@@ -35,6 +35,7 @@
       <th scope="col" class="name">Name</th>
       <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="category text-center">Category</th>
+      <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -49,6 +50,7 @@
         <td><%= link_to(orchestrion.name, orchestrion_path(orchestrion), class: 'name') %></td>
         <td class="hide-xs"><%= format_text_long(orchestrion.description) %></td>
         <td class="text-center"><%= orchestrion.category.name %></td>
+        <td class="text-center" data-value="<%= orchestrion.item_id.present? ? 1 : 0 %>"><%= mogboard_link(orchestrion) %></td>
         <td class="text-center" data-value="<%= orchestrion.patch %><%= orchestrion.id %>"><%= orchestrion.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@orchestrion_ids, orchestrion) %>

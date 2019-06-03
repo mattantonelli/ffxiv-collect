@@ -9,6 +9,7 @@
 #  type_id          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  related_id       :integer
 #
 
 class Source < ApplicationRecord

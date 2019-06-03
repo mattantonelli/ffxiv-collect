@@ -18,7 +18,7 @@ module AchievementsHelper
   end
 
   def achievement_item_link(achievement)
-    link_to achievement.item_name, "http://www.garlandtools.org/db/#item/#{achievement.item_id}", target: '_blank'
+    link_to achievement.item_name, teamcraft_url(achievement.item_id), target: '_blank'
   end
 
   def achievement_completion(category, ids)

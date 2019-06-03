@@ -41,11 +41,27 @@ module CollectionsHelper
     end
   end
 
+  def mogboard_link(collectable)
+    if collectable.item_id.present?
+      link_to(fa_icon('dollar'), mogboard_url(collectable.item_id), target: '_blank')
+    end
+  end
+
+  def teamcraft_link(collectable, source)
+    if collectable.item_id.present?
+      link_to(source.text, teamcraft_url(collectable.item_id))
+    else
+      source.text
+    end
+  end
+
   def sources(collectable, list: false)
     sources = collectable.sources.map do |source|
       case(source.type.name)
       when 'Mog Station' then 'Mog Station'
-      when 'Achievement' then "Achievement: #{source.text}"
+      when 'Achievement' then link_to(source.text, achievement_path(source.related_id))
+      when 'Crafting' then teamcraft_link(collectable, source)
+      when 'Gathering' then teamcraft_link(collectable, source)
       when 'Feast' then "The Feast: #{source.text}"
       else source.text
       end

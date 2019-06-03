@@ -5,7 +5,8 @@ namespace :data do
   task initialize: :environment do
     Rake::Task['data:update'].invoke
     Rake::Task['patches:set'].invoke
-    Rake::Task['sources:set'].invoke
+    Rake::Task['sources:create_types'].invoke
+    Rake::Task['sources:initialize'].invoke
   end
 
   desc 'Updates all data'
@@ -18,6 +19,7 @@ namespace :data do
     Rake::Task['bardings:create'].invoke
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
+    Rake::Task['sources:update'].invoke
   end
 end
 

@@ -26,6 +26,7 @@
       <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col" class="hide-xs">Source</th>
+      <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -42,6 +43,7 @@
         </td>
         <td><%= link_to hairstyle.name, hairstyle_path(hairstyle), class: 'name' %></td>
         <td class="hide-xs"><%= sources(hairstyle) %></td>
+        <td class="text-center" data-value="<%= hairstyle.item_id.present? ? 1 : 0 %>"><%= mogboard_link(hairstyle) %></td>
         <td class="text-center" data-value="<%= hairstyle.patch %><%= hairstyle.id %>"><%= hairstyle.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@hairstyle_ids, hairstyle) %>

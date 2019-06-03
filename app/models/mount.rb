@@ -26,6 +26,7 @@
 #  updated_at              :datetime         not null
 #  movement                :string(255)      not null
 #  seats                   :integer          not null
+#  item_id                 :integer
 #
 
 class Mount < ApplicationRecord

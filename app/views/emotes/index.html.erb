@@ -28,6 +28,7 @@
       <th scope="col">Name</th>
       <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center">Category</th>
+      <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
         <th scope="col" class="text-center">Own</th>
@@ -41,6 +42,7 @@
         <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
         <td class="hide-xs"><%= sources(emote) %></td>
         <td class="text-center"><%= emote.category.name %></td>
+        <td class="text-center" data-value="<%= emote.item_id.present? ? 1 : 0 %>"><%= mogboard_link(emote) %></td>
         <td class="text-center" data-value="<%= emote.patch %><%= emote.id %>"><%= emote.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@emote_ids, emote) %>

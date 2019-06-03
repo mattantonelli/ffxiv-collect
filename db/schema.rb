@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_17_135829) do
+ActiveRecord::Schema.define(version: 2019_06_03_190505) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.string "patch"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "item_id"
     t.index ["name_de"], name: "index_bardings_on_name_de"
     t.index ["name_en"], name: "index_bardings_on_name_en"
     t.index ["name_fr"], name: "index_bardings_on_name_fr"
@@ -245,6 +246,11 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "item_id"
+    t.string "command_en"
+    t.string "command_de"
+    t.string "command_fr"
+    t.string "command_ja"
     t.index ["category_id"], name: "index_emotes_on_category_id"
     t.index ["name_de"], name: "index_emotes_on_name_de"
     t.index ["name_en"], name: "index_emotes_on_name_en"
@@ -265,6 +271,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.string "patch"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "item_id"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"
     t.index ["name_fr"], name: "index_hairstyles_on_name_fr"
@@ -342,6 +349,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.string "enhanced_description_de", limit: 1000, null: false
     t.string "enhanced_description_fr", limit: 1000, null: false
     t.string "enhanced_description_ja", limit: 1000, null: false
+    t.integer "item_id"
     t.index ["behavior_id"], name: "index_minions_on_behavior_id"
     t.index ["name_de"], name: "index_minions_on_name_de"
     t.index ["name_en"], name: "index_minions_on_name_en"
@@ -376,6 +384,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.datetime "updated_at", null: false
     t.string "movement", null: false
     t.integer "seats", null: false
+    t.integer "item_id"
     t.index ["name_de"], name: "index_mounts_on_name_de"
     t.index ["name_en"], name: "index_mounts_on_name_en"
     t.index ["name_fr"], name: "index_mounts_on_name_fr"
@@ -411,6 +420,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "item_id"
     t.index ["category_id"], name: "index_orchestrions_on_category_id"
     t.index ["name_de"], name: "index_orchestrions_on_name_de"
     t.index ["name_en"], name: "index_orchestrions_on_name_en"
@@ -433,6 +443,7 @@ ActiveRecord::Schema.define(version: 2019_05_17_135829) do
     t.integer "type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "related_id"
     t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
     t.index ["type_id"], name: "index_sources_on_type_id"
   end

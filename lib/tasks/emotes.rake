@@ -1,4 +1,4 @@
-EMOTE_COLUMNS = %w(ID Name_* GamePatch.Version EmoteCategoryTargetID Icon).freeze
+EMOTE_COLUMNS = %w(ID Name_* GamePatch.Version EmoteCategoryTargetID TextCommand.Command_* Icon).freeze
 
 namespace :emotes do
   desc 'Create the emotes'
@@ -6,7 +6,10 @@ namespace :emotes do
     puts 'Creating emotes'
 
     XIVAPI_CLIENT.content(name: 'EmoteCategory', columns: %w(ID Name_*)).each do |category|
-      EmoteCategory.find_or_create_by!(category.to_h) if category[:name_en].present?
+      if category[:name_en].present?
+        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        EmoteCategory.find_or_create_by!(data)
+      end
     end
 
     count = Emote.count
@@ -16,6 +19,7 @@ namespace :emotes do
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(emote["name_#{locale}"])
+        data["command_#{locale}"] = emote.text_command["command_#{locale}"]
       end
 
       download_image(emote.id, emote.icon, 'emotes')

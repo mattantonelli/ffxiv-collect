@@ -1,1 +1,26 @@
-<%= render 'shared/simple_collectable', collectable: @emote %>
+<div class="row">
+  <div class="col-12 col-sm-10 offset-sm-1 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <div class="image-small">
+          <%= sprite(@emote, 'emote') %>
+        </div>
+        <h5 class="card-title mx-2"><%= @emote.name %></h5>
+      </div>
+      <div class="card-body py-3">
+        <div class="d-flex mb-2">
+          <div class="mr-5">
+            <dt>Command</dt>
+            <dd><%= @emote.command %></dd>
+          </div>
+          <div>
+            <dt>Patch</dt>
+            <dd><%= @emote.patch %></dd>
+          </div>
+        </div>
+        <dt>Source</dt>
+        <dd class="mb-0"><%= sources(@emote, list: true) %></dd>
+      </div>
+    </div>
+  </div>
+</div>
