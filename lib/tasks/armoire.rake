@@ -1,4 +1,5 @@
 ARMOIRE_COLUMNS = %w(ID Order CategoryTargetID Item.ID Item.Icon Item.Name_*).freeze
+ARMOIRE_ITEM_COLUMNS = %w(ID GameContentLinks.Achievement.Item GamePatch.Version).freeze
 
 namespace :armoires do
   desc 'Create the armoire items'
@@ -33,16 +34,27 @@ namespace :armoires do
         nil
       else
         Armoire.create!(data)
-        data.merge(item_id: armoire.item.id)
       end
+
+      data.merge(item_id: armoire.item.id)
     end
 
-    # Add patch data to newly created Armoire entries
+    # Add patch data and achievement sources
     item_ids = armoires.compact!.pluck(:item_id)
-    if item_ids.present?
-      [*XIVAPI_CLIENT.content(name: 'Item', ids: item_ids, columns: %w(ID GamePatch.Version), limit: 1000)].each do |item|
+    achievement_type = SourceType.find_by(name: 'Achievement')
+
+    item_ids.each_slice(1000) do |ids|
+      [*XIVAPI_CLIENT.content(name: 'Item', ids: ids, columns: ARMOIRE_ITEM_COLUMNS, limit: 1000)].each do |item|
         id = armoires.find { |armoire| armoire[:item_id] == item.id }[:id]
-        Armoire.find(id).update!(patch: item.game_patch.version)
+        achievement_id = item.game_content_links.achievement.item&.first
+        armoire = Armoire.find(id)
+
+        armoire.update!(patch: item.game_patch.version)
+
+        if achievement_id.present?
+          achievement = Achievement.find(achievement_id)
+          armoire.sources.find_or_create_by!(type: achievement_type, text: achievement.name_en, related_id: achievement_id)
+        end
       end
     end
 
