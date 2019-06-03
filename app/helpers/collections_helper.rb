@@ -49,7 +49,7 @@ module CollectionsHelper
 
   def teamcraft_link(collectable, source)
     if collectable.item_id.present?
-      link_to(source.text, teamcraft_url(collectable.item_id))
+      link_to(source.text, teamcraft_url(collectable.item_id), target: '_blank')
     else
       source.text
     end
