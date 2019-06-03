@@ -40,6 +40,7 @@ module CollectionsHelper
       case(source.type.name)
       when 'Mog Station' then 'Mog Station'
       when 'Achievement' then "Achievement: #{source.text}"
+      when 'Feast' then "The Feast: #{source.text}"
       else source.text
       end
     end

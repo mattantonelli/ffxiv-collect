@@ -5,7 +5,7 @@ namespace :sources do
   task set: :environment do
     puts 'Setting initial collectable sources'
 
-    source_names = ['Achievement', 'Category', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE',
+    source_names = ['Achievement', 'Category', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE', 'Feast,'
                     'Gathering', 'Mog Station', 'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture']
 
     source_names.each_with_index do |name, i|
