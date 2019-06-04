@@ -33,7 +33,7 @@
         <% elsif @achievement.item_id.present? %>
           <hr>
           <dt>Item Reward</dt>
-          <dd><%= achievement_item_link(@achievement) %></dd>
+          <dd><%= link_to @achievement.item_name, teamcraft_url(:item, @achievement.item_id), target: '_blank' %></dd>
         <% end %>
       </div>
     </div>

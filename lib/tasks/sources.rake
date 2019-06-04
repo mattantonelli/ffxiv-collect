@@ -1,6 +1,7 @@
 require 'csv'
 
 RECIPE_COLUMNS = %w(ID ClassJob.Name_en).freeze
+QUEST_COLUMNS = %w(ID Name_* ItemReward00 ItemReward01 ItemReward02 ItemReward03 ItemReward04 ItemReward05).freeze
 ITEM_COLUMNS = %w(ID Name_en Description_en ItemAction.Data0 GameContentLinks.Achievement.Item
 GameContentLinks.Recipe.ItemResult IsUntradable).freeze
 
@@ -28,7 +29,17 @@ namespace :sources do
         data = { type_id: sources[row[1]], text: row[2] }
 
         if row[1] == 'Achievement'
-          data[:related_id] = Achievement.find_by(name_en: row[2]).id
+          data.merge!(related_type: 'Achievement', related_id: Achievement.find_by(name_en: row[2]).id)
+        elsif Instance.valid_types.include?(row[1])
+          if related_id = Instance.find_by(name_en: row[2])&.id
+            data.delete(:text)
+            data.merge!(related_type: 'Instance', related_id: related_id)
+          end
+        elsif row[1] == 'Quest'
+          if related_id = Quest.find_by(name_en: row[2])&.id
+            data.delete(:text)
+            data.merge!(related_type: 'Quest', related_id: related_id)
+          end
         end
 
         model.find_by(name_en: row[0]).sources.find_or_create_by!(data)
@@ -38,10 +49,10 @@ namespace :sources do
 
   desc 'Sets item IDs and known sources for various collectables'
   task update: :environment do
-    achievement_type, crafting_type = SourceType.where(name: ['Achievement', 'Crafting']).pluck(:id)
+    achievement_type, crafting_type, quest_type = SourceType.where(name: %w(Achievement Crafting Quest)).pluck(:id)
     collections = { Mount => 1322, Minion => 853, Orchestrion => 5845, Emote => 2633, Barding => 1013, Hairstyle => 2633 }
 
-    collections.each do |collection, type|
+    collectables = collections.each_with_object({}) do |(collection, type), h|
       XIVAPI_CLIENT.search(indexes: 'Item', columns: ITEM_COLUMNS, filters: "ItemAction.Type=#{type}", limit: 999).each do |item|
         if collection == Emote
           next unless item.name_en.match?('Ballroom Etiquette')
@@ -62,12 +73,27 @@ namespace :sources do
         if achievement_id.present?
           achievement = Achievement.find(achievement_id)
           collectable.sources.find_or_create_by!(text: achievement.name_en, type_id: achievement_type,
-                                                 related_id: achievement_id)
+                                                 related_type: 'Achievement', related_id: achievement_id)
         end
 
         recipe_id = item.game_content_links.recipe.item_result&.first
         if recipe_id.present? && !collectable.sources.exists?(type_id: crafting_type)
           collectable.sources.create!(type_id: crafting_type, related_id: recipe_id)
+        end
+
+        h[item.id] = collectable
+      end
+    end
+
+    collectable_ids = collectables.keys
+    XIVAPI_CLIENT.search(indexes: 'Quest', columns: QUEST_COLUMNS, filters: 'ItemReward00>0', limit: 10000)
+      .each_with_object({}) do |quest, h|
+      (0..5).each do |i|
+        reward = quest["item_reward0#{i}"]
+        break if reward == 0
+
+        if collectable_ids.include?(reward)
+          collectables[reward].sources.find_or_create_by!(type_id: quest_type, related_type: 'Quest', related_id: quest.id)
         end
       end
     end

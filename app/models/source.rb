@@ -10,9 +10,11 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  related_id       :integer
+#  related_type     :string(255)
 #
 
 class Source < ApplicationRecord
   belongs_to :collectable, polymorphic: true
+  belongs_to :related, polymorphic: true, required: false
   belongs_to :type, class_name: 'SourceType'
 end

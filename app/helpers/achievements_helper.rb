@@ -17,10 +17,6 @@ module AchievementsHelper
     end
   end
 
-  def achievement_item_link(achievement)
-    link_to achievement.item_name, teamcraft_url(achievement.item_id), target: '_blank'
-  end
-
   def achievement_completion(category, ids)
     achievements = category.achievements
     complete = (achievements.map(&:id) & ids).size

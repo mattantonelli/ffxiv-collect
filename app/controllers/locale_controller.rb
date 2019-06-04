@@ -3,6 +3,6 @@ class LocaleController < ApplicationController
     locale = params[:locale]&.downcase
     locale = I18n.default_locale unless %w(en de fr ja).include?(locale)
     cookies[:locale] = locale.downcase
-    redirect_to request.referer.gsub(/\?.*/, '')
+    redirect_to request.referer
   end
 end

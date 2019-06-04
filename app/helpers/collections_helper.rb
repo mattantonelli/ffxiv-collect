@@ -47,30 +47,39 @@ module CollectionsHelper
     end
   end
 
-  def teamcraft_link(collectable, source)
-    if collectable.item_id.present?
-      link_to(source.text, teamcraft_url(collectable.item_id), target: '_blank')
+  def teamcraft_link(type, text, id = nil)
+    if id.present?
+      link_to(text, teamcraft_url(type, id), target: '_blank')
     else
-      source.text
+      text
     end
   end
 
   def sources(collectable, list: false)
     sources = collectable.sources.map do |source|
-      case(source.type.name)
-      when 'Mog Station' then 'Mog Station'
-      when 'Achievement' then link_to(source.text, achievement_path(source.related_id))
-      when 'Crafting' then teamcraft_link(collectable, source)
-      when 'Gathering' then teamcraft_link(collectable, source)
-      when 'Feast' then "The Feast: #{source.text}"
-      else source.text
+      type = source.type.name
+
+      if type == 'Achievement'
+        link_to(source.related.name, achievement_path(source.related_id))
+      elsif Instance.valid_types.include?(type)
+        teamcraft_link(:instance, source.related&.name || source.text, source.related_id)
+      elsif type == 'Crafting' || type == 'Gathering'
+        teamcraft_link(:item, source.text, collectable.item_id)
+      elsif type == 'Quest'
+        teamcraft_link(:quest, source.related&.name || source.text, source.related_id)
+      elsif type == 'Feast'
+        "The Feast: #{type}"
+      elsif type == 'Mog Station'
+        'Mog Station'
+      else
+        source.text
       end
     end
 
     if list && sources.size > 1
       content_tag(:ul, class: 'list-unstyled mb-0') do
         sources.each do |source|
-          concat content_tag(:li, "\u2022 #{source}")
+          concat content_tag(:li, "\u2022 #{source}".html_safe)
         end
       end
     else

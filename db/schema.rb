@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_03_190505) do
+ActiveRecord::Schema.define(version: 2019_06_04_164532) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -279,6 +279,18 @@ ActiveRecord::Schema.define(version: 2019_06_03_190505) do
     t.index ["patch"], name: "index_hairstyles_on_patch"
   end
 
+  create_table "instances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "content_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_type"], name: "index_instances_on_content_type"
+    t.index ["name_en"], name: "index_instances_on_name_en"
+  end
+
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -429,6 +441,16 @@ ActiveRecord::Schema.define(version: 2019_06_03_190505) do
     t.index ["patch"], name: "index_orchestrions_on_patch"
   end
 
+  create_table "quests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_en"], name: "index_quests_on_name_en"
+  end
+
   create_table "source_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -444,7 +466,9 @@ ActiveRecord::Schema.define(version: 2019_06_03_190505) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "related_id"
+    t.string "related_type"
     t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
+    t.index ["related_id", "related_type"], name: "index_sources_on_related_id_and_related_type"
     t.index ["type_id"], name: "index_sources_on_type_id"
   end
 

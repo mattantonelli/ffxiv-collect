@@ -53,7 +53,8 @@ namespace :armoires do
 
         if achievement_id.present?
           achievement = Achievement.find(achievement_id)
-          armoire.sources.find_or_create_by!(type: achievement_type, text: achievement.name_en, related_id: achievement_id)
+          armoire.sources.find_or_create_by!(type: achievement_type, text: achievement.name_en,
+                                             related_type: 'Achievement', related_id: achievement_id)
         end
       end
     end

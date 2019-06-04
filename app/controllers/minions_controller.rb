@@ -3,7 +3,8 @@ class MinionsController < ApplicationController
 
   def index
     @q = Minion.summonable.ransack(params[:q])
-    @minions = @q.result.includes(:behavior, :race, :skill_type, sources: :type).order(patch: :desc, id: :desc).distinct
+    @minions = @q.result.includes(:behavior, :race, :skill_type, sources: [:type, :related])
+      .order(patch: :desc, id: :desc).distinct
     @types = source_types(:minion)
     @minion_ids = @character&.minion_ids || []
   end
