@@ -54,6 +54,10 @@ module ApplicationHelper
     content_tag(:span, text.truncate(length), data: data)
   end
 
+  def fa_check(condition, text = true)
+    condition ? fa_icon('check', text: ('Yes' if text)) : fa_icon('times', text: ('No' if text))
+  end
+
   def region
     case(I18n.locale)
     when :fr then 'fr'

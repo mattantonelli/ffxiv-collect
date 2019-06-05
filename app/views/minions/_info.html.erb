@@ -11,10 +11,14 @@
         <%= image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
       </div>
       <div class="d-flex flex-column flex-info">
-        <div class="d-flex mb-0">
+        <div class="d-flex flex-wrap mb-0">
           <div>
             <dt>Behavior</dt>
             <dd><%= minion.behavior.name %></dd>
+          </div>
+          <div>
+            <dt>Tradeable</dt>
+            <dd><%= tradeable(@minion) %></dd>
           </div>
           <div>
             <dt>Patch</dt>

@@ -41,6 +41,18 @@ module CollectionsHelper
     end
   end
 
+  def tradeable(collectable)
+    can_trade = collectable[:item_id].present?
+
+    if can_trade
+      link_to(mogboard_url(collectable[:item_id]), class: 'name', target: '_blank') do
+        fa_check(can_trade)
+      end
+    else
+      fa_check(can_trade)
+    end
+  end
+
   def mogboard_link(collectable)
     if collectable.item_id.present?
       link_to(fa_icon('dollar'), mogboard_url(collectable.item_id), target: '_blank')

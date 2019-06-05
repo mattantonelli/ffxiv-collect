@@ -8,11 +8,22 @@
           </div>
           <h5 class="card-title mx-2"><%= collectable.name %></h5>
         </div>
-        <h5 class="mb-0"><%= collectable.patch %></h5>
       </div>
       <div class="card-body py-3">
-        <dt>Source</dt>
-        <dd class="mb-0"><%= sources(collectable, list: true) %></dd>
+        <div class="d-flex flex-column flex-info">
+          <div class="d-flex flex-wrap">
+            <div>
+              <dt>Tradeable</dt>
+              <dd><%= tradeable(collectable) %></dd>
+            </div>
+            <div>
+              <dt>Patch</dt>
+              <dd><%= collectable.patch %></dd>
+            </div>
+          </div>
+          <dt>Source</dt>
+          <dd class="mb-0"><%= sources(collectable, list: true) %></dd>
+        </div>
       </div>
     </div>
   </div>

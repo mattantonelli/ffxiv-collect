@@ -10,13 +10,17 @@
       </div>
       <div class="card-body">
         <div class="d-flex flex-column flex-info">
-          <div class="d-flex">
+          <div class="d-flex flex-wrap">
             <div>
               <dt>Category</dt>
               <dd>
                 <%= link_to @orchestrion.category.name,
                   orchestrions_path(category: @orchestrion.category_id), class: 'unstyled' %>
               </dd>
+            </div>
+            <div>
+              <dt>Tradeable</dt>
+              <dd><%= tradeable(@orchestrion) %></dd>
             </div>
             <div>
               <dt>Patch</dt>

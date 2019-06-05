@@ -8,18 +8,24 @@
         <h5 class="card-title mx-2"><%= @emote.name %></h5>
       </div>
       <div class="card-body py-3">
-        <div class="d-flex mb-2">
-          <div class="mr-5">
-            <dt>Command</dt>
-            <dd><%= @emote.command %></dd>
+        <div class="d-flex flex-column flex-info">
+          <div class="d-flex flex-wrap">
+            <div>
+              <dt>Command</dt>
+              <dd><%= @emote.command %></dd>
+            </div>
+            <div>
+              <dt>Tradeable</dt>
+              <dd><%= tradeable(@emote) %></dd>
+            </div>
+            <div>
+              <dt>Patch</dt>
+              <dd><%= @emote.patch %></dd>
+            </div>
           </div>
-          <div>
-            <dt>Patch</dt>
-            <dd><%= @emote.patch %></dd>
-          </div>
+          <dt>Source</dt>
+          <dd class="mb-0"><%= sources(@emote, list: true) %></dd>
         </div>
-        <dt>Source</dt>
-        <dd class="mb-0"><%= sources(@emote, list: true) %></dd>
       </div>
     </div>
   </div>
