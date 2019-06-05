@@ -80,7 +80,7 @@ module CollectionsHelper
       elsif type == 'Quest'
         teamcraft_link(:quest, source.related&.name || source.text, source.related_id)
       elsif type == 'Feast'
-        "The Feast: #{type}"
+        "The Feast: #{source.text}"
       elsif type == 'Mog Station'
         'Mog Station'
       else
