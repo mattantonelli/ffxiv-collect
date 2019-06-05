@@ -39,6 +39,11 @@
       <% end %>
     <% end %>
     <% if user_signed_in? %>
+      <% if current_user.admin? %>
+        <%= link_to fa_icon('user', text: 'Manage Users'), admin_users_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('users', text: 'Manage Characters'), admin_characters_path, class: 'dropdown-item' %>
+        <hr class="my-1">
+      <% end %>
       <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>

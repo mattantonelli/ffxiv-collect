@@ -1,0 +1,9 @@
+form.admin-search-form {
+  select, label, input[type=search] {
+    margin-right: 1rem;
+  }
+
+  input[type=checkbox] {
+    margin-right: 0.25rem;
+  }
+}

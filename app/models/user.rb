@@ -16,6 +16,8 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  character_id       :integer
+#  admin              :boolean          default(FALSE)
+#  mod                :boolean          default(FALSE)
 #
 
 class User < ApplicationRecord

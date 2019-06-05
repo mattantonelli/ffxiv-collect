@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex align-items-center">
+      <%= link_to :admin_characters, class: 'unstyled mr-auto pt-1' do %>
+        <h5>Manage Characters</h5>
+      <% end %>
+      <%= search_form_for(@q, url: admin_characters_path, class: 'form form-inline admin-search-form') do |f| %>
+        <%= f.select :server_eq, Character.servers, { include_blank: 'All Servers' }, class: 'form-control form-control-sm' %>
+        <%= check_box_tag :verified, 1, @verified, class: 'form-control' %>
+        <%= label_tag :verified %>
+        <%= check_box_tag :public, 1, @public, class: 'form-control' %>
+        <%= label_tag :public %>
+        <%= f.search_field :name_cont, placeholder: 'Name', size: 30, class: 'form-control form-control-sm' %>
+        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body card-table">
+    <table class="table table-striped table-sm">
+      <tr>
+        <th></th> <!-- Avatar -->
+        <th>Name</th>
+        <th>Server</th>
+        <th>Last Parsed</th>
+        <th>Verified User</th>
+        <th class="text-center mr-4">Public</th>
+        <th></th> <!-- Buttons -->
+      </tr>
+      <% @characters.each do |character| %>
+        <tr>
+          <td><%= image_tag(character.avatar, class: 'avatar') %></td>
+          <td><%= character.name %></td>
+          <td><%= character.server %></td>
+          <td><%= format_date(character.last_parsed) %></td>
+          <td><%= username(character.verified_user) %></td>
+          <td class="text-center"><%= fa_check(character.public?, false) %></td>
+          <td class="pr-0">
+            <%= link_to fa_icon('info-circle'), character_path(character), class: 'btn btn-secondary btn-sm' %>
+            <% if character.verified? %>
+              <%= link_to fa_icon('times'), unverify_admin_character_path(character), method: :delete,
+                data: { confirm: 'Are you sure you want to unverify this character?' }, class: 'btn btn-secondary btn-sm' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="card-footer d-flex justify-content-center mb-0">
+    <%= will_paginate(@characters) %>
+  </div>
+</div>
