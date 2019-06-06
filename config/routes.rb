@@ -45,9 +45,15 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: :index
+
     resources :characters, only: :index do
       delete :unverify, on: :member
     end
+  end
+
+  namespace :mod do
+    resources :mounts, only: [:index, :edit, :update]
+    resources :sources, only: :destroy
   end
 
   get '404', to: 'home#not_found', as: :not_found

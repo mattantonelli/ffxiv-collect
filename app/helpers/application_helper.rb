@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def active_link?(path, path_controller = nil)
     if path_controller.present?
-      controller_name.include?(path_controller)
+      controller_path == path_controller
     else
       current_page?(path)
     end

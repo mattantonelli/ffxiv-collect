@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <%= link_to :mod_mounts, class: 'unstyled mr-auto pt-1' do %>
+        <h5>Manage Mounts</h5>
+      <% end %>
+      <%= search_form_for(@q, url: mod_mounts_path, class: 'form form-inline') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 30, class: 'form-control form-control-sm mr-2' %>
+        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body card-table">
+    <table class="table table-striped table-sm">
+      <tr>
+        <th></th> <!-- Image -->
+        <th>Name</th>
+        <th>Source</th>
+        <th>Patch</th>
+        <th></th> <!-- Actions -->
+      </tr>
+      <% @mounts.each do |mount| %>
+        <tr>
+          <td><%= sprite(mount, 'mounts-small') %></td>
+          <td><%= mount.name %></td>
+          <td><%= sources(mount) %></td>
+          <td><%= mount.patch %></td>
+          <td class="text-center">
+            <%= link_to fa_icon('pencil', class: 'btn btn-secondary btn-sm'), edit_mod_mount_path(mount) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="card-footer d-flex justify-content-center mb-0">
+    <%= will_paginate(@mounts) %>
+  </div>
+</div>

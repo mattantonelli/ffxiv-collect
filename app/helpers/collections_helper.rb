@@ -53,6 +53,14 @@ module CollectionsHelper
     end
   end
 
+  def achievement_link(source)
+    if source.related_id.present?
+      link_to(source.related.name, achievement_path(source.related_id))
+    else
+      source.text
+    end
+  end
+
   def mogboard_link(collectable)
     if collectable.item_id.present?
       link_to(fa_icon('dollar'), mogboard_url(collectable.item_id), target: '_blank')
@@ -72,7 +80,7 @@ module CollectionsHelper
       type = source.type.name
 
       if type == 'Achievement'
-        link_to(source.related.name, achievement_path(source.related_id))
+        achievement_link(source)
       elsif Instance.valid_types.include?(type)
         teamcraft_link(:instance, source.related&.name || source.text, source.related_id)
       elsif type == 'Crafting' || type == 'Gathering'

@@ -33,4 +33,6 @@ class Mount < ApplicationRecord
   translates :name, :description, :enhanced_description, :tooltip
   has_many :sources, as: :collectable
   has_many :types, through: :sources
+
+  accepts_nested_attributes_for :sources
 end

@@ -26,9 +26,7 @@
           </div>
         <% end %>
         <% unless @search %>
-          <%= link_to character_path(character), class: 'character-delete', method: :delete do %>
-            <%= fa_icon('times') %>
-          <% end %>
+          <%= link_to fa_icon('times', class: 'delete'), character_path(character), method: :delete %>
         <% end %>
       </div>
     <% end %>

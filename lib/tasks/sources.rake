@@ -32,12 +32,10 @@ namespace :sources do
           data.merge!(related_type: 'Achievement', related_id: Achievement.find_by(name_en: row[2]).id)
         elsif Instance.valid_types.include?(row[1])
           if related_id = Instance.find_by(name_en: row[2])&.id
-            data.delete(:text)
             data.merge!(related_type: 'Instance', related_id: related_id)
           end
         elsif row[1] == 'Quest'
           if related_id = Quest.find_by(name_en: row[2])&.id
-            data.delete(:text)
             data.merge!(related_type: 'Quest', related_id: related_id)
           end
         end
@@ -93,7 +91,8 @@ namespace :sources do
         break if reward == 0
 
         if collectable_ids.include?(reward)
-          collectables[reward].sources.find_or_create_by!(type_id: quest_type, related_type: 'Quest', related_id: quest.id)
+          collectables[reward].sources.find_or_create_by!(text: quest.name_en, type_id: quest_type,
+                                                          related_type: 'Quest', related_id: quest.id)
         end
       end
     end
