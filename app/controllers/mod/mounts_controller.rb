@@ -1,5 +1,6 @@
 class Mod::MountsController < ModController
   before_action :set_mount, only: [:edit, :update]
+  before_action :set_changes, only: [:edit, :update]
 
   def index
     @q = Mount.all.ransack(params[:q])
@@ -39,6 +40,11 @@ class Mod::MountsController < ModController
   private
   def set_mount
     @mount = Mount.find(params[:id])
+  end
+
+  def set_changes
+    @changes = PaperTrail::Version.where(collectable_type: 'Mount', collectable_id: 186)
+      .or(PaperTrail::Version.where(item_type: 'Mount', item_id: 186)).order(id: :desc)
   end
 
   def build_sources

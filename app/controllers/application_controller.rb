@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_current_character
+  before_action :set_paper_trail_whodunnit
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
 

@@ -17,4 +17,5 @@ class Source < ApplicationRecord
   belongs_to :collectable, polymorphic: true
   belongs_to :related, polymorphic: true, required: false
   belongs_to :type, class_name: 'SourceType'
+  has_paper_trail meta: { collectable_type: :collectable_type, collectable_id: :collectable_id }
 end

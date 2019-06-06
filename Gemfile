@@ -34,6 +34,7 @@ gem 'sortable-rails'
 gem 'momentjs-rails'
 gem 'rails_bootstrap_sortable'
 gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.2.3'
+gem 'paper_trail'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

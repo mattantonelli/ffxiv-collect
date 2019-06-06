@@ -49,6 +49,10 @@ Rails.application.routes.draw do
     resources :characters, only: :index do
       delete :unverify, on: :member
     end
+
+    resources :versions, only: [] do
+      post :revert
+    end
   end
 
   namespace :mod do
