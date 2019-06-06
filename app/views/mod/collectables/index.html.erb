@@ -1,0 +1,48 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex">
+      <%= link_to polymorphic_url([:mod, @model]), class: 'unstyled mr-auto pt-1' do %>
+        <h5>Manage <%= @model.to_s.pluralize %></h5>
+      <% end %>
+      <%= search_form_for(@q, url: polymorphic_url([:mod, @model]), class: 'form form-inline') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 30,
+          class: 'form-control form-control-sm mr-2' %>
+        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="card-body card-table">
+    <table class="table table-striped table-sm">
+      <tr>
+        <% if @sprite_key.present? %>
+          <th></th> <!-- Image -->
+        <% end %>
+        <th>Name</th>
+        <th>Source</th>
+        <th>Patch</th>
+        <th></th> <!-- Actions -->
+      </tr>
+      <% @collectables.each do |collectable| %>
+        <tr>
+          <% if @sprite_key.present? %>
+            <td><%= sprite(collectable, @sprite_key) %></td>
+          <% end %>
+          <td><%= collectable.name %></td>
+          <% if @skip_sources %>
+            <td><%= collectable.description %></td>
+          <% else %>
+            <td><%= sources(collectable) %></td>
+          <% end %>
+          <td><%= collectable.patch %></td>
+          <td class="text-center">
+            <%= link_to fa_icon('pencil', class: 'btn btn-secondary btn-sm'),
+              polymorphic_url([:mod, collectable], action: :edit) %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="card-footer d-flex justify-content-center mb-0">
+    <%= will_paginate(@collectables) %>
+  </div>
+</div>

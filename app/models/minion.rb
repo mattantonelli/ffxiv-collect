@@ -58,6 +58,9 @@ class Minion < ApplicationRecord
 
   scope :summonable, -> { where.not(id: [68, 69, 70, 72, 73, 74]) }
 
+  accepts_nested_attributes_for :sources
+  has_paper_trail
+
   def strengths
     { 'Gates' => gate, 'Search Eyes' => eye, 'Shields' => shield, 'Arcana Stones' => arcana }
   end

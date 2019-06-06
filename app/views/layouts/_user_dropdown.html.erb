@@ -45,7 +45,10 @@
         <hr class="my-1">
       <% end %>
       <% if current_user.mod? %>
-        <%= link_to fa_icon('file', text: 'Manage Mounts'), mod_mounts_path, class: 'dropdown-item' %>
+        <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire].each do |model| %>
+          <%= link_to fa_icon('file', text: "Manage #{model.to_s.pluralize}"), polymorphic_url([:mod, model]),
+            class: 'dropdown-item' %>
+        <% end %>
         <hr class="my-1">
       <% end %>
       <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>

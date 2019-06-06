@@ -22,4 +22,5 @@
 class Orchestrion < ApplicationRecord
   belongs_to :category, class_name: 'OrchestrionCategory'
   translates :name, :description
+  has_paper_trail
 end

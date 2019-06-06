@@ -56,7 +56,10 @@ Rails.application.routes.draw do
   end
 
   namespace :mod do
-    resources :mounts, only: [:index, :edit, :update]
+    %i(mounts minions orchestrions emotes bardings hairstyles armoires).each do |resource|
+      resources resource, only: [:index, :edit, :update]
+    end
+
     resources :sources, only: :destroy
   end
 

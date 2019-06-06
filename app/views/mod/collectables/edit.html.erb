@@ -2,11 +2,11 @@
   <div class="col-6 offset-3">
     <div class="card shadow">
       <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title">Edit Mount</h5>
-        <%= link_to fa_icon('chevron-left', text: 'Back'), mod_mounts_path, class: 'btn btn-secondary btn-sm' %>
+        <h5 class="card-title">Edit <%= @model.to_s.pluralize %></h5>
+        <%= link_to fa_icon('chevron-left', text: 'Back'), polymorphic_url([:mod, @model]), class: 'btn btn-secondary btn-sm' %>
       </div>
       <div class="card-body py-3">
-        <%= form_for(@mount, url: mod_mount_path, html: { class: 'form' }) do |f| %>
+        <%= form_for(@collectable, url: polymorphic_url([:mod, @collectable]), html: { class: 'form' }) do |f| %>
           <div class="row">
             <div class="col-8 form-group">
               <%= f.label :name_en, 'Name' %>
@@ -17,26 +17,28 @@
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
           </div>
-          <div class="form-group">
-            <%= f.label :sources %>
-            <%= f.fields_for :sources do |sf| %>
-              <%= sf.hidden_field :id %>
-              <%= sf.hidden_field :collectable_id, value: @mount.id %>
-              <%= sf.hidden_field :collectable_type, value: 'Mount' %>
+          <% unless @skip_sources %>
+            <div class="form-group">
+              <%= f.label :sources %>
+              <%= f.fields_for :sources do |sf| %>
+                <%= sf.hidden_field :id %>
+                <%= sf.hidden_field :collectable_id, value: @collectable.id %>
+                <%= sf.hidden_field :collectable_type, value: @model.to_s %>
 
-              <div class="row mb-2">
-                <div class="col-4 pr-0">
-                  <%= sf.collection_select :type_id, SourceType.all.order(:name), :id, :name,
-                    { include_blank: 'Select type' }, class: 'form-control' %>
+                <div class="row mb-2">
+                  <div class="col-4 pr-0">
+                    <%= sf.collection_select :type_id, SourceType.all.order(:name), :id, :name,
+                      { include_blank: 'Select type' }, class: 'form-control' %>
+                  </div>
+                  <div class="col-8 d-flex align-items-center">
+                    <%= sf.text_field :text, class: 'form-control mr-2' %>
+                    <%= link_to fa_icon('times', class: 'delete'), mod_source_path(sf.object.id), method: :delete,
+                      data: { confirm: 'Are you sure you want to delete this source?' } if sf.object.id.present? %>
+                  </div>
                 </div>
-                <div class="col-8 d-flex align-items-center">
-                  <%= sf.text_field :text, class: 'form-control mr-2' %>
-                  <%= link_to fa_icon('times', class: 'delete'), mod_source_path(sf.object.id), method: :delete,
-                    data: { confirm: 'Are you sure you want to delete this source?' } if sf.object.id.present? %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+              <% end %>
+            </div>
+          <% end %>
           <div class="text-right mt-4">
             <%= f.submit 'Submit', class: 'btn btn-primary' %>
           </div>
@@ -45,7 +47,7 @@
     </div>
   </div>
   <% if @changes.present? %>
-    <div class="col-10 offset-1 mt-3">
+    <div class="col-12 mt-3">
       <div class="card shadow">
         <h5 class="card-header">Changelog</h5>
         <div class="card-body card-table">

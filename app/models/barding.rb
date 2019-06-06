@@ -16,4 +16,6 @@
 class Barding < ApplicationRecord
   translates :name
   has_many :sources, as: :collectable
+  accepts_nested_attributes_for :sources
+  has_paper_trail
 end
