@@ -1,0 +1,9 @@
+<div class="card shadow">
+  <h5 class="card-header">Changelog</h5>
+  <div class="card-body card-table">
+    <%= render 'change_table', changes: @changes %>
+  </div>
+  <div class="card-footer d-flex justify-content-center mb-0">
+    <%= will_paginate(@changes) %>
+  </div>
+</div>

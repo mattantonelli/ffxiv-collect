@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     end
 
     resources :sources, only: :destroy
+    get 'dashboard', action: :index
   end
 
   get '404', to: 'home#not_found', as: :not_found

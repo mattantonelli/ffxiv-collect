@@ -1,0 +1,24 @@
+<table class="table table-striped table-sm">
+  <tr>
+    <th>Date</th>
+    <th>User</th>
+    <th>Type</th>
+    <th>Action</th>
+    <th>Change</th>
+    <th></th><!-- Buttons -->
+  </tr>
+  <% changes.each do |change| %>
+    <tr>
+      <td><%= format_date(change.created_at) %></td>
+      <td><%= username(User.find_by(id: change.whodunnit)) || 'System' %></td>
+      <td><%= change_type(change) %></td>
+      <td><%= change_event(change) %></td>
+      <td><%= change_diff(change) %></td>
+      <td class="pr-0">
+        <%= change_link(change) if current_page?('/mod/dashboard') %>
+        <%= link_to fa_icon('undo'), admin_version_revert_path(change.id),
+          method: :post, class: 'btn btn-secondary btn-sm' if current_user.admin? %>
+      </td>
+    </tr>
+  <% end %>
+</table>

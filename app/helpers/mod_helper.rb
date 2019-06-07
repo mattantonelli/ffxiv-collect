@@ -27,6 +27,16 @@ module ModHelper
     content_tag :span, change.event, class: clazz
   end
 
+  def change_link(change)
+    if change.item_type == 'Source'
+      url = polymorphic_url([:mod, change.collectable_type.downcase], id: change.collectable_id, action: :edit)
+    else
+      url = polymorphic_url([:mod, change.item_type.downcase], id: change.item_id, action: :edit)
+    end
+
+    link_to fa_icon('pencil'), url, class: 'btn btn-secondary btn-sm'
+  end
+
   def change_type(change)
     [change.collectable_type, change.item_type].compact.join('/')
   end
