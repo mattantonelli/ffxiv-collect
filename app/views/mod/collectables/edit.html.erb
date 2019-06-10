@@ -27,7 +27,7 @@
 
                 <div class="row mb-2">
                   <div class="col-4 pr-0">
-                    <%= sf.collection_select :type_id, SourceType.all.order(:name), :id, :name,
+                    <%= sf.collection_select :type_id, @types, :id, :name,
                       { include_blank: 'Select type' }, class: 'form-control' %>
                   </div>
                   <div class="col-8 d-flex align-items-center">

@@ -1,12 +1,17 @@
 class Mod::CollectablesController < ModController
   before_action :set_model
   before_action :set_collectable, only: [:edit, :update]
+  before_action :set_types, only: [:edit, :update]
   before_action :set_changes, only: [:edit, :update]
 
   def index
     @q = @model.all.ransack(params[:q])
+    @missing = params[:missing]
+
     @collectables = @q.result.order(patch: :desc, id: :desc).paginate(page: params[:page])
+    @collectables = @collectables.summonable if @model == Minion
     @collectables = @collectables.includes(sources: [:type, :related]) unless @skip_sources
+    @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id").having('count(sources.id) = 0') if @missing
   end
 
   def edit
@@ -50,9 +55,14 @@ class Mod::CollectablesController < ModController
     @collectable = @model.find(params[:id])
   end
 
+  def set_types
+    @types = SourceType.all.order(:name)
+  end
+
   def set_changes
     @changes = PaperTrail::Version.where(collectable_type: @model.to_s, collectable_id: @collectable.id)
-      .or(PaperTrail::Version.where(item_type: @model.to_s, item_id: @collectable.id)).order(id: :desc)
+      .or(PaperTrail::Version.where(item_type: @model.to_s, item_id: @collectable.id))
+      .includes(:user).order(id: :desc)
   end
 
   def skip_sources

@@ -2,7 +2,7 @@ class ModController < ApplicationController
   before_action :authenticate_mod!
 
   def index
-    @changes = PaperTrail::Version.order(id: :desc).paginate(page: params[:page])
+    @changes = PaperTrail::Version.includes(:user).order(id: :desc).paginate(page: params[:page])
   end
 
   private

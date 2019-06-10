@@ -10,7 +10,7 @@
   <% changes.each do |change| %>
     <tr>
       <td><%= format_date(change.created_at) %></td>
-      <td><%= username(User.find_by(id: change.whodunnit)) || 'System' %></td>
+      <td><%= change_user(change) %></td>
       <td><%= change_type(change) %></td>
       <td><%= change_event(change) %></td>
       <td><%= change_diff(change) %></td>

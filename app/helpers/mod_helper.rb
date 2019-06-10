@@ -40,4 +40,12 @@ module ModHelper
   def change_type(change)
     [change.collectable_type, change.item_type].compact.join('/')
   end
+
+  def change_user(change)
+    if change.user.present?
+      username(change.user)
+    else
+      'System'
+    end
+  end
 end
