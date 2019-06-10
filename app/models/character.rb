@@ -113,7 +113,8 @@ class Character < ApplicationRecord
     end
 
     Character.bulk_insert(info[:id], CharacterMount, :mount, data.character.mounts - character.mount_ids)
-    Character.bulk_insert(info[:id], CharacterMinion, :minion, data.character.minions - character.minion_ids)
+    Character.bulk_insert(info[:id], CharacterMinion, :minion,
+                          data.character.minions - character.minion_ids - Minion.unsummonable_ids)
 
     Character.find(info[:id])
   end

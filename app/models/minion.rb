@@ -56,7 +56,7 @@ class Minion < ApplicationRecord
   belongs_to :skill_type, class_name: 'MinionSkillType', optional: true
   has_many :sources, as: :collectable
 
-  scope :summonable, -> { where.not(id: [68, 69, 70, 72, 73, 74]) }
+  scope :summonable, -> { where.not(id: unsummonable_ids) }
 
   accepts_nested_attributes_for :sources
   has_paper_trail
@@ -67,5 +67,9 @@ class Minion < ApplicationRecord
 
   def self.angles
     [0, 30, 120, 360].freeze
+  end
+
+  def self.unsummonable_ids
+    [68, 69, 70, 72, 73, 74].freeze
   end
 end

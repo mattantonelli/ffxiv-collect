@@ -53,7 +53,7 @@
                     <h6><%= collectable.capitalize.pluralize %></h6>
                     <div class="count">
                       <%= render 'shared/progress', value: @profile.send("#{collectable}s_count"), min: 0,
-                        max: collectable.capitalize.constantize.count %>
+                        max: collectable == 'minion' ? Minion.summonable.count : collectable.capitalize.constantize.count %>
                     </div>
                   </div>
                 <% end %>
