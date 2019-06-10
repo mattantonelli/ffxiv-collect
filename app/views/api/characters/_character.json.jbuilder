@@ -12,7 +12,7 @@ end
 %w(mount minion orchestrion emote barding hairstyle armoire).each do |collectable|
   json.set! collectable.pluralize do
     json.count character.send("#{collectable}s_count")
-    json.total collectable.capitalize.constantize.count
+    json.total collectable == 'minion' ? Minion.summonable.count : collectable.capitalize.constantize.count
   end
 end
 
