@@ -2,10 +2,10 @@ module ModHelper
   def change_diff(change)
     if change.event == 'create' && change.item_type == 'Source'
       changes = JSON.parse(change.object_changes)
-      "#{changes['related_type'].last}: #{changes['text'].last}"
+      changes['text'].last
     elsif change.event == 'destroy' && change.item_type == 'Source'
       object = JSON.parse(change.object)
-      "#{object['related_type']}: #{object['text']}"
+      object['text']
     elsif change.event == 'update'
       list = JSON.parse(change.object_changes).map do |column, diff|
         if column

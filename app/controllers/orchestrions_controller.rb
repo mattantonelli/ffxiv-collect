@@ -7,13 +7,7 @@ class OrchestrionsController < ApplicationController
     @category = nil if @category < 2
     @q = Orchestrion.ransack(params[:q])
     @orchestrions = @q.result.includes(:category).order(patch: :desc, order: :desc, id: :desc).distinct
-
-    if cookies[:premium] == 'hide'
-      premium = OrchestrionCategory.find_by(name_en: 'Mog Station')
-      @orchestrions = @orchestrions.where.not(category: premium)
-      @categories = @categories.where.not(id: premium.id)
-      @category = nil if @category == premium.id
-    end
+    apply_filters!
   end
 
   def select
@@ -45,5 +39,17 @@ class OrchestrionsController < ApplicationController
       flash[:alert] = 'You must be signed in and verified in order to manage your orchestrion rolls.'
       redirect_to root_path
     end
+  end
+
+  def apply_filters!
+    exclude_category!('Mog Station') if cookies[:premium] == 'hide'
+    exclude_category!('Seasonal') if cookies[:limited] == 'hide'
+  end
+
+  def exclude_category!(name)
+    category = @categories.find { |cat| cat.name_en == name }
+    @orchestrions = @orchestrions.where.not(category: category)
+    @categories = @categories.where.not(id: category.id)
+    @category = nil if @category == category.id
   end
 end

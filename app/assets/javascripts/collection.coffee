@@ -110,7 +110,8 @@ $(document).on 'turbolinks:load', ->
     if $(checkbox).prop('checked') then 'hide' else 'show'
 
   $('#filters-form').submit ->
-    refresh = Cookies.get('premium') && (Cookies.get('premium') != checkboxValue($(@).find('#premium')))
+    refresh = Cookies.get('premium') && (Cookies.get('premium') != checkboxValue($(@).find('#premium'))) ||
+      Cookies.get('limited') && (Cookies.get('limited') != checkboxValue($(@).find('#limited')))
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", checkboxValue(option))
