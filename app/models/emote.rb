@@ -19,9 +19,7 @@
 #
 
 class Emote < ApplicationRecord
+  include Collectable
   translates :name, :command
   belongs_to :category, class_name: 'EmoteCategory'
-  has_many :sources, as: :collectable
-  accepts_nested_attributes_for :sources
-  has_paper_trail
 end

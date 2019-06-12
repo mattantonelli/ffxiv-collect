@@ -1,8 +1,22 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('#toggle-owned, .categorized').length > 0
+  return unless $('.collection').length > 0
+
+  # Collections
 
   restripe = ->
-    $('tr.collectable:not(.hidden)').each (index) ->
+    if Cookies.get('owned') == 'owned'
+      $('.collection').addClass('only-owned')
+      $('.collectable:not(.owned):not(.hidden)').hide()
+      $('.collectable.owned:not(.hidden)').show()
+    else if Cookies.get('owned') == 'missing'
+      $('.collection').removeClass('only-owned')
+      $('.collectable:not(.owned):not(.hidden)').show()
+      $('.collectable.owned:not(.hidden)').hide()
+    else
+      $('.collection').removeClass('only-owned')
+      $('.collectable:not(.hidden)').show()
+
+    $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
     progress = $('.progress-bar')
@@ -14,23 +28,7 @@ $(document).on 'turbolinks:load', ->
     progress.attr('style', "width: #{completion}%")
     progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
-  toggleOwned = ->
-    if !$('#toggle-owned').prop('checked')
-      localStorage.setItem('display-owned', 'true')
-      $('.owned:not(.hidden)').show()
-    else
-      localStorage.setItem('display-owned', 'false')
-      $('.owned:not(.hidden)').hide()
-
-    restripe()
-
-  if localStorage.getItem('display-owned') == 'false'
-    $('tr.owned').hide()
-    $('#toggle-owned').prop('checked', true)
-    restripe()
-
-  $('#toggle-owned').change ->
-    toggleOwned()
+  restripe()
 
   updateCollection = (collectable) ->
     $.ajax({
@@ -56,11 +54,13 @@ $(document).on 'turbolinks:load', ->
       collectable.closest('td').attr('data-value', 1)
       row = collectable.closest('tr')
       row.addClass('owned')
-      if $('#toggle-owned').prop('checked')
-        row.hide()
+      # if $('#toggle-owned').prop('checked')
+      #   row.hide()
 
     collectable.data('path', path)
     restripe()
+
+  # Orchestrion quick select
 
   $('.orchestrion-select input.own').change ->
     collectable = $(this)
@@ -77,6 +77,8 @@ $(document).on 'turbolinks:load', ->
 
     collectable.data('path', path)
 
+  # Categories
+
   restripe() if $('.categorized').length > 0
 
   buttons = $('.category-buttons button')
@@ -90,7 +92,7 @@ $(document).on 'turbolinks:load', ->
       $('.categorized').fadeOut('fast', ->
         $('.collectable').removeClass('hidden')
         $('.all-hide').addClass('hidden')
-        toggleOwned()
+        restripe()
         $('.categorized').fadeIn()
       )
     else
@@ -98,6 +100,30 @@ $(document).on 'turbolinks:load', ->
         $('.collectable').addClass('hidden')
         $(".collectable.category-#{category}").removeClass('hidden')
         $('.all-hide').removeClass('hidden')
-        toggleOwned()
+        restripe()
         $('.categorized').fadeIn()
       )
+
+  # Filters
+
+  checkboxValue = (checkbox) ->
+    if $(checkbox).prop('checked') then 'hide' else 'show'
+
+  $('#filters-form').submit ->
+    refresh = Cookies.get('premium') && (Cookies.get('premium') != checkboxValue($(@).find('#premium')))
+
+    $(@).find('input[type="checkbox"]').each (_, option) ->
+      Cookies.set("#{$(option).attr('id')}", checkboxValue(option))
+
+    $(@).find('select').each (_, option) ->
+      Cookies.set("#{$(option).attr('id')}", $(option).val())
+
+    restripe()
+    $('#filters').modal('hide')
+    location.reload() if refresh
+    false
+
+  # Remove focus from modal toggle button after showing
+  $('.modal').on 'shown.bs.modal', ->
+    $('.modal-toggle').one 'focus', ->
+      $(@).blur()

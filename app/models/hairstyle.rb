@@ -18,8 +18,6 @@
 #
 
 class Hairstyle < ApplicationRecord
+  include Collectable
   translates :name, :description
-  has_many :sources, as: :collectable
-  accepts_nested_attributes_for :sources
-  has_paper_trail
 end

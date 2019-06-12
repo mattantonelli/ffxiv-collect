@@ -184,10 +184,16 @@ hr {
   }
 }
 
-.card {
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 350px;
+  }
+}
+
+.card, .modal-content {
   background-color: #333;
 
-  .card-header {
+  .card-header, .modal-header {
     background-color: rgba(0, 0, 0, 0.4);
 
     h5, h6 {
@@ -195,7 +201,7 @@ hr {
     }
   }
 
-  .card-body {
+  .card-body, .modal-body {
     background-color: rgba(0, 0, 0, 0.2);
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -218,7 +224,7 @@ hr {
     }
   }
 
-  .card-footer {
+  .card-footer, .modal-footer {
     background-color: rgba(0, 0, 0, 0.3);
   }
 }
@@ -319,7 +325,7 @@ input[type="checkbox"] {
 .search-form {
   display: inline-block;
 
-  input, select {
+  input, select, .btn {
     margin-right: 1rem;
   }
 
@@ -356,9 +362,17 @@ input[type="checkbox"] {
   color: inherit;
 }
 
-.owned {
-  td, div {
-    opacity: 0.4;
+table.collection {
+  &.only-owned .owned {
+    td, div {
+      opacity: 1;
+    }
+  }
+
+  &:not(.only-owned) .owned {
+    td, div {
+      opacity: 0.4;
+    }
   }
 }
 

@@ -18,4 +18,5 @@
 //= require clipboard
 //= require moment
 //= require bootstrap-sortable
+//= require js.cookie
 //= require_tree .

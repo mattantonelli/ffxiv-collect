@@ -14,8 +14,6 @@
 #
 
 class Barding < ApplicationRecord
+  include Collectable
   translates :name
-  has_many :sources, as: :collectable
-  accepts_nested_attributes_for :sources
-  has_paper_trail
 end

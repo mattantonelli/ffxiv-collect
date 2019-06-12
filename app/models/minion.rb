@@ -49,17 +49,14 @@
 #
 
 class Minion < ApplicationRecord
+  include Collectable
   translates :name, :description, :enhanced_description, :tooltip, :skill, :skill_description
 
   belongs_to :behavior, class_name: 'MinionBehavior'
   belongs_to :race, class_name: 'MinionRace'
   belongs_to :skill_type, class_name: 'MinionSkillType', optional: true
-  has_many :sources, as: :collectable
 
   scope :summonable, -> { where.not(id: unsummonable_ids) }
-
-  accepts_nested_attributes_for :sources
-  has_paper_trail
 
   def strengths
     { 'Gates' => gate, 'Search Eyes' => eye, 'Shields' => shield, 'Arcana Stones' => arcana }

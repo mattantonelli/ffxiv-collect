@@ -3,7 +3,8 @@ class MountsController < ApplicationController
 
   def index
     @q = Mount.ransack(params[:q])
-    @mounts = @q.result.includes(sources: [:type, :related]).order(patch: :desc, order: :desc).distinct
+    @mounts = @q.result.includes(sources: [:type, :related]).with_user_options(cookies)
+      .order(patch: :desc, order: :desc).distinct
     @types = source_types(:mount)
     @mount_ids = @character&.mount_ids || []
   end

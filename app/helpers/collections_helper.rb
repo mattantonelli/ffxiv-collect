@@ -9,9 +9,13 @@ module CollectionsHelper
   end
 
   def collection_progress(collection, ids)
-    if collection.size > 0
+    if collection.length > 0
       render 'shared/progress', value: (collection.map(&:id) & ids).size, min: 0, max: collection.size
     end
+  end
+
+  def ownership_options(selected = nil)
+    options_for_select([['Show All', 'all'], ['Only Owned', 'owned'], ['Only Missing', 'missing']], selected)
   end
 
   def category_row_classes(collectable, active_category, ids = [])
