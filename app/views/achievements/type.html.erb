@@ -1,13 +1,15 @@
 <div class="d-flex justify-content-between mb-2">
   <h3><%= @type.name %> Achievements</h3>
   <div class="d-flex align-items-center">
-    <%= render 'shared/toggle_owned' %>
+    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
     <button class="btn btn-secondary btn-sm ml-3 mr-1" id="collapseToggle" data-expanded="false">
       <%= fa_icon('expand', text: 'Expand All') %>
     </button>
   </div>
 </div>
-<div id="achievementCategories">
+<%= render 'shared/filters' %>
+<div class="collection" id="achievementCategories">
   <% @categories.each do |category| %>
     <div class="card mb-3">
       <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>

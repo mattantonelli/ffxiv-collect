@@ -7,15 +7,17 @@
       </div>
       <div class="modal-body">
         <%= form_tag(nil, class: 'form d-flex flex-column mt-2', id: 'filters-form') do  %>
-          <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control' %>
-          <div class="mt-3">
-            <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
-            <%= label_tag :premium, 'Exclude Premium' %>
-          </div>
-          <div>
-            <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
-            <%= label_tag :limited, 'Exclude Time Limited' %>
-          </div>
+          <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
+          <% unless controller_name == 'achievements' %>
+            <div>
+              <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
+              <%= label_tag :premium, 'Exclude Premium' %>
+            </div>
+            <div>
+              <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
+              <%= label_tag :limited, 'Exclude Time Limited' %>
+            </div>
+          <% end %>
           <hr class="mt-2 mb-3">
           <div class="text-right">
             <%= submit_tag 'Apply Filters', class: 'btn btn-primary' %>
