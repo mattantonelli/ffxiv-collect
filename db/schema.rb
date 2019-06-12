@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_06_153441) do
+ActiveRecord::Schema.define(version: 2019_06_12_193921) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -455,7 +455,7 @@ ActiveRecord::Schema.define(version: 2019_06_06_153441) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_source_types_on_name"
+    t.index ["name"], name: "index_source_types_on_name", unique: true
   end
 
   create_table "sources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
