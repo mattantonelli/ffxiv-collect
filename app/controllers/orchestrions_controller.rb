@@ -7,6 +7,13 @@ class OrchestrionsController < ApplicationController
     @category = nil if @category < 2
     @q = Orchestrion.ransack(params[:q])
     @orchestrions = @q.result.includes(:category).order(patch: :desc, order: :desc, id: :desc).distinct
+
+    if cookies[:premium] == 'hide'
+      premium = OrchestrionCategory.find_by(name_en: 'Mog Station')
+      @orchestrions = @orchestrions.where.not(category: premium)
+      @categories = @categories.where.not(id: premium.id)
+      @category = nil if @category == premium.id
+    end
   end
 
   def select
