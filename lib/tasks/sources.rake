@@ -9,7 +9,7 @@ namespace :sources do
   desc 'Create the source types'
   task create_types: :environment do
     names = ['Achievement', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE', 'Feast,' 'Gathering',
-             'Mog Station', 'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture']
+             'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture', 'Premium', 'Limited']
 
     names.each do |name|
       SourceType.find_or_create_by!(name: name)
