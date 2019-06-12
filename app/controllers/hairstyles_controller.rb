@@ -3,7 +3,7 @@ class HairstylesController < ApplicationController
 
   def index
     @q = Hairstyle.ransack(params[:q])
-    @hairstyles = @q.result.includes(sources: [:type, :related]).with_user_options(cookies)
+    @hairstyles = @q.result.includes(sources: [:type, :related]).with_filters(cookies)
       .order(patch: :desc, id: :desc).distinct
     @types = source_types(:hairstyle)
     @hairstyle_ids = @character&.hairstyle_ids || []

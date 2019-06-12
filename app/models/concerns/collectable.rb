@@ -15,10 +15,10 @@ module Collectable
       end
     end
 
-    scope :with_user_options, -> (options) do
+    scope :with_filters, -> (filters) do
       left_joins(:sources)
-        .hide_premium(options[:premium] == 'hide')
-        .hide_limited(options[:limited] == 'hide')
+        .hide_premium(filters[:premium] == 'hide')
+        .hide_limited(filters[:limited] == 'hide')
         .distinct
     end
 
