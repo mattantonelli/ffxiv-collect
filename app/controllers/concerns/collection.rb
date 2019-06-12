@@ -6,7 +6,8 @@ module Collection
   end
 
   def source_types(model)
-    SourceType.joins(:sources).where('sources.collectable_type = ?', model).order(:name).distinct
+    SourceType.joins(:sources).where('sources.collectable_type = ?', model)
+      .with_filters(cookies).order(:name).distinct
   end
 
   private

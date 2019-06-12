@@ -3,16 +3,11 @@ module Collectable
 
   included do
     scope :hide_premium, -> (hide) do
-      if hide
-        where('sources.type_id <> ? or sources.type_id is null', SourceType.find_by(name: 'Premium'))
-      end
+      where('sources.type_id <> ? or sources.type_id is null', SourceType.premium) if hide
     end
 
     scope :hide_limited, -> (hide) do
-      if hide
-        where('sources.type_id not in (?) or sources.type_id is null',
-              SourceType.where(name: %w(Event Feast Limited)).pluck(:id))
-      end
+      where('sources.type_id not in (?) or sources.type_id is null', SourceType.limited.pluck(:id)) if hide
     end
 
     scope :with_filters, -> (filters) do

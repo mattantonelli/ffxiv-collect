@@ -10,4 +10,13 @@
 
 class SourceType < ApplicationRecord
   has_many :sources, foreign_key: 'type_id'
+
+  scope :premium, -> { find_by(name: 'Premium') }
+  scope :limited, -> { where(name: %w(Event Feast Limited)) }
+
+  scope :with_filters, -> (filters) do
+    excluded = filters[:premium] == 'hide' ? ['Premium'] : []
+    excluded += %w(Event Feast Limited) if filters[:limited] == 'hide'
+    where.not(name: excluded)
+  end
 end
