@@ -20,21 +20,7 @@ class Mod::CollectablesController < ModController
 
   def update
     update_params = collectable_params
-
-    unless @skip_sources
-      update_params[:sources_attributes].reject! { |_, source| source[:type_id].blank? }
-      update_params[:sources_attributes].each do |key, source|
-        type = SourceType.find(source[:type_id])
-        case type.name
-        when /(Achievement|Quest)/
-          related = type.name.constantize.find_by(name_en: source[:text])
-          update_params[:sources_attributes][key].merge!(related_id: related&.id, related_type: type.name)
-        when /(Dungeon|Trial|Raid)/
-          related = Instance.find_by(name_en: source[:text])
-          update_params[:sources_attributes][key].merge!(related_id: related&.id, related_type: 'Instance')
-        end
-      end
-    end
+    update_params[:sources_attributes]&.reject! { |_, source| source[:type_id].blank? }
 
     if @collectable.update(update_params)
       flash[:success] = "The #{@model.to_s.downcase} has been updated."
