@@ -19,6 +19,6 @@ module Collectable
 
     has_many :sources, as: :collectable, dependent: :delete_all
     accepts_nested_attributes_for :sources
-    has_paper_trail on: [:update, :destroy]
+    has_paper_trail
   end
 end
