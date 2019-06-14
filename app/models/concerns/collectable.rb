@@ -17,6 +17,8 @@ module Collectable
         .distinct
     end
 
+    scope :include_sources, -> { includes(sources: [:type, :related] )}
+
     has_many "character_#{name.pluralize}".to_sym
     has_many :characters, through: "character_#{name.pluralize}".to_sym
     has_many :sources, as: :collectable, dependent: :delete_all

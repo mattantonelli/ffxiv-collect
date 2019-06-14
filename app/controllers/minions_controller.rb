@@ -3,17 +3,14 @@ class MinionsController < ApplicationController
 
   def index
     @q = Minion.summonable.ransack(params[:q])
-    @minions = @q.result.includes(:behavior, :race, :skill_type, sources: [:type, :related])
-      .with_filters(cookies).order(patch: :desc, id: :desc).distinct
+    @minions = @q.result.includes(:behavior, :race, :skill_type)
+      .include_sources.with_filters(cookies).order(patch: :desc, id: :desc).distinct
     @types = source_types(:minion)
     @minion_ids = @character&.minion_ids || []
   end
 
   def show
-    @minion = Minion.find(params[:id])
-
-    if @minion.id == 67 || @minion.id == 71
-      @variants = Minion.where(id: (@minion.id + 1)..(@minion.id + 3))
-    end
+    @minion = Minion.include_sources.find(params[:id])
+    @variants = @minion.variants
   end
 end

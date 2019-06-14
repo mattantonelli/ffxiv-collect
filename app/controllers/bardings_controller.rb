@@ -3,14 +3,14 @@ class BardingsController < ApplicationController
 
   def index
     @q = Barding.ransack(params[:q])
-    @bardings = @q.result.includes(sources: [:type, :related]).with_filters(cookies)
+    @bardings = @q.result.include_sources.with_filters(cookies)
       .order(patch: :desc, id: :desc).distinct
     @types = source_types(:barding)
     @barding_ids = @character&.barding_ids || []
   end
 
   def show
-    @barding = Barding.find(params[:id])
+    @barding = Barding.include_sources.find(params[:id])
   end
 
   def add
