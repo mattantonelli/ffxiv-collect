@@ -1,8 +1,6 @@
 class ApiController < ApplicationController
   skip_before_action :set_locale
-  before_action :set_default_format
-  before_action :set_language
-  before_action :track_request
+  before_action :set_defaults, :set_language, :track_request
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
   GA_URL = 'www.google-analytics.com/collect'.freeze
@@ -12,8 +10,9 @@ class ApiController < ApplicationController
     render json: { status: 404, error: 'Not found' }, status: :not_found
   end
 
+  private
   def sanitize_query_params
-    query = params.except(:format, :controller, :action, :limit)
+    query = params.except(:format, :controller, :action)
     query.each do |k, v|
       if k =~ /_in\Z/
         case v
@@ -28,9 +27,13 @@ class ApiController < ApplicationController
     end
   end
 
-  private
-  def set_default_format
+  def set_defaults
     request.format = :json unless params[:format]
+
+    if params[:action] == 'index'
+      params[:limit] ||= 10
+      @query = sanitize_query_params
+    end
   end
 
   def set_language

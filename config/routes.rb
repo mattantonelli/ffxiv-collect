@@ -41,6 +41,10 @@ Rails.application.routes.draw do
   namespace :api do
     resources :characters, only: :show
     resources :users, only: :show
+
+    %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |resource|
+      resources resource, only: [:index, :show]
+    end
   end
 
   namespace :admin do
