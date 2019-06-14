@@ -1,0 +1,8 @@
+<div>
+  <dt>
+    Owned
+    <span data-toggle="tooltip" title="Percentage of public characters who have this <%= collectable.class.to_s.downcase %>.">
+      <%= fa_icon('question-circle') %>
+  </dt>
+  <dd><%= Redis.current.hget(collectable.class.to_s.downcase.pluralize, collectable.id) %></dd>
+</div>

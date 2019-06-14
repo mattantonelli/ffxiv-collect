@@ -20,6 +20,7 @@
             <dt>Tradeable</dt>
             <dd><%= tradeable(@minion) %></dd>
           </div>
+          <%= render 'shared/ownership', collectable: @minion %>
           <div>
             <dt>Patch</dt>
             <dd><%= minion.patch %></dd>

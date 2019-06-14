@@ -16,6 +16,7 @@
               <dt>Tradeable</dt>
               <dd><%= tradeable(collectable) %></dd>
             </div>
+            <%= render 'shared/ownership', collectable: collectable %>
             <div>
               <dt>Patch</dt>
               <dd><%= collectable.patch %></dd>

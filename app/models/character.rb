@@ -26,8 +26,9 @@ class Character < ApplicationRecord
   after_destroy :clear_user_characters
   belongs_to :verified_user, class_name: 'User', required: false
 
-  scope :verified, -> (user) { where(verified_user: user) }
+  scope :verified, -> { where.not(verified_user: nil) }
   scope :visible, -> { where(public: true) }
+  scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   CHARACTER_COLUMNS = %w(Achievements Character.Avatar Character.ID Character.Minions Character.Mounts Character.Name
   Character.ParseDate Character.Portrait Character.Server Info).freeze

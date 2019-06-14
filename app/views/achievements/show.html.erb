@@ -8,15 +8,16 @@
         </div>
         <h4 class="mb-0"><%= @achievement.points %></h4>
       </div>
-      <div class="card-body d-flex flex-column py-3">
+      <div class="card-body d-flex flex-column flex-info py-3">
         <div class="d-flex mb-2">
-          <div class="mr-5">
+          <div>
             <dt>Category</dt>
             <dd>
               <%= link_to "#{@achievement.type.name} / #{@achievement.category.name}",
                 achievement_type_path(@achievement.type, anchor: @achievement.category_id), class: 'unstyled' %>
             </dd>
           </div>
+          <%= render 'shared/ownership', collectable: @achievement %>
           <div>
             <dt>Patch</dt>
             <dd><%= @achievement.patch %></dd>

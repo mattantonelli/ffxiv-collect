@@ -31,6 +31,8 @@
 
 class Achievement < ApplicationRecord
   belongs_to :category, class_name: 'AchievementCategory'
+  has_many :character_achievements
+  has_many :characters, through: :character_achievements
   delegate :type, to: :category
   translates :name, :description, :title, :item_name
 end

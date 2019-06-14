@@ -7,6 +7,11 @@ every '0 * * * *' do
   rake 'characters:verified:sync'
 end
 
+# Cache collectable ownership
+every '5 * * * *' do
+  rake 'ownership:cache'
+end
+
 # Sync stale unverified characters daily
 every '30 0 * * *' do
   rake 'characters:unverified:sync'

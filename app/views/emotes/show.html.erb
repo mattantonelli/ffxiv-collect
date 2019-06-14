@@ -18,6 +18,7 @@
               <dt>Tradeable</dt>
               <dd><%= tradeable(@emote) %></dd>
             </div>
+            <%= render 'shared/ownership', collectable: @emote %>
             <div>
               <dt>Patch</dt>
               <dd><%= @emote.patch %></dd>

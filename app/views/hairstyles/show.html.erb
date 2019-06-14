@@ -10,6 +10,7 @@
             <dt>Tradeable</dt>
             <dd><%= tradeable(@hairstyle) %></dd>
           </div>
+          <%= render 'shared/ownership', collectable: @hairstyle %>
           <div>
             <dt>Patch</dt>
             <dd><%= @hairstyle.patch %></dd>

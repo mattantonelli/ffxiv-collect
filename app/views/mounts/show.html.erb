@@ -32,6 +32,7 @@
                   <dd><%= @mount.seats %></dd>
                 </div>
               <% end %>
+              <%= render 'shared/ownership', collectable: @mount %>
               <div>
                 <dt>Patch</dt>
                 <dd><%= @mount.patch %></dd>

@@ -3,6 +3,7 @@ module Collection
 
   included do
     before_action :verify_privacy!, only: [:index, :type]
+    before_action :set_owned!, only: [:index, :type]
   end
 
   def source_types(model)
@@ -11,6 +12,10 @@ module Collection
   end
 
   private
+  def set_owned!
+    @owned = Redis.current.hgetall(controller_name.downcase)
+  end
+
   def verify_privacy!
     if @character.present?
       if user_signed_in? && @character.private?(current_user)

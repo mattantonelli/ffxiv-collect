@@ -24,6 +24,11 @@ module CollectionsHelper
     "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned}"
   end
 
+  def rarity(collectable, numeric: false)
+    rarity = @owned.fetch(collectable.id.to_s, '0%')
+    numeric ? rarity.delete('%') : rarity
+  end
+
   def td_owned(ids, collectable, manual = true, date = nil)
     owned = ids.include?(collectable.id)
     if manual && @character.verified_user?(current_user)

@@ -28,9 +28,10 @@
       <th scope="col">Name</th>
       <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center hide-xs">Category</th>
+      <th scope="col" class="text-center">Own</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
-        <th scope="col" class="text-center">Own</th>
+        <th scope="col"></th><!-- Owned -->
       <% end %>
     </tr>
   </thead>
@@ -41,6 +42,7 @@
         <td><%= link_to(armoire.name, armoire_path(armoire), class: 'name') %></td>
         <td class="hide-xs"><%= sources(armoire) %></td>
         <td class="text-center hide-xs"><%= armoire.category.name %></td>
+        <td class="text-center hide-xs" data-value="<%= rarity(armoire, numeric: true) %>"><%= rarity(armoire) %></td>
         <td class="text-center" data-value="<%= armoire.patch %><%= armoire.id %>"><%= armoire.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@armoire_ids, armoire) %>

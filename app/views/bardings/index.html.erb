@@ -23,9 +23,10 @@
       <th scope="col">Name</th>
       <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
+      <th scope="col" class="text-center">Own</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
-        <th scope="col" class="text-center">Own</th>
+        <th scope="col"></th><!-- Owned -->
       <% end %>
     </tr>
   </thead>
@@ -36,6 +37,7 @@
         <td><%= link_to(barding.name, barding_path(barding), class: 'name') %></td>
         <td class="hide-xs"><%= sources(barding) %></td>
         <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= mogboard_link(barding) %></td>
+        <td class="text-center hide-xs" data-value="<%= rarity(barding, numeric: true) %>"><%= rarity(barding) %></td>
         <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@barding_ids, barding) %>

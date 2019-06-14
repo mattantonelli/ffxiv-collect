@@ -36,9 +36,10 @@
                 <th scope="col" class="hide-xs">Description</th>
                 <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
                 <th scope="col" class="text-center">Points</th>
-                <th scope="col" class="text-center">Patch</th>
+                <th scope="col" class="text-center">Own</th>
+                <th scope="col" class="text-center hide-xs">Patch</th>
                 <% if character_selected? %>
-                  <th scope="col" data-firstsort="desc" class="text-center">Done</th>
+                  <th scope="col"></th>
                 <% end %>
               </tr>
             </thead>
@@ -56,6 +57,9 @@
                     <%= achievement_reward(achievement) %>
                   </td>
                   <td class="text-center"><%= achievement.points %></td>
+                  <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
+                    <%= rarity(achievement) %>
+                  </td>
                   <td class="text-center" data-value="<%= achievement.patch %><%= achievement.id %>">
                     <%= achievement.patch %>
                   </td>

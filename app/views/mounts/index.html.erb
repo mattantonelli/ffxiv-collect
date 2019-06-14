@@ -22,9 +22,10 @@
       <th scope="col">Name</th>
       <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
+      <th scope="col" class="text-center">Own</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>
-        <th scope="col" class="text-center">Own</th>
+        <th scope="col"></th><!-- Owned -->
       <% end %>
     </tr>
   </thead>
@@ -39,6 +40,7 @@
         <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
         <td class="hide-xs"><%= sources(mount) %></td>
         <td class="text-center" data-value="<%= mount.item_id.present? ? 1 : 0 %>"><%= mogboard_link(mount) %></td>
+        <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
         <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
         <% if character_selected? %>
           <%= td_owned(@mount_ids, mount, false) %>
