@@ -1,6 +1,6 @@
 <table class="table table-striped table-sm">
   <tr>
-    <th>Date</th>
+    <th class="mod-date">Date</th>
     <th>User</th>
     <th>Type</th>
     <th>Action</th>
@@ -13,8 +13,8 @@
       <td><%= change_user(change) %></td>
       <td><%= change_type(change) %></td>
       <td><%= change_event(change) %></td>
-      <td><%= change_diff(change) %></td>
-      <td class="pr-0">
+      <td class="mod-diff"><%= change_diff(change) %></td>
+      <td class="px-2">
         <%= change_link(change) if current_page?('/mod/dashboard') %>
         <%= link_to fa_icon('undo'), admin_version_revert_path(change.id),
           method: :post, class: 'btn btn-secondary btn-sm' if current_user.admin? %>
