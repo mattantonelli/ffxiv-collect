@@ -62,6 +62,18 @@ class Minion < ApplicationRecord
     { 'Gates' => gate, 'Search Eyes' => eye, 'Shields' => shield, 'Arcana Stones' => arcana }
   end
 
+  def variant?
+    [68, 69, 70, 72, 73, 74].freeze.include?(id)
+  end
+
+  def variants?
+    [67, 71].freeze.include?(id)
+  end
+
+  def variants
+    Minion.where(id: (id + 1)..(id + 3)) if variants?
+  end
+
   def self.angles
     [0, 30, 120, 360].freeze
   end
