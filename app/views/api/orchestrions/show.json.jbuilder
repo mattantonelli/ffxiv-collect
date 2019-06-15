@@ -1,1 +1,1 @@
-json.partial! 'orchestrion', orchestrion: @orchestrion
+json.partial! 'orchestrion', orchestrion: @orchestrion, owned: @owned

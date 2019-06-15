@@ -1,1 +1,1 @@
-json.partial! 'barding', barding: @barding
+json.partial! 'barding', barding: @barding, owned: @owned

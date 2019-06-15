@@ -1,1 +1,1 @@
-json.partial! 'armoire', armoire: @armoire
+json.partial! 'armoire', armoire: @armoire, owned: @owned

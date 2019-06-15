@@ -1,5 +1,5 @@
 json.query @query
 json.count @emotes.length
 json.results do
-  json.partial! 'emote', collection: @emotes, as: :emote
+  json.partial! 'emote', collection: @emotes, as: :emote, owned: @owned
 end

@@ -1,1 +1,1 @@
-json.partial! 'hairstyle', hairstyle: @hairstyle
+json.partial! 'hairstyle', hairstyle: @hairstyle, owned: @owned

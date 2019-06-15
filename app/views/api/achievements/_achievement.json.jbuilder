@@ -1,4 +1,5 @@
 json.(achievement, :id, :name, :description, :points, :order, :patch)
+json.owned owned.fetch(achievement.id.to_s, '0%')
 json.icon image_url("achievements/#{achievement.icon_id}.png", skip_pipeline: true)
 
 category = achievement.category

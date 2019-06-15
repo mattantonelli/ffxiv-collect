@@ -1,1 +1,1 @@
-json.partial! 'emote', emote: @emote
+json.partial! 'emote', emote: @emote, owned: @owned

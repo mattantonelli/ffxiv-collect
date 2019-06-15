@@ -1,1 +1,1 @@
-json.partial! 'mount', mount: @mount
+json.partial! 'mount', mount: @mount, owned: @owned

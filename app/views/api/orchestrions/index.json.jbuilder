@@ -1,5 +1,5 @@
 json.query @query
 json.count @orchestrions.length
 json.results do
-  json.partial! 'orchestrion', collection: @orchestrions, as: :orchestrion
+  json.partial! 'orchestrion', collection: @orchestrions, as: :orchestrion, owned: @owned
 end
