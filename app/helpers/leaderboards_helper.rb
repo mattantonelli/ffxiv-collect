@@ -6,6 +6,7 @@ module LeaderboardsHelper
 
   def data_center(server)
     Character.servers_by_data_center.each { |dc, servers| return dc if servers.include?(server) }
+    'Unknown'
   end
 
   def grouped_servers(server)
