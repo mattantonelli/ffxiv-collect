@@ -40,6 +40,9 @@ $(document).on 'turbolinks:load', ->
         location.reload()
     })
 
+  $('.sortable th:not([data-defaultsort=disabled])').click ->
+    restripe()
+
   $('td input.own').change ->
     collectable = $(this)
 
