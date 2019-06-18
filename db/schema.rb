@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_12_193921) do
+ActiveRecord::Schema.define(version: 2019_06_18_013835) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -222,6 +222,16 @@ ActiveRecord::Schema.define(version: 2019_06_12_193921) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "public", default: true
+    t.integer "achievement_points", default: 0
+    t.index ["achievement_points"], name: "index_characters_on_achievement_points"
+    t.index ["achievements_count"], name: "index_characters_on_achievements_count"
+    t.index ["armoires_count"], name: "index_characters_on_armoires_count"
+    t.index ["bardings_count"], name: "index_characters_on_bardings_count"
+    t.index ["emotes_count"], name: "index_characters_on_emotes_count"
+    t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
+    t.index ["minions_count"], name: "index_characters_on_minions_count"
+    t.index ["mounts_count"], name: "index_characters_on_mounts_count"
+    t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
   end
 
   create_table "emote_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

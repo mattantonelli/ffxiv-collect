@@ -1,0 +1,11 @@
+tr.my-rankings td {
+  border-top-width: 3px;
+}
+
+tr.my-rankings ~ tr.my-rankings td {
+  border-top-width: inherit;
+}
+
+tr.mine {
+  font-weight: bold;
+}

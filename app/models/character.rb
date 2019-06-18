@@ -20,6 +20,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  public             :boolean          default(TRUE)
+#  achievement_points :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -87,12 +88,25 @@ class Character < ApplicationRecord
     XIVAPI_CLIENT.character_search(server: server, name: name).to_a
   end
 
+  def self.data_centers
+    servers_by_data_center.keys.sort.freeze
+  end
+
   def self.servers
-    %w(Adamantoise Aegis Alexander Anima Asura Atomos Bahamut Balmung Behemoth Belias Brynhildr Cactuar Carbuncle
-    Cerberus Chocobo Coeurl Diabolos Durandal Excalibur Exodus Faerie Famfrit Fenrir Garuda Gilgamesh Goblin Gungnir
-    Hades Hyperion Ifrit Ixion Jenova Kujata Lamia Leviathan Lich Louisoix Malboro Mandragora Masamune Mateus Midgardsormr
-    Moogle Odin Omega Pandaemonium Phoenix Ragnarok Ramuh Ridill Sargatanas Shinryu Shiva Siren Tiamat Titan Tonberry
-    Typhon Ultima Ultros Unicorn Valefor Yojimbo Zalera Zeromus Zodiark).freeze
+    servers_by_data_center.values.flatten.sort.freeze
+  end
+
+  def self.servers_by_data_center
+    {
+      "Aether" => %w(Adamantoise Cactuar Faerie Gilgamesh Jenova Midgardsormr Sargatanas Siren),
+      "Chaos" => %w(Cerberus Louisoix Moogle Omega Ragnarok),
+      "Crystal" => %w(Balmung Brynhildr Coeurl Diabolos Goblin Malboro Mateus Zalera),
+      "Elemental" => %w(Aegis Atomos Carbuncle Garuda Gungnir Kujata Ramuh Tonberry Typhon Unicorn),
+      "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima Valefor Yojimbo Zeromus),
+      "Light" => %w(Lich Odin Phoenix Shiva Zodiark),
+      "Mana" => %w(Anima Asura Belias Chocobo Hades Ixion Mandragora Masamune Pandaemonium Shinryu Titan),
+      "Primal" => %w(Behemoth Excalibur Exodus Famfrit Hyperion Lamia Leviathan Ultros)
+    }.freeze
   end
 
   private
@@ -111,6 +125,7 @@ class Character < ApplicationRecord
       achievement_ids = character.achievement_ids
       achievements = data.achievements.list.reject { |achievement| achievement_ids.include?(achievement.id) }
       Character.bulk_insert_achievements(info[:id], achievements)
+      character.update(achievement_points: character.achievements.sum(:points))
     end
 
     Character.bulk_insert(info[:id], CharacterMount, :mount, data.character.mounts - character.mount_ids)
