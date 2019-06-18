@@ -13,7 +13,11 @@ namespace :quests do
         data["name_#{locale}"] = sanitize_name(quest["name_#{locale}"])
       end
 
-      Quest.find_or_create_by!(data)
+      if existing = Quest.find_by(id: quest.id)
+        existing.update!(data) if updated?(existing, data.symbolize_keys)
+      else
+        Quest.create!(data)
+      end
     end
 
     puts "Created #{Quest.count - count} new quests"

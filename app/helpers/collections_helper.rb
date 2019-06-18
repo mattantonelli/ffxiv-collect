@@ -94,7 +94,7 @@ module CollectionsHelper
         teamcraft_link(:instance, source.related&.name || source.text, source.related_id)
       elsif type == 'Crafting' || type == 'Gathering'
         teamcraft_link(:item, source.text, collectable.item_id)
-      elsif type == 'Quest'
+      elsif type == 'Quest' || type == 'Event'
         teamcraft_link(:quest, source.related&.name || source.text, source.related_id)
       elsif type == 'Feast'
         "The Feast: #{source.text}"

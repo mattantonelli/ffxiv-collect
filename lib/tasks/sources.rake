@@ -1,7 +1,8 @@
 require 'csv'
 
 RECIPE_COLUMNS = %w(ID ClassJob.Name_en).freeze
-QUEST_COLUMNS = %w(ID Name_* ItemReward00 ItemReward01 ItemReward02 ItemReward03 ItemReward04 ItemReward05).freeze
+QUEST_COLUMNS = %w(ID Name_* ItemReward00 ItemReward01 ItemReward02 ItemReward03 ItemReward04
+ItemReward05 FestivalTargetID).freeze
 ITEM_COLUMNS = %w(ID Name_en Description_en ItemAction.Data0 GameContentLinks.Achievement.Item
 GameContentLinks.Recipe.ItemResult IsUntradable).freeze
 
@@ -47,7 +48,8 @@ namespace :sources do
 
   desc 'Sets item IDs and known sources for various collectables'
   task update: :environment do
-    achievement_type, crafting_type, quest_type = SourceType.where(name: %w(Achievement Crafting Quest)).pluck(:id)
+    achievement_type, crafting_type, event_type, quest_type =
+      SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
     collections = { Mount => 1322, Minion => 853, Orchestrion => 5845, Emote => 2633, Barding => 1013, Hairstyle => 2633 }
 
     collectables = collections.each_with_object({}) do |(collection, type), h|
@@ -91,7 +93,8 @@ namespace :sources do
         break if reward == 0
 
         if collectable_ids.include?(reward)
-          collectables[reward].sources.find_or_create_by!(text: quest.name_en, type_id: quest_type,
+          type_id = quest.festival_target_id > 0 ? event_type : quest_type
+          collectables[reward].sources.find_or_create_by!(text: quest.name_en, type_id: type_id,
                                                           related_type: 'Quest', related_id: quest.id)
         end
       end
