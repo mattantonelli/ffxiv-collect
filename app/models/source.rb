@@ -35,6 +35,21 @@ class Source < ApplicationRecord
       relation = Instance.find_by(name_en: text)
       self.related_id = relation&.id
       self.related_type = 'Instance'
+    when 'Event'
+      quest = Quest.find_by(name_en: text)
+      if quest.present?
+        self.related_id = quest.id
+        self.related_type = 'Quest'
+      else
+        remove_relation!
+      end
+    else
+      remove_relation!
     end
+  end
+
+  def remove_relation!
+    self.related_id = nil
+    self.related_type = nil
   end
 end
