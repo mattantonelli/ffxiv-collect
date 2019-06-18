@@ -8,7 +8,7 @@
       <div class="modal-body">
         <%= form_tag(nil, class: 'form d-flex flex-column mt-2', id: 'filters-form') do  %>
           <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
-          <% unless controller_name == 'achievements' %>
+          <% unless %w(achievements titles).include?(controller_name) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, 'Exclude Premium' %>
