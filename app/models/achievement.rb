@@ -15,10 +15,6 @@
 #  order          :integer          not null
 #  patch          :string(255)
 #  category_id    :integer          not null
-#  title_en       :string(255)
-#  title_de       :string(255)
-#  title_fr       :string(255)
-#  title_ja       :string(255)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
@@ -31,8 +27,9 @@
 
 class Achievement < ApplicationRecord
   belongs_to :category, class_name: 'AchievementCategory'
+  has_one :title, required: false
   has_many :character_achievements
   has_many :characters, through: :character_achievements
   delegate :type, to: :category
-  translates :name, :description, :title, :item_name
+  translates :name, :description, :item_name
 end

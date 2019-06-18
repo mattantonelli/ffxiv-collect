@@ -11,7 +11,7 @@ html {
 body {
   background-color: #333;
   color: #eee;
-  margin-bottom: 40px;
+  margin-bottom: 4rem;
 }
 
 .ja {
@@ -181,6 +181,16 @@ hr {
 
   td:last-child, th:last-child {
     padding-right: 1rem;
+  }
+}
+
+.table:not(.table-sm) {
+  th {
+    padding: 0.25rem 0.5rem;
+  }
+
+  td {
+    padding: 0.5rem;
   }
 }
 

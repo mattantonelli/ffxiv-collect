@@ -1,0 +1,40 @@
+<div class="text-right mb-2">
+  <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+</div>
+<%= render 'shared/filters' %>
+<table class="table table-striped shadow p-3 collection sortable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col" class="hide-xs">Achievement</th>
+      <th scope="col" class="hide-xs">Category</th>
+      <th scope="col" class="text-center hide-xs">Own</th>
+      <th scope="col" class="text-center">Patch</th>
+      <% if character_selected? %>
+        <th scope="col"></th><!-- Owned -->
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @titles.each do |title| %>
+      <tr class="collectable<%= ' owned' if @achievement_ids.include?(title.achievement_id) %>">
+        <td data-value="<%= title.order %>"></td>
+        <td><%= title_name(title) %></td>
+        <td class="hide-xs"><%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name') %></td>
+        <td class="title-category hide-xs">
+          <%= link_to(title.achievement.type.name, achievement_type_path(title.achievement.type,
+                                                                         anchor: title.achievement.category_id), class: 'name') %>
+        </td>
+        <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
+          <%= rarity(title.achievement) %>
+        </td>
+        <td class="text-center"><%= title.achievement.patch %></td>
+        <% if character_selected? %>
+          <%= td_owned(@achievement_ids, title.achievement, false) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

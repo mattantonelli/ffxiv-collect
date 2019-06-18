@@ -1,7 +1,7 @@
 module AchievementsHelper
   def achievement_reward(achievement)
     if achievement.title.present?
-      image_tag('title.png', data: { toggle: 'tooltip', title: achievement.title })
+      image_tag('title.png', data: { toggle: 'tooltip', title: title_name(achievement.title), html: true })
     elsif achievement.item_id.present?
       image_tag('item.png', data: { toggle: 'tooltip', title: achievement.item_name })
     end

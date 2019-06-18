@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     post :select, on: :member
   end
 
+  resources :titles, only: :index
   resources :leaderboards, only: :index
 
   get 'character/verify',     to: 'characters#verify',   as: :verify_character

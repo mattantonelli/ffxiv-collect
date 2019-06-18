@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_013835) do
+ActiveRecord::Schema.define(version: 2019_06_18_140615) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -53,10 +53,6 @@ ActiveRecord::Schema.define(version: 2019_06_18_013835) do
     t.integer "order", null: false
     t.string "patch"
     t.integer "category_id", null: false
-    t.string "title_en"
-    t.string "title_de"
-    t.string "title_fr"
-    t.string "title_ja"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "item_id"
@@ -480,6 +476,22 @@ ActiveRecord::Schema.define(version: 2019_06_18_013835) do
     t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
     t.index ["related_id", "related_type"], name: "index_sources_on_related_id_and_related_type"
     t.index ["type_id"], name: "index_sources_on_type_id"
+  end
+
+  create_table "titles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "female_name_en", null: false
+    t.string "female_name_de", null: false
+    t.string "female_name_fr", null: false
+    t.string "female_name_ja", null: false
+    t.integer "order", null: false
+    t.integer "achievement_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["achievement_id"], name: "index_titles_on_achievement_id"
   end
 
   create_table "user_characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

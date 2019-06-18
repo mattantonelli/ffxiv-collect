@@ -1,5 +1,5 @@
 ACHIEVEMENT_COLUMNS = %w(ID Name_* Description_* GamePatch.Version AchievementCategoryTargetID Icon IconID Points Order
-Title.IsPrefix Title.Name_* Item.ID Item.Icon Item.Name_*).freeze
+Title.* Item.ID Item.Icon Item.Name_*).freeze
 
 namespace :achievements do
   desc 'Create the achievements'
@@ -29,12 +29,6 @@ namespace :achievements do
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(achievement["name_#{locale}"])
         data["description_#{locale}"] = sanitize_text(achievement["description_#{locale}"])
-
-        if achievement.title.name_en.present?
-          name = achievement.title["name_#{locale}"]
-          name = achievement.title.is_prefix == 1 ? "#{name}…" : "…#{name}"
-          data["title_#{locale}"] = name
-        end
 
         if achievement.item.id.present?
           data[:item_id] = achievement.item.id

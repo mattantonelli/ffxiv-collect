@@ -17,6 +17,7 @@ namespace :data do
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
     Rake::Task['achievements:create'].invoke
+    Rake::Task['titles:create'].invoke
     Rake::Task['mounts:create'].invoke
     Rake::Task['minions:create'].invoke
     Rake::Task['orchestrions:create'].invoke

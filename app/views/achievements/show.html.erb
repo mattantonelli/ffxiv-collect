@@ -30,7 +30,7 @@
         <% if @achievement.title.present? %>
           <hr>
           <dt>Title Reward</dt>
-          <dd><%= @achievement.title %></dd>
+          <dd><%= title_name(@achievement.title) %></dd>
         <% elsif @achievement.item_id.present? %>
           <hr>
           <dt>Item Reward</dt>
