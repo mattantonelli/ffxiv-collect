@@ -40,7 +40,7 @@ $(document).on 'turbolinks:load', ->
         location.reload()
     })
 
-  $('.sortable th:not([data-defaultsort=disabled])').click ->
+  $('.sortable').on 'sorted', ->
     restripe()
 
   $('td input.own').change ->
