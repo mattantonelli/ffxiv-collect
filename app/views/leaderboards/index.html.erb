@@ -27,7 +27,9 @@
           </thead>
           <tbody>
             <%= render partial: 'row', collection: @results.first(10), as: :character %>
-            <%= render 'row', character: @character, my_rankings: true if @character.present? %>
+            <% if @character.present? && @ranks.index(@character.id).try(:>, 9) %>
+              <%= render 'row', character: @character, my_rankings: true %>
+            <% end %>
           </tbody>
         </table>
       </div>
