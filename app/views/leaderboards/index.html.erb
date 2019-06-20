@@ -2,7 +2,7 @@
   <div class="col-12 col-sm-10 offset-sm-1">
     <div class="card shadow">
       <div class="card-header">
-        <h5 class="card-title">Leaderboards - <%= @category %></h5>
+        <h5 class="card-title">Global Leaderboards - <%= @category %></h5>
       </div>
       <div class="card-body card-table">
         <%= search_form_for(@q, url: leaderboards_path, enforce_utf8: false,
@@ -14,24 +14,7 @@
             class: 'form-control form-control-sm' %>
           <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm' %>
         <% end %>
-        <table class="table table-striped table-sm shadow p-3">
-          <thead>
-            <tr>
-              <th scope="col"></th> <!-- # -->
-              <th scope="col"></th> <!-- Image -->
-              <th scope="col">Name</th>
-              <th scope="col">Data Center</th>
-              <th scope="col">Server</th>
-              <th scope="col">Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <%= render partial: 'row', collection: @results.first(10), as: :character %>
-            <% if @character.present? && @ranks.index(@character.id).try(:>, 9) %>
-              <%= render 'row', character: @character, my_rankings: true %>
-            <% end %>
-          </tbody>
-        </table>
+        <%= render 'table' %>
       </div>
     </div>
   </div>

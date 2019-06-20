@@ -35,7 +35,16 @@
             target: '_blank', class: 'dropdown-item' %>
         </div>
       </div>
-      <%= nav_link('Leaderboards', leaderboards_path, 'leaderboards') %>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">Leaderboards</a>
+        <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
+          <%= link_to 'Global', leaderboards_path, class: 'dropdown-item' %>
+          <% if @character&.free_company_id.present? %>
+            <%= link_to 'Free Company', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="navbar-nav nav-item dropdown">
       <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"

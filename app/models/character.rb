@@ -21,18 +21,20 @@
 #  updated_at         :datetime         not null
 #  public             :boolean          default(TRUE)
 #  achievement_points :integer          default(0)
+#  free_company_id    :string(255)
 #
 
 class Character < ApplicationRecord
   after_destroy :clear_user_characters
   belongs_to :verified_user, class_name: 'User', required: false
+  belongs_to :free_company, required: false
 
   scope :verified, -> { where.not(verified_user: nil) }
   scope :visible, -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   CHARACTER_COLUMNS = %w(Achievements Character.Avatar Character.ID Character.Minions Character.Mounts Character.Name
-  Character.ParseDate Character.Portrait Character.Server Info).freeze
+  Character.FreeCompanyId Character.ParseDate Character.Portrait Character.Server FreeCompany Info).freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
@@ -111,7 +113,18 @@ class Character < ApplicationRecord
 
   private
   def self.update(data)
-    info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar)
+    return if data.info.character.state != 2 # Only cached characters can be updated
+
+    if data.free_company.present?
+      fc = data.free_company.to_h.slice(:id, :name, :tag)
+      if existing = FreeCompany.find_by(id: fc[:id])
+        existing.update!(fc)
+      else
+        FreeCompany.create!(fc)
+      end
+    end
+
+    info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar, :free_company_id)
     info[:last_parsed] = Time.at(data.character.parse_date)
     info[:achievements_count] = -1 if data.info.achievements.state == 5 # Achievements set to private
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_140615) do
+ActiveRecord::Schema.define(version: 2019_06_20_015512) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -219,11 +219,13 @@ ActiveRecord::Schema.define(version: 2019_06_18_140615) do
     t.datetime "updated_at", null: false
     t.boolean "public", default: true
     t.integer "achievement_points", default: 0
+    t.string "free_company_id"
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
     t.index ["bardings_count"], name: "index_characters_on_bardings_count"
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
+    t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
@@ -263,6 +265,13 @@ ActiveRecord::Schema.define(version: 2019_06_18_140615) do
     t.index ["name_fr"], name: "index_emotes_on_name_fr"
     t.index ["name_ja"], name: "index_emotes_on_name_ja"
     t.index ["patch"], name: "index_emotes_on_patch"
+  end
+
+  create_table "free_companies", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "hairstyles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

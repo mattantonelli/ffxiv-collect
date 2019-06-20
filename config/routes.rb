@@ -32,7 +32,12 @@ Rails.application.routes.draw do
   end
 
   resources :titles, only: :index
-  resources :leaderboards, only: :index
+
+  resources :leaderboards, only: :index do
+    collection do
+      get 'fc/:id', as: :free_company, action: :free_company
+    end
+  end
 
   get 'character/verify',     to: 'characters#verify',   as: :verify_character
   get 'character/settings',   to: 'characters#edit',     as: :character_settings

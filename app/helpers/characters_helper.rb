@@ -1,4 +1,10 @@
 module CharactersHelper
+  def fc_tag_link(character)
+    if character.free_company.present?
+      link_to("<#{character.free_company.tag}>", free_company_leaderboards_path(character.free_company), class: 'name')
+    end
+  end
+
   def verified(character, only_verified = true)
     if character.verified_user?(current_user)
       content_tag(:span, 'Verified', class: 'badge badge-pill badge-success')
