@@ -30,9 +30,15 @@ namespace :hairstyles do
 
     XIVAPI_CLIENT.content(name: 'CharaMakeCustomize', columns: %w(Data Icon), limit: 10000).each do |custom|
       next if custom.data == 0
+
       path = Rails.root.join('public/images/hairstyles', custom.data.to_s)
       Dir.mkdir(path) unless Dir.exist?(path)
-      download_image(nil, custom.icon, path.join("#{custom.icon.scan(/\d+\.png/).first}"))
+
+      filename = path.join("#{custom.icon.scan(/\d+\.png/).first}")
+      download_image(nil, custom.icon, filename)
+
+      sample_filename = Rails.root.join('public/images/hairstyles', "#{custom.data.to_s}.png")
+      FileUtils.cp(filename, sample_filename) unless File.exists?(sample_filename)
     end
 
     create_hair_spritesheets
