@@ -4,7 +4,7 @@ json.verified character.verified?
 json.achievements do
   json.count character.achievements_count == -1 ? 0 : character.achievements_count
   json.total Achievement.count
-  json.points character.achievements.sum(:points)
+  json.points character.achievement_points
   json.points_total Achievement.sum(:points)
   json.public character.achievements_count != -1
 end

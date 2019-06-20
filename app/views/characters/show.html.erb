@@ -48,7 +48,7 @@
                         min: 0, max: Achievement.count, text: 'complete' %>
                     </div>
                     <div class="points mt-2">
-                      <%= render 'shared/progress', value: @profile.achievements.sum(:points),
+                      <%= render 'shared/progress', value: @profile.achievement_points,
                         min: 0, max: Achievement.sum(:points), text: 'points' %>
                     </div>
                   </div>
