@@ -41,6 +41,8 @@ class ApiController < ApplicationController
 
     if language.present? && SUPPORTED_LOCALES.include?(language)
       I18n.locale = language
+    else
+      I18n.locale = 'en'
     end
   end
 
