@@ -1,3 +1,7 @@
+<% title(@minion.name) %>
+<% description(@minion.enhanced_description.truncate(150)) %>
+<% image(image_url("minions/small/#{@minion.id}.png", skip_pipeline: true)) %>
+
 <% if @variants.present? %>
   <div class="row mb-3">
     <div class="col-12 col-lg-10 offset-lg-1">

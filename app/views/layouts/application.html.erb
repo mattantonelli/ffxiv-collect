@@ -3,10 +3,13 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>FFXIV Collect</title>
-    <meta name="description" content="Another website for tracking your Final Fantasy XIV collectables.">
-    <meta property="og:title" content="FFXIV Collect">
-    <meta property="og:description" content="Another website for tracking your Final Fantasy XIV collectables.">
+    <title><%= yield_title('FFXIV Collect').html_safe %></title>
+    <meta name="description"
+      content="<%= yield_description('Another website for tracking your Final Fantasy XIV collections.') %>">
+    <meta property="og:title" content="<%= yield_title('FFXIV Collect') %>">
+    <meta property="og:description"
+      content="<%= yield_description('Another website for tracking your Final Fantasy XIV collections.') %>">
+    <meta property="og:image" content="<%= yield_image(image_path('logo.png', skip_pipeline: true)) %>">
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

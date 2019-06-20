@@ -1,3 +1,5 @@
+<% title('Mounts') %>
+
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: mounts_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
     <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,

@@ -1,3 +1,6 @@
+<% title(collectable.name) %>
+<% image(image_url("#{collectable.class.to_s.downcase.pluralize}/#{collectable.id}.png", skip_pipeline: true)) %>
+
 <div class="row">
   <div class="col-12 col-sm-10 offset-sm-1 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
     <div class="card">

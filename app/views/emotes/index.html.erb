@@ -1,3 +1,5 @@
+<% title('Emotes') %>
+
 <%= render 'shared/category_buttons', categories: @categories, selected: @category %>
 <div class="d-flex justify-content-center my-2">
   <%= search_form_for(@q, url: emotes_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
