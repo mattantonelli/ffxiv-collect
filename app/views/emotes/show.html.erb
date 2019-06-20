@@ -1,5 +1,5 @@
 <% title(@emote.name) %>
-<% description("Command: #{@emote.command}") %>
+<% description(@emote.command) %>
 <% image(image_url("emotes/#{@emote.id}.png", skip_pipeline: true)) %>
 
 <div class="row">
