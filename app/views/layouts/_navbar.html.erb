@@ -56,13 +56,14 @@
       </div>
     </div>
     <% unless @character.present? %>
-      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary' %>
+      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary my-2 my-md-0' %>
     <% end %>
     <% if @character.present? || user_signed_in? %>
       <%= render 'layouts/user_dropdown' %>
     <% end %>
     <% unless user_signed_in? %>
-      <%= link_to 'Sign in with Discord', user_discord_omniauth_authorize_path, class: 'btn btn-secondary ml-2' %>
+      <%= link_to 'Sign in with Discord', user_discord_omniauth_authorize_path,
+        class: 'btn btn-secondary ml-md-2' %>
     <% end %>
   </div>
 </div>
