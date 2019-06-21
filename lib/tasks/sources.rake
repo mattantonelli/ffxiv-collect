@@ -9,7 +9,7 @@ GameContentLinks.Recipe.ItemResult IsUntradable).freeze
 namespace :sources do
   desc 'Create the source types'
   task create_types: :environment do
-    names = ['Achievement', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE', 'Feast,' 'Gathering',
+    names = ['Achievement', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE', 'Feast', 'Gathering',
              'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture', 'Premium', 'Limited']
 
     names.each do |name|
