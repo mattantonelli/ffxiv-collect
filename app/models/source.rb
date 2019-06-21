@@ -44,7 +44,7 @@ class Source < ApplicationRecord
         remove_relation!
       end
     else
-      remove_relation!
+      remove_relation! if persisted?
     end
   end
 
