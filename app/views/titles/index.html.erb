@@ -5,6 +5,11 @@
     type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
 </div>
 <%= render 'shared/filters' %>
+<% if character_selected? %>
+  <div class="my-2">
+    <%= titles_progress(@titles, @achievement_ids) %>
+  </div>
+<% end %>
 <table class="table table-striped shadow p-3 collection sortable">
   <thead>
     <tr>

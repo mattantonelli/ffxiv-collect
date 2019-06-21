@@ -13,6 +13,8 @@
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, 'Exclude Premium' %>
             </div>
+          <% end %>
+          <% unless controller_name == 'achievements' %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
               <%= label_tag :limited, 'Exclude Time Limited' %>
