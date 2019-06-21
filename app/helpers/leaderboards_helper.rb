@@ -18,4 +18,12 @@ module LeaderboardsHelper
 
     options_for_select(servers.sort, server)
   end
+
+  def limit_options(limit)
+    options = [10, 100, 1000].map do |option|
+      ["Top #{option}", option]
+    end
+
+    options_for_select(options, limit)
+  end
 end

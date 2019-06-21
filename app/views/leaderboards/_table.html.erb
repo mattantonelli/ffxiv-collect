@@ -10,9 +10,25 @@
     </tr>
   </thead>
   <tbody>
-    <%= render partial: 'row', collection: @results.first(10), as: :character %>
-    <% if @character.present? && @ranks.index(@character.id).try(:>, 9) %>
-      <%= render 'row', character: @character, my_rankings: true %>
+    <% @results.each_with_index do |character, i| %>
+      <tr <%= 'class="mine"'.html_safe if @character == character %>>
+        <td class="text-center"><%= i + 1 %></td>
+        <td><%= image_tag(character.avatar, class: 'avatar') %></td>
+        <td><%= link_to(character.name, character_path(character), class: 'name') %></td>
+        <td><%= data_center(character.server) %></td>
+        <td><%= character.server %></td>
+        <td><%= character.send(@metric) %></td>
+      </tr>
+    <% end %>
+    <% if @character_rank.present? && @character_rank > @limit.to_i %>
+      <tr class="my-rankings mine">
+        <td class="text-center"><%= @character_rank %></td>
+        <td><%= image_tag(@character.avatar, class: 'avatar') %></td>
+        <td><%= link_to(@character.name, character_path(@character), class: 'name') %></td>
+        <td><%= data_center(@character.server) %></td>
+        <td><%= @character.server %></td>
+        <td><%= @character.send(@metric) %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>

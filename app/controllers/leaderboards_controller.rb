@@ -3,6 +3,7 @@ class LeaderboardsController < ApplicationController
 
   def index
     @data_center = params[:data_center]
+    @limit = params[:limit] || 10
 
     if @data_center.present? && !params[:q][:server_eq].present?
       params[:q][:server_in] = Character.servers_by_data_center[@data_center]
@@ -11,19 +12,18 @@ class LeaderboardsController < ApplicationController
     @q = Character.visible.ransack(params[:q])
     @results = @q.result.or(Character.where(id: @character&.id))
       .where("#{@metric} > 0").order(@metric => :desc, id: :asc)
-    @ranks = @results.pluck(:id)
+    @character_rank = @results.pluck(:id).index(@character&.id) + 1
+    @results = @results.limit(@limit)
   end
 
   def free_company
     @free_company = FreeCompany.find(params[:id])
-    @results = @free_company.members.where("#{@metric} > 0").order(@metric => :desc, id: :desc)
+    @results = @free_company.members.visible.where("#{@metric} > 0").order(@metric => :desc, id: :desc)
     @ranks = @results.pluck(:id)
 
     if @results.length < 10
       flash.now[:notice_fixed] = 'Missing someone? Refer them today to start tracking their character.'
     end
-
-    @results = @results.paginate(page: params[:page])
   end
 
   private

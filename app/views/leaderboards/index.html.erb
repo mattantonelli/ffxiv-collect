@@ -14,6 +14,7 @@
             include_blank: 'All Data Centers', class: 'form-control form-control-sm' %>
           <%= f.select :server_eq, grouped_servers(@q.server_eq), { include_blank: 'All Servers' },
             class: 'form-control form-control-sm' %>
+          <%= select_tag :limit, limit_options(@limit), class: 'form-control form-control-sm' %>
           <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm' %>
         <% end %>
         <%= render 'table' %>
