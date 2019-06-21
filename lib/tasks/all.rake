@@ -4,9 +4,9 @@ namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
     PaperTrail.enabled = false
+    Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
     Rake::Task['patches:set'].invoke
-    Rake::Task['sources:create_types'].invoke
     Rake::Task['sources:initialize'].invoke
     PaperTrail.enabled = true
   end
