@@ -57,8 +57,6 @@ $(document).on 'turbolinks:load', ->
       collectable.closest('td').attr('data-value', 1)
       row = collectable.closest('tr')
       row.addClass('owned')
-      # if $('#toggle-owned').prop('checked')
-      #   row.hide()
 
     collectable.data('path', path)
     restripe()

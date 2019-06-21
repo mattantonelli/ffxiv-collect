@@ -2,7 +2,7 @@
 
 <%= render 'shared/category_buttons', categories: @categories, selected: @category, exclude_all: true %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<div class="d-flex flex-wrap categorized mt-3 offset-lg-1">
+<div class="d-flex flex-wrap categorized mt-3 offset-lg-1 collection">
   <% @orchestrions.each_slice(2) do |orchestrions| %>
     <% orchestrions.each do |orchestrion| %>
       <div class="col-12 col-md-6 col-lg-5 mr-auto <%= category_row_classes(orchestrion, @category) %>
