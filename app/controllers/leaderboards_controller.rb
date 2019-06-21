@@ -12,7 +12,7 @@ class LeaderboardsController < ApplicationController
     @q = Character.visible.ransack(params[:q])
     @results = @q.result.or(Character.where(id: @character&.id))
       .where("#{@metric} > 0").order(@metric => :desc, id: :asc)
-    @character_rank = @results.pluck(:id).index(@character&.id) + 1
+    @character_rank = @results.pluck(:id).index(@character&.id).try(:+, 1)
     @results = @results.limit(@limit)
   end
 
