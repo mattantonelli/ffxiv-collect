@@ -20,7 +20,7 @@ def sync(characters, status)
   puts "[#{Time.now.utc}] Synchronizing #{status} characters..."
 
   if characters.present?
-    characters.each_slice(100) do |slice|
+    characters.each_slice(50) do |slice|
       Character.sync(slice.pluck(:id))
     end
 
