@@ -2,8 +2,8 @@
 set :bundle_command, '~/.rbenv/shims/bundle exec'
 set :output, 'log/whenever.log'
 
-# Sync stale verified characters hourly
-every '0 * * * *' do
+# Sync stale verified characters every 30m
+every '0,30 * * * *' do
   rake 'characters:verified:sync'
 end
 

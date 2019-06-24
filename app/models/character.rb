@@ -34,7 +34,8 @@ class Character < ApplicationRecord
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   CHARACTER_COLUMNS = %w(Achievements Character.Avatar Character.ID Character.Minions Character.Mounts Character.Name
-  Character.FreeCompanyId Character.ParseDate Character.Portrait Character.Server FreeCompany Info).freeze
+  Character.FreeCompanyId Character.ParseDate Character.Portrait Character.Server FreeCompany.ID FreeCompany.Name
+  FreeCompany.Tag Info).freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
@@ -76,12 +77,12 @@ class Character < ApplicationRecord
       return character
     end
 
-    result = XIVAPI_CLIENT.character(id: id, all_data: true, poll: true, columns: CHARACTER_COLUMNS)
+    result = XIVAPI_CLIENT.character(id: id, data: 'AC,FC', poll: true, columns: CHARACTER_COLUMNS)
     Character.update(result)
   end
 
   def self.sync(ids)
-    XIVAPI_CLIENT.characters(ids: ids, all_data: true, columns: CHARACTER_COLUMNS).each do |data|
+    XIVAPI_CLIENT.characters(ids: ids, data: 'AC,FC', columns: CHARACTER_COLUMNS).each do |data|
       Character.update(data)
     end
   end
@@ -115,7 +116,7 @@ class Character < ApplicationRecord
   def self.update(data)
     return if data.info.character.state != 2 # Only cached characters can be updated
 
-    if data.free_company.present?
+    if data.free_company.id.present?
       fc = data.free_company.to_h.slice(:id, :name, :tag)
       if existing = FreeCompany.find_by(id: fc[:id])
         existing.update!(fc)
