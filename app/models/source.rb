@@ -14,7 +14,7 @@
 #
 
 class Source < ApplicationRecord
-  belongs_to :collectable, polymorphic: true
+  belongs_to :collectable, polymorphic: true, touch: true
   belongs_to :related, polymorphic: true, required: false
   belongs_to :type, class_name: 'SourceType'
 

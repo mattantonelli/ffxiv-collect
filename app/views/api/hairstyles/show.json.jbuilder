@@ -1,1 +1,3 @@
-json.partial! 'hairstyle', hairstyle: @hairstyle, owned: @owned
+json.cache! @hairstyle do
+  json.partial! 'api/hairstyles/hairstyle', hairstyle: @hairstyle, owned: @owned
+end

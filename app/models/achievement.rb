@@ -26,10 +26,17 @@
 #
 
 class Achievement < ApplicationRecord
+  after_save :touch_title
+
   belongs_to :category, class_name: 'AchievementCategory'
   has_one :title, required: false
   has_many :character_achievements
   has_many :characters, through: :character_achievements
   delegate :type, to: :category
   translates :name, :description, :item_name
+
+  private
+  def touch_title
+    title&.update_column(:updated_at, Time.now)
+  end
 end

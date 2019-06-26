@@ -1,1 +1,3 @@
-json.partial! 'barding', barding: @barding, owned: @owned
+json.cache! @barding do
+  json.partial! 'api/bardings/barding', barding: @barding, owned: @owned
+end

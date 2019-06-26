@@ -31,7 +31,6 @@ class ApiController < ApplicationController
     request.format = :json unless params[:format]
 
     if params[:action] == 'index'
-      params[:limit] ||= 10
       @query = sanitize_query_params
     end
   end

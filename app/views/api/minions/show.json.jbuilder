@@ -1,1 +1,3 @@
-json.partial! 'minion', minion: @minion, owned: @owned
+json.cache! @minion do
+  json.partial! 'api/minions/minion', minion: @minion, owned: @owned
+end

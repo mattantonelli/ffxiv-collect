@@ -25,5 +25,7 @@ module FfxivCollect
     config.generators.system_tests = nil
 
     config.i18n.enforce_available_locales = false
+
+    config.cache_store = :file_store, 'tmp/cache'
   end
 end

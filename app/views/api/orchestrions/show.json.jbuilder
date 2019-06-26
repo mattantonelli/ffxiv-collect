@@ -1,1 +1,3 @@
-json.partial! 'orchestrion', orchestrion: @orchestrion, owned: @owned
+json.cache! @orchestrion do
+  json.partial! 'api/orchestrions/orchestrion', orchestrion: @orchestrion, owned: @owned
+end

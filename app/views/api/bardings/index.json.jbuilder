@@ -1,5 +1,7 @@
 json.query @query
 json.count @bardings.length
 json.results do
-  json.partial! 'barding', collection: @bardings, as: :barding, owned: @owned
+  json.cache! @bardings do
+    json.partial! 'api/bardings/barding', collection: @bardings, as: :barding, owned: @owned
+  end
 end

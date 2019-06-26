@@ -19,5 +19,5 @@
 
 class Title < ApplicationRecord
   translates :name, :female_name
-  belongs_to :achievement
+  belongs_to :achievement, touch: true
 end
