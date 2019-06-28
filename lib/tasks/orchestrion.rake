@@ -16,6 +16,8 @@ namespace :orchestrions do
 
     count = Orchestrion.count
     XIVAPI_CLIENT.content(name: 'Orchestrion', columns: ORCHESTRION_COLUMNS, limit: 1000).each do |orchestrion|
+      next unless orchestrion.name_en.present?
+
       order = orchestrion.orchestrion_uiparam.order
       data = { id: orchestrion.id, patch: orchestrion.game_patch.version, order: order == 65535 ? nil : order,
                category_id: orchestrion.orchestrion_uiparam.orchestrion_category_target_id }
