@@ -49,6 +49,7 @@ def sanitize_name(name)
     .gsub('[a]', 'e')
     .gsub('[A]', 'er')
     .gsub('[p]', '')
+    .gsub(/\uE0BE ?/, '')
 end
 
 def without_custom(data)
