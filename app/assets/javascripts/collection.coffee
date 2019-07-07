@@ -115,10 +115,10 @@ $(document).on 'turbolinks:load', ->
       Cookies.get('limited') != checkboxValue($(@).find('#limited'))
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
-      Cookies.set("#{$(option).attr('id')}", checkboxValue(option))
+      Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300 })
 
     $(@).find('select').each (_, option) ->
-      Cookies.set("#{$(option).attr('id')}", $(option).val())
+      Cookies.set("#{$(option).attr('id')}", $(option).val(), { expires: 7300 })
 
     restripe()
     $('#filters').modal('hide')
