@@ -1,4 +1,4 @@
-<% flash.to_hash.each do |key, value| %>
+<% flash.to_hash.except('timedout').each do |key, value| %>
   <div class="alert alert-dismissable fade show <%= flash_class(key) %>">
     <% unless key =~ /fixed/ %>
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
