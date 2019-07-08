@@ -27,5 +27,7 @@ module FfxivCollect
     config.i18n.enforce_available_locales = false
 
     config.cache_store = :file_store, 'tmp/cache'
+
+    config.session_store :cookie_store, key: '_ffxiv_collect_session', expire_after: 1.month
   end
 end

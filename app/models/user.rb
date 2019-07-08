@@ -27,7 +27,7 @@ class User < ApplicationRecord
   has_many :verified_characters, -> (user) { where(verified_user: user) }, through: :user_characters, source: :character
   has_many :modifications, class_name: 'PaperTrail::Version', foreign_key: :whodunnit
 
-  devise :trackable, :omniauthable, omniauth_providers: [:discord]
+  devise :timeoutable, :trackable, :omniauthable, omniauth_providers: [:discord]
 
   def triple_triad
     begin
