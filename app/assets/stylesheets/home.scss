@@ -17,3 +17,13 @@ a.patreon {
 a.patreon:hover {
   background-color: #BF3C2D;
 }
+
+img.discord, img.patreon {
+  width: 25px;
+  height: 25px;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+  }
+}

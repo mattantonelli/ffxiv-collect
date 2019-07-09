@@ -43,7 +43,15 @@
     <footer class="text-center">
       <span class='d-block d-sm-inline'>Created by Raelys Skyborn of Behemoth</span>
       <span class="d-none d-sm-inline"> | </span>
-      <span class="d-block d-sm-inline">Powered by <%= link_to 'XIVAPI', 'https://xivapi.com/', target: '_blank' %></span>
+      <div class="d-block d-sm-inline">
+        <span>Powered by <%= link_to 'XIVAPI', 'https://xivapi.com/', target: '_blank' %> | </span>
+        <%= link_to 'https://discord.gg/Bf62wNU', class: 'unstyled', target: '_blank' do %>
+          <%= image_tag('discord.png', class: 'discord') %>
+        <% end %>
+        <%= link_to 'https://www.patreon.com/raelys', class: 'unstyled', target: '_blank' do %>
+          <%= image_tag('patreon.png', class: 'patreon') %>
+        <% end %>
+      </div>
     </footer>
   </body>
 </html>
