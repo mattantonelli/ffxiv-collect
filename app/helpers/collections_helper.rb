@@ -10,7 +10,7 @@ module CollectionsHelper
 
   def collection_progress(collection, ids)
     if collection.length > 0
-      render 'shared/progress', value: (collection.map(&:id) & ids).size, min: 0, max: collection.size
+      render 'shared/progress', value: (collection.map(&:id) & ids).size, min: 0, max: collection.length
     end
   end
 

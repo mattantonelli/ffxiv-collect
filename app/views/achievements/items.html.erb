@@ -1,0 +1,49 @@
+<% title('Achievements - Item Rewards') %>
+
+<div class="text-right mb-2">
+  <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+</div>
+<%= render 'shared/filters' %>
+<% if character_selected? %>
+  <div class="my-2">
+    <%= collection_progress(@achievements, @achievement_ids) %>
+  </div>
+<% end %>
+<table class="table table-striped table-sm shadow p-3 collection sortable">
+  <thead>
+    <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+    <th scope="col" class="name">Name</th>
+    <th scope="col" class="name hide-xs">Category</th>
+    <th scope="col" class="name hide-xs">Item</th>
+    <th scope="col" class="text-center hide-xs">Own</th>
+    <th scope="col" class="text-center hide-xs">Patch</th>
+    <% if character_selected? %>
+      <th scope="col"></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% @achievements.each do |achievement| %>
+      <tr class="collectable<%= ' owned' if @achievement_ids.include?(achievement.id) %>">
+        <td>
+          <%= link_to(achievement_path(achievement)) do %>
+            <%= sprite(achievement, 'achievement') %>
+          <% end %>
+        </td>
+        <td class="wide"><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
+        <td class="hide-xs"><%= link_to achievement.category.name,
+          achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled' %></td>
+        <td class="wide hide-xs"><%= link_to_achievement_item(achievement) %></td>
+        <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
+          <%= rarity(achievement) %>
+        </td>
+        <td class="text-center hide-xs" data-value="<%= achievement.patch %><%= achievement.id %>">
+          <%= achievement.patch %>
+        </td>
+        <% if character_selected? %>
+          <%= td_owned(@achievement_ids, achievement, false) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

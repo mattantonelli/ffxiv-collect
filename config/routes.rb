@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   get 'achievements/types', to: redirect('404')
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
+  get 'achievements/items', to: 'achievements#items', as: :achievement_items
   resources :achievements, only: [:index, :show]
 
   resources :characters, only: [:show, :destroy] do

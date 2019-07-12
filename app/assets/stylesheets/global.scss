@@ -194,6 +194,13 @@ hr {
   }
 }
 
+td.wide {
+  // Above md
+  @media (min-width: 992px) {
+    width: 300px;
+  }
+}
+
 @media (min-width: 576px) {
   .modal-dialog {
     max-width: 350px;
