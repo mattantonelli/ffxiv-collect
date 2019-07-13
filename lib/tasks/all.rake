@@ -53,7 +53,7 @@ def sanitize_name(name)
 end
 
 def without_custom(data)
-  data.stringify_keys.except('name_en', 'name_fr', 'name_de', 'name_ja', 'patch')
+  data.symbolize_keys.except(:name_en, :name_fr, :name_de, :name_ja, :patch)
 end
 
 def updated?(model, data)
@@ -106,8 +106,8 @@ def create_spritesheet(path)
     rules << "img.#{class_name} { width: #{image[:width]}px; height: #{image[:height]}px; " \
       "background: url(image_path('#{output_image}.png')) no-repeat }"
 
-    images.each do |_, image|
-      rules << "img.#{class_name}-#{image[:name]} { background-position: #{-image[:cssx]}px #{-image[:cssy]}px }"
+    images.each do |_, img|
+      rules << "img.#{class_name}-#{img[:name]} { background-position: #{-img[:cssx]}px #{-img[:cssy]}px }"
     end
 
     rules.join("\n")
