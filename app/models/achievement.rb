@@ -35,6 +35,12 @@ class Achievement < ApplicationRecord
   delegate :type, to: :category
   translates :name, :description, :item_name
 
+  scope :exclude_time_limited, -> do
+    joins(category: :type)
+      .where('achievement_categories.type_id <> ?', AchievementType.find_by(name_en: 'Legacy').id)
+      .where('achievements.category_id not in (?)', AchievementCategory.where(name_en: 'Seasonal Events').pluck(:id))
+  end
+
   private
   def touch_title
     title&.update_column(:updated_at, Time.now)

@@ -8,6 +8,6 @@ module TitlesHelper
   end
 
   def titles_progress(titles, achievement_ids)
-    render 'shared/progress', value: (titles.map(&:achievement_id) & achievement_ids).size, min: 0, max: titles.size
+    render 'shared/progress', value: (titles.map(&:achievement_id) & achievement_ids).size, min: 0, max: titles.length
   end
 end

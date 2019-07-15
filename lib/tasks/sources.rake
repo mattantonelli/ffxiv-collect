@@ -50,7 +50,12 @@ namespace :sources do
   task update: :environment do
     achievement_type, crafting_type, event_type, quest_type =
       SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
+
+    # Mapping of internal values for ItemAction.Type
     collections = { Mount => 1322, Minion => 853, Orchestrion => 5845, Emote => 2633, Barding => 1013, Hairstyle => 2633 }
+
+    # Exclude limited time achievement sources because they are a mess to filter
+    valid_achievement_ids = Achievement.exclude_time_limited.pluck(:id)
 
     collectables = collections.each_with_object({}) do |(collection, type), h|
       XIVAPI_CLIENT.search(indexes: 'Item', columns: ITEM_COLUMNS, filters: "ItemAction.Type=#{type}", limit: 999).each do |item|
@@ -70,7 +75,7 @@ namespace :sources do
         next if collection == Orchestrion
 
         achievement_id = item.game_content_links.achievement.item&.first
-        if achievement_id.present?
+        if achievement_id.present? && valid_achievement_ids.include?(achievement_id)
           achievement = Achievement.find(achievement_id)
           collectable.sources.find_or_create_by!(text: achievement.name_en, type_id: achievement_type,
                                                  related_type: 'Achievement', related_id: achievement_id)
