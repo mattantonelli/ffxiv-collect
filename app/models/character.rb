@@ -114,7 +114,8 @@ class Character < ApplicationRecord
 
   private
   def self.update(data)
-    return if data.info.character.state != 2 # Only cached characters can be updated
+    # Skip characters who are not added to the cache or have an unknown status
+    return if data.info&.character&.state != 2
 
     if data.free_company.id.present?
       fc = data.free_company.to_h.slice(:id, :name, :tag)
@@ -150,7 +151,11 @@ class Character < ApplicationRecord
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)
+    # New collectables have the string MISSING instead of an ID, so reject these until they are mapped properly
+    ids.reject! { |id| id.class != Integer }
+
     return unless ids.present?
+
     date = Time.now.to_formatted_s(:db)
     values = ids.map { |id| "(#{character_id}, #{id}, '#{date}', '#{date}')" }
     model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
