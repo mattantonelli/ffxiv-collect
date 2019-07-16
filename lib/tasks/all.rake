@@ -53,7 +53,7 @@ def sanitize_name(name)
 end
 
 def without_custom(data)
-  data.except('name_en', 'name_fr', 'name_de', 'name_ja', 'patch')
+  data.stringify_keys.except('name_en', 'name_fr', 'name_de', 'name_ja', 'patch')
 end
 
 def updated?(model, data)
