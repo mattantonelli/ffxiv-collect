@@ -70,6 +70,11 @@ When new data becomes available on patch day, it can be loaded into the database
 
 ```
 bundle exec rake data:update
+bundle exec rake assets:precompile
+# Restart the application
+bundle exec rails console
+[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire].each { |model| puts "#{model}: #{model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH')}" }
+exit
 ```
 
 More action may be required in the event of complex game updates. Patch data must be populated manually.
