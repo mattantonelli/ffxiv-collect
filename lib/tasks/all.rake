@@ -40,6 +40,7 @@ def sanitize_text(text)
     .gsub('<Indent/>', ' ')
     .gsub(/\<.*?\>/, '')
     .gsub("\r", "\n")
+    .gsub("\n\n", ' ')
 end
 
 # Fix lowercase names and German gender tags
