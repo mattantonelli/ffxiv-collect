@@ -37,7 +37,8 @@ namespace :hairstyles do
       filename = path.join("#{custom.icon.scan(/\d+\.png/).first}")
       download_image(nil, custom.icon, filename)
 
-      sample_filename = Rails.root.join('public/images/hairstyles', "#{custom.data.to_s}.png")
+      # Use the first image as a sample of the hairstyle
+      sample_filename = Rails.root.join('public/images/hairstyles/samples', "#{custom.data.to_s}.png")
       FileUtils.cp(filename, sample_filename) unless File.exists?(sample_filename)
     end
 

@@ -37,7 +37,7 @@
       <tr class="collectable<%= ' owned' if @hairstyle_ids.include?(hairstyle.id) %>">
         <td data-value="<%= hairstyle.id %>">
           <%= link_to hairstyle_path(hairstyle), class: 'hairstyle-small' do %>
-            <%= hairstyle_icon(hairstyle) %>
+            <%= hairstyle_sample_image(hairstyle) %>
           <% end %>
         </td>
         <td><%= link_to hairstyle.name, hairstyle_path(hairstyle), class: 'name' %></td>
