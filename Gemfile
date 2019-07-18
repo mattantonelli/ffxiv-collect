@@ -37,7 +37,8 @@ gem 'traco'
 gem 'rest-client'
 gem 'paper_trail'
 
-gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.2.5'
+# gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.2.5'
+gem 'xivapi', path: '~/ruby/gems/xivapi'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

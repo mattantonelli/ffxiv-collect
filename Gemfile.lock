@@ -1,7 +1,5 @@
-GIT
-  remote: https://github.com/xivapi/xivapi-ruby.git
-  revision: 863ea72ea1158f09fda84c6a6865d41cae7858f1
-  tag: v0.2.5
+PATH
+  remote: ../../ruby/gems/xivapi
   specs:
     xivapi (0.2.5)
       rest-client (~> 2.0.2)
