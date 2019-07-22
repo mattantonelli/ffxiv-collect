@@ -37,7 +37,7 @@ class CharactersController < ApplicationController
 
   def select
     begin
-      character = Character.fetch(params[:id])
+      character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
 
       if character.private?(current_user)
         flash[:alert] = "Sorry, this character's verified user has set their collections to private."
@@ -90,7 +90,7 @@ class CharactersController < ApplicationController
 
   def refresh
     begin
-      @character.refresh
+      Character.fetch(@character.id)
       flash[:success] = 'Your character has been refreshed.'
     rescue XIVAPI::Errors::RequestError
       flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'

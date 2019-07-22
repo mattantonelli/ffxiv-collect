@@ -51,5 +51,10 @@ class ApplicationController < ActionController::Base
       id = cookies['character']
       @character = Character.find_by(id: id) if id.present?
     end
+
+    if @character.present? && @character.stale? && !@character.in_queue?
+      @character.update(queued_at: Time.now)
+      CharacterSyncJob.perform_later(@character.id)
+    end
   end
 end

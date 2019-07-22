@@ -22,6 +22,7 @@
 #  public             :boolean          default(TRUE)
 #  achievement_points :integer          default(0)
 #  free_company_id    :string(255)
+#  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #
 
 class Character < ApplicationRecord
@@ -41,10 +42,6 @@ class Character < ApplicationRecord
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
-  end
-
-  def refresh
-    Character.fetch(self.id, true)
   end
 
   def triple_triad
@@ -76,13 +73,23 @@ class Character < ApplicationRecord
     last_parsed < Time.now - 6.hours
   end
 
-  def self.fetch(id, skip_cache = false)
-    if !skip_cache && (character = Character.find_by(id: id)) && !character.stale?
-      character
-    else
+  def in_queue?
+    queued_at > Time.now - 1.minute
+  end
+
+  def self.fetch(id)
+    begin
       result = XIVAPI_CLIENT.character(id: id, data: CHARACTER_DATA, columns: CHARACTER_COLUMNS)
       Character.update(result)
+    rescue XIVAPI::RateLimitError => e
+      Rails.logger.error("XIVAPI rate limited the request for character #{id}.")
+    rescue XIVAPI::RequestError => e
+      Rails.logger.error("XIVAPI had an error processing character #{id}: #{e.message}")
     end
+
+    character = Character.find_by(id: id)
+    character&.update(last_parsed: Time.now)
+    character
   end
 
   def self.sync(ids)
@@ -128,7 +135,6 @@ class Character < ApplicationRecord
     end
 
     info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar, :free_company_id)
-    info[:last_parsed] = Time.now
     info[:achievements_count] = -1 unless data.achievements_public
 
     if character = Character.find_by(id: info[:id])
@@ -148,7 +154,7 @@ class Character < ApplicationRecord
     Character.bulk_insert(info[:id], CharacterMinion, :minion,
                           data.character.minions - character.minion_ids - Minion.unsummonable_ids)
 
-    Character.find(info[:id])
+    true
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)

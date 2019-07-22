@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require "rails"
+require "active_job/railtie"
 require "active_model/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
@@ -29,5 +30,7 @@ module FfxivCollect
     config.cache_store = :file_store, 'tmp/cache'
 
     config.session_store :cookie_store, key: '_ffxiv_collect_session', expire_after: 1.month
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
