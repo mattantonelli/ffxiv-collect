@@ -1,6 +1,7 @@
 class AchievementsController < ApplicationController
   include Collection
   before_action :verify_character!, only: :index
+  before_action :verify_character_sync_status!, except: :show
   before_action :check_achievements!, except: :show
   before_action :set_owned!, on: :items
 

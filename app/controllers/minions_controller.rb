@@ -1,5 +1,6 @@
 class MinionsController < ApplicationController
   include Collection
+  before_action :verify_character_sync_status!, on: :index
 
   def index
     @q = Minion.summonable.ransack(params[:q])

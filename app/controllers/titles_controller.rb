@@ -1,6 +1,7 @@
 class TitlesController < ApplicationController
   include Collection
   before_action :check_achievements!
+  before_action :verify_character_sync_status!
   skip_before_action :set_owned!
 
   def index

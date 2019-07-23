@@ -11,6 +11,12 @@ class CharactersController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
 
+    if @profile.stale?
+      @profile.sync unless @profile.in_queue?
+      ownership = @profile == @character ? 'Your' : 'This'
+      flash.now[:notice_fixed] = "#{ownership} character's data is currently synchronizing with the Lodestone."
+    end
+
     @triad = @profile.triple_triad
   end
 

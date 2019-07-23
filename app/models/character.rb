@@ -44,6 +44,11 @@ class Character < ApplicationRecord
     has_many model, through: "character_#{model}".to_sym
   end
 
+  def sync
+    update(queued_at: Time.now)
+    CharacterSyncJob.perform_later(id)
+  end
+
   def triple_triad
     verified_user&.triple_triad
   end

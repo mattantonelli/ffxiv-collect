@@ -1,5 +1,6 @@
 class LeaderboardsController < ApplicationController
   before_action :set_shared
+  before_action :verify_character_sync_status!
 
   def index
     @data_center = params[:data_center]
@@ -20,10 +21,6 @@ class LeaderboardsController < ApplicationController
     @free_company = FreeCompany.find(params[:id])
     @results = @free_company.members.visible.where("#{@metric} > 0").order(@metric => :desc, id: :desc)
     @ranks = @results.pluck(:id)
-
-    if @results.length < 10
-      flash.now[:notice_fixed] = 'Missing someone? Refer them today to start tracking their character.'
-    end
   end
 
   private
