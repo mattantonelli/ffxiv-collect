@@ -31,13 +31,13 @@ class Source < ApplicationRecord
       relation = type.name.constantize.find_by(name_en: text)
       self.related_id = relation&.id
       self.related_type = type.name
-    when /(Dungeon|Trial|Raid)/
-      relation = Instance.find_by(name_en: text)
-      self.related_id = relation&.id
-      self.related_type = 'Instance'
+    when /(Dungeon|Trial|Raid|Treasure Hunt)/
+      if relation = Instance.find_by(name_en: text)
+        self.related_id = relation.id
+        self.related_type = 'Instance'
+      end
     when 'Event'
-      quest = Quest.find_by(name_en: text)
-      if quest.present?
+      if quest = Quest.find_by(name_en: text)
         self.related_id = quest.id
         self.related_type = 'Quest'
       else
