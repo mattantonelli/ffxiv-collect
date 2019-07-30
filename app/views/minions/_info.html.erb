@@ -8,7 +8,7 @@
   <div class="card-body">
     <div class="d-flex">
       <div class="d-none d-lg-block mr-4">
-        <%= image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
+        <%= safe_image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
       </div>
       <div class="d-flex flex-column flex-info">
         <div class="d-flex flex-wrap mb-0">
@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="minion-footprint">
-      <%= image_tag("minions/footprint/#{@minion.id}.png") %>
+      <%= safe_image_tag("minions/footprint/#{@minion.id}.png") %>
     </div>
   </div>
 </div>

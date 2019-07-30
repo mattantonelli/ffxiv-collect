@@ -21,6 +21,13 @@ module ApplicationHelper
     link_to text, path, class: "nav-link#{' active' if active}"
   end
 
+  def safe_image_tag(src, options = {})
+    begin
+      image_tag(src, options)
+    rescue Sprockets::Rails::Helper::AssetNotFound
+    end
+  end
+
   def format_date(date)
     date.in_time_zone('America/New_York').strftime('%e %b %Y %H:%M')
   end

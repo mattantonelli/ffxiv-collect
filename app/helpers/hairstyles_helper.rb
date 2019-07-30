@@ -6,6 +6,6 @@ module HairstylesHelper
   end
 
   def hairstyle_sample_image(hairstyle)
-    image_tag("hairstyles/samples/#{hairstyle.id}.png", class: 'hairstyle-small')
+    safe_image_tag("hairstyles/samples/#{hairstyle.id}.png", class: 'hairstyle-small')
   end
 end
