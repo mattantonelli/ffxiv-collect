@@ -7,7 +7,7 @@
 #  server             :string(255)      not null
 #  portrait           :string(255)      not null
 #  avatar             :string(255)      not null
-#  last_parsed        :datetime         not null
+#  last_parsed        :datetime
 #  verified_user_id   :integer
 #  achievements_count :integer          default(0)
 #  mounts_count       :integer          default(0)

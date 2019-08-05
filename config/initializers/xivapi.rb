@@ -1,1 +1,1 @@
-XIVAPI_CLIENT = XIVAPI::Client.new(api_key: Rails.application.credentials.xivapi_key, staging: true)
+XIVAPI_CLIENT = XIVAPI::Client.new(api_key: Rails.application.credentials.xivapi_key)

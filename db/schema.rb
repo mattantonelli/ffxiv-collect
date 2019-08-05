@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_213313) do
     t.string "server", null: false
     t.string "portrait", null: false
     t.string "avatar", null: false
-    t.datetime "last_parsed", null: false
+    t.datetime "last_parsed"
     t.integer "verified_user_id"
     t.integer "achievements_count", default: 0
     t.integer "mounts_count", default: 0
