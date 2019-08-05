@@ -32,5 +32,12 @@ module FfxivCollect
     config.session_store :cookie_store, key: '_ffxiv_collect_session', expire_after: 1.month
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '/api/*', headers: :any, methods: [:get, :options]
+      end
+    end
   end
 end
