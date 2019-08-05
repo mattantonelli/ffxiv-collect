@@ -91,4 +91,6 @@ Rails.application.configure do
     params = event.payload[:params].except(*%w(controller action format id authenticity_token state code))
     { params: params } if params.present?
   end
+
+  Sidekiq::Logging.logger.level = Logger::WARN
 end

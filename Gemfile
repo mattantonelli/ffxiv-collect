@@ -36,8 +36,10 @@ gem 'redis-namespace'
 gem 'traco'
 gem 'rest-client'
 gem 'paper_trail'
+gem 'sidekiq', '~> 5.2.7'
+gem 'sidekiq-failures', '~> 1.0.0'
 
-gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.2.5'
+gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -56,4 +58,5 @@ group :development do
   gem 'capistrano-bundler', '~> 1.2'
   gem 'capistrano-rbenv', '~> 2.1'
   gem 'capistrano-rails', '~> 1.4.0'
+  gem 'capistrano-sidekiq', '~> 1.0.2'
 end

@@ -11,6 +11,12 @@ class CharactersController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
 
+    if @profile.stale?
+      @profile.sync unless @profile.in_queue?
+      ownership = @profile == @character ? 'Your' : 'This'
+      flash.now[:notice_fixed] = "#{ownership} character's data is currently synchronizing with the Lodestone."
+    end
+
     @triad = @profile.triple_triad
   end
 
@@ -37,7 +43,7 @@ class CharactersController < ApplicationController
 
   def select
     begin
-      character = Character.fetch(params[:id])
+      character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
 
       if character.private?(current_user)
         flash[:alert] = "Sorry, this character's verified user has set their collections to private."
@@ -90,7 +96,7 @@ class CharactersController < ApplicationController
 
   def refresh
     begin
-      @character.refresh
+      Character.fetch(@character.id)
       flash[:success] = 'Your character has been refreshed.'
     rescue XIVAPI::Errors::RequestError
       flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'

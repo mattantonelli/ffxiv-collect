@@ -1,5 +1,6 @@
 class MountsController < ApplicationController
   include Collection
+  before_action :verify_character_sync_status!, on: :index
 
   def index
     @q = Mount.ransack(params[:q])

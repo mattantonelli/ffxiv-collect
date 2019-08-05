@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/xivapi/xivapi-ruby.git
-  revision: 863ea72ea1158f09fda84c6a6865d41cae7858f1
-  tag: v0.2.5
+  revision: c6d1458e8bcce07f864de713128ae11d01245bdc
+  tag: v0.3.0
   specs:
-    xivapi (0.2.5)
+    xivapi (0.3.0)
       rest-client (~> 2.0.2)
 
 GEM
@@ -81,6 +81,9 @@ GEM
     capistrano-rbenv (2.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
+    capistrano-sidekiq (1.0.2)
+      capistrano (>= 3.9.0)
+      sidekiq (>= 3.4)
     chronic (0.10.2)
     chunky_png (1.3.11)
     clipboard-rails (1.7.1)
@@ -92,6 +95,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
+    connection_pool (2.2.2)
     crass (1.0.4)
     devise (4.5.0)
       bcrypt (~> 3.0)
@@ -189,6 +193,8 @@ GEM
     rack (2.0.7)
     rack-mini-profiler (1.0.0)
       rack (>= 1.2.0)
+    rack-protection (2.0.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.3)
@@ -259,6 +265,13 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sidekiq (5.2.7)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (>= 1.5.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
+    sidekiq-failures (1.0.0)
+      sidekiq (>= 4.0.0)
     sortable-rails (1.7.0)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -319,6 +332,7 @@ DEPENDENCIES
   capistrano-bundler (~> 1.2)
   capistrano-rails (~> 1.4.0)
   capistrano-rbenv (~> 2.1)
+  capistrano-sidekiq (~> 1.0.2)
   chunky_png
   clipboard-rails
   coffee-rails (~> 4.2)
@@ -342,6 +356,8 @@ DEPENDENCIES
   redis-namespace
   rest-client
   sass-rails (~> 5.0)
+  sidekiq (~> 5.2.7)
+  sidekiq-failures (~> 1.0.0)
   sortable-rails
   spring
   spring-watcher-listen (~> 2.0.0)

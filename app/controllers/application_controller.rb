@@ -27,6 +27,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def verify_character_sync_status!
+    if @character.present? && @character.stale? && @character.in_queue?
+      flash.now[:notice_fixed] = "Your character's data is currently synchronizing with the Lodestone."
+    end
+  end
+
   private
   def set_locale
     locale = cookies['locale']
@@ -50,6 +56,10 @@ class ApplicationController < ActionController::Base
     else
       id = cookies['character']
       @character = Character.find_by(id: id) if id.present?
+    end
+
+    if @character.present? && @character.stale? && !@character.in_queue?
+      @character.sync
     end
   end
 end

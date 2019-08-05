@@ -7,7 +7,7 @@
 #  server             :string(255)      not null
 #  portrait           :string(255)      not null
 #  avatar             :string(255)      not null
-#  last_parsed        :datetime         not null
+#  last_parsed        :datetime
 #  verified_user_id   :integer
 #  achievements_count :integer          default(0)
 #  mounts_count       :integer          default(0)
@@ -22,6 +22,7 @@
 #  public             :boolean          default(TRUE)
 #  achievement_points :integer          default(0)
 #  free_company_id    :string(255)
+#  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #
 
 class Character < ApplicationRecord
@@ -33,18 +34,19 @@ class Character < ApplicationRecord
   scope :visible, -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
-  CHARACTER_COLUMNS = %w(Achievements Character.Avatar Character.ID Character.Minions Character.Mounts Character.Name
-  Character.FreeCompanyId Character.ParseDate Character.Portrait Character.Server FreeCompany.ID FreeCompany.Name
-  FreeCompany.Tag Info).freeze
+  CHARACTER_COLUMNS = %w(Achievements AchievementsPublic Character.Avatar Character.ID Character.Minions
+  Character.Mounts Character.Name Character.FreeCompanyId Character.ParseDate Character.Portrait
+  Character.Server FreeCompany.ID FreeCompany.Name FreeCompany.Tag).freeze
+  CHARACTER_DATA = 'AC,FC'.freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end
 
-  def refresh
-    XIVAPI_CLIENT.character_update(id: self.id)
-    Character.fetch(self.id, true)
+  def sync
+    update(queued_at: Time.now)
+    CharacterSyncJob.perform_later(id)
   end
 
   def triple_triad
@@ -72,17 +74,31 @@ class Character < ApplicationRecord
     end
   end
 
-  def self.fetch(id, skip_cache = false)
-    if !skip_cache && character = Character.find_by(id: id)
-      return character
+  def stale?
+    last_parsed < Time.now - 6.hours
+  end
+
+  def in_queue?
+    queued_at > Time.now - 1.minute
+  end
+
+  def self.fetch(id)
+    begin
+      result = XIVAPI_CLIENT.character(id: id, data: CHARACTER_DATA, columns: CHARACTER_COLUMNS)
+      Character.update(result)
+    rescue XIVAPI::RateLimitError => e
+      Rails.logger.error("XIVAPI rate limited the request for character #{id}.")
+    rescue XIVAPI::RequestError => e
+      Rails.logger.error("XIVAPI had an error processing character #{id}: #{e.message}")
     end
 
-    result = XIVAPI_CLIENT.character(id: id, data: 'AC,FC', poll: true, columns: CHARACTER_COLUMNS)
-    Character.update(result)
+    character = Character.find_by(id: id)
+    character&.update(last_parsed: Time.now)
+    character
   end
 
   def self.sync(ids)
-    XIVAPI_CLIENT.characters(ids: ids, data: 'AC,FC', columns: CHARACTER_COLUMNS).each do |data|
+    XIVAPI_CLIENT.characters(ids: ids, data: CHARACTER_DATA, columns: CHARACTER_COLUMNS).each do |data|
       Character.update(data)
     end
   end
@@ -114,9 +130,6 @@ class Character < ApplicationRecord
 
   private
   def self.update(data)
-    # Skip characters who are not added to the cache or have an unknown status
-    return if data.info&.character&.state != 2
-
     if data.free_company.id.present?
       fc = data.free_company.to_h.slice(:id, :name, :tag)
       if existing = FreeCompany.find_by(id: fc[:id])
@@ -127,8 +140,7 @@ class Character < ApplicationRecord
     end
 
     info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar, :free_company_id)
-    info[:last_parsed] = Time.at(data.character.parse_date)
-    info[:achievements_count] = -1 if data.info.achievements.state == 5 # Achievements set to private
+    info[:achievements_count] = -1 unless data.achievements_public
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
@@ -147,7 +159,7 @@ class Character < ApplicationRecord
     Character.bulk_insert(info[:id], CharacterMinion, :minion,
                           data.character.minions - character.minion_ids - Minion.unsummonable_ids)
 
-    Character.find(info[:id])
+    true
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)
