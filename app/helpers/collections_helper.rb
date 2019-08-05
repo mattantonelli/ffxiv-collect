@@ -72,7 +72,7 @@ module CollectionsHelper
 
   def mogboard_link(collectable)
     if collectable.item_id.present?
-      link_to(fa_icon('dollar'), mogboard_url(collectable.item_id), target: '_blank')
+      fa_icon('dollar', data: { toggle: 'tooltip' }, title: 'Tradeable')
     end
   end
 
