@@ -44,7 +44,6 @@ Rails.application.routes.draw do
 
   get 'character/verify',     to: 'characters#verify',   as: :verify_character
   get 'character/settings',   to: 'characters#edit',     as: :character_settings
-  post 'character/refresh',   to: 'characters#refresh',  as: :refresh_character
   post 'character/validate',  to: 'characters#validate', as: :validate_character
   patch 'character/update',   to: 'characters#update',   as: :update_character
   delete 'character/forget',  to: 'characters#forget',   as: :forget_character

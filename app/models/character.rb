@@ -76,7 +76,7 @@ class Character < ApplicationRecord
   end
 
   def in_queue?
-    queued_at > Time.now - 1.minute
+    queued_at > Time.now - 30.minutes
   end
 
   def self.fetch(id)

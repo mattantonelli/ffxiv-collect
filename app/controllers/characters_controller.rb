@@ -90,17 +90,6 @@ class CharactersController < ApplicationController
     redirect_to search_characters_path
   end
 
-  def refresh
-    character = Character.fetch(@character.id)
-    if character.present?
-      flash[:success] = 'Your character has been refreshed.'
-    else
-      flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
-    end
-
-    redirect_back(fallback_location: root_path)
-  end
-
   def verify
     session[:return_to] = request.referer
   end
