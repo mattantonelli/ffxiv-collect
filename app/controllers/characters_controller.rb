@@ -11,10 +11,8 @@ class CharactersController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
 
-    if @profile.stale?
-      @profile.sync unless @profile.in_queue?
-      ownership = @profile == @character ? 'Your' : 'This'
-      flash.now[:notice_fixed] = "#{ownership} character's data is currently synchronizing with the Lodestone."
+    if @profile.stale? && !@profile.in_queue?
+      @profile.sync
     end
 
     @triad = @profile.triple_triad
@@ -42,26 +40,24 @@ class CharactersController < ApplicationController
   end
 
   def select
-    begin
-      character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
+    character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
 
-      if character.private?(current_user)
-        flash[:alert] = "Sorry, this character's verified user has set their collections to private."
-        redirect_back(fallback_location: root_path)
-      else
-        if user_signed_in?
-          current_user.characters << character unless current_user.characters.exists?(character.id)
-          current_user.update(character_id: params[:id])
-        else
-          cookies[:character] = params[:id]
-        end
-
-        flash[:success] = 'Your character has been set.'
-        redirect_to character_path(character)
-      end
-    rescue XIVAPI::Errors::RequestError
+    if !character.present?
       flash[:error] = 'There was a problem selecting that character.'
       redirect_back(fallback_location: root_path)
+    elsif character.private?(current_user)
+      flash[:alert] = "Sorry, this character's verified user has set their collections to private."
+      redirect_back(fallback_location: root_path)
+    else
+      if user_signed_in?
+        current_user.characters << character unless current_user.characters.exists?(character.id)
+        current_user.update(character_id: params[:id])
+      else
+        cookies[:character] = params[:id]
+      end
+
+      flash[:success] = 'Your character has been set.'
+      redirect_to character_path(character)
     end
   end
 
@@ -95,10 +91,10 @@ class CharactersController < ApplicationController
   end
 
   def refresh
-    begin
-      Character.fetch(@character.id)
+    character = Character.fetch(@character.id)
+    if character.present?
       flash[:success] = 'Your character has been refreshed.'
-    rescue XIVAPI::Errors::RequestError
+    else
       flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
     end
 

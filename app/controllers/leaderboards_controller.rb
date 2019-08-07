@@ -1,6 +1,5 @@
 class LeaderboardsController < ApplicationController
   before_action :set_shared
-  before_action :verify_character_sync_status!
 
   def index
     @data_center = params[:data_center]

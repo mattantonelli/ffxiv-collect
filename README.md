@@ -1,6 +1,10 @@
 # FFXIV Collect
 This is another application for tracking your Final Fantasy XIV collections written in [Ruby on Rails](https://rubyonrails.org/) and powered by [XIVAPI](https://xivapi.com/). This application strives to be as autonomous as possible by pulling as much data as possible from [XIVAPI](https://xivapi.com/). The rest is maintained by a small group of moderators using community-sourced data.
 
+## Important Notice
+
+FFXIV Collect has recently switched to the [Lalachievements](https://lalachievements.com/en/) API for character synchronization. This API is currently private, so you will not be able to synchronize characters with the latest version of this code. Until this API becomes public, you can check out the tag `no-lala`.
+
 ## API
 
 All of this application's data is made available through a RESTful JSON API. See the [wiki](https://github.com/mattantonelli/ffxiv-collect/wiki) for details.
@@ -41,6 +45,7 @@ discord:
   client_id: 123456789
   client_secret: abc123
 xivapi_key: def456
+lalachievements_key: ghi789
 google_analytics:
   tracking_id: GA-1234567-8
 ```
@@ -63,6 +68,7 @@ Please note that if you did not install your Ruby using rbenv, you will need to 
 #### Start the server
 ```
 rails server
+bundle exec sidekiq
 ```
 
 ## Updating

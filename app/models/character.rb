@@ -34,10 +34,7 @@ class Character < ApplicationRecord
   scope :visible, -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
-  CHARACTER_COLUMNS = %w(Achievements AchievementsPublic Character.Avatar Character.ID Character.Minions
-  Character.Mounts Character.Name Character.FreeCompanyId Character.ParseDate Character.Portrait
-  Character.Server FreeCompany.ID FreeCompany.Name FreeCompany.Tag).freeze
-  CHARACTER_DATA = 'AC,FC'.freeze
+  CHARACTER_API_BASE = 'https://www.lalachievements.com/api/charrealtime'.freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
@@ -84,22 +81,13 @@ class Character < ApplicationRecord
 
   def self.fetch(id)
     begin
-      result = XIVAPI_CLIENT.character(id: id, data: CHARACTER_DATA, columns: CHARACTER_COLUMNS)
+      result = JSON.parse(RestClient.get("#{CHARACTER_API_BASE}/#{id}" \
+                                         "?key=#{Rails.application.credentials.lalachievements_key}"))
       Character.update(result)
-    rescue XIVAPI::RateLimitError => e
-      Rails.logger.error("XIVAPI rate limited the request for character #{id}.")
-    rescue XIVAPI::RequestError => e
-      Rails.logger.error("XIVAPI had an error processing character #{id}: #{e.message}")
-    end
-
-    character = Character.find_by(id: id)
-    character&.update(last_parsed: Time.now)
-    character
-  end
-
-  def self.sync(ids)
-    XIVAPI_CLIENT.characters(ids: ids, data: CHARACTER_DATA, columns: CHARACTER_COLUMNS).each do |data|
-      Character.update(data)
+      Character.find_by(id: id)
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.error("There was a problem fetching character #{id}: #{e.response}")
+      nil
     end
   end
 
@@ -130,8 +118,8 @@ class Character < ApplicationRecord
 
   private
   def self.update(data)
-    if data.free_company.id.present?
-      fc = data.free_company.to_h.slice(:id, :name, :tag)
+    if data['fcId'].present?
+      fc = { id: data['fcId'], name: data['fcName'] }
       if existing = FreeCompany.find_by(id: fc[:id])
         existing.update!(fc)
       else
@@ -139,8 +127,9 @@ class Character < ApplicationRecord
       end
     end
 
-    info = data.character.to_h.slice(:id, :name, :server, :portrait, :avatar, :free_company_id)
-    info[:achievements_count] = -1 unless data.achievements_public
+    info = { id: data['id'], name: data['name'], server: data['worldName'], portrait: data['imageUrl'],
+             avatar: data['iconUrl'], free_company_id: data['fcId'], last_parsed: Time.at(data['updatedAt'] / 1000) }
+    info[:achievements_count] = -1 unless !data['achievementsPrivate']
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
@@ -148,24 +137,21 @@ class Character < ApplicationRecord
       character = Character.create!(info)
     end
 
-    if data.achievements.present?
+    unless data['achievementsPrivate']
       achievement_ids = character.achievement_ids
-      achievements = data.achievements.list.reject { |achievement| achievement_ids.include?(achievement.id) }
+      achievements = data['achievements'].reject { |achievement| achievement_ids.include?(achievement['id']) }
       Character.bulk_insert_achievements(info[:id], achievements)
       character.update(achievement_points: character.achievements.sum(:points))
     end
 
-    Character.bulk_insert(info[:id], CharacterMount, :mount, data.character.mounts - character.mount_ids)
+    Character.bulk_insert(info[:id], CharacterMount, :mount, data['mounts'].pluck('id') - character.mount_ids)
     Character.bulk_insert(info[:id], CharacterMinion, :minion,
-                          data.character.minions - character.minion_ids - Minion.unsummonable_ids)
+                          data['minions'].pluck('id') - character.minion_ids - Minion.unsummonable_ids)
 
     true
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)
-    # New collectables have the string MISSING instead of an ID, so reject these until they are mapped properly
-    ids.reject! { |id| id.class != Integer }
-
     return unless ids.present?
 
     date = Time.now.to_formatted_s(:db)
@@ -179,8 +165,8 @@ class Character < ApplicationRecord
     return unless achievements.present?
 
     values = achievements.map do |achievement|
-      date = Time.at(achievement.date).to_formatted_s(:db)
-      "(#{character_id}, #{achievement.id}, '#{date}', '#{date}')"
+      date = Time.at(achievement['date']).to_formatted_s(:db)
+      "(#{character_id}, #{achievement['id']}, '#{date}', '#{date}')"
     end
 
     CharacterAchievement.connection
