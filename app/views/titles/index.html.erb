@@ -1,8 +1,13 @@
 <% title('Titles') %>
 
-<div class="text-right mb-2">
-  <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
-    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+<div class="d-flex justify-content-center">
+  <%= search_form_for(@q, url: titles_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+    <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: 'Name',
+      size: 40, class: 'form-control form-control-sm'%>
+    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+  <% end %>
 </div>
 <%= render 'shared/filters' %>
 <% if character_selected? %>

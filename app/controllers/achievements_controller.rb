@@ -22,7 +22,8 @@ class AchievementsController < ApplicationController
   end
 
   def items
-    @achievements = Achievement.where.not(item_id: nil).order(patch: :desc, order: :desc).includes(category: :type)
+    @q = Achievement.where.not(item_id: nil).ransack(params[:q])
+    @achievements = @q.result.order(patch: :desc, order: :desc).includes(category: :type)
     @achievement_ids = @character&.achievement_ids || []
     @owned = Redis.current.hgetall(:achievements)
   end

@@ -4,7 +4,8 @@ class TitlesController < ApplicationController
   skip_before_action :set_owned!
 
   def index
-    @titles = Title.includes(achievement: { category: :type }).all.order('achievements.patch desc', order: :desc)
+    @q = Title.ransack(params[:q])
+    @titles = @q.result.includes(achievement: { category: :type }).all.order('achievements.patch desc', order: :desc)
 
     if cookies[:limited] == 'hide'
       @titles = @titles.joins(:achievement).merge(Achievement.exclude_time_limited)
