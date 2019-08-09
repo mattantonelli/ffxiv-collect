@@ -3,7 +3,7 @@
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: achievement_items_path, enforce_utf8: false,
                       class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: 'Name',
+    <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: 'Item',
       size: 40, class: 'form-control form-control-sm'%>
     <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
