@@ -5,7 +5,7 @@
     <div class="card shadow">
       <h5 class="card-header">Verify Character</h5>
       <div class="card-body">
-        <p>You are verifying your ownership of the following character:</p>
+        <p>You are verifying your ownership of the following character as the following Discord user:</p>
         <hr>
         <div class="d-flex my-3 align-items-center">
           <%= image_tag(@character.avatar, class: 'avatar mr-3') %>
@@ -13,12 +13,16 @@
             <b><%= @character.name %></b><br>
             <%= @character.server %>
           </div>
+          <div class="mx-3">
+            <%= avatar(current_user) %>
+          </div>
+          <b><%= username(current_user) %></b>
         </div>
         <hr>
         <p>
-          Add this code to your <%= link_to 'Lodestone profile',
+          If the information above is correct, please add the code below to your <%= link_to 'Lodestone profile',
             "https://#{region}.finalfantasyxiv.com/lodestone/my/setting/profile/", target: '_blank'  %>,
-            then click <b>Verify</b> below.
+            then click <b>Verify</b>.
         </p>
         <pre id="verification"><%= @code %></pre>
         <div class="d-flex justify-content-between">
