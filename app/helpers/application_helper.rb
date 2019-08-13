@@ -52,7 +52,7 @@ module ApplicationHelper
   end
 
   def format_text_long(text)
-    format_text(text.gsub(/\n+/, '<br>'))
+    format_text(text.gsub(/\u203B/, "<br>\u203B"))
   end
 
   def truncate_text(text, length)
