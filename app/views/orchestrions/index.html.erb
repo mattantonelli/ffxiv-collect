@@ -2,14 +2,14 @@
 
 <%= render 'shared/category_buttons', categories: @categories, selected: @category %>
 <div class="row my-2">
-  <div class="col-3 mt-2 mt-sm-0">
+  <div class="col-12 col-md-3 mt-2 mt-sm-0 mb-1 mb-sm-0">
     <div>
       <% if @character&.verified_user?(current_user) %>
         <%= link_to 'Quick Select', select_orchestrions_path, class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
   </div>
-  <div class="col-9 col-md-6">
+  <div class="col-12 col-md-6">
     <%= search_form_for(@q, url: orchestrions_path, enforce_utf8: false,
                         class: 'form form-inline search-form d-flex mx-auto') do |f| %>
       <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name',
