@@ -31,6 +31,10 @@ body {
     width: 100%;
     max-width: 100%;
   }
+
+  .hide-sm {
+    display: none;
+  }
 }
 
 footer {
@@ -90,6 +94,12 @@ a.unstyled {
       background-color: rgba(0, 0, 0, 0.4);
     }
   }
+}
+
+.btn-group .btn:disabled {
+  opacity: 1;
+  background-color: #545b62;
+  border-color: #4e555b;
 }
 
 label, input[type="checkbox"] {
@@ -344,6 +354,7 @@ input[type="checkbox"] {
 
   input, select, .btn {
     margin-right: 1rem;
+    margin-bottom: 0.25rem;
   }
 
   @media (max-width: 575px) {
@@ -441,4 +452,8 @@ i.delete:hover {
     cursor: pointer;
     color: rgba(255, 255, 255, 0.7);
   }
+}
+
+.no-wrap {
+  white-space: nowrap;
 }

@@ -10,8 +10,10 @@ Rails.application.routes.draw do
 
   post 'locale/set', to: 'locale#update'
 
-  %i(mounts minions).each do |resource|
-    resources resource, only: [:index, :show]
+  resources :mounts, only: [:index, :show]
+
+  resources :minions, only: [:index, :show] do
+    get :verminion, on: :collection
   end
 
   resources :orchestrions, only: [] do

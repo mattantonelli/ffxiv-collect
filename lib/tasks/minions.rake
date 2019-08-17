@@ -1,7 +1,7 @@
 MINION_COLUMNS = %w(ID BehaviorTargetID Cost Attack Defense Description_* DescriptionEnhanced_*
 GamePatch.Version HP HasAreaAttack Icon IconSmall IconID MinionRaceTargetID Name_* SkillAngle
 SkillCost SpecialActionName_* SpecialActionDescription_* Speed StrengthArcana StrengthEye StrengthGate
-StrengthShield Tooltip_* MinionSkillTypeTargetID).freeze
+StrengthShield Tooltip_* MinionSkillTypeTargetID Order).freeze
 
 namespace :minions do
   desc 'Create the minions'
@@ -42,7 +42,7 @@ namespace :minions do
                arcana: minion.strength_arcana == 1, eye: minion.strength_eye == 1,
                gate: minion.strength_gate == 1, shield: minion.strength_shield == 1,
                behavior_id: minion.behavior_target_id.to_i, race_id: minion.minion_race_target_id.to_i,
-               skill_type_id: skill_type_id }
+               skill_type_id: skill_type_id, order: minion.order }
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(minion["name_#{locale}"])

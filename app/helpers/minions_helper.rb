@@ -17,7 +17,31 @@ module MinionsHelper
     "#{fa_icon('star') * minion.speed}#{fa_icon('star-o') * (4 - minion.speed)}".html_safe
   end
 
+  def speed_options
+    (1..4).to_a.reverse.map { |x| ["\u2605" * x, x] }
+  end
+
+  def strengths(minion)
+    if minion.strengths.values.any?
+      strengths = minion.strengths.each_with_index.map do |(type, strong), i|
+        if strong
+          minion_strength(type, i)
+        end
+      end
+
+      strengths.join.html_safe
+    end
+  end
+
+  def strengths_count(minion)
+    minion.strengths.values.count(true)
+  end
+
+  def strength_options(selected)
+    options_for_select([['Gates', 'gate'], ['Search Eyes', 'eye'], ['Shields', 'shield'], ['Arcana Stones', 'arcana']], selected)
+  end
+
   def auto_attack(minion)
-    @minion.area_attack ? 'Multi-target' : 'Single-target'
+    minion.area_attack ? 'Multi-target' : 'Single-target'
   end
 end

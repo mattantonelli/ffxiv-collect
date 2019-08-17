@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_213313) do
+ActiveRecord::Schema.define(version: 2019_08_17_175046) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -378,11 +378,13 @@ ActiveRecord::Schema.define(version: 2019_07_22_213313) do
     t.string "enhanced_description_fr", limit: 1000, null: false
     t.string "enhanced_description_ja", limit: 1000, null: false
     t.integer "item_id"
+    t.integer "order"
     t.index ["behavior_id"], name: "index_minions_on_behavior_id"
     t.index ["name_de"], name: "index_minions_on_name_de"
     t.index ["name_en"], name: "index_minions_on_name_en"
     t.index ["name_fr"], name: "index_minions_on_name_fr"
     t.index ["name_ja"], name: "index_minions_on_name_ja"
+    t.index ["order"], name: "index_minions_on_order"
     t.index ["patch"], name: "index_minions_on_patch"
     t.index ["race_id"], name: "index_minions_on_race_id"
     t.index ["skill_type_id"], name: "index_minions_on_skill_type_id"

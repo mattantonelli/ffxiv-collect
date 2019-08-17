@@ -44,17 +44,7 @@
         </div>
         <div>
           <dt>Strengths</dt>
-          <dd>
-            <% if minion.strengths.values.any? %>
-              <% minion.strengths.each_with_index do |(type, strong), i| %>
-                <% if strong %>
-                  <%= minion_strength(type, i) %>
-                <% end %>
-              <% end %>
-            <% else %>
-              None
-            <% end %>
-          </dd>
+          <dd><%= strengths(minion) %></dd>
         </div>
       </div>
       <hr>

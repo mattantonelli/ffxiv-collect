@@ -1,0 +1,68 @@
+<% title('Minions - Verminion') %>
+
+<div class="d-flex justify-content-center mb-3">
+  <div class="btn-group">
+    <%= link_to 'Standard', minions_path, class: 'btn btn-secondary' %>
+    <%= button_tag 'Verminion', class: 'btn btn-secondary active' %>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <%= search_form_for(@q, url: verminion_minions_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
+      class: 'form-control form-control-sm flex-grow-1' %>
+    <%= f.collection_select :race_id_eq, MinionRace.all.order("name_#{I18n.locale}"), :id, :name,
+      { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
+    <%= f.select :speed_eq, speed_options, { include_blank: 'All Speeds' }, class: 'form-control form-control-sm' %>
+    <%= select_tag :strength, strength_options(params[:strength]), include_blank: 'All Strengths',
+      class: 'form-control form-control-sm multiselect' %>
+    <%= f.collection_select :skill_type_id_eq, MinionSkillType.all.order("name_#{I18n.locale}"), :id, :name,
+      { include_blank: 'All Special Types' }, class: 'form-control form-control-sm' %>
+    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+  <% end %>
+</div>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+  <thead>
+    <tr>
+      <th scope="col">#</th> <!-- Image -->
+      <th scope="col" class="hide-xs">Name</th>
+      <th scope="col" class="text-center">Type</th>
+      <th scope="col" class="text-center">HP</th>
+      <th scope="col" class="text-center">ATK</th>
+      <th scope="col" class="text-center">DEF</th>
+      <th scope="col">Speed</th>
+      <th scope="col" class="text-center">Cost</th>
+      <th scope="col" class="hide-sm">Auto-attack</th>
+      <th scope="col" class="hide-xs">Strengths</th>
+      <th scope="col" class="hide-sm">Special Type</th>
+      <th scope="col" class="text-center hide-sm">Points</th>
+      <% if character_selected? %>
+        <th scope="col"></th><!-- Owned -->
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @minions.each do |minion| %>
+      <tr class="collectable">
+        <td data-value="<%= minion.id %>">
+          <%= link_to(minion_path(minion)) do %>
+            <%= sprite(minion, 'minions-small') %>
+          <% end %>
+        </td>
+        <td class="hide-xs"><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
+        <td class="text-center" data-value="<%= minion.race_id %>"><%= minion_type(minion) %></td>
+        <td class="text-center"><%= minion.hp %></td>
+        <td class="text-center"><%= minion.attack %></td>
+        <td class="text-center"><%= minion.defense %></td>
+        <td class="no-wrap" data-value="<%= minion.speed %>"><%= speed(minion) %></td>
+        <td class="text-center"><%= minion.cost %></td>
+        <td class="hide-sm"><%= auto_attack(minion) %></td>
+        <td class="hide-xs" data-value="<%= strengths_count(minion) %>"><%= strengths(minion) %></td>
+        <td class="hide-sm"><%= minion.skill_type&.name %></td>
+        <td class="text-center hide-sm"><%= minion.skill_cost %></td>
+        <% if character_selected? %>
+          <%= td_owned(@minion_ids, minion, false) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
