@@ -13,6 +13,10 @@ module MinionsHelper
     image_tag('blank.png', class: 'minion-skill-angle', style: "background-position: -#{40 * index}px 0")
   end
 
+  def format_skill_description(minion)
+    format_text(minion.skill_description.gsub('Duration:', '<br>Duration:'))
+  end
+
   def speed(minion)
     "#{fa_icon('star') * minion.speed}#{fa_icon('star-o') * (4 - minion.speed)}".html_safe
   end

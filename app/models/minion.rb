@@ -58,25 +58,34 @@ class Minion < ApplicationRecord
   belongs_to :skill_type, class_name: 'MinionSkillType', optional: true
 
   scope :summonable, -> { where.not(id: unsummonable_ids) }
+  scope :verminion,  -> { where.not(id: variant_ids) }
 
   def strengths
     { 'Gates' => gate, 'Search Eyes' => eye, 'Shields' => shield, 'Arcana Stones' => arcana }
   end
 
   def variant?
-    [68, 69, 70, 72, 73, 74].freeze.include?(id)
+    Minion.unsummonable_ids.include?(id)
   end
 
   def variants?
-    [67, 71].freeze.include?(id)
+    Minion.variant_ids.include?(id)
   end
 
   def variants
     Minion.where(id: (id + 1)..(id + 3)) if variants?
   end
 
+  def self.parent_id(id)
+    variant_ids.find { |vid| id - 3 <= vid }
+  end
+
   def self.angles
     [0, 30, 120, 360].freeze
+  end
+
+  def self.variant_ids
+    [67, 71].freeze
   end
 
   def self.unsummonable_ids
