@@ -14,7 +14,11 @@ module MinionsHelper
   end
 
   def format_skill_description(minion)
-    format_text(minion.skill_description.gsub('Duration:', '<br>Duration:'))
+    description = minion.skill_description
+      .gsub('Duration:', '<br>Duration:')
+      .gsub('Activation Delay:', '<br>Activation Delay:')
+
+    format_text(description)
   end
 
   def speed(minion)

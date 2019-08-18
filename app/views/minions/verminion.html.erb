@@ -33,7 +33,7 @@
       <th scope="col" class="text-center">Cost</th>
       <th scope="col" class="hide-sm">Auto-attack</th>
       <th scope="col" class="hide-xs">Strengths</th>
-      <th scope="col" class="hide-sm">Special Type</th>
+      <th scope="col" class="hide-sm">Special Action</th>
       <th scope="col" class="text-center hide-sm">Points</th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
@@ -49,7 +49,9 @@
           <% end %>
         </td>
         <td class="hide-xs"><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
-        <td class="text-center" data-value="<%= minion.race_id %>"><%= minion_type(minion) %></td>
+        <td class="text-center" data-value="<%= minion.race_id %>" data-toggle="tooltip" title="<%= minion.race.name %>">
+          <%= minion_type(minion) %>
+        </td>
         <td class="text-center"><%= minion.hp %></td>
         <td class="text-center"><%= minion.attack %></td>
         <td class="text-center"><%= minion.defense %></td>
@@ -57,7 +59,9 @@
         <td class="text-center"><%= minion.cost %></td>
         <td class="hide-sm"><%= auto_attack(minion) %></td>
         <td class="hide-xs" data-value="<%= strengths_count(minion) %>"><%= strengths(minion) %></td>
-        <td class="hide-sm"><%= minion.skill_type&.name %></td>
+        <td class="hide-sm" data-toggle="tooltip" data-html="true" title="<%= format_skill_description(minion) %>">
+          <%= minion.skill_type&.name %>
+        </td>
         <td class="text-center hide-sm"><%= minion.skill_cost %></td>
         <% if character_selected? %>
           <%= td_owned(@minion_ids, minion, false) %>

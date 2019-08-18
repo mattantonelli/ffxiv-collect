@@ -49,7 +49,9 @@
           <% end %>
         </td>
         <td><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
-        <td class="text-center" data-value="<%= minion.race_id %>"><%= minion_type(minion) %></td>
+        <td class="text-center" data-value="<%= minion.race_id %>" data-toggle="tooltip" title="<%= minion.race.name %>">
+          <%= minion_type(minion) %>
+        </td>
         <td class="hide-xs"><%= sources(minion) %></td>
         <td class="text-center" data-value="<%= minion.item_id.present? ? 1 : 0 %>"><%= mogboard_link(minion) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(minion, numeric: true) %>"><%= rarity(minion) %></td>

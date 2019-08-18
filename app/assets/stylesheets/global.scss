@@ -113,8 +113,7 @@ hr {
 }
 
 .tooltip-inner {
-  white-space: nowrap;
-  max-width: none;
+  max-width: 400px;
   text-align: left;
 }
 
@@ -339,10 +338,6 @@ pre {
   background-color: rgba(0, 0, 0, 0.2);
   padding: 0.5rem;
   white-space: pre-wrap;
-}
-
-.tooltip-inner {
-  text-align: center;
 }
 
 input[type="checkbox"] {

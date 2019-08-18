@@ -5,7 +5,7 @@ class MinionsController < ApplicationController
   def index
     @q = Minion.summonable.ransack(params[:q])
     @minions = @q.result.includes(:race)
-      .include_sources.with_filters(cookies).order(patch: :desc, id: :desc).distinct
+      .include_sources.with_filters(cookies).order(patch: :desc, order: :desc).distinct
   end
 
   def verminion
@@ -14,7 +14,7 @@ class MinionsController < ApplicationController
     end
 
     @q = Minion.verminion.ransack(params[:q])
-    @minions = @q.result.includes(:race, :skill_type).order(order: :asc)
+    @minions = @q.result.includes(:race, :skill_type).order(patch: :desc, order: :desc)
   end
 
   def show
