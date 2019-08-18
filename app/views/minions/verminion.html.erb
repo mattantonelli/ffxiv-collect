@@ -43,7 +43,7 @@
   <tbody>
     <% @minions.each do |minion| %>
       <tr class="collectable">
-        <td data-value="<%= minion.id %>">
+        <td data-value="<%= minion.order %>">
           <%= link_to(minion_path(minion)) do %>
             <%= sprite(minion, 'minions-small') %>
           <% end %>
