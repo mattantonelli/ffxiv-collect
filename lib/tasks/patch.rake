@@ -53,7 +53,7 @@ namespace :patches do
 		Barding.find_by(name_en: 'Seiryu Barding').update(patch: '4.45')
 		Barding.find_by(name_en: 'Yojimbo Barding').update(patch: '4.5')
 		Barding.find_by(name_en: 'Flyer Shaffron').update(patch: '3.0')
-		Barding.find_by(name_en: 'Egg Barding').update(patch: '2.2')
+		Barding.find_by(name_en: 'Egg Harness').update(patch: '2.2')
 		Barding.find_by(name_en: 'Chocobo Raincoat').update(patch: '4.2')
 	end
 end
