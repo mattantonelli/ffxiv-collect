@@ -27,6 +27,8 @@
       <% if user_signed_in? && !@character.verified? %>
         <%= link_to fa_icon('check-circle', text: 'Verify Character'), verify_character_path, class: 'dropdown-item' %>
       <% end %>
+      <%= link_to fa_icon('refresh', text: 'Refresh Character'), refresh_character_path,
+        method: :post, class: 'dropdown-item' %>
       <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
       <% if user_signed_in? && @character.verified_user?(current_user) %>
         <%= link_to fa_icon('wrench', text: 'Character Settings'), character_settings_path, class: 'dropdown-item' %>

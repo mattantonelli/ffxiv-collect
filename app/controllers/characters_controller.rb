@@ -90,6 +90,22 @@ class CharactersController < ApplicationController
     redirect_to search_characters_path
   end
 
+  def refresh
+    if @character.in_queue?
+      flash[:alert] = 'Sorry, you can only request a manual refresh once every 30 minutes. Please try again later.'
+    else
+      character = Character.fetch(@character.id)
+      if character.present?
+        character.update(queued_at: Time.now)
+        flash[:success] = 'Your character has been refreshed.'
+      else
+        flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+      end
+    end
+
+    redirect_back(fallback_location: root_path)
+  end
+
   def verify
     session[:return_to] = request.referer
   end
