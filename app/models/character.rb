@@ -129,7 +129,7 @@ class Character < ApplicationRecord
 
     info = { id: data['id'], name: data['name'], server: data['worldName'], portrait: data['imageUrl'],
              avatar: data['iconUrl'], free_company_id: data['fcId'], last_parsed: Time.at(data['updatedAt'] / 1000) }
-    info[:achievements_count] = -1 unless !data['achievementsPrivate']
+    info[:achievements_count] = -1 if data['achievementsPrivate']
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
@@ -140,8 +140,7 @@ class Character < ApplicationRecord
     unless data['achievementsPrivate']
       achievement_ids = character.achievement_ids
       achievements = data['achievements'].reject { |achievement| achievement_ids.include?(achievement['id']) }
-      Character.bulk_insert_achievements(info[:id], achievements)
-      character.update(achievement_points: character.achievements.sum(:points))
+      Character.bulk_insert_achievements(character, achievements)
     end
 
     Character.bulk_insert(info[:id], CharacterMount, :mount, data['mounts'].pluck('id') - character.mount_ids)
@@ -161,18 +160,20 @@ class Character < ApplicationRecord
     Character.reset_counters(character_id, "#{model_name}s_count")
   end
 
-  def self.bulk_insert_achievements(character_id, achievements)
+  def self.bulk_insert_achievements(character, achievements)
     return unless achievements.present?
 
     values = achievements.map do |achievement|
       date = Time.at(achievement['date']).to_formatted_s(:db)
-      "(#{character_id}, #{achievement['id']}, '#{date}', '#{date}')"
+      "(#{character.id}, #{achievement['id']}, '#{date}', '#{date}')"
     end
 
     CharacterAchievement.connection
       .execute("INSERT INTO character_achievements(character_id, achievement_id, created_at, updated_at)" \
                " values #{values.join(',')}")
-    Character.reset_counters(character_id, :achievements_count)
+
+    Character.reset_counters(character.id, :achievements_count)
+    character.update(achievement_points: character.achievements.sum(:points))
   end
 
   def clear_user_characters
