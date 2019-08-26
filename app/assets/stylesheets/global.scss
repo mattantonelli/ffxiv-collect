@@ -400,6 +400,8 @@ input[type="checkbox"] {
 }
 
 table.sortable > thead th:not([data-defaultsort=disabled]) {
+  white-space: nowrap;
+
   &:hover {
     background: none;
     cursor: pointer;

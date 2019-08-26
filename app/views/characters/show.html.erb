@@ -42,13 +42,11 @@
                   <span>Set to private.</span>
                 <% else %>
                   <div class="d-flex flex-column">
-                    <div class="count">
-                      <%= render 'shared/progress', value: @profile.achievements_count,
-                        min: 0, max: Achievement.count, text: 'complete' %>
-                    </div>
-                    <div class="points mt-2">
+                    <%= render 'shared/progress', value: @profile.achievements_count,
+                      min: 0, max: Achievement.count, text: 'complete' %>
+                    <div class="mt-2">
                       <%= render 'shared/progress', value: @profile.achievement_points,
-                        min: 0, max: Achievement.sum(:points), text: 'points' %>
+                        min: 0, max: Achievement.sum(:points), text: 'points', alt: true %>
                     </div>
                   </div>
                 <% end %>

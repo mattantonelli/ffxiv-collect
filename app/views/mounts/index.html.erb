@@ -12,11 +12,7 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@mounts, @mount_ids) %>
-  </div>
-<% end %>
+<%= render 'shared/collection_progress', collection: @mounts %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
   <thead>
     <tr>
@@ -33,7 +29,7 @@
   </thead>
   <tbody>
     <% @mounts.each do |mount| %>
-      <tr class="collectable<%= ' owned' if @mount_ids.include?(mount.id) %>">
+      <tr class="collectable<%= ' owned' if owned?(mount) %>">
         <td data-value="<%= mount.order %>">
           <%= link_to(mount_path(mount)) do %>
             <%= sprite(mount, 'mounts-small') %>
@@ -45,7 +41,11 @@
         <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
         <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@mount_ids, mount, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(mount) %>
+          <% else %>
+            <%= td_owned(@collection_ids, mount, false) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

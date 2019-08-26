@@ -47,13 +47,18 @@ class ApplicationController < ActionController::Base
   def set_current_character
     if user_signed_in?
       @character = current_user.character
-    else
-      id = cookies['character']
-      @character = Character.find_by(id: id) if id.present?
+    elsif cookies['character'].present?
+      @character = Character.find_by(id: cookies['character'])
     end
 
-    if @character.present? && @character.stale? && !@character.in_queue?
-      @character.sync
+    if cookies['comparison'].present?
+      @comparison = Character.find_by(id: cookies['comparison'])
+    end
+
+    [@character, @comparison].each do |character|
+      if character.present? && character.stale? && !character.in_queue?
+        character.sync
+      end
     end
   end
 end

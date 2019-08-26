@@ -17,9 +17,13 @@
       class: 'form-control form-control-sm multiselect' %>
     <%= f.collection_select :skill_type_id_eq, MinionSkillType.all.order("name_#{I18n.locale}"), :id, :name,
       { include_blank: 'All Special Types' }, class: 'form-control form-control-sm' %>
+    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
     <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
+<%= render 'shared/filters' %>
+<%= render 'shared/collection_progress', collection: @minions %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
   <thead>
     <tr>
@@ -64,7 +68,11 @@
         </td>
         <td class="text-center hide-sm"><%= minion.skill_cost %></td>
         <% if character_selected? %>
-          <%= td_owned(@minion_ids, minion, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(minion) %>
+          <% else %>
+            <%= td_owned(@collection_ids, minion, false) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

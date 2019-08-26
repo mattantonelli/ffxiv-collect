@@ -29,6 +29,10 @@ module CollectionsHelper
     numeric ? rarity.delete('%') : rarity
   end
 
+  def owned?(collectable)
+    !@comparison.present? && @collection_ids.include?(collectable.id)
+  end
+
   def td_owned(ids, collectable, manual = true, date = nil)
     owned = ids.include?(collectable.id)
     if manual && @character.verified_user?(current_user)
@@ -47,6 +51,15 @@ module CollectionsHelper
       else
         content_tag(:td, fa_icon('times'), class: 'text-center', data: { value: 0 })
       end
+    end
+  end
+
+  def td_comparison(collectable)
+    content_tag(:td, class: 'comparison no-wrap text-center px-2') do
+      [
+        image_tag(@character.avatar, class: "avatar mr-2#{' owned' if @collection_ids.include?(collectable.id)}"),
+        image_tag(@comparison.avatar, class: "avatar#{' owned' if @comparison_ids.include?(collectable.id)}")
+      ].join.html_safe
     end
   end
 

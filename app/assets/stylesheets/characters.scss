@@ -51,3 +51,7 @@ div.portrait {
   padding-right: 1rem !important;
   margin-top: 1rem !important;
 }
+
+td > img.avatar:not(.owned) {
+  opacity: 0.2;
+}

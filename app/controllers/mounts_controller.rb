@@ -6,7 +6,6 @@ class MountsController < ApplicationController
     @mounts = @q.result.include_sources.with_filters(cookies)
       .order(patch: :desc, order: :desc).distinct
     @types = source_types(:mount)
-    @mount_ids = @character&.mount_ids || []
   end
 
   def show

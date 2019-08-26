@@ -2,6 +2,9 @@
   <h5 class="card-header">Character Search</h5>
   <div class="card-body">
     <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form') do %>
+      <% if params[:compare] %>
+        <%= hidden_field_tag :compare, 1 %>
+      <% end %>
       <div class="form-group">
         <%= label_tag :server %>
         <%= select_tag :server, options_for_select(Character.servers, @server), prompt: 'Select a server',

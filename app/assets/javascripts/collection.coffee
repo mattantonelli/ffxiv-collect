@@ -19,14 +19,16 @@ $(document).on 'turbolinks:load', ->
     $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
-    progress = $('.progress-bar')
-    current = $('.owned:not(.hidden)').length
-    max = $('tr.collectable:not(.hidden)').length
-    completion = (current / max) * 100
+    # Do not update progress bars while comparing
+    unless $('.comparison').length > 0
+      progress = $('.progress-bar')
+      current = $('.owned:not(.hidden)').length
+      max = $('tr.collectable:not(.hidden)').length
+      completion = (current / max) * 100
 
-    progress.attr('aria-valuenow', current)
-    progress.attr('style', "width: #{completion}%")
-    progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+      progress.attr('aria-valuenow', current)
+      progress.attr('style', "width: #{completion}%")
+      progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
   restripe()
 

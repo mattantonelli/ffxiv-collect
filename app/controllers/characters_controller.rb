@@ -49,14 +49,18 @@ class CharactersController < ApplicationController
       flash[:alert] = "Sorry, this character's verified user has set their collections to private."
       redirect_back(fallback_location: root_path)
     else
-      if user_signed_in?
-        current_user.characters << character unless current_user.characters.exists?(character.id)
-        current_user.update(character_id: params[:id])
+      if params[:compare]
+        cookies[:comparison] = params[:id]
       else
-        cookies[:character] = params[:id]
+        if user_signed_in?
+          current_user.characters << character unless current_user.characters.exists?(character.id)
+          current_user.update(character_id: params[:id])
+        else
+          cookies[:character] = params[:id]
+        end
       end
 
-      flash[:success] = 'Your character has been set.'
+      flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
       redirect_to character_path(character)
     end
   end

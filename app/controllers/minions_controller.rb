@@ -1,11 +1,12 @@
 class MinionsController < ApplicationController
   include Collection
-  before_action :set_shared, only: [:index, :verminion]
+  before_action :set_ids!, on: :verminion
 
   def index
     @q = Minion.summonable.ransack(params[:q])
     @minions = @q.result.includes(:race)
       .include_sources.with_filters(cookies).order(patch: :desc, order: :desc).distinct
+    @types = source_types(:minion)
   end
 
   def verminion
@@ -14,7 +15,8 @@ class MinionsController < ApplicationController
     end
 
     @q = Minion.verminion.ransack(params[:q])
-    @minions = @q.result.includes(:race, :skill_type).order(patch: :desc, order: :desc)
+    @minions = @q.result.includes(:race, :skill_type)
+      .include_sources.with_filters(cookies).order(patch: :desc, order: :desc)
   end
 
   def show
@@ -25,11 +27,5 @@ class MinionsController < ApplicationController
 
     @minion = Minion.include_sources.find(id)
     @variants = @minion.variants
-  end
-
-  private
-  def set_shared
-    @types = source_types(:minion)
-    @minion_ids = @character&.minion_ids || []
   end
 end

@@ -20,11 +20,7 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@minions, @minion_ids) %>
-  </div>
-<% end %>
+<%= render 'shared/collection_progress', collection: @minions %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
   <thead>
     <tr>
@@ -42,7 +38,7 @@
   </thead>
   <tbody>
     <% @minions.each do |minion| %>
-      <tr class="collectable<%= ' owned' if @minion_ids.include?(minion.id) %>">
+      <tr class="collectable<%= ' owned' if owned?(minion) %>">
         <td data-value="<%= minion.order %>">
           <%= link_to(minion_path(minion)) do %>
             <%= sprite(minion, 'minions-small') %>
@@ -57,7 +53,11 @@
         <td class="text-center hide-xs" data-value="<%= rarity(minion, numeric: true) %>"><%= rarity(minion) %></td>
         <td class="text-center" data-value="<%= minion.patch %><%= minion.id %>"><%= minion.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@minion_ids, minion, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(minion) %>
+          <% else %>
+            <%= td_owned(@collection_ids, minion, false) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

@@ -4,6 +4,7 @@ module Collection
   included do
     before_action :verify_privacy!, only: [:index, :type]
     before_action :set_owned!, only: [:index, :type]
+    before_action :set_ids!, only: [:index, :type]
   end
 
   def source_types(model)
@@ -14,6 +15,12 @@ module Collection
   private
   def set_owned!
     @owned = Redis.current.hgetall(controller_name.downcase)
+  end
+
+  def set_ids!
+    id_method = "#{controller_name.singularize}_ids"
+    @collection_ids = @character&.send(id_method) || []
+    @comparison_ids = @comparison&.send(id_method) || []
   end
 
   def verify_privacy!
