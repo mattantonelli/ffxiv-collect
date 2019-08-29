@@ -2,11 +2,10 @@
 
 <%= render 'shared/category_buttons', categories: @categories, selected: @category, exclude_all: true %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<div class="d-flex flex-wrap categorized mt-3 offset-lg-1 collection">
+<div class="d-flex flex-wrap categorized mt-3 offset-lg-1 collection quick-select">
   <% @orchestrions.each_slice(2) do |orchestrions| %>
     <% orchestrions.each do |orchestrion| %>
-      <div class="col-12 col-md-6 col-lg-5 mr-auto <%= category_row_classes(orchestrion, @category) %>
-        <%= ' owned' if !@collection_ids.include?(orchestrion.id) %>">
+      <div class="col-12 col-md-6 col-lg-5 mr-auto <%= category_row_classes(orchestrion, @category) %>">
         <%= label_tag orchestrion.id, class: 'w-100' do %>
           <div class="d-flex justify-content-between align-items-center orchestrion-select">
             <span><%= orchestrion_number(orchestrion) %> <%= orchestrion.name %></span>

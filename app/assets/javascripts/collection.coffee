@@ -4,6 +4,8 @@ $(document).on 'turbolinks:load', ->
   # Collections
 
   restripe = ->
+    return if $('.quick-select').length > 0
+
     if Cookies.get('owned') == 'owned'
       $('.collection').addClass('only-owned')
       $('.collectable:not(.owned):not(.hidden)').hide()
@@ -71,18 +73,15 @@ $(document).on 'turbolinks:load', ->
     if !this.checked
       updateCollection(collectable)
       path = collectable.data('path').replace('remove', 'add')
-      collectable.closest('.collectable').addClass('owned')
+      collectable.closest('.collectable').removeClass('owned')
     else
       updateCollection(collectable)
       path = collectable.data('path').replace('add', 'remove')
-      collectable.closest('td').attr('data-value', 1)
-      row = collectable.closest('.collectable').removeClass('owned')
+      collectable.closest('.collectable').addClass('owned')
 
     collectable.data('path', path)
 
   # Categories
-
-  restripe() if $('.categorized').length > 0
 
   buttons = $('.category-buttons button')
   buttons.click ->
@@ -92,20 +91,14 @@ $(document).on 'turbolinks:load', ->
     history.replaceState({ category: category }, '', "?category=#{category}")
 
     if category == '0'
-      $('.categorized').fadeOut('fast', ->
-        $('.collectable').removeClass('hidden')
-        $('.all-hide').addClass('hidden')
-        restripe()
-        $('.categorized').fadeIn()
-      )
+      $('.collectable').removeClass('hidden')
+      $('.all-hide').addClass('hidden')
     else
-      $('.categorized').fadeOut('fast', ->
-        $('.collectable').addClass('hidden')
-        $(".collectable.category-#{category}").removeClass('hidden')
-        $('.all-hide').removeClass('hidden')
-        restripe()
-        $('.categorized').fadeIn()
-      )
+      $('.collectable').addClass('hidden')
+      $(".collectable.category-#{category}").removeClass('hidden')
+      $('.all-hide').removeClass('hidden')
+
+    restripe()
 
   # Filters
 
