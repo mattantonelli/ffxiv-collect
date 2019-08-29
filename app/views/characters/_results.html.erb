@@ -27,7 +27,8 @@
           </div>
         <% end %>
         <% unless @search %>
-          <%= link_to fa_icon('times', class: 'delete'), character_path(character), method: :delete %>
+          <%= link_to fa_icon('times', class: 'delete'),
+            character_path(character, ({ compare: 1 } if params[:compare])), method: :delete %>
         <% end %>
       </div>
     <% end %>
