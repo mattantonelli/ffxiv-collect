@@ -2,6 +2,7 @@ class OrchestrionsController < ApplicationController
   include ManualCollection
   before_action :set_collection!, only: [:index, :select]
   before_action :validate_user!, only: :select
+  before_action :set_ids!, on: :select
 
   def index
     @category = nil if @category < 2
@@ -29,7 +30,6 @@ class OrchestrionsController < ApplicationController
 
   private
   def set_collection!
-    @orchestrion_ids = @character&.orchestrion_ids || []
     @categories = OrchestrionCategory.all.order(:id)
     @category = params[:category].to_i
   end

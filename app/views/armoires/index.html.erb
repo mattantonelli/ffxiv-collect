@@ -17,13 +17,10 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@armoires, @armoire_ids) %>
-  </div>
-<% end %>
+<%= render 'shared/collection_progress', ids: @armoires.map(&:id) %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable collection categorized">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable collection categorized
+  <%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th><!-- Image -->
@@ -36,15 +33,18 @@
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>
+      <% if @comparison.present? %>
+        <th scope="col"></th><!-- Comparison -->
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @armoires.each do |armoire| %>
-      <tr class="<%= category_row_classes(armoire, @category, @armoire_ids) %>">
+      <tr class="<%= category_row_classes(armoire, @category) %>">
         <td data-value="<%= armoire.order %>"><%= sprite(armoire, 'armoire') %></td>
         <td><%= link_to(armoire.name, armoire_path(armoire), class: 'name') %></td>
         <td class="hide-xs"><%= sources(armoire) %></td>
-        <td class="text-center hide-xs"><%= armoire.category.name %></td>
+        <td class="text-center no-wrap hide-xs"><%= armoire.category.name %></td>
         <td class="text-center px-3 hide-xs">
           <%= fa_icon('search', class: 'isearch',
             data: { toggle: 'tooltip', clipboard_action: 'copy', clipboard_text: "/isearch \"#{armoire.name}\"" }) %>
@@ -52,7 +52,10 @@
         <td class="text-center hide-xs" data-value="<%= rarity(armoire, numeric: true) %>"><%= rarity(armoire) %></td>
         <td class="text-center" data-value="<%= armoire.patch %><%= armoire.id %>"><%= armoire.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@armoire_ids, armoire) %>
+          <%= td_owned(armoire, manual: true) %>
+        <% end %>
+        <% if @comparison.present? %>
+          <%= td_comparison(armoire) %>
         <% end %>
       </tr>
     <% end %>

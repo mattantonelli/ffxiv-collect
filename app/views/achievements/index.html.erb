@@ -8,13 +8,11 @@
           <%= link_to type.name, achievement_type_path(type), class: 'unstyled' %>
         </h5>
         <div class="card-body py-3">
-          <div class="count">
-          <%= render 'shared/progress', value: type_count(@achievement_ids, type),
+          <%= render 'shared/progress', value: type_count(@collection_ids, type),
             min: 0, max: type.achievements.size, text: 'complete' %>
-          </div>
-          <div class="points mt-3">
-            <%= render 'shared/progress', value: type_points(@achievement_ids, type),
-              min: 0, max: type.achievements.pluck(:points).sum, text: 'points' %>
+          <div class="mt-3">
+            <%= render 'shared/progress', value: type_points(@collection_ids, type),
+              min: 0, max: type.achievements.pluck(:points).sum, text: 'points', alt: true %>
           </div>
         </div>
       </div>

@@ -51,13 +51,14 @@ class CharactersController < ApplicationController
     else
       if params[:compare]
         cookies[:comparison] = params[:id]
+      elsif user_signed_in?
+        current_user.update(character_id: params[:id])
       else
-        if user_signed_in?
-          current_user.characters << character unless current_user.characters.exists?(character.id)
-          current_user.update(character_id: params[:id])
-        else
-          cookies[:character] = params[:id]
-        end
+        cookies[:character] = params[:id]
+      end
+
+      if user_signed_in?
+        current_user.characters << character unless current_user.characters.exists?(character.id)
       end
 
       flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."

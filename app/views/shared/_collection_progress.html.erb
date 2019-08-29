@@ -1,11 +1,9 @@
 <% if character_selected? %>
   <div class="my-2">
-    <%= render 'shared/progress', value: (collection.map(&:id) & @collection_ids).size,
-      min: 0, max: collection.length %>
+    <%= render 'shared/progress', value: (ids & @collection_ids).size, min: 0, max: ids.size %>
     <% if @comparison.present? %>
       <div class="mt-1">
-        <%= render 'shared/progress', value: (collection.map(&:id) & @comparison_ids).size,
-          min: 0, max: collection.length, alt: true %>
+        <%= render 'shared/progress', value: (ids & @comparison_ids).size, min: 0, max: ids.size, alt: true %>
       </div>
     <% end %>
   </div>

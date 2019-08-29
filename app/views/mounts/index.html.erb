@@ -12,8 +12,8 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<%= render 'shared/collection_progress', collection: @mounts %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<%= render 'shared/collection_progress', ids: @mounts.map(&:id) %>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th> <!-- Image -->
@@ -29,7 +29,7 @@
   </thead>
   <tbody>
     <% @mounts.each do |mount| %>
-      <tr class="collectable<%= ' owned' if owned?(mount) %>">
+      <tr class="collectable<%= ' owned' if owned?(mount.id) %>">
         <td data-value="<%= mount.order %>">
           <%= link_to(mount_path(mount)) do %>
             <%= sprite(mount, 'mounts-small') %>
@@ -44,7 +44,7 @@
           <% if @comparison.present? %>
             <%= td_comparison(mount) %>
           <% else %>
-            <%= td_owned(@collection_ids, mount, false) %>
+            <%= td_owned(mount) %>
           <% end %>
         <% end %>
       </tr>

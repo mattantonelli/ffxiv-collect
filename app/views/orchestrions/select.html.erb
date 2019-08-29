@@ -6,7 +6,7 @@
   <% @orchestrions.each_slice(2) do |orchestrions| %>
     <% orchestrions.each do |orchestrion| %>
       <div class="col-12 col-md-6 col-lg-5 mr-auto <%= category_row_classes(orchestrion, @category) %>
-        <%= ' owned' if !@orchestrion_ids.include?(orchestrion.id) %>">
+        <%= ' owned' if !@collection_ids.include?(orchestrion.id) %>">
         <%= label_tag orchestrion.id, class: 'w-100' do %>
           <div class="d-flex justify-content-between align-items-center orchestrion-select">
             <span><%= orchestrion_number(orchestrion) %> <%= orchestrion.name %></span>

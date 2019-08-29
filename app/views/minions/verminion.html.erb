@@ -23,8 +23,8 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<%= render 'shared/collection_progress', collection: @minions %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<%= render 'shared/collection_progress', ids: @minions.map(&:ids) %>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th> <!-- Image -->
@@ -71,7 +71,7 @@
           <% if @comparison.present? %>
             <%= td_comparison(minion) %>
           <% else %>
-            <%= td_owned(@collection_ids, minion, false) %>
+            <%= td_owned(minion) %>
           <% end %>
         <% end %>
       </tr>

@@ -4,7 +4,7 @@ module Collection
   included do
     before_action :verify_privacy!, only: [:index, :type]
     before_action :set_owned!, only: [:index, :type]
-    before_action :set_ids!, only: [:index, :type]
+    before_action :set_ids!, on: :index
   end
 
   def source_types(model)

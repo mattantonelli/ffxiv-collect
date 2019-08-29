@@ -18,10 +18,9 @@ module CollectionsHelper
     options_for_select([['Show All', 'all'], ['Only Owned', 'owned'], ['Only Missing', 'missing']], selected)
   end
 
-  def category_row_classes(collectable, active_category, ids = [])
+  def category_row_classes(collectable, active_category)
     hidden = active_category.present? && collectable.category_id != active_category
-    owned = ids.include?(collectable.id)
-    "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned}"
+    "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned?(collectable.id)}"
   end
 
   def rarity(collectable, numeric: false)
@@ -29,12 +28,12 @@ module CollectionsHelper
     numeric ? rarity.delete('%') : rarity
   end
 
-  def owned?(collectable)
-    !@comparison.present? && @collection_ids.include?(collectable.id)
+  def owned?(id)
+    @collection_ids.include?(id)
   end
 
-  def td_owned(ids, collectable, manual = true, date = nil)
-    owned = ids.include?(collectable.id)
+  def td_owned(collectable, manual: false, date: nil)
+    owned = @collection_ids.include?(collectable.id)
     if manual && @character.verified_user?(current_user)
       content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0 }) do
         check_box_tag(nil, nil, owned, class: 'own',
@@ -57,8 +56,8 @@ module CollectionsHelper
   def td_comparison(collectable)
     content_tag(:td, class: 'comparison no-wrap text-center px-2') do
       [
-        image_tag(@character.avatar, class: "avatar mr-2#{' owned' if @collection_ids.include?(collectable.id)}"),
-        image_tag(@comparison.avatar, class: "avatar#{' owned' if @comparison_ids.include?(collectable.id)}")
+        image_tag(@character.avatar, class: "avatar mr-2#{' faded' unless @collection_ids.include?(collectable.id)}"),
+        image_tag(@comparison.avatar, class: "avatar#{' faded' unless @comparison_ids.include?(collectable.id)}")
       ].join.html_safe
     end
   end

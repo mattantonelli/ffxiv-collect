@@ -6,7 +6,6 @@ class ArmoiresController < ApplicationController
     @armoires = @q.result.includes(:category).include_sources.with_filters(cookies)
       .order(patch: :desc, order: :desc).distinct
     @types = source_types(:armoire)
-    @armoire_ids = @character&.armoire_ids || []
     @categories = ArmoireCategory.all.order(:order)
 
     @category = params[:category].to_i

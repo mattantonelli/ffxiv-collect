@@ -19,16 +19,14 @@ $(document).on 'turbolinks:load', ->
     $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
-    # Do not update progress bars while comparing
-    unless $('.comparison').length > 0
-      progress = $('.progress-bar')
-      current = $('.owned:not(.hidden)').length
-      max = $('tr.collectable:not(.hidden)').length
-      completion = (current / max) * 100
+    progress = $('.progress-bar:first')
+    current = $('.owned:not(.hidden)').length
+    max = $('tr.collectable:not(.hidden)').length
+    completion = (current / max) * 100
 
-      progress.attr('aria-valuenow', current)
-      progress.attr('style', "width: #{completion}%")
-      progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+    progress.attr('aria-valuenow', current)
+    progress.attr('style', "width: #{completion}%")
+    progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
   restripe()
 
@@ -53,10 +51,12 @@ $(document).on 'turbolinks:load', ->
       path = collectable.data('path').replace('remove', 'add')
       collectable.closest('tr').removeClass('owned')
       collectable.closest('td').attr('data-value', 0)
+      collectable.closest('td').next('.comparison').find('.avatar:first').addClass('faded')
     else
       updateCollection(collectable)
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('td').attr('data-value', 1)
+      collectable.closest('td').next('.comparison').find('.avatar:first').removeClass('faded')
       row = collectable.closest('tr')
       row.addClass('owned')
 

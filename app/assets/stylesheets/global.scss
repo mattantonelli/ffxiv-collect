@@ -385,7 +385,7 @@ input[type="checkbox"] {
   color: inherit;
 }
 
-.collection {
+.collection:not(.comparing) {
   &.only-owned .owned {
     td, div {
       opacity: 1;

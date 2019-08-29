@@ -11,7 +11,7 @@
   </div>
 </div>
 <%= render 'shared/filters' %>
-<div class="collection" id="achievementCategories">
+<div class="collection<%= ' comparing' if @comparison.present? %>" id="achievementCategories">
   <% @categories.each do |category| %>
     <div class="card mb-3">
       <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
@@ -20,8 +20,8 @@
             <%= category.name %>
           </h5>
           <% if character_selected? %>
-            <h6 <%= 'class="complete"'.html_safe if completed?(category, @achievement_ids) %>>
-              <%= achievement_completion(category, @achievement_ids) %>
+            <h6 <%= 'class="complete"'.html_safe if completed?(category, @collection_ids) %>>
+              <%= achievement_completion(category, @collection_ids) %>
             </h6>
           <% else %>
             <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
@@ -47,7 +47,7 @@
             </thead>
             <tbody>
               <% category.achievements.sort_by(&:order).each do |achievement| %>
-                <tr class="collectable<%= ' owned' if @achievement_ids.include?(achievement.id) %>">
+                <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
                   <td>
                     <%= link_to(achievement_path(achievement)) do %>
                       <%= sprite(achievement, 'achievement') %>
@@ -66,7 +66,11 @@
                     <%= achievement.patch %>
                   </td>
                   <% if character_selected? %>
-                    <%= td_owned(@achievement_ids, achievement, false, @achievement_dates[achievement.id]) %>
+                    <% if @comparison.present? %>
+                      <%= td_comparison(achievement) %>
+                    <% else %>
+                      <%= td_owned(achievement, date: @achievement_dates[achievement.id]) %>
+                    <% end %>
                   <% end %>
                 </tr>
               <% end %>
