@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   post 'character/validate',  to: 'characters#validate', as: :validate_character
   patch 'character/update',   to: 'characters#update',   as: :update_character
   delete 'character/forget',  to: 'characters#forget',   as: :forget_character
+  delete 'character/comparison/forget', to: 'characters#forget_comparison', as: :forget_character_comparison
 
   namespace :api do
     resources :characters, only: :show

@@ -10,7 +10,7 @@
     aria-haspopup="true" aria-expanded="false"><%= @character.present? ? @character.name : current_user.username %></a>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
     <% if @character.present? %>
-      <div class="d-flex flex-column current-character mx-3">
+      <div class="d-flex flex-column menu-character mx-3">
         <div class="d-flex flex-column">
           <div class="d-flex justify-content-between">
             <b><%= @character.name %></b>
@@ -22,6 +22,22 @@
         </div>
         <%= last_updated(@character) %>
       </div>
+      <% if @comparison.present? %>
+        <hr class="my-2">
+        <div class="d-flex align-items-center menu-character mx-3">
+          <%= image_tag(@comparison.avatar, class: 'avatar mr-2') %>
+          <div class="d-flex flex-column flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <b><%= @comparison.name %></b>
+              <%= link_to fa_icon('times', class: 'delete'), forget_character_comparison_path, method: :delete %>
+            </div>
+            <span>
+              <%= @comparison.server %>
+              <span class="badge badge-pill badge-secondary">Comparing</span>
+            </span>
+          </div>
+        </div>
+      <% end %>
       <hr class="my-2">
       <%= link_to fa_icon('user', text: 'Character Profile'), character_path(@character), class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified? %>

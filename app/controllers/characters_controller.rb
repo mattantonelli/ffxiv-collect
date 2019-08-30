@@ -77,6 +77,11 @@ class CharactersController < ApplicationController
     redirect_to root_path
   end
 
+  def forget_comparison
+    cookies[:comparison] = nil
+    redirect_back(fallback_location: root_path)
+  end
+
   def edit
   end
 
