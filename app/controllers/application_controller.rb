@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_locale
-  before_action :set_current_character
-  before_action :set_paper_trail_whodunnit
+  before_action :set_locale, :set_characters
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
 
@@ -44,15 +42,30 @@ class ApplicationController < ActionController::Base
     I18n.locale = cookies['locale']
   end
 
-  def set_current_character
+  def set_characters
     if user_signed_in?
       @character = current_user.character
+      if @character.private?(current_user)
+        current_user.update(character_id: nil)
+        flash[:error] = 'This character has been set to private and can no longer be tracked.'
+        redirect_to root_path
+      end
     elsif cookies['character'].present?
       @character = Character.find_by(id: cookies['character'])
+      if @character.private?
+        cookies[:character] = nil
+        flash[:error] = 'This character has been set to private and can no longer be tracked.'
+        redirect_to root_path
+      end
     end
 
     if cookies['comparison'].present?
       @comparison = Character.find_by(id: cookies['comparison'])
+      if @comparison.private?(current_user)
+        cookies[:comparison] = nil
+        flash[:error] = 'Your comparison character has been set to private and can no longer be tracked.'
+        redirect_to root_path
+      end
     end
 
     [@character, @comparison].each do |character|

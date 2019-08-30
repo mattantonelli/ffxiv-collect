@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  skip_before_action :set_locale
+  skip_before_action :set_locale, :set_characters
   before_action :set_defaults, :set_language, :track_request
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
