@@ -10,8 +10,12 @@
           Character Profile
         </h5>
         <% unless @character == @profile %>
-          <%= link_to fa_icon('exchange', text: 'Select this character'), select_character_path(@profile, location: :profile),
-            method: :post, class: 'btn btn-primary btn-sm' %>
+          <div>
+            <%= link_to fa_icon('exchange', text: 'Change Character'), select_character_path(@profile),
+              method: :post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
+              method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
+          </div>
         <% end %>
       </div>
       <div class="card-body">

@@ -54,10 +54,13 @@ module CollectionsHelper
   end
 
   def td_comparison(collectable)
-    content_tag(:td, class: 'comparison no-wrap text-center px-2') do
+    owned = [@collection_ids.include?(collectable.id), @comparison_ids.include?(collectable.id)]
+    value = owned.reverse.map { |own| own ? 1 : 0 }.join.to_i(2) # Convert ownership to sortable bitstring
+
+    content_tag(:td, class: 'comparison no-wrap text-center px-2', data: { value: value }) do
       [
-        image_tag(@character.avatar, class: "avatar mr-2#{' faded' unless @collection_ids.include?(collectable.id)}"),
-        image_tag(@comparison.avatar, class: "avatar#{' faded' unless @comparison_ids.include?(collectable.id)}")
+        image_tag(@character.avatar, class: "avatar mr-2#{' faded' unless owned[0]}"),
+        image_tag(@comparison.avatar, class: "avatar#{' faded' unless owned[1]}")
       ].join.html_safe
     end
   end
