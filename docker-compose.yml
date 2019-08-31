@@ -1,0 +1,23 @@
+version: '3'
+services:
+  ffxiv-collect:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: mysql2://ffxiv-collect:ffxiv-collect@db:3306/ffxiv_collect_development
+      REDIS_URL: redis://redis:6379
+  db:
+    image: mysql:5.7.27
+    restart: always
+    environment:
+      MYSQL_USER: ffxiv-collect
+      MYSQL_PASSWORD: ffxiv-collect
+      MYSQL_DATABASE: ffxiv_collect_development
+      MYSQL_ROOT_PASSWORD: ffxiv-collect
+    volumes:
+      - mysql-data:/var/lib/mysql
+  redis:
+    image: "redis"
+volumes:
+  mysql-data:
