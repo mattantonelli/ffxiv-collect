@@ -23,32 +23,32 @@
         <%= last_updated(@character) %>
       </div>
       <hr class="my-2">
-      <%= link_to fa_icon('user', text: 'Character Profile'), character_path(@character), class: 'dropdown-item' %>
+      <%= link_to fa_icon('user', text: t(:'character.profile')), character_path(@character), class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified? %>
-        <%= link_to fa_icon('check-circle', text: 'Verify Character'), verify_character_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('check-circle', text: t(:'character.verify')), verify_character_path, class: 'dropdown-item' %>
       <% end %>
-      <%= link_to fa_icon('refresh', text: 'Refresh Character'), refresh_character_path,
+      <%= link_to fa_icon('refresh', text: t(:'character.refresh')), refresh_character_path,
         method: :post, class: 'dropdown-item' %>
-      <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
+      <%= link_to fa_icon('undo', text: t(:'character.change')), search_characters_path, class: 'dropdown-item' %>
       <% if user_signed_in? && @character.verified_user?(current_user) %>
-        <%= link_to fa_icon('wrench', text: 'Character Settings'), character_settings_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('wrench', text: t(:'character.settings')), character_settings_path, class: 'dropdown-item' %>
       <% end %>
-      <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
+      <%= link_to fa_icon('times', text: t(:'character.forget')), forget_character_path, class: 'dropdown-item', method: :delete %>
       <% if user_signed_in? %>
         <hr class="my-1">
       <% end %>
     <% end %>
     <% if user_signed_in? %>
       <% if current_user.admin? %>
-        <%= link_to fa_icon('user', text: 'Manage Users'), admin_users_path, class: 'dropdown-item' %>
-        <%= link_to fa_icon('users', text: 'Manage Characters'), admin_characters_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('user', text: t(:'user.manage')), admin_users_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('users', text: t(:'character.manage')), admin_characters_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('line-chart', text: 'Sidekiq'), '/admin/sidekiq', class: 'dropdown-item', target: '_blank' %>
       <% end %>
       <% if current_user.mod? %>
-        <%= link_to fa_icon('table', text: 'Mod Dashboard'), mod_dashboard_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('table', text: t(:'main.mod_dashboard')), mod_dashboard_path, class: 'dropdown-item' %>
         <hr class="my-1">
       <% end %>
-      <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
+      <%= link_to fa_icon('sign-out', text: t(:'user.sign_out')), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>
 </div>

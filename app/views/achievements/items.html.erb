@@ -19,11 +19,11 @@
 <table class="table table-striped table-sm shadow p-3 collection sortable">
   <thead>
     <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-    <th scope="col" class="name">Name</th>
-    <th scope="col" class="name hide-xs">Category</th>
-    <th scope="col" class="name hide-xs">Item</th>
-    <th scope="col" class="text-center hide-xs">Own</th>
-    <th scope="col" class="text-center hide-xs">Patch</th>
+    <th scope="col" class="name"><%= t :'general.name' %></h1></th>
+    <th scope="col" class="name hide-xs"><%= t :'general.category' %></th>
+    <th scope="col" class="name hide-xs"><%= t :'general.item' %></th>
+    <th scope="col" class="text-center hide-xs"><%= t :'general.own' %></th>
+    <th scope="col" class="text-center hide-xs"><%= t :'general.patch' %></th>
     <% if character_selected? %>
       <th scope="col"></th>
     <% end %>
