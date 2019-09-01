@@ -3,7 +3,7 @@ This is another application for tracking your Final Fantasy XIV collections writ
 
 ## Important Notice
 
-FFXIV Collect has recently switched to the [Lalachievements](https://lalachievements.com/en/) API for character synchronization. This API is currently private, so you will not be able to synchronize characters with the latest version of this code. Until this API becomes public, you can check out the tag `no-lala`.
+FFXIV Collect has switched to the [Lalachievements](https://lalachievements.com/en/) API for character synchronization. The API is accessible without a key, but requests will be rate limited. If you run into issues with the rate limit, you will need to contact the API owner in order to obtain a key and then update your credentials.
 
 ## API
 
@@ -45,7 +45,7 @@ discord:
   client_id: 123456789
   client_secret: abc123
 xivapi_key: def456
-lalachievements_key: ghi789
+# lalachievements_key: ghi789
 google_analytics:
   tracking_id: GA-1234567-8
 ```
