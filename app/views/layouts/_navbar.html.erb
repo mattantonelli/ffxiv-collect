@@ -11,38 +11,38 @@
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle<%= ' active' if active_link?(achievements_path, 'achievement') %>" href="#"
           id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">Achievements</a>
+          aria-expanded="false"><%= t :'general.achievements' %></a>
         <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
-          <%= link_to 'Overview', achievements_path, class: 'dropdown-item bold' if @character.present? %>
-          <%= link_to 'Titles', titles_path, class: 'dropdown-item bold' %>
-          <%= link_to 'Item Rewards', achievement_items_path, class: 'dropdown-item bold' %>
+          <%= link_to t(:'general.overview'), achievements_path, class: 'dropdown-item bold' if @character.present? %>
+          <%= link_to t(:'general.titles'), titles_path, class: 'dropdown-item bold' %>
+          <%= link_to t(:'general.item_reward'), achievement_items_path, class: 'dropdown-item bold' %>
           <% AchievementType.order(:id).all.each do |type| %>
             <%= link_to type.name, achievement_type_path(type), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>
-      <%= nav_link('Mounts', mounts_path, 'mounts') %>
-      <%= nav_link('Minions', minions_path, 'minions') %>
-      <%= nav_link('Orchestrion', orchestrions_path, 'orchestrions') %>
+      <%= nav_link(t(:'general.mounts'), mounts_path, 'mounts') %>
+      <%= nav_link(t(:'general.minions'), minions_path, 'minions') %>
+      <%= nav_link(t(:'general.orchestrion'), orchestrions_path, 'orchestrions') %>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="otherDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">Other</a>
+           aria-haspopup="true" aria-expanded="false"><%= t :'general.other' %></a>
         <div class="dropdown-menu" aria-labelledBy="otherDropdown">
-          <%= link_to 'Emotes', emotes_path, class: 'dropdown-item' %>
-          <%= link_to 'Bardings', bardings_path, class: 'dropdown-item' %>
-          <%= link_to 'Hairstyles', hairstyles_path, class: 'dropdown-item' %>
-          <%= link_to 'Armoire', armoires_path, class: 'dropdown-item' %>
-          <%= link_to fa_icon('external-link', text: 'Triple Triad', right: true), 'https://triad.raelys.com/',
+          <%= link_to t(:'general.emotes'), emotes_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.bardings'), bardings_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.hairstyles'), hairstyles_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.armoire.one'), armoires_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('external-link', text: t(:'general.triple_triad'), right: true), 'https://triad.raelys.com/',
             target: '_blank', class: 'dropdown-item' %>
         </div>
       </div>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">Leaderboards</a>
+           aria-haspopup="true" aria-expanded="false"><%= t :'general.leaderboards' %></a>
         <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
-          <%= link_to 'Global', leaderboards_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.global'), leaderboards_path, class: 'dropdown-item' %>
           <% if @character&.free_company_id.present? %>
-            <%= link_to 'Free Company', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+            <%= link_to t(:'general.free_company'), free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>
@@ -57,13 +57,13 @@
       </div>
     </div>
     <% unless @character.present? %>
-      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary my-2 my-md-0' %>
+      <%= link_to t(:'character.select'), search_characters_path, class: 'btn btn-primary my-2 my-md-0' %>
     <% end %>
     <% if @character.present? || user_signed_in? %>
       <%= render 'layouts/user_dropdown' %>
     <% end %>
     <% unless user_signed_in? %>
-      <%= link_to 'Sign in with Discord', user_discord_omniauth_authorize_path,
+      <%= link_to t(:'general.sign_in_with_discord'), user_discord_omniauth_authorize_path,
         class: 'btn btn-secondary ml-md-2' %>
     <% end %>
   </div>

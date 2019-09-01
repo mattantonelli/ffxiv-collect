@@ -1,7 +1,7 @@
 <% title("#{@type.name} Achievements") %>
 
 <div class="d-flex justify-content-between mb-2">
-  <h3><%= @type.name %> Achievements</h3>
+  <h3><%= @type.name %> <%= t :'general.achievements' %></h3>
   <div class="d-flex align-items-center">
     <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
@@ -24,7 +24,7 @@
               <%= achievement_completion(category, @achievement_ids) %>
             </h6>
           <% else %>
-            <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+            <h6><%= category.achievements.size %> <%= t :'general.achievements' %> / <%= category.achievements.pluck(:points).sum %> <%= t :'general.points' %></h6>
           <% end %>
         </div>
       <% end %>
@@ -34,12 +34,12 @@
             <thead>
               <tr>
                 <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-                <th scope="col" class="name">Name</th>
-                <th scope="col" class="hide-xs">Description</th>
+                <th scope="col" class="name"><%= t :'general.name' %></th>
+                <th scope="col" class="hide-xs"><%= t :'general.description' %></th>
                 <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
-                <th scope="col" class="text-center">Points</th>
-                <th scope="col" class="text-center">Own</th>
-                <th scope="col" class="text-center hide-xs">Patch</th>
+                <th scope="col" class="text-center"><%= t :'general.points' %></th>
+                <th scope="col" class="text-center"><%= t :'general.own' %></th>
+                <th scope="col" class="text-center hide-xs"><%= t :'general.patch' %></th>
                 <% if character_selected? %>
                   <th scope="col"></th>
                 <% end %>

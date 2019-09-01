@@ -6,10 +6,10 @@
 
     <title><%= yield_title('FFXIV Collect').html_safe %></title>
     <meta name="description"
-      content="<%= yield_description('Another website for tracking your Final Fantasy XIV collections.') %>">
+      content="<%= yield_description(t(:'main.subtitle')) %>">
     <meta property="og:title" content="<%= yield_title('FFXIV Collect') %>">
     <meta property="og:description"
-      content="<%= yield_description('Another website for tracking your Final Fantasy XIV collections.') %>">
+      content="<%= yield_description(t(:'main.subtitle')) %>">
     <meta property="og:image" content="<%= yield_image(image_path('logo.png', skip_pipeline: true)) %>">
 
     <%= csrf_meta_tags %>
@@ -41,7 +41,7 @@
     </main>
 
     <footer class="text-center">
-      <span class='d-block d-sm-inline'>Created by Raelys Skyborn of Behemoth</span>
+      <span class='d-block d-sm-inline'><%= t :'footer.created'%></span>
       <span class="d-none d-sm-inline"> | </span>
       <div class="d-block d-sm-inline">
         <span>Powered by <%= link_to 'XIVAPI', 'https://xivapi.com/', target: '_blank' %> | </span>
