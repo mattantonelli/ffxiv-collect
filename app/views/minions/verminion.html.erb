@@ -23,7 +23,7 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<%= render 'shared/collection_progress', ids: @minions.map(&:ids) %>
+<%= render 'shared/collection_progress', ids: @minions.map(&:id) %>
 <table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
