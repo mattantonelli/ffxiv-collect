@@ -5,7 +5,7 @@
     <b class="px-2">
       <% if local_assigns[:text] %>
         <%= number_with_delimiter(value) %> of <%= number_with_delimiter(max) %> <%= text %>
-      <% else %>
+      <% elsif max > 0 %>
         <%= value %>/<%= max %> (<%= ((value / max.to_f) * 100).to_i %>%)
       <% end %>
     </b>

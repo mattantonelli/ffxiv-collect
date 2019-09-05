@@ -24,11 +24,12 @@ $(document).on 'turbolinks:load', ->
     progress = $('.progress-bar:first')
     current = $('.owned:not(.hidden)').length
     max = $('tr.collectable:not(.hidden)').length
-    completion = (current / max) * 100
 
-    progress.attr('aria-valuenow', current)
-    progress.attr('style', "width: #{completion}%")
-    progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+    if max > 0
+      completion = (current / max) * 100
+      progress.attr('aria-valuenow', current)
+      progress.attr('style', "width: #{completion}%")
+      progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
   restripe()
 
