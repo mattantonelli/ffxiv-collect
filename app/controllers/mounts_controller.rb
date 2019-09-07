@@ -1,5 +1,6 @@
 class MountsController < ApplicationController
   include Collection
+  skip_before_action :set_dates!
 
   def index
     @q = Mount.ransack(params[:q])

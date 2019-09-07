@@ -69,7 +69,7 @@
                     <% if @comparison.present? %>
                       <%= td_comparison(achievement) %>
                     <% else %>
-                      <%= td_owned(achievement, date: @achievement_dates[achievement.id]) %>
+                      <%= td_owned(achievement) %>
                     <% end %>
                   <% end %>
                 </tr>

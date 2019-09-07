@@ -32,18 +32,20 @@ module CollectionsHelper
     @collection_ids.include?(id)
   end
 
-  def td_owned(collectable, manual: false, date: nil)
+  def td_owned(collectable, manual: false)
+    date = @dates&.dig(collectable.id)
     owned = @collection_ids.include?(collectable.id)
+
     if manual && @character.verified_user?(current_user)
-      content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0 }) do
-        check_box_tag(nil, nil, owned, class: 'own',
-                      data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
+      content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0, toggle: 'tooltip' },
+                  title: ("Acquired on #{format_date_short(date)}" if date.present?) ) do
+        check_box_tag(nil, nil, owned, class: 'own', data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
       end
     else
       if owned
         if date.present?
-          content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: date.to_i, toggle: 'tooltip' },
-                      title: "Achieved on #{format_date_short(date)}")
+          content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1, toggle: 'tooltip' },
+                      title: "Acquired on #{format_date_short(date)}")
         else
           content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
         end

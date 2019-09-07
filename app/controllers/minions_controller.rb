@@ -1,5 +1,6 @@
 class MinionsController < ApplicationController
   include Collection
+  skip_before_action :set_dates!
   before_action :set_ids!, on: :verminion
 
   def index

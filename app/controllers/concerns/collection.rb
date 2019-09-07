@@ -4,6 +4,7 @@ module Collection
   included do
     before_action :set_owned!, only: [:index, :type]
     before_action :set_ids!, on: :index
+    before_action :set_dates!, on: :index
   end
 
   def source_types(model)
@@ -20,6 +21,11 @@ module Collection
     id_method = "#{controller_name.singularize}_ids"
     @collection_ids = @character&.send(id_method) || []
     @comparison_ids = @comparison&.send(id_method) || []
+  end
+
+  def set_dates!
+    @dates = @character&.send("character_#{controller_name}")
+      &.pluck("#{controller_name.singularize}_id", :created_at).to_h || {}
   end
 
   def check_achievements!
