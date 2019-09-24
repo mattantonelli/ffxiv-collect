@@ -8,6 +8,7 @@ namespace :data do
     Rake::Task['data:update'].invoke
     Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
+    Rake::Task['tomestone_rewards:create'].invoke
     PaperTrail.enabled = true
   end
 

@@ -23,6 +23,7 @@ class Orchestrion < ApplicationRecord
   belongs_to :category, class_name: 'OrchestrionCategory'
   has_many :character_orchestrions
   has_many :characters, through: :character_orchestrions
+  has_many :sources, as: :collectable # Stub relationship for TomestoneReward eager load
   translates :name, :description
   has_paper_trail on: [:update, :destroy]
 end

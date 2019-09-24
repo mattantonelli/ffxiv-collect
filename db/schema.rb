@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_17_175046) do
+ActiveRecord::Schema.define(version: 2019_09_24_134446) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -504,6 +504,15 @@ ActiveRecord::Schema.define(version: 2019_08_17_175046) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["achievement_id"], name: "index_titles_on_achievement_id"
+  end
+
+  create_table "tomestone_rewards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "cost"
+    t.integer "collectable_id"
+    t.string "collectable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["collectable_id", "collectable_type"], name: "index_tomestone_rewards_on_collectable_id_and_collectable_type"
   end
 
   create_table "user_characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

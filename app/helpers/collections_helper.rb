@@ -102,6 +102,8 @@ module CollectionsHelper
   end
 
   def sources(collectable, list: false)
+    return format_text_long(collectable.description) if collectable.class == Orchestrion
+
     sources = collectable.sources.map do |source|
       type = source.type.name
 

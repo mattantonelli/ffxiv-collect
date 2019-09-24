@@ -24,6 +24,7 @@
       <%= nav_link('Mounts', mounts_path, 'mounts') %>
       <%= nav_link('Minions', minions_path, 'minions') %>
       <%= nav_link('Orchestrion', orchestrions_path, 'orchestrions') %>
+      <%= nav_link('Mythology', tomestones_path, 'tomestones') %>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="otherDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">Other</a>
@@ -34,15 +35,10 @@
           <%= link_to 'Armoire', armoires_path, class: 'dropdown-item' %>
           <%= link_to fa_icon('external-link', text: 'Triple Triad', right: true), 'https://triad.raelys.com/',
             target: '_blank', class: 'dropdown-item' %>
-        </div>
-      </div>
-      <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">Leaderboards</a>
-        <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
-          <%= link_to 'Global', leaderboards_path, class: 'dropdown-item' %>
+          <hr class="my-1">
+          <%= link_to 'Global Leaderboards', leaderboards_path, class: 'dropdown-item' %>
           <% if @character&.free_company_id.present? %>
-            <%= link_to 'Free Company', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+            <%= link_to 'FC Leaderboards', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>
