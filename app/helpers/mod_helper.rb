@@ -48,4 +48,9 @@ module ModHelper
       'System'
     end
   end
+
+  def gender_options(selected)
+    genders = %w(Male Female)
+    options_for_select(genders.zip(genders.map(&:downcase)), selected)
+  end
 end

@@ -19,6 +19,14 @@
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
           </div>
+          <div class="row">
+            <% if @collectable.has_attribute?(:gender) %>
+              <div class="col-4 form-group pr-0">
+                <%= f.label :gender %>
+                <%= f.select :gender, gender_options(@collectable.gender), { include_blank: 'Any' }, { class: 'form-control' } %>
+              </div>
+            <% end %>
+          </div>
           <% unless @skip_sources %>
             <div class="form-group">
               <%= f.label :sources %>

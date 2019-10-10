@@ -18,6 +18,11 @@ module CollectionsHelper
     options_for_select([['Show All', 'all'], ['Only Owned', 'owned'], ['Only Missing', 'missing']], selected)
   end
 
+  def gender_filter_options(selected = nil)
+    options_for_select([['All Genders', 'all'], ['Hide Male', 'male'], ['Hide Female', 'female'],
+                        ['Character Usable', 'character']], selected)
+  end
+
   def category_row_classes(collectable, active_category)
     hidden = active_category.present? && collectable.category_id != active_category
     "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned?(collectable.id)}"

@@ -111,7 +111,8 @@ $(document).on 'turbolinks:load', ->
 
   $('#filters-form').submit ->
     refresh = Cookies.get('premium') != checkboxValue($(@).find('#premium')) ||
-      Cookies.get('limited') != checkboxValue($(@).find('#limited'))
+      Cookies.get('limited') != checkboxValue($(@).find('#limited')) ||
+      Cookies.get('gender') != $('#gender').val()
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300 })

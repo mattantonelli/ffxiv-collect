@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_24_134446) do
+ActiveRecord::Schema.define(version: 2019_10_04_063118) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -95,7 +95,9 @@ ActiveRecord::Schema.define(version: 2019_09_24_134446) do
     t.integer "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "gender"
     t.index ["category_id"], name: "index_armoires_on_category_id"
+    t.index ["gender"], name: "index_armoires_on_gender"
     t.index ["name_de"], name: "index_armoires_on_name_de"
     t.index ["name_en"], name: "index_armoires_on_name_en"
     t.index ["name_fr"], name: "index_armoires_on_name_fr"
@@ -221,6 +223,7 @@ ActiveRecord::Schema.define(version: 2019_09_24_134446) do
     t.integer "achievement_points", default: 0
     t.string "free_company_id"
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
+    t.string "gender"
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -288,6 +291,8 @@ ActiveRecord::Schema.define(version: 2019_09_24_134446) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "item_id"
+    t.string "gender"
+    t.index ["gender"], name: "index_hairstyles_on_gender"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"
     t.index ["name_fr"], name: "index_hairstyles_on_name_fr"
