@@ -128,7 +128,7 @@ class Character < ApplicationRecord
       end
     end
 
-    info = { id: data['id'], name: data['name'], server: data['worldName'], gender: data['genderName'].downcase,
+    info = { id: data['id'], name: data['name'], server: data['worldName'], gender: data['genderName']&.downcase,
              portrait: data['imageUrl'], avatar: data['iconUrl'], free_company_id: data['fcId'],
              last_parsed: Time.at(data['updatedAt'] / 1000) }
     info[:achievements_count] = -1 if data['achievementsPrivate']
