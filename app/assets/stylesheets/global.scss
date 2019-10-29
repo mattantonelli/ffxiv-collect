@@ -386,12 +386,14 @@ input[type="checkbox"] {
 }
 
 .collection:not(.comparing) {
-  tr.only-owned.owned > td {
-    opacity: 1;
+  tr.owned:not(.no-fade) > td {
+    opacity: 0.4;
   }
 
-  tr.owned:not(.only-owned) > td {
-    opacity: 0.4;
+  &.only-owned {
+    tr.owned > td {
+      opacity: 1;
+    }
   }
 }
 
