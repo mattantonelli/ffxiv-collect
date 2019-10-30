@@ -140,14 +140,17 @@ class Character < ApplicationRecord
     end
 
     unless data['achievementsPrivate']
-      achievement_ids = character.achievement_ids
+      achievement_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
       achievements = data['achievements'].reject { |achievement| achievement_ids.include?(achievement['id']) }
       Character.bulk_insert_achievements(character, achievements)
     end
 
-    Character.bulk_insert(info[:id], CharacterMount, :mount, data['mounts'].pluck('id') - character.mount_ids)
+    mount_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
+    Character.bulk_insert(info[:id], CharacterMount, :mount, data['mounts'].pluck('id') - mount_ids)
+
+    minion_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
     Character.bulk_insert(info[:id], CharacterMinion, :minion,
-                          data['minions'].pluck('id') - character.minion_ids - Minion.unsummonable_ids)
+                          data['minions'].pluck('id') - minion_ids - Minion.unsummonable_ids)
 
     true
   end
