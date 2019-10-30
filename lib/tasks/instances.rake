@@ -18,7 +18,13 @@ namespace :instances do
         data["name_#{locale}"] = sanitize_name(name)
       end
 
-      Instance.find_or_create_by!(data) unless data['name_en'].blank?
+      next if data['name_en'].blank?
+
+      if existing = Instance.find_by(id: data[:id])
+        existing.update!(data) if updated?(existing, data.symbolize_keys)
+      else
+        Instance.find_or_create_by!(data) unless data['name_en'].blank?
+      end
     end
 
     puts "Created #{Instance.count - count} new instances"

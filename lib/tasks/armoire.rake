@@ -1,4 +1,4 @@
-ARMOIRE_COLUMNS = %w(ID Order CategoryTargetID Item.ID Item.Icon Item.Name_* Item.EquipRestriction).freeze
+ARMOIRE_COLUMNS = %w(ID Order CategoryTargetID Item.ID Item.Icon Item.Name_* Item.Description_en).freeze
 ARMOIRE_ITEM_COLUMNS = %w(ID GameContentLinks.Achievement.Item GamePatch.Version).freeze
 
 namespace :armoires do
@@ -22,9 +22,9 @@ namespace :armoires do
       next if armoire.order == 0 || armoire.item.name_en.empty?
       data = { id: armoire.id + 1, category_id: armoire.category_target_id, order: armoire.order }
 
-      data[:gender] = case armoire.item.equip_restriction
-                      when 2 then 'male'
-                      when 3 then 'female'
+      data[:gender] = case armoire.item.description_en
+                      when /♂/ then 'male'
+                      when /♀/ then 'female'
                       end
 
       %w(en de fr ja).each do |locale|
