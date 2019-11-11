@@ -29,7 +29,12 @@ module CollectionsHelper
   end
 
   def rarity(collectable, numeric: false)
-    rarity = @owned.fetch(collectable.id.to_s, '0%')
+    if @owned.present?
+      rarity = @owned.fetch(collectable.id.to_s, '0%')
+    else
+      rarity = Redis.current.hget(collectable.class.to_s.downcase.pluralize, collectable.id) || '0%'
+    end
+
     numeric ? rarity.delete('%') : rarity
   end
 
