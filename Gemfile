@@ -12,7 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'mini_racer', '~> 0.2.4'
-gem 'rack-cors'
+gem 'rack-cors', '~> 1.1.0'
 
 gem 'devise'
 gem 'omniauth-discord'
