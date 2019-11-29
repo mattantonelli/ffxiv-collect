@@ -112,7 +112,9 @@ module CollectionsHelper
   end
 
   def sources(collectable, list: false)
-    return format_text_long(collectable.description) if collectable.class == Orchestrion
+    if collectable.class == Orchestrion
+      return [format_text_long(collectable.description), collectable.details].compact.join('<br>').html_safe
+    end
 
     sources = collectable.sources.map do |source|
       type = source.type.name

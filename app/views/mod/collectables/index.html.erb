@@ -32,11 +32,7 @@
             <td><%= sprite(collectable, @sprite_key) %></td>
           <% end %>
           <td><%= collectable.name %></td>
-          <% if @skip_sources %>
-            <td><%= collectable.description %></td>
-          <% else %>
-            <td><%= sources(collectable) %></td>
-          <% end %>
+          <td><%= sources(collectable) %></td>
           <td><%= collectable.patch %></td>
           <td class="text-center">
             <%= link_to fa_icon('pencil', class: 'btn btn-secondary btn-sm'),

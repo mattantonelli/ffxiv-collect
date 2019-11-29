@@ -17,6 +17,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
+#  details        :string(255)
 #
 
 class Orchestrion < ApplicationRecord
