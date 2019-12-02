@@ -31,8 +31,9 @@ class Character < ApplicationRecord
   belongs_to :verified_user, class_name: 'User', required: false
   belongs_to :free_company, required: false
 
+  scope :recent,   -> { where('characters.updated_at > ?', Date.current - 3.months) }
   scope :verified, -> { where.not(verified_user: nil) }
-  scope :visible, -> { where(public: true) }
+  scope :visible,  -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   CHARACTER_API_BASE = 'https://www.lalachievements.com/api/charrealtime'.freeze
