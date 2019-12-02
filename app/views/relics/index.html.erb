@@ -1,0 +1,49 @@
+<% title('Relics') %>
+
+<div class="d-flex justify-content-end mb-2">
+  <button class="btn btn-secondary btn-sm mr-1" id="collapseToggle" data-expanded="true">
+    <%= fa_icon('compress', text: 'Collapse All') %>
+  </button>
+</div>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @relic_weapons, name: 'Relic' %>
+  <div class="collapse" id="collapse-relic">
+    <div class="card-body">
+      <div class="d-md-none">
+        <%= render partial: 'relics', collection: @relic_weapons.each_slice(5) %>
+      </div>
+      <div class="d-none d-md-block">
+        <%= render 'relics', relics: @relic_weapons %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @anima_weapons, name: 'Anima' %>
+  <div class="collapse show" id="collapse-anima">
+    <div class="card-body py-3">
+      <div class="d-md-none">
+        <%= render partial: 'relics', collection: @anima_weapons.each_slice(6) %>
+      </div>
+      <div class="d-none d-md-block">
+        <%= render partial: 'relics', collection: @anima_weapons.each_slice(6).to_a.transpose %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @eureka_weapons, name: 'Eureka' %>
+  <div class="collapse show" id="collapse-eureka">
+    <div class="card-body py-3">
+      <div class="d-md-none">
+        <%= render partial: 'relics', collection: @eureka_weapons.each_slice(4) %>
+      </div>
+      <div class="d-none d-md-block">
+        <%= render partial: 'relics', collection: @eureka_weapons.each_slice(4).to_a.transpose %>
+      </div>
+    </div>
+  </div>
+</div>

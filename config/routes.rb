@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :tomestones, only: :index
+  resources :tomestones, :relics, only: :index
 
   get 'achievements/types', to: redirect('404')
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
