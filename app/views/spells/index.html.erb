@@ -8,6 +8,7 @@
       { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
     <%= f.collection_select :aspect_id_eq, SpellAspect.all.order("name_#{I18n.locale}"), :id, :name,
       { include_blank: 'All Aspects' }, class: 'form-control form-control-sm' %>
+    <%= f.select :rank_eq, rank_options, { include_blank: 'All Ranks' }, class: 'form-control form-control-sm' %>
     <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
     <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
@@ -27,6 +28,7 @@
       <th scope="col">Location</th>
       <th scope="col" class="text-center hide-sm">Type</th>
       <th scope="col" class="text-center hide-sm">Aspect</th>
+      <th scope="col" class="text-center hide-sm">Rank</th>
       <th scope="col" class="text-center hide-sm">Own</th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
@@ -50,6 +52,7 @@
         <td><%= spell_locations(spell) %></td>
         <td class="text-center hide-sm"><%= spell.type.name %></td>
         <td class="text-center hide-sm"><%= spell.aspect.name %></td>
+        <td class="text-center no-wrap hide-sm"><%= spell_rank(spell) %></td>
         <td class="text-center hide-sm" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
         <% if character_selected? %>
           <%= td_owned(spell, manual: true) %>
