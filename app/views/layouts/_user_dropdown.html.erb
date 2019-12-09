@@ -1,13 +1,17 @@
-<div class="navbar-nav nav-item mx-md-2">
-  <% if @character.present? %>
-    <%= image_tag(@character.avatar, class: 'avatar') %>
-  <% else %>
-    <%= avatar(current_user) %>
-  <% end %>
-</div>
 <div class="navbar-nav nav-item dropdown">
-  <a class="nav-link dropdown-toggle p-0" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-    aria-haspopup="true" aria-expanded="false"><%= @character.present? ? @character.name : current_user.username %></a>
+  <a class="nav-link dropdown-toggle d-flex align-items-center p-0" href="#" id="userDropdown" role="button"
+    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <div>
+      <% if @character.present? %>
+        <%= image_tag(@character.avatar, class: 'avatar') %>
+      <% else %>
+        <%= avatar(current_user) %>
+      <% end %>
+    </div>
+    <span class="d-block d-md-none d-lg-block">
+      <%= @character.present? ? @character.name : current_user.username %>
+    </span>
+  </a>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
     <% if @character.present? %>
       <div class="d-flex flex-column menu-character mx-3">

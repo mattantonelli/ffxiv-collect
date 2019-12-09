@@ -7,7 +7,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarContent">
-    <div class="navbar-nav mr-auto">
+    <div class="navbar-nav mr-auto no-wrap">
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle<%= ' active' if active_link?(achievements_path, 'achievement') %>" href="#"
           id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -54,7 +54,7 @@
       </div>
     </div>
     <% unless @character.present? %>
-      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary my-2 my-md-0' %>
+      <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary my-2 my-md-0 mr-3' %>
     <% end %>
     <% if @character.present? || user_signed_in? %>
       <%= render 'layouts/user_dropdown' %>
