@@ -24,6 +24,7 @@
 #  free_company_id    :string(255)
 #  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #  gender             :string(255)
+#  spells_count       :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -38,7 +39,7 @@ class Character < ApplicationRecord
 
   CHARACTER_API_BASE = 'https://www.lalachievements.com/api/charrealtime'.freeze
 
-  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires).each do |model|
+  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end

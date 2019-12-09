@@ -44,6 +44,10 @@ def sanitize_text(text)
     .gsub("\n\n", ' ')
 end
 
+def sanitize_tooltip(text)
+  sanitize_text(text.gsub("\n\n", "\n"))
+end
+
 # Fix lowercase names and German gender tags
 def sanitize_name(name)
   name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
@@ -72,7 +76,7 @@ def updated?(model, data)
   updated
 end
 
-def download_image(id, url, path, mask_from = nil, mask_to = nil)
+def download_image(id, url, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
   path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
 
   unless path.exist?
@@ -84,6 +88,9 @@ def download_image(id, url, path, mask_from = nil, mask_to = nil)
         image = ChunkyPNG::Image.from_stream(open(image_url))
         image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
                                   ChunkyPNG::Color::TRANSPARENT)
+      elsif width.present?
+        image = ChunkyPNG::Image.from_stream(open(image_url))
+        image.resample_bilinear!(width, height)
       else
         image = open(image_url).read
       end

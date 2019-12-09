@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_181424) do
+ActiveRecord::Schema.define(version: 2019_12_09_030900) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -202,6 +202,16 @@ ActiveRecord::Schema.define(version: 2019_11_29_181424) do
     t.index ["orchestrion_id"], name: "index_character_orchestrions_on_orchestrion_id"
   end
 
+  create_table "character_spells", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "spell_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "spell_id"], name: "index_character_spells_on_character_id_and_spell_id", unique: true
+    t.index ["character_id"], name: "index_character_spells_on_character_id"
+    t.index ["spell_id"], name: "index_character_spells_on_spell_id"
+  end
+
   create_table "characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "server", null: false
@@ -224,6 +234,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_181424) do
     t.string "free_company_id"
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
     t.string "gender"
+    t.integer "spells_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -234,6 +245,7 @@ ActiveRecord::Schema.define(version: 2019_11_29_181424) do
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
+    t.index ["spells_count"], name: "index_characters_on_spells_count"
   end
 
   create_table "emote_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -494,6 +506,60 @@ ActiveRecord::Schema.define(version: 2019_11_29_181424) do
     t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
     t.index ["related_id", "related_type"], name: "index_sources_on_related_id_and_related_type"
     t.index ["type_id"], name: "index_sources_on_type_id"
+  end
+
+  create_table "spell_aspects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_de"], name: "index_spell_aspects_on_name_de"
+    t.index ["name_en"], name: "index_spell_aspects_on_name_en"
+    t.index ["name_fr"], name: "index_spell_aspects_on_name_fr"
+    t.index ["name_ja"], name: "index_spell_aspects_on_name_ja"
+  end
+
+  create_table "spell_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_de"], name: "index_spell_types_on_name_de"
+    t.index ["name_en"], name: "index_spell_types_on_name_en"
+    t.index ["name_fr"], name: "index_spell_types_on_name_fr"
+    t.index ["name_ja"], name: "index_spell_types_on_name_ja"
+  end
+
+  create_table "spells", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "description_en", limit: 1000, null: false
+    t.string "description_de", limit: 1000, null: false
+    t.string "description_fr", limit: 1000, null: false
+    t.string "description_ja", limit: 1000, null: false
+    t.string "tooltip_en", limit: 1000, null: false
+    t.string "tooltip_de", limit: 1000, null: false
+    t.string "tooltip_fr", limit: 1000, null: false
+    t.string "tooltip_ja", limit: 1000, null: false
+    t.integer "order"
+    t.integer "rank", null: false
+    t.string "patch"
+    t.integer "type_id", null: false
+    t.integer "aspect_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["aspect_id"], name: "index_spells_on_aspect_id"
+    t.index ["name_de"], name: "index_spells_on_name_de"
+    t.index ["name_en"], name: "index_spells_on_name_en"
+    t.index ["name_fr"], name: "index_spells_on_name_fr"
+    t.index ["name_ja"], name: "index_spells_on_name_ja"
+    t.index ["type_id"], name: "index_spells_on_type_id"
   end
 
   create_table "titles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

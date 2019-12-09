@@ -1,0 +1,63 @@
+<% title('Blue Magic Spells') %>
+
+<div class="d-flex justify-content-center my-2">
+  <%= search_form_for(@q, url: spells_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
+      class: 'form-control form-control-sm flex-grow-1' %>
+    <%= f.collection_select :type_id_eq, SpellType.all.order("name_#{I18n.locale}"), :id, :name,
+      { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
+    <%= f.collection_select :aspect_id_eq, SpellAspect.all.order("name_#{I18n.locale}"), :id, :name,
+      { include_blank: 'All Aspects' }, class: 'form-control form-control-sm' %>
+    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+  <% end %>
+</div>
+<%= render 'shared/filters' %>
+<%= render 'shared/collection_progress', ids: @spells.map(&:id) %>
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable collection categorized
+  <%= ' comparing' if @comparison.present? %>">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
+      <th scope="col">Name</th>
+      <th scope="col">Enemy</th>
+      <th scope="col">Location</th>
+      <th scope="col" class="text-center hide-sm">Type</th>
+      <th scope="col" class="text-center hide-sm">Aspect</th>
+      <th scope="col" class="text-center hide-sm">Own</th>
+      <% if character_selected? %>
+        <th scope="col"></th><!-- Owned -->
+      <% end %>
+      <% if @comparison.present? %>
+        <th scope="col"></th><!-- Comparison -->
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @spells.each do |spell| %>
+      <tr class="collectable<%= ' owned' if owned?(spell.id) %>">
+        <td class="number">No. <%= spell.order %></td>
+        <td class="spell-sprite">
+          <%= link_to(spell_path(spell)) do %>
+            <%= sprite(spell, :spell) %>
+          <% end %>
+        </td>
+        <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
+        <td><%= spell_enemies(spell) %></td>
+        <td><%= spell_locations(spell) %></td>
+        <td class="text-center hide-sm"><%= spell.type.name %></td>
+        <td class="text-center hide-sm"><%= spell.aspect.name %></td>
+        <td class="text-center hide-sm" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
+        <% if character_selected? %>
+          <%= td_owned(spell, manual: true) %>
+        <% end %>
+        <% if @comparison.present? %>
+          <%= td_comparison(spell) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

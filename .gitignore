@@ -39,6 +39,7 @@ config/deploy*
 /app/assets/images/emotes.png
 /app/assets/images/bardings.png
 /app/assets/images/armoires.png
+/app/assets/images/spells.png
 
 /app/assets/stylesheets/images/*
 
@@ -50,3 +51,4 @@ config/deploy*
 /public/images/bardings/*
 /public/images/hairstyles/*
 /public/images/armoires/*
+/public/images/spells/*

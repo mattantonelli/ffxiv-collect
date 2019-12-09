@@ -55,6 +55,13 @@ module ApplicationHelper
     format_text(text.gsub(/\u203B/, "<br>\u203B"))
   end
 
+  def format_tooltip(tooltip)
+    tooltip
+      .gsub(/(?<=\n)(.*?):/, '<b>\1:</b>')
+      .gsub("\n", '<br>')
+      .html_safe
+  end
+
   def truncate_text(text, length)
     data = { toggle: 'tooltip', title: text } if text.size > length
     content_tag(:span, text.truncate(length), data: data)

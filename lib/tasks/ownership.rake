@@ -11,7 +11,7 @@ namespace :ownership do
       cache_ownership(model, mount_minion_characters)
     end
 
-    [Orchestrion, Emote, Barding, Hairstyle, Armoire].each do |model|
+    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell].each do |model|
       cache_ownership(model, manual_collection_characters)
     end
   end
