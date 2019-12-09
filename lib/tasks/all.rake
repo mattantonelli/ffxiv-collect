@@ -26,6 +26,7 @@ namespace :data do
     Rake::Task['bardings:create'].invoke
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
+    Rake::Task['spells:create'].invoke
     Rake::Task['sources:update'].invoke
     PaperTrail.enabled = true
   end
