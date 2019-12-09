@@ -52,7 +52,7 @@
         <td><%= spell_locations(spell) %></td>
         <td class="text-center hide-sm"><%= spell.type.name %></td>
         <td class="text-center hide-sm"><%= spell.aspect.name %></td>
-        <td class="text-center no-wrap hide-sm"><%= spell_rank(spell) %></td>
+        <td class="text-center no-wrap hide-sm" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
         <td class="text-center hide-sm" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
         <% if character_selected? %>
           <%= td_owned(spell, manual: true) %>
