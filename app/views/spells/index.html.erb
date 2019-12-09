@@ -24,8 +24,8 @@
       <th scope="col">#</th>
       <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col">Enemy</th>
-      <th scope="col">Location</th>
+      <th scope="col" class="hide-xs">Enemy</th>
+      <th scope="col" class="hide-xs">Location</th>
       <th scope="col" class="text-center hide-sm">Type</th>
       <th scope="col" class="text-center hide-sm">Aspect</th>
       <th scope="col" class="text-center hide-sm">Rank</th>
@@ -48,8 +48,8 @@
           <% end %>
         </td>
         <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
-        <td><%= spell_enemies(spell) %></td>
-        <td><%= spell_locations(spell) %></td>
+        <td class="hide-xs"><%= spell_enemies(spell) %></td>
+        <td class="hide-xs"><%= spell_locations(spell) %></td>
         <td class="text-center hide-sm"><%= spell.type.name %></td>
         <td class="text-center hide-sm"><%= spell.aspect.name %></td>
         <td class="text-center no-wrap hide-sm" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
