@@ -9,7 +9,7 @@ json.achievements do
   json.public character.achievements_count != -1
 end
 
-%w(mount minion orchestrion emote barding hairstyle armoire).each do |collectable|
+%w(mount minion orchestrion emote barding hairstyle armoire spell).each do |collectable|
   json.set! collectable.pluralize do
     json.count character.send("#{collectable}s_count")
     json.total collectable == 'minion' ? Minion.summonable.count : collectable.capitalize.constantize.count
