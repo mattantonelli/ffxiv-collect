@@ -16,4 +16,12 @@ module CharactersHelper
   def last_updated(character)
     content_tag(:span, "Last updated #{time_ago_in_words(character.last_parsed)} ago.", class: 'updated')
   end
+
+  def collection_name(collection)
+    if collection == 'spell'
+      'Blue Magic'
+    else
+      collection.capitalize.pluralize
+    end
+  end
 end

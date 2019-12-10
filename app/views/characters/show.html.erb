@@ -55,10 +55,10 @@
                   </div>
                 <% end %>
               </div>
-              <% %w(mount minion orchestrion emote barding hairstyle armoire).each do |collectable| %>
+              <% %w(mount minion orchestrion emote barding hairstyle armoire spell).each do |collectable| %>
                 <% if %w(mount minion).include?(collectable) || @profile.send("#{collectable}s_count") > 0 %>
                   <div class="profile-progress">
-                    <h6><%= collectable.capitalize.pluralize %></h6>
+                    <h6><%= collection_name(collectable) %></h6>
                     <div class="count">
                       <%= render 'shared/progress', value: @profile.send("#{collectable}s_count"), min: 0,
                         max: collectable == 'minion' ? Minion.summonable.count : collectable.capitalize.constantize.count %>
