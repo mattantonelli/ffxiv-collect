@@ -1,9 +1,9 @@
 namespace :ownership do
   desc 'Cache collectable ownership'
   task cache: :environment do
-    achievement_characters = Character.visible.recent.with_public_achievements.count.to_f
-    mount_minion_characters = Character.visible.recent.count.to_f
-    manual_collection_characters = Character.visible.recent.verified.count.to_f
+    achievement_characters = Character.visible.recent.with_public_achievements
+    mount_minion_characters = Character.visible.recent
+    manual_collection_characters = Character.visible.recent.verified
 
     cache_ownership(Achievement, achievement_characters)
 
@@ -19,10 +19,11 @@ namespace :ownership do
   def cache_ownership(model, characters)
     key = model.to_s.downcase.pluralize
     current = Redis.current.hgetall(key)
+    total = characters.where("#{key}_count > 0").size
 
     percentages = model.joins(:characters).merge(Character.visible.recent)
       .group(:id).count.each_with_object({}) do |(id, owners), h|
-      percentage = ((owners / characters) * 100).to_s[0..2].sub(/\.\Z/, '').sub(/0\.0/, '0')
+      percentage = ((owners / total.to_f) * 100).to_s[0..2].sub(/\.\Z/, '').sub(/0\.0/, '0')
       h[id] = "#{percentage}%"
     end
 
