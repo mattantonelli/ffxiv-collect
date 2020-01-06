@@ -190,7 +190,7 @@ GEM
       request_store (~> 1.1)
     popper_js (1.14.5)
     puma (3.12.1)
-    rack (2.0.7)
+    rack (2.0.8)
     rack-cors (1.1.0)
       rack (>= 2.0.0)
     rack-mini-profiler (1.0.0)
@@ -351,6 +351,7 @@ DEPENDENCIES
   omniauth-discord
   paper_trail
   puma (~> 3.11)
+  rack (>= 2.0.8)
   rack-cors (~> 1.1.0)
   rack-mini-profiler
   rails (~> 5.2.3)
