@@ -19,9 +19,22 @@ module CharactersHelper
 
   def collection_name(collection)
     if collection == 'spell'
-      'Blue Magic'
+      name = 'Blue Magic'
     else
-      collection.capitalize.pluralize
+      name = collection.capitalize.pluralize
     end
+
+    if collection == 'minion'
+      total = Minion.summonable.count
+    else
+      total = collection.capitalize.constantize.count
+    end
+
+    if @profile.send("#{collection}s_count") == total
+      star = fa_icon('star', class: 'complete')
+      name = "#{name} #{star}".html_safe
+    end
+
+    name
   end
 end

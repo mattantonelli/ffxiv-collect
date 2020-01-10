@@ -41,7 +41,7 @@
             <hr class="mb-0">
             <div class="d-flex flex-wrap">
               <div class="profile-progress">
-                <h6>Achievements</h6>
+                <h6><%= collection_name('achievement') %></h6>
                 <% if @profile.achievements_count == -1 %>
                   <span>Set to private.</span>
                 <% else %>
@@ -70,6 +70,9 @@
                 <div class="profile-progress">
                   <h6>
                     Triple Triad
+                    <% if @triad[:cards][:completion] == '100%' %>
+                      <%= fa_icon('star', class: 'complete') %>
+                    <% end %>
                     <span data-toggle="tooltip" title="Based on the character's verified user.">
                       <%= fa_icon('exclamation-circle') %>
                     </span>
