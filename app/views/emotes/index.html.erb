@@ -41,7 +41,7 @@
         <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
         <td class="hide-xs"><%= sources(emote) %></td>
         <td class="text-center hide-xs"><%= emote.category.name %></td>
-        <td class="text-center" data-value="<%= emote.item_id.present? ? 1 : 0 %>"><%= mogboard_link(emote) %></td>
+        <td class="text-center" data-value="<%= emote.item_id.present? ? 1 : 0 %>"><%= market_link(emote) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(emote, numeric: true) %>"><%= rarity(emote) %></td>
         <td class="text-center" data-value="<%= emote.patch %><%= emote.id %>"><%= emote.patch %></td>
         <% if character_selected? %>

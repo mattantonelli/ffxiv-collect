@@ -88,7 +88,7 @@ module ApplicationHelper
     "https://ffxivteamcraft.com/db/#{I18n.locale}/#{type}/#{id}"
   end
 
-  def mogboard_url(item_id)
-    "https://mogboard.com/market/#{item_id}"
+  def universalis_url(item_id)
+    "https://universalis.app/market/#{item_id}"
   end
 end

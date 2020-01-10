@@ -41,7 +41,7 @@
         </td>
         <td><%= link_to hairstyle.name, hairstyle_path(hairstyle), class: 'name' %></td>
         <td class="hide-xs"><%= sources(hairstyle) %></td>
-        <td class="text-center" data-value="<%= hairstyle.item_id.present? ? 1 : 0 %>"><%= mogboard_link(hairstyle) %></td>
+        <td class="text-center" data-value="<%= hairstyle.item_id.present? ? 1 : 0 %>"><%= market_link(hairstyle) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(hairstyle, numeric: true) %>"><%= rarity(hairstyle) %></td>
         <td class="text-center" data-value="<%= hairstyle.patch %><%= hairstyle.id %>"><%= hairstyle.patch %></td>
         <% if character_selected? %>

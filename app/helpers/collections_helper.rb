@@ -81,7 +81,7 @@ module CollectionsHelper
     can_trade = collectable[:item_id].present?
 
     if can_trade
-      link_to(mogboard_url(collectable[:item_id]), class: 'name', target: '_blank') do
+      link_to(universalis_url(collectable[:item_id]), class: 'name', target: '_blank') do
         fa_check(can_trade)
       end
     else
@@ -97,9 +97,9 @@ module CollectionsHelper
     end
   end
 
-  def mogboard_link(collectable)
+  def market_link(collectable)
     if collectable.item_id.present?
-      fa_icon('dollar', data: { toggle: 'tooltip' }, title: 'Tradeable')
+      link_to(fa_icon('dollar'), universalis_url(collectable.item_id), target: '_blank')
     end
   end
 
