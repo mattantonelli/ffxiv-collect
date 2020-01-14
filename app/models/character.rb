@@ -38,6 +38,7 @@ class Character < ApplicationRecord
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   CHARACTER_API_BASE = 'https://www.lalachievements.com/api/charrealtime'.freeze
+  CHARACTER_PROFILE_BASE = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
@@ -51,6 +52,18 @@ class Character < ApplicationRecord
 
   def triple_triad
     verified_user&.triple_triad
+  end
+
+  def verify!(user)
+    begin
+      page = Nokogiri::HTML(open("#{CHARACTER_PROFILE_BASE}/#{self.id}"))
+      profile = page.css('.character__selfintroduction').text
+
+      if profile.include?(verification_code(user))
+        update!(verified_user_id: user.id)
+      end
+    rescue
+    end
   end
 
   def verification_code(user)

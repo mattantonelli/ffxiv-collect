@@ -40,6 +40,7 @@ gem 'rest-client'
 gem 'paper_trail'
 gem 'sidekiq', '~> 5.2.7'
 gem 'sidekiq-failures', '~> 1.0.0'
+gem 'nokogiri'
 
 gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.0'
 

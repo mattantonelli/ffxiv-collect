@@ -348,6 +348,7 @@ DEPENDENCIES
   mini_racer (~> 0.2.4)
   momentjs-rails
   mysql2 (>= 0.4.4, < 0.6.0)
+  nokogiri
   omniauth-discord
   paper_trail
   puma (~> 3.11)

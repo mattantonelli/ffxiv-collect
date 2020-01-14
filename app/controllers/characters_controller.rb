@@ -121,17 +121,11 @@ class CharactersController < ApplicationController
   end
 
   def validate
-    begin
-      if XIVAPI_CLIENT.character_verified?(id: @character.id, token: @character.verification_code(current_user))
-        @character.update!(verified_user_id: current_user.id)
-        flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
-        redirect_to_previous
-      else
-        flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
-        render :verify
-      end
-    rescue XIVAPI::Errors::RequestError
-      flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+    if @character.verify!(current_user)
+      flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
+      redirect_to_previous
+    else
+      flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
       render :verify
     end
   end
@@ -149,7 +143,7 @@ class CharactersController < ApplicationController
   end
 
   def confirm_unverified!
-    if @character.verified?
+    if @character.verified_user?(current_user)
       flash[:alert] = 'Your character has already been verified.'
       redirect_to root_path
     end
