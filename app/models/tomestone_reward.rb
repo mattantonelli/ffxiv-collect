@@ -8,6 +8,7 @@
 #  collectable_type :string(255)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  tomestone        :string(255)
 #
 
 class TomestoneReward < ApplicationRecord

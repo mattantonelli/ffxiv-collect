@@ -1,7 +1,6 @@
 module TomestonesHelper
-  def reward_event_link
-    url = "https://#{region}.finalfantasyxiv.com/lodestone/special/mogmog-collection/201909/"
-    link_to('Moogle Treasure Trove', url, target: '_blank')
+  def reward_event_link(url)
+    link_to('Moogle Treasure Trove', url.gsub('na.', "#{region}."), target: '_blank')
   end
 
   def reward_image(reward)
