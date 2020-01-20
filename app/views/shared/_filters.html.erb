@@ -11,13 +11,13 @@
           <% if %w(hairstyles armoires).include?(controller_name) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% unless %w(achievements titles).include?(controller_name) %>
+          <% unless %w(achievements titles tomestones).include?(controller_name) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, 'Exclude Premium' %>
             </div>
           <% end %>
-          <% unless controller_name == 'achievements' %>
+          <% unless %w(achievements tomestones).include?(controller_name) %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
               <%= label_tag :limited, 'Exclude Time Limited' %>
