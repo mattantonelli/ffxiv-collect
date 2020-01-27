@@ -6,8 +6,8 @@
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :type_id_eq, SpellType.all.order("name_#{I18n.locale}"), :id, :name,
       { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
-    <%= f.collection_select :aspect_id_eq, SpellAspect.all.order("name_#{I18n.locale}"), :id, :name,
-      { include_blank: 'All Aspects' }, class: 'form-control form-control-sm' %>
+    <%= f.select "aspect_name_#{I18n.locale}_eq", @aspects, { include_blank: 'All Aspects' },
+      class: 'form-control form-control-sm' %>
     <%= f.select :rank_eq, rank_options, { include_blank: 'All Ranks' }, class: 'form-control form-control-sm' %>
     <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
