@@ -1,4 +1,4 @@
-EMOTE_COLUMNS = %w(ID Name_* GamePatch.Version EmoteCategoryTargetID TextCommand.Command_* Icon).freeze
+EMOTE_COLUMNS = %w(ID Name_* GamePatch.Version EmoteCategoryTargetID TextCommand Icon).freeze
 
 namespace :emotes do
   desc 'Create the emotes'
@@ -19,7 +19,9 @@ namespace :emotes do
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(emote["name_#{locale}"])
-        data["command_#{locale}"] = emote.text_command["command_#{locale}"]
+        commands = emote['text_command'].to_h.stringify_keys
+          .values_at("command_#{locale}", "alias_#{locale}", "short_command_#{locale}", "short_alias_#{locale}")
+        data["command_#{locale}"] = commands.reject(&:empty?).uniq.join(', ')
       end
 
       download_image(emote.id, emote.icon, 'emotes')
