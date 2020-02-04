@@ -12,7 +12,12 @@ class ApiController < ApplicationController
 
   private
   def sanitize_query_params
+    # Construct the search query from the params, excluded meta params
     query = params.except(:format, :controller, :action)
+
+    # Blacklist all user & character params
+    query.reject! { |param| param.match?('user_') || param.match?('character_') }
+
     query.each do |k, v|
       if k =~ /_in\Z/
         case v
