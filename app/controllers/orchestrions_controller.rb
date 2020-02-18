@@ -4,6 +4,9 @@ class OrchestrionsController < ApplicationController
   before_action :validate_user!, only: :select
   before_action :set_ids!, on: :select
 
+  CATEGORY_ORDER = ['Locales I', 'Locales II', 'Dungeons', 'Trials', 'Raids I', 'Raids II',
+                    'Ambient', 'Others', 'Seasonal', 'Mog Station'].freeze
+
   def index
     @category = nil if @category < 2
     @q = Orchestrion.ransack(params[:q])
@@ -30,7 +33,7 @@ class OrchestrionsController < ApplicationController
 
   private
   def set_collection!
-    @categories = OrchestrionCategory.all.order(:id)
+    @categories = OrchestrionCategory.all.sort_by { |category| CATEGORY_ORDER.index(category.name_en) }
     @category = params[:category].to_i
   end
 

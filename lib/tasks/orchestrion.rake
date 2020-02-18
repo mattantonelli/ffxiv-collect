@@ -10,7 +10,12 @@ namespace :orchestrions do
       next if category.id == 1
       if category[:name_en].present?
         data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
-        OrchestrionCategory.find_or_create_by!(data)
+
+        if existing = OrchestrionCategory.find_by(id: data[:id])
+          existing.update!(data) if updated?(existing, data.symbolize_keys)
+        else
+          OrchestrionCategory.find_or_create_by!(data)
+        end
       end
     end
 

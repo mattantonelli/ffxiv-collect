@@ -62,7 +62,7 @@ namespace :sources do
         if collection == Emote
           next unless item.name_en.match?('Ballroom Etiquette')
           command = item.description_en.match(/(\/.*) emote/).captures.first
-          collectable = collection.find_by(command_en: command)
+          collectable = collection.where('command_en like ?', "#{command}%").first
         elsif collection == Hairstyle
           next unless item.name_en.match?('Modern Aesthetics')
           collectable = collection.find_by(name_en: item.name_en.gsub(/.* - /, ''))
