@@ -4,8 +4,7 @@ OrchestrionUiparam.Order).freeze
 namespace :orchestrions do
   desc 'Create the orchestrion rolls'
   task create: :environment do
-    puts 'Creating orchestrion rolls'
-
+    puts 'Creating orchestrion categories'
     XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_*)).each do |category|
       next if category.id == 1
       if category[:name_en].present?
@@ -19,6 +18,7 @@ namespace :orchestrions do
       end
     end
 
+    puts 'Creating orchestrion rolls'
     count = Orchestrion.count
     XIVAPI_CLIENT.content(name: 'Orchestrion', columns: ORCHESTRION_COLUMNS, limit: 1000).each do |orchestrion|
       next unless orchestrion.name_en.present?
