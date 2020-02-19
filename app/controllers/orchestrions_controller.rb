@@ -52,7 +52,7 @@ class OrchestrionsController < ApplicationController
   def exclude_category!(name)
     category = @categories.find { |cat| cat.name_en == name }
     @orchestrions = @orchestrions.where.not(category: category)
-    @categories = @categories.where.not(id: category.id)
+    @categories = @categories.reject { |cat| category.id == cat.id }
     @category = nil if @category == category.id
   end
 end
