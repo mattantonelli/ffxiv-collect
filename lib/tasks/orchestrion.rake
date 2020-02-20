@@ -4,6 +4,8 @@ OrchestrionUiparam.Order).freeze
 namespace :orchestrions do
   desc 'Create the orchestrion rolls'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating orchestrion categories'
     XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_*)).each do |category|
       next if category.id == 1

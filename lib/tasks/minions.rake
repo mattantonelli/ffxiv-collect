@@ -6,6 +6,8 @@ StrengthShield Tooltip_* MinionSkillTypeTargetID Order).freeze
 namespace :minions do
   desc 'Create the minions'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating minions'
 
     XIVAPI_CLIENT.content(name: 'CompanionMove', columns: %w(ID Name_*)).each do |type|

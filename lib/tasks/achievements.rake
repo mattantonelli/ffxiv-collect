@@ -4,6 +4,8 @@ Title.* Item.ID Item.Icon Item.Name_*).freeze
 namespace :achievements do
   desc 'Create the achievements'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating achievement types'
     XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_*)).each do |type|
       if type[:name_en].present?

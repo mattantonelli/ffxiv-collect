@@ -3,6 +3,8 @@ HAIRSTYLE_COLUMNS = %w(Name_* Description_* GamePatch.Version ItemAction.Data0).
 namespace :hairstyles do
   desc 'Create the hairstyles'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating hairstyles'
 
     count = Hairstyle.count

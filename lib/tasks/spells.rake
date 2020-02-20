@@ -4,6 +4,8 @@ SPELL_STATS_REGEX = /[^>]+?\n/
 namespace :spells do
   desc 'Create the blue magic spells'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating blue magic spells'
 
     SpellType.find_or_create_by!(name_en: 'Magic', name_de: 'Magie', name_fr: 'Magique', name_ja: '魔法')

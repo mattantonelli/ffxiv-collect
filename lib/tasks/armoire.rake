@@ -4,6 +4,8 @@ ARMOIRE_ITEM_COLUMNS = %w(ID GameContentLinks.Achievement.Item GamePatch.Version
 namespace :armoires do
   desc 'Create the armoire items'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating armoire items'
 
     XIVAPI_CLIENT.content(name: 'CabinetCategory', columns: %w(ID Category.Text_* MenuOrder)).each do |category|

@@ -19,6 +19,8 @@ namespace :sources do
 
   desc 'Initializes source data for various collectables'
   task initialize: :environment do
+    PaperTrail.enabled = false
+
     puts 'Setting initial collectable sources'
 
     sources = SourceType.pluck(:name, :id).to_h
@@ -48,6 +50,8 @@ namespace :sources do
 
   desc 'Sets item IDs and known sources for various collectables'
   task update: :environment do
+    PaperTrail.enabled = false
+
     achievement_type, crafting_type, event_type, quest_type =
       SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
 

@@ -3,6 +3,8 @@ EMOTE_COLUMNS = %w(ID Name_* GamePatch.Version EmoteCategoryTargetID TextCommand
 namespace :emotes do
   desc 'Create the emotes'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating emotes'
 
     XIVAPI_CLIENT.content(name: 'EmoteCategory', columns: %w(ID Name_*)).each do |category|

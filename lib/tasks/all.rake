@@ -3,18 +3,15 @@ require 'sprite_factory'
 namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
-    PaperTrail.enabled = false
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
     Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
     Rake::Task['tomestone_rewards:create'].invoke
-    PaperTrail.enabled = true
   end
 
   desc 'Updates all data'
   task update: :environment do
-    PaperTrail.enabled = false
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
     Rake::Task['achievements:create'].invoke
@@ -28,7 +25,6 @@ namespace :data do
     Rake::Task['armoires:create'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['sources:update'].invoke
-    PaperTrail.enabled = true
   end
 end
 

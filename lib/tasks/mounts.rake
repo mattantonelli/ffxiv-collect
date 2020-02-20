@@ -4,6 +4,8 @@ GamePatch.Version IsAirborne ExtraSeats).freeze
 namespace :mounts do
   desc 'Create the mounts'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating mounts'
     count = Mount.count
 
