@@ -102,7 +102,7 @@ class CharactersController < ApplicationController
 
   def refresh
     if @character.in_queue?
-      flash[:alert] = 'Sorry, you can only request a manual refresh once every 30 minutes. Please try again later.'
+      flash[:alert] = 'Your character has already been refreshed in the past 30 minutes. Please try again later.'
     else
       character = Character.fetch(@character.id)
       if character.present?
