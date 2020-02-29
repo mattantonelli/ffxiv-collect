@@ -8,7 +8,7 @@ namespace :achievements do
 
     puts 'Creating achievement types'
     XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_*)).each do |type|
-      if type[:name_en].present?
+      if type[:name_en].present? && type[:name_en] != 'Gathering'
         data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
 
         if existing = AchievementType.find_by(id: data[:id])
