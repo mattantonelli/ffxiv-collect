@@ -2,15 +2,17 @@
 
 <div class="card">
   <div class="card-header">
-    <div class="d-flex align-items-center">
+    <div class="d-flex flex-wrap align-items-center">
       <%= link_to polymorphic_url([:mod, @model]), class: 'unstyled mr-auto' do %>
-        <h5>Manage <%= @model.to_s.pluralize %></h5>
+        <h5 class="mb-2 mb-md-0">Manage <%= @model.to_s.pluralize %></h5>
       <% end %>
       <%= search_form_for(@q, url: polymorphic_url([:mod, @model]), class: 'form form-inline admin-search-form') do |f| %>
         <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 30,
           class: 'form-control form-control-sm' %>
-        <%= check_box_tag :missing, 1, @missing, class: 'form-control' %>
-        <%= label_tag :missing, 'Only Missing' %>
+        <div class="form-group form-check">
+          <%= check_box_tag :missing, 1, @missing %>
+          <%= label_tag :missing, 'Only Missing' %>
+        </div>
         <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>

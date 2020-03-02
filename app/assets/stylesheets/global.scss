@@ -23,6 +23,14 @@ body {
   .hide-xs {
     display: none;
   }
+
+  .pagination li {
+    display: none;
+
+    &:first-child, &:last-child, &.active {
+      display: inline;
+    }
+  }
 }
 
 // Below md
@@ -352,10 +360,14 @@ input[type="checkbox"] {
     margin-bottom: 0.25rem;
   }
 
-  @media (max-width: 575px) {
-    select, input, button, .form-check {
-      margin-top: 0.5rem;
-    }
+}
+
+.form-check {
+  margin: 0.5rem 0;
+  padding: 0;
+
+  label {
+    margin: 0;
   }
 }
 
