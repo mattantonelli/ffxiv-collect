@@ -63,7 +63,7 @@ def updated?(model, data)
   current = model.attributes.symbolize_keys.select { |k, _| data.keys.include?(k) }
 
   if updated = data != current
-    puts "  Found new data for #{model.id}:"
+    puts "  Found new data for #{model.name_en} (#{model.id}):"
     diff = data.map do |k, v|
       "#{k}: #{current[k]} → #{v}" if current[k] != v
     end
