@@ -94,6 +94,8 @@ Rails.application.routes.draw do
     get 'dashboard', action: :index
   end
 
+  get 'parasols', to: redirect('images/parasols.png')
+
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
                                               ['{"status": 404, "error": "Not found"}'] ] }
