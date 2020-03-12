@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-around">
   <% relics.each do |relic| %>
-    <%= link_to(achievement_path(relic), class: "relic p-2#{ ' owned' if !user_signed_in? || owned?(relic.id)}",
+    <%= link_to(achievement_path(relic), class: "relic p-2#{ ' owned' if !character_selected? || owned?(relic.id)}",
       data: { toggle: 'tooltip', html: true }, title: relic_tooltip(relic)) do %>
       <%= sprite(relic, 'achievement') %>
     <% end %>
