@@ -18,6 +18,7 @@
 #  character_id       :integer
 #  admin              :boolean          default(FALSE)
 #  mod                :boolean          default(FALSE)
+#  database           :string(255)      default("garland"), not null
 #
 
 class User < ApplicationRecord

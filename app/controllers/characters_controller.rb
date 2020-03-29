@@ -1,6 +1,5 @@
 class CharactersController < ApplicationController
-  before_action :verify_signed_in!, only: [:verify, :validate, :edit, :update, :destroy]
-  before_action :verify_user!, only: [:edit, :update]
+  before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
 
   def show
@@ -82,19 +81,6 @@ class CharactersController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def edit
-  end
-
-  def update
-    if @character.update(settings_params)
-      flash[:success] = 'Your settings have been updated.'
-      redirect_to character_settings_path
-    else
-      flash[:error] = 'There was a problem updating your settings.'
-      render :edit
-    end
-  end
-
   def destroy
     current_user.characters.delete(params[:id])
     redirect_to search_characters_path(({ compare: 1 } if params[:compare]))
@@ -135,21 +121,10 @@ class CharactersController < ApplicationController
     @code = @character.verification_code(current_user)
   end
 
-  def verify_user!
-    unless @character.verified_user?(current_user)
-      flash[:error] = 'You must verify your character before you can change its settings.'
-      redirect_to root_path
-    end
-  end
-
   def confirm_unverified!
     if @character.verified_user?(current_user)
       flash[:alert] = 'Your character has already been verified.'
       redirect_to root_path
     end
-  end
-
-  def settings_params
-    params.require(:character).permit(:public)
   end
 end

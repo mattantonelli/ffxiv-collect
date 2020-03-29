@@ -51,9 +51,6 @@
         method: :post, class: 'dropdown-item' %>
       <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
       <%= link_to fa_icon('retweet', text: 'Compare Characters'), search_characters_path(compare: 1), class: 'dropdown-item' %>
-      <% if user_signed_in? && @character.verified_user?(current_user) %>
-        <%= link_to fa_icon('wrench', text: 'Character Settings'), character_settings_path, class: 'dropdown-item' %>
-      <% end %>
       <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
       <% if user_signed_in? %>
         <hr class="my-1">
@@ -69,6 +66,7 @@
         <%= link_to fa_icon('table', text: 'Mod Dashboard'), mod_dashboard_path, class: 'dropdown-item' %>
         <hr class="my-1">
       <% end %>
+      <%= link_to fa_icon('wrench', text: 'Settings'), settings_path, class: 'dropdown-item' %>
       <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>

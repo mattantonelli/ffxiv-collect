@@ -103,12 +103,22 @@ module CollectionsHelper
     end
   end
 
-  def teamcraft_link(type, text, id = nil)
-    if id.present?
-      link_to(text, teamcraft_url(type, id), target: '_blank')
+  def database_link(type, text, id = nil)
+    return text unless id.present?
+
+    if current_user&.database == 'teamcraft'
+      teamcraft_link(type, text, id)
     else
-      text
+      garland_tools_link(type, text, id)
     end
+  end
+
+  def garland_tools_link(type, text, id)
+    link_to(text, garland_tools_url(type, id), target: '_blank')
+  end
+
+  def teamcraft_link(type, text, id)
+    link_to(text, teamcraft_url(type, id), target: '_blank')
   end
 
   def sources(collectable, list: false)
@@ -122,11 +132,11 @@ module CollectionsHelper
       if type == 'Achievement'
         achievement_link(source)
       elsif Instance.valid_types.include?(type)
-        teamcraft_link(:instance, source.related&.name || source.text, source.related_id)
+        database_link(:instance, source.related&.name || source.text, source.related_id)
       elsif type == 'Crafting' || type == 'Gathering'
-        teamcraft_link(:item, source.text, collectable.item_id)
+        database_link(:item, source.text, collectable.item_id)
       elsif type == 'Quest' || type == 'Event'
-        teamcraft_link(:quest, source.related&.name || source.text, source.related_id)
+        database_link(:quest, source.related&.name || source.text, source.related_id)
       elsif type == 'Feast'
         "The Feast: #{source.text}"
       elsif type == 'Mog Station'

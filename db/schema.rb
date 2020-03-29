@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_103356) do
+ActiveRecord::Schema.define(version: 2020_03_29_152938) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -615,6 +615,7 @@ ActiveRecord::Schema.define(version: 2020_01_14_103356) do
     t.integer "character_id"
     t.boolean "admin", default: false
     t.boolean "mod", default: false
+    t.string "database", default: "garland", null: false
     t.index ["character_id"], name: "index_users_on_character_id"
   end
 

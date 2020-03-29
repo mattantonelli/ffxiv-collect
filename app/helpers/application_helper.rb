@@ -88,6 +88,10 @@ module ApplicationHelper
     "https://ffxivteamcraft.com/db/#{I18n.locale}/#{type}/#{id}"
   end
 
+  def garland_tools_url(type, id)
+    "https://www.garlandtools.org/db/##{type}/#{id}"
+  end
+
   def universalis_url(item_id)
     "https://universalis.app/market/#{item_id}"
   end
