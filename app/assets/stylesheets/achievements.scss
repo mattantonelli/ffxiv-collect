@@ -19,3 +19,20 @@ a > .card {
 th.reward {
   min-width: 50px;
 }
+
+.achievement-type {
+  display: flex;
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+
+    .card-title {
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  @media (min-width: 576px) {
+    align-items: center;
+    justify-content: space-between;
+  }
+}
