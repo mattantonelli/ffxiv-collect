@@ -7,10 +7,10 @@ namespace :orchestrions do
     PaperTrail.enabled = false
 
     puts 'Creating orchestrion categories'
-    XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_*)).each do |category|
+    XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_* Order)).each do |category|
       next if category.id == 1
       if category[:name_en].present?
-        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :order)
 
         if existing = OrchestrionCategory.find_by(id: data[:id])
           existing.update!(data) if updated?(existing, data.symbolize_keys)

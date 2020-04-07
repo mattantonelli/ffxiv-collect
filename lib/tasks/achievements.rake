@@ -7,9 +7,9 @@ namespace :achievements do
     PaperTrail.enabled = false
 
     puts 'Creating achievement types'
-    XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_*)).each do |type|
+    XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_* Order)).each do |type|
       if type[:name_en].present? && type[:name_en] != 'Gathering'
-        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
+        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :order)
 
         if existing = AchievementType.find_by(id: data[:id])
           existing.update!(data) if updated?(existing, data.symbolize_keys)
@@ -20,8 +20,8 @@ namespace :achievements do
     end
 
     puts 'Creating achievement categories'
-    XIVAPI_CLIENT.content(name: 'AchievementCategory', columns: %w(ID Name_* AchievementKindTargetID)).each do |category|
-      category = category.to_h
+    XIVAPI_CLIENT.content(name: 'AchievementCategory', columns: %w(ID Name_* AchievementKindTargetID Order)).each do |category|
+      category = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :achievement_kind_target_id, :order)
       category[:type_id] = category.delete(:achievement_kind_target_id)
       next unless category[:name_en].present?
 

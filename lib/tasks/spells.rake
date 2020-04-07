@@ -1,4 +1,4 @@
-SPELL_COLUMNS = %w(ID Description_* Stats_* Icon GamePatch.Version).freeze
+SPELL_COLUMNS = %w(ID Description_* Stats_* Number Icon GamePatch.Version).freeze
 SPELL_STATS_REGEX = /[^>]+?\n/
 
 namespace :spells do
@@ -37,7 +37,7 @@ namespace :spells do
     XIVAPI_CLIENT.content(name: 'AozActionTransient', columns: SPELL_COLUMNS, limit: 1000).each do |spell|
       next unless spells.key?(spell.id)
 
-      data = spells[spell.id].merge(id: spell.id, patch: spell.game_patch.version)
+      data = spells[spell.id].merge(id: spell.id, order: spell.number, patch: spell.game_patch.version)
 
       %w(en de fr ja).each do |locale|
         data["description_#{locale}"] = sanitize_text(spell["description_#{locale}"])

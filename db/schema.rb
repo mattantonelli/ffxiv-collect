@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_29_152938) do
+ActiveRecord::Schema.define(version: 2020_04_07_224351) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -20,10 +20,12 @@ ActiveRecord::Schema.define(version: 2020_03_29_152938) do
     t.integer "type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
     t.index ["name_de"], name: "index_achievement_categories_on_name_de"
     t.index ["name_en"], name: "index_achievement_categories_on_name_en"
     t.index ["name_fr"], name: "index_achievement_categories_on_name_fr"
     t.index ["name_ja"], name: "index_achievement_categories_on_name_ja"
+    t.index ["order"], name: "index_achievement_categories_on_order"
     t.index ["type_id"], name: "index_achievement_categories_on_type_id"
   end
 
@@ -34,10 +36,12 @@ ActiveRecord::Schema.define(version: 2020_03_29_152938) do
     t.string "name_ja", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
     t.index ["name_de"], name: "index_achievement_types_on_name_de"
     t.index ["name_en"], name: "index_achievement_types_on_name_en"
     t.index ["name_fr"], name: "index_achievement_types_on_name_fr"
     t.index ["name_ja"], name: "index_achievement_types_on_name_ja"
+    t.index ["order"], name: "index_achievement_types_on_order"
   end
 
   create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -447,10 +451,12 @@ ActiveRecord::Schema.define(version: 2020_03_29_152938) do
     t.string "name_ja", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
     t.index ["name_de"], name: "index_orchestrion_categories_on_name_de"
     t.index ["name_en"], name: "index_orchestrion_categories_on_name_en"
     t.index ["name_fr"], name: "index_orchestrion_categories_on_name_fr"
     t.index ["name_ja"], name: "index_orchestrion_categories_on_name_ja"
+    t.index ["order"], name: "index_orchestrion_categories_on_order"
   end
 
   create_table "orchestrions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

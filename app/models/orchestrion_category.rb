@@ -9,6 +9,7 @@
 #  name_ja    :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  order      :integer
 #
 
 class OrchestrionCategory < ApplicationRecord

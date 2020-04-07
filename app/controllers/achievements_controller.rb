@@ -5,12 +5,8 @@ class AchievementsController < ApplicationController
   before_action :set_owned!, on: :items
   before_action :set_ids!, :set_dates!, on: [:type, :items]
 
-  CRAFTING_GATHERING_CATEGORIES_ORDER = ['All Disciplines', 'Carpenter', 'Blacksmith', 'Armorer',
-                                         'Goldsmith', 'Leatherworker', 'Weaver', 'Alchemist', 'Culinarian',
-                                         'Miner', 'Botanist', 'Fisher'].freeze
-
   def index
-    @types = AchievementType.all.order(:id).includes(:categories, :achievements)
+    @types = AchievementType.all.order(:order).includes(:categories, :achievements)
   end
 
   def show
@@ -20,11 +16,7 @@ class AchievementsController < ApplicationController
   def type
     @type = AchievementType.find(params[:id])
     @achievements = @type.achievements
-    @categories = @type.categories.includes(achievements: :title)
-
-    if @type.name_en == 'Crafting & Gathering'
-      @categories = @categories.sort_by { |category| CRAFTING_GATHERING_CATEGORIES_ORDER.index(category.name_en) }
-    end
+    @categories = @type.categories.includes(achievements: :title).order(:order)
   end
 
   def items
