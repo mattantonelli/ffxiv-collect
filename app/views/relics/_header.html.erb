@@ -2,11 +2,11 @@
   <div class="card-header d-flex justify-content-between align-items-center">
     <h5 class="card-title"><%= name %> Weapons</h5>
     <% if character_selected? %>
-      <h6 <%= 'class="complete"'.html_safe if relic_completed?(relic, @collection_ids) %>>
+      <h6 class="text-right<%= 'class="complete"'.html_safe if relic_completed?(relic, @collection_ids) %>">
         <%= relic_completion(relic, @collection_ids) %>
       </h6>
     <% else %>
-      <h6><%= relic.size %> Relics</h6>
+      <h6 class="text-right"><%= relic.size %> Relics</h6>
     <% end %>
   </div>
 <% end %>

@@ -11,6 +11,6 @@ module RelicsHelper
     date = format_date_short(@dates[relic.id])
     text = "<b>#{relic.name}</b><br>"
     text += "Acquired on #{format_date_short(@dates[relic.id])}<br>" if date.present?
-    text += "Owned by #{@owned[relic.id.to_s]} of players".html_safe
+    text += "Owned by #{@owned[relic.id.to_s] || '0%'} of players".html_safe
   end
 end

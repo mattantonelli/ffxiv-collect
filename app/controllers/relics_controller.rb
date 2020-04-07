@@ -7,6 +7,7 @@ class RelicsController < ApplicationController
     @relic_weapons = AchievementCategory.find_by(name_en: 'Relic Weapons').achievements.order(:order).first(10)
     @anima_weapons = AchievementCategory.find_by(name_en: 'Anima Weapons').achievements.order(:order)
     @eureka_weapons = AchievementCategory.find_by(name_en: 'Eureka Weapons').achievements.order(:order)
+    @resistance_weapons = AchievementCategory.find_by(name_en: 'Resistance Weapons').achievements.order(:order)
     @collection_ids = @character&.achievement_ids || []
     @owned = Redis.current.hgetall('achievements')
     @dates = @character&.character_achievements&.pluck('achievement_id', :created_at).to_h || {}

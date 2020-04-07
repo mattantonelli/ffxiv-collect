@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-around">
+<div class="d-flex flex-wrap justify-content-xl-around">
   <% relics.each do |relic| %>
     <%= link_to(achievement_path(relic), class: "relic p-2#{ ' owned' if !character_selected? || owned?(relic.id)}",
       data: { toggle: 'tooltip', html: true }, title: relic_tooltip(relic)) do %>
