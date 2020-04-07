@@ -10,7 +10,7 @@
   <%= render 'header', relic: @resistance_weapons, name: 'Resistance' %>
   <div class="collapse show" id="collapse-resistance">
     <div class="card-body py-3">
-      <%= render partial: 'relics', collection: [@resistance_weapons] %>
+      <%= render partial: 'relics', collection: @resistance_weapons.each_slice(@resistance_weapons.size / 17).to_a.transpose %>
     </div>
   </div>
 </div>
@@ -19,7 +19,7 @@
   <%= render 'header', relic: @eureka_weapons, name: 'Eureka' %>
   <div class="collapse" id="collapse-eureka">
     <div class="card-body py-3">
-      <%= render partial: 'relics', collection: @eureka_weapons.each_slice(4).to_a.transpose %>
+      <%= render partial: 'relics', collection: @eureka_weapons.each_slice(@eureka_weapons.size / 15).to_a.transpose %>
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
   <%= render 'header', relic: @anima_weapons, name: 'Anima' %>
   <div class="collapse" id="collapse-anima">
     <div class="card-body py-3">
-      <%= render partial: 'relics', collection: @anima_weapons.each_slice(6).to_a.transpose %>
+      <%= render partial: 'relics', collection: @anima_weapons.each_slice(@anima_weapons.size / 13).to_a.transpose %>
     </div>
   </div>
 </div>
