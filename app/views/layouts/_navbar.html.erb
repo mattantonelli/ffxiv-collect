@@ -24,16 +24,23 @@
       <%= nav_link('Mounts', mounts_path, 'mounts') %>
       <%= nav_link('Minions', minions_path, 'minions') %>
       <%= nav_link('Orchestrion', orchestrions_path, 'orchestrions') %>
-      <%= nav_link('Blue Magic', spells_path, 'spells') %>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="relicDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">Relics</a>
+        <div class="dropdown-menu" aria-labelledBy="relicDropdown">
+          <%= link_to 'Weapons', relic_weapons_path, class: 'dropdown-item' %>
+          <%= link_to 'Tools', relic_tools_path, class: 'dropdown-item' %>
+        </div>
+      </div>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="otherDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">Other</a>
         <div class="dropdown-menu" aria-labelledBy="otherDropdown">
+          <%= link_to 'Blue Magic', spells_path, class: 'dropdown-item' %>
           <%= link_to 'Emotes', emotes_path, class: 'dropdown-item' %>
           <%= link_to 'Bardings', bardings_path, class: 'dropdown-item' %>
           <%= link_to 'Hairstyles', hairstyles_path, class: 'dropdown-item' %>
           <%= link_to 'Armoire', armoires_path, class: 'dropdown-item' %>
-          <%= link_to 'Relics', relics_path, class: 'dropdown-item' %>
           <%= link_to fa_icon('external-link', text: 'Triple Triad', right: true), 'https://triad.raelys.com/',
             target: '_blank', class: 'dropdown-item' %>
           <hr class="my-1">

@@ -24,5 +24,8 @@ namespace :spritesheets do
 
     puts 'Creating Blue Magic spell spritesheets'
     create_spritesheet('spells')
+
+    puts 'Creating item spritesheets'
+    create_spritesheet('items/relics')
   end
 end

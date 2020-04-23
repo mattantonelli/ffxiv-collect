@@ -8,6 +8,7 @@ namespace :data do
     Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
     Rake::Task['tomestone_rewards:create'].invoke
+    Rake::Task['items:create'].invoke
   end
 
   desc 'Updates all data'

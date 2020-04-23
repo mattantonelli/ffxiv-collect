@@ -46,11 +46,13 @@ $(document).on 'turbolinks:load', ->
   $('.sortable').on 'sorted', ->
     restripe()
 
+  # Manual collection ownership toggle
+
   $('td input.own').change ->
     collectable = $(this)
+    updateCollection(collectable)
 
     if !this.checked
-      updateCollection(collectable)
       path = collectable.data('path').replace('remove', 'add')
       collectable.closest('tr').removeClass('owned')
       collectable.closest('td').attr('data-value', 0)
@@ -58,7 +60,6 @@ $(document).on 'turbolinks:load', ->
       collectable.closest('td').tooltip('dispose')
       collectable.closest('td').next('.comparison').find('.avatar:first').addClass('faded')
     else
-      updateCollection(collectable)
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('tr').addClass('owned')
       collectable.closest('td').attr('data-value', 1)
@@ -68,6 +69,38 @@ $(document).on 'turbolinks:load', ->
 
     collectable.data('path', path)
     restripe()
+
+  # Manual generic item ownership toggle
+
+  $('.item.own').click ->
+    collectable = $(this)
+    title = collectable.parent().attr('data-original-title')
+    updateCollection(collectable)
+
+    if collectable.hasClass('owned')
+      path = collectable.data('path').replace('remove', 'add')
+      collectable.removeClass('owned')
+      title = title.replace(/Acquired.*?<br>/, '').replace('remove', 'add')
+      collectable.parent().attr('data-original-title', title)
+    else
+      path = collectable.data('path').replace('add', 'remove')
+      collectable.addClass('owned')
+      title = title.replace('Owned by', "Acquired on #{moment.utc().format('MMM DD, YYYY')}<br>Owned by")
+        .replace('add', 'remove')
+      collectable.parent().attr('data-original-title', title)
+
+    collectable.data('path', path)
+    collectable.parent().tooltip('dispose')
+    collectable.parent().tooltip('toggle')
+
+    count = collectable.closest('.collapse').find('.owned').length
+    header = collectable.closest('.card').find('.card-header > h6')
+    header.text(header.text().replace(/\d+ of/, "#{count} of"))
+
+    if count == collectable.closest('.collapse').find('.item').length
+      header.addClass('complete')
+    else
+      header.removeClass('complete')
 
   # Orchestrion quick select
 

@@ -26,7 +26,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :relics, only: :index
+  resources :items, only: [] do
+    post :add, :remove, on: :member
+  end
+
+  namespace :relics, as: :relic do
+    get :weapons
+    get :tools
+  end
+
+  # Backwards compatibility for old relics URL
+  get 'relics', to: redirect('relics/weapons')
 
   resources :tomestones, only: :index do
     collection do

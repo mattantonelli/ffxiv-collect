@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_224351) do
+ActiveRecord::Schema.define(version: 2020_04_23_131544) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -176,6 +176,16 @@ ActiveRecord::Schema.define(version: 2020_04_07_224351) do
     t.index ["hairstyle_id"], name: "index_character_hairstyles_on_hairstyle_id"
   end
 
+  create_table "character_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "item_id"], name: "index_character_items_on_character_id_and_item_id", unique: true
+    t.index ["character_id"], name: "index_character_items_on_character_id"
+    t.index ["item_id"], name: "index_character_items_on_item_id"
+  end
+
   create_table "character_minions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "minion_id"
@@ -239,6 +249,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_224351) do
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
     t.string "gender"
     t.integer "spells_count", default: 0
+    t.integer "items_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -246,6 +257,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_224351) do
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
+    t.index ["items_count"], name: "index_characters_on_items_count"
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
@@ -326,6 +338,15 @@ ActiveRecord::Schema.define(version: 2020_04_07_224351) do
     t.datetime "updated_at", null: false
     t.index ["content_type"], name: "index_instances_on_content_type"
     t.index ["name_en"], name: "index_instances_on_name_en"
+  end
+
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_fr", null: false
+    t.string "name_de", null: false
+    t.string "name_ja", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
