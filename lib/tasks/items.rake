@@ -6,8 +6,8 @@ namespace :items do
     puts 'Creating generic items'
     count = Item.count
 
-    puts 'Creating relic tools'
-    items = XIVAPI_CLIENT.content(name: 'Item', columns: %w(ID Name_* Icon), ids: Item.relic_tool_ids).map do |item|
+    puts 'Creating relics'
+    items = XIVAPI_CLIENT.content(name: 'Item', columns: %w(ID Name_* Icon), ids: Item.relic_ids, limit: 1000).map do |item|
       data = { id: item.id }
 
       %w(en de fr ja).each do |locale|

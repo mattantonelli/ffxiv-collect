@@ -1,5 +1,5 @@
 <% title('Relic Weapons') %>
-<% description("Automatically track your character's relic weapons and discover how to obtain new ones.") %>
+<% description("Automatically track your character's relic weapons.") %>
 
 <div class="d-flex justify-content-end mb-2">
   <button class="btn btn-secondary btn-sm mr-1" id="collapseToggle" data-expanded="false">
@@ -30,15 +30,6 @@
   <div class="collapse" id="collapse-anima-weapons">
     <div class="card-body py-3">
       <%= render partial: 'weapons', collection: @anima_weapons.each_slice(@anima_weapons.size / 13).to_a.transpose %>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3">
-  <%= render 'header', relic: @relic_weapons, name: 'Relic Weapons' %>
-  <div class="collapse" id="collapse-relic-weapons">
-    <div class="card-body">
-      <%= render 'weapons', weapons: @relic_weapons %>
     </div>
   </div>
 </div>

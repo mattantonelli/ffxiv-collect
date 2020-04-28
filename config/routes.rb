@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   namespace :relics, as: :relic do
     get :weapons
     get :tools
+    get :gear
   end
 
   # Backwards compatibility for old relics URL

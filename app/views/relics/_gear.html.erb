@@ -1,5 +1,5 @@
 <div class="d-flex flex-wrap justify-content-xl-around">
-  <% tools.each do |relic| %>
+  <% gear.each do |relic| %>
     <div class="p-2" data-toggle="tooltip" data-html="true"
       title="<%= relic_tooltip(relic, manual_owned: owned?(relic.id)) %>">
       <% if @character&.verified_user?(current_user) %>
