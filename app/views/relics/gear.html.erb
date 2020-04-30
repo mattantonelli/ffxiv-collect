@@ -8,6 +8,15 @@
   </button>
 </div>
 
+<div class="card mb-3">
+  <%= render 'header', relic: @eureka_physeos_weapons, name: 'Eureka Physeos Weapons' %>
+  <div class="collapse hide" id="collapse-eureka-physeos-weapons">
+    <div class="card-body collection py-3">
+      <%= render 'gear', gear: @eureka_physeos_weapons, sprite_image: 'items-gear' %>
+    </div>
+  </div>
+</div>
+
 <% @eureka_elemental_gear.each do |name, gear| %>
   <div class="card mb-3">
     <%= render 'header', relic: gear, name: name %>

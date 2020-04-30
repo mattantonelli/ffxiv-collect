@@ -33,6 +33,8 @@ class RelicsController < ApplicationController
 
     @eureka_elemental_gear = ['Elemental Gear +2', 'Elemental Gear +1', 'Elemental Gear']
       .zip(Item.where(id: Item.eureka_elemental_gear_ids).each_slice(35).to_a.reverse).to_h
+
+    @eureka_physeos_weapons = Item.where(id: Item.eureka_physeos_weapon_ids)
   end
 
   private

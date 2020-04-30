@@ -19,6 +19,10 @@ class Item < ApplicationRecord
     (29612..29644).to_a.freeze # Skysteel -> Dragonsung
   end
 
+  def self.eureka_physeos_weapon_ids
+    (24707..24721).to_a.freeze
+  end
+
   def self.eureka_elemental_gear_ids
     ((24087..24121).to_a + # Elemental
      (24723..24757).to_a + # +1
@@ -63,6 +67,6 @@ class Item < ApplicationRecord
   end
 
   def self.relic_gear_ids
-    (Item.arr_relic_ids + Item.eureka_job_gear_ids + Item.eureka_elemental_gear_ids).freeze
+    (Item.arr_relic_ids + Item.eureka_job_gear_ids + Item.eureka_elemental_gear_ids + Item.eureka_physeos_weapon_ids).freeze
   end
 end
