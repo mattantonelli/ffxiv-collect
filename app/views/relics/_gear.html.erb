@@ -5,15 +5,15 @@
       <% if @character&.verified_user?(current_user) %>
         <div class="relic item own<%= ' owned' if owned?(relic.id) %>"
           data-path="<%= polymorphic_path(relic, action: owned?(relic.id) ? :remove : :add) %>">
-          <%= sprite(relic, 'items-relic') %>
+          <%= sprite(relic, sprite_image) %>
         </div>
       <% elsif character_selected? %>
         <div class="relic<%= ' owned' if owned?(relic.id) %>">
-          <%= sprite(relic, 'items-relic') %>
+          <%= sprite(relic, sprite_image) %>
         </div>
       <% else %>
         <div class="relic owned">
-          <%= sprite(relic, 'items-relic') %>
+          <%= sprite(relic, sprite_image) %>
         </div>
       <% end %>
     </div>

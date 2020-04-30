@@ -28,9 +28,9 @@
         <a class="nav-link dropdown-toggle" href="#" id="relicDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false">Relics</a>
         <div class="dropdown-menu" aria-labelledBy="relicDropdown">
-          <%= link_to 'Weapons', relic_weapons_path, class: 'dropdown-item' %>
-          <%= link_to 'Tools', relic_tools_path, class: 'dropdown-item' %>
-          <%= link_to 'Gear', relic_gear_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('refresh', text: 'Weapons', right: true), relic_weapons_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('check-square', text: 'Tools', right: true), relic_tools_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('check-square', text: 'Gear', right: true), relic_gear_path, class: 'dropdown-item' %>
         </div>
       </div>
       <div class="nav-item dropdown">
