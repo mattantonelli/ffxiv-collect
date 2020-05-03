@@ -468,3 +468,18 @@ i.delete:hover {
 .no-wrap {
   white-space: nowrap;
 }
+
+.card.video {
+  margin: 0 auto;
+  width: 560px;
+
+  .card-header {
+    width: 560px;
+  }
+
+  .card-body {
+    height: 315px;
+    margin: 0;
+    padding: 0;
+  }
+}
