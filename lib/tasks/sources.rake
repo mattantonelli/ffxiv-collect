@@ -59,7 +59,7 @@ namespace :sources do
     collections = { Mount => 1322, Minion => 853, Orchestrion => 5845, Emote => 2633, Barding => 1013, Hairstyle => 2633 }
 
     # Exclude limited time achievement sources because they are a mess to filter
-    valid_achievement_ids = Achievement.exclude_time_limited.pluck(:id)
+    valid_achievement_ids = Achievement.exclude_time_limited.pluck(:id) - [1771, 1772, 1773] # Also exclude GARO
 
     collectables = collections.each_with_object({}) do |(collection, type), h|
       XIVAPI_CLIENT.search(indexes: 'Item', columns: ITEM_COLUMNS, filters: "ItemAction.Type=#{type}", limit: 999).each do |item|
