@@ -11,8 +11,6 @@
   <%= search_form_for(@q, url: minions_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
     <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
       class: 'form-control form-control-sm flex-grow-1' %>
-    <%= f.collection_select :race_id_eq, MinionRace.all.order("name_#{I18n.locale}"), :id, :name,
-      { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
     <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
       { include_blank: 'All Sources' }, class: 'form-control form-control-sm' %>
     <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
@@ -27,7 +25,6 @@
     <tr>
       <th scope="col">#</th> <!-- Image -->
       <th scope="col">Name</th>
-      <th scope="col" class="text-center">Type</th>
       <th scope="col" class="hide-xs">Source</th>
       <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
       <th scope="col" class="text-center hide-xs">Own</th>
@@ -46,9 +43,6 @@
           <% end %>
         </td>
         <td><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
-        <td class="text-center" data-value="<%= minion.race_id %>" data-toggle="tooltip" title="<%= minion.race.name %>">
-          <%= minion_type(minion) %>
-        </td>
         <td class="hide-xs"><%= sources(minion) %></td>
         <td class="text-center" data-value="<%= minion.item_id.present? ? 1 : 0 %>"><%= market_link(minion) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(minion, numeric: true) %>"><%= rarity(minion) %></td>
