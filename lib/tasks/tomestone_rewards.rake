@@ -18,4 +18,14 @@ namespace :tomestones do
       end
     end
   end
+
+  desc 'Create Law tomestone rewards from CSV data'
+  namespace :law do
+    task create: :environment do
+      CSV.foreach(Rails.root.join('vendor/law.csv'), headers: true, header_converters: :symbol) do |row|
+        collectable = row[:type].constantize.find_by(name_en: row[:name])
+        TomestoneReward.find_or_create_by!(collectable: collectable, cost: row[:cost], tomestone: 'Law')
+      end
+    end
+  end
 end

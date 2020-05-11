@@ -41,7 +41,7 @@ Rails.application.routes.draw do
 
   resources :tomestones, only: :index do
     collection do
-      get :mythology, :soldiery
+      get :mythology, :soldiery, :law
     end
   end
 
