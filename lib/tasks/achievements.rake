@@ -55,7 +55,7 @@ namespace :achievements do
       download_image(achievement.icon_id, achievement.icon, 'achievements')
 
       if existing = Achievement.find_by(id: achievement.id)
-        data = without_custom(data)
+        data = data.symbolize_keys.except(:patch)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Achievement.create!(data)
