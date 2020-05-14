@@ -1,8 +1,8 @@
 class RelicsController < ApplicationController
   include ManualCollection
   before_action :check_achievements!, only: :weapons
-  before_action :display_verify_alert!, only: [:manual_weapons, :tools, :gear]
-  before_action :set_item_collection!, only: [:manual_weapons, :tools, :gear]
+  before_action :display_verify_alert!, only: [:manual_weapons, :tools, :armor]
+  before_action :set_item_collection!, only: [:manual_weapons, :tools, :armor]
   skip_before_action :display_verify_alert!, only: :weapons
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
@@ -30,12 +30,12 @@ class RelicsController < ApplicationController
     @skysteel_tools = Item.where(id: Item.skysteel_tool_ids)
   end
 
-  def gear
-    @eureka_job_gear = ["Eureka Anemos Job Gear", "Eureka Job Gear +2", "Eureka Job Gear +1", "Eureka Job Gear"]
-      .zip(Item.where(id: Item.eureka_job_gear_ids).each_slice(75).to_a.reverse).to_h
-    @eureka_elemental_gear = ['Elemental Gear +2', 'Elemental Gear +1', 'Elemental Gear']
-      .zip(Item.where(id: Item.eureka_elemental_gear_ids).each_slice(35).to_a.reverse).to_h
-    @idealized_gear = Item.where(id: Item.idealized_gear_ids)
+  def armor
+    @eureka_job_armor = ["Eureka Anemos Armor", "Eureka Job Armor +2", "Eureka Job Armor +1", "Eureka Job Armor"]
+      .zip(Item.where(id: Item.eureka_job_armor_ids).each_slice(75).to_a.reverse).to_h
+    @eureka_elemental_armor = ['Elemental Armor +2', 'Elemental Armor +1', 'Elemental Armor']
+      .zip(Item.where(id: Item.eureka_elemental_armor_ids).each_slice(35).to_a.reverse).to_h
+    @idealized_armor = Item.where(id: Item.idealized_armor_ids)
   end
 
   private

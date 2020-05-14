@@ -57,24 +57,24 @@ class Item < ApplicationRecord
     (Item.lucis_tool_ids + Item.skysteel_tool_ids).freeze
   end
 
-  def self.eureka_job_gear_ids
+  def self.eureka_job_armor_ids
     ((22006..22080).to_a + # Base
      (22081..22155).to_a + # +1
      (22156..22230).to_a + # +2
      (22231..22305).to_a).freeze # Anemos
   end
 
-  def self.eureka_elemental_gear_ids
+  def self.eureka_elemental_armor_ids
     ((24087..24121).to_a + # Elemental
      (24723..24757).to_a + # +1
      (24758..24792).to_a).freeze # +2
   end
 
-  def self.idealized_gear_ids
+  def self.idealized_armor_ids
     (30142..30226).to_a.freeze
   end
 
-  def self.relic_gear_ids
-    (Item.eureka_job_gear_ids + Item.eureka_elemental_gear_ids + Item.idealized_gear_ids).freeze
+  def self.relic_armor_ids
+    (Item.eureka_job_armor_ids + Item.eureka_elemental_armor_ids + Item.idealized_armor_ids).freeze
   end
 end

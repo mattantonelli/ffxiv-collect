@@ -33,12 +33,13 @@ Rails.application.routes.draw do
   namespace :relics, as: :relic do
     get :weapons
     get :weapons_manual, path: 'weapons/manual', action: :manual_weapons
+    get :armor
     get :tools
-    get :gear
   end
 
-  # Backwards compatibility for old relics URL
+  # Backwards compatibility for old relics URLs
   get 'relics', to: redirect('relics/weapons')
+  get 'relics/gear', to: redirect('relics/armor')
 
   resources :tomestones, only: :index do
     collection do

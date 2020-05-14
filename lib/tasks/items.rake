@@ -8,7 +8,7 @@ namespace :items do
 
     categories = {
       weapons: Item.manual_weapon_ids,
-      gear: Item.relic_gear_ids,
+      armor: Item.relic_armor_ids,
       tools: Item.relic_tool_ids
     }
 
