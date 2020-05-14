@@ -15,40 +15,7 @@ class Item < ApplicationRecord
   has_many :characters, through: "character_#{name.pluralize}".to_sym
   translates :name
 
-  def self.skysteel_tool_ids
-    (29612..29644).to_a.freeze # Skysteel -> Dragonsung
-  end
-
-  def self.eureka_physeos_weapon_ids
-    (24707..24721).to_a.freeze
-  end
-
-  def self.eureka_elemental_gear_ids
-    ((24087..24121).to_a + # Elemental
-     (24723..24757).to_a + # +1
-     (24758..24792).to_a).freeze # +2
-  end
-
-  def self.eureka_job_gear_ids
-    ((22006..22080).to_a + # Base
-     (22081..22155).to_a + # +1
-     (22156..22230).to_a + # +2
-     (22231..22305).to_a).freeze # Anemos
-  end
-
-  def self.deep_dungeon_weapon_ids
-    ((15181..15193).to_a + [20456, 20457, 27347, 27348] + # Padjali
-     (16152..16164).to_a + [20458, 20459, 27349, 27350] + # Kinna
-     (22977..22991).to_a + [27379, 27380]).freeze # Empyrean
-  end
-
-  def self.lucis_tool_ids
-    ([2327, 2354, 2379, 2404, 2429, 2455, 2480, 2506, 2532, 2558, 2584] + # Base
-     (8436..8446).to_a + # Supra
-     (10132..10142).to_a).freeze # Lucis
-  end
-
-  def self.arr_relic_ids
+  def self.arr_relic_weapon_ids
     ids = [1675, 1746, 1816, 1885, 1955, 2052, 2140, 2213, 2214, 2306, 7888] + # Base
       (6257..6266).to_a + [9250] + # Zenith
       (7824..7833).to_a + [9251] + # Atma
@@ -62,11 +29,52 @@ class Item < ApplicationRecord
     ids.each_slice(11).flat_map { |relics| relics.insert(1, relics.delete_at(9)) }.freeze
   end
 
+  def self.eureka_physeos_weapon_ids
+    (24707..24721).to_a.freeze
+  end
+
+  def self.deep_dungeon_weapon_ids
+    ((15181..15193).to_a + [20456, 20457, 27347, 27348] + # Padjali
+     (16152..16164).to_a + [20458, 20459, 27349, 27350] + # Kinna
+     (22977..22991).to_a + [27379, 27380]).freeze # Empyrean
+  end
+
+  def self.manual_weapon_ids
+    (Item.arr_relic_weapon_ids + Item.deep_dungeon_weapon_ids + Item.eureka_physeos_weapon_ids).freeze
+  end
+
+  def self.lucis_tool_ids
+    ([2327, 2354, 2379, 2404, 2429, 2455, 2480, 2506, 2532, 2558, 2584] + # Base
+     (8436..8446).to_a + # Supra
+     (10132..10142).to_a).freeze # Lucis
+  end
+
+  def self.skysteel_tool_ids
+    (29612..29644).to_a.freeze # Skysteel -> Dragonsung
+  end
+
   def self.relic_tool_ids
     (Item.lucis_tool_ids + Item.skysteel_tool_ids).freeze
   end
 
+  def self.eureka_job_gear_ids
+    ((22006..22080).to_a + # Base
+     (22081..22155).to_a + # +1
+     (22156..22230).to_a + # +2
+     (22231..22305).to_a).freeze # Anemos
+  end
+
+  def self.eureka_elemental_gear_ids
+    ((24087..24121).to_a + # Elemental
+     (24723..24757).to_a + # +1
+     (24758..24792).to_a).freeze # +2
+  end
+
+  def self.idealized_gear_ids
+    (30142..30226).to_a.freeze
+  end
+
   def self.relic_gear_ids
-    (Item.arr_relic_ids + Item.eureka_job_gear_ids + Item.eureka_elemental_gear_ids + Item.eureka_physeos_weapon_ids).freeze
+    (Item.eureka_job_gear_ids + Item.eureka_elemental_gear_ids + Item.idealized_gear_ids).freeze
   end
 end

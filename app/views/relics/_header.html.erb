@@ -1,6 +1,6 @@
 <%= link_to "##{collapse_id(name)}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
   <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="card-title"><%= name %></h5>
+    <h5 class="card-title mr-2"><%= name %></h5>
     <% if character_selected? %>
       <h6 class="text-right<%= ' complete'.html_safe if relic_completed?(relic, @collection_ids) %>">
         <%= relic_completion(relic, @collection_ids) %>

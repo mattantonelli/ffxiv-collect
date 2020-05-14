@@ -7,13 +7,13 @@ namespace :items do
     count = Item.count
 
     categories = {
-      tools: Item.relic_tool_ids,
+      weapons: Item.manual_weapon_ids,
       gear: Item.relic_gear_ids,
-      deep_dungeon: Item.deep_dungeon_weapon_ids
+      tools: Item.relic_tool_ids
     }
 
     categories.each do |name, ids|
-      items = XIVAPI_CLIENT.content(name: 'Item', columns: %w(ID Name_* Icon), ids: ids, limit: 1000).map do |item|
+      XIVAPI_CLIENT.content(name: 'Item', columns: %w(ID Name_* Icon), ids: ids, limit: 1000).map do |item|
         data = { id: item.id }
 
         %w(en de fr ja).each do |locale|

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   namespace :relics, as: :relic do
     get :weapons
+    get :weapons_manual, path: 'weapons/manual', action: :manual_weapons
     get :tools
     get :gear
   end
