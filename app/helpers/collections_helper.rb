@@ -47,14 +47,17 @@ module CollectionsHelper
     owned = @collection_ids.include?(collectable.id)
 
     if manual && @character.verified_user?(current_user)
-      content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0, toggle: 'tooltip' },
+      content_tag(:td, class: 'text-center',
+                  data: { value: owned ? 1 : 0, toggle: 'tooltip', placement: 'right' },
                   title: ("Acquired on #{format_date_short(date)}" if date.present?) ) do
-        check_box_tag(nil, nil, owned, class: 'own', data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
+        check_box_tag(nil, nil, owned, class: 'own',
+                      data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
       end
     else
       if owned
         if date.present?
-          content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1, toggle: 'tooltip' },
+          content_tag(:td, fa_icon('check'), class: 'text-center',
+                      data: { value: 1, toggle: 'tooltip', placement: 'right' },
                       title: "Acquired on #{format_date_short(date)}")
         else
           content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
