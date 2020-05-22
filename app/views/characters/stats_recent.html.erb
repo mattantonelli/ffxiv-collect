@@ -1,0 +1,36 @@
+<% title('Collection Statistics - Most Recent') %>
+<% description("#{@profile.name} (#{@profile.server})") %>
+<% image(@profile.avatar) %>
+
+<div class="d-flex justify-content-around mb-3">
+  <div class="btn-group">
+    <%= button_tag 'Most Recent', class: 'btn btn-secondary active', disabled: true %>
+    <%= link_to 'Most Rare', stats_rarity_character_path(@profile), class: 'btn btn-secondary' %>
+  </div>
+</div>
+
+<div class="d-flex flex-wrap justify-content-around statistics">
+  <% %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).each do |collection| %>
+    <% if @profile.send("#{collection}_count") > 0 %>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><%= collection_name(collection.singularize, star: false) %></h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <% most_recent(@profile, collection).each do |collectable| %>
+              <%= link_to(polymorphic_path(collectable), class: 'unstyled') do %>
+                <li class="d-flex align-items-center mb-2">
+                  <%= generic_sprite(collection, collectable) %>
+                  <span class="ml-2">
+                    <%= collectable.name %>
+                  </span>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
