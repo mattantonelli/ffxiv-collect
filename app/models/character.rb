@@ -96,6 +96,10 @@ class Character < ApplicationRecord
     queued_at > Time.now - 30.minutes
   end
 
+  def most_recent(collection)
+    send(collection).order("character_#{collection}.created_at desc").first(10)
+  end
+
   def self.fetch(id)
     begin
       result = JSON.parse(RestClient.get("#{CHARACTER_API_BASE}/#{id}" \

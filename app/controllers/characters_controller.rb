@@ -3,6 +3,8 @@ class CharactersController < ApplicationController
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
 
+  COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
+
   def show
     unless @profile.public? || @profile.verified_user?(current_user)
       flash[:error] = "This character's profile has been set to private."
@@ -17,6 +19,9 @@ class CharactersController < ApplicationController
   end
 
   def stats_recent
+    @collections = COLLECTIONS.each_with_object({}) do |collection, h|
+      h[collection] = @profile.most_recent(collection)
+    end
   end
 
   def stats_rarity

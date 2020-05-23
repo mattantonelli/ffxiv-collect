@@ -39,8 +39,4 @@ module CharactersHelper
 
     name
   end
-
-  def most_recent(character, collection)
-    character.send(collection).order("character_#{collection}.created_at desc").first(10)
-  end
 end
