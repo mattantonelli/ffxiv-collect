@@ -1,0 +1,28 @@
+<div class="d-flex flex-wrap justify-content-around statistics mt-3">
+  <% @collections.each do |collection, collectables| %>
+    <% if collectables.size > 0 %>
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title"><%= collection_name(collection.singularize, star: false) %></h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <% collectables.each do |collectable, stat| %>
+              <li class="mb-2">
+                <%= link_to(polymorphic_path(collectable), class: 'unstyled d-flex align-items-center') do %>
+                  <%= generic_sprite(collection, collectable) %>
+                  <span class="ml-2">
+                    <%= collectable.name %>
+                    <% if stat.present? %>
+                      <br>(<%= stat %>)
+                    <% end %>
+                  </span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

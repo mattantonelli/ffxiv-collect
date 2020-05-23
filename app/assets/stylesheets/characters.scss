@@ -52,3 +52,34 @@ div.portrait {
 .avatar.faded {
   opacity: 0.2;
 }
+
+.statistics {
+  .card {
+    margin-bottom: 1rem;
+    width: 100% !important;
+
+    // md only
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      width: 45% !important;
+    }
+
+    // lg+
+    @media (min-width: 992px) {
+      width: 32% !important;
+    }
+  }
+
+  .spell-sprite img {
+    width: 40px;
+    height: 40px;
+  }
+
+  img.hairstyle-small {
+    width: 40px;
+    height: 40px;
+  }
+
+  img {
+    min-width: 40px;
+  }
+}

@@ -71,6 +71,23 @@ module ApplicationHelper
     condition ? fa_icon('check', text: ('Yes' if text)) : fa_icon('times', text: ('No' if text))
   end
 
+  def generic_sprite(collection, collectable)
+    case collection
+    when /(mounts|minions)/
+      sprite(collectable, "#{collection}-small")
+    when 'spells'
+      content_tag :div, class: 'spell-sprite' do
+        sprite(collectable, :spell)
+      end
+    when 'hairstyles'
+      hairstyle_sample_image(collectable)
+    when 'orchestrions'
+      image_tag('orchestrion.png')
+    else
+      sprite(collectable, collection.singularize)
+    end
+  end
+
   def region
     case(I18n.locale)
     when :fr then 'fr'

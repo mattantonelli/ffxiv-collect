@@ -6,17 +6,18 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title">
-          Character Profile
-        </h5>
-        <% unless @character == @profile %>
-          <div>
-            <%= link_to fa_icon('exchange', text: 'Change Character'), select_character_path(@profile),
-              method: :post, class: 'btn btn-primary btn-sm' %>
-            <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
-              method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
-          </div>
-        <% end %>
+        <h5 class="card-title">Character Profile</h5>
+        <div>
+          <%= link_to fa_icon('bar-chart', text: 'Statistics'), stats_recent_character_path(@profile),
+            class: 'btn btn-success btn-sm' unless @comparison == @profile %>
+
+          <% unless @character == @profile %>
+              <%= link_to fa_icon('exchange', text: 'Change Character'), select_character_path(@profile),
+                method: :post, class: 'btn btn-primary btn-sm' %>
+              <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
+                method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
+          <% end %>
+        </div>
       </div>
       <div class="card-body">
         <div class="d-flex">

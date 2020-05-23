@@ -1,0 +1,4 @@
+<div class="d-flex align-items-center ml-2 mb-3">
+  <h4 class="mr-2"><%= @profile.name %> (<%= @profile.server %>)</h4>
+  <%= link_to fa_icon('user', text: 'Profile'), character_path(@profile), class: 'btn btn-primary btn-sm' %>
+</div>

@@ -44,6 +44,8 @@
       <% end %>
       <hr class="my-2">
       <%= link_to fa_icon('user', text: 'Character Profile'), character_path(@character), class: 'dropdown-item' %>
+      <%= link_to fa_icon('bar-chart', text: 'Character Stats'), stats_recent_character_path(@character),
+        class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified_user?(current_user) %>
         <%= link_to fa_icon('check-circle', text: 'Verify Character'), verify_character_path, class: 'dropdown-item' %>
       <% end %>
