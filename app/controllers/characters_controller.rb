@@ -2,15 +2,11 @@ class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
+  before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
 
   def show
-    unless @profile.public? || @profile.verified_user?(current_user)
-      flash[:error] = "This character's profile has been set to private."
-      redirect_back(fallback_location: root_path)
-    end
-
     if @profile.stale? && !@profile.in_queue?
       @profile.sync
     end
@@ -142,6 +138,13 @@ class CharactersController < ApplicationController
     if @character.verified_user?(current_user)
       flash[:alert] = 'Your character has already been verified.'
       redirect_to root_path
+    end
+  end
+
+  def verify_privacy!
+    unless @profile.public? || @profile.verified_user?(current_user)
+      flash[:error] = "This character's profile has been set to private."
+      redirect_back(fallback_location: root_path)
     end
   end
 end
