@@ -2,7 +2,9 @@
 <% description("#{@profile.name} (#{@profile.server})") %>
 <% image(@profile.avatar) %>
 
-<div class="d-flex justify-content-around mb-3">
+<%= render 'statistics_profile' %>
+
+<div class="text-center">
   <div class="btn-group">
     <%= button_tag 'Most Recent', class: 'btn btn-secondary active', disabled: true %>
     <%= link_to 'Most Rare', stats_rarity_character_path(@profile), class: 'btn btn-secondary' %>
