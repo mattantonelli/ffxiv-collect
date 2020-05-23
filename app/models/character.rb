@@ -102,7 +102,7 @@ class Character < ApplicationRecord
 
   def most_rare(collection)
     rarities = Redis.current.hgetall(collection)
-    sorted_ids = rarities.sort_by { |k, v| v }.map { |k, v| k.to_i }
+    sorted_ids = rarities.sort_by { |k, v| v.to_f }.map { |k, v| k.to_i }
     send(collection).sort_by { |mount| sorted_ids.index(mount.id) }.first(10).map do |collectable|
       [collectable, rarities[collectable.id.to_s]]
     end
