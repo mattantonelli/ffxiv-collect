@@ -25,6 +25,9 @@ class CharactersController < ApplicationController
   end
 
   def stats_rarity
+    @collections = COLLECTIONS.each_with_object({}) do |collection, h|
+      h[collection] = @profile.most_rare(collection)
+    end
   end
 
   def search

@@ -100,6 +100,14 @@ class Character < ApplicationRecord
     send(collection).order("character_#{collection}.created_at desc").first(10)
   end
 
+  def most_rare(collection)
+    rarities = Redis.current.hgetall(collection)
+    sorted_ids = rarities.sort_by { |k, v| v }.map { |k, v| k.to_i }
+    send(collection).sort_by { |mount| sorted_ids.index(mount.id) }.first(10).map do |collectable|
+      [collectable, rarities[collectable.id.to_s]]
+    end
+  end
+
   def self.fetch(id)
     begin
       result = JSON.parse(RestClient.get("#{CHARACTER_API_BASE}/#{id}" \
