@@ -1,4 +1,4 @@
-INSTANCE_COLUMNS = %w(ID Name_* ContentType.Name_en).freeze
+INSTANCE_COLUMNS = %w(Content Name_* ContentType.Name_en).freeze
 
 namespace :instances do
   desc 'Create the instances'
@@ -8,9 +8,9 @@ namespace :instances do
     count = Instance.count
     XIVAPI_CLIENT.content(name: 'ContentFinderCondition', columns: INSTANCE_COLUMNS, limit: 1000).each do |instance|
       content_type = instance.content_type.name_en&.singularize
-      next unless Instance.valid_types.include?(content_type) || instance.name_en.blank?
+      next if instance.name_en.blank? || !Instance.valid_types.include?(content_type)
 
-      data = { id: instance.id, content_type: content_type }
+      data = { id: instance.content, content_type: content_type }
 
       %w(en de fr ja).each do |locale|
         name = instance["name_#{locale}"]
