@@ -40,7 +40,7 @@
         <td class="hide-xs"><%= sources(mount) %></td>
         <td class="text-center" data-value="<%= mount.item_id.present? ? 1 : 0 %>"><%= market_link(mount) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
-        <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(mount) %>"><%= mount.patch %></td>
         <% if character_selected? %>
           <% if @comparison.present? %>
             <%= td_comparison(mount) %>

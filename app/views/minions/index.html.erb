@@ -46,7 +46,7 @@
         <td class="hide-xs"><%= sources(minion) %></td>
         <td class="text-center" data-value="<%= minion.item_id.present? ? 1 : 0 %>"><%= market_link(minion) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(minion, numeric: true) %>"><%= rarity(minion) %></td>
-        <td class="text-center" data-value="<%= minion.patch %><%= minion.id %>"><%= minion.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(minion) %>"><%= minion.patch %></td>
         <% if character_selected? %>
           <% if @comparison.present? %>
             <%= td_comparison(minion) %>

@@ -51,7 +51,7 @@
             data: { toggle: 'tooltip', clipboard_action: 'copy', clipboard_text: "/isearch \"#{armoire.name}\"" }) %>
         </td>
         <td class="text-center hide-xs" data-value="<%= rarity(armoire, numeric: true) %>"><%= rarity(armoire) %></td>
-        <td class="text-center" data-value="<%= armoire.patch %><%= armoire.id %>"><%= armoire.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(armoire) %>"><%= armoire.patch %></td>
         <% if character_selected? %>
           <%= td_owned(armoire, manual: true) %>
         <% end %>

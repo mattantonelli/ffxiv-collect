@@ -40,7 +40,7 @@
         <td class="hide-xs"><%= sources(barding) %></td>
         <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= market_link(barding) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(barding, numeric: true) %>"><%= rarity(barding) %></td>
-        <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(barding) %>"><%= barding.patch %></td>
         <% if character_selected? %>
           <%= td_owned(barding, manual: true) %>
         <% end %>

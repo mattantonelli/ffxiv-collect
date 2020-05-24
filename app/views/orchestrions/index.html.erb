@@ -55,7 +55,7 @@
         <td class="text-center hide-xs"><%= orchestrion.category.name %></td>
         <td class="text-center" data-value="<%= orchestrion.item_id.present? ? 1 : 0 %>"><%= market_link(orchestrion) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(orchestrion, numeric: true) %>"><%= rarity(orchestrion) %></td>
-        <td class="text-center" data-value="<%= orchestrion.patch %><%= orchestrion.id %>"><%= orchestrion.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(orchestrion) %>"><%= orchestrion.patch %></td>
         <% if character_selected? %>
           <%= td_owned(orchestrion, manual: true) %>
         <% end %>

@@ -92,6 +92,12 @@ module CollectionsHelper
     end
   end
 
+  def sort_value(collectable)
+    patch = collectable.patch || '2.0'
+    order = collectable[:order] || collectable[:id]
+    "#{patch.ljust(4, '0')}#{order}"
+  end
+
   def achievement_link(source)
     if source.related_id.present?
       link_to(source.related.name, achievement_path(source.related_id))
