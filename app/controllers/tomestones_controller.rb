@@ -1,9 +1,6 @@
 class TomestonesController < ApplicationController
   before_action :set_collection
 
-  def index
-  end
-
   def mythology
     @title = 'Moogle Treasure Trove (Mythology)'
     @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/201909/'
