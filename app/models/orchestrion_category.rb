@@ -15,4 +15,17 @@
 class OrchestrionCategory < ApplicationRecord
   has_many :orchestrions
   translates :name
+
+  scope :hide_premium, -> (hide) do
+    where.not(name_en: 'Mog Station') if hide
+  end
+
+  scope :hide_limited, -> (hide) do
+    where.not(name_en: 'Seasonal') if hide
+  end
+
+  scope :with_filters, -> (filters, character = nil) do
+    hide_premium(filters[:premium] == 'hide')
+      .hide_limited(filters[:limited] == 'hide')
+  end
 end

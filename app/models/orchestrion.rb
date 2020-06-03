@@ -27,4 +27,8 @@ class Orchestrion < ApplicationRecord
   has_many :sources, as: :collectable # Stub relationship for TomestoneReward eager load
   translates :name, :description
   has_paper_trail on: [:update, :destroy]
+
+  scope :with_filters, -> (filters, character = nil) do
+    where(category: OrchestrionCategory.with_filters(filters, character))
+  end
 end
