@@ -2,21 +2,25 @@
 <% description("#{@profile.name} (#{@profile.server})") %>
 <% image(@profile.avatar) %>
 
+<%= render 'shared/filters' %>
+
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="card-title">Character Profile</h5>
-        <div>
+      <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <h5 class="card-title text-center mr-2">Character Profile</h5>
+        <div class="profile-buttons text-right">
+          <% unless @character == @profile %>
+            <%= link_to fa_icon('exchange', text: 'Change Character'), select_character_path(@profile),
+              method: :post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
+              method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
+          <% end %>
+
           <%= link_to fa_icon('bar-chart', text: 'Statistics'), stats_recent_character_path(@profile),
             class: 'btn btn-success btn-sm' unless @comparison == @profile %>
-
-          <% unless @character == @profile %>
-              <%= link_to fa_icon('exchange', text: 'Change Character'), select_character_path(@profile),
-                method: :post, class: 'btn btn-primary btn-sm' %>
-              <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
-                method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
-          <% end %>
+          <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+            type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
         </div>
       </div>
       <div class="card-body">
@@ -42,27 +46,26 @@
             <hr class="mb-0">
             <div class="d-flex flex-wrap">
               <div class="profile-progress">
-                <h6><%= collection_name('achievement') %></h6>
+                <h6><%= collection_name('achievements') %></h6>
                 <% if @profile.achievements_count == -1 %>
                   <span>Set to private.</span>
                 <% else %>
                   <div class="d-flex flex-column">
-                    <%= render 'shared/progress', value: @profile.achievements_count,
-                      min: 0, max: Achievement.count, text: 'complete' %>
+                    <%= render 'shared/progress', value: @scores['achievements'][:value],
+                      min: 0, max: @scores['achievements'][:max], text: 'complete' %>
                     <div class="mt-2">
-                      <%= render 'shared/progress', value: @profile.achievement_points,
-                        min: 0, max: Achievement.sum(:points), text: 'points', alt: true %>
+                      <%= render 'shared/progress', value: @scores['achievements'][:points],
+                        min: 0, max: @scores['achievements'][:points_max], text: 'points', alt: true %>
                     </div>
                   </div>
                 <% end %>
               </div>
-              <% %w(mount minion orchestrion emote barding hairstyle armoire spell).each do |collectable| %>
-                <% if %w(mount minion).include?(collectable) || @profile.send("#{collectable}s_count") > 0 %>
+              <% @scores.except('achievements').each do |collectable, score| %>
+                <% if %w(mount minion).include?(collectable) || score[:value] > 0 %>
                   <div class="profile-progress">
-                    <h6><%= collection_name(collectable) %></h6>
+                    <h6><%= collection_name(collectable, score: score) %></h6>
                     <div class="count">
-                      <%= render 'shared/progress', value: @profile.send("#{collectable}s_count"), min: 0,
-                        max: collectable == 'minion' ? Minion.summonable.count : collectable.capitalize.constantize.count %>
+                      <%= render 'shared/progress', value: score[:value], min: 0, max: score[:max] %>
                     </div>
                   </div>
                 <% end %>

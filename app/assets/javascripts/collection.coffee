@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('.collection').length > 0
+  return unless $('.collection').length > 0 || $('#filters').length > 0
 
   # Collections
 
@@ -157,9 +157,13 @@ $(document).on 'turbolinks:load', ->
     $(@).find('select').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", $(option).val(), { expires: 7300 })
 
-    restripe()
     $('#filters').modal('hide')
-    location.reload() if refresh
+
+    if refresh
+      location.reload()
+    else
+      restripe()
+
     false
 
   # Remove focus from modal toggle button after showing

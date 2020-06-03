@@ -12,6 +12,21 @@ class CharactersController < ApplicationController
     end
 
     @triad = @profile.triple_triad
+
+    @scores = COLLECTIONS.each_with_object({}) do |collection, h|
+      next unless @profile.send("#{collection}_count") > 0
+
+      ids = collection.classify.constantize.with_filters(cookies, @profile).pluck(:id)
+      ids -= Minion.unsummonable_ids if collection == 'minions'
+      owned_ids = @profile.send("#{collection.singularize}_ids")
+      h[collection] = { value: (owned_ids & ids).size, max: ids.size }
+
+      if collection == 'achievements'
+        h[collection][:points] = Achievement.with_filters(cookies, @profile).joins(:character_achievements)
+          .where('character_achievements.character_id = ?', @profile).sum(:points)
+        h[collection][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
+      end
+    end
   end
 
   def stats_recent

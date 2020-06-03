@@ -17,24 +17,16 @@ module CharactersHelper
     content_tag(:span, "Last updated #{time_ago_in_words(character.last_parsed)} ago.", class: 'updated')
   end
 
-  def collection_name(collection, star: true)
-    if collection == 'spell'
+  def collection_name(collection, score: {})
+    if collection == 'spells'
       name = 'Blue Magic'
     else
-      name = collection.capitalize.pluralize
+      name = collection.classify.pluralize
     end
 
-    if star
-      if collection == 'minion'
-        total = Minion.summonable.count
-      else
-        total = collection.capitalize.constantize.count
-      end
-
-      if @profile.send("#{collection}s_count") == total
-        star = fa_icon('star', class: 'complete')
-        name = "#{name} #{star}".html_safe
-      end
+    if score.present? && score[:value] == score[:max]
+      star = fa_icon('star', class: 'complete')
+      name = "#{name} #{star}".html_safe
     end
 
     name
