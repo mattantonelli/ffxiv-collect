@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
-  before_action :set_profile, only: [:show, :profile, :stats_recent, :stats_rarity]
+  before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
@@ -30,7 +30,11 @@ class CharactersController < ApplicationController
   end
 
   def profile
-    redirect_to(action: :show, id: @profile.id)
+    if @character.present?
+      redirect_to(action: :show, id: @character.id)
+    else
+      redirect_to root_path
+    end
   end
 
   def stats_recent
