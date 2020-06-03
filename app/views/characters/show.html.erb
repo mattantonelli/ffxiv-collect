@@ -11,7 +11,7 @@
         <h5 class="card-title text-center mr-2">Character Profile</h5>
         <div class="profile-buttons text-right">
           <% unless @character == @profile %>
-            <%= link_to fa_icon('exchange', text: 'Change Character'), select_character_path(@profile),
+            <%= link_to fa_icon('exchange', text: 'Select Character'), select_character_path(@profile),
               method: :post, class: 'btn btn-primary btn-sm' %>
             <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
               method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>

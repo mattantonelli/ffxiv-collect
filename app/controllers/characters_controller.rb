@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
-  before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
+  before_action :set_profile, only: [:show, :profile, :stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
@@ -27,6 +27,10 @@ class CharactersController < ApplicationController
         h[collection][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
       end
     end
+  end
+
+  def profile
+    redirect_to(action: :show, id: @profile.id)
   end
 
   def stats_recent
@@ -146,7 +150,12 @@ class CharactersController < ApplicationController
   end
 
   def set_profile
-    @profile = Character.find(params[:id])
+    @profile = Character.find_by(id: params[:id])
+
+    unless @profile.present?
+      flash[:error] = 'Character could not be found.'
+      redirect_to root_path
+    end
   end
 
   def confirm_unverified!

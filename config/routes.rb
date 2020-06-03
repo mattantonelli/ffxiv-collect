@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   resources :achievements, only: [:index, :show]
 
   resources :characters, only: [:show, :destroy] do
-    get :search, on: :collection
+    get :search, :profile, on: :collection
     post :select, on: :member
     get 'stats/recent', on: :member, to: 'characters#stats_recent', as: :stats_recent
     get 'stats/rarity', on: :member, to: 'characters#stats_rarity', as: :stats_rarity
