@@ -13,8 +13,10 @@
           <% unless @character == @profile %>
             <%= link_to fa_icon('exchange', text: 'Select Character'), select_character_path(@profile),
               method: :post, class: 'btn btn-primary btn-sm' %>
-            <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
-              method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
+            <% if @character.present? %>
+              <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
+                method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
+            <% end %>
           <% end %>
 
           <%= link_to fa_icon('bar-chart', text: 'Statistics'), stats_recent_character_path(@profile),

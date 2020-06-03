@@ -60,6 +60,10 @@ class ApplicationController < ActionController::Base
     end
 
     if cookies['comparison'].present?
+      unless @character.present?
+        cookies[:comparison] = nil
+      end
+
       @comparison = Character.find_by(id: cookies['comparison'])
       if @comparison&.private?(current_user)
         cookies[:comparison] = nil
