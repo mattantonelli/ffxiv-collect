@@ -14,6 +14,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'mini_racer', '~> 0.2.4'
 gem 'rack-cors', '~> 1.1.0'
 gem 'rack', '>= 2.0.8'
+gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
 gem 'omniauth-discord'
