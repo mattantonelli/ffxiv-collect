@@ -13,7 +13,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'mini_racer', '~> 0.2.4'
 gem 'rack-cors', '~> 1.1.0'
-gem 'rack', '>= 2.0.8'
+gem 'rack', '>= 2.2.3'
 gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
@@ -39,7 +39,7 @@ gem 'redis-namespace'
 gem 'traco'
 gem 'rest-client'
 gem 'paper_trail'
-gem 'sidekiq', '~> 5.2.7'
+gem 'sidekiq', '~> 5.2.9'
 gem 'sidekiq-failures', '~> 1.0.0'
 gem 'nokogiri'
 

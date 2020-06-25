@@ -95,7 +95,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
-    connection_pool (2.2.2)
+    connection_pool (2.2.3)
     crass (1.0.6)
     devise (4.7.1)
       bcrypt (~> 3.0)
@@ -192,7 +192,7 @@ GEM
       activerecord (>= 5.2.1)
     popper_js (1.16.0)
     puma (3.12.4)
-    rack (2.0.9)
+    rack (2.2.3)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-mini-profiler (2.0.1)
@@ -268,11 +268,11 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sidekiq (5.2.8)
+    sidekiq (5.2.9)
       connection_pool (~> 2.2, >= 2.2.2)
-      rack (< 2.1.0)
+      rack (~> 2.0)
       rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+      redis (>= 3.3.5, < 4.2)
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
     sortable-rails (1.7.0)
@@ -352,7 +352,7 @@ DEPENDENCIES
   omniauth-discord
   paper_trail
   puma (~> 3.11)
-  rack (>= 2.0.8)
+  rack (>= 2.2.3)
   rack-cors (~> 1.1.0)
   rack-mini-profiler
   rails (~> 5.2.4.3)
@@ -361,7 +361,7 @@ DEPENDENCIES
   redis-namespace
   rest-client
   sass-rails (~> 5.0)
-  sidekiq (~> 5.2.7)
+  sidekiq (~> 5.2.9)
   sidekiq-failures (~> 1.0.0)
   sortable-rails
   spring
