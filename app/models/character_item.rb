@@ -9,6 +9,6 @@
 #  updated_at   :datetime         not null
 #
 class CharacterItem < ApplicationRecord
-  belongs_to :character, counter_cache: :items_count
+  belongs_to :character, counter_cache: :items_count, touch: true
   belongs_to :item
 end

@@ -10,6 +10,6 @@
 #
 
 class CharacterMount < ApplicationRecord
-  belongs_to :character, counter_cache: :mounts_count
+  belongs_to :character, counter_cache: :mounts_count, touch: true
   belongs_to :mount
 end

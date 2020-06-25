@@ -10,6 +10,6 @@
 #
 
 class CharacterSpell < ApplicationRecord
-  belongs_to :character, counter_cache: :spells_count
+  belongs_to :character, counter_cache: :spells_count, touch: true
   belongs_to :spell
 end
