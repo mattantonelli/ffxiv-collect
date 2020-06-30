@@ -9,7 +9,10 @@
           <div class="image-small">
             <%= sprite(collectable, collectable.class.to_s.downcase) %>
           </div>
-          <h5 class="card-title mx-2"><%= collectable.name %></h5>
+          <h5 class="card-title mx-2">
+            <%= collectable.name %>
+            <%= gender_symbol(collectable.try(:gender)) %>
+          </h5>
         </div>
       </div>
       <div class="card-body py-3">

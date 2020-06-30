@@ -88,6 +88,11 @@ module ApplicationHelper
     end
   end
 
+  def gender_symbol(gender)
+    return nil unless gender.present?
+    fa_icon(gender == 'male' ? 'mars' : 'venus', data: { toggle: 'tooltip', title: "#{gender.capitalize} Only" })
+  end
+
   def region
     case(I18n.locale)
     when :fr then 'fr'

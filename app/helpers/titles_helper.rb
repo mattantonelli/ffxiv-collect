@@ -3,7 +3,8 @@ module TitlesHelper
     if title.name == title.female_name
       title.name
     else
-      "#{title.name}<br>#{title.female_name}".html_safe
+      "#{title.name} #{gender_symbol('male')}<br>" \
+        "#{title.female_name} #{gender_symbol('female')}".html_safe
     end
   end
 end
