@@ -28,7 +28,7 @@ bundle exec rake app:update:bin
 Create the MySQL databases `ffxiv_collect_development` and `ffxiv_collect_test` as well as a database user with access to them
 
 #### Create the necessary 3rd party applications
-1. Create a new [Discord app](https://discordapp.com/developers/applications/) for user authentication. Take note of the **client ID** and **secret**.
+1. Create a new [Discord app](https://discord.com/developers/applications/) for user authentication. Take note of the **client ID** and **secret**.
     1. Set the redirect URI on the OAuth2 page of your app: `http://localhost:3000/users/auth/discord/callback`
 2. Create an [XIVAPI](https://xivapi.com/) account and take note of your API key.
 3. Configure the credentials file to match the format below using your data.
