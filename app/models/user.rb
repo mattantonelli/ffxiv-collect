@@ -37,6 +37,7 @@ class User < ApplicationRecord
     rescue RestClient::Forbidden
       { status: :private }
     rescue RestClient::NotFound
+      { status: :not_found }
     end
   end
 

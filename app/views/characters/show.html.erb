@@ -72,7 +72,7 @@
                   </div>
                 <% end %>
               <% end %>
-              <% if @triad.present? %>
+              <% if @triad.present? && @triad[:status] == :ok %>
                 <div class="profile-progress">
                   <h6>
                     Triple Triad
