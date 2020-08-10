@@ -61,6 +61,8 @@ class CharactersController < ApplicationController
         end
       rescue XIVAPI::Errors::RequestError
         flash.now[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+      rescue XIVAPI::Errors::RateLimitError
+        flash.now[:alert] = 'The website is a bit too popular right now. Please wait a minute and try again.'
       end
     else
       if user_signed_in?
