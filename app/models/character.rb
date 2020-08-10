@@ -38,7 +38,9 @@ class Character < ApplicationRecord
   scope :visible,  -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
-  CHARACTER_API_BASE = 'https://www.lalachievements.com/api/charrealtime'.freeze
+  CHARACTER_API_BASE = 'https://xivapi.com/character'.freeze
+  CHARACTER_COLUMNS = %w(Achievements AchievementsPublic Mounts Minions FreeCompany.ID FreeCompany.Name
+    Character.Avatar Character.ID Character.Gender Character.Name Character.Portrait Character.Server).freeze
   CHARACTER_PROFILE_BASE = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells items).each do |model|
@@ -110,9 +112,8 @@ class Character < ApplicationRecord
 
   def self.fetch(id)
     begin
-      result = JSON.parse(RestClient.get("#{CHARACTER_API_BASE}/#{id}" \
-                                         "?key=#{Rails.application.credentials.lalachievements_key}"))
-      Character.update(result)
+      character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
+      Character.update(character)
       Character.find_by(id: id)
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching character #{id}: #{e.response}")
@@ -151,8 +152,8 @@ class Character < ApplicationRecord
 
   private
   def self.update(data)
-    if data['fcId'].present?
-      fc = { id: data['fcId'], name: data['fcName'] }
+    if data.dig(:free_company, :id).present?
+      fc = { id: data.free_company.id, name: data.free_company.name }
       if existing = FreeCompany.find_by(id: fc[:id])
         existing.update!(fc)
       else
@@ -160,10 +161,12 @@ class Character < ApplicationRecord
       end
     end
 
-    info = { id: data['id'], name: data['name'], server: data['worldName'], gender: data['genderName']&.downcase,
-             portrait: data['imageUrl'], avatar: data['iconUrl'], free_company_id: data['fcId'],
-             last_parsed: Time.at(data['updatedAt'] / 1000) }
-    info[:achievements_count] = -1 if data['achievementsPrivate']
+    gender = data.character.gender == 1 ? 'male' : 'female'
+
+    info = { id: data.character.id, name: data.character.name, server: data.character.server,
+             gender: gender, portrait: data.character.portrait, avatar: data.character.avatar,
+             free_company_id: data.dig(:free_company, :id), last_parsed: Time.now }
+    info[:achievements_count] = -1 unless data.achievements_public
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
@@ -171,18 +174,20 @@ class Character < ApplicationRecord
       character = Character.create!(info)
     end
 
-    unless data['achievementsPrivate']
-      achievement_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
-      achievements = data['achievements'].reject { |achievement| achievement_ids.include?(achievement['id']) }
+    if data.achievements_public
+      current_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
+      achievements = data.achievements.list.reject { |achievement| current_ids.include?(achievement.id) }
       Character.bulk_insert_achievements(character, achievements)
     end
 
-    mount_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
-    Character.bulk_insert(info[:id], CharacterMount, :mount, data['mounts'].pluck('id') - mount_ids)
+    current_names = CharacterMount.joins(:mount).where(character_id: character.id).pluck(:name_en)
+    names = data.mounts.reject { |mount| current_names.include?(mount.name) }.pluck(:name)
+    Character.bulk_insert(info[:id], CharacterMount, :mount, Mount.where(name_en: names).pluck(:id))
 
-    minion_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
+    current_names = CharacterMinion.joins(:minion).where(character_id: character.id).pluck(:name_en)
+    names = data.minions.reject { |minion| current_names.include?(minion.name) }.pluck(:name)
     Character.bulk_insert(info[:id], CharacterMinion, :minion,
-                          data['minions'].pluck('id') - minion_ids - Minion.unsummonable_ids)
+                          Minion.where(name_en: names).pluck(:id) - Minion.unsummonable_ids)
 
     true
   end
@@ -201,8 +206,8 @@ class Character < ApplicationRecord
     return unless achievements.present?
 
     values = achievements.map do |achievement|
-      date = Time.at(achievement['date']).to_formatted_s(:db)
-      "(#{character.id}, #{achievement['id']}, '#{date}', '#{date}')"
+      date = Time.at(achievement.date).to_formatted_s(:db)
+      "(#{character.id}, #{achievement.id}, '#{date}', '#{date}')"
     end
 
     CharacterAchievement.connection
