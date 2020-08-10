@@ -110,10 +110,15 @@ class Character < ApplicationRecord
     end
   end
 
-  def self.fetch(id)
+  def self.fetch(id, basic: false)
     begin
-      character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
-      Character.update(character)
+      if basic
+        character = XIVAPI_CLIENT.character(id: id, columns: CHARACTER_COLUMNS)
+        Character.retrieve(character)
+      else
+        character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
+        Character.update(character)
+      end
       Character.find_by(id: id)
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching character #{id}: #{e.response}")
@@ -151,27 +156,37 @@ class Character < ApplicationRecord
   end
 
   private
-  def self.update(data)
-    if data.dig(:free_company, :id).present?
-      fc = { id: data.free_company.id, name: data.free_company.name }
-      if existing = FreeCompany.find_by(id: fc[:id])
-        existing.update!(fc)
-      else
-        FreeCompany.create!(fc)
-      end
-    end
-
+  def self.retrieve(data)
     gender = data.character.gender == 1 ? 'male' : 'female'
 
     info = { id: data.character.id, name: data.character.name, server: data.character.server,
              gender: gender, portrait: data.character.portrait, avatar: data.character.avatar,
              free_company_id: data.dig(:free_company, :id), last_parsed: Time.now }
+
     info[:achievements_count] = -1 unless data.achievements_public
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
     else
       character = Character.create!(info)
+    end
+
+    character
+  end
+
+  def self.update(data)
+    character = Character.retrieve(data)
+
+    if data.dig(:free_company, :id).present?
+      fc = { id: data.free_company.id, name: data.free_company.name }
+
+      if existing = FreeCompany.find_by(id: fc[:id])
+        existing.update!(fc)
+      else
+        FreeCompany.create!(fc)
+      end
+
+      character.update(free_company_id: data.free_company.id)
     end
 
     if data.achievements_public
@@ -182,11 +197,11 @@ class Character < ApplicationRecord
 
     current_names = CharacterMount.joins(:mount).where(character_id: character.id).pluck(:name_en)
     names = data.mounts.reject { |mount| current_names.include?(mount.name) }.pluck(:name)
-    Character.bulk_insert(info[:id], CharacterMount, :mount, Mount.where(name_en: names).pluck(:id))
+    Character.bulk_insert(character.id, CharacterMount, :mount, Mount.where(name_en: names).pluck(:id))
 
     current_names = CharacterMinion.joins(:minion).where(character_id: character.id).pluck(:name_en)
     names = data.minions.reject { |minion| current_names.include?(minion.name) }.pluck(:name)
-    Character.bulk_insert(info[:id], CharacterMinion, :minion,
+    Character.bulk_insert(character.id, CharacterMinion, :minion,
                           Minion.where(name_en: names).pluck(:id) - Minion.unsummonable_ids)
 
     true

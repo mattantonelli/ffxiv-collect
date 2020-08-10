@@ -73,7 +73,14 @@ class CharactersController < ApplicationController
   end
 
   def select
-    character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
+    character = Character.find_by(id: params[:id])
+
+    # For new characters, retrieve their basic data and queue them for a full sync
+    unless character.present?
+      character = Character.fetch(params[:id], basic: true)
+      character.sync
+      flash[:notice] = 'Your collection data is being retrieved from the Lodestone. Please check back in a minute.'
+    end
 
     if !character.present?
       flash[:error] = 'There was a problem selecting that character.'
@@ -94,7 +101,10 @@ class CharactersController < ApplicationController
         current_user.characters << character unless current_user.characters.exists?(character.id)
       end
 
-      flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
+      unless flash[:notice].present?
+        flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
+      end
+
       redirect_to character_path(character)
     end
   end
