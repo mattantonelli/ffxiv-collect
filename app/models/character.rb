@@ -117,6 +117,10 @@ class Character < ApplicationRecord
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching character #{id}: #{e.response}")
       nil
+    rescue Exception => e
+      Rails.logger.error("There was a problem fetching character #{id}: #{e.inspect}")
+      e.backtrace.first(3).each { |line| Rails.logger.error(line )}
+      nil
     end
   end
 
