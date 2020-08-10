@@ -11,11 +11,13 @@ class MinionsController < ApplicationController
   end
 
   def verminion
+    search_params = params[:q].dup || {}
+
     if params[:strength].present?
-      params[:q].merge!("#{params[:strength]}_true" => 1)
+      search_params["#{params[:strength]}_true"] = 1
     end
 
-    @q = Minion.verminion.ransack(params[:q])
+    @q = Minion.verminion.ransack(search_params)
     @minions = @q.result.includes(:race, :skill_type)
       .include_sources.with_filters(cookies).order(patch: :desc, order: :desc)
   end
