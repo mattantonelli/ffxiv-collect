@@ -58,14 +58,11 @@ class Character < ApplicationRecord
   end
 
   def verify!(user)
-    begin
-      page = Nokogiri::HTML(open("#{CHARACTER_PROFILE_BASE}/#{self.id}"))
-      profile = page.css('.character__selfintroduction').text
+    page = Nokogiri::HTML(open("#{CHARACTER_PROFILE_BASE}/#{self.id}"))
+    profile = page.css('.character__selfintroduction').text
 
-      if profile.include?(verification_code(user))
-        update!(verified_user_id: user.id)
-      end
-    rescue
+    if profile.include?(verification_code(user))
+      update!(verified_user_id: user.id)
     end
   end
 
@@ -111,23 +108,15 @@ class Character < ApplicationRecord
   end
 
   def self.fetch(id, basic: false)
-    begin
-      if basic
-        character = XIVAPI_CLIENT.character(id: id, columns: CHARACTER_COLUMNS)
-        Character.retrieve(character)
-      else
-        character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
-        Character.update(character)
-      end
-      Character.find_by(id: id)
-    rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.error("There was a problem fetching character #{id}: #{e.response}")
-      nil
-    rescue Exception => e
-      Rails.logger.error("There was a problem fetching character #{id}: #{e.inspect}")
-      e.backtrace.first(3).each { |line| Rails.logger.error(line )}
-      nil
+    if basic
+      character = XIVAPI_CLIENT.character(id: id, columns: CHARACTER_COLUMNS)
+      Character.retrieve(character)
+    else
+      character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
+      Character.update(character)
     end
+
+    Character.find_by(id: id)
   end
 
   def self.search(server, name)

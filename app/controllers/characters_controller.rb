@@ -59,10 +59,10 @@ class CharactersController < ApplicationController
         if @characters.empty?
           flash.now[:alert] = 'No characters found.'
         end
-      rescue XIVAPI::Errors::RequestError
-        flash.now[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
-      rescue XIVAPI::Errors::RateLimitError
-        flash.now[:alert] = 'The website is a bit too popular right now. Please wait a minute and try again.'
+      rescue Exception => e
+        flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
+        log_backtrace(e)
       end
     else
       if user_signed_in?
@@ -77,9 +77,13 @@ class CharactersController < ApplicationController
 
     # For new characters, retrieve their basic data and queue them for a full sync
     unless character.present?
-      character = Character.fetch(params[:id], basic: true)
-      character.sync
-      flash[:notice] = 'Your collection data is being retrieved from the Lodestone. Please check back in a minute.'
+      begin
+        character = fetch_character(params[:id], basic: true)
+        character.sync
+        flash[:notice] = 'Your collection data is being retrieved from the Lodestone. Please check back in a minute.'
+      rescue
+        # The exception has been logged in the fetch. Now let the following logic alert the user.
+      end
     end
 
     if !character.present?
@@ -134,12 +138,17 @@ class CharactersController < ApplicationController
     if @character.in_queue?
       flash[:alert] = 'Your character has already been refreshed in the past 30 minutes. Please try again later.'
     else
-      character = Character.fetch(@character.id)
-      if character.present?
-        character.update(queued_at: Time.now)
-        flash[:success] = 'Your character has been refreshed.'
-      else
-        flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+      begin
+        character = fetch_character(@character.id)
+
+        if character.present?
+          character.update(queued_at: Time.now)
+          flash[:success] = 'Your character has been refreshed.'
+        else
+          flash[:error] = 'There was a problem contacting the Lodestone.'
+        end
+      rescue
+        flash[:error] = 'There was a problem refreshing your character.'
       end
     end
 
@@ -151,11 +160,18 @@ class CharactersController < ApplicationController
   end
 
   def validate
-    if @character.verify!(current_user)
-      flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
-      redirect_to_previous
-    else
-      flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
+    begin
+      if @character.verify!(current_user)
+        flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
+        redirect_to_previous
+      else
+        flash[:error] = 'Your character could not be verified. Please check your profile and try again.'
+        render :verify
+      end
+    rescue Exception => e
+      flash[:error] = 'There was a problem verifying your character.'
+      Rails.logger.error("There was a problem verifying character #{id}")
+      log_backtrace(e)
       render :verify
     end
   end
@@ -185,6 +201,20 @@ class CharactersController < ApplicationController
     unless @profile.public? || @profile.verified_user?(current_user)
       flash[:error] = "This character's profile has been set to private."
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def fetch_character(id, basic: false)
+    begin
+      Character.fetch(id, basic: basic)
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      Rails.logger.error(e.response)
+      raise
+    rescue Exception => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      log_backtrace(e)
+      raise
     end
   end
 end
