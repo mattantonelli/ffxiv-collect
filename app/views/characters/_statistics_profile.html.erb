@@ -1,4 +1,12 @@
-<div class="d-flex align-items-center ml-2 mb-3">
-  <h4 class="mr-2"><%= @profile.name %> (<%= @profile.server %>)</h4>
-  <%= link_to fa_icon('user', text: 'Profile'), character_path(@profile), class: 'btn btn-primary btn-sm' %>
+<%= render 'shared/filters' %>
+
+<div class="d-flex justify-content-between mx-2">
+  <div class="d-flex align-items-center mb-3">
+    <h4 class="mr-2"><%= @profile.name %> (<%= @profile.server %>)</h4>
+    <%= link_to fa_icon('user', text: 'Profile'), character_path(@profile), class: 'btn btn-primary btn-sm' %>
+  </div>
+  <div>
+    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+  </div>
 </div>

@@ -39,13 +39,13 @@ class CharactersController < ApplicationController
 
   def stats_recent
     @collections = COLLECTIONS.each_with_object({}) do |collection, h|
-      h[collection] = @profile.most_recent(collection)
+      h[collection] = @profile.most_recent(collection, filters: cookies)
     end
   end
 
   def stats_rarity
     @collections = COLLECTIONS.each_with_object({}) do |collection, h|
-      h[collection] = @profile.most_rare(collection)
+      h[collection] = @profile.most_rare(collection, filters: cookies)
     end
   end
 
