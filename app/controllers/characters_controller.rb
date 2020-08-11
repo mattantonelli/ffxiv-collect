@@ -59,6 +59,12 @@ class CharactersController < ApplicationController
         if @characters.empty?
           flash.now[:alert] = 'No characters found.'
         end
+      rescue XIVAPI::Errors::RequestError => e
+        if e.message == 'Lodestone is currently down for maintenance.'
+          flash.now[:alert] = 'The Lodestone is currently down for maintenance.'
+        else
+          flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        end
       rescue Exception => e
         flash.now[:error] = 'There was a problem contacting the Lodestone.'
         Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
@@ -146,6 +152,12 @@ class CharactersController < ApplicationController
           flash[:success] = 'Your character has been refreshed.'
         else
           flash[:error] = 'There was a problem contacting the Lodestone.'
+        end
+      rescue XIVAPI::Errors::RequestError => e
+        if e.message == 'Lodestone is currently down for maintenance.'
+          flash[:alert] = 'The Lodestone is currently down for maintenance.'
+        else
+          flash[:error] = 'There was a problem refreshing your character.'
         end
       rescue
         flash[:error] = 'There was a problem refreshing your character.'
