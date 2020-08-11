@@ -104,9 +104,14 @@ class Character < ApplicationRecord
   def most_rare(collection, filters: nil)
     rarities = Redis.current.hgetall(collection)
     sorted_ids = rarities.sort_by { |k, v| v.to_f }.map { |k, v| k.to_i }
+    valid_ids = rarities.keys.map(&:to_i) # Exclude new collectables with no rarity values
+
     collectables = send(collection)
     collectables = collectables.with_filters(filters, self) if filters.present?
-    collectables.sort_by { |mount| sorted_ids.index(mount.id) }.first(10).map do |collectable|
+    collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
+      .sort_by { |collectable| sorted_ids.index(collectable.id) }
+
+    collectables.first(10).map do |collectable|
       [collectable, rarities[collectable.id.to_s]]
     end
   end
