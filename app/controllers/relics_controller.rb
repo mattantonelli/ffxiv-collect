@@ -7,8 +7,6 @@ class RelicsController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def weapons
-    flash.now[:alert_fixed] = 'Resistance Weapons achievements are currently missing from the Lodestone. As a result, your collection may not be up to date.'
-
     @anima_weapons = AchievementCategory.find_by(name_en: 'Anima Weapons').achievements.order(:order)
     @eureka_weapons = AchievementCategory.find_by(name_en: 'Eureka Weapons').achievements.order(:order)
     @resistance_weapons = AchievementCategory.find_by(name_en: 'Resistance Weapons').achievements.order(:order)
