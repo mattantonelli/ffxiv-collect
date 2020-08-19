@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'yokai/index'
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   devise_scope :user do
@@ -47,6 +48,8 @@ Rails.application.routes.draw do
       get :mythology, :soldiery, :law
     end
   end
+
+  get 'yokai', to: 'yokai#index'
 
   get 'achievements/types', to: redirect('404')
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type
