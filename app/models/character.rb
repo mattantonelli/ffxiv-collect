@@ -49,7 +49,6 @@ class Character < ApplicationRecord
   end
 
   def sync
-    update(queued_at: Time.now)
     CharacterSyncJob.perform_later(id)
   end
 

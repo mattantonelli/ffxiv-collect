@@ -218,7 +218,9 @@ class CharactersController < ApplicationController
 
   def fetch_character(id, basic: false)
     begin
-      Character.fetch(id, basic: basic)
+      character = Character.fetch(id, basic: basic)
+      character.update(queued_at: Time.now)
+      character
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching character #{id}")
       Rails.logger.error(e.response)
