@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :mounts, only: [:index, :show]
 
+  get 'minions/dark_helmet'
   resources :minions, only: [:index, :show] do
     get :verminion, on: :collection
   end
