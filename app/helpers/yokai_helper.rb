@@ -18,26 +18,4 @@ module YokaiHelper
       sprite(achievement, 'achievement')
     end
   end
-
-  def minion_zones
-    {
-      'Jibanyan' => ['Central Shroud', 'Lower La Noscea', 'Central Thanalan'],
-      'Komasan' => ['East Shroud', 'Western La Noscea', 'Eastern Thanalan'],
-      'Whisper' => ['South Shroud', 'Upper La Noscea', 'Southern Thanalan'],
-      'Blizzaria' => ['North Shroud', 'Outer La Noscea', 'Middle La Noscea'],
-      'Kyubi' => ['Western Thanalan', 'Central Shroud', 'Lower La Noscea'],
-      'Komajiro' => ['Central Thanalan', 'East Shroud', 'Western La Noscea'],
-      'Manjimutt' => ['Eastern Thanalan', 'South Shroud', 'Upper La Noscea'],
-      'Noko' => ['Southern Thanalan', 'North Shroud', 'Outer La Noscea'],
-      'Venoct' => ['Middle La Noscea', 'Western Thanalan', 'Central Shroud'],
-      'Shogunyan' => ['Lower La Noscea', 'Central Thanalan', 'East Shroud'],
-      'Hovernyan' => ['Western La Noscea', 'Eastern Thanalan', 'South Shroud'],
-      'Robonyan F-type' => ['Upper La Noscea', 'Southern Thanalan', 'North Shroud'],
-      'USApyon' => ['Outer La Noscea', 'Middle La Noscea', 'Western Thanalan'],
-      'Lord Enma' => ['Stormblood Zones', '', ''],
-      'Lord Ananta' => ['Heavensward Zones', '', ''],
-      'Zazel' => ['Heavensward Zones', '', ''],
-      'Damona' => ['Stormblood Zones', '', '']
-    }
-  end
 end
