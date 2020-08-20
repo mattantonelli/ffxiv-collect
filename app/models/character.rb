@@ -22,7 +22,7 @@
 #  public             :boolean          default(TRUE)
 #  achievement_points :integer          default(0)
 #  free_company_id    :string(255)
-#  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
+#  refreshed_at       :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #  gender             :string(255)
 #  spells_count       :integer          default(0)
 #  items_count        :integer          default(0)
@@ -38,7 +38,9 @@ class Character < ApplicationRecord
   scope :visible,  -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
-  CHARACTER_API_BASE = 'https://www.lalachievements.com/api/charrealtime'.freeze
+  CHARACTER_API_BASE = 'https://xivapi.com/character'.freeze
+  CHARACTER_COLUMNS = %w(Achievements AchievementsPublic Mounts Minions FreeCompany.ID FreeCompany.Name
+    Character.Avatar Character.ID Character.Gender Character.Name Character.Portrait Character.Server).freeze
   CHARACTER_PROFILE_BASE = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells items).each do |model|
@@ -47,7 +49,6 @@ class Character < ApplicationRecord
   end
 
   def sync
-    update(queued_at: Time.now)
     CharacterSyncJob.perform_later(id)
   end
 
@@ -56,14 +57,11 @@ class Character < ApplicationRecord
   end
 
   def verify!(user)
-    begin
-      page = Nokogiri::HTML(open("#{CHARACTER_PROFILE_BASE}/#{self.id}"))
-      profile = page.css('.character__selfintroduction').text
+    page = Nokogiri::HTML(open("#{CHARACTER_PROFILE_BASE}/#{self.id}"))
+    profile = page.css('.character__selfintroduction').text
 
-      if profile.include?(verification_code(user))
-        update!(verified_user_id: user.id)
-      end
-    rescue
+    if profile.include?(verification_code(user))
+      update!(verified_user_id: user.id)
     end
   end
 
@@ -88,12 +86,17 @@ class Character < ApplicationRecord
     end
   end
 
+  def refreshable?
+    refreshed_at < Time.now - 30.minutes
+  end
+
   def stale?
     last_parsed < Time.now - 6.hours
   end
 
   def in_queue?
-    queued_at > Time.now - 30.minutes
+    Sidekiq::Queue.new.any? { |job| job.display_args.first == self.id } ||
+      Sidekiq::Workers.new.any? { |_, _, worker| worker['payload']['args'][0]['arguments'][0] == self.id }
   end
 
   def most_recent(collection, filters: nil)
@@ -105,27 +108,28 @@ class Character < ApplicationRecord
   def most_rare(collection, filters: nil)
     rarities = Redis.current.hgetall(collection)
     sorted_ids = rarities.sort_by { |k, v| v.to_f }.map { |k, v| k.to_i }
+    valid_ids = rarities.keys.map(&:to_i) # Exclude new collectables with no rarity values
+
     collectables = send(collection)
     collectables = collectables.with_filters(filters, self) if filters.present?
-    collectables.sort_by { |mount| sorted_ids.index(mount.id) }.first(10).map do |collectable|
+    collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
+      .sort_by { |collectable| sorted_ids.index(collectable.id) }
+
+    collectables.first(10).map do |collectable|
       [collectable, rarities[collectable.id.to_s]]
     end
   end
 
-  def self.fetch(id)
-    begin
-      result = JSON.parse(RestClient.get("#{CHARACTER_API_BASE}/#{id}" \
-                                         "?key=#{Rails.application.credentials.lalachievements_key}"))
-      Character.update(result)
-      Character.find_by(id: id)
-    rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.error("There was a problem fetching character #{id}: #{e.response}")
-      nil
-    rescue Exception => e
-      Rails.logger.error("There was a problem fetching character #{id}: #{e.inspect}")
-      e.backtrace.first(3).each { |line| Rails.logger.error(line )}
-      nil
+  def self.fetch(id, basic: false)
+    if basic
+      character = XIVAPI_CLIENT.character(id: id, columns: CHARACTER_COLUMNS)
+      Character.retrieve(character)
+    else
+      character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
+      Character.update(character)
     end
+
+    Character.find_by(id: id)
   end
 
   def self.search(server, name)
@@ -154,20 +158,14 @@ class Character < ApplicationRecord
   end
 
   private
-  def self.update(data)
-    if data['fcId'].present?
-      fc = { id: data['fcId'], name: data['fcName'] }
-      if existing = FreeCompany.find_by(id: fc[:id])
-        existing.update!(fc)
-      else
-        FreeCompany.create!(fc)
-      end
-    end
+  def self.retrieve(data)
+    gender = data.character.gender == 1 ? 'male' : 'female'
 
-    info = { id: data['id'], name: data['name'], server: data['worldName'], gender: data['genderName']&.downcase,
-             portrait: data['imageUrl'], avatar: data['iconUrl'], free_company_id: data['fcId'],
-             last_parsed: Time.at(data['updatedAt'] / 1000) }
-    info[:achievements_count] = -1 if data['achievementsPrivate']
+    info = { id: data.character.id, name: data.character.name, server: data.character.server,
+             gender: gender, portrait: data.character.portrait, avatar: data.character.avatar,
+             free_company_id: data.dig(:free_company, :id), last_parsed: Time.now }
+
+    info[:achievements_count] = -1 unless data.achievements_public
 
     if character = Character.find_by(id: info[:id])
       character.update(info)
@@ -175,18 +173,38 @@ class Character < ApplicationRecord
       character = Character.create!(info)
     end
 
-    unless data['achievementsPrivate']
-      achievement_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
-      achievements = data['achievements'].reject { |achievement| achievement_ids.include?(achievement['id']) }
+    character
+  end
+
+  def self.update(data)
+    character = Character.retrieve(data)
+
+    if data.dig(:free_company, :id).present?
+      fc = { id: data.free_company.id, name: data.free_company.name }
+
+      if existing = FreeCompany.find_by(id: fc[:id])
+        existing.update!(fc)
+      else
+        FreeCompany.create!(fc)
+      end
+
+      character.update(free_company_id: data.free_company.id)
+    end
+
+    if data.achievements_public
+      current_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
+      achievements = data.achievements.list.reject { |achievement| current_ids.include?(achievement.id) }
       Character.bulk_insert_achievements(character, achievements)
     end
 
-    mount_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
-    Character.bulk_insert(info[:id], CharacterMount, :mount, data['mounts'].pluck('id') - mount_ids)
+    current_names = CharacterMount.joins(:mount).where(character_id: character.id).pluck(:name_en)
+    names = data.mounts.reject { |mount| current_names.include?(mount.name) }.pluck(:name)
+    Character.bulk_insert(character.id, CharacterMount, :mount, Mount.where(name_en: names).pluck(:id))
 
-    minion_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
-    Character.bulk_insert(info[:id], CharacterMinion, :minion,
-                          data['minions'].pluck('id') - minion_ids - Minion.unsummonable_ids)
+    current_names = CharacterMinion.joins(:minion).where(character_id: character.id).pluck(:name_en)
+    names = data.minions.reject { |minion| current_names.include?(minion.name) }.pluck(:name)
+    Character.bulk_insert(character.id, CharacterMinion, :minion,
+                          Minion.where(name_en: names).pluck(:id) - Minion.unsummonable_ids)
 
     true
   end
@@ -205,8 +223,8 @@ class Character < ApplicationRecord
     return unless achievements.present?
 
     values = achievements.map do |achievement|
-      date = Time.at(achievement['date']).to_formatted_s(:db)
-      "(#{character.id}, #{achievement['id']}, '#{date}', '#{date}')"
+      date = Time.at(achievement.date).to_formatted_s(:db)
+      "(#{character.id}, #{achievement.id}, '#{date}', '#{date}')"
     end
 
     CharacterAchievement.connection

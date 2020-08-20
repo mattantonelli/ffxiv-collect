@@ -25,6 +25,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def log_backtrace(exception)
+    Rails.logger.error(exception.inspect)
+    exception.backtrace.first(3).each { |line| Rails.logger.error(line) }
+  end
+
   private
   def set_locale
     locale = cookies['locale']

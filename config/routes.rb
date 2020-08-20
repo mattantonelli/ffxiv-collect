@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :mounts, only: [:index, :show]
 
+  get 'minions/dark_helmet'
   resources :minions, only: [:index, :show] do
     get :verminion, on: :collection
   end
@@ -46,6 +47,8 @@ Rails.application.routes.draw do
       get :mythology, :soldiery, :law
     end
   end
+
+  get 'yokai', to: 'yokai#index'
 
   get 'achievements/types', to: redirect('404')
   get 'achievements/types/:id', to: 'achievements#type', as: :achievement_type

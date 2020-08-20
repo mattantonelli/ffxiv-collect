@@ -17,11 +17,11 @@ class OrchestrionCategory < ApplicationRecord
   translates :name
 
   scope :hide_premium, -> (hide) do
-    where.not(name_en: 'Mog Station') if hide
+    where.not(id: 8) if hide
   end
 
   scope :hide_limited, -> (hide) do
-    where.not(name_en: 'Seasonal') if hide
+    where.not(id: 7) if hide
   end
 
   scope :with_filters, -> (filters, character = nil) do

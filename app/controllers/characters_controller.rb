@@ -7,7 +7,7 @@ class CharactersController < ApplicationController
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
 
   def show
-    if @profile.stale? && !@profile.in_queue?
+    if @profile.stale? && @profile != @character && !@profile.in_queue?
       @profile.sync
     end
 
@@ -59,10 +59,16 @@ class CharactersController < ApplicationController
         if @characters.empty?
           flash.now[:alert] = 'No characters found.'
         end
-      rescue XIVAPI::Errors::RequestError
-        flash.now[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
-      rescue XIVAPI::Errors::RateLimitError
-        flash.now[:alert] = 'The website is a bit too popular right now. Please wait a minute and try again.'
+      rescue XIVAPI::Errors::RequestError => e
+        if e.message == 'Lodestone is currently down for maintenance.'
+          flash.now[:alert] = 'The Lodestone is currently down for maintenance.'
+        else
+          flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        end
+      rescue Exception => e
+        flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
+        log_backtrace(e)
       end
     else
       if user_signed_in?
@@ -73,7 +79,18 @@ class CharactersController < ApplicationController
   end
 
   def select
-    character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
+    character = Character.find_by(id: params[:id])
+
+    # For new characters, retrieve their basic data and queue them for a full sync
+    unless character.present?
+      begin
+        character = fetch_character(params[:id], basic: true)
+        character.sync
+        flash[:notice] = 'Your collection data is being retrieved from the Lodestone. Please check back in a minute.'
+      rescue
+        # The exception has been logged in the fetch. Now let the following logic alert the user.
+      end
+    end
 
     if !character.present?
       flash[:error] = 'There was a problem selecting that character.'
@@ -94,7 +111,10 @@ class CharactersController < ApplicationController
         current_user.characters << character unless current_user.characters.exists?(character.id)
       end
 
-      flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
+      unless flash[:notice].present?
+        flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
+      end
+
       redirect_to character_path(character)
     end
   end
@@ -121,15 +141,28 @@ class CharactersController < ApplicationController
   end
 
   def refresh
-    if @character.in_queue?
+    if !@character.refreshable?
       flash[:alert] = 'Your character has already been refreshed in the past 30 minutes. Please try again later.'
+    elsif @character.in_queue?
+      flash[:alert] = 'Your character is currently being synchronized with the Lodestone. Please check back in a minute.'
     else
-      character = Character.fetch(@character.id)
-      if character.present?
-        character.update(queued_at: Time.now)
-        flash[:success] = 'Your character has been refreshed.'
-      else
-        flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+      begin
+        character = fetch_character(@character.id)
+
+        if character.present?
+          character.update(refreshed_at: Time.now)
+          flash[:success] = 'Your character has been refreshed.'
+        else
+          flash[:error] = 'There was a problem contacting the Lodestone.'
+        end
+      rescue XIVAPI::Errors::RequestError => e
+        if e.message == 'Lodestone is currently down for maintenance.'
+          flash[:alert] = 'The Lodestone is currently down for maintenance.'
+        else
+          flash[:error] = 'There was a problem refreshing your character.'
+        end
+      rescue
+        flash[:error] = 'There was a problem refreshing your character.'
       end
     end
 
@@ -141,11 +174,18 @@ class CharactersController < ApplicationController
   end
 
   def validate
-    if @character.verify!(current_user)
-      flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
-      redirect_to_previous
-    else
-      flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
+    begin
+      if @character.verify!(current_user)
+        flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
+        redirect_to_previous
+      else
+        flash[:error] = 'Your character could not be verified. Please check your profile and try again.'
+        render :verify
+      end
+    rescue Exception => e
+      flash[:error] = 'There was a problem verifying your character.'
+      Rails.logger.error("There was a problem verifying character #{id}")
+      log_backtrace(e)
       render :verify
     end
   end
@@ -175,6 +215,21 @@ class CharactersController < ApplicationController
     unless @profile.public? || @profile.verified_user?(current_user)
       flash[:error] = "This character's profile has been set to private."
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def fetch_character(id, basic: false)
+    begin
+      character = Character.fetch(id, basic: basic)
+      character
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      Rails.logger.error(e.response)
+      raise
+    rescue Exception => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      log_backtrace(e)
+      raise
     end
   end
 end

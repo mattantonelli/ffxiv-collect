@@ -1,0 +1,4 @@
+<%= link_to(achievement_path(yokai), class: "mb-3 mx-2 #{'missing' if yokai_missing?(yokai, @achievement_ids)}",
+            data: { toggle: 'tooltip' }, title: yokai.name) do %>
+  <%= sprite(yokai, 'achievement') %>
+<% end %>

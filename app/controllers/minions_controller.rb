@@ -22,6 +22,9 @@ class MinionsController < ApplicationController
       .include_sources.with_filters(cookies).order(patch: :desc, order: :desc)
   end
 
+  def dark_helmet
+  end
+
   def show
     id = params[:id].to_i
     if Minion.unsummonable_ids.include?(id)
