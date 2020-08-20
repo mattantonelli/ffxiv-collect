@@ -22,7 +22,7 @@
 #  public             :boolean          default(TRUE)
 #  achievement_points :integer          default(0)
 #  free_company_id    :string(255)
-#  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
+#  refreshed_at       :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #  gender             :string(255)
 #  spells_count       :integer          default(0)
 #  items_count        :integer          default(0)
@@ -86,12 +86,17 @@ class Character < ApplicationRecord
     end
   end
 
+  def refreshable?
+    refreshed_at < Time.now - 30.minutes
+  end
+
   def stale?
     last_parsed < Time.now - 6.hours
   end
 
   def in_queue?
-    queued_at > Time.now - 30.minutes
+    Sidekiq::Queue.new.any? { |job| job.display_args.first == self.id } ||
+      Sidekiq::Workers.new.any? { |_, _, worker| worker['payload']['args'][0]['arguments'][0] == self.id }
   end
 
   def most_recent(collection, filters: nil)

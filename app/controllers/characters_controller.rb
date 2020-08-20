@@ -7,7 +7,7 @@ class CharactersController < ApplicationController
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
 
   def show
-    if @profile.stale? && !@profile.in_queue?
+    if @profile.stale? && @profile != @character && !@profile.in_queue?
       @profile.sync
     end
 
@@ -141,14 +141,16 @@ class CharactersController < ApplicationController
   end
 
   def refresh
-    if @character.in_queue?
+    if !@character.refreshable?
       flash[:alert] = 'Your character has already been refreshed in the past 30 minutes. Please try again later.'
+    elsif @character.in_queue?
+      flash[:alert] = 'Your character is currently being synchronized with the Lodestone. Please check back in a minute.'
     else
       begin
         character = fetch_character(@character.id)
 
         if character.present?
-          character.update(queued_at: Time.now)
+          character.update(refreshed_at: Time.now)
           flash[:success] = 'Your character has been refreshed.'
         else
           flash[:error] = 'There was a problem contacting the Lodestone.'
@@ -219,7 +221,6 @@ class CharactersController < ApplicationController
   def fetch_character(id, basic: false)
     begin
       character = Character.fetch(id, basic: basic)
-      character.update(queued_at: Time.now)
       character
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching character #{id}")

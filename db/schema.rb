@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_031614) do
+ActiveRecord::Schema.define(version: 2020_08_20_193205) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -246,7 +246,7 @@ ActiveRecord::Schema.define(version: 2020_05_26_031614) do
     t.boolean "public", default: true
     t.integer "achievement_points", default: 0
     t.string "free_company_id"
-    t.datetime "queued_at", default: "1970-01-01 00:00:00"
+    t.datetime "refreshed_at", default: "1970-01-01 00:00:00"
     t.string "gender"
     t.integer "spells_count", default: 0
     t.integer "items_count", default: 0
