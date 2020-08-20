@@ -43,6 +43,9 @@
           <th scope="col">Zone 2</th>
           <th scope="col">Zone 3</th>
           <th scope="col">Weapon</th>
+          <% if character_selected? %>
+            <th scope="col">Owned</th>
+          <% end %>
         </tr>
       </thead>
       <tbody>
@@ -57,6 +60,11 @@
             <td data-toggle="tooltip" title="<%= yokai[:weapon].name %>">
               <%= sprite(yokai[:weapon], 'achievement') %>
             </td>
+            <% if character_selected? %>
+              <td>
+                <%= yokai_weapon_owned(yokai[:weapon], @achievement_ids) %>
+              </td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

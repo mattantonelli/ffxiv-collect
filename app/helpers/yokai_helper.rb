@@ -11,11 +11,8 @@ module YokaiHelper
     character_selected? && !owned_ids.include?(collectable.id)
   end
 
-  def yokai_name_to_sprite(achievements, name)
-    achievement = achievements.find { |achievement| achievement.name_en == "Watch Me If You Can: #{name}" }
-
-    content_tag :div, data: { toggle: 'tooltip' }, title: achievement.name do
-      sprite(achievement, 'achievement')
-    end
+  def yokai_weapon_owned(weapon, owned_ids)
+    owned = owned_ids.include?(weapon.id)
+    fa_icon(owned ? 'check' : 'times')
   end
 end
