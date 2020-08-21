@@ -7,7 +7,7 @@ class CharactersController < ApplicationController
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
 
   def show
-    if @profile.stale? && @profile != @character && !@profile.in_queue?
+    if @profile != @character && @profile.syncable?
       @profile.sync
     end
 

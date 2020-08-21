@@ -10,7 +10,7 @@ class Api::CharactersController < ApiController
       @triad = @character.triple_triad
     end
 
-    if @character.present? && @character.stale? && !@character.in_queue?
+    if @character&.syncable?
       @character.sync
     end
   end

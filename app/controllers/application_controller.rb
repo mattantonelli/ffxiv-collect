@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
     end
 
     [@character, @comparison].each do |character|
-      if character.present? && character.stale? && !character.in_queue?
+      if character&.syncable?
         character.sync
       end
     end

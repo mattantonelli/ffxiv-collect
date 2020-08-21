@@ -26,6 +26,7 @@
 #  gender             :string(255)
 #  spells_count       :integer          default(0)
 #  items_count        :integer          default(0)
+#  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #
 
 class Character < ApplicationRecord
@@ -49,6 +50,7 @@ class Character < ApplicationRecord
   end
 
   def sync
+    update(queued_at: Time.now)
     CharacterSyncJob.perform_later(id)
   end
 
@@ -86,10 +88,6 @@ class Character < ApplicationRecord
     end
   end
 
-  def refreshable?
-    refreshed_at < Time.now - 30.minutes
-  end
-
   def stale?
     last_parsed < Time.now - 6.hours
   end
@@ -97,6 +95,14 @@ class Character < ApplicationRecord
   def in_queue?
     Sidekiq::Queue.new.any? { |job| job.display_args.first == self.id } ||
       Sidekiq::Workers.new.any? { |_, _, worker| worker['payload']['args'][0]['arguments'][0] == self.id }
+  end
+
+  def refreshable?
+    refreshed_at < Time.now - 30.minutes
+  end
+
+  def syncable?
+    stale? && queued_at < Time.now - 30.minutes
   end
 
   def most_recent(collection, filters: nil)
