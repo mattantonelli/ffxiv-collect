@@ -134,8 +134,6 @@ class Character < ApplicationRecord
       character = XIVAPI_CLIENT.character(id: id, data: %w(AC MIMO FC), columns: CHARACTER_COLUMNS)
       Character.update(character)
     end
-
-    Character.find_by(id: id)
   end
 
   def self.search(server, name)
@@ -203,16 +201,16 @@ class Character < ApplicationRecord
       Character.bulk_insert_achievements(character, achievements)
     end
 
-    current_names = CharacterMount.joins(:mount).where(character_id: character.id).pluck(:name_en)
-    names = data.mounts.reject { |mount| current_names.include?(mount.name) }.pluck(:name)
+    current_names = CharacterMount.joins(:mount).where(character_id: character.id).pluck(:name_en).map(&:downcase)
+    names = data.mounts.reject { |mount| current_names.include?(mount.name.downcase) }.pluck(:name)
     Character.bulk_insert(character.id, CharacterMount, :mount, Mount.where(name_en: names).pluck(:id))
 
-    current_names = CharacterMinion.joins(:minion).where(character_id: character.id).pluck(:name_en)
-    names = data.minions.reject { |minion| current_names.include?(minion.name) }.pluck(:name)
+    current_names = CharacterMinion.joins(:minion).where(character_id: character.id).pluck(:name_en).map(&:downcase)
+    names = data.minions.reject { |minion| current_names.include?(minion.name.downcase) }.pluck(:name)
     Character.bulk_insert(character.id, CharacterMinion, :minion,
                           Minion.where(name_en: names).pluck(:id) - Minion.unsummonable_ids)
 
-    true
+    character
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)
