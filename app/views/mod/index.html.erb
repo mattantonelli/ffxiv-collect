@@ -1,7 +1,9 @@
 <% title('Mod Dashboard') %>
 
 <div class="card shadow mb-3">
-  <h5 class="card-header">Manage Collectables</h5>
+  <h5 class="card-header">
+    <%= link_to 'Manage Collectables', mod_dashboard_path, class: 'unstyled' %>
+  </h5>
   <div class="card-body">
     <div class="d-flex flex-wrap justify-content-center">
       <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Fashion].each do |model| %>
