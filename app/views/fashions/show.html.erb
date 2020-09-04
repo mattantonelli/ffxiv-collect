@@ -1,0 +1,40 @@
+<% title(@fashion.name) %>
+<% description(@fashion.description.truncate(150)) %>
+<% image(image_url("fashions/small/#{@fashion.id}.png", skip_pipeline: true)) %>
+
+<div class="row">
+  <div class="col-12 col-lg-8 offset-0 offset-lg-2">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h5 class="card-title"><%= @fashion.name %></h5>
+      </div>
+      <div class="card-body pb-3">
+        <div class="d-flex">
+          <div class="d-none d-sm-block mr-4">
+            <%= safe_image_tag("fashions/large/#{@fashion.id}.png", class: 'image-large') %>
+          </div>
+          <div class="d-flex flex-column flex-info">
+            <div class="d-flex flex-wrap">
+              <div>
+                <dt>Tradeable</dt>
+                <dd><%= tradeable(@fashion) %></dd>
+              </div>
+              <%= render 'shared/ownership', collectable: @fashion %>
+              <div>
+                <dt>Patch</dt>
+                <dd><%= @fashion.patch %></dd>
+              </div>
+            </div>
+            <dt>Description</dt>
+            <dd class="mb-0"><%= format_text(@fashion.description) %></dd>
+            <dt>Source</dt>
+            <dd class="mb-0"><%= sources(@fashion, list: true) %></dd>
+            <div class="d-block d-sm-none">
+              <%= safe_image_tag("fashions/large/#{@fashion.id}.png", class: 'image-large') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

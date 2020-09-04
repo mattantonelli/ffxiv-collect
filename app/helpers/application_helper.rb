@@ -73,7 +73,7 @@ module ApplicationHelper
 
   def generic_sprite(collection, collectable)
     case collection
-    when /(mounts|minions)/
+    when /(mounts|minions|fashions)/
       sprite(collectable, "#{collection}-small")
     when 'spells'
       content_tag :div, class: 'spell-sprite' do

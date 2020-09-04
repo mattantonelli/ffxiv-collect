@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     get :select, on: :collection
   end
 
-  %i(orchestrions emotes bardings hairstyles armoires spells).each do |resource|
+  %i(orchestrions emotes bardings hairstyles armoires spells fashions).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
     end
@@ -85,7 +85,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :characters, only: :show
 
-    %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells).each do |resource|
+    %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells fashions).each do |resource|
       resources resource, only: [:index, :show]
     end
   end
@@ -107,7 +107,7 @@ Rails.application.routes.draw do
   end
 
   namespace :mod do
-    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells).each do |resource|
+    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 

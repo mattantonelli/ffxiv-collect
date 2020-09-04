@@ -41,6 +41,7 @@ config/deploy*
 /app/assets/images/bardings.png
 /app/assets/images/armoires.png
 /app/assets/images/spells.png
+/app/assets/images/fashions-small.png
 
 /app/assets/stylesheets/images/*
 
@@ -53,3 +54,4 @@ config/deploy*
 /public/images/hairstyles/*
 /public/images/armoires/*
 /public/images/spells/*
+/public/images/fashions/*

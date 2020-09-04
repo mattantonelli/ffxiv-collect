@@ -4,7 +4,7 @@ class CharactersController < ApplicationController
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
-  COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires).freeze
+  COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires fashions).freeze
 
   def show
     if @profile != @character && @profile.syncable?

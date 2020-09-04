@@ -4,7 +4,7 @@
   <h5 class="card-header">Manage Collectables</h5>
   <div class="card-body">
     <div class="d-flex flex-wrap justify-content-center">
-      <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell].each do |model| %>
+      <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Fashion].each do |model| %>
         <%= link_to model.to_s.pluralize, polymorphic_url([:mod, model]), class: 'btn btn-secondary mx-1 my-2' %>
       <% end %>
     </div>

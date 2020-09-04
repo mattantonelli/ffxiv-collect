@@ -25,6 +25,7 @@ namespace :data do
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
     Rake::Task['spells:create'].invoke
+    Rake::Task['fashions:create'].invoke
     Rake::Task['sources:update'].invoke
   end
 end

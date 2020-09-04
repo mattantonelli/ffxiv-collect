@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_21_142705) do
+ActiveRecord::Schema.define(version: 2020_09_03_211622) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -166,6 +166,16 @@ ActiveRecord::Schema.define(version: 2020_08_21_142705) do
     t.index ["emote_id"], name: "index_character_emotes_on_emote_id"
   end
 
+  create_table "character_fashions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "fashion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "fashion_id"], name: "index_character_fashions_on_character_id_and_fashion_id", unique: true
+    t.index ["character_id"], name: "index_character_fashions_on_character_id"
+    t.index ["fashion_id"], name: "index_character_fashions_on_fashion_id"
+  end
+
   create_table "character_hairstyles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "hairstyle_id"
@@ -251,11 +261,13 @@ ActiveRecord::Schema.define(version: 2020_08_21_142705) do
     t.integer "spells_count", default: 0
     t.integer "items_count", default: 0
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
+    t.integer "fashions_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
     t.index ["bardings_count"], name: "index_characters_on_bardings_count"
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
+    t.index ["fashions_count"], name: "index_characters_on_fashions_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
     t.index ["items_count"], name: "index_characters_on_items_count"
@@ -298,6 +310,28 @@ ActiveRecord::Schema.define(version: 2020_08_21_142705) do
     t.index ["name_fr"], name: "index_emotes_on_name_fr"
     t.index ["name_ja"], name: "index_emotes_on_name_ja"
     t.index ["patch"], name: "index_emotes_on_patch"
+  end
+
+  create_table "fashions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "description_en", limit: 1000, null: false
+    t.string "description_de", limit: 1000, null: false
+    t.string "description_fr", limit: 1000, null: false
+    t.string "description_ja", limit: 1000, null: false
+    t.integer "order", null: false
+    t.string "patch"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_de"], name: "index_fashions_on_name_de"
+    t.index ["name_en"], name: "index_fashions_on_name_en"
+    t.index ["name_fr"], name: "index_fashions_on_name_fr"
+    t.index ["name_ja"], name: "index_fashions_on_name_ja"
+    t.index ["order"], name: "index_fashions_on_order"
+    t.index ["patch"], name: "index_fashions_on_patch"
   end
 
   create_table "free_companies", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

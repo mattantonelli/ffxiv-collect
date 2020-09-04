@@ -20,6 +20,8 @@ module CharactersHelper
   def collection_name(collection, score: {})
     if collection == 'spells'
       name = 'Blue Magic'
+    elsif collection == 'fashions'
+      name = 'Fashion Accessories'
     else
       name = collection.classify.pluralize
     end
