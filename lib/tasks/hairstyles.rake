@@ -31,7 +31,7 @@ namespace :hairstyles do
                                  name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding')
 
     XIVAPI_CLIENT.content(name: 'CharaMakeCustomize', columns: %w(Data Icon), limit: 10000).each do |custom|
-      next if custom.data == 0
+      next if custom.data == 0 || !Hairstyle.exists?(id: custom.data)
 
       path = Rails.root.join('public/images/hairstyles', custom.data.to_s)
       Dir.mkdir(path) unless Dir.exist?(path)
