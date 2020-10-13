@@ -50,7 +50,8 @@ class Item < ApplicationRecord
   end
 
   def self.skysteel_tool_ids
-    (29612..29644).to_a.freeze # Skysteel -> Dragonsung
+    (29612..29644).to_a.freeze + # Skysteel -> Dragonsung
+    (30282..30292).to_a.freeze # Augmented Dragonsung
   end
 
   def self.relic_tool_ids
@@ -74,7 +75,12 @@ class Item < ApplicationRecord
     (30142..30226).to_a.freeze
   end
 
+  def self.bozjan_armor_ids
+    (30715..30749).to_a + # Bozjan
+    (31358..31392).to_a.freeze # Augmented Bozjan
+  end
+
   def self.relic_armor_ids
-    (Item.eureka_job_armor_ids + Item.eureka_elemental_armor_ids + Item.idealized_armor_ids).freeze
+    (Item.eureka_job_armor_ids + Item.eureka_elemental_armor_ids + Item.idealized_armor_ids + Item.bozjan_armor_ids).freeze
   end
 end
