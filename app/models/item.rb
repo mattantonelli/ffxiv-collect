@@ -51,7 +51,8 @@ class Item < ApplicationRecord
 
   def self.skysteel_tool_ids
     (29612..29644).to_a.freeze + # Skysteel -> Dragonsung
-    (30282..30292).to_a.freeze # Augmented Dragonsung
+    (30282..30292).to_a.freeze + # Augmented Dragonsung
+    (30293..30303).to_a # Skysung
   end
 
   def self.relic_tool_ids
