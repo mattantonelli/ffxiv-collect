@@ -29,5 +29,8 @@ namespace :spritesheets do
     create_spritesheet('items/weapons')
     create_spritesheet('items/armor')
     create_spritesheet('items/tools')
+
+    puts 'Creating fashion spritesheets'
+    create_spritesheet('fashions/small')
   end
 end

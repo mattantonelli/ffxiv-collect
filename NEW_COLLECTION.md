@@ -9,17 +9,18 @@
     * Add the new task to update tasks in `all.rake`
 4. Create new image directories as needed
     * Add `.keep` files in the public directories and force check in to Git
-5. Update `.gitignore` with any new image directories
-6. Update the list of `COLLECTIONS` in the Characters controller
-7. Add the new collection to the relationship list in the Character model
-8. Add the new collection to the routes lists (standard, mod, and api if desired)
+5. Update `spritesheets.rake` to create new spritesheets as needed
+6. Update `.gitignore` with any new image directories
+7. Update the list of `COLLECTIONS` in the Characters controller
+8. Add the new collection to the relationship list in the Character model
+9. Add the new collection to the routes lists (standard, mod, and api if desired)
     * Add a link to the new route in the navbar
     * Add the new collection to the list on the Mod Dashboard `index` page
-9. Copy an existing controller & views and modify as necessary for the new collection
+10. Copy an existing controller & views and modify as necessary for the new collection
     * Also do this for the API if desired
-10. Copy an existing mod controller and modify as necessary for the new collection
-11. Add the new collection to the `ownership.rake` model list
-12. Update the API documentation in the repo wiki if new endpoints were added
+11. Copy an existing mod controller and modify as necessary for the new collection
+12. Add the new collection to the `ownership.rake` model list
+13. Update the API documentation in the repo wiki if new endpoints were added
 
 ## Deployment
 
