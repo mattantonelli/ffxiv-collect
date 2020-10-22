@@ -94,8 +94,7 @@ class Character < ApplicationRecord
   end
 
   def in_queue?
-    Sidekiq::Queue.new.any? { |job| job.display_args.first == self.id } ||
-      Sidekiq::Workers.new.any? { |_, _, worker| worker['payload']['args'][0]['arguments'][0] == self.id }
+    Sidekiq::Workers.new.any? { |_, _, worker| worker['payload']['args'][0]['arguments'][0] == self.id }
   end
 
   def refreshable?
