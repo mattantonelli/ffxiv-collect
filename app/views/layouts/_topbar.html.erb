@@ -3,11 +3,13 @@
     data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <%= link_to root_path, class: 'navbar-brand unstyled mr-auto d-flex align-items-center' do %>
-    <%= image_tag('logo.png', class: 'mr-1') %>
-    FFXIV Collect
-  <% end %>
-  <div class="nav-item dropdown">
+  <div class="d-none d-sm-block">
+    <%= link_to root_path, class: 'navbar-brand unstyled d-flex align-items-center' do %>
+      <%= image_tag('logo.png', class: 'mr-1') %>
+      FFXIV Collect
+    <% end %>
+  </div>
+  <div class="nav-item dropdown ml-auto">
     <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"
       aria-haspopup="true" aria-expanded="false"><%= cookies[:locale].upcase %></a>
     <div class="dropdown-menu" aria-labelledBy="localeDropdown">
