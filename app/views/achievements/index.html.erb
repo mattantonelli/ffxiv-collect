@@ -1,22 +1,26 @@
 <% title('Achievements Overview') %>
 <% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
 
-<div class="d-flex flex-wrap justify-content-around justify-content-md-start">
-  <% @types.each do |type| %>
-    <div class="col-12 col-md-6 mb-3">
-      <div class="card">
-        <h5 class="card-header text-center">
-          <%= link_to type.name, achievement_type_path(type), class: 'unstyled' %>
-        </h5>
-        <div class="card-body py-3">
-          <%= render 'shared/progress', value: type_count(@collection_ids, type),
-            min: 0, max: type.achievements.size, text: 'complete' %>
-          <div class="mt-3">
-            <%= render 'shared/progress', value: type_points(@collection_ids, type),
-              min: 0, max: type.achievements.pluck(:points).sum, text: 'points', alt: true %>
+<div class="row">
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="d-flex flex-wrap justify-content-around justify-content-md-start">
+      <% @types.each do |type| %>
+        <div class="col-12 col-lg-6 mb-3">
+          <div class="card">
+            <h5 class="card-header text-center">
+              <%= link_to type.name, achievement_type_path(type), class: 'unstyled' %>
+            </h5>
+            <div class="card-body py-3">
+              <%= render 'shared/progress', value: type_count(@collection_ids, type),
+                min: 0, max: type.achievements.size, text: 'complete' %>
+              <div class="mt-3">
+                <%= render 'shared/progress', value: type_points(@collection_ids, type),
+                  min: 0, max: type.achievements.pluck(:points).sum, text: 'points', alt: true %>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>

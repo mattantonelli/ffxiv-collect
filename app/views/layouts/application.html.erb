@@ -32,15 +32,18 @@
   </head>
 
   <body>
-    <header class="container mb-4">
-      <%= render 'layouts/navbar' %>
-      <%= render 'layouts/alerts' %>
-    </header>
-
-    <main role="main" class="container<%= ' ja' if I18n.locale == :ja %>">
-      <%= yield %>
-    </main>
-
+    <%= render 'layouts/topbar' %>
+    <div class="container-fluid mb-4">
+      <div class="row">
+        <nav class="col-md-4 col-lg-3 col-xl-2 d-md-block collapse sidebar" id="sidebarMenu">
+          <%= render 'layouts/sidebar' %>
+        </nav>
+        <main role="main" class="col-md-8 col-lg-9 col-xl-10 ml-auto mt-2 px-lg-3 px-xl-5<%= ' ja' if I18n.locale == :ja %>">
+          <%= render 'layouts/alerts' %>
+          <%= yield %>
+        </main>
+      </div>
+    </div>
     <footer class="text-center">
       <span class='d-block d-sm-inline'>Created by Raelys Skyborn of Behemoth</span>
       <span class="d-none d-sm-inline"> | </span>

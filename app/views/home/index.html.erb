@@ -1,43 +1,47 @@
-<div class="jumbotron py-4 mb-3">
-  <h1 class="display-4">FFXIV Collect</h1>
-  <p class="lead">Another website for tracking your Final Fantasy XIV collections.</p>
-  <hr class="my-4">
-  <h5>Keep your Lodestone collections updated automatically</h5>
-  <p>
-    Your collections are updated automatically to reflect any new mounts, minions, and achievements you obtain
-    based on your Lodestone profile.
-  </p>
-  <h5>Update the rest with a simple user interface</h5>
-  <p>
-    Any collectables not visible on your Lodestone profile can be updated manually as you obtain them.
-  </p>
-  <h5>Do you have feedback? I want to hear it!</h5>
-  <p>
-    The community is what motivates me to create these projects, so if you have any feedback,
-    let me know on <%= link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank' %>.
-  </p>
-  <div class="mt-4 text-center">
-    <%= link_to 'Discuss on Discord', 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
-    <%= link_to 'Support on Patreon', 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
-  </div>
-</div>
 <div class="row">
-  <div class="col-12">
-    <div class="card">
-      <h5 class="card-header">API</h5>
-      <div class="card-body">
-        <p>
-          All of the data used on this site is available for any savvy developers through a public RESTful JSON API.
-          You can check out the full documentation
-          <%= link_to 'here', 'https://github.com/mattantonelli/ffxiv-collect/wiki', target: '_blank' %>.
-        </p>
-        <b>GET <%= link_to nil, api_mount_url(186), class: 'unstyled' %></b>
-        <%= render 'api_sample' %>
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="jumbotron py-4 mb-3">
+      <h1 class="display-4">FFXIV Collect</h1>
+      <p class="lead">Another website for tracking your Final Fantasy XIV collections.</p>
+      <hr class="my-4">
+      <h5>Keep your Lodestone collections updated automatically</h5>
+      <p>
+        Your collections are updated automatically to reflect any new mounts, minions, and achievements you obtain
+        based on your Lodestone profile.
+      </p>
+      <h5>Update the rest with a simple user interface</h5>
+      <p>
+        Any collectables not visible on your Lodestone profile can be updated manually as you obtain them.
+      </p>
+      <h5>Do you have feedback? I want to hear it!</h5>
+      <p>
+        The community is what motivates me to create these projects, so if you have any feedback,
+        let me know on <%= link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank' %>.
+      </p>
+      <div class="mt-4 text-center">
+        <%= link_to 'Discuss on Discord', 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
+        <%= link_to 'Support on Patreon', 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <h5 class="card-header">API</h5>
+          <div class="card-body">
+            <p>
+              All of the data used on this site is available for any savvy developers through a public RESTful JSON API.
+              You can check out the full documentation
+              <%= link_to 'here', 'https://github.com/mattantonelli/ffxiv-collect/wiki', target: '_blank' %>.
+            </p>
+            <b>GET <%= link_to nil, api_mount_url(186), class: 'unstyled' %></b>
+            <%= render 'api_sample' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="text-right mt-2">
+      FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.<br>
+      FINAL FANTASY XIV © SQUARE ENIX CO., LTD.
+    </p>
   </div>
 </div>
-<p class="text-right mt-2">
-  FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.<br>
-  FINAL FANTASY XIV © SQUARE ENIX CO., LTD.
-</p>

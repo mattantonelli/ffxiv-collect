@@ -45,6 +45,13 @@ body {
   }
 }
 
+// Below lg
+@media (max-width: 1199px) {
+  .hide-md {
+    display: none;
+  }
+}
+
 footer {
   position: absolute;
   bottom: 8px;
@@ -53,6 +60,21 @@ footer {
 
   @media (max-width: 575px) {
     height: 48px;
+  }
+
+  @media (min-width: 768px) {
+    left: 33.33%;
+    width: 66.67%;
+  }
+
+  @media (min-width: 992px) {
+    left: 25%;
+    width: 75%;
+  }
+
+  @media (min-width: 1200px) {
+    left: 16.67%;
+    width: 83.33%;
   }
 }
 
@@ -133,43 +155,7 @@ hr {
   text-align: left;
 }
 
-.navbar-dark {
-  background-color: #222;
-
-  .dropdown-toggle img {
-    margin-right: 0.5rem;
-  }
-
-  .dropdown-menu {
-    background-color: #292929;
-    white-space: nowrap;
-
-    a {
-      color: rgba(255, 255, 255, 0.5);
-      text-decoration: none;
-      &:hover, &:focus {
-        color: #fff;
-        background-color: inherit;
-      }
-    }
-
-    .dropdown-divider {
-      border-top: 1px solid #bbb;
-      margin: 0.3rem 0;
-    }
-  }
-
-  .dropdown-item > .fa {
-    width: 1.5rem;
-    text-align: center;
-  }
-}
-
-.navbar-expand .navbar-nav .nav-link {
-  padding-right: 1rem;
-}
-
-.fa-external-link {
+.fa-external-link-alt {
   font-size: 12px;
 }
 
@@ -189,6 +175,7 @@ hr {
 
 .table {
   color: #eee;
+  margin-bottom: 0;
 
   th, td {
     vertical-align: middle;

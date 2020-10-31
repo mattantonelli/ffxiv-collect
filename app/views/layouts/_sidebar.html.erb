@@ -1,0 +1,61 @@
+<div class="sidebar-sticky">
+  <div class="navbar-nav no-wrap h-100">
+    <!-- Achievments -->
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="achievementsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><%= fa_icon('trophy', text: 'Achievements') %></a>
+      <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
+        <%= link_to 'Overview', achievements_path, class: 'dropdown-item bold' if @character.present? %>
+        <%= link_to 'Titles', titles_path, class: 'dropdown-item bold' %>
+        <%= link_to 'Item Rewards', achievement_items_path, class: 'dropdown-item bold' %>
+        <% AchievementType.order(:order).all.each do |type| %>
+          <%= link_to type.name, achievement_type_path(type), class: 'dropdown-item' %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= link_to fa_icon('horse', text: 'Mounts'), mounts_path, class: 'nav-link' %>
+    <%= link_to fa_icon('paw', text: 'Minions'), minions_path, class: 'nav-link' %>
+    <%= link_to fa_icon('music', text: 'Orchestrion'), orchestrions_path, class: 'nav-link' %>
+    <%= link_to fa_icon('magic', text: 'Blue Magic'), spells_path, class: 'nav-link' %>
+    <%= link_to far_icon('smile', text: 'Emotes'), emotes_path, class: 'nav-link' %>
+    <%= link_to fa_icon('chess-knight', text: 'Bardings'), bardings_path, class: 'nav-link' %>
+    <%= link_to fa_icon('cut', text: 'Hairstyles'), hairstyles_path, class: 'nav-link' %>
+    <%= link_to fa_icon('tshirt', text: 'Armoire'), armoires_path, class: 'nav-link' %>
+    <%= link_to fa_icon('umbrella', text: 'Fashion Accessories'), fashions_path, class: 'nav-link' %>
+    <%= link_to "#{fa_icon('th', text: 'Triple Triad')} #{fa_icon('external-link-alt')}".html_safe,
+      'https://triad.raelys.com/', target: '_blank', class: 'nav-link' %>
+
+    <!-- Relics -->
+    <div class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="relicsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><%= fa_icon('shield-alt', text: 'Relics') %></a>
+      <div class="dropdown-menu" aria-labelledBy="relicsDropdown">
+        <%= link_to fa_icon('sync', text: 'Weapons', right: true), relic_weapons_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('check-square', text: 'Weapons', right: true), relic_weapons_manual_path, class: 'dropdown-item' %>
+        <%= link_to 'Armor', relic_armor_path, class: 'dropdown-item' %>
+        <%= link_to 'Tools', relic_tools_path, class: 'dropdown-item' %>
+      </div>
+    </div>
+
+    <!-- Leaderboards -->
+    <% if @character&.free_company_id.present? %>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false"><%= fa_icon('globe', text: 'Leaderboards') %></a>
+        <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
+          <%= link_to 'Global', leaderboards_path, class: 'nav-link' %>
+          <%= link_to 'Free Company', free_company_leaderboards_path(@character.free_company_id),
+            class: 'nav-link' %>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to fa_icon('globe', text: 'Global Leaderboards'), leaderboards_path, class: 'nav-link' %>
+    <% end %>
+
+    <!-- Limited Time -->
+    <%# <%= link_to fa_icon('exclamation-circle', text: 'Moogle Treasure Trove', right: true), law_tomestones_path, %>
+    <%#   class: 'nav-link' %1> %>
+    <%= link_to fa_icon('exclamation-circle', text: 'Yo-Kai Watch'), yokai_path, class: 'nav-link' %>
+  </div>
+</div>

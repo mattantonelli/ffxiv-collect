@@ -15,13 +15,13 @@
 <%= render 'shared/filters' %>
 <%= render 'shared/collection_progress', ids: @hairstyles.map(&:id) %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
+<table class="table table-striped table-sm shadow collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th><!-- Image -->
       <th scope="col">Name</th>
       <th scope="col" class="hide-xs">Source</th>
-      <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
+      <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
       <th scope="col" class="text-center hide-xs">Own</th>
       <th scope="col" class="text-center">Patch</th>
       <% if character_selected? %>

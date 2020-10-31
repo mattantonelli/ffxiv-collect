@@ -2,11 +2,11 @@
 <% description('Search for a character to track.') %>
 
 <div class="row">
-  <div class="col-12 col-md-6 col-lg-5 offset-lg-1 mb-3 mb-md-0 <%= ' mx-auto' unless @characters.present? %>">
+  <div class="col-12 col-lg-6 col-xl-5 offset-xl-1 mb-3 mb-xl-0 <%= ' mx-auto' unless @characters.present? %>">
     <%= render 'form' %>
   </div>
   <% if @characters.present? %>
-    <div class="col-12 col-md-6 col-lg-5">
+    <div class="col-12 col-lg-6 col-xl-5">
       <%= render 'results' %>
     </div>
   <% end %>

@@ -1,4 +1,4 @@
-<div class="navbar-nav nav-item dropdown">
+<div class="nav-item dropdown">
   <a class="nav-link dropdown-toggle d-flex align-items-center p-0" href="#" id="userDropdown" role="button"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <div>
@@ -8,7 +8,7 @@
         <%= avatar(current_user) %>
       <% end %>
     </div>
-    <span class="d-block d-md-none d-lg-block">
+    <span class="d-none d-sm-block">
       <%= @character.present? ? @character.name : current_user.username %>
     </span>
   </a>
@@ -44,12 +44,12 @@
       <% end %>
       <hr class="my-2">
       <%= link_to fa_icon('user', text: 'Character Profile'), character_path(@character), class: 'dropdown-item' %>
-      <%= link_to fa_icon('bar-chart', text: 'Character Stats'), stats_recent_character_path(@character),
+      <%= link_to fa_icon('chart-bar', text: 'Character Stats'), stats_recent_character_path(@character),
         class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified_user?(current_user) %>
         <%= link_to fa_icon('check-circle', text: 'Verify Character'), verify_character_path, class: 'dropdown-item' %>
       <% end %>
-      <%= link_to fa_icon('refresh', text: 'Refresh Character'), refresh_character_path,
+      <%= link_to fa_icon('sync', text: 'Refresh Character'), refresh_character_path,
         method: :post, class: 'dropdown-item' %>
       <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
       <%= link_to fa_icon('retweet', text: 'Compare Characters'), search_characters_path(compare: 1), class: 'dropdown-item' %>
@@ -62,14 +62,14 @@
       <% if current_user.admin? %>
         <%= link_to fa_icon('user', text: 'Manage Users'), admin_users_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('users', text: 'Manage Characters'), admin_characters_path, class: 'dropdown-item' %>
-        <%= link_to fa_icon('line-chart', text: 'Sidekiq'), '/admin/sidekiq', class: 'dropdown-item', target: '_blank' %>
+        <%= link_to fa_icon('chart-line', text: 'Sidekiq'), '/admin/sidekiq', class: 'dropdown-item', target: '_blank' %>
       <% end %>
       <% if current_user.mod? %>
         <%= link_to fa_icon('table', text: 'Mod Dashboard'), mod_dashboard_path, class: 'dropdown-item' %>
         <hr class="my-1">
       <% end %>
       <%= link_to fa_icon('wrench', text: 'Settings'), settings_path, class: 'dropdown-item' %>
-      <%= link_to fa_icon('sign-out', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
+      <%= link_to fa_icon('sign-out-alt', text: 'Sign Out'), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>
 </div>
