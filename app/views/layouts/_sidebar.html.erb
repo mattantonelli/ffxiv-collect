@@ -3,7 +3,7 @@
     <%= link_to fa_icon('home', text: 'Home'), root_path, class: 'nav-link d-block d-sm-none' %>
 
     <!-- Achievments -->
-    <div class="nav-item dropdown">
+    <div class="nav-item dropdown<%= ' bold' if active_path?(achievements_path) %>">
       <a class="nav-link dropdown-toggle" href="#" id="achievementsDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('trophy', text: 'Achievements') %></a>
       <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
@@ -16,20 +16,20 @@
       </div>
     </div>
 
-    <%= link_to fa_icon('horse', text: 'Mounts'), mounts_path, class: 'nav-link' %>
-    <%= link_to fa_icon('paw', text: 'Minions'), minions_path, class: 'nav-link' %>
-    <%= link_to fa_icon('music', text: 'Orchestrion'), orchestrions_path, class: 'nav-link' %>
-    <%= link_to fa_icon('magic', text: 'Blue Magic'), spells_path, class: 'nav-link' %>
-    <%= link_to far_icon('smile', text: 'Emotes'), emotes_path, class: 'nav-link' %>
-    <%= link_to fa_icon('chess-knight', text: 'Bardings'), bardings_path, class: 'nav-link' %>
-    <%= link_to fa_icon('cut', text: 'Hairstyles'), hairstyles_path, class: 'nav-link' %>
-    <%= link_to fa_icon('tshirt', text: 'Armoire'), armoires_path, class: 'nav-link' %>
-    <%= link_to fa_icon('umbrella', text: 'Fashion Accessories'), fashions_path, class: 'nav-link' %>
+    <%= nav_link('Mounts', 'horse', mounts_path) %>
+    <%= nav_link('Minions', 'paw', minions_path) %>
+    <%= nav_link('Orchestrion', 'music', orchestrions_path) %>
+    <%= nav_link('Blue Magic', 'magic', spells_path) %>
+    <%= nav_link('Emotes', 'smile', emotes_path) %>
+    <%= nav_link('Bardings', 'chess-knight', bardings_path) %>
+    <%= nav_link('Hairstyles', 'cut', hairstyles_path) %>
+    <%= nav_link('Armoire', 'tshirt', armoires_path) %>
+    <%= nav_link('Fashion Accessories', 'umbrella', fashions_path) %>
     <%= link_to "#{fa_icon('th', text: 'Triple Triad')} #{fa_icon('external-link-alt')}".html_safe,
       'https://triad.raelys.com/', target: '_blank', class: 'nav-link' %>
 
     <!-- Relics -->
-    <div class="nav-item dropdown">
+    <div class="nav-item dropdown<%= ' bold' if active_path?(relic_weapons_path) %>">
       <a class="nav-link dropdown-toggle" href="#" id="relicsDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('shield-alt', text: 'Relics') %></a>
       <div class="dropdown-menu" aria-labelledBy="relicsDropdown">
@@ -42,7 +42,7 @@
 
     <!-- Leaderboards -->
     <% if @character&.free_company_id.present? %>
-      <div class="nav-item dropdown">
+      <div class="nav-item dropdown<%= ' bold' if active_path?(leaderboards_path) %>">
         <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false"><%= fa_icon('globe', text: 'Leaderboards') %></a>
         <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
@@ -52,12 +52,11 @@
         </div>
       </div>
     <% else %>
-      <%= link_to fa_icon('globe', text: 'Global Leaderboards'), leaderboards_path, class: 'nav-link' %>
+      <%= nav_link('Global Leaderboards', 'globe', leaderboards_path) %>
     <% end %>
 
     <!-- Limited Time -->
-    <%# <%= link_to fa_icon('exclamation-circle', text: 'Moogle Treasure Trove', right: true), law_tomestones_path, %>
-    <%#   class: 'nav-link' %1> %>
-    <%= link_to fa_icon('exclamation-circle', text: 'Yo-Kai Watch'), yokai_path, class: 'nav-link' %>
+    <%# <%= nav_link('Moogle Treasure Trove', 'exclamation-circle', law_tomestones_path) %1> %>
+    <%= nav_link('Yo-Kai Watch', 'exclamation-circle', yokai_path) %>
   </div>
 </div>
