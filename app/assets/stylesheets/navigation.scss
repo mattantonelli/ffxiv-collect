@@ -40,6 +40,8 @@
   .dropdown-menu {
     background-color: #282828;
     white-space: nowrap;
+    max-height: calc(100vh - 58px);
+    overflow-y: auto;
 
     a {
       color: rgba(255, 255, 255, 0.7);
@@ -57,6 +59,10 @@
       margin: 0.3rem 0;
     }
   }
+}
+
+.sidebar-sticky, .dropdown-menu {
+  overscroll-behavior: contain;
 }
 
 .dropdown-item, .sidebar {
