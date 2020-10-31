@@ -1,15 +1,13 @@
 <% title("#{@type.name} Achievements") %>
 <% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
 
-<div class="d-flex justify-content-between mb-2">
-  <h3><%= @type.name %> Achievements</h3>
-  <div class="d-flex align-items-center">
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <button class="btn btn-secondary btn-sm ml-3 mr-1" id="collapseToggle" data-expanded="false">
-      <%= fa_icon('expand', text: 'Expand All') %>
-    </button>
-  </div>
+<div class="d-flex flex-wrap align-items-center mb-2">
+  <h3 class="mr-auto"><%= @type.name %> Achievements</h3>
+  <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+  <button class="btn btn-secondary btn-sm ml-3 mr-1" id="collapseToggle" data-expanded="false">
+    <%= fa_icon('expand', text: 'Expand All') %>
+  </button>
 </div>
 <%= render 'shared/filters' %>
 <div class="collection<%= ' comparing' if @comparison.present? %>" id="achievementCategories">
