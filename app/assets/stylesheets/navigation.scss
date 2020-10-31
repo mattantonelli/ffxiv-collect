@@ -22,6 +22,10 @@
     height: calc(100vh - 58px);
     overflow-x: hidden;
     overflow-y: auto;
+
+    @media (max-width: 767px) {
+      max-height: calc(90vh - 58px);
+    }
   }
 
   @supports ((position: -webkit-sticky) or (position: sticky)) {
@@ -40,7 +44,7 @@
   .dropdown-menu {
     background-color: #282828;
     white-space: nowrap;
-    max-height: calc(100vh - 58px);
+    max-height: calc(90vh - 58px);
     overflow-y: auto;
 
     a {
