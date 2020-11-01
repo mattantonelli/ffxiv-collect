@@ -11,7 +11,7 @@
 <div class="card mb-3">
   <%= render 'header', relic: @skysteel_tools, name: 'Skysteel Tools' %>
   <div class="collapse show" id="collapse-skysteel-tools">
-    <div class="card-body collection py-3">
+    <div class="card-body relics-tools collection py-3">
       <%= render partial: 'gear', collection: @skysteel_tools.each_slice(11).to_a, locals: { sprite_image: 'items-tool' } %>
     </div>
   </div>
@@ -20,7 +20,7 @@
 <div class="card mb-3">
   <%= render 'header', relic: @lucis_tools, name: 'Lucis Tools' %>
   <div class="collapse" id="collapse-lucis-tools">
-    <div class="card-body collection py-3">
+    <div class="card-body relics-tools collection py-3">
       <%= render partial: 'gear', collection: @lucis_tools.each_slice(11).to_a, locals: { sprite_image: 'items-tool' } %>
     </div>
   </div>
