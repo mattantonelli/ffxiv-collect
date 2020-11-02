@@ -1,13 +1,10 @@
 <div class="card">
   <div class="card-header d-flex align-items-center">
-    <div class="d-lg-none mr-2">
-      <%= sprite(@minion, 'minions-small') %>
-    </div>
     <h5 class="card-title"><%= minion.name %></h5>
   </div>
   <div class="card-body">
     <div class="d-flex">
-      <div class="d-none d-lg-block mr-4">
+      <div class="d-none d-sm-block mr-4">
         <%= safe_image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
       </div>
       <div class="d-flex flex-column flex-info">
@@ -34,6 +31,9 @@
         <dd><%= format_text(minion.enhanced_description) %></dd>
         <dt>Tooltip</dt>
         <dd><%= format_text(minion.tooltip) %></dd>
+        <div class="d-block d-sm-none">
+          <%= safe_image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
+        </div>
       </div>
     </div>
     <div class="minion-footprint">

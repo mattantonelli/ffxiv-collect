@@ -2,9 +2,9 @@
   <h1 class="display-4">FFXIV Collect</h1>
   <p class="lead">Another website for tracking your Final Fantasy XIV collections.</p>
   <hr class="my-4">
-  <h5>Keep most of your collections updated automatically</h5>
+  <h5>Keep your Lodestone collections updated automatically</h5>
   <p>
-    Your collections are updated periodically to reflect any new mounts, minions, and achievements you obtain
+    Your collections are updated automatically to reflect any new mounts, minions, and achievements you obtain
     based on your Lodestone profile.
   </p>
   <h5>Update the rest with a simple user interface</h5>
@@ -16,13 +16,13 @@
     The community is what motivates me to create these projects, so if you have any feedback,
     let me know on <%= link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank' %>.
   </p>
-  <div class="mt-5 text-center">
-    <%= link_to 'Discuss on Discord', 'https://discord.gg/Bf62wNU', class: 'btn discord', target: '_blank' %>
-    <%= link_to 'Support on Patreon', 'https://www.patreon.com/raelys', class: 'btn patreon', target: '_blank' %>
+  <div class="mt-4 text-center">
+    <%= link_to 'Discuss on Discord', 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
+    <%= link_to 'Support on Patreon', 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
   </div>
 </div>
 <div class="row">
-  <div class="col-12 col-xl-7 mb-3 mb-xl-0">
+  <div class="col-12">
     <div class="card">
       <h5 class="card-header">API</h5>
       <div class="card-body">
@@ -33,29 +33,6 @@
         </p>
         <b>GET <%= link_to nil, api_mount_url(186), class: 'unstyled' %></b>
         <%= render 'api_sample' %>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 col-xl-5">
-    <div class="card">
-      <h5 class="card-header">Bot Integrations</h5>
-      <div class="card-body">
-        <h5>Kupo Bot</h5>
-        <ul class="list-unstyled">
-          <li><code>!mycollection</code></li>
-          <li><code>!whocollection @User</code></li>
-          <li><code>!mount name</code></li>
-          <li><code>!item minion_name</code></li>
-        </ul>
-        <h5>Ser Aymeric</h5>
-        <ul class="list-unstyled">
-          <li><code>?collection</code></li>
-          <li><code>?collection server character_name</code></li>
-          <li><code>?achievement name</code></li>
-          <li><code>?mount name</code></li>
-          <li><code>?minion name</code></li>
-          <li><code>?orchestrion name</code></li>
-        </ul>
       </div>
     </div>
   </div>

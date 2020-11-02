@@ -1,2 +1,3 @@
+concurrency: 5
 production:
   :logfile: log/sidekiq.log

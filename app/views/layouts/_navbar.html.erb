@@ -7,7 +7,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarContent">
-    <div class="navbar-nav mr-auto">
+    <div class="navbar-nav mr-auto no-wrap">
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle<%= ' active' if active_link?(achievements_path, 'achievement') %>" href="#"
           id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -25,31 +25,53 @@
       <%= nav_link(t(:'general.minions'), minions_path, 'minions') %>
       <%= nav_link(t(:'general.orchestrion'), orchestrions_path, 'orchestrions') %>
       <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="relicDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">Relics</a>
+        <div class="dropdown-menu" aria-labelledBy="relicDropdown">
+          <%= link_to fa_icon('refresh', text: 'Weapons', right: true, data: { toggle: 'tooltip', placement: 'right',
+            title: 'Weapons tracked automatically by achievements' }), relic_weapons_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('check-square', text: 'Weapons', right: true, data: { toggle: 'tooltip', placement: 'right',
+            title: 'Weapons tracked manually' }), relic_weapons_manual_path, class: 'dropdown-item' %>
+          <%= link_to 'Armor', relic_armor_path, class: 'dropdown-item' %>
+          <%= link_to 'Tools', relic_tools_path, class: 'dropdown-item' %>
+        </div>
+      </div>
+      <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="otherDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false"><%= t :'general.other' %></a>
         <div class="dropdown-menu" aria-labelledBy="otherDropdown">
+          <%#= link_to "Moogle Treasure Trove#{fa_icon('exclamation-circle')}".html_safe,
+            law_tomestones_path, class: 'dropdown-item' %>
+          <%= link_to "Yo-kai Watch#{fa_icon('exclamation-circle')}".html_safe, yokai_path, class: 'dropdown-item' %>
+          <%= link_to 'Blue Magic', spells_path, class: 'dropdown-item' %>
           <%= link_to t(:'general.emotes'), emotes_path, class: 'dropdown-item' %>
           <%= link_to t(:'general.bardings'), bardings_path, class: 'dropdown-item' %>
           <%= link_to t(:'general.hairstyles'), hairstyles_path, class: 'dropdown-item' %>
           <%= link_to t(:'general.armoire.one'), armoires_path, class: 'dropdown-item' %>
+          <%= link_to 'Fashion Accessories', fashions_path, class: 'dropdown-item' %>
           <%= link_to fa_icon('external-link', text: t(:'general.triple_triad'), right: true), 'https://triad.raelys.com/',
             target: '_blank', class: 'dropdown-item' %>
+          <hr class="my-1">
+          <%= link_to 'Global Leaderboards', leaderboards_path, class: 'dropdown-item' %>
+          <% if @character&.free_company_id.present? %>
+            <%= link_to 'FC Leaderboards', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+          <% end %>
         </div>
       </div>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false"><%= t :'general.leaderboards' %></a>
+           aria-haspopup="true" aria-expanded="false">Leaderboards</a>
         <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
-          <%= link_to t(:'general.global'), leaderboards_path, class: 'dropdown-item' %>
+          <%= link_to 'Global', leaderboards_path, class: 'dropdown-item' %>
           <% if @character&.free_company_id.present? %>
-            <%= link_to t(:'general.free_company'), free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+            <%= link_to 'Free Company', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>
     </div>
     <div class="navbar-nav nav-item dropdown">
       <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= cookies[:locale].upcase %></a>
+         aria-haspopup="true" aria-expanded="false"><%= cookies[:locale].upcase %></a>
       <div class="dropdown-menu" aria-labelledBy="localeDropdown">
         <% %w(EN DE FR JA).each do |locale| %>
           <%= link_to locale, locale_set_path(locale: locale), class: 'dropdown-item', method: :post %>

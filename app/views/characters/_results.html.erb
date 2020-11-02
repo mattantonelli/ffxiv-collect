@@ -12,7 +12,8 @@
   <div class="card-body card-table d-flex flex-column character-select">
     <% @characters.each do |character| %>
       <div class="d-flex align-items-center">
-        <%= link_to select_character_path(character.id), class: 'name w-100', method: :post do %>
+        <%= link_to select_character_path(character.id, ({ compare: 1 } if params[:compare])),
+          class: 'name w-100', method: :post do %>
           <div class="d-flex align-items-center">
             <%= image_tag(character.avatar, class: 'avatar mr-3') %>
             <div class="d-flex flex-column">
@@ -26,7 +27,8 @@
           </div>
         <% end %>
         <% unless @search %>
-          <%= link_to fa_icon('times', class: 'delete'), character_path(character), method: :delete %>
+          <%= link_to fa_icon('times', class: 'delete'),
+            character_path(character, ({ compare: 1 } if params[:compare])), method: :delete %>
         <% end %>
       </div>
     <% end %>

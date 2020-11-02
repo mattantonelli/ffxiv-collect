@@ -3,17 +3,17 @@
     padding: 0.75rem;
     border-bottom: 1px solid #eee;
 
-    &:nth-of-type(even) {
-      background-color: rgba(0, 0, 0, 0.2)
+    &:nth-of-type(odd) {
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
-    &:nth-of-type(odd) {
-      background-color: rgba(0, 0, 0, 0.1)
+    &:nth-of-type(even) {
+      background-color: rgba(0, 0, 0, 0.2);
     }
 
     &:hover {
       cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.4);
+      background-color: rgba(0, 0, 0, 0.25);
     }
 
     &:last-child {
@@ -22,11 +22,8 @@
   }
 }
 
-.current-character {
+.menu-character {
   color: #eee;
-  .updated {
-    color: rgba(255, 255, 255, 0.7);
-  }
 }
 
 .avatar-profile {
@@ -46,8 +43,47 @@ div.portrait {
   }
 }
 
+.profile-buttons a {
+  margin: 0.25rem 0;
+}
+
 .profile-progress {
   width: 50% !important;
   padding-right: 1rem !important;
   margin-top: 1rem !important;
+}
+
+.avatar.faded {
+  opacity: 0.2;
+}
+
+.statistics {
+  .card {
+    margin-bottom: 1rem;
+    width: 100% !important;
+
+    // md only
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      width: 45% !important;
+    }
+
+    // lg+
+    @media (min-width: 992px) {
+      width: 32% !important;
+    }
+  }
+
+  .spell-sprite img {
+    width: 40px;
+    height: 40px;
+  }
+
+  img.hairstyle-small {
+    width: 40px;
+    height: 40px;
+  }
+
+  img {
+    min-width: 40px;
+  }
 }

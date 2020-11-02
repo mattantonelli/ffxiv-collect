@@ -1,10 +1,10 @@
 <% title("Edit #{@model}") %>
 
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3">
     <div class="card shadow">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title">Edit <%= @model.to_s.pluralize %></h5>
+      <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+        <h5 class="card-title">Edit <%= @model.to_s %></h5>
         <%= link_to fa_icon('chevron-left', text: 'Back'), polymorphic_url([:mod, @model]), class: 'btn btn-secondary btn-sm' %>
       </div>
       <div class="card-body py-3">
@@ -19,6 +19,22 @@
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
           </div>
+          <% if @collectable.has_attribute?(:details) %>
+            <div class="row">
+              <div class="col-12 form-group">
+                <%= f.label :details %>
+                <%= f.text_field :details, class: 'form-control' %>
+              </div>
+            </div>
+          <% end %>
+          <% if @collectable.has_attribute?(:gender) %>
+            <div class="row">
+              <div class="col-4 form-group pr-0">
+                <%= f.label :gender %>
+                <%= f.select :gender, gender_options(@collectable.gender), { include_blank: 'Any' }, { class: 'form-control' } %>
+              </div>
+            </div>
+          <% end %>
           <% unless @skip_sources %>
             <div class="form-group">
               <%= f.label :sources %>

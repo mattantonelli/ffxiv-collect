@@ -1,0 +1,52 @@
+<% title('Relic Armor') %>
+<% description("Track your character's relic armor.") %>
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+
+<div class="d-flex justify-content-end mb-2">
+  <button class="btn btn-secondary btn-sm mr-1" id="collapseToggle" data-expanded="false">
+    <%= fa_icon('expand', text: 'Expand All') %>
+  </button>
+</div>
+
+<% @bozjan_armor.each do |name, armor| %>
+  <div class="card mb-3">
+    <%= render 'header', relic: armor, name: name %>
+    <div class="collapse hide" id="<%= collapse_id(name) %>">
+      <div class="card-body collection py-3">
+        <%= render partial: 'gear', collection: armor.each_slice(5).to_a.transpose, locals: { sprite_image: 'items-armor' } %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @idealized_armor, name: 'Idealized Armor' %>
+  <div class="collapse hide" id="collapse-idealized-armor">
+    <div class="card-body collection py-3">
+      <%= render partial: 'gear', collection: @idealized_armor.each_slice(5).to_a.transpose,
+        locals: { sprite_image: 'items-armor' } %>
+    </div>
+  </div>
+</div>
+
+<% @eureka_elemental_armor.each do |name, armor| %>
+  <div class="card mb-3">
+    <%= render 'header', relic: armor, name: name %>
+    <div class="collapse hide" id="<%= collapse_id(name) %>">
+      <div class="card-body collection py-3">
+        <%= render partial: 'gear', collection: armor.each_slice(5).to_a.transpose, locals: { sprite_image: 'items-armor' } %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% @eureka_job_armor.each do |name, armor| %>
+  <div class="card mb-3">
+    <%= render 'header', relic: armor, name: name %>
+    <div class="collapse hide" id="<%= collapse_id(name) %>">
+      <div class="card-body collection py-3">
+        <%= render partial: 'gear', collection: armor.each_slice(5).to_a.transpose, locals: { sprite_image: 'items-armor' } %>
+      </div>
+    </div>
+  </div>
+<% end %>

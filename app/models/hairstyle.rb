@@ -15,6 +15,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
+#  gender         :string(255)
 #
 
 class Hairstyle < ApplicationRecord

@@ -6,6 +6,8 @@ StrengthShield Tooltip_* MinionSkillTypeTargetID Order).freeze
 namespace :minions do
   desc 'Create the minions'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating minions'
 
     XIVAPI_CLIENT.content(name: 'CompanionMove', columns: %w(ID Name_*)).each do |type|
@@ -62,8 +64,8 @@ namespace :minions do
       download_image(minion.id, "/i/069000/#{footprint_id}.png", 'minions/footprint', '#151515ff')
 
       if existing = Minion.find_by(id: minion.id)
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+        data = data.symbolize_keys.except(:patch)
+        existing.update!(data) if updated?(existing, data)
       else
         Minion.create!(data)
       end

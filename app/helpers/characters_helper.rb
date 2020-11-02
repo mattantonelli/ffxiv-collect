@@ -16,4 +16,21 @@ module CharactersHelper
   def last_updated(character)
     content_tag(:span, "Last updated #{time_ago_in_words(character.last_parsed)} ago.", class: 'updated')
   end
+
+  def collection_name(collection, score: {})
+    if collection == 'spells'
+      name = 'Blue Magic'
+    elsif collection == 'fashions'
+      name = 'Fashion Accessories'
+    else
+      name = collection.classify.pluralize
+    end
+
+    if score.present? && score[:value] == score[:max]
+      star = fa_icon('star', class: 'complete')
+      name = "#{name} #{star}".html_safe
+    end
+
+    name
+  end
 end

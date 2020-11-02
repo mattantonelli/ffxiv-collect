@@ -10,6 +10,6 @@
 #
 
 class CharacterAchievement < ApplicationRecord
-  belongs_to :character, counter_cache: :achievements_count
+  belongs_to :character, counter_cache: :achievements_count, touch: true
   belongs_to :achievement
 end

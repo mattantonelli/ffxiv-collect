@@ -10,6 +10,6 @@
 #
 
 class CharacterOrchestrion < ApplicationRecord
-  belongs_to :character, counter_cache: :orchestrions_count
+  belongs_to :character, counter_cache: :orchestrions_count, touch: true
   belongs_to :orchestrion
 end

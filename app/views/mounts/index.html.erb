@@ -1,4 +1,5 @@
 <% title('Mounts') %>
+<% description("Automatically track your character's mounts and discover how to obtain new ones.") %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: mounts_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
@@ -12,12 +13,8 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@mounts, @mount_ids) %>
-  </div>
-<% end %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<%= render 'shared/collection_progress', ids: @mounts.map(&:id) %>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th> <!-- Image -->
@@ -33,19 +30,23 @@
   </thead>
   <tbody>
     <% @mounts.each do |mount| %>
-      <tr class="collectable<%= ' owned' if @mount_ids.include?(mount.id) %>">
-        <td data-value="<%= mount.order %>">
+      <tr class="collectable<%= ' owned' if owned?(mount.id) %>">
+        <td data-value="<%= mount.order_group %><%= mount.order.to_s.rjust(3, '0') %>">
           <%= link_to(mount_path(mount)) do %>
             <%= sprite(mount, 'mounts-small') %>
           <% end %>
         </td>
         <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
         <td class="hide-xs"><%= sources(mount) %></td>
-        <td class="text-center" data-value="<%= mount.item_id.present? ? 1 : 0 %>"><%= mogboard_link(mount) %></td>
+        <td class="text-center" data-value="<%= mount.item_id.present? ? 1 : 0 %>"><%= market_link(mount) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
-        <td class="text-center" data-value="<%= mount.patch %><%= mount.id %>"><%= mount.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(mount) %>"><%= mount.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@mount_ids, mount, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(mount) %>
+          <% else %>
+            <%= td_owned(mount) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

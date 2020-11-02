@@ -4,3 +4,13 @@
   margin: 0.25rem 0;
   padding: 0.3rem 0.5rem;
 }
+
+.collection.quick-select {
+  > div.owned {
+    opacity: 1.0;
+  }
+
+  > div:not(.owned) {
+    opacity: 0.4;
+  }
+}

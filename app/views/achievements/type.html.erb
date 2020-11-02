@@ -1,4 +1,5 @@
 <% title("#{@type.name} Achievements") %>
+<% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
 
 <div class="d-flex justify-content-between mb-2">
   <h3><%= @type.name %> <%= t :'general.achievements' %></h3>
@@ -11,17 +12,17 @@
   </div>
 </div>
 <%= render 'shared/filters' %>
-<div class="collection" id="achievementCategories">
+<div class="collection<%= ' comparing' if @comparison.present? %>" id="achievementCategories">
   <% @categories.each do |category| %>
     <div class="card mb-3">
       <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card-header achievement-type">
           <h5 class="card-title">
             <%= category.name %>
           </h5>
           <% if character_selected? %>
-            <h6 <%= 'class="complete"'.html_safe if completed?(category, @achievement_ids) %>>
-              <%= achievement_completion(category, @achievement_ids) %>
+            <h6 <%= 'class="complete"'.html_safe if completed?(category, @collection_ids) %>>
+              <%= achievement_completion(category, @collection_ids) %>
             </h6>
           <% else %>
             <h6><%= category.achievements.size %> <%= t :'general.achievements' %> / <%= category.achievements.pluck(:points).sum %> <%= t :'general.points' %></h6>
@@ -38,8 +39,8 @@
                 <th scope="col" class="hide-xs"><%= t :'general.description' %></th>
                 <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
                 <th scope="col" class="text-center"><%= t :'general.points' %></th>
-                <th scope="col" class="text-center"><%= t :'general.own' %></th>
-                <th scope="col" class="text-center hide-xs"><%= t :'general.patch' %></th>
+                <th scope="col" class="text-center hide-xs"><%= t :'general.own' %></th>
+                <th scope="col" class="text-center"><%= t :'general.patch' %></th>
                 <% if character_selected? %>
                   <th scope="col"></th>
                 <% end %>
@@ -47,7 +48,7 @@
             </thead>
             <tbody>
               <% category.achievements.sort_by(&:order).each do |achievement| %>
-                <tr class="collectable<%= ' owned' if @achievement_ids.include?(achievement.id) %>">
+                <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
                   <td>
                     <%= link_to(achievement_path(achievement)) do %>
                       <%= sprite(achievement, 'achievement') %>
@@ -66,7 +67,11 @@
                     <%= achievement.patch %>
                   </td>
                   <% if character_selected? %>
-                    <%= td_owned(@achievement_ids, achievement, false, @achievement_dates[achievement.id]) %>
+                    <% if @comparison.present? %>
+                      <%= td_comparison(achievement) %>
+                    <% else %>
+                      <%= td_owned(achievement) %>
+                    <% end %>
                   <% end %>
                 </tr>
               <% end %>

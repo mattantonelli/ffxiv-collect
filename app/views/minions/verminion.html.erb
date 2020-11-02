@@ -17,10 +17,14 @@
       class: 'form-control form-control-sm multiselect' %>
     <%= f.collection_select :skill_type_id_eq, MinionSkillType.all.order("name_#{I18n.locale}"), :id, :name,
       { include_blank: 'All Special Types' }, class: 'form-control form-control-sm' %>
+    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
     <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<%= render 'shared/filters' %>
+<%= render 'shared/collection_progress', ids: @minions.map(&:id) %>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th> <!-- Image -->
@@ -33,7 +37,7 @@
       <th scope="col" class="text-center">Cost</th>
       <th scope="col" class="hide-sm">Auto-attack</th>
       <th scope="col" class="hide-xs">Strengths</th>
-      <th scope="col" class="hide-sm">Special Action</th>
+      <th scope="col" class="hide-sm">Special Type</th>
       <th scope="col" class="text-center hide-sm">Points</th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
@@ -42,7 +46,7 @@
   </thead>
   <tbody>
     <% @minions.each do |minion| %>
-      <tr class="collectable">
+      <tr class="collectable no-fade<%= ' owned' if owned?(minion.id) %>">
         <td data-value="<%= minion.order %>">
           <%= link_to(minion_path(minion)) do %>
             <%= sprite(minion, 'minions-small') %>
@@ -64,7 +68,11 @@
         </td>
         <td class="text-center hide-sm"><%= minion.skill_cost %></td>
         <% if character_selected? %>
-          <%= td_owned(@minion_ids, minion, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(minion) %>
+          <% else %>
+            <%= td_owned(minion) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

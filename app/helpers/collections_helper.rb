@@ -18,29 +18,47 @@ module CollectionsHelper
     options_for_select([['Show All', 'all'], ['Only Owned', 'owned'], ['Only Missing', 'missing']], selected)
   end
 
-  def category_row_classes(collectable, active_category, ids = [])
+  def gender_filter_options(selected = nil)
+    options_for_select([['All Genders', 'all'], ['Hide Male', 'male'], ['Hide Female', 'female'],
+                        ['Character Usable', 'character']], selected)
+  end
+
+  def category_row_classes(collectable, active_category)
     hidden = active_category.present? && collectable.category_id != active_category
-    owned = ids.include?(collectable.id)
-    "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned}"
+    "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned?(collectable.id)}"
   end
 
   def rarity(collectable, numeric: false)
-    rarity = @owned.fetch(collectable.id.to_s, '0%')
+    if @owned.present?
+      rarity = @owned.fetch(collectable.id.to_s, '0%')
+    else
+      rarity = Redis.current.hget(collectable.class.to_s.downcase.pluralize, collectable.id) || '0%'
+    end
+
     numeric ? rarity.delete('%') : rarity
   end
 
-  def td_owned(ids, collectable, manual = true, date = nil)
-    owned = ids.include?(collectable.id)
+  def owned?(id)
+    @collection_ids.include?(id)
+  end
+
+  def td_owned(collectable, manual: false)
+    date = @dates&.dig(collectable.id)
+    owned = @collection_ids.include?(collectable.id)
+
     if manual && @character.verified_user?(current_user)
-      content_tag(:td, class: 'text-center', data: { value: owned ? 1 : 0 }) do
+      content_tag(:td, class: 'text-center',
+                  data: { value: owned ? 1 : 0, toggle: 'tooltip', placement: 'right' },
+                  title: ("Acquired on #{format_date_short(date)}" if date.present?) ) do
         check_box_tag(nil, nil, owned, class: 'own',
                       data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
       end
     else
       if owned
         if date.present?
-          content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: date.to_i, toggle: 'tooltip' },
-                      title: "Achieved on #{format_date_short(date)}")
+          content_tag(:td, fa_icon('check'), class: 'text-center',
+                      data: { value: 1, toggle: 'tooltip', placement: 'right' },
+                      title: "Acquired on #{format_date_short(date)}")
         else
           content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
         end
@@ -50,16 +68,34 @@ module CollectionsHelper
     end
   end
 
+  def td_comparison(collectable)
+    owned = [@collection_ids.include?(collectable.id), @comparison_ids.include?(collectable.id)]
+    value = owned.reverse.map { |own| own ? 1 : 0 }.join.to_i(2) # Convert ownership to sortable bitstring
+
+    content_tag(:td, class: 'comparison no-wrap text-center px-2', data: { value: value }) do
+      [
+        image_tag(@character.avatar, class: "avatar mr-2#{' faded' unless owned[0]}"),
+        image_tag(@comparison.avatar, class: "avatar#{' faded' unless owned[1]}")
+      ].join.html_safe
+    end
+  end
+
   def tradeable(collectable)
     can_trade = collectable[:item_id].present?
 
     if can_trade
-      link_to(mogboard_url(collectable[:item_id]), class: 'name', target: '_blank') do
+      link_to(universalis_url(collectable[:item_id]), class: 'name', target: '_blank') do
         fa_check(can_trade)
       end
     else
       fa_check(can_trade)
     end
+  end
+
+  def sort_value(collectable)
+    patch = collectable.patch || '2.0'
+    order = collectable[:order] || collectable[:id]
+    "#{patch.ljust(4, '0')}#{order}"
   end
 
   def achievement_link(source)
@@ -70,32 +106,46 @@ module CollectionsHelper
     end
   end
 
-  def mogboard_link(collectable)
+  def market_link(collectable)
     if collectable.item_id.present?
-      fa_icon('dollar', data: { toggle: 'tooltip' }, title: 'Tradeable')
+      link_to(fa_icon('dollar'), universalis_url(collectable.item_id), target: '_blank')
     end
   end
 
-  def teamcraft_link(type, text, id = nil)
-    if id.present?
-      link_to(text, teamcraft_url(type, id), target: '_blank')
+  def database_link(type, text, id = nil)
+    return text unless id.present?
+
+    if current_user&.database == 'teamcraft'
+      teamcraft_link(type, text, id)
     else
-      text
+      garland_tools_link(type, text, id)
     end
+  end
+
+  def garland_tools_link(type, text, id)
+    link_to(text, garland_tools_url(type, id), target: '_blank')
+  end
+
+  def teamcraft_link(type, text, id)
+    link_to(text, teamcraft_url(type, id), target: '_blank')
   end
 
   def sources(collectable, list: false)
+    if collectable.class == Orchestrion
+      return [format_text_long(collectable.description), collectable.details].compact.join('<br>').html_safe
+    end
+
     sources = collectable.sources.map do |source|
       type = source.type.name
 
       if type == 'Achievement'
         achievement_link(source)
       elsif Instance.valid_types.include?(type)
-        teamcraft_link(:instance, source.related&.name || source.text, source.related_id)
+        database_link(:instance, source.related&.name || source.text, source.related_id)
       elsif type == 'Crafting' || type == 'Gathering'
-        teamcraft_link(:item, source.text, collectable.item_id)
+        database_link(:item, source.text, collectable.item_id)
       elsif type == 'Quest' || type == 'Event'
-        teamcraft_link(:quest, source.related&.name || source.text, source.related_id)
+        database_link(:quest, source.related&.name || source.text, source.related_id)
       elsif type == 'Feast'
         "The Feast: #{source.text}"
       elsif type == 'Mog Station'

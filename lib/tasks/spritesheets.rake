@@ -21,5 +21,16 @@ namespace :spritesheets do
 
     puts 'Creating hairstyle spritesheets'
     create_hair_spritesheets
+
+    puts 'Creating Blue Magic spell spritesheets'
+    create_spritesheet('spells')
+
+    puts 'Creating item spritesheets'
+    create_spritesheet('items/weapons')
+    create_spritesheet('items/armor')
+    create_spritesheet('items/tools')
+
+    puts 'Creating fashion spritesheets'
+    create_spritesheet('fashions/small')
   end
 end

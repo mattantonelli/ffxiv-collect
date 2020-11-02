@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_locale
-  before_action :set_current_character
-  before_action :set_paper_trail_whodunnit
+  before_action :set_locale, :set_characters
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
 
@@ -27,6 +25,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def log_backtrace(exception)
+    Rails.logger.error(exception.inspect)
+    exception.backtrace.first(3).each { |line| Rails.logger.error(line) }
+  end
+
   private
   def set_locale
     locale = cookies['locale']
@@ -44,16 +47,40 @@ class ApplicationController < ActionController::Base
     I18n.locale = cookies['locale']
   end
 
-  def set_current_character
+  def set_characters
     if user_signed_in?
       @character = current_user.character
-    else
-      id = cookies['character']
-      @character = Character.find_by(id: id) if id.present?
+      if @character&.private?(current_user)
+        current_user.update(character_id: nil)
+        flash[:error] = 'This character has been set to private and can no longer be tracked.'
+        redirect_to root_path
+      end
+    elsif cookies['character'].present?
+      @character = Character.find_by(id: cookies['character'])
+      if @character&.private?
+        cookies[:character] = nil
+        flash[:error] = 'This character has been set to private and can no longer be tracked.'
+        redirect_to root_path
+      end
     end
 
-    if @character.present? && @character.stale? && !@character.in_queue?
-      @character.sync
+    if cookies['comparison'].present?
+      unless @character.present?
+        cookies[:comparison] = nil
+      end
+
+      @comparison = Character.find_by(id: cookies['comparison'])
+      if @comparison&.private?(current_user)
+        cookies[:comparison] = nil
+        flash[:error] = 'Your comparison character has been set to private and can no longer be tracked.'
+        redirect_to root_path
+      end
+    end
+
+    [@character, @comparison].each do |character|
+      if character&.syncable?
+        character.sync
+      end
     end
   end
 end

@@ -1,0 +1,35 @@
+<% title('Relic Weapons') %>
+<% description("Automatically track your character's relic weapons.") %>
+
+<div class="d-flex justify-content-end mb-2">
+  <button class="btn btn-secondary btn-sm mr-1" id="collapseToggle" data-expanded="false">
+    <%= fa_icon('expand', text: 'Expand All') %>
+  </button>
+</div>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @resistance_weapons, name: 'Resistance Weapons' %>
+  <div class="collapse show" id="collapse-resistance-weapons">
+    <div class="card-body py-3">
+      <%= render partial: 'weapons', collection: @resistance_weapons.each_slice(@resistance_weapons.size / 17).to_a.transpose %>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @eureka_weapons, name: 'Eureka Weapons' %>
+  <div class="collapse" id="collapse-eureka-weapons">
+    <div class="card-body py-3">
+      <%= render partial: 'weapons', collection: @eureka_weapons.each_slice(@eureka_weapons.size / 15).to_a.transpose %>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <%= render 'header', relic: @anima_weapons, name: 'Anima Weapons' %>
+  <div class="collapse" id="collapse-anima-weapons">
+    <div class="card-body py-3">
+      <%= render partial: 'weapons', collection: @anima_weapons.each_slice(@anima_weapons.size / 13).to_a.transpose %>
+    </div>
+  </div>
+</div>

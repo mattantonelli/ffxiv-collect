@@ -1,4 +1,5 @@
 <% title('Achievements - Item Rewards') %>
+<% description("Automatically track your character's achievement items and discover how to obtain new ones.") %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: achievement_items_path, enforce_utf8: false,
@@ -11,12 +12,8 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@achievements, @achievement_ids) %>
-  </div>
-<% end %>
-<table class="table table-striped table-sm shadow p-3 collection sortable">
+<%= render 'shared/collection_progress', ids: @achievements.map(&:id) %>
+<table class="table table-striped table-sm shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
     <th scope="col" class="name"><%= t :'general.name' %></h1></th>
@@ -30,7 +27,7 @@
   </thead>
   <tbody>
     <% @achievements.each do |achievement| %>
-      <tr class="collectable<%= ' owned' if @achievement_ids.include?(achievement.id) %>">
+      <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
         <td>
           <%= link_to(achievement_path(achievement)) do %>
             <%= sprite(achievement, 'achievement') %>
@@ -47,7 +44,11 @@
           <%= achievement.patch %>
         </td>
         <% if character_selected? %>
-          <%= td_owned(@achievement_ids, achievement, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(achievement) %>
+          <% else %>
+            <%= td_owned(achievement) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

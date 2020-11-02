@@ -43,6 +43,7 @@ class Source < ApplicationRecord
       else
         remove_relation!
       end
+    when 'Crafting'
     else
       remove_relation! if persisted?
     end

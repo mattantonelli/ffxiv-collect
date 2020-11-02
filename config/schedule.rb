@@ -3,6 +3,6 @@ set :bundle_command, '~/.rbenv/shims/bundle exec'
 set :output, 'log/whenever.log'
 
 # Cache collectable ownership
-every '10 * * * *' do
+every '10 3 * * *' do
   rake 'ownership:cache'
 end

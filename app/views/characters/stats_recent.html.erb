@@ -1,0 +1,14 @@
+<% title('Collection Statistics - Most Recent') %>
+<% description("#{@profile.name} (#{@profile.server})") %>
+<% image(@profile.avatar) %>
+
+<%= render 'statistics_profile' %>
+
+<div class="text-center">
+  <div class="btn-group">
+    <%= button_tag 'Most Recent', class: 'btn btn-secondary active', disabled: true %>
+    <%= link_to 'Most Rare', stats_rarity_character_path(@profile), class: 'btn btn-secondary' %>
+  </div>
+</div>
+
+<%= render 'statistics' %>

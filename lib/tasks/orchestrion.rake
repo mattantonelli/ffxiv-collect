@@ -4,16 +4,23 @@ OrchestrionUiparam.Order).freeze
 namespace :orchestrions do
   desc 'Create the orchestrion rolls'
   task create: :environment do
-    puts 'Creating orchestrion rolls'
+    PaperTrail.enabled = false
 
-    XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_*)).each do |category|
+    puts 'Creating orchestrion categories'
+    XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_* Order)).each do |category|
       next if category.id == 1
       if category[:name_en].present?
-        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
-        OrchestrionCategory.find_or_create_by!(data)
+        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :order)
+
+        if existing = OrchestrionCategory.find_by(id: data[:id])
+          existing.update!(data) if updated?(existing, data.symbolize_keys)
+        else
+          OrchestrionCategory.find_or_create_by!(data)
+        end
       end
     end
 
+    puts 'Creating orchestrion rolls'
     count = Orchestrion.count
     XIVAPI_CLIENT.content(name: 'Orchestrion', columns: ORCHESTRION_COLUMNS, limit: 1000).each do |orchestrion|
       next unless orchestrion.name_en.present?

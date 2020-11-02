@@ -4,6 +4,8 @@ BARDING_ITEM_COLUMNS = %w(ItemAction.Data0 Name_*).freeze
 namespace :bardings do
   desc 'Create the bardings'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating bardings'
 
     count = Barding.count

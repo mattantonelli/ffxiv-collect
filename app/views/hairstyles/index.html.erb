@@ -1,4 +1,5 @@
 <% title('Hairstyles') %>
+<% description("Track your character's hairstyles and discover how to obtain new ones.") %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: hairstyles_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
@@ -12,13 +13,9 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@hairstyles, @hairstyle_ids) %>
-  </div>
-<% end %>
+<%= render 'shared/collection_progress', ids: @hairstyles.map(&:id) %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th><!-- Image -->
@@ -30,23 +27,34 @@
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>
+      <% if @comparison.present? %>
+        <th scope="col"></th><!-- Comparison -->
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @hairstyles.each do |hairstyle| %>
-      <tr class="collectable<%= ' owned' if @hairstyle_ids.include?(hairstyle.id) %>">
+      <tr class="collectable<%= ' owned' if owned?(hairstyle.id) %>">
         <td data-value="<%= hairstyle.id %>">
           <%= link_to hairstyle_path(hairstyle), class: 'hairstyle-small' do %>
             <%= hairstyle_sample_image(hairstyle) %>
           <% end %>
         </td>
-        <td><%= link_to hairstyle.name, hairstyle_path(hairstyle), class: 'name' %></td>
+        <td>
+          <%= link_to hairstyle_path(hairstyle), class: 'name' do %>
+            <%= hairstyle.name %>
+            <%= gender_symbol(hairstyle.gender) %>
+          <% end %>
+        </td>
         <td class="hide-xs"><%= sources(hairstyle) %></td>
-        <td class="text-center" data-value="<%= hairstyle.item_id.present? ? 1 : 0 %>"><%= mogboard_link(hairstyle) %></td>
+        <td class="text-center" data-value="<%= hairstyle.item_id.present? ? 1 : 0 %>"><%= market_link(hairstyle) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(hairstyle, numeric: true) %>"><%= rarity(hairstyle) %></td>
-        <td class="text-center" data-value="<%= hairstyle.patch %><%= hairstyle.id %>"><%= hairstyle.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(hairstyle) %>"><%= hairstyle.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@hairstyle_ids, hairstyle) %>
+          <%= td_owned(hairstyle, manual: true) %>
+        <% end %>
+        <% if @comparison.present? %>
+          <%= td_comparison(hairstyle) %>
         <% end %>
       </tr>
     <% end %>

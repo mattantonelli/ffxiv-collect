@@ -1,4 +1,5 @@
 <% title('Bardings') %>
+<% description("Track your character's chocobo bardings and discover how to obtain new ones.") %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: bardings_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
@@ -12,13 +13,9 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@bardings, @barding_ids) %>
-  </div>
-<% end %>
+<%= render 'shared/collection_progress', ids: @bardings.map(&:id) %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th><!-- Image -->
@@ -30,19 +27,25 @@
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>
+      <% if @comparison.present? %>
+        <th scope="col"></th><!-- Comparison -->
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @bardings.each do |barding| %>
-      <tr class="collectable<%= ' owned' if @barding_ids.include?(barding.id) %>">
+      <tr class="collectable<%= ' owned' if owned?(barding.id) %>">
         <td data-value="<%= barding.id %>"><%= sprite(barding, 'barding') %></td>
         <td><%= link_to(barding.name, barding_path(barding), class: 'name') %></td>
         <td class="hide-xs"><%= sources(barding) %></td>
-        <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= mogboard_link(barding) %></td>
+        <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= market_link(barding) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(barding, numeric: true) %>"><%= rarity(barding) %></td>
-        <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(barding) %>"><%= barding.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@barding_ids, barding) %>
+          <%= td_owned(barding, manual: true) %>
+        <% end %>
+        <% if @comparison.present? %>
+          <%= td_comparison(barding) %>
         <% end %>
       </tr>
     <% end %>

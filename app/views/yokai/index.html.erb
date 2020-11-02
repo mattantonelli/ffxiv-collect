@@ -1,0 +1,73 @@
+<% title('Yo-kai Watch Collaboration') %>
+<% description("Automatically track your character's progress in the Yo-kai Watch Collaboration.") %>
+
+<%= render 'collection', collection: @minions, type: 'minions' %>
+
+<%= render 'collection', collection: @weapons, type: 'weapons' %>
+
+<div class="card mb-3">
+  <%= link_to "#collapse-mounts", data: { toggle: 'collapse' }, class: 'unstyled' do %>
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="card-title">Mounts</h5>
+      <% if character_selected? %>
+        <h6 class="text-right<%= ' complete' if yokai_completed?(@mounts, @mount_ids)  %>">
+          <%= yokai_completion(@mounts, @mount_ids) %>
+        </h6>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="collapse show" id="collapse-mounts">
+    <div class="card-body py-4">
+      <div class="d-flex flex-wrap justify-content-center yokai">
+        <% @mounts.each do |mount| %>
+          <%= link_to(mount_path(mount), class: "mx-2 #{'missing' if yokai_missing?(mount, @mount_ids)}",
+                      data: { toggle: 'tooltip' }, title: mount.name) do %>
+            <%= safe_image_tag("mounts/large/#{mount.id}.png", class: 'image-large') %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-10 offset-lg-1">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title">Legendary Medal Locations</h5>
+    </div>
+    <table class="table table-striped table-sm shadow yokai mb-0">
+      <thead>
+        <tr>
+          <th scope="col">Minion</th>
+          <th scope="col">Zone 1</th>
+          <th scope="col">Zone 2</th>
+          <th scope="col">Zone 3</th>
+          <th scope="col">Weapon</th>
+          <% if character_selected? %>
+            <th scope="col">Owned</th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @details.each do |yokai| %>
+          <tr>
+            <td data-toggle="tooltip" title="<%= yokai[:minion].name %>">
+              <%= sprite(yokai[:minion], 'achievement') %>
+            </td>
+            <% yokai[:zones].each do |zone| %>
+              <td><%= zone %></td>
+            <% end %>
+            <td data-toggle="tooltip" title="<%= yokai[:weapon].name %>">
+              <%= sprite(yokai[:weapon], 'achievement') %>
+            </td>
+            <% if character_selected? %>
+              <td>
+                <%= yokai_weapon_owned(yokai[:weapon], @achievement_ids) %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

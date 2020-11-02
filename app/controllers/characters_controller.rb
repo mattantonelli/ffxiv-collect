@@ -1,21 +1,52 @@
 class CharactersController < ApplicationController
-  before_action :verify_signed_in!, only: [:verify, :validate, :edit, :update, :destroy]
-  before_action :verify_user!, only: [:edit, :update]
+  before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
+  before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
+  before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
+
+  COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires fashions).freeze
 
   def show
-    @profile = Character.find(params[:id])
-
-    unless @profile.public? || @profile.verified_user?(current_user)
-      flash[:error] = "This character's profile has been set to private."
-      redirect_back(fallback_location: root_path)
-    end
-
-    if @profile.stale? && !@profile.in_queue?
+    if @profile != @character && @profile.syncable?
       @profile.sync
     end
 
     @triad = @profile.triple_triad
+
+    @scores = COLLECTIONS.each_with_object({}) do |collection, h|
+      next unless @profile.send("#{collection}_count") > 0
+
+      ids = collection.classify.constantize.with_filters(cookies, @profile).pluck(:id)
+      ids -= Minion.unsummonable_ids if collection == 'minions'
+      owned_ids = @profile.send("#{collection.singularize}_ids")
+      h[collection] = { value: (owned_ids & ids).size, max: ids.size }
+
+      if collection == 'achievements'
+        h[collection][:points] = Achievement.with_filters(cookies, @profile).joins(:character_achievements)
+          .where('character_achievements.character_id = ?', @profile).sum(:points)
+        h[collection][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
+      end
+    end
+  end
+
+  def profile
+    if @character.present?
+      redirect_to(action: :show, id: @character.id)
+    else
+      redirect_to root_path
+    end
+  end
+
+  def stats_recent
+    @collections = COLLECTIONS.each_with_object({}) do |collection, h|
+      h[collection] = @profile.most_recent(collection, filters: cookies)
+    end
+  end
+
+  def stats_rarity
+    @collections = COLLECTIONS.each_with_object({}) do |collection, h|
+      h[collection] = @profile.most_rare(collection, filters: cookies)
+    end
   end
 
   def search
@@ -28,8 +59,16 @@ class CharactersController < ApplicationController
         if @characters.empty?
           flash.now[:alert] = 'No characters found.'
         end
-      rescue XIVAPI::Errors::RequestError
-        flash.now[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+      rescue XIVAPI::Errors::RequestError => e
+        if e.message == 'Lodestone is currently down for maintenance.'
+          flash.now[:alert] = 'The Lodestone is currently down for maintenance.'
+        else
+          flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        end
+      rescue Exception => e
+        flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
+        log_backtrace(e)
       end
     else
       if user_signed_in?
@@ -40,7 +79,18 @@ class CharactersController < ApplicationController
   end
 
   def select
-    character = Character.find_by(id: params[:id]) || Character.fetch(params[:id])
+    character = Character.find_by(id: params[:id])
+
+    # For new characters, retrieve their basic data and queue them for a full sync
+    unless character.present?
+      begin
+        character = fetch_character(params[:id], basic: true)
+        character.sync
+        flash[:notice] = 'Your collection data is being retrieved from the Lodestone. Please check back in a minute.'
+      rescue
+        # The exception has been logged in the fetch. Now let the following logic alert the user.
+      end
+    end
 
     if !character.present?
       flash[:error] = 'There was a problem selecting that character.'
@@ -49,14 +99,22 @@ class CharactersController < ApplicationController
       flash[:alert] = "Sorry, this character's verified user has set their collections to private."
       redirect_back(fallback_location: root_path)
     else
-      if user_signed_in?
-        current_user.characters << character unless current_user.characters.exists?(character.id)
+      if params[:compare]
+        cookies[:comparison] = params[:id]
+      elsif user_signed_in?
         current_user.update(character_id: params[:id])
       else
         cookies[:character] = params[:id]
       end
 
-      flash[:success] = 'Your character has been set.'
+      if user_signed_in?
+        current_user.characters << character unless current_user.characters.exists?(character.id)
+      end
+
+      unless flash[:notice].present?
+        flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
+      end
+
       redirect_to character_path(character)
     end
   end
@@ -72,34 +130,39 @@ class CharactersController < ApplicationController
     redirect_to root_path
   end
 
-  def edit
-  end
-
-  def update
-    if @character.update(settings_params)
-      flash[:success] = 'Your settings have been updated.'
-      redirect_to character_settings_path
-    else
-      flash[:error] = 'There was a problem updating your settings.'
-      render :edit
-    end
+  def forget_comparison
+    cookies[:comparison] = nil
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     current_user.characters.delete(params[:id])
-    redirect_to search_characters_path
+    redirect_to search_characters_path(({ compare: 1 } if params[:compare]))
   end
 
   def refresh
-    if @character.in_queue?
-      flash[:alert] = 'Sorry, you can only request a manual refresh once every 30 minutes. Please try again later.'
+    if !@character.refreshable?
+      flash[:alert] = 'Your character has already been refreshed in the past 30 minutes. Please try again later.'
+    elsif @character.in_queue?
+      flash[:alert] = 'Your character is currently being synchronized with the Lodestone. Please check back in a minute.'
     else
-      character = Character.fetch(@character.id)
-      if character.present?
-        character.update(queued_at: Time.now)
-        flash[:success] = 'Your character has been refreshed.'
-      else
-        flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+      begin
+        character = fetch_character(@character.id)
+
+        if character.present?
+          character.update(refreshed_at: Time.now)
+          flash[:success] = 'Your character has been refreshed.'
+        else
+          flash[:error] = 'There was a problem contacting the Lodestone.'
+        end
+      rescue XIVAPI::Errors::RequestError => e
+        if e.message == 'Lodestone is currently down for maintenance.'
+          flash[:alert] = 'The Lodestone is currently down for maintenance.'
+        else
+          flash[:error] = 'There was a problem refreshing your character.'
+        end
+      rescue
+        flash[:error] = 'There was a problem refreshing your character.'
       end
     end
 
@@ -112,16 +175,17 @@ class CharactersController < ApplicationController
 
   def validate
     begin
-      if XIVAPI_CLIENT.character_verified?(id: @character.id, token: @character.verification_code(current_user))
-        @character.update!(verified_user_id: current_user.id)
+      if @character.verify!(current_user)
         flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
         redirect_to_previous
       else
-        flash[:alert] = 'Your character could not be verified. Please check your profile and try again.'
+        flash[:error] = 'Your character could not be verified. Please check your profile and try again.'
         render :verify
       end
-    rescue XIVAPI::Errors::RequestError
-      flash[:alert] = 'There was a problem contacting the Lodestone. Please try again later.'
+    rescue Exception => e
+      flash[:error] = 'There was a problem verifying your character.'
+      Rails.logger.error("There was a problem verifying character #{id}")
+      log_backtrace(e)
       render :verify
     end
   end
@@ -131,21 +195,41 @@ class CharactersController < ApplicationController
     @code = @character.verification_code(current_user)
   end
 
-  def verify_user!
-    unless @character.verified_user?(current_user)
-      flash[:error] = 'You must verify your character before you can change its settings.'
+  def set_profile
+    @profile = Character.find_by(id: params[:id])
+
+    unless @profile.present?
+      flash[:error] = 'Character could not be found.'
       redirect_to root_path
     end
   end
 
   def confirm_unverified!
-    if @character.verified?
+    if @character.verified_user?(current_user)
       flash[:alert] = 'Your character has already been verified.'
       redirect_to root_path
     end
   end
 
-  def settings_params
-    params.require(:character).permit(:public)
+  def verify_privacy!
+    unless @profile.public? || @profile.verified_user?(current_user)
+      flash[:error] = "This character's profile has been set to private."
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def fetch_character(id, basic: false)
+    begin
+      character = Character.fetch(id, basic: basic)
+      character
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      Rails.logger.error(e.response)
+      raise
+    rescue Exception => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      log_backtrace(e)
+      raise
+    end
   end
 end

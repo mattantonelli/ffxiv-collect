@@ -1,1 +1,1 @@
-json.partial! 'character', character: @character
+json.partial! 'api/characters/character', character: @character

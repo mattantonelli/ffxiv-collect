@@ -4,21 +4,35 @@ Title.* Item.ID Item.Icon Item.Name_*).freeze
 namespace :achievements do
   desc 'Create the achievements'
   task create: :environment do
-    puts 'Creating achievements'
+    PaperTrail.enabled = false
 
-    XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_*)).each do |type|
-      if type[:name_en].present?
-        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja)
-        AchievementType.find_or_create_by!(data)
+    puts 'Creating achievement types'
+    XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_* Order)).each do |type|
+      if type[:name_en].present? && type[:name_en] != 'Gathering'
+        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :order)
+
+        if existing = AchievementType.find_by(id: data[:id])
+          existing.update!(data) if updated?(existing, data.symbolize_keys)
+        else
+          AchievementType.find_or_create_by!(data)
+        end
       end
     end
 
-    XIVAPI_CLIENT.content(name: 'AchievementCategory', columns: %w(ID Name_* AchievementKindTargetID)).each do |category|
-      category = category.to_h
+    puts 'Creating achievement categories'
+    XIVAPI_CLIENT.content(name: 'AchievementCategory', columns: %w(ID Name_* AchievementKindTargetID Order)).each do |category|
+      category = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :achievement_kind_target_id, :order)
       category[:type_id] = category.delete(:achievement_kind_target_id)
-      AchievementCategory.find_or_create_by!(category) if category[:name_en].present?
+      next unless category[:name_en].present?
+
+      if existing = AchievementCategory.find_by(id: category[:id])
+        existing.update!(category) if updated?(existing, category.symbolize_keys)
+      else
+        AchievementCategory.find_or_create_by!(category)
+      end
     end
 
+    puts 'Creating achievements'
     count = Achievement.count
     XIVAPI_CLIENT.content(name: 'Achievement', columns: ACHIEVEMENT_COLUMNS, limit: 10000).each do |achievement|
       next if achievement.achievement_category_target_id == 0
@@ -41,7 +55,7 @@ namespace :achievements do
       download_image(achievement.icon_id, achievement.icon, 'achievements')
 
       if existing = Achievement.find_by(id: achievement.id)
-        data = without_custom(data)
+        data = data.symbolize_keys.except(:patch)
         existing.update!(data) if updated?(existing, data.symbolize_keys)
       else
         Achievement.create!(data)

@@ -2,12 +2,14 @@ class OrchestrionsController < ApplicationController
   include ManualCollection
   before_action :set_collection!, only: [:index, :select]
   before_action :validate_user!, only: :select
+  before_action :set_ids!, on: :select
 
   def index
     @category = nil if @category < 2
     @q = Orchestrion.ransack(params[:q])
-    @orchestrions = @q.result.includes(:category).order(patch: :desc, order: :desc, id: :desc).distinct
-    apply_filters!
+    @orchestrions = @q.result.includes(:category).with_filters(cookies)
+      .order(patch: :desc, order: :desc, id: :desc)
+    @categories = OrchestrionCategory.with_filters(cookies).order(:order)
   end
 
   def select
@@ -29,8 +31,7 @@ class OrchestrionsController < ApplicationController
 
   private
   def set_collection!
-    @orchestrion_ids = @character&.orchestrion_ids || []
-    @categories = OrchestrionCategory.all.order(:id)
+    @categories = OrchestrionCategory.all.order(:order)
     @category = params[:category].to_i
   end
 
@@ -39,17 +40,5 @@ class OrchestrionsController < ApplicationController
       flash[:alert] = 'You must be signed in and verified in order to manage your orchestrion rolls.'
       redirect_to root_path
     end
-  end
-
-  def apply_filters!
-    exclude_category!('Mog Station') if cookies[:premium] == 'hide'
-    exclude_category!('Seasonal') if cookies[:limited] == 'hide'
-  end
-
-  def exclude_category!(name)
-    category = @categories.find { |cat| cat.name_en == name }
-    @orchestrions = @orchestrions.where.not(category: category)
-    @categories = @categories.where.not(id: category.id)
-    @category = nil if @category == category.id
   end
 end
