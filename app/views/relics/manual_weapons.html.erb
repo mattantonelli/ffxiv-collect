@@ -20,7 +20,7 @@
 <div class="card mb-3">
   <%= render 'header', relic: @deep_dungeon_weapons, name: t('general.deep_dungeon_weapons') %>
   <div class="collapse hide" id="collapse-deep-dungeon-weapons">
-    <div class="card-body collection py-3">
+    <div class="card-body relics-sh collection py-3">
       <%= render partial: 'gear', collection: @deep_dungeon_weapons.each_slice(17).to_a,
         locals: { sprite_image: 'items-weapon' } %>
     </div>

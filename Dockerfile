@@ -10,6 +10,7 @@ COPY Gemfile /ffxiv-collect/Gemfile
 COPY Gemfile.lock /ffxiv-collect/Gemfile.lock
 RUN bundle install
 COPY . /ffxiv-collect
+RUN bundle exec rake app:update:bin
 
 EXPOSE 3000
 

@@ -8,17 +8,12 @@ module ApplicationHelper
     end
   end
 
-  def active_link?(path, path_controller = nil)
-    if path_controller.present?
-      controller_path == path_controller
-    else
-      current_page?(path)
-    end
+  def active_path?(path)
+    path.match?(controller_name)
   end
 
-  def nav_link(text, path, path_controller = nil)
-    active = active_link?(path, path_controller)
-    link_to text, path, class: "nav-link#{' active' if active}"
+  def nav_link(text, icon, path)
+    link_to fa_icon(icon, text: text), path, class: "nav-link#{' bold' if active_path?(path)}"
   end
 
   def safe_image_tag(src, options = {})
@@ -69,6 +64,28 @@ module ApplicationHelper
 
   def fa_check(condition, text = true)
     condition ? fa_icon('check', text: (t('general.yes').capitalize() if text)) : fa_icon('times', text: (t('general.no').capitalize() if text))
+  end
+
+  def generic_sprite(collection, collectable)
+    case collection
+    when /(mounts|minions|fashions)/
+      sprite(collectable, "#{collection}-small")
+    when 'spells'
+      content_tag :div, class: 'spell-sprite' do
+        sprite(collectable, :spell)
+      end
+    when 'hairstyles'
+      hairstyle_sample_image(collectable)
+    when 'orchestrions'
+      image_tag('orchestrion.png')
+    else
+      sprite(collectable, collection.singularize)
+    end
+  end
+
+  def gender_symbol(gender)
+    return nil unless gender.present?
+    fa_icon(gender == 'male' ? 'mars' : 'venus', data: { toggle: 'tooltip', title: "#{gender.capitalize} Only" })
   end
 
   def generic_sprite(collection, collectable)

@@ -2,13 +2,17 @@
 <% description("#{@profile.name} (#{@profile.server})") %>
 <% image(@profile.avatar) %>
 
-<%= render 'statistics_profile' %>
+<div class="row">
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <%= render 'statistics_profile' %>
 
-<div class="text-center">
-  <div class="btn-group">
-    <%= button_tag t('general.most_recent'), class: 'btn btn-secondary active', disabled: true %>
-    <%= link_to t('general.most_rare'), stats_rarity_character_path(@profile), class: 'btn btn-secondary' %>
+    <div class="text-center">
+      <div class="btn-group">
+        <%= button_tag t('general.most_recent'), class: 'btn btn-secondary active', disabled: true %>
+        <%= link_to t('general.most_rare'), stats_rarity_character_path(@profile), class: 'btn btn-secondary' %>
+      </div>
+    </div>
+
+    <%= render 'statistics' %>
   </div>
 </div>
-
-<%= render 'statistics' %>

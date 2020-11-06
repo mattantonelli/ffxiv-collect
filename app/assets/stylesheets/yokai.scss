@@ -2,6 +2,12 @@
   opacity: 0.3;
 }
 
+.d-flex.yokai {
+  @media(min-width: 1325px) {
+    justify-content: space-around;
+  }
+}
+
 table.yokai {
   th, td {
     text-align: center;

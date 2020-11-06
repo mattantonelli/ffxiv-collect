@@ -110,8 +110,8 @@ GEM
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.12.2)
-    font-awesome-rails (4.7.0.5)
-      railties (>= 3.2, < 6.1)
+    font_awesome5_rails (1.3.0)
+      railties (>= 4.2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
@@ -342,7 +342,7 @@ DEPENDENCIES
   clipboard-rails
   coffee-rails (~> 4.2)
   devise
-  font-awesome-rails
+  font_awesome5_rails
   i18n-js (~> 3.8)
   i18n_yaml_sorter
   jbuilder (~> 2.5)
@@ -386,4 +386,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.17.3
+   1.16.4

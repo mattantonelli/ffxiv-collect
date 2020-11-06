@@ -66,8 +66,9 @@ de:
     apply_filters: 'Filter anwenden'
     arcana_stones: "Arkana-Steine"
     armoire:
-      one: "Rüstung"
-      other: "Rüstungen"
+      one: "Ausrüstung"
+      other: "Ausrüstungen"
+    armor: "Rüstung"
     aspect: "Element"
     atk: "ATT"
     audio_sample: "Musikvorschau"

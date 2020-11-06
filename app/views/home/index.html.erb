@@ -1,39 +1,43 @@
-<div class="jumbotron py-4 mb-3">
-  <h1 class="display-4">FFXIV Collect</h1>
-  <p class="lead"><%= t('home.subtile') %></p>
-  <hr class="my-4">
-  <h5><%= t('home.headline_one') %></h5>
-  <p>
-    <%= t('home.text_one') %>
-  </p>
-  <h5><%= t('home.headline_two') %></h5>
-  <p>
-    <%= t('home.text_two') %>
-  </p>
-  <h5><%= t('home.headline_three') %></h5>
-  <p>
-    <%= t('home.text_three_html', link: (link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank')) %>
-  </p>
-  <div class="mt-4 text-center">
-    <%= link_to t('home.discuss_on_discord'), 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
-    <%= link_to t('home.support_on_patreon'), 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
-  </div>
-</div>
 <div class="row">
-  <div class="col-12">
-    <div class="card">
-      <h5 class="card-header">API</h5>
-      <div class="card-body">
-        <p>
-          <%= t('home.api_description_html',link: (link_to 'Wiki', 'https://github.com/mattantonelli/ffxiv-collect/wiki', target: '_blank')) %>.
-        </p>
-        <b>GET <%= link_to nil, api_mount_url(186), class: 'unstyled' %></b>
-        <%= render 'api_sample' %>
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="jumbotron py-4 mb-3">
+      <h1 class="display-4">FFXIV Collect</h1>
+      <p class="lead"><%= t('home.subtile') %></p>
+      <hr class="my-4">
+      <h5><%= t('home.headline_one') %></h5>
+      <p>
+        <%= t('home.text_one') %>
+      </p>
+      <h5><%= t('home.headline_two') %></h5>
+      <p>
+        <%= t('home.text_two') %>
+      </p>
+      <h5><%= t('home.headline_three') %></h5>
+      <p>
+        <%= t('home.text_three_html', link: (link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank')) %>
+      </p>
+      <div class="mt-4 text-center">
+        <%= link_to t('home.discuss_on_discord'), 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
+        <%= link_to t('home.support_on_patreon'), 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <h5 class="card-header">API</h5>
+          <div class="card-body">
+            <p>
+              <%= t('home.api_description_html',link: (link_to 'Wiki', 'https://github.com/mattantonelli/ffxiv-collect/wiki', target: '_blank')) %>.
+            </p>
+            <b>GET <%= link_to nil, api_mount_url(186), class: 'unstyled' %></b>
+            <%= render 'api_sample' %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="text-right mt-2">
+      FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.<br>
+      FINAL FANTASY XIV © SQUARE ENIX CO., LTD.
+    </p>
   </div>
 </div>
-<p class="text-right mt-2">
-  FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.<br>
-  FINAL FANTASY XIV © SQUARE ENIX CO., LTD.
-</p>
