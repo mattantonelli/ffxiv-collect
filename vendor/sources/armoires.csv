@@ -1,68 +1,143 @@
-Ninja Kyahan,Quest,"Tough Guys"
-Ninja Tekko,Quest,"Tough Guys"
-Ninja Hakama,Quest,"Tough Guys"
-Ninja Chainmail,Quest,"Master and Student"
-Ninja Hatsuburi,Quest,"Tough Guys"
-Halcyon Rod,Quest,"So Long, and Thanks for All the Fish"
-Rauni,Quest,"Seeds of Hope"
-Mammon,Quest,"Canyon of Regret"
-Chantico,Quest,"Revenge of the Chefsbane"
-Paracelsus,Quest,"Momentary Miracle"
-Clotho,Quest,"A Miner Reborn"
-Pinga,Quest,"Accept No Imitations"
-Urcaguary,Quest,"Jaded"
-Kurdalegon,Quest,"Rivalry and Respect"
-Vulcan,Quest,"Waiting in the Winglet"
-Ullikummi,Quest,"Saving Captain Gairhard"
-Scholar's Boots,Quest,"In the Image of the Ancients"
-Scholar's Gloves,Quest,"In the Image of the Ancients"
-Scholar's Culottes,Quest,"In the Image of the Ancients"
-Scholar's Gown,Quest,"The Beast Within"
-Scholar's Mortarboard,Quest,"In the Image of the Ancients"
-Evoker's Thighboots,Quest,"Allagan Attire"
-Evoker's Ringbands,Quest,"Allagan Attire"
-Evoker's Waistclout,Quest,"Allagan Attire"
-Evoker's Doublet,Quest,"Primal Burdens"
-Evoker's Horn,Quest,"Allagan Attire"
-Wizard's Crakows,Quest,"The Blood Must Flow"
-Wizard's Gloves,Quest,"The Blood Must Flow"
-Wizard's Tonban,Quest,"The Blood Must Flow"
-Wizard's Coat,Quest,"Always Bet on Black"
-Wizard's Petasos,Quest,"The Blood Must Flow"
-Healer's Boots,Quest,"Following in His Footsteps"
-Healer's Gloves,Quest,"Following in His Footsteps"
-Healer's Culottes,Quest,"Following in His Footsteps"
-Healer's Robe,Quest,"Heart of the Forest"
-Healer's Circlet,Quest,"Following in His Footsteps"
-Choral Sandals,Quest,"Pieces of the Past"
-Choral Ringbands,Quest,"Pieces of the Past"
-Choral Tights,Quest,"Pieces of the Past"
-Choral Shirt,Quest,"Requiem for the Fallen"
-Choral Chapeau,Quest,"Pieces of the Past"
-Drachen Greaves,Quest,"Double Dragoon"
-Drachen Gauntlets,Quest,"Double Dragoon"
-Drachen Breeches,Quest,"Double Dragoon"
-Drachen Mail,Quest,"Into the Dragon's Maw"
-Drachen Armet,Quest,"Double Dragoon"
-Fighter's Jackboots,Quest,"Looking the Part"
-Fighter's Gauntlets,Quest,"Looking the Part"
-Fighter's Breeches,Quest,"Looking the Part"
-Fighter's Cuirass,Quest,"How to Quit You"
-Fighter's Burgeonet,Quest,"Looking the Part"
-Temple Boots,Quest,"Good Vibrations"
-Temple Gloves,Quest,"Good Vibrations"
-Temple Gaskins,Quest,"Good Vibrations"
-Temple Cyclas,Quest,"Five Easy Pieces"
-Temple Circlet,Quest,"Good Vibrations"
-Gallant Sollerets,Quest,"Poisoned Hearts"
-Gallant Gauntlets,Quest,"Poisoned Hearts"
-Gallant Cuisses,Quest,"Poisoned Hearts"
-Gallant Surcoat,Quest,"Keeping the Oath"
-Gallant Coronet,Quest,"Poisoned Hearts"
+Bozjan Earring,Achievement,Lost And Found IV
+Glaives Of The Dark Princess,Event,Yo-kai Watch Collaboration
+Gunblade Of The Yo-kai King,Event,Yo-kai Watch Collaboration
+Rapier Of The Serpent Lord,Event,Yo-kai Watch Collaboration
+Katana Of The King's Counsel,Event,Yo-kai Watch Collaboration
+Summer's Flame Sandals,Event,Moonfire Faire (2020)
+Summer's Flame Pareo,Event,Moonfire Faire (2020)
+Summer's Flame Wrist Torque,Event,Moonfire Faire (2020)
+Summer's Flame Top,Event,Moonfire Faire (2020)
+Summer's Flame Hat,Event,Moonfire Faire (2020)
+Kupo Crown,Achievement,Let Luck Be A Moogle I
+Dapper Rabbit Suit,Event,Hatching-tide (2020)
+Rabbit Suit,Event,Hatching-tide (2020)
+Rabbit Head,Event,Hatching-tide (2020)
+Princess's Peach Corsage,Event,Little Ladies' Day (2020)
+Seneschal's Monocle,Event,Little Ladies' Day (2020)
+Valentione Acacia Heels,Event,Valentione's Day (2020)
+Valentione Acacia Tights,Event,Valentione's Day (2020)
+Valentione Acacia Ribboned Gloves,Event,Valentione's Day (2020)
+Valentione Acacia Dress,Event,Valentione's Day (2020)
+Valentione Acacia Ribboned Hat,Event,Valentione's Day (2020)
+Valentione Forget-me-not Heels,Event,Valentione's Day (2020)
+Valentione Forget-me-not Tights,Event,Valentione's Day (2020)
+Valentione Forget-me-not Ribboned Gloves,Event,Valentione's Day (2020)
+Valentione Forget-me-not Dress,Event,Valentione's Day (2020)
+Valentione Forget-me-not Ribboned Hat,Event,Valentione's Day (2020)
+Valentione Rose Heels,Event,Valentione's Day (2020)
+Valentione Rose Tights,Event,Valentione's Day (2020)
+Valentione Rose Ribboned Gloves,Event,Valentione's Day (2020)
+Valentione Rose Dress,Event,Valentione's Day (2020)
+Valentione Rose Ribboned Hat,Event,Valentione's Day (2020)
+Valentione Acacia Shoes,Event,Valentione's Day (2020)
+Valentione Acacia Slacks,Event,Valentione's Day (2020)
+Valentione Acacia Gloves,Event,Valentione's Day (2020)
+Valentione Acacia Waistcoat,Event,Valentione's Day (2020)
+Valentione Acacia Hat,Event,Valentione's Day (2020)
+Valentione Forget-me-not Shoes,Event,Valentione's Day (2020)
+Valentione Forget-me-not Slacks,Event,Valentione's Day (2020)
+Valentione Forget-me-not Gloves,Event,Valentione's Day (2020)
+Valentione Forget-me-not Waistcoat,Event,Valentione's Day (2020)
+Valentione Forget-me-not Hat,Event,Valentione's Day (2020)
+Valentione Rose Shoes,Event,Valentione's Day (2020)
+Valentione Rose Slacks,Event,Valentione's Day (2020)
+Valentione Rose Gloves,Event,Valentione's Day (2020)
+Valentione Rose Waistcoat,Event,Valentione's Day (2020)
+Valentione Rose Hat,Event,Valentione's Day (2020)
+Cobalt Nezumi Kabuto,Event,Heavensturn (2020)
+Crimson Nezumi Kabuto,Event,Heavensturn (2020)
+Revolver,Premium,Shadowbringers Collector's Edition
+Ribbon,Achievement,Jonathas - Old Gridania - 2 Achievement Certificates
+Moonfire Tabi,Event,Moonfire Faire (2019)
+Moonfire Tabi,Premium,Mog Station
+Black Moonfire Happi,Event,Moonfire Faire (2019)
+Black Moonfire Happi,Premium,Mog Station
+Red Moonfire Happi,Event,Moonfire Faire (2019)
+Red Moonfire Happi,Premium,Mog Station
+White Moonfire Happi,Event,Moonfire Faire (2019)
+White Moonfire Happi,Premium,Mog Station
+Painted Namazu Mask,Event,Moonfire Faire (2019)
+Painted Namazu Mask,Premium,Mog Station
+Black Painted Moogle Mask,Event,Moonfire Faire (2019)
+Black Painted Moogle Mask,Premium,Mog Station
+White Painted Moogle Mask,Event,Moonfire Faire (2019)
+White Painted Moogle Mask,Premium,Mog Station
+Moonfire Hachimaki,Event,Moonfire Faire (2019)
+Moonfire Hachimaki,Premium,Mog Station
+Lucian Prince's Boots,Event,Final Fantasy XV Collaboration
+Lucian Prince's Bottoms,Event,Final Fantasy XV Collaboration
+Lucian Prince's Fingerless Glove,Event,Final Fantasy XV Collaboration
+Lucian Prince's Jacket,Event,Final Fantasy XV Collaboration
+Aetheryte Earring,Premium,Shadowbringers Pre-order
 Spriggan Boots,Event,Hatching-tide (2019)
 Spriggan Bottoms,Event,Hatching-tide (2019)
 Spriggan Jacket,Event,Hatching-tide (2019)
+Tonberry Knife,Event,Valentione's Day (2019)
+Tonberry Knife,Premium,Mog Station
+Gigas Greatsword,Event,Valentione's Day (2019)
+Gigas Greatsword,Premium,Mog Station
 Flower Crown,Event,Little Ladies' Day (2019)
+Flower Crown,Premium,Mog Station
+Matoya's Hat,Premium,Item code included with Encyclopaedia Eorzea II
+Crimson Inoshishi Kabuto,Event,Heavensturn (2019)
+Crimson Inoshishi Kabuto,Premium,Mog Station
+Inoshishi Kabuto,Event,Heavensturn (2019)
+Inoshishi Kabuto,Premium,Mog Station
+Choir Shoes,Event,Starlight Celebration (2018)
+Choir Robe,Event,Starlight Celebration (2018)
+Choir Hat,Event,Starlight Celebration (2018)
+Endless Summer Sandals,Event,Moonfire Faire (2018)
+Endless Summer Bottom,Event,Moonfire Faire (2018)
+Endless Summer Top,Event,Moonfire Faire (2018)
+Endless Summer Glasses,Event,Moonfire Faire (2018)
+Black Inu Kabuto,Event,Heavensturn (2018)
+Black Inu Kabuto,Premium,Mog Station
+White Inu Kabuto,Event,Heavensturn (2018)
+White Inu Kabuto,Premium,Mog Station
+Werewolf Legs,Event,All Saints' Wake (2017)
+Werewolf Legs,Premium,Mog Station
+Werewolf Feet,Event,All Saints' Wake (2017)
+Werewolf Feet,Premium,Mog Station
+Werewolf Bottoms,Event,All Saints' Wake (2017)
+Werewolf Bottoms,Premium,Mog Station
+Werewolf Arms,Event,All Saints' Wake (2017)
+Werewolf Arms,Premium,Mog Station
+Werewolf Body,Event,All Saints' Wake (2017)
+Werewolf Body,Premium,Mog Station
+Werewolf Head,Event,All Saints' Wake (2017)
+Werewolf Head,Premium,Mog Station
+Faire Zori,Event,Moonfire Faire (2017)
+Faire Zori,Premium,Mog Station
+Faire Kohakama,Event,Moonfire Faire (2017)
+Faire Kohakama,Premium,Mog Station
+Faire Joi,Event,Moonfire Faire (2017)
+Faire Joi,Premium,Mog Station
+Ala Mhigan Earrings,Premium,Stormblood Pre-order
+Chicken Knife,Premium,Stormblood Collector's Edition
+High Summoner's Boots,Premium,Fan Festival 2016-17
+High Summoner's Boots,Premium,Mog Station
+High Summoner's Armlets,Premium,Fan Festival 2016-17
+High Summoner's Armlets,Premium,Mog Station
+High Summoner's Dress,Premium,Fan Festival 2016-17
+High Summoner's Dress,Premium,Mog Station
+Abes Boots,Premium,Fan Festival 2016-17
+Abes Boots,Premium,Mog Station
+Abes Halfslops,Premium,Fan Festival 2016-17
+Abes Halfslops,Premium,Mog Station
+Abes Gloves,Premium,Fan Festival 2016-17
+Abes Gloves,Premium,Mog Station
+Abes Jacket,Premium,Fan Festival 2016-17
+Abes Jacket,Premium,Mog Station
+Leonhart Boots,Other,Veteran Reward
+Leonhart Bottoms,Other,Veteran Reward
+Leonhart Gloves,Other,Veteran Reward
+Leonhart Jacket,Other,Veteran Reward
+Eastern Journey Shoes,Limited,In-Game Item Campaign
+Eastern Journey Bottoms,Limited,In-Game Item Campaign
+Eastern Journey Armlets,Limited,In-Game Item Campaign
+Eastern Journey Jacket,Limited,In-Game Item Campaign
+Eastern Journey Circlet,Limited,In-Game Item Campaign
+Eastern Journey Battle Staff,Limited,In-Game Item Campaign
 Songbird Boots,Event,Little Ladies' Day (2017)
 Songbird Boots,Premium,Mog Station
 Royal Seneschal's Boots,Event,Little Ladies' Day (2017)
@@ -83,56 +158,29 @@ Songbird Hat,Event,Little Ladies' Day (2017)
 Songbird Hat,Premium,Mog Station
 Royal Seneschal's Chapeau,Event,Little Ladies' Day (2017)
 Royal Seneschal's Chapeau,Premium,Mog Station
-Little Lady's Clogs,Event,Little Ladies' Day (2016)
-Little Lady's Clogs,Premium,Mog Station
-Little Lord's Clogs,Event,Little Ladies' Day (2016)
-Little Lord's Clogs,Premium,Mog Station
-Lady's Suikan,Event,Little Ladies' Day (2016)
-Lady's Suikan,Premium,Mog Station
-Lord's Suikan,Event,Little Ladies' Day (2016)
-Lord's Suikan,Premium,Mog Station
-Vibrant Egg Earrings,Event,Hatching-tide (2015)
-Vibrant Egg Earrings,Premium,Mog Station
-Brilliant Egg Earrings,Event,Hatching-tide (2015)
-Brilliant Egg Earrings,Premium,Mog Station
-Midnight Egg Earrings,Event,Hatching-tide (2015)
-Midnight Egg Earrings,Premium,Mog Station
-Egg Earrings,Event,Hatching-tide (2015)
-Egg Earrings,Premium,Mog Station
-Peach Blossom Choker,Event,Little Ladies' Day (2015)
-Peach Blossom Choker,Premium,Mog Station
-Chocobo Egg Ring,Event,Hatching-tide (2014)
-Chocobo Egg Ring,Premium,Mog Station
-Midnight Egg Ring,Event,Hatching-tide (2014)
-Midnight Egg Ring,Premium,Mog Station
-Brilliant Egg Ring,Event,Hatching-tide (2014)
-Brilliant Egg Ring,Premium,Mog Station
-Vibrant Egg Ring,Event,Hatching-tide (2014)
-Vibrant Egg Ring,Premium,Mog Station
-Pristine Egg Ring,Event,Hatching-tide (2014)
-Pristine Egg Ring,Premium,Mog Station
-Chocobo Egg Cap,Event,Hatching-tide (2014)
-Chocobo Egg Cap,Premium,Mog Station
-Midnight Egg Cap,Event,Hatching-tide (2014)
-Midnight Egg Cap,Premium,Mog Station
-Brilliant Egg Cap,Event,Hatching-tide (2014)
-Brilliant Egg Cap,Premium,Mog Station
-Vibrant Egg Cap,Event,Hatching-tide (2014)
-Vibrant Egg Cap,Premium,Mog Station
-Pristine Egg Cap,Event,Hatching-tide (2014)
-Pristine Egg Cap,Premium,Mog Station
-Peach Blossoms,Event,Little Ladies' Day (2014)
-Peach Blossoms,Premium,Mog Station
-Endless Summer Sandals,Event,Moonfire Faire (2018)
-Endless Summer Bottom,Event,Moonfire Faire (2018)
-Endless Summer Top,Event,Moonfire Faire (2018)
-Endless Summer Glasses,Event,Moonfire Faire (2018)
-Faire Zori,Event,Moonfire Faire (2017)
-Faire Zori,Premium,Mog Station
-Faire Kohakama,Event,Moonfire Faire (2017)
-Faire Kohakama,Premium,Mog Station
-Faire Joi,Event,Moonfire Faire (2017)
-Faire Joi,Premium,Mog Station
+Starlight Robe,Event,Starlight Celebration (2016)
+Starlight Robe,Premium,Mog Station
+Black Tori Kabuto,Event,Heavensturn (2017)
+Black Tori Kabuto,Premium,Mog Station
+Red Tori Kabuto,Event,Heavensturn (2017)
+Red Tori Kabuto,Premium,Mog Station
+Vampire's Vest,Event,All Saints' Wake (2016)
+Vampire's Vest,Premium,Mog Station
+Globe Of The Lucky Snake,Event,Yo-kai Watch Collaboration
+Codex Of The Shrine Guardian,Event,Yo-kai Watch Collaboration
+Book Of The Eerie Mutt,Event,Yo-kai Watch Collaboration
+Staff Of The Snow Maiden,Event,Yo-kai Watch Collaboration
+Cane Of The Shrine Guardian,Event,Yo-kai Watch Collaboration
+Musket Of The Metal Cat,Event,Yo-kai Watch Collaboration
+Fang Of The Fearless Cat,Event,Yo-kai Watch Collaboration
+Twintails Of The Flame Fox,Event,Yo-kai Watch Collaboration
+Bow Of The White Wisp,Event,Yo-kai Watch Collaboration
+Spear Of The Spark Serpent,Event,Yo-kai Watch Collaboration
+Paw Of The Crimson Cat,Event,Yo-kai Watch Collaboration
+Ears Of The Moon Rabbit,Event,Yo-kai Watch Collaboration
+Buckler Of The Legendary Cat,Event,Yo-kai Watch Collaboration
+Whisker Of The Brave Cat,Event,Yo-kai Watch Collaboration
+Yo-kai Watch,Event,Yo-kai Watch Collaboration
 Legacy Warrior Sabatons,Event,Moonfire Faire (2016)
 Legacy Warrior Sabatons,Premium,Mog Station
 Legacy Warrior Breeches,Event,Moonfire Faire (2016)
@@ -143,6 +191,71 @@ Legacy Warrior Mail,Event,Moonfire Faire (2016)
 Legacy Warrior Mail,Premium,Mog Station
 Legacy Warrior Coronet,Event,Moonfire Faire (2016)
 Legacy Warrior Coronet,Premium,Mog Station
+Cait Sith Ears,Premium,Item code included with Cait Sith Doll Plushie
+Hatchling Earring,Limited,Itinerant Moogle
+Dragon Monocle,Achievement,I Hope Mentor Will Notice Me V
+Tantalus Boots,Other,Veteran Reward
+Tantalus Breeches,Other,Veteran Reward
+Tantalus Cuffs,Other,Veteran Reward
+Tantalus Vest,Other,Veteran Reward
+Butler's Gaiters,Limited,In-Game Item Campaign
+Butler's Slacks,Limited,In-Game Item Campaign
+Butler's Gloves,Limited,In-Game Item Campaign
+Butler's Jacket,Limited,In-Game Item Campaign
+Butler's Monocle,Limited,In-Game Item Campaign
+Housemaid's Pumps,Limited,In-Game Item Campaign
+Housemaid's Bloomers,Limited,In-Game Item Campaign
+Housemaid's Wristdresses,Limited,In-Game Item Campaign
+Housemaid's Apron Dress,Limited,In-Game Item Campaign
+Housemaid's Brim,Limited,In-Game Item Campaign
+Crag Mask,Limited,In-Game Item Campaign
+Inferno Mask,Limited,In-Game Item Campaign
+Expeditioner's Flyers,Achievement,I Hope Mentor Will Notice Me III
+Paramour's Earrings,Event,Valentione's Day (2016)
+Paramour's Earrings,Premium,Mog Station
+Platinum Paramour's Earrings,Event,Valentione's Day (2016)
+Platinum Paramour's Earrings,Premium,Mog Station
+Red-feathered Flat Hat,Event,Valentione's Day (2016)
+Red-feathered Flat Hat,Premium,Mog Station
+Black-feathered Flat Hat,Event,Valentione's Day (2016)
+Black-feathered Flat Hat,Premium,Mog Station
+Little Lady's Clogs,Event,Little Ladies' Day (2016)
+Little Lady's Clogs,Premium,Mog Station
+Little Lord's Clogs,Event,Little Ladies' Day (2016)
+Little Lord's Clogs,Premium,Mog Station
+Lady's Suikan,Event,Little Ladies' Day (2016)
+Lady's Suikan,Premium,Mog Station
+Lord's Suikan,Event,Little Ladies' Day (2016)
+Lord's Suikan,Premium,Mog Station
+Amatsu Sune-ate,Event,Final Fantasy XI Collaboration
+Amatsu Haidate,Event,Final Fantasy XI Collaboration
+Amatsu Tekko,Event,Final Fantasy XI Collaboration
+Amatsu Togi,Event,Final Fantasy XI Collaboration
+Amatsu Hachigane,Event,Final Fantasy XI Collaboration
+Saint's Beard,Event,Starlight Celebration (2015)
+Saint's Beard,Premium,Mog Station
+Saint's Cap,Event,Starlight Celebration (2015)
+Saint's Cap,Premium,Mog Station
+Reindeer Hooves,Event,Starlight Celebration (2015)
+Reindeer Hooves,Premium,Mog Station
+Reindeer Gloves,Event,Starlight Celebration (2015)
+Reindeer Gloves,Premium,Mog Station
+Reindeer Antler Headband,Event,Starlight Celebration (2015)
+Reindeer Antler Headband,Premium,Mog Station
+Hear No Helm,Event,Heavensturn (2016)
+Hear No Helm,Premium,Mog Station
+Speak No Helm,Event,Heavensturn (2016)
+Speak No Helm,Premium,Mog Station
+See No Helm,Event,Heavensturn (2016)
+See No Helm,Premium,Mog Station
+Witch's Thighboots,Event,All Saints' Wake (2015)
+Witch's Thighboots,Premium,Mog Station
+Witch's Gloves,Event,All Saints' Wake (2015)
+Witch's Gloves,Premium,Mog Station
+Witch's Coatee,Event,All Saints' Wake (2015)
+Witch's Coatee,Premium,Mog Station
+Witch's Hat,Event,All Saints' Wake (2015)
+Witch's Hat,Premium,Mog Station
 Striped Southern Seas Swimsuit,Event,Moonfire Faire (2015)
 Striped Southern Seas Swimsuit,Premium,Mog Station
 Striped Southern Seas Vest,Event,Moonfire Faire (2015)
@@ -155,6 +268,84 @@ Southern Seas Swimsuit,Event,Moonfire Faire (2015)
 Southern Seas Swimsuit,Premium,Mog Station
 Southern Seas Vest,Event,Moonfire Faire (2015)
 Southern Seas Vest,Premium,Mog Station
+Field Commander's Boots,Achievement,Between A Rock And A Hard Place II
+Field Commander's Slops,Achievement,Between A Rock And A Hard Place IV
+Field Commander's Gloves,Achievement,Between A Rock And A Hard Place III
+Field Commander's Coat,Achievement,Between A Rock And A Hard Place V
+Field Commander's Helm,Achievement,Between A Rock And A Hard Place I
+Baron Earrings,Premium,Heavensward Pre-order
+Baron Circlet,Premium,Heavensward Pre-order
+Baron Helm,Premium,Heavensward Collector's Edition
+Wild Rose Boots,Other,Veteran Reward
+Wild Rose Breeches,Other,Veteran Reward
+Wild Rose Armguards,Other,Veteran Reward
+Wild Rose Cuirass,Other,Veteran Reward
+Wild Rose Bandana,Other,Veteran Reward
+Vibrant Egg Earrings,Event,Hatching-tide (2015)
+Vibrant Egg Earrings,Premium,Mog Station
+Brilliant Egg Earrings,Event,Hatching-tide (2015)
+Brilliant Egg Earrings,Premium,Mog Station
+Midnight Egg Earrings,Event,Hatching-tide (2015)
+Midnight Egg Earrings,Premium,Mog Station
+Egg Earrings,Event,Hatching-tide (2015)
+Egg Earrings,Premium,Mog Station
+Strife Boots,Other,Veteran Reward
+Strife Bags,Other,Veteran Reward
+Strife Gloves,Other,Veteran Reward
+Strife Vest,Other,Veteran Reward
+Racing Chocobo Mask,Achievement,Pedigree Champ
+Peach Blossom Choker,Event,Little Ladies' Day (2015)
+Peach Blossom Choker,Premium,Mog Station
+False Mustache,Event,Starlight Celebration (2014)
+False Mustache,Premium,Mog Station
+Starlight Boots,Event,Starlight Celebration (2014)
+Starlight Boots,Premium,Mog Station
+Starlight Tights,Event,Starlight Celebration (2014)
+Starlight Tights,Premium,Mog Station
+Starlight Tunic,Event,Starlight Celebration (2014)
+Starlight Tunic,Premium,Mog Station
+Starlight Sugarloaf Hat,Event,Starlight Celebration (2014)
+Starlight Sugarloaf Hat,Premium,Mog Station
+White Hitsuji Kabuto,Event,Heavensturn (2015)
+White Hitsuji Kabuto,Premium,Mog Station
+Crimson Hitsuji Kabuto,Event,Heavensturn (2015)
+Crimson Hitsuji Kabuto,Premium,Mog Station
+Black Hitsuji Kabuto,Event,Heavensturn (2015)
+Black Hitsuji Kabuto,Premium,Mog Station
+Hitsuji Kabuto,Event,Heavensturn (2015)
+Hitsuji Kabuto,Premium,Mog Station
+Fat Chocobo Head,Achievement,Jonathas - Old Gridania - 1 Achievement Certificate
+Master Rogue's Ring,Achievement,Bump On A Log: Rogue
+Ironworks Fishing Rod,Achievement,Go Big Or Go Home X
+The Best Gown Ever,Achievement,Leaving A Better Impression I
+Ninja Kyahan,Quest,Tough Guys
+Ninja Tekko,Quest,Tough Guys
+Ninja Hakama,Quest,Tough Guys
+Ninja Chainmail,Quest,Master And Student
+Ninja Hatsuburi,Quest,Tough Guys
+Moogle Legs,Premium,Fan Festival 2014
+Moogle Legs,Premium,Mog Station
+Moogle Buns,Premium,Fan Festival 2014
+Moogle Buns,Premium,Mog Station
+Moogle Arms,Premium,Fan Festival 2014
+Moogle Arms,Premium,Mog Station
+Moogle Body,Premium,Fan Festival 2014
+Moogle Body,Premium,Mog Station
+Moogle Head,Premium,Fan Festival 2014
+Moogle Head,Premium,Mog Station
+Pumpkin Earrings,Event,All Saints' Wake (2014)
+Pumpkin Earrings,Premium,Mog Station
+Eerie Crakows,Event,All Saints' Wake (2014)
+Eerie Crakows,Premium,Mog Station
+Eerie Tights,Event,All Saints' Wake (2014)
+Eerie Tights,Premium,Mog Station
+Eerie Robe,Event,All Saints' Wake (2014)
+Eerie Robe,Premium,Mog Station
+Eerie Hat,Event,All Saints' Wake (2014)
+Eerie Hat,Premium,Mog Station
+King Slime Crown,Event,Dragon Quest X Collaboration
+Goobbue Earring,Limited,Itinerant Moogle
+Dodo Earring,Limited,Itinerant Moogle
 Lady's Yukata (Pinkfly),Event,Moonfire Faire (2014)
 Lady's Yukata (Pinkfly),Premium,Mog Station
 Lady's Yukata (Bluefly),Event,Moonfire Faire (2014)
@@ -167,6 +358,182 @@ Lord's Yukata (Whiteflame),Event,Moonfire Faire (2014)
 Lord's Yukata (Whiteflame),Premium,Mog Station
 Lord's Yukata (Blackflame),Event,Moonfire Faire (2014)
 Lord's Yukata (Blackflame),Premium,Mog Station
+Goblin Cap,Achievement,Jonathas - Old Gridania - 1 Achievement Certificate
+Snowman Mitts,Event,Starlight Celebration (2013)
+Snowman Mitts,Premium,Mog Station
+Snowman Suit,Event,Starlight Celebration (2013)
+Snowman Suit,Premium,Mog Station
+Snowman Head,Event,Starlight Celebration (2013)
+Snowman Head,Premium,Mog Station
+Valentione Pattens,Event,Valentione's Day (2014)
+Valentione Pattens,Premium,Mog Station
+Valentione Skirt,Event,Valentione's Day (2014)
+Valentione Skirt,Premium,Mog Station
+Valentione Trousers,Event,Valentione's Day (2014)
+Valentione Trousers,Premium,Mog Station
+Valentione Mitts,Event,Valentione's Day (2014)
+Valentione Mitts,Premium,Mog Station
+Valentione Apron Dress,Event,Valentione's Day (2014)
+Valentione Apron Dress,Premium,Mog Station
+Valentione Apron,Event,Valentione's Day (2014)
+Valentione Apron,Premium,Mog Station
+Valentione Hat,Event,Valentione's Day (2014)
+Valentione Hat,Premium,Mog Station
+Black Uma Kabuto,Event,Heavensturn (2014)
+Black Uma Kabuto,Premium,Mog Station
+Golden Uma Kabuto,Event,Heavensturn (2014)
+Golden Uma Kabuto,Premium,Mog Station
+Crimson Uma Kabuto,Event,Heavensturn (2014)
+Crimson Uma Kabuto,Premium,Mog Station
+Uma Kabuto,Event,Heavensturn (2014)
+Uma Kabuto,Premium,Mog Station
+Guardian Corps Boots,Event,Final Fantasy XIII Collaboration
+Guardian Corps Boots,Premium,Mog Station
+Guardian Corps Skirt,Event,Final Fantasy XIII Collaboration
+Guardian Corps Skirt,Premium,Mog Station
+Guardian Corps Gauntlets,Event,Final Fantasy XIII Collaboration
+Guardian Corps Gauntlets,Premium,Mog Station
+Guardian Corps Coat,Event,Final Fantasy XIII Collaboration
+Guardian Corps Coat,Premium,Mog Station
+Bohemian's Boots,Event,Final Fantasy XIII Collaboration
+Bohemian's Boots,Premium,Mog Station
+Bohemian's Trousers,Event,Final Fantasy XIII Collaboration
+Bohemian's Trousers,Premium,Mog Station
+Bohemian's Gloves,Event,Final Fantasy XIII Collaboration
+Bohemian's Gloves,Premium,Mog Station
+Bohemian's Coat,Event,Final Fantasy XIII Collaboration
+Bohemian's Coat,Premium,Mog Station
+Grimoire Wing,Event,Final Fantasy XIII Collaboration
+Grimoire Wing,Premium,Mog Station
+Mog's Staff,Event,Final Fantasy XIII Collaboration
+Mog's Staff,Premium,Mog Station
+Binding Rod,Event,Final Fantasy XIII Collaboration
+Binding Rod,Premium,Mog Station
+Starseeker,Event,Final Fantasy XIII Collaboration
+Starseeker,Premium,Mog Station
+Bladed Lance,Event,Final Fantasy XIII Collaboration
+Bladed Lance,Premium,Mog Station
+L'Cie Bardiche,Event,Final Fantasy XIII Collaboration
+L'Cie Bardiche,Premium,Mog Station
+Vega Knuckles,Event,Final Fantasy XIII Collaboration
+Vega Knuckles,Premium,Mog Station
+Blazefire Saber,Event,Final Fantasy XIII Collaboration
+Blazefire Saber,Premium,Mog Station
+Helm Of Light,Premium,A Realm Reborn Collector's Edition
+White Ravens,Limited,The Raven, Nevermore (1.0 Quest)
+White Ravens,Event,The Rising (2018)
+Scarf Of Wondrous Wit,Limited,Itinerant Moogle
+Scarf Of Wondrous Wit,Limited,Community Events reward
+Peregrine Helm,Limited,Ronan Kognan - Gridania - 30 Deaspected Crystals (1.0)
+Peregrine Helm,Venture,Quick Exploration
+Star-spangled Subligar,Limited,The Beast of the Barrel (1.0 Quest)
+Star-spangled Subligar,Quest,Thanks For Your Support
+Woolen Sugarloaf Hat (Red),Limited,Hide and Seek Shenanigans (1.0 Quest)
+Patriot's Choker,Purchase,720 Company Seals
+Black Summer Tanga,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
+Black Summer Halter,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
+Black Summer Trunks,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
+Black Summer Top,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
+Thug's Mug,Event,Dragon Quest X Collaboration
+Slime Earrings,Limited,Itinerant Moogle
+Bomb Earring,Limited,Itinerant Moogle
+Cactuar Earring,Limited,Itinerant Moogle
+Moogle Earrings,Premium,Item code included with Final Fantasy 25th Anniversary Ultimate Box
+Moogle Cap,Premium,A Realm Reborn Pre-order
+Hermes' Shoes,Limited,Create a character while subscribed to Final Fantasy XI (1.0)
+Asuran Armguards,Premium,Item code included with first printing of Final Fantasy XIII
+Onion Helm,Limited,1.0 Collector's Edition
+Garlond Goggles,Limited,Item code included with first printing of 1.0
+Chocobo Suit,Achievement,Bosom Buddies III
+Chocobo Mask,Limited,Legacy Achievement: Handle with Care III
+Dalamud Horn,Limited,Legacy Achievement: Once in a Lifetime
+Tipping Scales Bracelet,Achievement,The Silver Scales
+Lily And Serpent Bracelet,Achievement,The Ironwood Leaf
+Crimson Standard Bracelet,Achievement,The Turquoise Cannon
+Tipping Scales Ring,Achievement,The Bronze Scales
+Lily And Serpent Ring,Achievement,The Willow Leaf
+Crimson Standard Ring,Achievement,The Jade Mast
+Tipping Scales Earrings,Achievement,The Brass Scales
+Lily And Serpent Earrings,Achievement,The Sycamore Leaf
+Crimson Standard Earrings,Achievement,The Onyx Oars
+Immortal Flames Escutcheon,Achievement,The Mythril Scales
+Twin Adder Escutcheon,Achievement,The Mahogany Leaf
+Maelstrom Escutcheon,Achievement,The Ruby Anchor
+Master Fisher's Ring,Achievement,I Caught That III
+Master Botanist's Ring,Achievement,I Found That: Botanist III
+Master Miner's Ring,Achievement,I Found That: Miner III
+Master Culinarian's Ring,Achievement,I Made That: Culinarian III
+Master Alchemist's Ring,Achievement,I Made That: Alchemist III
+Master Weaver's Ring,Achievement,I Made That: Weaver III
+Master Leatherworker's Ring,Achievement,I Made That: Leatherworker III
+Master Goldsmith's Ring,Achievement,I Made That: Goldsmith III
+Master Armorer's Ring,Achievement,I Made That: Armorer III
+Master Blacksmith's Ring,Achievement,I Made That: Blacksmith III
+Master Carpenter's Ring,Achievement,I Made That: Carpenter III
+Master Arcanist's Ring,Achievement,Bump On A Log: Arcanist
+Master Thaumaturge's Ring,Achievement,Bump On A Log: Thaumaturge
+Master Conjurer's Ring,Achievement,Bump On A Log: Conjurer
+Master Archer's Ring,Achievement,Bump On A Log: Archer
+Master Lancer's Ring,Achievement,Bump On A Log: Lancer
+Master Marauder's Ring,Achievement,Bump On A Log: Marauder
+Master Pugilist's Ring,Achievement,Bump On A Log: Pugilist
+Master Gladiator's Ring,Achievement,Bump On A Log: Gladiator
+Rod Of The Luminary,Achievement,A Fisher's Life For Me: Greater Eorzea
+Axe Of The Luminary,Achievement,A Botanist's Life For Me: Greater Eorzea
+Pick Of The Luminary,Achievement,A Miner's Life For Me: Greater Eorzea
+Pan Of The Luminary,Achievement,A Life Of Cooking
+Alembic Of The Luminary,Achievement,An Alchemist's Life For Me
+Needle Of The Luminary,Achievement,A Weaver's Life For Me
+Knife Of The Luminary,Achievement,A Leatherworker's Life For Me
+Gavel Of The Luminary,Achievement,A Goldsmith's Life For Me
+Mallet Of The Luminary,Achievement,An Armorer's Life For Me
+Hammer Of The Luminary,Achievement,A Blacksmith's Life For Me
+Chocobo Egg Ring,Event,Hatching-tide (2014)
+Chocobo Egg Ring,Premium,Mog Station
+Saw Of The Luminary,Achievement,A Carpenter's Life For Me
+Midnight Egg Ring,Event,Hatching-tide (2014)
+Midnight Egg Ring,Premium,Mog Station
+Brilliant Egg Ring,Event,Hatching-tide (2014)
+Brilliant Egg Ring,Premium,Mog Station
+Partisan's Crown,Achievement,Leaving A Good Impression III
+Vibrant Egg Ring,Event,Hatching-tide (2014)
+Vibrant Egg Ring,Premium,Mog Station
+Warlord's Crown,Achievement,A Life Of Adventure II
+Pristine Egg Ring,Event,Hatching-tide (2014)
+Pristine Egg Ring,Premium,Mog Station
+Gambler's Crown,Achievement,I Got This!
+Chocobo Egg Cap,Event,Hatching-tide (2014)
+Chocobo Egg Cap,Premium,Mog Station
+Paragon's Gown,Achievement,Destiny's Child
+Midnight Egg Cap,Event,Hatching-tide (2014)
+Midnight Egg Cap,Premium,Mog Station
+Paragon's Crown,Achievement,A Life Of Adventure I
+Brilliant Egg Cap,Event,Hatching-tide (2014)
+Brilliant Egg Cap,Premium,Mog Station
+Chronicler's Crown,Achievement,The Greatest Tales Ever Told
+Vibrant Egg Cap,Event,Hatching-tide (2014)
+Vibrant Egg Cap,Premium,Mog Station
+Butcher's Crown,Achievement,Let The Bodies Hit The Floor
+Pristine Egg Cap,Event,Hatching-tide (2014)
+Pristine Egg Cap,Premium,Mog Station
+Reindeer Suit,Event,Starlight Celebration (2013)
+Reindeer Suit,Premium,Mog Station
+Reindeer Antlers,Event,Starlight Celebration (2013)
+Reindeer Antlers,Premium,Mog Station
+The Wailing Spirit,Event,All Saints' Wake (2013)
+The Wailing Spirit,Premium,Mog Station
+The Howling Spirit,Event,All Saints' Wake (2013)
+The Howling Spirit,Premium,Mog Station
+Ripened Pumpkin Head,Event,All Saints' Wake (2013)
+Ripened Pumpkin Head,Premium,Mog Station
+White Pumpkin Head,Event,All Saints' Wake (2013)
+White Pumpkin Head,Premium,Mog Station
+Unripened Pumpkin Head,Event,All Saints' Wake (2013)
+Unripened Pumpkin Head,Premium,Mog Station
+Pumpkin Head,Event,All Saints' Wake (2013)
+Pumpkin Head,Premium,Mog Station
+Moonlet,Event,Hunter's Moon (2011)
+Moonlet,Premium,Mog Station
 Lady's Clogs,Event,Moonfire Faire (2014)
 Lady's Clogs,Premium,Mog Station
 Lord's Clogs,Event,Moonfire Faire (2014)
@@ -223,6 +590,12 @@ Green Summer Trunks,Event,Moonfire Faire (2013)
 Green Summer Trunks,Premium,Mog Station
 Red Summer Trunks,Event,Moonfire Faire (2013)
 Red Summer Trunks,Premium,Mog Station
+Band Of Eternal Passion,Event,Valentione's Day (2014)
+Band Of Eternal Passion,Premium,Mog Station
+Platinum Paramour's Pendant,Event,Valentione's Day (2014)
+Platinum Paramour's Pendant,Premium,Mog Station
+Paramour's Pendant,Event,Valentione's Day (2014)
+Paramour's Pendant,Premium,Mog Station
 Striped Summer Halter,Event,Moonfire Faire (2013)
 Striped Summer Halter,Premium,Mog Station
 Summer Morning Halter,Event,Moonfire Faire (2013)
@@ -251,149 +624,8 @@ Green Summer Top,Event,Moonfire Faire (2013)
 Green Summer Top,Premium,Mog Station
 Red Summer Top,Event,Moonfire Faire (2013)
 Red Summer Top,Premium,Mog Station
-Werewolf Legs,Event,All Saints' Wake (2017)
-Werewolf Legs,Premium,Mog Station
-Werewolf Feet,Event,All Saints' Wake (2017)
-Werewolf Feet,Premium,Mog Station
-Werewolf Bottoms,Event,All Saints' Wake (2017)
-Werewolf Bottoms,Premium,Mog Station
-Werewolf Arms,Event,All Saints' Wake (2017)
-Werewolf Arms,Premium,Mog Station
-Werewolf Body,Event,All Saints' Wake (2017)
-Werewolf Body,Premium,Mog Station
-Werewolf Head,Event,All Saints' Wake (2017)
-Werewolf Head,Premium,Mog Station
-Vampire's Vest,Event,All Saints' Wake (2016)
-Vampire's Vest,Premium,Mog Station
-Witch's Thighboots,Event,All Saints' Wake (2015)
-Witch's Thighboots,Premium,Mog Station
-Witch's Gloves,Event,All Saints' Wake (2015)
-Witch's Gloves,Premium,Mog Station
-Witch's Coatee,Event,All Saints' Wake (2015)
-Witch's Coatee,Premium,Mog Station
-Witch's Hat,Event,All Saints' Wake (2015)
-Witch's Hat,Premium,Mog Station
-Pumpkin Earrings,Event,All Saints' Wake (2014)
-Pumpkin Earrings,Premium,Mog Station
-Eerie Crakows,Event,All Saints' Wake (2014)
-Eerie Crakows,Premium,Mog Station
-Eerie Tights,Event,All Saints' Wake (2014)
-Eerie Tights,Premium,Mog Station
-Eerie Robe,Event,All Saints' Wake (2014)
-Eerie Robe,Premium,Mog Station
-Eerie Hat,Event,All Saints' Wake (2014)
-Eerie Hat,Premium,Mog Station
-The Wailing Spirit,Event,All Saints' Wake (2013)
-The Wailing Spirit,Premium,Mog Station
-The Howling Spirit,Event,All Saints' Wake (2013)
-The Howling Spirit,Premium,Mog Station
-Ripened Pumpkin Head,Event,All Saints' Wake (2013)
-Ripened Pumpkin Head,Premium,Mog Station
-White Pumpkin Head,Event,All Saints' Wake (2013)
-White Pumpkin Head,Premium,Mog Station
-Unripened Pumpkin Head,Event,All Saints' Wake (2013)
-Unripened Pumpkin Head,Premium,Mog Station
-Pumpkin Head,Event,All Saints' Wake (2013)
-Pumpkin Head,Premium,Mog Station
-Tonberry Knife,Event,Valentione's Day (2019)
-Gigas Greatsword,Event,Valentione's Day (2019)
-Crimson Inoshishi Kabuto,Event,Heavensturn (2019)
-Inoshishi Kabuto,Event,Heavensturn (2019)
-Choir Shoes,Event,Starlight Celebration (2018)
-Choir Robe,Event,Starlight Celebration (2018)
-Choir Hat,Event,Starlight Celebration (2018)
-Black Inu Kabuto,Event,Heavensturn (2018)
-Black Inu Kabuto,Premium,Mog Station
-White Inu Kabuto,Event,Heavensturn (2018)
-White Inu Kabuto,Premium,Mog Station
-Starlight Robe,Event,Starlight Celebration (2016)
-Starlight Robe,Premium,Mog Station
-Black Tori Kabuto,Event,Heavensturn (2017)
-Black Tori Kabuto,Premium,Mog Station
-Red Tori Kabuto,Event,Heavensturn (2017)
-Red Tori Kabuto,Premium,Mog Station
-Paramour's Earrings,Event,Valentione's Day (2016)
-Paramour's Earrings,Premium,Mog Station
-Platinum Paramour's Earrings,Event,Valentione's Day (2016)
-Platinum Paramour's Earrings,Premium,Mog Station
-Red-feathered Flat Hat,Event,Valentione's Day (2016)
-Red-feathered Flat Hat,Premium,Mog Station
-Black-feathered Flat Hat,Event,Valentione's Day (2016)
-Black-feathered Flat Hat,Premium,Mog Station
-Saint's Beard,Event,Starlight Celebration (2015)
-Saint's Beard,Premium,Mog Station
-Saint's Cap,Event,Starlight Celebration (2015)
-Saint's Cap,Premium,Mog Station
-Reindeer Hooves,Event,Starlight Celebration (2015)
-Reindeer Hooves,Premium,Mog Station
-Reindeer Gloves,Event,Starlight Celebration (2015)
-Reindeer Gloves,Premium,Mog Station
-Reindeer Antler Headband,Event,Starlight Celebration (2015)
-Reindeer Antler Headband,Premium,Mog Station
-Hear No Helm,Event,Heavensturn (2016)
-Hear No Helm,Premium,Mog Station
-Speak No Helm,Event,Heavensturn (2016)
-Speak No Helm,Premium,Mog Station
-See No Helm,Event,Heavensturn (2016)
-See No Helm,Premium,Mog Station
-False Mustache,Event,Starlight Celebration (2014)
-False Mustache,Premium,Mog Station
-Starlight Boots,Event,Starlight Celebration (2014)
-Starlight Boots,Premium,Mog Station
-Starlight Tights,Event,Starlight Celebration (2014)
-Starlight Tights,Premium,Mog Station
-Starlight Tunic,Event,Starlight Celebration (2014)
-Starlight Tunic,Premium,Mog Station
-Starlight Sugarloaf Hat,Event,Starlight Celebration (2014)
-Starlight Sugarloaf Hat,Premium,Mog Station
-White Hitsuji Kabuto,Event,Heavensturn (2015)
-White Hitsuji Kabuto,Premium,Mog Station
-Crimson Hitsuji Kabuto,Event,Heavensturn (2015)
-Crimson Hitsuji Kabuto,Premium,Mog Station
-Black Hitsuji Kabuto,Event,Heavensturn (2015)
-Black Hitsuji Kabuto,Premium,Mog Station
-Hitsuji Kabuto,Event,Heavensturn (2015)
-Hitsuji Kabuto,Premium,Mog Station
-Snowman Mitts,Event,Starlight Celebration (2013)
-Snowman Mitts,Premium,Mog Station
-Snowman Suit,Event,Starlight Celebration (2013)
-Snowman Suit,Premium,Mog Station
-Snowman Head,Event,Starlight Celebration (2013)
-Snowman Head,Premium,Mog Station
-Valentione Pattens,Event,Valentione's Day (2014)
-Valentione Pattens,Premium,Mog Station
-Valentione Skirt,Event,Valentione's Day (2014)
-Valentione Skirt,Premium,Mog Station
-Valentione Trousers,Event,Valentione's Day (2014)
-Valentione Trousers,Premium,Mog Station
-Valentione Mitts,Event,Valentione's Day (2014)
-Valentione Mitts,Premium,Mog Station
-Valentione Apron Dress,Event,Valentione's Day (2014)
-Valentione Apron Dress,Premium,Mog Station
-Valentione Apron,Event,Valentione's Day (2014)
-Valentione Apron,Premium,Mog Station
-Valentione Hat,Event,Valentione's Day (2014)
-Valentione Hat,Premium,Mog Station
-Black Uma Kabuto,Event,Heavensturn (2014)
-Black Uma Kabuto,Premium,Mog Station
-Golden Uma Kabuto,Event,Heavensturn (2014)
-Golden Uma Kabuto,Premium,Mog Station
-Crimson Uma Kabuto,Event,Heavensturn (2014)
-Crimson Uma Kabuto,Premium,Mog Station
-Uma Kabuto,Event,Heavensturn (2014)
-Uma Kabuto,Premium,Mog Station
-Reindeer Suit,Event,Starlight Celebration (2013)
-Reindeer Suit,Premium,Mog Station
-Reindeer Antlers,Event,Starlight Celebration (2013)
-Reindeer Antlers,Premium,Mog Station
-Moonlet,Event,Hunter's Moon (2011)
-Moonlet,Premium,Mog Station
-Band Of Eternal Passion,Event,Valentione's Day (2014)
-Band Of Eternal Passion,Premium,Mog Station
-Platinum Paramour's Pendant,Event,Valentione's Day (2014)
-Platinum Paramour's Pendant,Premium,Mog Station
-Paramour's Pendant,Event,Valentione's Day (2014)
-Paramour's Pendant,Premium,Mog Station
+Peach Blossoms,Event,Little Ladies' Day (2014)
+Peach Blossoms,Premium,Mog Station
 Silver Snake Kabuto,Event,Heavensturn (2014)
 Silver Snake Kabuto,Premium,Mog Station
 Black Dragon Kabuto,Event,Heavensturn (2014)
@@ -404,159 +636,59 @@ Crimson Dragon Kabuto,Event,Heavensturn (2014)
 Crimson Dragon Kabuto,Premium,Mog Station
 Dragon Kabuto,Event,Heavensturn (2014)
 Dragon Kabuto,Premium,Mog Station
-Lucian Prince's Boots,Event,Final Fantasy XV Collaboration
-Lucian Prince's Bottoms,Event,Final Fantasy XV Collaboration
-Lucian Prince's Fingerless Glove,Event,Final Fantasy XV Collaboration
-Lucian Prince's Jacket,Event,Final Fantasy XV Collaboration
-Globe Of The Lucky Snake,Event,Yo-kai Watch Collaboration
-Codex Of The Shrine Guardian,Event,Yo-kai Watch Collaboration
-Book Of The Eerie Mutt,Event,Yo-kai Watch Collaboration
-Staff Of The Snow Maiden,Event,Yo-kai Watch Collaboration
-Cane Of The Shrine Guardian,Event,Yo-kai Watch Collaboration
-Musket Of The Metal Cat,Event,Yo-kai Watch Collaboration
-Fang Of The Fearless Cat,Event,Yo-kai Watch Collaboration
-Twintails Of The Flame Fox,Event,Yo-kai Watch Collaboration
-Bow Of The White Wisp,Event,Yo-kai Watch Collaboration
-Spear Of The Spark Serpent,Event,Yo-kai Watch Collaboration
-Paw Of The Crimson Cat,Event,Yo-kai Watch Collaboration
-Ears Of The Moon Rabbit,Event,Yo-kai Watch Collaboration
-Buckler Of The Legendary Cat,Event,Yo-kai Watch Collaboration
-Whisker Of The Brave Cat,Event,Yo-kai Watch Collaboration
-Yo-kai Watch,Event,Yo-kai Watch Collaboration
-Amatsu Sune-ate,Event,Final Fantasy XI Collaboration
-Amatsu Haidate,Event,Final Fantasy XI Collaboration
-Amatsu Tekko,Event,Final Fantasy XI Collaboration
-Amatsu Togi,Event,Final Fantasy XI Collaboration
-Amatsu Hachigane,Event,Final Fantasy XI Collaboration
-King Slime Crown,Event,Dragon Quest X Collaboration
-Slime Earrings,Purchase,Itinerant Moogle
-Thug's Mug,Event,Dragon Quest X Collaboration
-Guardian Corps Boots,Event,Final Fantasy XIII Collaboration
-Guardian Corps Boots,Premium,Mog Station
-Guardian Corps Skirt,Event,Final Fantasy XIII Collaboration
-Guardian Corps Skirt,Premium,Mog Station
-Guardian Corps Gauntlets,Event,Final Fantasy XIII Collaboration
-Guardian Corps Gauntlets,Premium,Mog Station
-Guardian Corps Coat,Event,Final Fantasy XIII Collaboration
-Guardian Corps Coat,Premium,Mog Station
-Bohemian's Boots,Event,Final Fantasy XIII Collaboration
-Bohemian's Boots,Premium,Mog Station
-Bohemian's Trousers,Event,Final Fantasy XIII Collaboration
-Bohemian's Trousers,Premium,Mog Station
-Bohemian's Gloves,Event,Final Fantasy XIII Collaboration
-Bohemian's Gloves,Premium,Mog Station
-Bohemian's Coat,Event,Final Fantasy XIII Collaboration
-Bohemian's Coat,Premium,Mog Station
-Grimoire Wing,Event,Final Fantasy XIII Collaboration
-Grimoire Wing,Premium,Mog Station
-Mog's Staff,Event,Final Fantasy XIII Collaboration
-Mog's Staff,Premium,Mog Station
-Binding Rod,Event,Final Fantasy XIII Collaboration
-Binding Rod,Premium,Mog Station
-Starseeker,Event,Final Fantasy XIII Collaboration
-Starseeker,Premium,Mog Station
-Bladed Lance,Event,Final Fantasy XIII Collaboration
-Bladed Lance,Premium,Mog Station
-L'Cie Bardiche,Event,Final Fantasy XIII Collaboration
-L'Cie Bardiche,Premium,Mog Station
-Vega Knuckles,Event,Final Fantasy XIII Collaboration
-Vega Knuckles,Premium,Mog Station
-Blazefire Saber,Event,Final Fantasy XIII Collaboration
-Blazefire Saber,Premium,Mog Station
-Chocobo Mask,Achievement,Handle with Care III
-Dalamud Horn,Achievement,Once in a Lifetime
-Matoya's Hat,Premium,Item code included with Encyclopaedia Eorzea II
-Aetheryte Earring,Premium,Shadowbringers Pre-order
-Ala Mhigan Earrings,Premium,Stormblood Pre-order
-Chicken Knife,Premium,Stormblood Collector's Edition
-High Summoner's Boots,Premium,Fan Festival 2016-17
-High Summoner's Boots,Premium,Mog Station
-High Summoner's Armlets,Premium,Fan Festival 2016-17
-High Summoner's Armlets,Premium,Mog Station
-High Summoner's Dress,Premium,Fan Festival 2016-17
-High Summoner's Dress,Premium,Mog Station
-Abes Boots,Premium,Fan Festival 2016-17
-Abes Boots,Premium,Mog Station
-Abes Halfslops,Premium,Fan Festival 2016-17
-Abes Halfslops,Premium,Mog Station
-Abes Gloves,Premium,Fan Festival 2016-17
-Abes Gloves,Premium,Mog Station
-Abes Jacket,Premium,Fan Festival 2016-17
-Abes Jacket,Premium,Mog Station
-Leonhart Boots,Other,Veteran Reward
-Leonhart Bottoms,Other,Veteran Reward
-Leonhart Gloves,Other,Veteran Reward
-Leonhart Jacket,Other,Veteran Reward
-Eastern Journey Shoes,Premium,In-Game Item Campaign
-Eastern Journey Bottoms,Premium,In-Game Item Campaign
-Eastern Journey Armlets,Premium,In-Game Item Campaign
-Eastern Journey Jacket,Premium,In-Game Item Campaign
-Eastern Journey Circlet,Premium,In-Game Item Campaign
-Cait Sith Ears,Premium,Item code included with Cait Sith Doll Plushie
-Hatchling Earring,Purchase,Itinerant Moogle
-Butler's Gaiters,Premium,In-Game Item Campaign
-Butler's Slacks,Premium,In-Game Item Campaign
-Butler's Gloves,Premium,In-Game Item Campaign
-Butler's Jacket,Premium,In-Game Item Campaign
-Butler's Monocle,Premium,In-Game Item Campaign
-Housemaid's Pumps,Premium,In-Game Item Campaign
-Housemaid's Bloomers,Premium,In-Game Item Campaign
-Housemaid's Wristdresses,Premium,In-Game Item Campaign
-Housemaid's Apron Dress,Premium,In-Game Item Campaign
-Housemaid's Brim,Premium,In-Game Item Campaign
-Crag Mask,Premium,In-Game Item Campaign
-Inferno Mask,Premium,In-Game Item Campaign
-Tantalus Boots,Other,Veteran Reward
-Tantalus Breeches,Other,Veteran Reward
-Tantalus Cuffs,Other,Veteran Reward
-Tantalus Vest,Other,Veteran Reward
-Baron Earrings,Premium,Heavensward Pre-order
-Baron Circlet,Premium,Heavensward Pre-order
-Baron Helm,Premium,Heavensward Collector's Edition
-Wild Rose Boots,Other,Veteran Reward
-Wild Rose Breeches,Other,Veteran Reward
-Wild Rose Armguards,Other,Veteran Reward
-Wild Rose Cuirass,Other,Veteran Reward
-Wild Rose Bandana,Other,Veteran Reward
-Strife Boots,Other,Veteran Reward
-Strife Bags,Other,Veteran Reward
-Strife Gloves,Other,Veteran Reward
-Strife Vest,Other,Veteran Reward
-Fat Chocobo Head,Purchase,Jonathas - Old Gridania - 1 Achievement Certificate
-Moogle Legs,Premium,Fan Festival 2014
-Moogle Legs,Premium,Mog Station
-Moogle Buns,Premium,Fan Festival 2014
-Moogle Buns,Premium,Mog Station
-Moogle Arms,Premium,Fan Festival 2014
-Moogle Arms,Premium,Mog Station
-Moogle Body,Premium,Fan Festival 2014
-Moogle Body,Premium,Mog Station
-Moogle Head,Premium,Fan Festival 2014
-Moogle Head,Premium,Mog Station
-Goobbue Earring,Purchase,Itinerant Moogle
-Dodo Earring,Purchase,Itinerant Moogle
-Goblin Cap,Purchase,Jonathas - Old Gridania - 1 Achievement Certificate
-Helm Of Light,Premium,A Realm Reborn Collector's Edition
-Eastern Journey Battle Staff,Premium,In-Game Item Campaign
-White Ravens,Quest,"The Raven, Nevermore"
-White Ravens,Event,The Rising (2018)
-Scarf Of Wondrous Wit,Purchase,Itinerant Moogle
-Scarf Of Wondrous Wit,Other,Community Events reward
-Peregrine Helm,Purchase,Ronan Kognan - Gridania - 30 Deaspected Crystals (1.0)
-Peregrine Helm,Venture,Quick Exploration
-Star-spangled Subligar,Quest,"The Beast of the Barrel"
-Star-spangled Subligar,Quest,"Thanks for Your Support"
-Woolen Sugarloaf Hat (Red),Quest,"Hide and Seek Shenanigans"
-Patriot's Choker,Purchase,720 Company Seals
-Black Summer Tanga,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
-Black Summer Halter,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
-Black Summer Trunks,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
-Black Summer Top,Purchase,Aelina - Mor Dhona - 1 Cascadier Uniform Voucher
-Bomb Earring,Purchase,Itinerant Moogle
-Cactuar Earring,Purchase,Itinerant Moogle
-Moogle Earrings,Premium,Item code included with Final Fantasy 25th Anniversary Ultimate Box
-Moogle Cap,Premium,A Realm Reborn Pre-order
-Hermes' Shoes,Other,Create a character while subscribed to Final Fantasy XI (1.0)
-Asuran Armguards,Premium,Item code included with first printing of Final Fantasy XIII
-Onion Helm,Premium,1.0 Collector's Edition
-Garlond Goggles,Premium,Item code included with first printing of 1.0
+Halcyon Rod,Quest,So Long, And Thanks For All The Fish
+Rauni,Quest,Seeds Of Hope
+Mammon,Quest,Canyon Of Regret
+Chantico,Quest,Revenge Of The Chefsbane
+Paracelsus,Quest,Momentary Miracle
+Clotho,Quest,A Miner Reborn
+Pinga,Quest,Accept No Imitations
+Urcaguary,Quest,Jaded
+Kurdalegon,Quest,Rivalry And Respect
+Vulcan,Quest,Waiting In The Winglet
+Ullikummi,Quest,Saving Captain Gairhard
+Scholar's Boots,Quest,In The Image Of The Ancients
+Scholar's Gloves,Quest,In The Image Of The Ancients
+Scholar's Culottes,Quest,In The Image Of The Ancients
+Scholar's Gown,Quest,The Beast Within
+Scholar's Mortarboard,Quest,In The Image Of The Ancients
+Evoker's Thighboots,Quest,Allagan Attire
+Evoker's Ringbands,Quest,Allagan Attire
+Evoker's Waistclout,Quest,Allagan Attire
+Evoker's Doublet,Quest,Primal Burdens
+Evoker's Horn,Quest,Allagan Attire
+Wizard's Crakows,Quest,The Blood Must Flow
+Wizard's Gloves,Quest,The Blood Must Flow
+Wizard's Tonban,Quest,The Blood Must Flow
+Wizard's Coat,Quest,Always Bet On Black
+Wizard's Petasos,Quest,The Blood Must Flow
+Healer's Boots,Quest,Following In His Footsteps
+Healer's Gloves,Quest,Following In His Footsteps
+Healer's Culottes,Quest,Following In His Footsteps
+Healer's Robe,Quest,Heart Of The Forest
+Healer's Circlet,Quest,Following In His Footsteps
+Choral Sandals,Quest,Pieces Of The Past
+Choral Ringbands,Quest,Pieces Of The Past
+Choral Tights,Quest,Pieces Of The Past
+Choral Shirt,Quest,Requiem For The Fallen
+Choral Chapeau,Quest,Pieces Of The Past
+Drachen Greaves,Quest,Double Dragoon
+Drachen Gauntlets,Quest,Double Dragoon
+Drachen Breeches,Quest,Double Dragoon
+Drachen Mail,Quest,Into The Dragon's Maw
+Drachen Armet,Quest,Double Dragoon
+Fighter's Jackboots,Quest,Looking The Part
+Fighter's Gauntlets,Quest,Looking The Part
+Fighter's Breeches,Quest,Looking The Part
+Fighter's Cuirass,Quest,How To Quit You
+Fighter's Burgeonet,Quest,Looking The Part
+Temple Boots,Quest,Good Vibrations
+Temple Gloves,Quest,Good Vibrations
+Temple Gaskins,Quest,Good Vibrations
+Temple Cyclas,Quest,Five Easy Pieces
+Temple Circlet,Quest,Good Vibrations
+Gallant Sollerets,Quest,Poisoned Hearts
+Gallant Gauntlets,Quest,Poisoned Hearts
+Gallant Cuisses,Quest,Poisoned Hearts
+Gallant Surcoat,Quest,Keeping The Oath
+Gallant Coronet,Quest,Poisoned Hearts

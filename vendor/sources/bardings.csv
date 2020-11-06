@@ -1,44 +1,93 @@
-Paladin Barding,Other,Chocobo Ability - Choco Strike
-Dragoon Barding,Other,Chocobo Ability - Choco Blast
-White Mage Barding,Other,Chocobo Ability - Choco Medica
-Lominsan Saddle,Other,Maelstrom Grand Company
-Lominsan Half Barding,Purchase,"4,000 Storm Seals"
-Lominsan Barding,Purchase,"6,000 Storm Seals"
-Lominsan Crested Barding,Purchase,"8,000 Storm Seals"
-Gridanian Saddle,Other,Order of the Twin Adder Grand Company
-Gridanian Half Barding,Purchase,"4,000 Serpent Seals"
-Gridanian Barding,Purchase,"6,000 Serpent Seals"
-Gridanian Crested Barding,Purchase,"8,000 Serpent Seals"
-Ul'dahn Saddle,Other,Immortal Flames Grand Company
-Ul'dahn Half Barding,Purchase,"4,000 Flame Seals"
-Ul'dahn Barding,Purchase,"6,000 Flame Seals"
-Ul'dahn Crested Barding,Purchase,"8,000 Flame Seals"
-Black Mage Barding,Purchase,Jonathas - Old Gridania - 3 Achievement Certificates
-Sleipnir Barding,Purchase,"Aelina - Mor Dhona - 5 Odin's Mantles (FATE ""Steel Reign"")"
-Behemoth Barding,Premium,A Realm Reborn Collector's Edition
-Flyer Shaffron,Quest,"I Believe I Can Fly"
-Starlight Barding,Event,Starlight Celebration (2013)
-Barding of Light,Purchase,Jonathas - Old Gridania - 3 Achievement Certificates
+True Barding Of Light,Crafting,Crafted by Armorer
+Machinist Barding,Skybuilders,1,200 Skybuilders' Scrips
+Ruby Barding,Crafting,Crafted by Armorer
+Saintly Barding,Event,Starlight Festival (2019)
+Hades Barding,Crafting,Crafted by Armorer
+Deepshadow Barding,FATE,350 Bicolor Gemstones (Lakeland)
+Dancer Barding,FATE,350 Bicolor Gemstones (Eulmore)
+Innocence Barding,Crafting,Crafted by Armorer
+Titania Barding,Crafting,Crafted by Armorer
+Yojimbo Barding,Trial,Kugane Ohashi
+Seiryu Barding,Crafting,Crafted by Armorer
+Seiryu Barding,Bozja,Southern Front Lockbox
+Samurai Barding,Eureka,Heat-warped Lockbox - Eureka Pyros
+Suzaku Barding,Crafting,Crafted by Armorer
+Suzaku Barding,Bozja,Southern Front Lockbox
+Lunar Barding,Crafting,Crafted by Weaver
+Red Mage Barding,Eureka,Anemos Lockbox
+Chocobo Raincoat,Purchase,800 Yellow Gatherers' Scrips
+Byakko Barding,Crafting,Crafted by Goldsmith
+Byakko Barding,Bozja,Southern Front Lockbox
+Nezha Barding,Premium,Mog Station
+Ixion Barding,FATE,Eschina - Rhalgr's Reach - 5 Ixion Horns (FATE "A Horse Outside")
+Shinryu Barding,Crafting,Crafted by Armorer
+Shinryu Barding,Bozja,Southern Front Lockbox
+Oriental Barding,Premium,Mog Station (China)
+Hingan Barding,Purchase,Eschina - Rhalgr's Reach - 4 Veteran's Clan Mark Logs
+Blissful Barding,Crafting,Crafted by Goldsmith
+Blissful Barding,Deep Dungeon,Heaven-on-High
+Ala Mhigan Barding,FATE,FATE "Rattle and Humbaba"
+Reveler's Barding,Crafting,Crafted by Armorer
+Reveler's Barding,Deep Dungeon,Heaven-on-High
+Zurvanite Barding,Crafting,Crafted by Armorer
+Zurvanite Barding,Deep Dungeon,Heaven-on-High
+Demonic Barding,Premium,Mog Station
+Angelic Barding,Premium,Mog Station
+Mandervillian Barding,Purchase,150,000 MGP
+Abigail Barding,Deep Dungeon,The Palace of the Dead
+Sophic Barding,Crafting,Crafted by Goldsmith
+Sophic Barding,Deep Dungeon,Heaven-on-High
+Horde Barding,Crafting,Crafted by Leatherworker
+Horde Barding,Deep Dungeon,Heaven-on-High
+Race Barding,Achievement,Ride To The Challenge I
+Egg Hunter Barding,Premium,Mog Station
+Egg Hunter Barding,Event,Eggsaltation Of A Lark
+Sephirotic Barding,Crafting,Crafted by Leatherworker
+Sephirotic Barding,Deep Dungeon,Heaven-on-High
+Round Table Barding,Purchase,Bertana - Idyllshire - 15 Heavens' Ward Helm Fragments
+Wild Rose Barding,Achievement,Jonathas - Old Gridania - 3 Achievement Certificates
+Highland Barding,Crafting,Crafted by Leatherworker
+Orthodox Barding,Crafting,Crafted by Weaver
+Noble Barding,Limited,Community Events reward
+Hive Barding,Crafting,Crafted by Armorer
+Hive Barding,Deep Dungeon,Heaven-on-High
+Expanse Barding,Crafting,Crafted by Armorer
+Expanse Barding,Deep Dungeon,Heaven-on-High
+Ishgardian Barding,Purchase,350 Centurio Seals
+Ishgardian Half Barding,FATE,FATE "Vedrfolnir Devoteth"
+Flyer Shaffron,Achievement,Jonathas - Old Gridania - 3 Achievement Certificates
+Gambler Barding,Purchase,20,000 MGP
+Paramour Barding,Event,Now That We've Found Love
+Ice Barding,Crafting,Crafted by Leatherworker
+Ice Barding,Deep Dungeon,Heaven-on-High
 Eerie Barding,Event,All Saints' Wake (2014)
 Eerie Barding,Premium,Mog Station
-Gambler Barding,Purchase,"20,000 MGP"
-Ishgardian Half Barding,FATE,Vedrfolnir Devoteth
-Ishgardian Barding,Purchase,350 Centurio Seals
-Noble Barding,Other,Community Events reward
-Wild Rose Barding,Purchase,Jonathas - Old Gridania - 3 Achievement Certificates
-Round Table Barding,Purchase,Bertana - Idyllshire - 15 Heavens' Ward Helm Fragments
-Egg Hunter Barding,Premium,Mog Station
-Far Eastern Barding,Premium,Mog Station
+Plumed Barding,Achievement,Breaking Bo
+Levin Barding,Crafting,Crafted by Leatherworker
+Levin Barding,Deep Dungeon,Heaven-on-High
+Egg Harness,Event,Hard-boiled
+Barding Of Light,Achievement,Jonathas - Old Gridania - 3 Achievement Certificates
+Tidal Barding,Crafting,Crafted by Armorer
+Tidal Barding,Deep Dungeon,Heaven-on-High
+Starlight Barding,Event,Starlight Celebration (2013)
+Sovereign Barding,Achievement,Leaving A Good Impression IV
 Butlery Barding,Premium,Mog Station
-Abigail Barding,Deep Dungeon,The Palace of the Dead
-Angelic Barding,Premium,Mog Station
-Demonic Barding,Premium,Mog Station
-Mandervillian Barding,Purchase,"150,000 MGP"
-Ala Mhigan Barding,FATE,Rattle and Humbaba
-Hingan Barding,Purchase,Eschina - Rhalgr's Reach - 4 Veteran's Clan Mark Logs
-Nezha Barding,Premium,Mog Station
-Ixion Barding,Purchase,"Eschina - Rhalgr's Reach - 5 Ixion Horns (FATE ""A Horse Outside"")"
-Red Mage Barding,Eureka,Anemos Lockbox - Eureka Anemos
-Chocobo Raincoat,Purchase,1650 Yellow Gatherers' Scrips
-Samurai Barding,Eureka,Heat-warped Lockbox - Eureka Pyros
-Yojimbo Barding,Trial,Kugane Ohashi
+Far Eastern Barding,Premium,Mog Station
+Black Mage Barding,Achievement,Jonathas - Old Gridania - 3 Achievement Certificates
+Behemoth Barding,Premium,A Realm Reborn Collector's Edition
+Sleipnir Barding,FATE,Aelina - Mor Dhona - 5 Odin's Mantles (FATE "Steel Reign")
+White Mage Barding,Other,Chocobo Ability - Choco Medica
+Dragoon Barding,Other,Chocobo Ability - Choco Blast
+Paladin Barding,Other,Chocobo Ability - Choco Strike
+Ul'dahn Crested Barding,Purchase,8,000 Flame Seals
+Ul'dahn Barding,Purchase,6,000 Flame Seals
+Ul'dahn Half Barding,Purchase,4,000 Flame Seals
+Ul'dahn Saddle,Other,Immortal Flames Grand Company
+Gridanian Crested Barding,Purchase,8,000 Serpent Seals
+Gridanian Barding,Purchase,6,000 Serpent Seals
+Gridanian Half Barding,Purchase,4,000 Serpent Seals
+Gridanian Saddle,Other,Order of the Twin Adder Grand Company
+Lominsan Crested Barding,Purchase,8,000 Storm Seals
+Lominsan Barding,Purchase,6,000 Storm Seals
+Lominsan Half Barding,Purchase,4,000 Storm Seals
+Lominsan Saddle,Other,Maelstrom Grand Company
