@@ -38,8 +38,8 @@
           <td><%= sources(collectable) %></td>
           <td><%= collectable.patch %></td>
           <td class="text-center">
-            <%= link_to fa_icon('pencil', class: 'btn btn-secondary btn-sm'),
-              polymorphic_url([:mod, collectable], action: :edit) %>
+            <%= link_to fa_icon('pen'), polymorphic_url([:mod, collectable]), action: :edit,
+              class: 'btn btn-secondary btn-sm' %>
           </td>
         </tr>
       <% end %>

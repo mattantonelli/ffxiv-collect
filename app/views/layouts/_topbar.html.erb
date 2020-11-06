@@ -1,0 +1,31 @@
+<nav class="navbar navbar-dark topbar sticky-top">
+  <button class="navbar-toggler d-md-none mr-2 collapsed" type="button" data-toggle="collapse"
+    data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="d-none d-sm-block">
+    <%= link_to root_path, class: 'navbar-brand unstyled d-flex align-items-center' do %>
+      <%= image_tag('logo.png', class: 'mr-1') %>
+      FFXIV Collect
+    <% end %>
+  </div>
+  <div class="nav-item dropdown ml-auto">
+    <a class="nav-link dropdown-toggle p-0 pr-3" href="#" id="localeDropdown" role="button" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false"><%= cookies[:locale].upcase %></a>
+    <div class="dropdown-menu" aria-labelledBy="localeDropdown">
+      <% %w(EN DE FR JA).each do |locale| %>
+        <%= link_to locale, locale_set_path(locale: locale), class: 'dropdown-item', method: :post %>
+      <% end %>
+    </div>
+  </div>
+  <% unless @character.present? %>
+    <%= link_to t('character.select'), search_characters_path, class: 'btn btn-primary my-2 my-md-0 mr-3' %>
+  <% end %>
+  <% if @character.present? || user_signed_in? %>
+    <%= render 'layouts/user_dropdown' %>
+  <% end %>
+  <% unless user_signed_in? %>
+    <%= link_to t('general.sign_in_with_discord'), user_discord_omniauth_authorize_path,
+      class: 'btn btn-secondary ml-md-2' %>
+  <% end %>
+</nav>

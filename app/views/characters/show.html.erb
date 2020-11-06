@@ -5,7 +5,7 @@
 <%= render 'shared/filters' %>
 
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 col-xl-10 offset-xl-1">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center py-2">
         <h5 class="card-title text-center mr-2"><%= t('character.profile') %></h5>
@@ -19,7 +19,7 @@
             <% end %>
           <% end %>
 
-          <%= link_to fa_icon('bar-chart', text: t('general.statistics')), stats_recent_character_path(@profile),
+          <%= link_to fa_icon('chart-bar', text: t('general.statistics')), stats_recent_character_path(@profile),
             class: 'btn btn-success btn-sm' unless @comparison == @profile %>
           <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: {toggle: 'modal', target: '#filters'},
                          type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>

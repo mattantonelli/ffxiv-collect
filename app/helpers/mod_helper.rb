@@ -34,7 +34,7 @@ module ModHelper
       url = polymorphic_url([:mod, change.item_type.downcase], id: change.item_id, action: :edit)
     end
 
-    link_to fa_icon('pencil'), url, class: 'btn btn-secondary btn-sm my-1'
+    link_to fa_icon('pen'), url, class: 'btn btn-secondary btn-sm my-1'
   end
 
   def change_type(change)

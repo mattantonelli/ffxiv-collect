@@ -108,7 +108,7 @@ module CollectionsHelper
 
   def market_link(collectable)
     if collectable.item_id.present?
-      link_to(fa_icon('dollar'), universalis_url(collectable.item_id), target: '_blank')
+      link_to(fa_icon('dollar-sign'), universalis_url(collectable.item_id), target: '_blank')
     end
   end
 

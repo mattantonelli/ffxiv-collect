@@ -8,17 +8,12 @@ module ApplicationHelper
     end
   end
 
-  def active_link?(path, path_controller = nil)
-    if path_controller.present?
-      controller_path == path_controller
-    else
-      current_page?(path)
-    end
+  def active_path?(path)
+    path.match?(controller_name)
   end
 
-  def nav_link(text, path, path_controller = nil)
-    active = active_link?(path, path_controller)
-    link_to text, path, class: "nav-link#{' active' if active}"
+  def nav_link(text, icon, path)
+    link_to fa_icon(icon, text: text), path, class: "nav-link#{' bold' if active_path?(path)}"
   end
 
   def safe_image_tag(src, options = {})

@@ -4,10 +4,13 @@ services:
     image: ffxiv-collect:latest
     ports:
       - "3000:3000"
+    environment:
+      REDIS_URL: redis://redis:6379
     volumes:
     - .:/ffxiv-collect
     - ./docker/config-files/database.yml:/ffxiv-collect/config/database.yml
     depends_on:
+      - "db"
       - "redis"
   sidekiq:
     image: ffxiv-collect:latest

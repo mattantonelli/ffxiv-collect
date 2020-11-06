@@ -18,8 +18,7 @@
 <%= render 'shared/filters' %>
 <%= render 'shared/collection_progress', ids: @spells.map(&:id) %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable collection categorized
-  <%= ' comparing' if @comparison.present? %>">
+<table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -27,10 +26,10 @@
       <th scope="col"><%= t('general.name') %></th>
       <th scope="col" class="hide-xs"><%= t('general.enemy') %></th>
       <th scope="col" class="hide-xs"><%= t('general.location') %></th>
-      <th scope="col" class="text-center hide-sm"><%= t('general.type') %></th>
-      <th scope="col" class="text-center hide-sm"><%= t('general.aspect') %></th>
-      <th scope="col" class="text-center hide-sm"><%= t('general.rank') %></th>
-      <th scope="col" class="text-center hide-sm"><%= t('general.own') %></th>
+      <th scope="col" class="text-center hide-md"><%= t('general.type') %></th>
+      <th scope="col" class="text-center hide-md"><%= t('general.aspect') %></th>
+      <th scope="col" class="text-center hide-md"><%= t('general.rank') %></th>
+      <th scope="col" class="text-center hide-md"><%= t('general.own') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>
@@ -51,10 +50,10 @@
         <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
         <td class="hide-xs"><%= spell_enemies(spell) %></td>
         <td class="hide-xs"><%= spell_locations(spell) %></td>
-        <td class="text-center hide-sm"><%= spell.type.name %></td>
-        <td class="text-center hide-sm"><%= spell.aspect.name %></td>
-        <td class="text-center no-wrap hide-sm" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
-        <td class="text-center hide-sm" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
+        <td class="text-center hide-md"><%= spell.type.name %></td>
+        <td class="text-center hide-md"><%= spell.aspect.name %></td>
+        <td class="text-center no-wrap hide-md" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
+        <td class="text-center hide-md" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
         <% if character_selected? %>
           <%= td_owned(spell, manual: true) %>
         <% end %>

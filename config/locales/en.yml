@@ -69,6 +69,7 @@ en:
     armoire:
       one: "Armoire"
       other: "Armoires"
+    armor: "Armore"
     aspect: "Aspect"
     atk: "ATK"
     audio_sample: "Audio sample"
