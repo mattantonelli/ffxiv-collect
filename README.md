@@ -109,6 +109,8 @@ docker-compose up -d
 ## Run docker-compose [Production]
 If you want to run it on an production environment use the example in docker/docker-compose path.
 
+For running application in prouction mode you need to provide an valid master.key file and credential file.
+
 ```
 
 docker-compose up

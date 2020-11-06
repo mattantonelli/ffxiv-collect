@@ -1,19 +1,19 @@
 version: '3'
 services:
   web:
-    image: ffxiv-collect:latest
-    ports:
-      - "3000:3000"
+    image: ley21/ffxiv-collect:latest
     environment:
-      RAILS_MASTER_KEY: your-master-key
+      REDIS_URL: redis://redis:6379
     volumes:
-    - app:/ffxiv-collect
-    - ./database.yml:/ffxiv-collect/config/database.yml
-    - ./credentials.yml.enc:/ffxiv-collect/config/credentials.yml.enc
+      - app:/ffxiv-collect
+      - ./database.yml:/ffxiv-collect/config/database.yml
+      - ./credentials.yml.enc:/ffxiv-collect/config/credentials.yml.enc
+      - ./master.key:/ffxiv-collect/config/master.key
     depends_on:
+      - "db"
       - "redis"
   sidekiq:
-    image: ffxiv-collect:latest
+    image: ley21/ffxiv-collect:latest
     environment:
       REDIS_URL: redis://redis:6379
     volumes:
