@@ -1,14 +1,14 @@
-<% title('Yo-kai Watch Collaboration') %>
-<% description("Automatically track your character's progress in the Yo-kai Watch Collaboration.") %>
+<% title(t'general.yokai_watch_collobaration') %>
+<% description(t('description.yokai')) %>
 
-<%= render 'collection', collection: @minions, type: 'minions' %>
+<%= render 'collection', collection: @minions, type: t('general.minion.other') %>
 
-<%= render 'collection', collection: @weapons, type: 'weapons' %>
+<%= render 'collection', collection: @weapons, type: t('general.weapons') %>
 
 <div class="card mb-3">
   <%= link_to "#collapse-mounts", data: { toggle: 'collapse' }, class: 'unstyled' do %>
     <div class="card-header d-flex justify-content-between align-items-center">
-      <h5 class="card-title">Mounts</h5>
+      <h5 class="card-title"><%= t('general.mount.other') %></h5>
       <% if character_selected? %>
         <h6 class="text-right<%= ' complete' if yokai_completed?(@mounts, @mount_ids)  %>">
           <%= yokai_completion(@mounts, @mount_ids) %>
@@ -33,18 +33,18 @@
 <div class="col-lg-10 offset-lg-1">
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title">Legendary Medal Locations</h5>
+      <h5 class="card-title"><%= t('general.legendary_medal_locations') %></h5>
     </div>
     <table class="table table-striped table-sm shadow yokai mb-0">
       <thead>
         <tr>
-          <th scope="col">Minion</th>
-          <th scope="col">Zone 1</th>
-          <th scope="col">Zone 2</th>
-          <th scope="col">Zone 3</th>
-          <th scope="col">Weapon</th>
+          <th scope="col"><%= t('general.minion.other') %></th>
+          <th scope="col"><%= t('general.zone') %> 1</th>
+          <th scope="col"><%= t('general.zone') %> 2</th>
+          <th scope="col"><%= t('general.zone') %> 3</th>
+          <th scope="col"><%= t('general.weapons') %></th>
           <% if character_selected? %>
-            <th scope="col">Owned</th>
+            <th scope="col"><%= t('general.owned') %></th>
           <% end %>
         </tr>
       </thead>

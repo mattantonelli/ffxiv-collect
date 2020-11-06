@@ -1,13 +1,13 @@
-<% title('Titles') %>
-<% description("Automatically track your character's titles and discover how to obtain new ones.") %>
+<% title(t('general.title.other')) %>
+<% description(t('description.titles')) %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: titles_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: 'Title',
+    <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: t('general.title.one'),
       size: 40, class: 'form-control form-control-sm'%>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= f.submit t('general.search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
@@ -16,11 +16,11 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col" class="hide-xs">Achievement</th>
-      <th scope="col" class="hide-xs">Category</th>
-      <th scope="col" class="text-center hide-xs">Own</th>
-      <th scope="col" class="text-center">Patch</th>
+      <th scope="col"><%= t('general.title.one') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.achievement.one') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.category') %></th>
+      <th scope="col" class="text-center hide-xs"><%= t('general.own') %></th>
+      <th scope="col" class="text-center"><%= t('general.patch') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>

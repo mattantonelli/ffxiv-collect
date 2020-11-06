@@ -80,6 +80,49 @@ exit
 
 More action may be required in the event of complex game updates. Patch data must be populated manually.
 
+
+## Run docker-compose [Development]
+If you want to use docker in development mode run following commands to init/start containers.
+
+Installation of the database
+
+```
+docker build -t ffxiv-collect:latest --build-arg RAILS_ENV=development .
+docker-compose up
+
+# In another terminal
+docker-compose run --rm web rake db:schema:load
+docker-compose run --rm web rake data:initialize
+docker-compose restart
+
+#Terminal before
+Ctrl + C
+docker-compose up -d
+```
+
+Regular run
+
+```
+docker-compose up -d
+```
+
+## Run docker-compose [Production]
+If you want to run it on an production environment use the example in docker/docker-compose path.
+
+```
+
+docker-compose up
+
+# In another terminal
+docker-compose run --rm web rake db:schema:load
+docker-compose run --rm web rake data:initialize
+
+#Terminal before
+Ctrl + C
+docker-compose up -d
+
+```
+
 ---
 
 FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd.

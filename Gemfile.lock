@@ -119,6 +119,9 @@ GEM
       domain_name (~> 0.5)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    i18n-js (3.8.0)
+      i18n (>= 0.6.6)
+    i18n_yaml_sorter (0.2.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jquery-rails (4.3.5)
@@ -340,6 +343,8 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   font-awesome-rails
+  i18n-js (~> 3.8)
+  i18n_yaml_sorter
   jbuilder (~> 2.5)
   jquery-rails
   js_cookie_rails
@@ -381,4 +386,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.16.4
+   1.17.3

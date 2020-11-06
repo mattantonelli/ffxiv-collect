@@ -1,5 +1,5 @@
-<% title( t(:general.armoire.more)) %>
-<% description("Track your character's armoire items and discover how to obtain new ones.") %>
+<% title( t(:'general.armoire.other')) %>
+<% description(t(:'description.armoire')) %>
 
 <div class="row">
   <div class="col-12 col-lg-8 offset-lg-2">
@@ -12,9 +12,9 @@
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
       { include_blank: t(:'general.all_sources')}, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: {toggle: 'modal', target: '#filters'},
+                   type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <%= f.submit t('general.search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>

@@ -16,18 +16,18 @@
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
               <div>
-                <dt>Tradeable</dt>
+                <dt><%= t('general.tradeable') %></dt>
                 <dd><%= tradeable(@fashion) %></dd>
               </div>
               <%= render 'shared/ownership', collectable: @fashion %>
               <div>
-                <dt>Patch</dt>
+                <dt><%= t('general.patch') %></dt>
                 <dd><%= @fashion.patch %></dd>
               </div>
             </div>
-            <dt>Description</dt>
+            <dt><%= t('general.description') %></dt>
             <dd class="mb-0"><%= format_text(@fashion.description) %></dd>
-            <dt>Source</dt>
+            <dt><%= t('general.source') %></dt>
             <dd class="mb-0"><%= sources(@fashion, list: true) %></dd>
             <div class="d-block d-sm-none">
               <%= safe_image_tag("fashions/large/#{@fashion.id}.png", class: 'image-large') %>

@@ -10,26 +10,26 @@
       <div class="d-flex flex-column flex-info">
         <div class="d-flex flex-wrap mb-0">
           <div>
-            <dt>Behavior</dt>
+            <dt><%= t('general.behavior') %></dt>
             <dd><%= minion.behavior.name %></dd>
           </div>
           <div>
-            <dt>Tradeable</dt>
+            <dt><%= t('general.tradeable') %></dt>
             <dd><%= tradeable(@minion) %></dd>
           </div>
           <%= render 'shared/ownership', collectable: @minion %>
           <div>
-            <dt>Patch</dt>
+            <dt><%= t('general.patch') %></dt>
             <dd><%= minion.patch %></dd>
           </div>
         </div>
-        <dt>Source</dt>
+        <dt><%= t('general.source') %></dt>
         <dd><%= sources(minion, list: true) %></dd>
-        <dt>Description</dt>
+        <dt><%= t('general.description') %></dt>
         <dd><%= format_text(minion.description) %></dd>
-        <dt>Journal</dt>
+        <dt><%= t('general.journal') %></dt>
         <dd><%= format_text(minion.enhanced_description) %></dd>
-        <dt>Tooltip</dt>
+        <dt><%= t('general.tooltip') %></dt>
         <dd><%= format_text(minion.tooltip) %></dd>
         <div class="d-block d-sm-none">
           <%= safe_image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>

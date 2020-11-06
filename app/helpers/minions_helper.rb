@@ -5,7 +5,7 @@ module MinionsHelper
 
   def minion_strength(type, index)
     image_tag('blank.png', class: 'minion-strength', style: "background-position: -#{24 * index}px 0",
-              data: { toggle: 'tooltip', title: "Effective against #{type}" })
+              data: { toggle: 'tooltip', title: "#{t('general.effective_against')} #{t('general.'+type)}" })
   end
 
   def minion_skill_angle(minion)
@@ -46,10 +46,10 @@ module MinionsHelper
   end
 
   def strength_options(selected)
-    options_for_select([['Gates', 'gate'], ['Search Eyes', 'eye'], ['Shields', 'shield'], ['Arcana Stones', 'arcana']], selected)
+    options_for_select([[t('general.gates'), 'gate'], [t('general.search_eyes'), 'eye'], [t('general.shields'), 'shield'], [t('general.arcana_stones'), 'arcana']], selected)
   end
 
   def auto_attack(minion)
-    minion.area_attack ? 'Multi-target' : 'Single-target'
+    minion.area_attack ? t('general.multi_target') : t('general.single_target')
   end
 end

@@ -1,5 +1,5 @@
-<% title('Achievements Overview') %>
-<% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
+<% title("#{t('general.achievement.one')} #{t('general.overview')}") %>
+<% description("#{t('description.achievement')}") %>
 
 <div class="d-flex flex-wrap justify-content-around justify-content-md-start">
   <% @types.each do |type| %>
@@ -10,10 +10,10 @@
         </h5>
         <div class="card-body py-3">
           <%= render 'shared/progress', value: type_count(@collection_ids, type),
-            min: 0, max: type.achievements.size, text: 'complete' %>
+            min: 0, max: type.achievements.size, text: t('general.complete') %>
           <div class="mt-3">
             <%= render 'shared/progress', value: type_points(@collection_ids, type),
-              min: 0, max: type.achievements.pluck(:points).sum, text: 'points', alt: true %>
+              min: 0, max: type.achievements.pluck(:points).sum, text: t('general.points'), alt: true %>
           </div>
         </div>
       </div>

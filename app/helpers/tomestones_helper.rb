@@ -1,6 +1,6 @@
 module TomestonesHelper
   def reward_event_link(url)
-    link_to('Moogle Treasure Trove', url.gsub('na.', "#{region}."), target: '_blank')
+    link_to(t('general.moogle_treasure_trove'), url.gsub('na.', "#{region}."), target: '_blank')
   end
 
   def reward_image(reward)

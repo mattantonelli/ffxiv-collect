@@ -47,6 +47,11 @@ class ApplicationController < ActionController::Base
     I18n.locale = cookies['locale']
   end
 
+  def extract_locale
+    parsed_locale = params[:locale]
+    I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
+  end
+
   def set_characters
     if user_signed_in?
       @character = current_user.character

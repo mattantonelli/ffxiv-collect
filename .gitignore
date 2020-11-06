@@ -53,5 +53,10 @@ config/deploy*
 /public/images/bardings/*
 /public/images/hairstyles/*
 /public/images/armoires/*
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
 /public/images/spells/*
 /public/images/fashions/*
+.idea/
+config/credentials.yml.enc

@@ -16,36 +16,36 @@
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
               <div>
-                <dt>Movement</dt>
+                <dt><%= t('general.movement') %></dt>
                 <dd><%= @mount.movement %></dd>
               </div>
               <div>
-                <dt>Flying</dt>
+                <dt><%= t('general.flying') %></dt>
                 <dd><%= fa_check(@mount.flying) %></dd>
               </div>
               <div>
-                <dt>Tradeable</dt>
+                <dt><%= t('general.tradeable') %></dt>
                 <dd><%= tradeable(@mount) %></dd>
               </div>
               <% if @mount.seats > 1 %>
                 <div>
-                  <dt>Seats</dt>
+                  <dt><%= t('general.seats') %></dt>
                   <dd><%= @mount.seats %></dd>
                 </div>
               <% end %>
               <%= render 'shared/ownership', collectable: @mount %>
               <div>
-                <dt>Patch</dt>
+                <dt><%= t('general.patch') %></dt>
                 <dd><%= @mount.patch %></dd>
               </div>
             </div>
-            <dt>Source</dt>
+            <dt><%= t('general.source') %></dt>
             <dd><%= sources(@mount, list: true) %></dd>
-            <dt>Description</dt>
+            <dt><%= t('general.description') %></dt>
             <dd><%= format_text(@mount.description) %></dd>
-            <dt>Journal</dt>
+            <dt><%= t('general.journal') %></dt>
             <dd><%= format_text(@mount.enhanced_description) %></dd>
-            <dt>Tooltip</dt>
+            <dt><%= t('general.tooltip') %></dt>
             <dd><%= format_text(@mount.tooltip) %></dd>
             <div class="d-block d-sm-none">
               <%= safe_image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>

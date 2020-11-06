@@ -44,16 +44,16 @@
       <% end %>
       <hr class="my-2">
       <%= link_to fa_icon('user', text: t(:'character.profile')), character_path(@character), class: 'dropdown-item' %>
-      <%= link_to fa_icon('bar-chart', text: 'Character Stats'), stats_recent_character_path(@character),
+      <%= link_to fa_icon('bar-chart', text: t('character.statistics')), stats_recent_character_path(@character),
                   class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified? %>
         <%= link_to fa_icon('check-circle', text: t(:'character.verify')), verify_character_path, class: 'dropdown-item' %>
       <% end %>
       <%= link_to fa_icon('refresh', text: t(:'character.refresh')), refresh_character_path,
         method: :post, class: 'dropdown-item' %>
-      <%= link_to fa_icon('undo', text: 'Change Character'), search_characters_path, class: 'dropdown-item' %>
-      <%= link_to fa_icon('retweet', text: 'Compare Characters'), search_characters_path(compare: 1), class: 'dropdown-item' %>
-      <%= link_to fa_icon('times', text: 'Forget Character'), forget_character_path, class: 'dropdown-item', method: :delete %>
+      <%= link_to fa_icon('undo', text: t('character.change')), search_characters_path, class: 'dropdown-item' %>
+      <%= link_to fa_icon('retweet', text: t('character.compare')), search_characters_path(compare: 1), class: 'dropdown-item' %>
+      <%= link_to fa_icon('times', text: t('character.forget')), forget_character_path, class: 'dropdown-item', method: :delete %>
       <% if user_signed_in? %>
         <hr class="my-1">
       <% end %>
@@ -68,7 +68,7 @@
         <%= link_to fa_icon('table', text: t(:'main.mod_dashboard')), mod_dashboard_path, class: 'dropdown-item' %>
         <hr class="my-1">
       <% end %>
-      <%= link_to fa_icon('wrench', text: 'Settings'), settings_path, class: 'dropdown-item' %>
+      <%= link_to fa_icon('wrench', text: t('general.settings')), settings_path, class: 'dropdown-item' %>
       <%= link_to fa_icon('sign-out', text: t(:'user.sign_out')), destroy_user_session_path, class: 'dropdown-item' %>
     <% end %>
   </div>

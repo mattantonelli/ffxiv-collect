@@ -29,12 +29,12 @@ class RelicsController < ApplicationController
   end
 
   def armor
-    @eureka_job_armor = ["Eureka Anemos Armor", "Eureka Job Armor +2", "Eureka Job Armor +1", "Eureka Job Armor"]
+    @eureka_job_armor = [t('general.eureka_anemos_armor'), "#{t('general.eureka_job_armor')} +2", "#{t('general.eureka_job_armor')} +1", t('general.eureka_job_armor')]
       .zip(Item.where(id: Item.eureka_job_armor_ids).each_slice(75).to_a.reverse).to_h
-    @eureka_elemental_armor = ['Elemental Armor +2', 'Elemental Armor +1', 'Elemental Armor']
+    @eureka_elemental_armor = ["#{t('general.elemental_armor')} +2", "#{t('general.elemental_armor')}  +1", t('general.elemental_armor')]
       .zip(Item.where(id: Item.eureka_elemental_armor_ids).each_slice(35).to_a.reverse).to_h
     @idealized_armor = Item.where(id: Item.idealized_armor_ids)
-    @bozjan_armor = ['Augmented Bozjan Armor', 'Bozjan Armor']
+    @bozjan_armor = [t('general.augmented_bozjan_armor'), t('general.bozjan_armor')]
       .zip(Item.where(id: Item.bozjan_armor_ids).each_slice(35).to_a.reverse).to_h
   end
 

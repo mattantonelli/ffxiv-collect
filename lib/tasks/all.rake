@@ -7,7 +7,9 @@ namespace :data do
     Rake::Task['data:update'].invoke
     Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
-    Rake::Task['tomestone_rewards:create'].invoke
+    Rake::Task['tomestones:law:create'].invoke
+    Rake::Task['tomestones:mythology:create'].invoke
+    Rake::Task['tomestones:soldiery:create'].invoke
     Rake::Task['items:create'].invoke
   end
 

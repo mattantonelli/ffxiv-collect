@@ -15,12 +15,12 @@ module CollectionsHelper
   end
 
   def ownership_options(selected = nil)
-    options_for_select([['Show All', 'all'], ['Only Owned', 'owned'], ['Only Missing', 'missing']], selected)
+    options_for_select([[t('general.show_all'), 'all'], [t('general.only_owned'), 'owned'], [t('general.only_missing'), 'missing']], selected)
   end
 
   def gender_filter_options(selected = nil)
-    options_for_select([['All Genders', 'all'], ['Hide Male', 'male'], ['Hide Female', 'female'],
-                        ['Character Usable', 'character']], selected)
+    options_for_select([[t('general.all_genders'), 'all'], [t('general.hide_male'), 'male'], [t('general.hide_female'), 'female'],
+                        [t('general.character_usable'), 'character']], selected)
   end
 
   def category_row_classes(collectable, active_category)

@@ -1,18 +1,18 @@
-<% title('Blue Magic Spells') %>
-<% description("Track your character's blue magic spells and discover how to obtain new ones.") %>
+<% title(t('general.spell.other')) %>
+<% description(t('description.spells')) %>
 
 <div class="d-flex justify-content-center my-2">
   <%= search_form_for(@q, url: spells_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('general.name'), size: 40,
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :type_id_eq, SpellType.all.order("name_#{I18n.locale}"), :id, :name,
-      { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
-    <%= f.select "aspect_name_#{I18n.locale}_eq", @aspects, { include_blank: 'All Aspects' },
+      { include_blank: t('general.all_types') }, class: 'form-control form-control-sm' %>
+    <%= f.select "aspect_name_#{I18n.locale}_eq", @aspects, { include_blank: t('general.all_aspects') },
       class: 'form-control form-control-sm' %>
-    <%= f.select :rank_eq, rank_options, { include_blank: 'All Ranks' }, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    <%= f.select :rank_eq, rank_options, { include_blank: t('general.all_ranks') }, class: 'form-control form-control-sm' %>
+    <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= f.submit t('general.search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
@@ -24,13 +24,13 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
-      <th scope="col">Name</th>
-      <th scope="col" class="hide-xs">Enemy</th>
-      <th scope="col" class="hide-xs">Location</th>
-      <th scope="col" class="text-center hide-sm">Type</th>
-      <th scope="col" class="text-center hide-sm">Aspect</th>
-      <th scope="col" class="text-center hide-sm">Rank</th>
-      <th scope="col" class="text-center hide-sm">Own</th>
+      <th scope="col"><%= t('general.name') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.enemy') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.location') %></th>
+      <th scope="col" class="text-center hide-sm"><%= t('general.type') %></th>
+      <th scope="col" class="text-center hide-sm"><%= t('general.aspect') %></th>
+      <th scope="col" class="text-center hide-sm"><%= t('general.rank') %></th>
+      <th scope="col" class="text-center hide-sm"><%= t('general.own') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>
@@ -42,7 +42,7 @@
   <tbody>
     <% @spells.each do |spell| %>
       <tr class="collectable<%= ' owned' if owned?(spell.id) %>">
-        <td class="number">No. <%= spell.order %></td>
+        <td class="number"><%= t('general.index_prefix') %> <%= spell.order %></td>
         <td class="spell-sprite">
           <%= link_to(spell_path(spell)) do %>
             <%= sprite(spell, :spell) %>

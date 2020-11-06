@@ -1,24 +1,22 @@
 <div class="jumbotron py-4 mb-3">
   <h1 class="display-4">FFXIV Collect</h1>
-  <p class="lead">Another website for tracking your Final Fantasy XIV collections.</p>
+  <p class="lead"><%= t('home.subtile') %></p>
   <hr class="my-4">
-  <h5>Keep your Lodestone collections updated automatically</h5>
+  <h5><%= t('home.headline_one') %></h5>
   <p>
-    Your collections are updated automatically to reflect any new mounts, minions, and achievements you obtain
-    based on your Lodestone profile.
+    <%= t('home.text_one') %>
   </p>
-  <h5>Update the rest with a simple user interface</h5>
+  <h5><%= t('home.headline_two') %></h5>
   <p>
-    Any collectables not visible on your Lodestone profile can be updated manually as you obtain them.
+    <%= t('home.text_two') %>
   </p>
-  <h5>Do you have feedback? I want to hear it!</h5>
+  <h5><%= t('home.headline_three') %></h5>
   <p>
-    The community is what motivates me to create these projects, so if you have any feedback,
-    let me know on <%= link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank' %>.
+    <%= t('home.text_three_html', link: (link_to 'Discord', 'https://discord.gg/Bf62wNU', target: '_blank')) %>
   </p>
   <div class="mt-4 text-center">
-    <%= link_to 'Discuss on Discord', 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
-    <%= link_to 'Support on Patreon', 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
+    <%= link_to t('home.discuss_on_discord'), 'https://discord.gg/Bf62wNU', class: 'btn discord mt-2', target: '_blank' %>
+    <%= link_to t('home.support_on_patreon'), 'https://www.patreon.com/raelys', class: 'btn patreon mt-2', target: '_blank' %>
   </div>
 </div>
 <div class="row">
@@ -27,9 +25,7 @@
       <h5 class="card-header">API</h5>
       <div class="card-body">
         <p>
-          All of the data used on this site is available for any savvy developers through a public RESTful JSON API.
-          You can check out the full documentation
-          <%= link_to 'here', 'https://github.com/mattantonelli/ffxiv-collect/wiki', target: '_blank' %>.
+          <%= t('home.api_description_html',link: (link_to 'Wiki', 'https://github.com/mattantonelli/ffxiv-collect/wiki', target: '_blank')) %>.
         </p>
         <b>GET <%= link_to nil, api_mount_url(186), class: 'unstyled' %></b>
         <%= render 'api_sample' %>

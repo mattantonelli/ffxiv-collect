@@ -1,16 +1,16 @@
 <% title(@title) %>
-<% description("Browse the collectable rewards from the #{@title} and see which ones your character is missing.") %>
+<% description(t('description.morgy_tomestones',title: @title)) %>
 
 <div class="d-flex inline-flex justify-content-center">
   <div class="card">
     <div class="card-body text-center">
-      The following collectables are available as rewards from the <%= reward_event_link(@url) %> event.
+      <%= t('general.moogle_description_html',link: reward_event_link(@url) ) %>
     </div>
   </div>
 </div>
 
 <div class="d-flex justify-content-end mb-2 mt-2 mt-lg-0">
-  <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+  <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: { toggle: 'modal', target: '#filters'},
     type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
 </div>
 
@@ -20,9 +20,9 @@
   <thead>
     <tr>
       <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-      <th scope="col">Name</th>
-      <th scope="col" class="hide-xs">Original Source</th>
-      <th scope="col" class="text-center">Cost</th>
+      <th scope="col"><%= t('general.name') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.original_source') %></th>
+      <th scope="col" class="text-center"><%= t('general.cost') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>

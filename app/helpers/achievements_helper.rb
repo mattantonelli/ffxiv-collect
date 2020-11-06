@@ -27,7 +27,7 @@ module AchievementsHelper
     points = achievements.select { |achievement| ids.include?(achievement.id) }.pluck(:points).sum
     total_points = achievements.pluck(:points).sum
 
-    "#{complete} of #{achievements.size} complete. #{points}/#{total_points} #{fa_icon('star')}".html_safe
+    "#{complete} #{t('general.of')} #{achievements.size} #{t('general.complete')}. #{points}/#{total_points} #{fa_icon('star')}".html_safe
   end
 
   def completed?(category, ids)

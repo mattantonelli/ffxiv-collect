@@ -43,7 +43,11 @@ namespace :sources do
           end
         end
 
-        model.find_by(name_en: row[0]).sources.find_or_create_by!(data)
+        if model.find_by(name_en: row[0]).try(:sources) != nil
+          model.find_by(name_en: row[0]).sources.find_or_create_by!(data)
+        else
+          puts "#{type} - #{row[0]} - Could not be imported"
+        end
       end
     end
   end

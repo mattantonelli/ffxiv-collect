@@ -7,11 +7,11 @@
       <%= search_form_for(@q, url: admin_characters_path, class: 'form form-inline admin-search-form') do |f| %>
         <%= f.select :server_eq, Character.servers, { include_blank: t(:'general.all_servers') }, class: 'form-control form-control-sm' %>
         <%= check_box_tag :verified, 1, @verified, class: 'form-control' %>
-        <%= label_tag :verified %>
+        <%= label_tag t('general.verifed') %>
         <%= check_box_tag :public, 1, @public, class: 'form-control' %>
-        <%= label_tag :public %>
+        <%= label_tag t('general.public') %>
         <%= f.search_field :name_cont, placeholder: t(:'general.name'), size: 30, class: 'form-control form-control-sm' %>
-        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+        <%= f.submit t('general.search'), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
   </div>
@@ -21,7 +21,7 @@
         <th></th> <!-- Avatar -->
         <th><%= t :'general.name' %></th>
         <th><%= t :'general.server' %></th>
-        <th><%= t :'general.last_parsed' %></th>
+        <th><%= t :'character.last_parsed' %></th>
         <th><%= t :'user.verified' %></th>
         <th class="text-center mr-4"><%= t :'general.public' %></th>
         <th></th> <!-- Buttons -->

@@ -18,6 +18,11 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type="text/javascript">
+        I18n.defaultLocale = "<%= I18n.default_locale %>";
+        I18n.locale = "<%= I18n.locale %>";
+        I18n.fallbacks = true;
+    </script>
 
     <% if Rails.env.production? && ga_tid.present? %>
       <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga_tid %>"></script>
@@ -31,7 +36,7 @@
     <% end %>
   </head>
 
-  <body>
+  <body data-locale="<%= I18n.locale %>">
     <header class="container mb-4">
       <%= render 'layouts/navbar' %>
       <%= render 'layouts/alerts' %>
@@ -45,7 +50,7 @@
       <span class='d-block d-sm-inline'><%= t :'footer.created'%></span>
       <span class="d-none d-sm-inline"> | </span>
       <div class="d-block d-sm-inline">
-        <span>Powered by <%= link_to 'XIVAPI', 'https://xivapi.com/', target: '_blank' %> | </span>
+        <span><%= t('general.powered_by') %> <%= link_to 'XIVAPI', 'https://xivapi.com/', target: '_blank' %> | </span>
         <%= link_to 'https://discord.gg/Bf62wNU', class: 'unstyled', target: '_blank' do %>
           <%= image_tag('discord.png', class: 'discord') %>
         <% end %>

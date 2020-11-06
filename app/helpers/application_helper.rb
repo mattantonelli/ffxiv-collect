@@ -68,7 +68,29 @@ module ApplicationHelper
   end
 
   def fa_check(condition, text = true)
-    condition ? fa_icon('check', text: ('Yes' if text)) : fa_icon('times', text: ('No' if text))
+    condition ? fa_icon('check', text: (t('general.yes').capitalize() if text)) : fa_icon('times', text: (t('general.no').capitalize() if text))
+  end
+
+  def generic_sprite(collection, collectable)
+    case collection
+    when /(mounts|minions|fashions)/
+      sprite(collectable, "#{collection}-small")
+    when 'spells'
+      content_tag :div, class: 'spell-sprite' do
+        sprite(collectable, :spell)
+      end
+    when 'hairstyles'
+      hairstyle_sample_image(collectable)
+    when 'orchestrions'
+      image_tag('orchestrion.png')
+    else
+      sprite(collectable, collection.singularize)
+    end
+  end
+
+  def gender_symbol(gender)
+    return nil unless gender.present?
+    fa_icon(gender == 'male' ? 'mars' : 'venus', data: { toggle: 'tooltip', title: "#{gender.capitalize} Only" })
   end
 
   def generic_sprite(collection, collectable)

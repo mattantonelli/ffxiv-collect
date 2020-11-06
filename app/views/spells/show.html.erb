@@ -18,7 +18,7 @@
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
             <div>
-              <dt>Type</dt>
+              <dt><%= t('general.type') %></dt>
               <dd><%= @spell.type.name %></dd>
             </div>
             <div>
@@ -26,20 +26,20 @@
               <dd><%= @spell.aspect.name %></dd>
             </div>
             <div>
-              <dt>Rank</dt>
+              <dt><%= t('general.rank') %></dt>
               <dd><%= spell_rank(@spell) %></dd>
             </div>
             <%= render 'shared/ownership', collectable: @spell %>
             <div>
-              <dt>Patch</dt>
+              <dt><%= t('general.patch') %></dt>
               <dd><%= @spell.patch %></dd>
             </div>
           </div>
-          <dt><u>Tooltip</u></dt>
+          <dt><u><%= t('general.tooltip') %></u></dt>
           <dd><%= format_tooltip(@spell.tooltip) %></dd>
-          <dt><u>Description</u></dt>
+          <dt><u><%= t('general.description') %></u></dt>
           <dd><%= format_text(@spell.description) %></dd>
-          <dt><u>How to Learn</u></dt>
+          <dt><u><%= t('general.how_to_learn') %></u></dt>
           <dd class="mb-0"><%= sources(@spell, list: true) %></dd>
         </div>
       </div>

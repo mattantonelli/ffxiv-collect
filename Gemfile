@@ -29,6 +29,7 @@ gem 'sortable-rails'
 gem 'momentjs-rails'
 gem 'js_cookie_rails'
 gem 'rails_bootstrap_sortable'
+gem 'i18n-js', '~> 3.8'
 
 gem 'lograge'
 gem 'whenever'
@@ -48,6 +49,7 @@ gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rack-mini-profiler'
+  gem 'i18n_yaml_sorter'
 end
 
 group :development do

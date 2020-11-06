@@ -11,60 +11,60 @@
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle<%= ' active' if active_link?(achievements_path, 'achievement') %>" href="#"
           id="achievementsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false"><%= t :'general.achievements' %></a>
+          aria-expanded="false"><%= t :'general.achievement.other' %></a>
         <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
           <%= link_to t(:'general.overview'), achievements_path, class: 'dropdown-item bold' if @character.present? %>
-          <%= link_to t(:'general.titles'), titles_path, class: 'dropdown-item bold' %>
+          <%= link_to t(:'general.title.other'), titles_path, class: 'dropdown-item bold' %>
           <%= link_to t(:'general.item_reward'), achievement_items_path, class: 'dropdown-item bold' %>
           <% AchievementType.order(:id).all.each do |type| %>
             <%= link_to type.name, achievement_type_path(type), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>
-      <%= nav_link(t(:'general.mounts'), mounts_path, 'mounts') %>
-      <%= nav_link(t(:'general.minions'), minions_path, 'minions') %>
+      <%= nav_link(t(:'general.mount.other'), mounts_path, 'mounts') %>
+      <%= nav_link(t(:'general.minion.other'), minions_path, 'minions') %>
       <%= nav_link(t(:'general.orchestrion'), orchestrions_path, 'orchestrions') %>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="relicDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">Relics</a>
+           aria-haspopup="true" aria-expanded="false"><%= t('general.relics.other') %></a>
         <div class="dropdown-menu" aria-labelledBy="relicDropdown">
-          <%= link_to fa_icon('refresh', text: 'Weapons', right: true, data: { toggle: 'tooltip', placement: 'right',
-            title: 'Weapons tracked automatically by achievements' }), relic_weapons_path, class: 'dropdown-item' %>
-          <%= link_to fa_icon('check-square', text: 'Weapons', right: true, data: { toggle: 'tooltip', placement: 'right',
-            title: 'Weapons tracked manually' }), relic_weapons_manual_path, class: 'dropdown-item' %>
-          <%= link_to 'Armor', relic_armor_path, class: 'dropdown-item' %>
-          <%= link_to 'Tools', relic_tools_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('refresh', text: t('general.weapons'), right: true, data: { toggle: 'tooltip', placement: 'right',
+            title: t('general.weapons_track_automatically_tooltip') }), relic_weapons_path, class: 'dropdown-item' %>
+          <%= link_to fa_icon('check-square', text: t('general.weapons'), right: true, data: { toggle: 'tooltip', placement: 'right',
+            title: t('general.weapons_track_manually_tooltip') }), relic_weapons_manual_path, class: 'dropdown-item' %>
+          <%= link_to t('general.armoire.other'), relic_armor_path, class: 'dropdown-item' %>
+          <%= link_to t('general.tools'), relic_tools_path, class: 'dropdown-item' %>
         </div>
       </div>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="otherDropdown" role="button" data-toggle="dropdown"
            aria-haspopup="true" aria-expanded="false"><%= t :'general.other' %></a>
         <div class="dropdown-menu" aria-labelledBy="otherDropdown">
-          <%#= link_to "Moogle Treasure Trove#{fa_icon('exclamation-circle')}".html_safe,
+          <%#= link_to "#{t('general.moogle_treasure_trove')}#{fa_icon('exclamation-circle')}".html_safe,
             law_tomestones_path, class: 'dropdown-item' %>
           <%= link_to "Yo-kai Watch#{fa_icon('exclamation-circle')}".html_safe, yokai_path, class: 'dropdown-item' %>
-          <%= link_to 'Blue Magic', spells_path, class: 'dropdown-item' %>
-          <%= link_to t(:'general.emotes'), emotes_path, class: 'dropdown-item' %>
-          <%= link_to t(:'general.bardings'), bardings_path, class: 'dropdown-item' %>
-          <%= link_to t(:'general.hairstyles'), hairstyles_path, class: 'dropdown-item' %>
+          <%= link_to t('general.blue_magic'), spells_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.emote', count: 2), emotes_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.barding',count: 2), bardings_path, class: 'dropdown-item' %>
+          <%= link_to t(:'general.hairstyle', count: 2), hairstyles_path, class: 'dropdown-item' %>
           <%= link_to t(:'general.armoire.one'), armoires_path, class: 'dropdown-item' %>
-          <%= link_to 'Fashion Accessories', fashions_path, class: 'dropdown-item' %>
+          <%= link_to t('general.fashion_accessory', count: 2), fashions_path, class: 'dropdown-item' %>
           <%= link_to fa_icon('external-link', text: t(:'general.triple_triad'), right: true), 'https://triad.raelys.com/',
             target: '_blank', class: 'dropdown-item' %>
           <hr class="my-1">
-          <%= link_to 'Global Leaderboards', leaderboards_path, class: 'dropdown-item' %>
+          <%= link_to t('general.global_leaderboard'), leaderboards_path, class: 'dropdown-item' %>
           <% if @character&.free_company_id.present? %>
-            <%= link_to 'FC Leaderboards', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+            <%= link_to t('general.fc_leaderboard'), free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">Leaderboards</a>
+           aria-haspopup="true" aria-expanded="false"><%= t('general.leaderboards') %></a>
         <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
-          <%= link_to 'Global', leaderboards_path, class: 'dropdown-item' %>
+          <%= link_to t('general.global'), leaderboards_path, class: 'dropdown-item' %>
           <% if @character&.free_company_id.present? %>
-            <%= link_to 'Free Company', free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
+            <%= link_to t('general.free_company'), free_company_leaderboards_path(@character.free_company_id), class: 'dropdown-item' %>
           <% end %>
         </div>
       </div>

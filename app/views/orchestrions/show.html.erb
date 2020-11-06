@@ -16,30 +16,30 @@
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
             <div>
-              <dt>Category</dt>
+              <dt><%= t('general.category') %></dt>
               <dd>
                 <%= link_to @orchestrion.category.name,
                   orchestrions_path(category: @orchestrion.category_id), class: 'unstyled' %>
               </dd>
             </div>
             <div>
-              <dt>Tradeable</dt>
+              <dt><%= t('general.tradeable') %></dt>
               <dd><%= tradeable(@orchestrion) %></dd>
             </div>
             <%= render 'shared/ownership', collectable: @orchestrion %>
             <div>
-              <dt>Patch</dt>
+              <dt><%= t('general.patch') %></dt>
               <dd><%= @orchestrion.patch %></dd>
             </div>
           </div>
-          <dt>Source</dt>
+          <dt><%= t('general.patch') %></dt>
           <dd class="mb-0"><%= format_text_long(@orchestrion.description) %></dd>
           <hr>
-          <h6>Audio sample</h6>
+          <h6><%= t('general.audio_sample') %></h6>
           <audio controls="" controlslist="nodownload" class="my-2">
             <source src="https://www.garlandtools.org/files/orchestrion/<%= @orchestrion.id %>.ogg" type="audio/ogg">
           </audio>
-          <p class="mb-0">Powered by <%= link_to 'Garland Tools', 'http://www.garlandtools.org/db', target: '_blank' %></p>
+          <p class="mb-0"><%= t('general.powered_by') %> <%= link_to 'Garland Tools', 'http://www.garlandtools.org/db', target: '_blank' %></p>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-<% title('Orchestrion Quick Select') %>
+<% title("#{t('general.orchestrion')} #{t('general.quick_select')}") %>
 
 <%= render 'shared/category_buttons', categories: @categories, selected: @category, exclude_all: true %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>

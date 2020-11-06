@@ -1,4 +1,4 @@
-<% title('Character Profile') %>
+<% title(t('character.profile')) %>
 <% description("#{@profile.name} (#{@profile.server})") %>
 <% image(@profile.avatar) %>
 
@@ -8,21 +8,21 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center py-2">
-        <h5 class="card-title text-center mr-2">Character Profile</h5>
+        <h5 class="card-title text-center mr-2"><%= t('character.profile') %></h5>
         <div class="profile-buttons text-right">
           <% unless @character == @profile %>
-            <%= link_to fa_icon('exchange', text: 'Select Character'), select_character_path(@profile),
+            <%= link_to fa_icon('exchange', text: t('character.select')), select_character_path(@profile),
               method: :post, class: 'btn btn-primary btn-sm' %>
             <% if @character.present? %>
-              <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
+              <%= link_to fa_icon('retweet', text: t('character.compare')), select_character_path(@profile, compare: 1),
                 method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
             <% end %>
           <% end %>
 
-          <%= link_to fa_icon('bar-chart', text: 'Statistics'), stats_recent_character_path(@profile),
+          <%= link_to fa_icon('bar-chart', text: t('general.statistics')), stats_recent_character_path(@profile),
             class: 'btn btn-success btn-sm' unless @comparison == @profile %>
-          <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
-            type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+          <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: {toggle: 'modal', target: '#filters'},
+                         type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
         </div>
       </div>
       <div class="card-body">
@@ -40,7 +40,7 @@
                 <div>
                   <%= @profile.server %>
                   <% unless @profile.public? %>
-                    <span class="badge badge-danger">Private</span>
+                    <span class="badge badge-danger"><%= t('general.private') %></span>
                   <% end %>
                 </div>
               </div>
@@ -48,16 +48,16 @@
             <hr class="mb-0">
             <div class="d-flex flex-wrap">
               <div class="profile-progress">
-                <h6><%= collection_name('achievements') %></h6>
+                <h6><%= t("general."+collection_name('achievements').singularize.downcase(),count: 2) %></h6>
                 <% if @profile.achievements_count == -1 %>
-                  <span>Set to private.</span>
+                  <span><%= t('general.set_to_private') %></span>
                 <% else %>
                   <div class="d-flex flex-column">
                     <%= render 'shared/progress', value: @scores['achievements'][:value],
-                      min: 0, max: @scores['achievements'][:max], text: 'complete' %>
+                      min: 0, max: @scores['achievements'][:max], text: t('general.complete') %>
                     <div class="mt-2">
                       <%= render 'shared/progress', value: @scores['achievements'][:points],
-                        min: 0, max: @scores['achievements'][:points_max], text: 'points', alt: true %>
+                        min: 0, max: @scores['achievements'][:points_max], text: t('general.points'), alt: true %>
                     </div>
                   </div>
                 <% end %>
@@ -65,7 +65,7 @@
               <% @scores.except('achievements').each do |collectable, score| %>
                 <% if %w(mount minion).include?(collectable) || score[:value] > 0 %>
                   <div class="profile-progress">
-                    <h6><%= collection_name(collectable, score: score) %></h6>
+                    <h6><%= t("general."+collection_name(collectable, score: score).singularize.downcase().tr(" ","_"), count: 2) %></h6>
                     <div class="count">
                       <%= render 'shared/progress', value: score[:value], min: 0, max: score[:max] %>
                     </div>

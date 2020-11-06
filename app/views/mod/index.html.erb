@@ -2,18 +2,18 @@
 
 <div class="card shadow mb-3">
   <h5 class="card-header">
-    <%= link_to 'Manage Collectables', mod_dashboard_path, class: 'unstyled' %>
+    <%= link_to t('general.manage_collectables'), mod_dashboard_path, class: 'unstyled' %>
   </h5>
   <div class="card-body">
     <div class="d-flex flex-wrap justify-content-center">
       <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Fashion].each do |model| %>
-        <%= link_to model.to_s.pluralize, polymorphic_url([:mod, model]), class: 'btn btn-secondary mx-1 my-2' %>
+        <%= link_to t("general."+model.to_s.downcase, count: 2), polymorphic_url([:mod, model]), class: 'btn btn-secondary mx-1 my-2' %>
       <% end %>
     </div>
   </div>
 </div>
 <div class="card shadow">
-  <h5 class="card-header">Changelog</h5>
+  <h5 class="card-header"><%= t('general.changelog') %></h5>
   <div class="card-body card-table">
     <%= render 'change_table', changes: @changes %>
   </div>

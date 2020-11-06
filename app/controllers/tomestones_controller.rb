@@ -2,21 +2,21 @@ class TomestonesController < ApplicationController
   before_action :set_collection
 
   def mythology
-    @title = 'Moogle Treasure Trove (Mythology)'
+    @title = "#{t('general.moogle_treasure_trove')} (#{t('general.mythology')})"
     @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/201909/'
     @rewards = rewards('Mythology')
     render :index
   end
 
   def soldiery
-    @title = 'Moogle Treasure Trove (Soldiery)'
+    @title = "#{t('general.moogle_treasure_trove')} (#{t('general.soldiery')})"
     @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202001/'
     @rewards = rewards('Soldiery')
     render :index
   end
 
   def law
-    @title = 'Moogle Treasure Trove (Law)'
+    @title = "#{t('general.moogle_treasure_trove')} (#{t('general.law')})"
     @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202005/'
     @rewards = rewards('Law')
     render :index
