@@ -27,6 +27,8 @@
 #  movement                :string(255)      not null
 #  seats                   :integer          not null
 #  item_id                 :integer
+#  video                   :string(255)
+#  order_group             :integer
 #
 
 class Mount < ApplicationRecord

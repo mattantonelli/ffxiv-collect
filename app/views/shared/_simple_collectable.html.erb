@@ -9,23 +9,26 @@
           <div class="image-small">
             <%= sprite(collectable, collectable.class.to_s.downcase) %>
           </div>
-          <h5 class="card-title mx-2"><%= collectable.name %></h5>
+          <h5 class="card-title mx-2">
+            <%= collectable.name %>
+            <%= gender_symbol(collectable.try(:gender)) %>
+          </h5>
         </div>
       </div>
       <div class="card-body py-3">
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
             <div>
-              <dt>Tradeable</dt>
+              <dt><%= t("general.tradeable") %></dt>
               <dd><%= tradeable(collectable) %></dd>
             </div>
             <%= render 'shared/ownership', collectable: collectable %>
             <div>
-              <dt>Patch</dt>
+              <dt><%= t("general.patch") %></dt>
               <dd><%= collectable.patch %></dd>
             </div>
           </div>
-          <dt>Source</dt>
+          <dt><%= t("general.source") %></dt>
           <dd class="mb-0"><%= sources(collectable, list: true) %></dd>
         </div>
       </div>

@@ -3,17 +3,18 @@ require 'sprite_factory'
 namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
-    PaperTrail.enabled = false
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
     Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
-    PaperTrail.enabled = true
+    Rake::Task['tomestones:law:create'].invoke
+    Rake::Task['tomestones:mythology:create'].invoke
+    Rake::Task['tomestones:soldiery:create'].invoke
+    Rake::Task['items:create'].invoke
   end
 
   desc 'Updates all data'
   task update: :environment do
-    PaperTrail.enabled = false
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
     Rake::Task['achievements:create'].invoke
@@ -25,8 +26,9 @@ namespace :data do
     Rake::Task['bardings:create'].invoke
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
+    Rake::Task['spells:create'].invoke
+    Rake::Task['fashions:create'].invoke
     Rake::Task['sources:update'].invoke
-    PaperTrail.enabled = true
   end
 end
 
@@ -41,6 +43,10 @@ def sanitize_text(text)
     .gsub(/\<.*?\>/, '')
     .gsub("\r", "\n")
     .gsub("\n\n", ' ')
+end
+
+def sanitize_tooltip(text)
+  sanitize_text(text.gsub("\n\n", "\n"))
 end
 
 # Fix lowercase names and German gender tags
@@ -61,7 +67,7 @@ def updated?(model, data)
   current = model.attributes.symbolize_keys.select { |k, _| data.keys.include?(k) }
 
   if updated = data != current
-    puts "  Found new data for #{model.id}:"
+    puts "  Found new data for #{model.name_en} (#{model.id}):"
     diff = data.map do |k, v|
       "#{k}: #{current[k]} → #{v}" if current[k] != v
     end
@@ -71,7 +77,7 @@ def updated?(model, data)
   updated
 end
 
-def download_image(id, url, path, mask_from = nil, mask_to = nil)
+def download_image(id, url, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
   path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
 
   unless path.exist?
@@ -83,6 +89,9 @@ def download_image(id, url, path, mask_from = nil, mask_to = nil)
         image = ChunkyPNG::Image.from_stream(open(image_url))
         image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
                                   ChunkyPNG::Color::TRANSPARENT)
+      elsif width.present?
+        image = ChunkyPNG::Image.from_stream(open(image_url))
+        image.resample_bilinear!(width, height)
       else
         image = open(image_url).read
       end

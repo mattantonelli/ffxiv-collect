@@ -10,10 +10,23 @@ module Collectable
       where('sources.type_id not in (?) or sources.type_id is null', SourceType.limited.pluck(:id)) if hide
     end
 
-    scope :with_filters, -> (filters) do
+    scope :filter_gender, -> (option, character) do
+      if option.present? && model.column_names.include?('gender')
+        if option == 'character'
+          # Show collectables usable by the character's gender
+          where('gender is null or gender = ?', character.gender) if character.present?
+        elsif option != 'all'
+          # Hide collectables for the given gender
+          where('gender is null or gender <> ?', option)
+        end
+      end
+    end
+
+    scope :with_filters, -> (filters, character = nil) do
       left_joins(:sources)
         .hide_premium(filters[:premium] == 'hide')
         .hide_limited(filters[:limited] == 'hide')
+        .filter_gender(filters[:gender], character)
         .distinct
     end
 

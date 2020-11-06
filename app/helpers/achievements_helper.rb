@@ -18,7 +18,7 @@ module AchievementsHelper
   end
 
   def link_to_achievement_item(achievement)
-    link_to(achievement.item_name, teamcraft_url(:item, achievement.item_id), target: '_blank')
+    database_link(:item, achievement.item_name, achievement.item_id)
   end
 
   def achievement_completion(category, ids)
@@ -27,7 +27,7 @@ module AchievementsHelper
     points = achievements.select { |achievement| ids.include?(achievement.id) }.pluck(:points).sum
     total_points = achievements.pluck(:points).sum
 
-    "#{complete} of #{achievements.size} complete. #{points}/#{total_points} #{fa_icon('star')}".html_safe
+    "#{complete} #{t('general.of')} #{achievements.size} #{t('general.complete')}. #{points}/#{total_points} #{fa_icon('star')}".html_safe
   end
 
   def completed?(category, ids)

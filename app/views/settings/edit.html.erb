@@ -1,0 +1,42 @@
+<% title(t('general.settings')) %>
+<% description(t('description.setting')) %>
+
+<div class="row">
+  <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><%= t('user.settings') %></h5>
+      </div>
+      <div class="card-body py-3">
+        <%= form_for(@user, url: user_settings_path, html: { class: 'form' }) do |f| %>
+          <div class="form-group">
+            <%= f.label :database, t('general.database_links') %>
+            <%= f.select :database, database_options(@user.database), {}, class: 'form-control form-control-sm' %>
+          </div>
+          <div class="text-right mt-3">
+            <%= f.submit t('general.save'), class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% if @character.present? && @character.verified_user?(@user) %>
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="card-title"><%= t('character.settings') %></h5>
+        </div>
+        <div class="card-body py-3">
+          <%= form_for(@character, url: character_settings_path, html: { class: 'form' }) do |f| %>
+            <div class="form-group form-check">
+              <%= f.check_box :public %>
+              <%= f.label :public, t('character.public') %>
+            </div>
+            <div class="text-right mt-2">
+              <%= f.submit t('general.save'), class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -10,6 +10,6 @@
 #
 
 class CharacterArmoire < ApplicationRecord
-  belongs_to :character, counter_cache: :armoires_count
+  belongs_to :character, counter_cache: :armoires_count, touch: true
   belongs_to :armoire
 end

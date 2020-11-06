@@ -1,8 +1,8 @@
 <div>
   <dt>
-    Owned
-    <span data-toggle="tooltip" title="Percentage of public characters who have this <%= collectable.class.to_s.downcase %>.">
+    <%= t :'general.owned' %>
+    <span data-toggle="tooltip" title="<%= t('tooltip.ownership', collectable: t("general.#{collectable.class.to_s.downcase}.one")) %>."/>
       <%= fa_icon('question-circle') %>
   </dt>
-  <dd><%= Redis.current.hget(collectable.class.to_s.downcase.pluralize, collectable.id) %></dd>
+  <dd><%= rarity(collectable) %></dd>
 </div>

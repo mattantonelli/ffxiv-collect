@@ -1,0 +1,14 @@
+<% title("#{t('character.statistics')} - #{t('general.most_rare')}") %>
+<% description("#{@profile.name} (#{@profile.server})") %>
+<% image(@profile.avatar) %>
+
+<%= render 'statistics_profile' %>
+
+<div class="text-center">
+  <div class="btn-group">
+    <%= link_to t('general.most_recent'), stats_recent_character_path(@profile), class: 'btn btn-secondary' %>
+    <%= button_tag t('general.most_rare'), class: 'btn btn-secondary active', disabled: true %>
+  </div>
+</div>
+
+<%= render 'statistics' %>

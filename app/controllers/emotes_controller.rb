@@ -6,7 +6,6 @@ class EmotesController < ApplicationController
     @emotes = @q.result.includes(:category).include_sources.with_filters(cookies)
       .order(patch: :desc, id: :desc).distinct
     @types = source_types(:emote)
-    @emote_ids = @character&.emote_ids || []
     @categories = EmoteCategory.all.order(:id)
 
     @category = params[:category].to_i

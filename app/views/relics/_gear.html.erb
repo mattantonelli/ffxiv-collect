@@ -1,0 +1,21 @@
+<div class="d-flex flex-wrap justify-content-xl-around">
+  <% gear.each do |relic| %>
+    <div class="p-2" data-toggle="tooltip" data-html="true"
+      title="<%= relic_tooltip(relic, manual_owned: owned?(relic.id)) %>">
+      <% if @character&.verified_user?(current_user) %>
+        <div class="relic item own<%= ' owned' if owned?(relic.id) %>"
+          data-path="<%= polymorphic_path(relic, action: owned?(relic.id) ? :remove : :add) %>">
+          <%= sprite(relic, sprite_image) %>
+        </div>
+      <% elsif character_selected? %>
+        <div class="relic<%= ' owned' if owned?(relic.id) %>">
+          <%= sprite(relic, sprite_image) %>
+        </div>
+      <% else %>
+        <div class="relic owned">
+          <%= sprite(relic, sprite_image) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,5 +1,6 @@
 class ModController < ApplicationController
   before_action :authenticate_mod!
+  before_action :set_paper_trail_whodunnit
 
   def index
     @changes = PaperTrail::Version.includes(:user).order(id: :desc).paginate(page: params[:page])

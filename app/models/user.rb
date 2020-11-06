@@ -18,6 +18,7 @@
 #  character_id       :integer
 #  admin              :boolean          default(FALSE)
 #  mod                :boolean          default(FALSE)
+#  database           :string(255)      default("garland"), not null
 #
 
 class User < ApplicationRecord
@@ -36,6 +37,7 @@ class User < ApplicationRecord
     rescue RestClient::Forbidden
       { status: :private }
     rescue RestClient::NotFound
+      { status: :not_found }
     end
   end
 

@@ -61,7 +61,7 @@ class Minion < ApplicationRecord
   scope :verminion,  -> { where.not(id: variant_ids) }
 
   def strengths
-    { 'Gates' => gate, 'Search Eyes' => eye, 'Shields' => shield, 'Arcana Stones' => arcana }
+    { 'gates' => gate, 'search_eyes' => eye, 'shields' => shield, 'arcana_stones' => arcana }
   end
 
   def variant?

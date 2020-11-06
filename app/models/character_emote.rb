@@ -10,6 +10,6 @@
 #
 
 class CharacterEmote < ApplicationRecord
-  belongs_to :character, counter_cache: :emotes_count
+  belongs_to :character, counter_cache: :emotes_count, touch: true
   belongs_to :emote
 end

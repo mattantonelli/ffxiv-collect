@@ -10,6 +10,6 @@
 #
 
 class CharacterHairstyle < ApplicationRecord
-  belongs_to :character, counter_cache: :hairstyles_count
+  belongs_to :character, counter_cache: :hairstyles_count, touch: true
   belongs_to :hairstyle
 end

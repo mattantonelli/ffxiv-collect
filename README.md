@@ -1,10 +1,6 @@
 # FFXIV Collect
 This is another application for tracking your Final Fantasy XIV collections written in [Ruby on Rails](https://rubyonrails.org/) and powered by [XIVAPI](https://xivapi.com/). This application strives to be as autonomous as possible by pulling as much data as possible from [XIVAPI](https://xivapi.com/). The rest is maintained by a small group of moderators using community-sourced data.
 
-## Important Notice
-
-FFXIV Collect has recently switched to the [Lalachievements](https://lalachievements.com/en/) API for character synchronization. This API is currently private, so you will not be able to synchronize characters with the latest version of this code. Until this API becomes public, you can check out the tag `no-lala`.
-
 ## API
 
 All of this application's data is made available through a RESTful JSON API. See the [wiki](https://github.com/mattantonelli/ffxiv-collect/wiki) for details.
@@ -28,7 +24,7 @@ bundle exec rake app:update:bin
 Create the MySQL databases `ffxiv_collect_development` and `ffxiv_collect_test` as well as a database user with access to them
 
 #### Create the necessary 3rd party applications
-1. Create a new [Discord app](https://discordapp.com/developers/applications/) for user authentication. Take note of the **client ID** and **secret**.
+1. Create a new [Discord app](https://discord.com/developers/applications/) for user authentication. Take note of the **client ID** and **secret**.
     1. Set the redirect URI on the OAuth2 page of your app: `http://localhost:3000/users/auth/discord/callback`
 2. Create an [XIVAPI](https://xivapi.com/) account and take note of your API key.
 3. Configure the credentials file to match the format below using your data.
@@ -45,7 +41,6 @@ discord:
   client_id: 123456789
   client_secret: abc123
 xivapi_key: def456
-lalachievements_key: ghi789
 google_analytics:
   tracking_id: GA-1234567-8
 ```
@@ -79,11 +74,54 @@ bundle exec rake data:update
 bundle exec rake assets:precompile
 # Restart the application
 bundle exec rails console
-[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire].each { |model| puts "#{model}: #{model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH')}" }
+[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Fashion].each { |model| puts "#{model}: #{model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH')}" }
 exit
 ```
 
 More action may be required in the event of complex game updates. Patch data must be populated manually.
+
+
+## Run docker-compose [Development]
+If you want to use docker in development mode run following commands to init/start containers.
+
+Installation of the database
+
+```
+docker build -t ffxiv-collect:latest --build-arg RAILS_ENV=development .
+docker-compose up
+
+# In another terminal
+docker-compose run --rm web rake db:schema:load
+docker-compose run --rm web rake data:initialize
+docker-compose restart
+
+#Terminal before
+Ctrl + C
+docker-compose up -d
+```
+
+Regular run
+
+```
+docker-compose up -d
+```
+
+## Run docker-compose [Production]
+If you want to run it on an production environment use the example in docker/docker-compose path.
+
+```
+
+docker-compose up
+
+# In another terminal
+docker-compose run --rm web rake db:schema:load
+docker-compose run --rm web rake data:initialize
+
+#Terminal before
+Ctrl + C
+docker-compose up -d
+
+```
 
 ---
 

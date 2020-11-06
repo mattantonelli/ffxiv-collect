@@ -3,10 +3,10 @@ class AchievementsController < ApplicationController
   before_action :verify_character!, only: :index
   before_action :check_achievements!, except: :show
   before_action :set_owned!, on: :items
+  before_action :set_ids!, :set_dates!, on: [:type, :items]
 
   def index
-    @types = AchievementType.all.order(:id).includes(:categories, :achievements)
-    @achievement_ids = @character&.achievement_ids || []
+    @types = AchievementType.all.order(:order).includes(:categories, :achievements)
   end
 
   def show
@@ -16,15 +16,12 @@ class AchievementsController < ApplicationController
   def type
     @type = AchievementType.find(params[:id])
     @achievements = @type.achievements
-    @categories = @type.categories.includes(achievements: :title)
-    @achievement_ids = @character&.achievement_ids || []
-    @achievement_dates = @character&.character_achievements&.pluck(:achievement_id, :created_at).to_h || {}
+    @categories = @type.categories.includes(achievements: :title).order(:order)
   end
 
   def items
-    @q = Achievement.where.not(item_id: nil).ransack(params[:q])
+    @q = Achievement.where.not(item_id: nil).with_filters(cookies).ransack(params[:q])
     @achievements = @q.result.order(patch: :desc, order: :desc).includes(category: :type)
-    @achievement_ids = @character&.achievement_ids || []
     @owned = Redis.current.hgetall(:achievements)
   end
 end

@@ -1,29 +1,26 @@
-<% title('Titles') %>
+<% title(t('general.title.other')) %>
+<% description(t('description.titles')) %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: titles_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: 'Title',
+    <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: t('general.title.one'),
       size: 40, class: 'form-control form-control-sm'%>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= f.submit t('general.search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= titles_progress(@titles, @achievement_ids) %>
-  </div>
-<% end %>
-<table class="table table-striped shadow p-3 collection sortable">
+<%= render 'shared/collection_progress', ids: @titles.map(&:achievement_id) %>
+<table class="table table-striped shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col" class="hide-xs">Achievement</th>
-      <th scope="col" class="hide-xs">Category</th>
-      <th scope="col" class="text-center hide-xs">Own</th>
-      <th scope="col" class="text-center">Patch</th>
+      <th scope="col"><%= t('general.title.one') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.achievement.one') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.category') %></th>
+      <th scope="col" class="text-center hide-xs"><%= t('general.own') %></th>
+      <th scope="col" class="text-center"><%= t('general.patch') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>
@@ -31,20 +28,24 @@
   </thead>
   <tbody>
     <% @titles.each do |title| %>
-      <tr class="collectable<%= ' owned' if @achievement_ids.include?(title.achievement_id) %>">
+      <tr class="collectable<%= ' owned' if owned?(title.achievement_id) %>">
         <td data-value="<%= title.order %>"></td>
         <td><%= title_name(title) %></td>
         <td class="hide-xs"><%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name') %></td>
         <td class="title-category hide-xs">
-          <%= link_to(title.achievement.type.name, achievement_type_path(title.achievement.type,
-                                                                         anchor: title.achievement.category_id), class: 'name') %>
+          <%= link_to(title.achievement.type.name,
+                      achievement_type_path(title.achievement.type, anchor: title.achievement.category_id), class: 'name') %>
         </td>
         <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
           <%= rarity(title.achievement) %>
         </td>
         <td class="text-center"><%= title.achievement.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@achievement_ids, title.achievement, false) %>
+          <% if @comparison.present? %>
+            <%= td_comparison(title.achievement) %>
+          <% else %>
+            <%= td_owned(title.achievement) %>
+          <% end %>
         <% end %>
       </tr>
     <% end %>

@@ -16,7 +16,13 @@
           <div class="d-flex flex-wrap">
             <div>
               <dt>Command</dt>
-              <dd><%= @emote.command %></dd>
+              <dd>
+                <ul class="list-unstyled">
+                  <% @emote.command.split(', ').each do |command| %>
+                    <li><%= command %></li>
+                  <% end %>
+                </ul>
+              </dd>
             </div>
             <div>
               <dt>Tradeable</dt>

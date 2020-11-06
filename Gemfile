@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.4.1'
 
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4.4'
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -12,7 +12,9 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'mini_racer', '~> 0.2.4'
-gem 'rack-cors'
+gem 'rack-cors', '~> 1.1.0'
+gem 'rack', '>= 2.2.3'
+gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
 gem 'omniauth-discord'
@@ -27,6 +29,7 @@ gem 'sortable-rails'
 gem 'momentjs-rails'
 gem 'js_cookie_rails'
 gem 'rails_bootstrap_sortable'
+gem 'i18n-js', '~> 3.8'
 
 gem 'lograge'
 gem 'whenever'
@@ -37,14 +40,16 @@ gem 'redis-namespace'
 gem 'traco'
 gem 'rest-client'
 gem 'paper_trail'
-gem 'sidekiq', '~> 5.2.7'
+gem 'sidekiq', '~> 5.2.9'
 gem 'sidekiq-failures', '~> 1.0.0'
+gem 'nokogiri'
 
 gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.0'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rack-mini-profiler'
+  gem 'i18n_yaml_sorter'
 end
 
 group :development do

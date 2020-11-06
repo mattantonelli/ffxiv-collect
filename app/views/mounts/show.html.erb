@@ -6,50 +6,50 @@
   <div class="col-12 col-lg-10 offset-0 offset-lg-1">
     <div class="card">
       <div class="card-header d-flex align-items-center">
-        <div class="d-lg-none mr-2">
-          <%= sprite(@mount, 'mounts-small') %>
-        </div>
         <h5 class="card-title"><%= @mount.name %></h5>
       </div>
       <div class="card-body">
         <div class="d-flex">
-          <div class="d-none d-lg-block mr-4">
+          <div class="d-none d-sm-block mr-4">
             <%= safe_image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>
           </div>
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
               <div>
-                <dt>Movement</dt>
+                <dt><%= t('general.movement') %></dt>
                 <dd><%= @mount.movement %></dd>
               </div>
               <div>
-                <dt>Flying</dt>
+                <dt><%= t('general.flying') %></dt>
                 <dd><%= fa_check(@mount.flying) %></dd>
               </div>
               <div>
-                <dt>Tradeable</dt>
+                <dt><%= t('general.tradeable') %></dt>
                 <dd><%= tradeable(@mount) %></dd>
               </div>
               <% if @mount.seats > 1 %>
                 <div>
-                  <dt>Seats</dt>
+                  <dt><%= t('general.seats') %></dt>
                   <dd><%= @mount.seats %></dd>
                 </div>
               <% end %>
               <%= render 'shared/ownership', collectable: @mount %>
               <div>
-                <dt>Patch</dt>
+                <dt><%= t('general.patch') %></dt>
                 <dd><%= @mount.patch %></dd>
               </div>
             </div>
-            <dt>Source</dt>
+            <dt><%= t('general.source') %></dt>
             <dd><%= sources(@mount, list: true) %></dd>
-            <dt>Description</dt>
+            <dt><%= t('general.description') %></dt>
             <dd><%= format_text(@mount.description) %></dd>
-            <dt>Journal</dt>
+            <dt><%= t('general.journal') %></dt>
             <dd><%= format_text(@mount.enhanced_description) %></dd>
-            <dt>Tooltip</dt>
+            <dt><%= t('general.tooltip') %></dt>
             <dd><%= format_text(@mount.tooltip) %></dd>
+            <div class="d-block d-sm-none">
+              <%= safe_image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>
+            </div>
           </div>
         </div>
         <div class="mount-footprint">
@@ -58,4 +58,17 @@
       </div>
     </div>
   </div>
+  <% if @mount.video.present? %>
+    <div class="col-12 mt-2 d-none d-sm-block">
+      <div class="card video">
+        <div class="card-header">
+          <h5 class="card-title">Video Preview</h5>
+        </div>
+        <div class="card-body text-center">
+          <iframe width="560" height="315" src="<%= @mount.video %>" frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

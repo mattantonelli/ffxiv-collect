@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  skip_before_action :set_locale
+  skip_before_action :set_locale, :set_characters
   before_action :set_defaults, :set_language, :track_request
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
@@ -12,7 +12,12 @@ class ApiController < ApplicationController
 
   private
   def sanitize_query_params
+    # Construct the search query from the params, excluded meta params
     query = params.except(:format, :controller, :action)
+
+    # Blacklist all user & character params
+    query.reject! { |param| param.match?('user_') || param.match?('character_') }
+
     query.each do |k, v|
       if k =~ /_in\Z/
         case v

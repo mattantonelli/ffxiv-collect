@@ -10,6 +10,6 @@
 #
 
 class CharacterMinion < ApplicationRecord
-  belongs_to :character, counter_cache: :minions_count
+  belongs_to :character, counter_cache: :minions_count, touch: true
   belongs_to :minion
 end

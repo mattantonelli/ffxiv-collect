@@ -19,6 +19,8 @@ namespace :sources do
 
   desc 'Initializes source data for various collectables'
   task initialize: :environment do
+    PaperTrail.enabled = false
+
     puts 'Setting initial collectable sources'
 
     sources = SourceType.pluck(:name, :id).to_h
@@ -41,13 +43,19 @@ namespace :sources do
           end
         end
 
-        model.find_by(name_en: row[0]).sources.find_or_create_by!(data)
+        if model.find_by(name_en: row[0]).try(:sources) != nil
+          model.find_by(name_en: row[0]).sources.find_or_create_by!(data)
+        else
+          puts "#{type} - #{row[0]} - Could not be imported"
+        end
       end
     end
   end
 
   desc 'Sets item IDs and known sources for various collectables'
   task update: :environment do
+    PaperTrail.enabled = false
+
     achievement_type, crafting_type, event_type, quest_type =
       SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
 
@@ -55,14 +63,14 @@ namespace :sources do
     collections = { Mount => 1322, Minion => 853, Orchestrion => 5845, Emote => 2633, Barding => 1013, Hairstyle => 2633 }
 
     # Exclude limited time achievement sources because they are a mess to filter
-    valid_achievement_ids = Achievement.exclude_time_limited.pluck(:id)
+    valid_achievement_ids = Achievement.exclude_time_limited.pluck(:id) - [1771, 1772, 1773] # Also exclude GARO
 
     collectables = collections.each_with_object({}) do |(collection, type), h|
       XIVAPI_CLIENT.search(indexes: 'Item', columns: ITEM_COLUMNS, filters: "ItemAction.Type=#{type}", limit: 999).each do |item|
         if collection == Emote
           next unless item.name_en.match?('Ballroom Etiquette')
           command = item.description_en.match(/(\/.*) emote/).captures.first
-          collectable = collection.find_by(command_en: command)
+          collectable = collection.where('command_en like ?', "%#{command}%").first
         elsif collection == Hairstyle
           next unless item.name_en.match?('Modern Aesthetics')
           collectable = collection.find_by(name_en: item.name_en.gsub(/.* - /, ''))

@@ -60,7 +60,7 @@ class Mod::CollectablesController < ModController
   end
 
   def collectable_params
-    params.require(@model.to_s.downcase).permit(:name_en, :patch, sources_attributes:
+    params.require(@model.to_s.downcase).permit(:name_en, :patch, :details, :gender, sources_attributes:
                                                 [:id, :type_id, :collectable_id, :collectable_type, :text])
   end
 end

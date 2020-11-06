@@ -1,0 +1,269 @@
+de:
+  character:
+    change: "Charakter ändern"
+    compare: "Charaktere vergleichen"
+    discord_ownership_message: "Sie haben sich als Eigentümer über den Charakter mit folgendem Discord Benutzer verifiziert:"
+    forget: "Charakter vergessen"
+    last_parsed: "Letzte Erfassung"
+    last_update_message: "Letzte Aktualisierung %{timespan} her."
+    lodestone_verify_message_html: "Wenn do oben genannten Informationen stimmen, fügen sie bitte den Text von unten in ihr %{lodestone_link} und drücken sie im Anschluss auf <b>Verifizieren</b>."
+    manage: "Verwalten des Charakters"
+    profile: "Charakterprofil"
+    public: "Setze die Charakter Sammlung öffentlich"
+    refresh: "Aktualisierung des Charakters"
+    search: "Charakter Suche"
+    select: "Charakterauswahl"
+    select_a_sever: "Wähle einen Server"
+    settings: "Charakter Einstellung"
+    statistics: "Charakter Statistiken"
+    unverify_question: "Sind sie sich sicher das sie die Charakter Verifizierung entfernen wollen?"
+    verify: "Verifizierung des Charakters"
+  description:
+    achievement: "Automatische Nachverfolgung der Charakter Errungenschaften und erfahre wie man diese erhält."
+    armoire: "Übersicht über deine Charakterausrüstung und erfahre wie man diese erhält."
+    bardings: "Übersicht deiner Chocobo-Harnische und erfahre wie man diese erhält."
+    character_search: 'Suche nach einem Charakter für den Überblick.'
+    character_verify: 'Validierung als Eigentümer des Charakters.'
+    emotes: "Übersicht über die Emotes deines Charakters und erfahre wie man diese erhält."
+    fashions: "Übersicht über die Mode Accessoires deines Charakters und erfahre wie man diese erhält."
+    hairstyles: "Übersicht über die Frisuren deines Charakters und erfahre wie man diese erhält."
+    item_reward: "Automatische Nachverfolgung der Charakter Obejekterrungenschaften und erfahre wie man neue erhält."
+    minions: "Automatische Nachverfolgung der Begleiter deines Charakters und erfahre wie man weitere erhält."
+    morgy_tomestones: "Sieh dir an welche Sammelobjekte man durch %{title} erhält und welche deinem Charakter fehlen."
+    mounts: "Automatische Nachverfolgung der Reittiere deines Charakters und erfahre wie man weitere erhält."
+    orchestrions: "Verfolge den Fortschritt deiner Charakter Orchestrion Notenrollen rolls und erfahre wie man weitere erhält."
+    relic_armor: "Verfolge den Fortschritt deiner Charakter Reliktrüstung."
+    relic_tools: "Verfolge den Fortschritt deiner Charakter Reliktwerkzeuge."
+    relic_weapons: "Automatische Nachverfolgung deiner Reliktwaffen"
+    relic_weapons_manual: "Verfolge den Fortschritt deiner Charakter Reliktwaffen manuell nach."
+    setting: 'Verwalte deine Charaktereinstellungen.'
+    spells: "Verfolge die Blaumagier Zauber deines Charakters und erfahre wie man weitere erhält."
+    titles: "Automatische Nachverfolgung deiner Charakter Titel und erfahre wie man weitere erhält."
+    yokai: "Automatische Nachverfolgung deines Charakter Fortschritt bei dem Yo-kai Watch Events."
+  footer:
+    created: "Erstellt durch Raelys Skyborn von Behemoth"
+  general:
+    a_relic_reborn: 'Restaurierung der Reliktwaffen'
+    achievement:
+      one: "Errungenschaft"
+      other: "Errungenschaften"
+    acquired_on: "Erhalten am"
+    action: "Aktion"
+    all: "Alle"
+    all_aspects: "Alle Elemente"
+    all_data_centers: "Alle Datenzentren"
+    all_genders: 'Alle Geschlechter'
+    all_race_types: "Alle Begleiter Typen"
+    all_ranks: "Alle Stufen"
+    all_servers: "Alle Server"
+    all_skill_types: "Alle Techniktypen"
+    all_sources: "Alle Quellen"
+    all_speed: 'Alle Geschwindigkeiten'
+    all_stength: 'Alle Stärken'
+    all_types: "Alle Typen"
+    anima_weapons: 'Anima Waffen'
+    any: "Irgendeins"
+    apply_filters: 'Filter anwenden'
+    arcana_stones: "Arkana-Steine"
+    armoire:
+      one: "Rüstung"
+      other: "Rüstungen"
+    aspect: "Element"
+    atk: "ATT"
+    audio_sample: "Musikvorschau"
+    augmented_bozjan_armor: "Modifizierte Bozja Rüstung"
+    auto_attack: "Auto-Attacke"
+    back: "Zurück"
+    barding:
+      one: "Rossharnisch"
+      other: "Rossharnische"
+    behavior: "Verhalten"
+    blue_magic: "Blaumagier"
+    bozjan_armor: 'Bozja Rüstung'
+    category: "Kategorie"
+    change: "Ändern"
+    changelog: "Änderungsverlauf"
+    character: "Charakter"
+    character_usable: 'Charakter nutzbar'
+    click_to_add: "Auswählen um hinzu zufügen"
+    click_to_remove: "Auswählen um zu entfernen"
+    collapse_all: 'Alles zuklappen'
+    complete: "abgeschlossen"
+    copy_to_clipboard: 'In die Zwischenablage kopieren'
+    cost: "Kosten"
+    created: "Erstellt"
+    data_center: "Datenzentrum"
+    database_links: 'Datenbank Links'
+    date: "Datum"
+    deep_dungeon_weapons: 'Tiefes Gewölbe - Waffen'
+    def: "ABW"
+    delete_source_question: 'Sind sie sich sicher das sie diese Quelle entfernen möchten?'
+    description: "Beschreibung"
+    edit: "Bearbeiten"
+    effective_against: "Effektive gegen"
+    elemental_armor: "Elementar Rüstung"
+    emote:
+      one: "Emote"
+      other: "Emotes"
+    enemy: "Gegner"
+    eureka_anemos_armor: "Eureka (Anemos) Rüstung"
+    eureka_job_armor: "Eureka Job Rüstung"
+    eureka_physeos_weapons: 'Eureka (Physeos) Waffen'
+    eureka_weapons: 'Eureka Waffen'
+    exclude_premium: 'Premium ausschließen'
+    exclude_time_limited: 'Zeitexklusive ausschließen'
+    expand_all: 'Alle aufklappen'
+    fashion:
+      one: "Modeaccessoire"
+      other: "Modeaccessoires"
+    fashion_accessories: "Modeaccessoires"
+    fashion_accessory:
+      one: "Modeaccessoire"
+      other: "Modeaccessoires"
+    fc_leaderboard: 'FC Rangliste'
+    filter:
+      one: "Filter"
+      other: "Filter"
+    flying: "Fliegen"
+    free_company: "Freie Gesellschaft"
+    gates: "Tore"
+    global: "Weltweit"
+    global_leaderboard: 'Weltrangliste'
+    hairstyle:
+      one: "Frisur"
+      other: "Frisuren"
+    hide_female: 'Verberge Weiblich'
+    hide_male: 'Verberge Männlich'
+    how_to_learn: "Wodurch erlernbar"
+    how_to_obtain: "Wodurch erhältlich"
+    hp: "LP"
+    idealized_armor: 'Idealisierte Rüstung'
+    index_prefix: "Nr."
+    item: "Objekt"
+    item_reward: "Objektbelohnung"
+    journal: "Journal"
+    law: "Juristik"
+    leaderboards: "Rangliste"
+    legendary_medal_locations: "Orte der Legendären Medaillen"
+    location: "Ort"
+    lodestone_profile: "Lodestone Profil"
+    lord_of_verminion: "Kampf der Trabanten"
+    lucis_tools: "Lucis Werkzeuge"
+    manage: "Verwalten"
+    manage_collectables: "Verwalte die Sammelobjekte"
+    manual: "Manuell"
+    minion:
+      one: "Begleiter"
+      other: "Begleiter"
+    moogle_description_html: "Die folgenden Sammelobjekte können als Belohnung durch das das Event %{link} erhalten werden."
+    moogle_treasure_trove: "MogMog Kollektion"
+    most_rare: "Seltenste"
+    most_recent: "Neuste"
+    mount:
+      one: "Reittier"
+      other: "Reittiere"
+    movement: "Bewegung"
+    multi_target: 'Mehrfachziel'
+    mythology: "Mythologie"
+    name: "Name"
+    'no': 'nein'
+    of: "von"
+    only_missing: "Nur Fehlende"
+    only_owned: "Nur in Besitz"
+    orchestrion: "Orchestrion"
+    original_source: "Ursprüngliche Quelle"
+    other: "Andere"
+    overview: "Überblick"
+    own: "Besitz"
+    owned: "In Besitz"
+    owned_by_players: "In Besitz von %{percent} der Spieler"
+    patch: "Patch"
+    points: "Punkte"
+    powered_by: "Unterstützung durch"
+    private: "Privat"
+    profile: "Profile"
+    public: "Öffentlich"
+    quick_select: "Schnellauswahl"
+    race_type: "Begleiter Type"
+    rank: "Stufe"
+    relic:
+      one: "Relikt"
+      other: "Relikte"
+    relic_armor: 'Reliktrüstung'
+    relic_tools: "Reliktwerkzeuge"
+    relic_weapon:
+      more: "Reliktwaffen"
+      one: "Reliktwaffe"
+    resistance_weapons: 'Wiederstands Waffen'
+    save: "Speichern"
+    score: "Punkte"
+    search: "Suche"
+    search_eyes: "Suchende Augen"
+    search_results: "Suchergebnisse"
+    seats: "Sitze"
+    select: "Auswählen"
+    select_type: "Wähle den Typ"
+    server: "Server"
+    set_to_private: "Auf privat eingestellt."
+    settings: "Einstellungen"
+    shields: "Schilde"
+    show_all: "Zeige alle"
+    sign_in_with_discord: "Einloggen mit Discord"
+    single_target: 'Einzelziel'
+    skill_points: "Technikpunkte"
+    skill_type: "Techniktyp"
+    skysteel_tools: 'Himmelsstahl-Werkzeuge'
+    soldiery: "Strategie"
+    source: "Quelle"
+    spd: "GSW"
+    speed: "Geschwindigkeit"
+    spell:
+      one: "Blaumagier Zauber"
+      other: "Blaumagier Zauber"
+    standard: "Standard"
+    statistics: "Statistiken"
+    strengths: "Stärke"
+    submit: "Senden"
+    title:
+      one: "Titel"
+      other: "Titel"
+    title_reward: "Titelbelohnung"
+    tools: "Werkzeuge"
+    tooltip: "Kurzinfo"
+    tradeable: "Handelbar"
+    triple_triad: "Triple Triad"
+    type: "Typ"
+    unverifed: "Unverifiziert"
+    user: "Benutzer"
+    verifed: "Verifiziert"
+    verify: "Verifizieren"
+    verminion: "Trabanten"
+    weapons: "Waffen"
+    weapons_track_automatically_tooltip: 'Automatisches Nachverfolgen der Waffen durch Errungenschaften'
+    weapons_track_manually_tooltip: 'Manuelle Nachverfolgungen der Waffen'
+    'yes': 'ja'
+    yokai_watch_collobaration: "Yo-kai Watch Event"
+    zone: "Gebiet"
+  home:
+    api_description_html: "Alle Daten dieser Webseite können mithilfe der öffentlich verfügbaren RESTful JSON API abgerufen werden. Für mehr Infromationen schaut auf der %{link} Seite vorbei."
+    discuss_on_discord: "Diskutiert auf Discord"
+    headline_one: "Hält deine Lodestone Sammlung automatisch auf den neuesten Stand"
+    headline_three: "Irgendwelche Anmerkungen? Bitte schreibt mir!"
+    headline_two: "Halte alles andere auf dem neusten Stand mit einer einfachen Oberfläche"
+    subtile: "Eine weitere Webseite für das Nachverfolgungen deiner Final Fantasy XIV Sammelobjekte."
+    support_on_patreon: "Unterstützt mich auf Patreon"
+    text_one: "Deine Sammlung wird automatisch anhand deines Lodestone Profiles aktuallisiert um alle neuen Reittiere, Begleiter und Errungenschaften deiner Sammlung hinzuzufügen."
+    text_three_html: "Die Gemeinschaft ist was mich motiviert hat dieses Projekt zu starten, also wenn ihr irgendwelche Rückmeldung habt, bitte lasst mich das wissen in %{link}."
+    text_two: "Jedes Sammelobjekt welches nicht auf deinem Lodestone zu finden ist, kann manuell direkt beim Erhalten von dir abgehakt werden."
+  main:
+    mod_dashboard: "Admin Dashboard"
+    subtitle: "Eine weitere Webseite für das Nachverfolgungen deiner Final Fantasy XIV Sammelobjekte."
+  tooltip:
+    ownership: "Aktive öffentliche Charakter in Besitz der/des %{collectable}"
+  user:
+    last_signed_in: "Letzte Anmeldung"
+    manage: "Verwalten der Benutzer"
+    name: "Benutzername"
+    settings: "Benutzereinstellungen"
+    sign_out: "Abmelden"
+    verified: "Benutzer verifizieren"

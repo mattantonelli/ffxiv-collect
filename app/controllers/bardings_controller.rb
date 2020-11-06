@@ -6,7 +6,6 @@ class BardingsController < ApplicationController
     @bardings = @q.result.include_sources.with_filters(cookies)
       .order(patch: :desc, id: :desc).distinct
     @types = source_types(:barding)
-    @barding_ids = @character&.barding_ids || []
   end
 
   def show

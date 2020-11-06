@@ -1,7 +1,9 @@
 module LeaderboardsHelper
   def categories
-    ['Achievements', 'Achievement Points', 'Mounts', 'Minions', 'Orchestrion', 'Emotes',
-     'Bardings', 'Hairstyles', 'Armoire'].freeze
+    [[t('general.achievement.other'), 'Achievements'], ["#{t('general.achievement.one')} #{t('general.points')}", 'Achievement Points'],
+     [t('general.mount.other'), 'Mounts'], [t('general.minion.other'), 'Minions'], [t('general.orchestrion'), 'Orchestrion'],
+     [t('general.emote', count: 2), 'Emotes'], [t('general.barding',count: 2), 'Bardings'], [t('general.hairstyle', count: 2), 'Hairstyles'],
+     [t('general.armoire.one'),'Armoire']].freeze
   end
 
   def data_center(server)

@@ -3,11 +3,8 @@ module TitlesHelper
     if title.name == title.female_name
       title.name
     else
-      "#{title.name}<br>#{title.female_name}".html_safe
+      "#{title.name} #{gender_symbol('male')}<br>" \
+        "#{title.female_name} #{gender_symbol('female')}".html_safe
     end
-  end
-
-  def titles_progress(titles, achievement_ids)
-    render 'shared/progress', value: (titles.map(&:achievement_id) & achievement_ids).size, min: 0, max: titles.length
   end
 end

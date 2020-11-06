@@ -1,90 +1,270 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  general:
-    name: "Name"
-    category: "Category"
-    item: "Item"
-    own: "Own"
-    patch: "Patch"
-    description: "Description"
-    points: "Points"
-    achievements: "Achievements"
-    how_to_obtain: "How to obtain"
-    title_reward: "Title Reward"
-    item_reward: "Item Reward"
-    server: "Server"
-    public: "Public"
-    all_servers: "All Servers"
-    character: "Character"
-    created: "Created"
-    all_sources: "All Sources"
-    source: "Source"
-    overview: "Overview"
-    titles: "Titles"
-    mounts: "Mounts"
-    minions: "Minions"
-    orchestrion: "Orchestrion"
-    emotes: "Emotes"
-    bardings: "Bardings"
-    hairstyles: "Hairstyles"
-    armoire:
-      one: "Armoire"
-      more: "Armoires"
-    triple_triad: "Triple Triad"
-    leaderboards: "Leaderboards"
-    global: "Global"
-    free_company: "Free Company"
-    sign_in_with_discord: "Sign in with Discord"
-    other: "Other"
+  character:
+    change: "Change Character"
+    compare: "Compare Characters"
+    discord_ownership_message: "You are verifying your ownership of the following character as the following Discord user:"
+    forget: "Forget Character"
+    last_parsed: "Last Parsed"
+    last_update_message: "Last updated %{timespan} ago."
+    lodestone_verify_message_html: "If the information above is correct, please add the code below to your %{lodestone_link} then click <b>Verify</b>."
+    manage: "Manage Characters"
+    profile: "Character Profile"
+    public: "Make this character's collections publicly available"
+    refresh: "Refresh Character"
+    search: "Character Search"
+    select: "Select Character"
+    select_a_sever: "Select a server"
+    settings: "Character Settings"
+    statistics: "Character Statistics"
+    unverify_question: "Are you sure you want to unverify this character?"
+    verify: "Verify Character"
+  description:
+    achievement: "Automatically track your character's achievements and discover how to obtain new ones."
+    armoire: "Track your character's armoire items and discover how to obtain new ones."
+    bardings: "Track your character's chocobo bardings and discover how to obtain new ones."
+    character_search: 'Search for a character to track.'
+    character_verify: 'Verify ownership of a character.'
+    emotes: "Track your character's emotes and discover how to obtain new ones."
+    fashions: "Track your character's fashion accessories and discover how to obtain new ones."
+    hairstyles: "Track your character's hairstyles and discover how to obtain new ones."
+    item_reward: "Automatically track your character's achievement items and discover how to obtain new ones."
+    minions: "Automatically track your character's minions and discover how to obtain new ones."
+    morgy_tomestones: "Browse the collectable rewards from the %{title} and see which ones your character is missing."
+    mounts: "Automatically track your character's mounts and discover how to obtain new ones."
+    orchestrions: "Track your character's orchestrion rolls and discover how to obtain new ones."
+    relic_armor: "Track your character's relic armor."
+    relic_tools: "Track your character's relic tools."
+    relic_weapons: "Automatically track your character's relic weapons."
+    relic_weapons_manual: "Track your character's relic weapons."
+    setting: 'Manage your user and character settings.'
+    spells: "Track your character's blue magic spells and discover how to obtain new ones."
+    titles: "Automatically track your character's titles and discover how to obtain new ones."
+    yokai: "Automatically track your character's progress in the Yo-kai Watch Collaboration."
   footer:
     created: "Created by Raelys Skyborn of Behemoth"
+  general:
+    a_relic_reborn: 'A Relic Reborn'
+    achievement:
+      one: "Achievement"
+      other: "Achievements"
+    acquired_on: "Acquired on"
+    action: "Action"
+    add: "add"
+    all: "All"
+    all_aspects: "All Aspects"
+    all_data_centers: "All Data Centers"
+    all_genders: 'All Genders'
+    all_race_types: "All Minion Types"
+    all_ranks: "All Ranks"
+    all_servers: "All Servers"
+    all_skill_types: "All Types"
+    all_sources: "All Sources"
+    all_speed: 'All Speeds'
+    all_stength: 'All Strengths'
+    all_types: "All Types"
+    anima_weapons: 'Anima Weapons'
+    any: "Any"
+    apply_filters: 'Apply Filters'
+    arcana_stones: "Arcana Stones"
+    armoire:
+      one: "Armoire"
+      other: "Armoires"
+    aspect: "Aspect"
+    atk: "ATK"
+    audio_sample: "Audio sample"
+    augmented_bozjan_armor: "Augmented Bozjan Armor"
+    auto_attack: "Auto-attack"
+    back: "Back"
+    barding:
+      one: "Barding"
+      other: "Bardings"
+    behavior: "Behavior"
+    blue_magic: "Blue Magic"
+    bozjan_armor: 'Bozjan Armor'
+    category: "Category"
+    change: "Change"
+    changelog: "Changelog"
+    character: "Character"
+    character_usable: 'Character Usable'
+    click_to_add: "Click to add"
+    click_to_remove: "Click to remove"
+    collapse_all: 'Collapse All'
+    complete: "complete"
+    copy_to_clipboard: 'Copy to clipboard'
+    cost: "Cost"
+    created: "Created"
+    data_center: "Data Center"
+    database_links: 'Database Links'
+    date: "Date"
+    deep_dungeon_weapons: 'Deep Dungeon Weapons'
+    def: "DEF"
+    delete_source_question: 'Are you sure you want to delete this source?'
+    description: "Description"
+    edit: "Edit"
+    effective_against: "Effective against"
+    elemental_armor: "Elemental Armor"
+    emote:
+      one: "Emote"
+      other: "Emotes"
+    enemy: "Enemy"
+    eureka_anemos_armor: "Eureka Anemos Armor"
+    eureka_job_armor: "Eureka Job Armor"
+    eureka_physeos_weapons: 'Eureka Physeos Weapons'
+    eureka_weapons: 'Eureka Weapons'
+    exclude_premium: 'Exclude Premium'
+    exclude_time_limited: 'Exclude Time Limited'
+    expand_all: 'Expand All'
+    fashion:
+      one: "Fashion Accessory"
+      other: "Fashion Accessories"
+    fashion_accessory:
+      one: "Fashion Accessory"
+      other: "Fashion Accessories"
+    fc_leaderboard: 'FC Leaderboards'
+    filter:
+      one: "Filter"
+      other: "Filters"
+    flying: "Flyling"
+    free_company: "Free Company"
+    gates: "Gates"
+    global: "Global"
+    global_leaderboard: 'Global Leaderboards'
+    hairstyle:
+      one: "Hairstyle"
+      other: "Hairstyles"
+    hide_female: 'Hide Female'
+    hide_male: 'Hide Male'
+    how_to_learn: "How to Learn"
+    how_to_obtain: "How to obtain"
+    hp: "HP"
+    idealized_armor: 'Idealized Armor'
+    index_prefix: "No."
+    item: "Item"
+    item_reward: "Item Reward"
+    journal: "Journal"
+    law: "Law"
+    leaderboards: "Leaderboards"
+    legendary_medal_locations: "Legendary Medal Locations"
+    location: "Location"
+    lodestone_profile: "Lodestone profile"
+    lord_of_verminion: "Lord of Verminion"
+    lucis_tools: "Lucis Tools"
+    manage: "Manage"
+    manage_collectables: "Manage Collectables"
+    manual: "Manual"
+    minion:
+      one: "Minion"
+      other: "Minions"
+    moogle_description_html: "The following collectables are available as rewards from the %{link} event."
+    moogle_treasure_trove: "Moogle Treasure Trove"
+    most_rare: "Most Rare"
+    most_recent: "Most Recent"
+    mount:
+      one: "Mount"
+      other: "Mounts"
+    movement: "Movement"
+    multi_target: 'Multi-target'
+    mythology: "Mythology"
+    name: "Name"
+    'no': 'no'
+    of: "of"
+    only_missing: "Only Missing"
+    only_owned: "Only Owned"
+    orchestrion: "Orchestrion"
+    original_source: "Original Source"
+    other: "Other"
+    overview: "Overview"
+    own: "Own"
+    owned: "Owned"
+    owned_by_players: "Owned by %{percent} of players"
+    patch: "Patch"
+    points: "Points"
+    powered_by: "Powered by"
+    private: "Private"
+    profile: "Profile"
+    public: "Public"
+    quick_select: "Quick Select"
+    race_type: "Minion Type"
+    rank: "Rank"
+    relic_armor: 'Relic Armor'
+    relic_tools: "Relic Tools"
+    relic_weapon:
+      more: "Relic Weapons"
+      one: "Relic Weapon"
+    relics:
+      one: "Relic"
+      other: "Relics"
+    remove: "remove"
+    resistance_weapons: 'Resistance Weapons'
+    save: "Save"
+    score: "Score"
+    search: "Search"
+    search_eyes: "Search Eyes"
+    search_results: "Search Results"
+    seats: "Seats"
+    select: "Select"
+    select_type: "Select Type"
+    server: "Server"
+    set_to_private: "Set to private."
+    settings: "Settings"
+    shields: "Shields"
+    show_all: "Show All"
+    sign_in_with_discord: "Sign in with Discord"
+    single_target: 'Single-target'
+    skill_points: "Points"
+    skill_type: "Type"
+    skysteel_tools: 'Skysteel Tools'
+    soldiery: "Soldiery"
+    source: "Source"
+    spd: "SPD"
+    speed: "Speed"
+    spell:
+      one: "Blue Magic Spell"
+      other: "Blue Magic Spells"
+    standard: "Standard"
+    statistics: "Statistics"
+    strengths: "Strengths"
+    submit: "Submit"
+    title:
+      one: "Title"
+      other: "Titles"
+    title_reward: "Title Reward"
+    tools: "Tools"
+    tooltip: "Tooltip"
+    tradeable: "Tradeable"
+    triple_triad: "Triple Triad"
+    type: "Type"
+    unverifed: "Unverifed"
+    user: "User"
+    verifed: "Verifed"
+    verify: "Verify"
+    verminion: "Verminion"
+    weapons: "Weapons"
+    weapons_track_automatically_tooltip: 'Weapons tracked automatically by achievements'
+    weapons_track_manually_tooltip: 'Weapons tracked manually'
+    'yes': 'yes'
+    yokai_watch_collobaration: "Yo-kai Watch Collaboration"
+    zone: "Zone"
+  home:
+    api_description_html: "All of the data used on this site is available for any savvy developers through a public RESTful JSON API. You can check out the full documentation on this %{link}."
+    discuss_on_discord: "Discuss on Discord"
+    headline_one: "Keep your Lodestone collections updated automatically"
+    headline_three: "Do you have feedback? I want to hear it!"
+    headline_two: "Update the rest with a simple user interface"
+    subtile: "Another website for tracking your Final Fantasy XIV collections."
+    support_on_patreon: "Support on Patreon"
+    text_one: "Your collections are updated automatically to reflect any new mounts, minions, and achievements you obtain based on your Lodestone profile."
+    text_three_html: "The community is what motivates me to create these projects, so if you have any feedback, let me know on %{link}."
+    text_two: "Any collectables not visible on your Lodestone profile can be updated manually as you obtain them."
   main:
-    subtitle: "Another website for tracking your Final Fantasy XIV collections."
     mod_dashboard: "Mod Dashboard"
-  character:
-    last_parsed: "Last Parsed"
-    manage: "Manage Characters"
-    unverify_question: "Are you sure you want to unverify this character?"
-    select: "Select Character"
-    profile: "Character Profile"
-    verify: "Verify Character"
-    refresh: "Refresh Character"
-    change: "Change Character"
-    settings: "Character Settings"
-    forget: "Forget Character"
+    subtitle: "Another website for tracking your Final Fantasy XIV collections."
+  tooltip:
+    ownership: "Active public characters who own this %{collectable}"
   user:
-    verified: "Verified User"
-    name: "Username"
     last_signed_in: "Last Signed In"
-    sign_out: "Sign Out"
     manage: "Manage Users"
+    name: "Username"
+    settings: "User Settings"
+    sign_out: "Sign Out"
+    verified: "Verified User"

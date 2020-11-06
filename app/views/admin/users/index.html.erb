@@ -2,11 +2,11 @@
   <div class="card-header">
     <div class="d-flex align-items-center">
       <%= link_to :admin_users, class: 'unstyled mr-auto pt-1' do %>
-        <h5>Manage Users</h5>
+        <h5><%= t('user.manage') %></h5>
       <% end %>
       <%= search_form_for(@q, url: admin_users_path, class: 'form form-inline admin-search-form') do |f| %>
         <%= f.search_field :username_cont, placeholder: t(:'user.name'), size: 30, class: 'form-control form-control-sm mr-2' %>
-        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+        <%= f.submit t('general.search'), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
   </div>
@@ -17,7 +17,7 @@
         <th><%= t :'user.name' %></th>
         <th>'Discord ID'</th>
         <th><%= t :'general.character' %></th>
-        <th><%= t :'general.created' %>></th>
+        <th><%= t :'general.created' %></th>
         <th><%= t :'user.last_signed_in' %></th>
       </tr>
       <% @users.each do |user| %>

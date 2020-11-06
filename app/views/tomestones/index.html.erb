@@ -1,0 +1,46 @@
+<% title(@title) %>
+<% description(t('description.morgy_tomestones',title: @title)) %>
+
+<div class="d-flex inline-flex justify-content-center">
+  <div class="card">
+    <div class="card-body text-center">
+      <%= t('general.moogle_description_html',link: reward_event_link(@url) ) %>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex justify-content-end mb-2 mt-2 mt-lg-0">
+  <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: { toggle: 'modal', target: '#filters'},
+    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+</div>
+
+<%= render 'shared/filters' %>
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<table class="table table-striped table-sm shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
+  <thead>
+    <tr>
+      <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+      <th scope="col"><%= t('general.name') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.original_source') %></th>
+      <th scope="col" class="text-center"><%= t('general.cost') %></th>
+      <% if character_selected? %>
+        <th scope="col"></th><!-- Owned -->
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @rewards.each do |reward| %>
+      <tr class="collectable<%= ' owned' if reward_owned?(reward) %>">
+        <td><%= reward_image(reward) %></td>
+        <td class="w-25"><%= link_to(reward.collectable.name, polymorphic_path(reward.collectable), class: 'name') %></td>
+        <td class="w-50 hide-xs"><%= sources(reward.collectable) %></td>
+        <td class="text-center" data-toggle="tooltip" title="<%= reward_instance_cost(reward) %>">
+          <b><%= reward.cost %></b>
+        </td>
+        <% if character_selected? %>
+          <%= td_reward_owned(reward) %>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

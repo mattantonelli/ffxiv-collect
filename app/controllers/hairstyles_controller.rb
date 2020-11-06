@@ -3,10 +3,9 @@ class HairstylesController < ApplicationController
 
   def index
     @q = Hairstyle.ransack(params[:q])
-    @hairstyles = @q.result.include_sources.with_filters(cookies)
+    @hairstyles = @q.result.include_sources.with_filters(cookies, @character)
       .order(patch: :desc, id: :desc).distinct
     @types = source_types(:hairstyle)
-    @hairstyle_ids = @character&.hairstyle_ids || []
   end
 
   def show

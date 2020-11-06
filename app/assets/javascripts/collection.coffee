@@ -1,9 +1,11 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('.collection').length > 0
+  return unless $('.collection').length > 0 || $('#filters').length > 0
 
   # Collections
 
   restripe = ->
+    return if $('.quick-select').length > 0
+
     if Cookies.get('owned') == 'owned'
       $('.collection').addClass('only-owned')
       $('.collectable:not(.owned):not(.hidden)').hide()
@@ -19,14 +21,15 @@ $(document).on 'turbolinks:load', ->
     $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
-    progress = $('.progress-bar')
+    progress = $('.progress-bar:first')
     current = $('.owned:not(.hidden)').length
     max = $('tr.collectable:not(.hidden)').length
-    completion = (current / max) * 100
 
-    progress.attr('aria-valuenow', current)
-    progress.attr('style', "width: #{completion}%")
-    progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+    if max > 0
+      completion = (current / max) * 100
+      progress.attr('aria-valuenow', current)
+      progress.attr('style', "width: #{completion}%")
+      progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
   restripe()
 
@@ -43,23 +46,61 @@ $(document).on 'turbolinks:load', ->
   $('.sortable').on 'sorted', ->
     restripe()
 
+  # Manual collection ownership toggle
+
   $('td input.own').change ->
     collectable = $(this)
+    updateCollection(collectable)
 
     if !this.checked
-      updateCollection(collectable)
       path = collectable.data('path').replace('remove', 'add')
       collectable.closest('tr').removeClass('owned')
       collectable.closest('td').attr('data-value', 0)
+      collectable.closest('td').tooltip('disable')
+      collectable.closest('td').tooltip('dispose')
+      collectable.closest('td').next('.comparison').find('.avatar:first').addClass('faded')
     else
-      updateCollection(collectable)
       path = collectable.data('path').replace('add', 'remove')
+      collectable.closest('tr').addClass('owned')
       collectable.closest('td').attr('data-value', 1)
-      row = collectable.closest('tr')
-      row.addClass('owned')
+      collectable.closest('td').attr('data-original-title', "Acquired on #{moment.utc().format('MMM DD, YYYY')}")
+      collectable.closest('td').tooltip('enable')
+      collectable.closest('td').next('.comparison').find('.avatar:first').removeClass('faded')
 
     collectable.data('path', path)
     restripe()
+
+  # Manual generic item ownership toggle
+
+  $('.item.own').click ->
+    collectable = $(this)
+    title = collectable.parent().attr('data-original-title')
+    updateCollection(collectable)
+
+    if collectable.hasClass('owned')
+      path = collectable.data('path').replace('remove', 'add')
+      collectable.removeClass('owned')
+      title = title.replace(/Acquired.*?<br>/, '').replace('remove', 'add')
+      collectable.parent().attr('data-original-title', title)
+    else
+      path = collectable.data('path').replace('add', 'remove')
+      collectable.addClass('owned')
+      title = title.replace('Owned by', "Acquired on #{moment.utc().format('MMM DD, YYYY')}<br>Owned by")
+        .replace('add', 'remove')
+      collectable.parent().attr('data-original-title', title)
+
+    collectable.data('path', path)
+    collectable.parent().tooltip('dispose')
+    collectable.parent().tooltip('toggle')
+
+    count = collectable.closest('.collapse').find('.owned').length
+    header = collectable.closest('.card').find('.card-header > h6')
+    header.text(header.text().replace(/\d+ of/, "#{count} of"))
+
+    if count == collectable.closest('.collapse').find('.item').length
+      header.addClass('complete')
+    else
+      header.removeClass('complete')
 
   # Orchestrion quick select
 
@@ -69,18 +110,15 @@ $(document).on 'turbolinks:load', ->
     if !this.checked
       updateCollection(collectable)
       path = collectable.data('path').replace('remove', 'add')
-      collectable.closest('.collectable').addClass('owned')
+      collectable.closest('.collectable').removeClass('owned')
     else
       updateCollection(collectable)
       path = collectable.data('path').replace('add', 'remove')
-      collectable.closest('td').attr('data-value', 1)
-      row = collectable.closest('.collectable').removeClass('owned')
+      collectable.closest('.collectable').addClass('owned')
 
     collectable.data('path', path)
 
   # Categories
-
-  restripe() if $('.categorized').length > 0
 
   buttons = $('.category-buttons button')
   buttons.click ->
@@ -90,20 +128,14 @@ $(document).on 'turbolinks:load', ->
     history.replaceState({ category: category }, '', "?category=#{category}")
 
     if category == '0'
-      $('.categorized').fadeOut('fast', ->
-        $('.collectable').removeClass('hidden')
-        $('.all-hide').addClass('hidden')
-        restripe()
-        $('.categorized').fadeIn()
-      )
+      $('.collectable').removeClass('hidden')
+      $('.all-hide').addClass('hidden')
     else
-      $('.categorized').fadeOut('fast', ->
-        $('.collectable').addClass('hidden')
-        $(".collectable.category-#{category}").removeClass('hidden')
-        $('.all-hide').removeClass('hidden')
-        restripe()
-        $('.categorized').fadeIn()
-      )
+      $('.collectable').addClass('hidden')
+      $(".collectable.category-#{category}").removeClass('hidden')
+      $('.all-hide').removeClass('hidden')
+
+    restripe()
 
   # Filters
 
@@ -111,8 +143,13 @@ $(document).on 'turbolinks:load', ->
     if $(checkbox).prop('checked') then 'hide' else 'show'
 
   $('#filters-form').submit ->
-    refresh = Cookies.get('premium') != checkboxValue($(@).find('#premium')) ||
-      Cookies.get('limited') != checkboxValue($(@).find('#limited'))
+    premium = $(@).find('#premium')
+    limited = $(@).find('#limited')
+    gender  = $(@).find('#gender')
+
+    refresh = (premium.length > 0 && Cookies.get('premium') != checkboxValue(premium)) ||
+      (limited.length > 0 && Cookies.get('limited') != checkboxValue(limited)) ||
+      (gender.length > 0 && Cookies.get('gender') != gender.val())
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300 })
@@ -120,9 +157,13 @@ $(document).on 'turbolinks:load', ->
     $(@).find('select').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", $(option).val(), { expires: 7300 })
 
-    restripe()
     $('#filters').modal('hide')
-    location.reload() if refresh
+
+    if refresh
+      location.reload()
+    else
+      restripe()
+
     false
 
   # Remove focus from modal toggle button after showing

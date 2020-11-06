@@ -1,48 +1,51 @@
-<% title('Bardings') %>
+<% title(t('general.barding',count: 2)) %>
+<% description(t('description.bardings')) %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: bardings_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('general.name'), size: 40,
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
       { include_blank: 'All Sources' }, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= button_tag fa_icon('filter', text: t('general.filter.other')), data: {toggle: 'modal', target: '#filters'},
+                   type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <%= f.submit t('general.search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<% if character_selected? %>
-  <div class="my-2">
-    <%= collection_progress(@bardings, @barding_ids) %>
-  </div>
-<% end %>
+<%= render 'shared/collection_progress', ids: @bardings.map(&:id) %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable">
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <tr>
       <th scope="col">#</th><!-- Image -->
-      <th scope="col">Name</th>
-      <th scope="col" class="hide-xs">Source</th>
+      <th scope="col"><%= t('general.name') %></th>
+      <th scope="col" class="hide-xs"><%= t('general.source') %></th>
       <th scope="col" class="text-center"><%= fa_icon('dollar') %></th>
-      <th scope="col" class="text-center hide-xs">Own</th>
-      <th scope="col" class="text-center">Patch</th>
+      <th scope="col" class="text-center hide-xs"><%= t('general.own') %></th>
+      <th scope="col" class="text-center"><%= t('general.patch') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
+      <% end %>
+      <% if @comparison.present? %>
+        <th scope="col"></th><!-- Comparison -->
       <% end %>
     </tr>
   </thead>
   <tbody>
     <% @bardings.each do |barding| %>
-      <tr class="collectable<%= ' owned' if @barding_ids.include?(barding.id) %>">
+      <tr class="collectable<%= ' owned' if owned?(barding.id) %>">
         <td data-value="<%= barding.id %>"><%= sprite(barding, 'barding') %></td>
         <td><%= link_to(barding.name, barding_path(barding), class: 'name') %></td>
         <td class="hide-xs"><%= sources(barding) %></td>
-        <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= mogboard_link(barding) %></td>
+        <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= market_link(barding) %></td>
         <td class="text-center hide-xs" data-value="<%= rarity(barding, numeric: true) %>"><%= rarity(barding) %></td>
-        <td class="text-center" data-value="<%= barding.patch %><%= barding.id %>"><%= barding.patch %></td>
+        <td class="text-center" data-value="<%= sort_value(barding) %>"><%= barding.patch %></td>
         <% if character_selected? %>
-          <%= td_owned(@barding_ids, barding) %>
+          <%= td_owned(barding, manual: true) %>
+        <% end %>
+        <% if @comparison.present? %>
+          <%= td_comparison(barding) %>
         <% end %>
       </tr>
     <% end %>

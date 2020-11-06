@@ -12,14 +12,27 @@ a > .card {
   color: #FFD700;
 }
 
-.count .progress .progress-bar {
-  background-color: #5C6E8E;
-}
-
-.points .progress .progress-bar {
+.progress .progress-bar.alt {
   background-color: #917D54;
 }
 
 th.reward {
   min-width: 50px;
+}
+
+.achievement-type {
+  display: flex;
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+
+    .card-title {
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  @media (min-width: 576px) {
+    align-items: center;
+    justify-content: space-between;
+  }
 }

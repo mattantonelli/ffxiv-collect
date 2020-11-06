@@ -5,8 +5,8 @@ class LeaderboardsController < ApplicationController
     @data_center = params[:data_center]
     @limit = params[:limit] || 10
 
-    if @data_center.present? && !params[:q][:server_eq].present?
-      params[:q][:server_in] = Character.servers_by_data_center[@data_center]
+    if @data_center.present? && !params.dig(:q, :server_eq).present?
+      params[:q] = { server_in: Character.servers_by_data_center[@data_center] }
     end
 
     @q = Character.visible.ransack(params[:q])

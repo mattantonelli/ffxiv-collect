@@ -1,0 +1,39 @@
+version: '3'
+services:
+  web:
+    image: ffxiv-collect:latest
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_MASTER_KEY: your-master-key
+    volumes:
+    - app:/ffxiv-collect
+    - ./database.yml:/ffxiv-collect/config/database.yml
+    - ./credentials.yml.enc:/ffxiv-collect/config/credentials.yml.enc
+    depends_on:
+      - "redis"
+  sidekiq:
+    image: ffxiv-collect:latest
+    environment:
+      REDIS_URL: redis://redis:6379
+    volumes:
+      - app:/ffxiv-collect
+    depends_on:
+      - "web"
+      - "redis"
+    command: bundle exec sidekiq
+  db:
+    image: mysql:5.7.27
+    restart: always
+    environment:
+      MYSQL_USER: ffxiv-collect
+      MYSQL_PASSWORD: ffxiv-collect
+      MYSQL_DATABASE: ffxiv_collect_production
+      MYSQL_ROOT_PASSWORD: ffxiv-collect
+    volumes:
+      - mysql-data:/var/lib/mysql
+  redis:
+    image: "redis"
+volumes:
+  mysql-data:
+  app:

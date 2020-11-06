@@ -36,13 +36,13 @@ module ManualCollection
   def display_verify_alert!
     return unless @character.present?
 
-    unless @character.verified?
-      if user_signed_in?
-        flash.now[:alert_fixed] = 'This character is unverified. If you wish to track manual collections for this ' \
-          "character, please #{view_context.link_to 'verify your ownership', verify_character_path}."
-      else
-        flash.now[:alert_fixed] = 'You must be signed in and verified in order to track manual collections.'
+    if user_signed_in?
+      unless verified?
+        flash.now[:alert_fixed] = "You are not verified as this character. If you wish to track this character's " \
+          "manual collections, please #{view_context.link_to 'verify your ownership', verify_character_path}."
       end
+    else
+      flash.now[:alert_fixed] = 'You must be signed in and verified in order to track manual collections.'
     end
   end
 end

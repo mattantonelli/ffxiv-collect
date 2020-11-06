@@ -1,11 +1,12 @@
-<% title('Verify Character') %>
+<% title(t('character.verify') ) %>
+<% description(t('description.character_verify')) %>
 
 <div class="row">
   <div class="col-6 offset-3">
     <div class="card shadow">
-      <h5 class="card-header">Verify Character</h5>
+      <h5 class="card-header"><%= t('character.verify') %></h5>
       <div class="card-body">
-        <p>You are verifying your ownership of the following character as the following Discord user:</p>
+        <p><%= t('character.discord_ownership_message') %></p>
         <hr>
         <div class="d-flex my-3 align-items-center">
           <%= image_tag(@character.avatar, class: 'avatar mr-3') %>
@@ -20,15 +21,15 @@
         </div>
         <hr>
         <p>
-          If the information above is correct, please add the code below to your <%= link_to 'Lodestone profile',
-            "https://#{region}.finalfantasyxiv.com/lodestone/my/setting/profile/", target: '_blank'  %>,
-            then click <b>Verify</b>.
+          <%= t('character.lodestone_verify_message_html',
+                lodestone_link: (link_to t('general.lodestone_profile'),
+                        "https://#{region}.finalfantasyxiv.com/lodestone/my/setting/profile/", target: '_blank')) %>
         </p>
         <pre id="verification"><%= @code %></pre>
         <div class="d-flex justify-content-between">
-          <%= button_tag fa_icon('copy', text: 'Copy to clipboard'), class: 'btn btn-secondary btn-sm clipboard mt-0',
+          <%= button_tag fa_icon('copy', text: t('general.copy_to_clipboard')), class: 'btn btn-secondary btn-sm clipboard mt-0',
             data: { clipboard_action: 'copy', clipboard_target: '#verification'} %>
-          <%= link_to 'Verify', validate_character_path, method: :post, class: 'btn btn-primary' %>
+          <%= link_to t('general.verify'), validate_character_path, method: :post, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>

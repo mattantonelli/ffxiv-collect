@@ -2,27 +2,32 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header d-flex align-items-center">
-        <h5 class="modal-title">Filters</h5>
+        <h5 class="modal-title"><%= t('general.filter.other') %></h5>
         <%= link_to fa_icon('times'), nil, data: { dismiss: 'modal' } %>
       </div>
       <div class="modal-body">
         <%= form_tag(nil, class: 'form d-flex flex-column mt-2', id: 'filters-form') do  %>
-          <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
-          <% unless %w(achievements titles).include?(controller_name) %>
+          <% unless %w(characters).include?(controller_name) %>
+            <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
+          <% end %>
+          <% if %w(hairstyles armoires characters).include?(controller_name) %>
+            <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
+          <% end %>
+          <% unless %w(achievements tomestones).include?(controller_name) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
-              <%= label_tag :premium, 'Exclude Premium' %>
+              <%= label_tag :premium, t('general.exclude_premium') %>
             </div>
           <% end %>
-          <% unless controller_name == 'achievements' %>
+          <% unless %w(tomestones).include?(controller_name) || (controller_name == 'achievements' && action_name != 'items') %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
-              <%= label_tag :limited, 'Exclude Time Limited' %>
+              <%= label_tag :limited, t('general.exclude_time_limited') %>
             </div>
           <% end %>
           <hr class="mt-2 mb-3">
           <div class="text-right">
-            <%= submit_tag 'Apply Filters', class: 'btn btn-primary' %>
+            <%= submit_tag t('general.apply_filters'), class: 'btn btn-primary' %>
           </div>
         <% end %>
       </div>

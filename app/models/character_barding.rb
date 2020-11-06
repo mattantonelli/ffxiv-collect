@@ -10,6 +10,6 @@
 #
 
 class CharacterBarding < ApplicationRecord
-  belongs_to :character, counter_cache: :bardings_count
+  belongs_to :character, counter_cache: :bardings_count, touch: true
   belongs_to :barding
 end

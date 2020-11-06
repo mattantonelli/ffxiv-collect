@@ -1,15 +1,18 @@
-MOUNT_COLUMNS = %w(ID Description_* DescriptionEnhanced_* Icon IconSmall IconID IsFlying Name_* Order Tooltip_*
-GamePatch.Version IsAirborne ExtraSeats).freeze
+MOUNT_COLUMNS = %w(ID Description_* DescriptionEnhanced_* Icon IconSmall IconID IsFlying Name_* Order
+UIPriority Tooltip_* GamePatch.Version IsAirborne ExtraSeats).freeze
 
 namespace :mounts do
   desc 'Create the mounts'
   task create: :environment do
+    PaperTrail.enabled = false
+
     puts 'Creating mounts'
     count = Mount.count
 
     XIVAPI_CLIENT.search(indexes: 'Mount', columns: MOUNT_COLUMNS, filters: 'Order>=0', limit: 1000).each do |mount|
-      data = { id: mount.id, flying: mount.is_flying != 0, order: mount.order, patch: mount.game_patch.version,
-               movement: mount.is_airborne == 1 ? 'Airborne' : 'Terrestrial', seats: mount.extra_seats + 1 }
+      data = { id: mount.id, flying: mount.is_flying != 0, order: mount.order, order_group: mount.uipriority,
+               patch: mount.game_patch.version, movement: mount.is_airborne == 1 ? 'Airborne' : 'Terrestrial',
+               seats: mount.extra_seats + 1 }
 
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(mount["name_#{locale}"])
@@ -35,8 +38,8 @@ namespace :mounts do
       download_image(mount.id, "/i/#{footprint_offset}/#{footprint_id}.png", 'mounts/footprint', '#151515ff')
 
       if existing = Mount.find_by(id: mount.id)
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+        data = data.symbolize_keys.except(:patch)
+        existing.update!(data) if updated?(existing, data)
       else
         Mount.create!(data)
       end

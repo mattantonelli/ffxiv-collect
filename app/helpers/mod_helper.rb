@@ -34,7 +34,7 @@ module ModHelper
       url = polymorphic_url([:mod, change.item_type.downcase], id: change.item_id, action: :edit)
     end
 
-    link_to fa_icon('pencil'), url, class: 'btn btn-secondary btn-sm'
+    link_to fa_icon('pencil'), url, class: 'btn btn-secondary btn-sm my-1'
   end
 
   def change_type(change)
@@ -47,5 +47,10 @@ module ModHelper
     else
       'System'
     end
+  end
+
+  def gender_options(selected)
+    genders = %w(Male Female)
+    options_for_select(genders.zip(genders.map(&:downcase)), selected)
   end
 end

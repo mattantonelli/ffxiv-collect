@@ -1,17 +1,17 @@
-<% title("Edit #{@model}") %>
+<% title("#{t('general.edit')} #{@model}") %>
 
 <div class="row">
-  <div class="col-6 offset-3">
+  <div class="col-12 col-sm-10 offset-sm-1 col-md-6 offset-md-3">
     <div class="card shadow">
-      <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title">Edit <%= @model.to_s.pluralize %></h5>
-        <%= link_to fa_icon('chevron-left', text: 'Back'), polymorphic_url([:mod, @model]), class: 'btn btn-secondary btn-sm' %>
+      <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
+        <h5 class="card-title">Edit <%= @model.to_s %></h5>
+        <%= link_to fa_icon('chevron-left', text: t('general.back')), polymorphic_url([:mod, @model]), class: 'btn btn-secondary btn-sm' %>
       </div>
       <div class="card-body py-3">
         <%= form_for(@collectable, url: polymorphic_url([:mod, @collectable]), html: { class: 'form' }) do |f| %>
           <div class="row">
             <div class="col-8 form-group">
-              <%= f.label :name_en, 'Name' %>
+              <%= f.label :name_en, t('general.name') %>
               <%= f.text_field :name_en, class: 'form-control' %>
             </div>
             <div class="col-4 form-group">
@@ -19,6 +19,22 @@
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
           </div>
+          <% if @collectable.has_attribute?(:details) %>
+            <div class="row">
+              <div class="col-12 form-group">
+                <%= f.label :details %>
+                <%= f.text_field :details, class: 'form-control' %>
+              </div>
+            </div>
+          <% end %>
+          <% if @collectable.has_attribute?(:gender) %>
+            <div class="row">
+              <div class="col-4 form-group pr-0">
+                <%= f.label :gender %>
+                <%= f.select :gender, gender_options(@collectable.gender), { include_blank: t('general.any') }, { class: 'form-control' } %>
+              </div>
+            </div>
+          <% end %>
           <% unless @skip_sources %>
             <div class="form-group">
               <%= f.label :sources %>
@@ -30,19 +46,19 @@
                 <div class="row mb-2">
                   <div class="col-4 pr-0">
                     <%= sf.collection_select :type_id, @types, :id, :name,
-                      { include_blank: 'Select type' }, class: 'form-control' %>
+                      { include_blank: t('general.select_type') }, class: 'form-control' %>
                   </div>
                   <div class="col-8 d-flex align-items-center">
                     <%= sf.text_field :text, class: 'form-control mr-2' %>
                     <%= link_to fa_icon('times', class: 'delete'), mod_source_path(sf.object.id), method: :delete,
-                      data: { confirm: 'Are you sure you want to delete this source?' } if sf.object.id.present? %>
+                      data: { confirm: t('general.delete_source_question') } if sf.object.id.present? %>
                   </div>
                 </div>
               <% end %>
             </div>
           <% end %>
           <div class="text-right mt-4">
-            <%= f.submit 'Submit', class: 'btn btn-primary' %>
+            <%= f.submit t('general.submit'), class: 'btn btn-primary' %>
           </div>
         <% end %>
       </div>

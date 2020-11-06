@@ -37,8 +37,14 @@ class Achievement < ApplicationRecord
 
   scope :exclude_time_limited, -> do
     joins(category: :type)
-      .where('achievement_categories.type_id <> ?', AchievementType.find_by(name_en: 'Legacy').id)
-      .where('achievements.category_id not in (?)', AchievementCategory.where(name_en: 'Seasonal Events').pluck(:id))
+      .where('achievement_types.name_en <> ?', 'Legacy')
+      .where('achievement_categories.name_en <> ?', 'Seasonal Events')
+  end
+
+  scope :with_filters, -> (filters, character = nil) do
+    if filters[:limited] == 'hide'
+      exclude_time_limited
+    end
   end
 
   private
