@@ -106,17 +106,28 @@ class Character < ApplicationRecord
   end
 
   def most_recent(collection, filters: nil)
-    collectables = send(collection).order("character_#{collection}.created_at desc")
+    if collection == 'titles'
+      collectables = achievements.joins(:title).order('character_achievements.created_at desc')
+    else
+      collectables = send(collection).order("character_#{collection}.created_at desc")
+    end
+
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables.first(10)
   end
 
   def most_rare(collection, filters: nil)
-    rarities = Redis.current.hgetall(collection)
+    if collection == 'titles'
+      collectables = achievements.joins(:title)
+      rarities = Redis.current.hgetall('achievements')
+    else
+      collectables = send(collection)
+      rarities = Redis.current.hgetall(collection)
+    end
+
     sorted_ids = rarities.sort_by { |k, v| v.to_f }.map { |k, v| k.to_i }
     valid_ids = rarities.keys.map(&:to_i) # Exclude new collectables with no rarity values
 
-    collectables = send(collection)
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
       .sort_by { |collectable| sorted_ids.index(collectable.id) }

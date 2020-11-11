@@ -68,6 +68,8 @@ module ApplicationHelper
 
   def generic_sprite(collection, collectable)
     case collection
+    when 'titles'
+      sprite(collectable, 'achievement')
     when /(mounts|minions|fashions)/
       sprite(collectable, "#{collection}-small")
     when 'spells'

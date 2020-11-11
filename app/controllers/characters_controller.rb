@@ -5,6 +5,7 @@ class CharactersController < ApplicationController
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires fashions).freeze
+  STATS_COLLECTIONS = COLLECTIONS.dup.insert(1, 'titles').freeze
 
   def show
     if @profile != @character && @profile.syncable?
@@ -38,13 +39,13 @@ class CharactersController < ApplicationController
   end
 
   def stats_recent
-    @collections = COLLECTIONS.each_with_object({}) do |collection, h|
+    @collections = STATS_COLLECTIONS.each_with_object({}) do |collection, h|
       h[collection] = @profile.most_recent(collection, filters: cookies)
     end
   end
 
   def stats_rarity
-    @collections = COLLECTIONS.each_with_object({}) do |collection, h|
+    @collections = STATS_COLLECTIONS.each_with_object({}) do |collection, h|
       h[collection] = @profile.most_rare(collection, filters: cookies)
     end
   end

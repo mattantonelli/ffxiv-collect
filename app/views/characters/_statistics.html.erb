@@ -12,7 +12,11 @@
                 <%= link_to(polymorphic_path(collectable), class: 'unstyled d-flex align-items-center') do %>
                   <%= generic_sprite(collection, collectable) %>
                   <span class="ml-2">
-                    <%= collectable.name %>
+                    <% if collection == 'titles' %>
+                      <%= title_name(collectable.title) %>
+                    <% else %>
+                      <%= collectable.name %>
+                    <% end %>
                     <% if stat.present? %>
                       <br>(<%= stat %>)
                     <% end %>
