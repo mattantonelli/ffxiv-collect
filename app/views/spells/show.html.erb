@@ -12,13 +12,13 @@
           </div>
           <h5 class="card-title ml-3"><%= @spell.name %></h5>
         </div>
-        <span class="badge badge-secondary">No. <%= @spell.order %></span>
+        <span class="badge badge-secondary"><%= t('spells.number') %> <%= @spell.order %></span>
       </div>
       <div class="card-body py-3">
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
             <div>
-              <dt>Type</dt>
+              <dt><%= t('type') %></dt>
               <dd><%= @spell.type.name %></dd>
             </div>
             <div>
@@ -26,20 +26,20 @@
               <dd><%= @spell.aspect.name %></dd>
             </div>
             <div>
-              <dt>Rank</dt>
+              <dt><%= t('spells.rank') %></dt>
               <dd><%= spell_rank(@spell) %></dd>
             </div>
             <%= render 'shared/ownership', collectable: @spell %>
             <div>
-              <dt>Patch</dt>
+              <dt><%= t('patch') %></dt>
               <dd><%= @spell.patch %></dd>
             </div>
           </div>
-          <dt><u>Tooltip</u></dt>
+          <dt><u><%= t('tooltip') %></u></dt>
           <dd><%= format_tooltip(@spell.tooltip) %></dd>
-          <dt><u>Description</u></dt>
+          <dt><u><%= t('description') %></u></dt>
           <dd><%= format_text(@spell.description) %></dd>
-          <dt><u>How to Learn</u></dt>
+          <dt><u><%= t('spells.how_to_learn') %></u></dt>
           <dd class="mb-0"><%= sources(@spell, list: true) %></dd>
         </div>
       </div>

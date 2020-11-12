@@ -4,27 +4,27 @@ class SettingsController < ApplicationController
 
   def edit
     if @character.present? && !@character.verified_user?(@user)
-      flash.now[:alert_fixed] = "If you wish to change the settings for this character, " \
-        "please #{view_context.link_to 'verify your ownership', verify_character_path}."
+      link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path)
+      flash.now[:alert_fixed] = t('alerts.settings_not_verified', link: link)
     end
   end
 
   def update_user
     if current_user.update(user_params)
-      flash[:success] = 'Your user settings have been updated.'
+      flash[:success] = t('alerts.settings_updated')
       redirect_to settings_path
     else
-      flash[:error] = 'There was a problem updating your user settings.'
+      flash[:error] = t('alerts.settings_error')
       render :edit
     end
   end
 
   def update_character
     if @character.present? && @character.verified_user?(current_user) && @character.update(character_params)
-      flash[:success] = 'Your character settings have been updated.'
+      flash[:success] = t('alerts.settings_updated')
       redirect_to settings_path
     else
-      flash[:error] = 'There was a problem updating your character settings.'
+      flash[:error] = t('alerts.settings_error')
       render :edit
     end
   end

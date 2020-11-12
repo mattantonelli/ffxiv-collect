@@ -37,8 +37,7 @@ class OrchestrionsController < ApplicationController
 
   def validate_user!
     unless verified_user? && @character.verified_user?(current_user)
-      flash[:alert] = 'You must be signed in and verified in order to manage your orchestrion rolls.'
-      redirect_to root_path
+      redirect_to orchestrions_path
     end
   end
 end

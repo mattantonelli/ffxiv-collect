@@ -1,10 +1,10 @@
 <div class="card shadow">
   <div class="card-header d-flex justify-content-between">
     <% if @search %>
-      <h5 class="card-title">Search Results</h5>
-      <%= link_to fa_icon('chevron-left', text: 'Back'), search_characters_path, class: 'btn btn-secondary btn-sm' %>
+      <h5 class="card-title"><%= t('characters.search_results') %></h5>
+      <%= link_to fa_icon('chevron-left', text: t('back')), search_characters_path, class: 'btn btn-secondary btn-sm' %>
     <% else %>
-      <h5 class="card-title">Saved Characters</h5>
+      <h5 class="card-title"><%= t('characters.saved') %></h5>
     <% end %>
     </h5>
   </div>

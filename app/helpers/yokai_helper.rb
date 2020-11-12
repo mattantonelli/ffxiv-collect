@@ -4,7 +4,7 @@ module YokaiHelper
   end
 
   def yokai_completion(achievements, owned_ids)
-    "#{(achievements.pluck(:id) & owned_ids).size} of #{achievements.length} complete"
+    "#{(achievements.pluck(:id) & owned_ids).size} #{t('of')} #{achievements.length} #{t('complete')}"
   end
 
   def yokai_missing?(collectable, owned_ids)

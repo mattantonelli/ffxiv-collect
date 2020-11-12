@@ -1,25 +1,25 @@
-<% title('Minions - Verminion') %>
+<% title("#{t('minions.title')} - #{t('verminion.title')}") %>
 
 <div class="d-flex justify-content-center mb-3">
   <div class="btn-group">
-    <%= link_to 'Standard', minions_path, class: 'btn btn-secondary' %>
-    <%= button_tag 'Verminion', class: 'btn btn-secondary active', disabled: true %>
+    <%= link_to t('standard'), minions_path, class: 'btn btn-secondary' %>
+    <%= button_tag t('verminion.title'), class: 'btn btn-secondary active', disabled: true %>
   </div>
 </div>
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: verminion_minions_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :race_id_eq, MinionRace.all.order("name_#{I18n.locale}"), :id, :name,
-      { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
-    <%= f.select :speed_eq, speed_options, { include_blank: 'All Speeds' }, class: 'form-control form-control-sm' %>
-    <%= select_tag :strength, strength_options(params[:strength]), include_blank: 'All Strengths',
+      { include_blank: t('all.types') }, class: 'form-control form-control-sm' %>
+    <%= f.select :speed_eq, speed_options, { include_blank: t('all.speeds') }, class: 'form-control form-control-sm' %>
+    <%= select_tag :strength, strength_options(params[:strength]), include_blank: t('all.strengths'),
       class: 'form-control form-control-sm multiselect' %>
     <%= f.collection_select :skill_type_id_eq, MinionSkillType.all.order("name_#{I18n.locale}"), :id, :name,
-      { include_blank: 'All Special Types' }, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      { include_blank: t('all.skill_types') }, class: 'form-control form-control-sm' %>
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
@@ -28,7 +28,7 @@
   <thead>
     <tr>
       <th scope="col">#</th> <!-- Image -->
-      <th scope="col" class="hide-xs">Name</th>
+      <th scope="col" class="hide-xs"><%= t('name') %></th>
       <th scope="col" class="text-center">Type</th>
       <th scope="col" class="text-center">HP</th>
       <th scope="col" class="text-center">ATK</th>

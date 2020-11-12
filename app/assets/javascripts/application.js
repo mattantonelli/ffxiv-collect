@@ -19,4 +19,5 @@
 //= require moment
 //= require bootstrap-sortable
 //= require js.cookie
+//= require i18n/translations
 //= require_tree .

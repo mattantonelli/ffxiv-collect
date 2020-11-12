@@ -7,7 +7,7 @@
           <span class="ml-2"><%= minion.name %></span>
         </div>
       <% else %>
-        Lord of Verminion
+        <%= t('verminion.full_title') %>
       <% end %>
     </h6>
     <div class="d-flex align-items-center">
@@ -19,31 +19,31 @@
     <div class="d-flex flex-column flex-info">
       <div class="d-flex flex-wrap">
         <div>
-          <dt>HP</dt>
+          <dt><%= t('verminion.hp') %></dt>
           <dd><%= minion.hp %></dd>
         </div>
         <div>
-          <dt>ATK</dt>
+          <dt><%= t('verminion.atk') %></dt>
           <dd><%= minion.attack %></dd>
         </div>
         <div>
-          <dt>DEF</dt>
+          <dt><%= t('verminion.def') %></dt>
           <dd><%= minion.defense %></dd>
         </div>
         <div>
-          <dt>SPD</dt>
+          <dt><%= t('verminion.spd') %></dt>
           <dd><%= speed(minion) %></dd>
         </div>
         <div>
-          <dt>Cost</dt>
+          <dt><%= t('verminion.cost') %></dt>
           <dd><%= minion.cost %></dd>
         </div>
         <div>
-          <dt>Auto-attack</dt>
+          <dt><%= t('verminion.auto_attack') %></dt>
           <dd><%= auto_attack(minion) %></dd>
         </div>
         <div>
-          <dt>Strengths</dt>
+          <dt><%= t('verminion.strengths') %></dt>
           <dd><%= strengths(minion) %></dd>
         </div>
       </div>
@@ -59,11 +59,11 @@
       </div>
       <div class="d-flex flex-wrap mt-3">
         <div>
-          <dt>Points</dt>
+          <dt><%= t('verminion.points') %></dt>
           <dd><%= minion.skill_cost %></dd>
         </div>
         <div>
-          <dt>Type</dt>
+          <dt><%= t('type') %></dt>
           <dd><%= minion.skill_type.name %></dd>
         </div>
       </div>

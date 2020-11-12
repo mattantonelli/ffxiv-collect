@@ -38,11 +38,11 @@ module ManualCollection
 
     if user_signed_in?
       unless verified?
-        flash.now[:alert_fixed] = "You are not verified as this character. If you wish to track this character's " \
-          "manual collections, please #{view_context.link_to 'verify your ownership', verify_character_path}."
+        link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path)
+        flash.now[:alert_fixed] = t('alerts.not_verified', link: link)
       end
     else
-      flash.now[:alert_fixed] = 'You must be signed in and verified in order to track manual collections.'
+      flash.now[:alert_fixed] = t('alerts.not_signed_in_and_verified')
     end
   end
 end

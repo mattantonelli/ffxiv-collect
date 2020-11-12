@@ -24,12 +24,12 @@ class LeaderboardsController < ApplicationController
 
   private
   def set_shared
-    @category = params[:category] || 'Achievement Points'
+    @category = params[:category] || 'achievement_points'
 
-    if @category == 'Achievement Points'
+    if @category == 'achievement_points'
       @metric = 'achievement_points'
     else
-      @metric = "#{params[:category].downcase.pluralize}_count"
+      @metric = "#{@category}_count"
     end
   end
 end

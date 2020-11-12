@@ -14,19 +14,19 @@
       <div class="card-body d-flex flex-column flex-info">
         <div class="d-flex flex-wrap">
           <div>
-            <dt>Tradeable</dt>
+            <dt><%= t('tradeable') %></dt>
             <dd><%= tradeable(@hairstyle) %></dd>
           </div>
           <%= render 'shared/ownership', collectable: @hairstyle %>
           <div>
-            <dt>Patch</dt>
+            <dt><%= t('patch') %></dt>
             <dd><%= @hairstyle.patch %></dd>
           </div>
         </div>
-        <dt>Source</dt>
+        <dt><%= t('source') %></dt>
         <dd><%= sources(@hairstyle) %></dd>
         <% if @hairstyle.description.present? %>
-          <dt>Description</dt>
+          <dt><%= t('description') %></dt>
           <dd class="mb-0"><%= format_text(@hairstyle.description) %></dd>
         <% end %>
         <hr>

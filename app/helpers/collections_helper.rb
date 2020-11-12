@@ -15,12 +15,12 @@ module CollectionsHelper
   end
 
   def ownership_options(selected = nil)
-    options_for_select([['Show All', 'all'], ['Only Owned', 'owned'], ['Only Missing', 'missing']], selected)
+    options_for_select([[t('show_all'), 'all'], [t('only.owned'), 'owned'], [t('only.missing'), 'missing']], selected)
   end
 
   def gender_filter_options(selected = nil)
-    options_for_select([['All Genders', 'all'], ['Hide Male', 'male'], ['Hide Female', 'female'],
-                        ['Character Usable', 'character']], selected)
+    options_for_select([[t('all.genders'), 'all'], [t('hide.male'), 'male'], [t('hide.female'), 'female'],
+                        [t('characters.usable'), 'character']], selected)
   end
 
   def category_row_classes(collectable, active_category)
@@ -49,7 +49,7 @@ module CollectionsHelper
     if manual && @character.verified_user?(current_user)
       content_tag(:td, class: 'text-center',
                   data: { value: owned ? 1 : 0, toggle: 'tooltip', placement: 'right' },
-                  title: ("Acquired on #{format_date_short(date)}" if date.present?) ) do
+                  title: ("#{t('acquired')} #{format_date_short(date)}" if date.present?) ) do
         check_box_tag(nil, nil, owned, class: 'own',
                       data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
       end
@@ -58,7 +58,7 @@ module CollectionsHelper
         if date.present?
           content_tag(:td, fa_icon('check'), class: 'text-center',
                       data: { value: 1, toggle: 'tooltip', placement: 'right' },
-                      title: "Acquired on #{format_date_short(date)}")
+                      title: "#{t('acquired')} #{format_date_short(date)}")
         else
           content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
         end
