@@ -1,33 +1,248 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  achievement_points:
+    title: "Achievement Points"
+  achievements:
+    item_reward:
+      one: "Item Reward"
+      other: "Item Rewards"
+    overview: "Overview"
+    points: "Points"
+    title: "Achievements"
+    title_reward: "Title Reward"
+  acquired: "Acquired on"
+  alerts:
+    already_refreshed: "Your character has already been refreshed in the past 30 minutes. Please try again later."
+    character_already_verified: "Your character has already been verified."
+    character_not_found: "Character could not be found."
+    character_not_selected: "You have not selected a character."
+    character_refreshed: "Your character has been refreshed."
+    character_set: "Your character has been set."
+    character_set_to_private: "This character has been set to private and can no longer be tracked."
+    character_syncing: "Your character is currently being synchronized with the Lodestone. Please check back in a minute."
+    character_verification_error: "Your character could not be verified. Please check your profile and try again."
+    character_verified: "Your character has been verified. You can now remove the code from your profile."
+    collection_being_retrieved: "Your collection data is being retrieved from the Lodestone. Please check back in a minute."
+    comparison_set: "Your comparison character has been set."
+    comparison_set_to_private: "Your comparison character has been set to private and can no longer be tracked."
+    here: "here"
+    lodestone_error: "There was a problem contacting the Lodestone."
+    lodestone_maintenance: "The Lodestone is currently down for maintenance."
+    no_characters_found: "No characters found."
+    no_longer_tracking: "You are no longer tracking a character."
+    not_found: "That page could not be found."
+    not_signed_in: "You must be signed in to do that."
+    not_signed_in_and_verified: "You must be signed in and verified in order to track manual collections."
+    not_verified: "You are not verified as this character. If you wish to track this character's manual collections,
+      please %{link}."
+    private_achievements: "Achievements for this character are set to private. You can make your achievements public %{link}."
+    private_character: "This character's verified user has set their collections to private."
+    problem_refreshing: "There was a problem refreshing your character."
+    problem_selecting_character: "There was a problem selecting that character."
+    problem_updating: "There was a problem updating your collection. Please try again."
+    problem_verifying: "There was a problem verifying your character."
+    settings_error: "There was a problem updating your settings."
+    settings_not_verified: "If you wish to change the settings for this character, please %{link}."
+    settings_updated: "Your settings have been updated."
+    verify_ownership: "verify your ownership"
+  all:
+    aspects: "All Aspects"
+    data_centers: "All Data Centers"
+    genders: "All Genders"
+    race_types: "All Minion Types"
+    ranks: "All Ranks"
+    servers: "All Servers"
+    skill_types: "All Special Types"
+    sources: "All Sources"
+    speeds: "All Speeds"
+    stengths: "All Strengths"
+    title: "All"
+    types: "All Types"
+  any: "Any"
+  apply_filters: "Apply Filters"
+  armoires:
+    title: "Armoire"
+  back: "Back"
+  bardings:
+    title: "Bardings"
+  category: "Category"
+  characters:
+    change: "Change Character"
+    character_profile: "Character Profile"
+    compare: "Compare Characters"
+    comparing: "Comparing"
+    data_center: "Data Center"
+    discord_ownership: "You are verifying your ownership of the following character as the following Discord user:"
+    forget: "Forget Character"
+    last_parsed: "Last Parsed"
+    last_updated: "Last updated %{timespan} ago."
+    lodestone: "Lodestone profile"
+    lodestone_verify: "If the information above is correct, please add the code below to your %{link}, then click <b>Verify</b>."
+    manage: "Manage Characters"
+    private: "Private"
+    profile: "Profile"
+    public: "Public"
+    rarest: "Most Rare"
+    recent: "Most Recent"
+    refresh: "Refresh Character"
+    saved: "Saved Characters"
+    search: "Character Search"
+    search_results: "Search Results"
+    select: "Select Character"
+    select_server: "Select a server"
+    server: "Server"
+    set_to_private: "Set to private."
+    statistics: "Statistics"
+    stats: "Character Stats"
+    title: "Character"
+    unverifed: "Unverifed"
+    usable: "Character Usable"
+    verified: "Verifed"
+    verify: "Verify Character"
+  click:
+    add: "Click to add"
+    remove: "Click to remove"
+  clipboard: "Copy to clipboard"
+  collapse: "Collapse All"
+  complete: "complete"
+  created_by: "Created by Raelys Skyborn of Behemoth"
+  date: "Date"
+  description: "Description"
+  emotes:
+    command: "Command"
+    title: "Emotes"
+  exclude:
+    premium: "Exclude Premium"
+    time_limited: "Exclude Time Limited"
+  expand: "Expand All"
+  fashions:
+    title: "Fashion Accessories"
+  filters: "Filters"
+  hairstyles:
+    title: "Hairstyles"
+  hide:
+    female: "Hide Female"
+    male: "Hide Male"
+  home: "Home"
+  how_to_obtain: "How to obtain"
+  item: "Item"
+  journal: "Journal"
+  leaderboards:
+    free_company: "Free Company"
+    global: "Global"
+    global_leaderboards: "Global Leaderboards"
+    score: "Score"
+    title: "Leaderboards"
+    top: "Top"
+  minions:
+    behavior: "Behavior"
+    title: "Minions"
+  mounts:
+    flying: "Flyling"
+    movement: "Movement"
+    preview: "Video Preview"
+    seats: "Seats"
+    title: "Mounts"
+  name: "Name"
+  "no": "no"
+  of: "of"
+  only:
+    missing: "Only Missing"
+    owned: "Only Owned"
+  orchestrions:
+    quick_select: "Quick Select"
+    sample: "Audio sample"
+    title: "Orchestrion"
+  other: "Other"
+  own: "Own"
+  owned: "Owned"
+  ownership: "Owned by %{percent} of players"
+  patch: "Patch"
+  powered_by: "Powered by"
+  relics:
+    a_relic_reborn: "A Relic Reborn"
+    anima_weapons: "Anima Weapons"
+    armor: "Armor"
+    augmented_bozjan_armor: "Augmented Bozjan Armor"
+    bozjan_armor: "Bozjan Armor"
+    deep_dungeon_weapons: "Deep Dungeon Weapons"
+    elemental_armor: "Elemental Armor"
+    eureka_anemos_armor: "Eureka Anemos Armor"
+    eureka_job_armor: "Eureka Job Armor"
+    eureka_physeos_weapons: "Eureka Physeos Weapons"
+    eureka_weapons: "Eureka Weapons"
+    idealized_armor: "Idealized Armor"
+    lucis_tools: "Lucis Tools"
+    manual: "Manual"
+    relic_armor: "Relic Armor"
+    relic_tools: "Relic Tools"
+    relic_weapons: "Relic Weapons"
+    resistance_weapons: "Resistance Weapons"
+    skysteel_tools: "Skysteel Tools"
+    title: "Relics"
+    tools: "Tools"
+    weapons: "Weapons"
+  save: "Save"
+  search: "Search"
+  select: "Select"
+  settings:
+    character: "Character Settings"
+    database: "Database Links"
+    make_public: "Make this character's collections publicly available"
+    title: "Settings"
+    user: "User Settings"
+  show_all: "Show All"
+  source: "Source"
+  spells:
+    aspect: "Aspect"
+    damage: "Damage"
+    enemy: "Enemy"
+    how_to_learn: "How to Learn"
+    location: "Location"
+    number: "No."
+    rank: "Rank"
+    title: "Blue Magic"
+  submit: "Submit"
+  titles:
+    title: "Titles"
+  tomestones:
+    description: "The following collectables are available as rewards from the %{link} event."
+    source: "Original Source"
+    title: "Moogle Treasure Trove"
+  tooltip:
+    ownership: "Active public characters who own this %{collectable}"
+  tooltip: "Tooltip"
+  tradeable: "Tradeable"
+  triple_triad:
+    title: "Triple Triad"
+  type: "Type"
+  users:
+    sign_in: "Sign in with Discord"
+    sign_out: "Sign Out"
+  verify: "Verify"
+  verminion:
+    arcana_stones: "Arcana Stones"
+    atk: "ATK"
+    auto_attack: "Auto-attack"
+    cost: "Cost"
+    def: "DEF"
+    effective: "Effective against"
+    full_title: "Lord of Verminion"
+    gates: "Gates"
+    hp: "HP"
+    multi_target: "Multi-target"
+    points: "Points"
+    race: "Minion Type"
+    search_eyes: "Search Eyes"
+    shields: "Shields"
+    single_target: "Single-target"
+    spd: "SPD"
+    standard: "Standard"
+    strengths: "Strengths"
+    title: "Verminion"
+  "yes": "yes"
+  yokai:
+    locations: "Legendary Medal Locations"
+    minion: "Minion"
+    title: "Yo-kai Watch Collaboration"
+    weapon: "Weapon"
+    zone: "Zone"
