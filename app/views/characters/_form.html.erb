@@ -1,5 +1,5 @@
 <div class="card shadow">
-  <h5 class="card-header">Character Search</h5>
+  <h5 class="card-header"><%= t('characters.search') %></h5>
   <div class="card-body">
     <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form') do %>
       <% if params[:compare] %>
@@ -15,7 +15,7 @@
         <%= text_field_tag :name, @name, required: true, class: 'form-control' %>
       </div>
       <div class="text-right mt-3 mb-2">
-        <%= submit_tag 'Search', name: nil, class: 'btn btn-primary' %>
+        <%= submit_tag t('search'), name: nil, class: 'btn btn-primary' %>
       </div>
     <% end %>
   </div>

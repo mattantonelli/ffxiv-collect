@@ -13,14 +13,14 @@ class ApplicationController < ActionController::Base
 
   def verify_signed_in!
     unless user_signed_in?
-      flash[:alert] = 'You must be signed in to do that.'
+      flash[:alert] = t('alerts.not_signed_in')
       redirect_to_previous
     end
   end
 
   def verify_character!
     unless @character.present?
-      flash[:alert] = 'You have not selected a character.'
+      flash[:alert] = t('alerts.character_not_selected')
       redirect_to root_path
     end
   end
@@ -52,14 +52,14 @@ class ApplicationController < ActionController::Base
       @character = current_user.character
       if @character&.private?(current_user)
         current_user.update(character_id: nil)
-        flash[:error] = 'This character has been set to private and can no longer be tracked.'
+        flash[:error] = t('alerts.character_set_to_private')
         redirect_to root_path
       end
     elsif cookies['character'].present?
       @character = Character.find_by(id: cookies['character'])
       if @character&.private?
         cookies[:character] = nil
-        flash[:error] = 'This character has been set to private and can no longer be tracked.'
+        flash[:error] = t('alerts.character_set_to_private')
         redirect_to root_path
       end
     end
@@ -72,7 +72,7 @@ class ApplicationController < ActionController::Base
       @comparison = Character.find_by(id: cookies['comparison'])
       if @comparison&.private?(current_user)
         cookies[:comparison] = nil
-        flash[:error] = 'Your comparison character has been set to private and can no longer be tracked.'
+        flash[:error] = t('alerts.comparison_set_to_private')
         redirect_to root_path
       end
     end

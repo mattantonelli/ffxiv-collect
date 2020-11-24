@@ -15,7 +15,7 @@
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
             <div>
-              <dt>Command</dt>
+              <dt><%= t('emotes.command') %></dt>
               <dd>
                 <ul class="list-unstyled">
                   <% @emote.command.split(', ').each do |command| %>
@@ -25,16 +25,16 @@
               </dd>
             </div>
             <div>
-              <dt>Tradeable</dt>
+              <dt><%= t('tradeable') %></dt>
               <dd><%= tradeable(@emote) %></dd>
             </div>
             <%= render 'shared/ownership', collectable: @emote %>
             <div>
-              <dt>Patch</dt>
+              <dt><%= t('patch') %></dt>
               <dd><%= @emote.patch %></dd>
             </div>
           </div>
-          <dt>Source</dt>
+          <dt><%= t('source') %></dt>
           <dd class="mb-0"><%= sources(@emote, list: true) %></dd>
         </div>
       </div>

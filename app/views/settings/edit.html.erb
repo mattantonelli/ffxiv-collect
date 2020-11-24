@@ -1,20 +1,20 @@
-<% title('Settings') %>
+<% title(t('settings.title')) %>
 <% description('Manage your user and character settings.') %>
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
     <div class="card">
       <div class="card-header">
-        <h5 class="card-title">User Settings</h5>
+        <h5 class="card-title"><%= t('settings.user') %></h5>
       </div>
       <div class="card-body py-3">
         <%= form_for(@user, url: user_settings_path, html: { class: 'form' }) do |f| %>
           <div class="form-group">
-            <%= f.label :database, 'Database Links' %>
+            <%= f.label :database, t('settings.database') %>
             <%= f.select :database, database_options(@user.database), {}, class: 'form-control form-control-sm' %>
           </div>
           <div class="text-right mt-3">
-            <%= f.submit 'Save', class: 'btn btn-primary' %>
+            <%= f.submit t('save'), class: 'btn btn-primary' %>
           </div>
         <% end %>
       </div>
@@ -23,16 +23,16 @@
     <% if @character.present? && @character.verified_user?(@user) %>
       <div class="card mt-4">
         <div class="card-header">
-          <h5 class="card-title">Character Settings</h5>
+          <h5 class="card-title"><%= t('settings.character') %></h5>
         </div>
         <div class="card-body py-3">
           <%= form_for(@character, url: character_settings_path, html: { class: 'form' }) do |f| %>
             <div class="form-group form-check">
               <%= f.check_box :public %>
-              <%= f.label :public, "Make this character's collections publicly available" %>
+              <%= f.label :public, t('settings.make_public') %>
             </div>
             <div class="text-right mt-2">
-              <%= f.submit 'Save', class: 'btn btn-primary' %>
+              <%= f.submit t('save'), class: 'btn btn-primary' %>
             </div>
           <% end %>
         </div>

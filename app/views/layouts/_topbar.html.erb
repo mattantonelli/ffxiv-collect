@@ -19,13 +19,13 @@
     </div>
   </div>
   <% unless @character.present? %>
-    <%= link_to 'Select Character', search_characters_path, class: 'btn btn-primary my-2 my-md-0 mr-3' %>
+    <%= link_to t('characters.select'), search_characters_path, class: 'btn btn-primary my-2 my-md-0 mr-3' %>
   <% end %>
   <% if @character.present? || user_signed_in? %>
     <%= render 'layouts/user_dropdown' %>
   <% end %>
   <% unless user_signed_in? %>
-    <%= link_to 'Sign in with Discord', user_discord_omniauth_authorize_path,
+    <%= link_to t('users.sign_in'), user_discord_omniauth_authorize_path,
       class: 'btn btn-secondary ml-md-2' %>
   <% end %>
 </nav>

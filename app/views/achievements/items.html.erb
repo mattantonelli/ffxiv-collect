@@ -1,14 +1,14 @@
-<% title('Achievements - Item Rewards') %>
+<% title("#{t('achievements.title')} - #{t('achievements.item_reward', count: 2)}") %>
 <% description("Automatically track your character's achievement items and discover how to obtain new ones.") %>
 
 <div class="d-flex justify-content-center">
   <%= search_form_for(@q, url: achievement_items_path, enforce_utf8: false,
                       class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: 'Item',
+    <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: t('item'),
       size: 40, class: 'form-control form-control-sm'%>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
@@ -16,11 +16,11 @@
 <table class="table table-striped table-sm shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
   <thead>
     <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-    <th scope="col" class="name">Name</th>
-    <th scope="col" class="name hide-xs">Category</th>
-    <th scope="col" class="name hide-xs">Item</th>
-    <th scope="col" class="text-center hide-xs">Own</th>
-    <th scope="col" class="text-center hide-xs">Patch</th>
+    <th scope="col" class="name"><%= t('name') %></th>
+    <th scope="col" class="name hide-xs"><%= t('category') %></th>
+    <th scope="col" class="name hide-xs"><%= t('item') %></th>
+    <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+    <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
     <% if character_selected? %>
       <th scope="col"></th>
     <% end %>

@@ -1,17 +1,17 @@
-<% title("#{@free_company.name} Leaderboards") %>
+<% title("#{@free_company.name} #{t('leaderboards.title')}") %>
 <% description("Browse the top collectors in the #{@free_company.name} free company.") %>
 
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
     <div class="card shadow">
       <div class="card-header">
-        <h5 class="card-title"><%= @free_company.name %> Leaderboards - <%= @category %></h5>
+        <h5 class="card-title"><%= @free_company.name %> <%= t('leaderboards.title') %> - <%= t("#{@category}.title") %></h5>
       </div>
       <div class="card-body card-table">
         <%= form_tag(free_company_leaderboards_path(params[:id]), method: :get, enforce_utf8: false,
                      class: 'form form-inline search-form ml-3 my-2') do |f| %>
-          <%= select_tag :category, options_for_select(categories, @category), class: 'form-control form-control-sm' %>
-          <%= submit_tag 'Select', name: nil, class: 'btn btn-primary btn-sm' %>
+          <%= select_tag :category, leaderboards_categories(@category), class: 'form-control form-control-sm' %>
+          <%= submit_tag t('select'), name: nil, class: 'btn btn-primary btn-sm' %>
         <% end %>
         <%= render 'table' %>
       </div>

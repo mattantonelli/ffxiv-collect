@@ -1,12 +1,12 @@
-<% title("#{@type.name} Achievements") %>
+<% title("#{@type.name} #{t('achievements.title')}") %>
 <% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
 
 <div class="d-flex flex-wrap align-items-center mb-2">
-  <h3 class="mr-auto"><%= @type.name %> Achievements</h3>
-  <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+  <h3 class="mr-auto"><%= @type.name %> <%= t('achievements.title') %></h3>
+  <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
     type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
   <button class="btn btn-secondary btn-sm ml-3 mr-1" id="collapseToggle" data-expanded="false">
-    <%= fa_icon('expand', text: 'Expand All') %>
+    <%= fa_icon('expand', text: t('expand')) %>
   </button>
 </div>
 <%= render 'shared/filters' %>
@@ -33,12 +33,12 @@
             <thead>
               <tr>
                 <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-                <th scope="col" class="name">Name</th>
-                <th scope="col" class="hide-xs">Description</th>
+                <th scope="col" class="name"><%= t('name') %></th>
+                <th scope="col" class="hide-xs"><%= t('description') %></th>
                 <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
-                <th scope="col" class="text-center">Points</th>
-                <th scope="col" class="text-center hide-xs">Own</th>
-                <th scope="col" class="text-center">Patch</th>
+                <th scope="col" class="text-center"><%= t('achievements.points') %></th>
+                <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+                <th scope="col" class="text-center"><%= t('patch') %></th>
                 <% if character_selected? %>
                   <th scope="col"></th>
                 <% end %>

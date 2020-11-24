@@ -11,8 +11,8 @@ $(document).on 'turbolinks:load', ->
     if button.data('expanded')
       $('main .collapse').collapse('hide')
       button.data('expanded', false)
-      button.html('<i class="fa fa-expand"></i> Expand All')
+      button.html("<i class=\"fa fa-expand\"></i> #{I18n.t('expand')}")
     else
       $('main .collapse').collapse('show')
       button.data('expanded', true)
-      button.html('<i class="fa fa-compress"></i> Collapse All')
+      button.html("<i class=\"fa fa-compress\"></i> #{I18n.t('collapse')}")

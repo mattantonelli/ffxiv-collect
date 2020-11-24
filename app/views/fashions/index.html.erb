@@ -3,13 +3,13 @@
 
 <div class="d-flex justify-content-center my-2">
   <%= search_form_for(@q, url: fashions_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 40,
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
-      { include_blank: 'All Sources' }, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
 <%= render 'shared/filters' %>
@@ -19,11 +19,11 @@
   <thead>
     <tr>
       <th scope="col">#</th><!-- Image -->
-      <th scope="col">Name</th>
-      <th scope="col" class="hide-xs">Source</th>
+      <th scope="col"><%= t('name') %></th>
+      <th scope="col" class="hide-xs"><%= t('source') %></th>
       <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
-      <th scope="col" class="text-center hide-xs">Own</th>
-      <th scope="col" class="text-center">Patch</th>
+      <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+      <th scope="col" class="text-center"><%= t('patch') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>

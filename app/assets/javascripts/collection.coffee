@@ -39,7 +39,7 @@ $(document).on 'turbolinks:load', ->
       url: collectable.data('path'),
       data: { authenticity_token: window._token },
       error: ->
-        alert('There was a problem updating your collection. Please try again.')
+        alert(I18n.t('alerts.problem_updating'))
         location.reload()
     })
 
@@ -63,7 +63,7 @@ $(document).on 'turbolinks:load', ->
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('tr').addClass('owned')
       collectable.closest('td').attr('data-value', 1)
-      collectable.closest('td').attr('data-original-title', "Acquired on #{moment.utc().format('MMM DD, YYYY')}")
+      collectable.closest('td').attr('data-original-title', "#{I18n.t('acquired')} #{moment.utc().format('MMM DD, YYYY')}")
       collectable.closest('td').tooltip('enable')
       collectable.closest('td').next('.comparison').find('.avatar:first').removeClass('faded')
 
@@ -80,13 +80,14 @@ $(document).on 'turbolinks:load', ->
     if collectable.hasClass('owned')
       path = collectable.data('path').replace('remove', 'add')
       collectable.removeClass('owned')
-      title = title.replace(/Acquired.*?<br>/, '').replace('remove', 'add')
+      title = title.replace(/<br>.*?<br>/, '<br>')
+        .replace(I18n.t('click.remove'), I18n.t('click.add'))
       collectable.parent().attr('data-original-title', title)
     else
       path = collectable.data('path').replace('add', 'remove')
       collectable.addClass('owned')
-      title = title.replace('Owned by', "Acquired on #{moment.utc().format('MMM DD, YYYY')}<br>Owned by")
-        .replace('add', 'remove')
+      title = title.replace('<br>', "<br>#{I18n.t('acquired')} #{moment.utc().format('MMM DD, YYYY')}<br>")
+        .replace(I18n.t('click.add'), I18n.t('click.remove'))
       collectable.parent().attr('data-original-title', title)
 
     collectable.data('path', path)
@@ -95,7 +96,7 @@ $(document).on 'turbolinks:load', ->
 
     count = collectable.closest('.collapse').find('.owned').length
     header = collectable.closest('.card').find('.card-header > h6')
-    header.text(header.text().replace(/\d+ of/, "#{count} of"))
+    header.text(header.text().replace(/\d+/, count))
 
     if count == collectable.closest('.collapse').find('.item').length
       header.addClass('complete')

@@ -4,8 +4,9 @@ module MinionsHelper
   end
 
   def minion_strength(type, index)
+    name = t("verminion.#{type.parameterize(separator: '_')}")
     image_tag('blank.png', class: 'minion-strength', style: "background-position: -#{24 * index}px 0",
-              data: { toggle: 'tooltip', title: "Effective against #{type}" })
+              data: { toggle: 'tooltip', title: "#{t('verminion.effective')} #{name}" })
   end
 
   def minion_skill_angle(minion)
@@ -15,8 +16,7 @@ module MinionsHelper
 
   def format_skill_description(minion)
     description = minion.skill_description
-      .gsub('Duration:', '<br>Duration:')
-      .gsub('Activation Delay:', '<br>Activation Delay:')
+      .gsub(/(\*\*(.+)\*\*)/, '<br>\1')
 
     format_text(description)
   end
@@ -46,10 +46,11 @@ module MinionsHelper
   end
 
   def strength_options(selected)
-    options_for_select([['Gates', 'gate'], ['Search Eyes', 'eye'], ['Shields', 'shield'], ['Arcana Stones', 'arcana']], selected)
+    options_for_select([[t('verminion.gates'), 'gate'], [t('verminion.search_eyes'), 'eye'],
+                        [t('verminion.shields'), 'shield'], [t('verminion.arcana_stones'), 'arcana']], selected)
   end
 
   def auto_attack(minion)
-    minion.area_attack ? 'Multi-target' : 'Single-target'
+    minion.area_attack ? t('verminion.multi_target') : t('verminion.single_target')
   end
 end

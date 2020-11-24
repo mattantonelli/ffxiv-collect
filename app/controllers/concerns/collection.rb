@@ -32,8 +32,9 @@ module Collection
     return unless @character.present?
 
     if @character.achievements_count == -1
-      flash.now[:alert] = 'Achievements for this character are set to private. You can make your achievements public ' \
-        "#{view_context.link_to('here', 'https://na.finalfantasyxiv.com/lodestone/my/setting/account/', target: '_blank')}."
+      link = view_context.link_to(t('alerts.here'), 'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
+                                  target: '_blank')
+      flash.now[:alert] = t('alerts.private_achievements', link: link)
     end
   end
 end

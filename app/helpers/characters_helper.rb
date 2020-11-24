@@ -7,24 +7,18 @@ module CharactersHelper
 
   def verified(character, only_verified = true)
     if character.verified_user?(current_user)
-      content_tag(:span, 'Verified', class: 'badge badge-pill badge-success')
+      content_tag(:span, t('characters.verified'), class: 'badge badge-pill badge-success')
     elsif !only_verified
-      content_tag(:span, 'Unverified', class: 'badge badge-pill badge-secondary')
+      content_tag(:span, t('characters.unverified'), class: 'badge badge-pill badge-secondary')
     end
   end
 
   def last_updated(character)
-    content_tag(:span, "Last updated #{time_ago_in_words(character.last_parsed)} ago.", class: 'updated')
+    content_tag(:span, t('characters.last_updated', timespan: time_ago_in_words(character.last_parsed)), class: 'updated')
   end
 
   def collection_name(collection, score: {})
-    if collection == 'spells'
-      name = 'Blue Magic'
-    elsif collection == 'fashions'
-      name = 'Fashion Accessories'
-    else
-      name = collection.classify.pluralize
-    end
+    name = t("#{collection}.title")
 
     if score.present? && score[:value] == score[:max]
       star = fa_icon('star', class: 'complete')

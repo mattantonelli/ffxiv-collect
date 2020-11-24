@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   end
 
   def not_found
-    flash[:error] = 'That page could not be found.'
+    flash[:error] = t('alerts.not_found')
     redirect_to root_path
   end
 end

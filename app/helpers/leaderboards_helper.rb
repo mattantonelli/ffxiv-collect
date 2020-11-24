@@ -1,7 +1,11 @@
 module LeaderboardsHelper
-  def categories
-    ['Achievements', 'Achievement Points', 'Mounts', 'Minions', 'Orchestrion', 'Emotes',
-     'Bardings', 'Hairstyles', 'Armoire'].freeze
+  def leaderboards_categories(selected = nil)
+    options_for_select([[t('achievements.title'), 'achievements'],
+                        [t('achievement_points.title'), 'achievement_points'],
+                        [t('mounts.title'), 'mounts'], [t('minions.title'), 'minions'],
+                        [t('orchestrions.title'), 'orchestrions'], [t('emotes.title'), 'emotes'],
+                        [t('bardings.title'), 'bardings'], [t('hairstyles.title'), 'hairstyles'],
+                        [t('armoires.title'), 'armoires']], selected).freeze
   end
 
   def data_center(server)
@@ -21,7 +25,7 @@ module LeaderboardsHelper
 
   def limit_options(limit)
     options = [10, 100, 1000].map do |option|
-      ["Top #{option}", option]
+      ["#{t('leaderboards.top')} #{option}", option]
     end
 
     options_for_select(options, limit)

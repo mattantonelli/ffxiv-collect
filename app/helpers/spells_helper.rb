@@ -20,7 +20,7 @@ module SpellsHelper
   end
 
   def spell_aspect(spell)
-    spell.type.name_en == 'Physical' ? 'Damage' : 'Aspect'
+    spell.type.name_en == 'Physical' ? t('spells.damage') : t('spells.aspect')
   end
 
   def spell_rank(spell)

@@ -1,4 +1,4 @@
-<% title('Character Profile') %>
+<% title(t('characters.character_profile')) %>
 <% description("#{@profile.name} (#{@profile.server})") %>
 <% image(@profile.avatar) %>
 
@@ -8,20 +8,20 @@
   <div class="col-12 col-xl-10 offset-xl-1">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center py-2">
-        <h5 class="card-title text-center mr-2">Character Profile</h5>
+        <h5 class="card-title text-center mr-2"><%= t('characters.character_profile') %></h5>
         <div class="profile-buttons text-right">
           <% unless @character == @profile %>
-            <%= link_to fa_icon('exchange', text: 'Select Character'), select_character_path(@profile),
+            <%= link_to fa_icon('exchange', text: t('characters.select')), select_character_path(@profile),
               method: :post, class: 'btn btn-primary btn-sm' %>
             <% if @character.present? %>
-              <%= link_to fa_icon('retweet', text: 'Compare Characters'), select_character_path(@profile, compare: 1),
+              <%= link_to fa_icon('retweet', text: t('characters.compare')), select_character_path(@profile, compare: 1),
                 method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
             <% end %>
           <% end %>
 
-          <%= link_to far_icon('chart-bar', text: 'Statistics'), stats_recent_character_path(@profile),
+          <%= link_to far_icon('chart-bar', text: t('characters.statistics')), stats_recent_character_path(@profile),
             class: 'btn btn-success btn-sm' unless @comparison == @profile %>
-          <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+          <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
             type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
         </div>
       </div>
@@ -40,7 +40,7 @@
                 <div>
                   <%= @profile.server %>
                   <% unless @profile.public? %>
-                    <span class="badge badge-danger">Private</span>
+                    <span class="badge badge-danger"><%= t('characters.private') %></span>
                   <% end %>
                 </div>
               </div>
@@ -50,7 +50,7 @@
               <div class="profile-progress">
                 <h6><%= collection_name('achievements') %></h6>
                 <% if @profile.achievements_count == -1 %>
-                  <span>Set to private.</span>
+                  <span><%= t('characters.set_to_private') %></span>
                 <% else %>
                   <div class="d-flex flex-column">
                     <%= render 'shared/progress', value: @scores['achievements'][:value],
@@ -84,7 +84,7 @@
                     </span>
                   </h6>
                   <% if @triad[:status] == :private %>
-                    <span>Set to private.</span>
+                    <span><%= t('characters.set_to_private') %></span>
                   <% else %>
                     <div class="count">
                       <%= render 'shared/progress', value: @triad[:cards][:owned], min: 0, max: @triad[:cards][:total] %>

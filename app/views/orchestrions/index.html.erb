@@ -1,4 +1,4 @@
-<% title('Orchestrion') %>
+<% title(t('orchestrions.title')) %>
 <% description("Track your character's orchestrion rolls and discover how to obtain new ones.") %>
 
 <%= render 'shared/category_buttons', categories: @categories, selected: @category %>
@@ -6,18 +6,18 @@
   <div class="col-12 col-md-3 mt-2 mt-sm-0 mb-1 mb-sm-0">
     <div>
       <% if @character&.verified_user?(current_user) %>
-        <%= link_to 'Quick Select', select_orchestrions_path, class: 'btn btn-secondary btn-sm' %>
+        <%= link_to t('orchestrions.quick_select'), select_orchestrions_path, class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
   </div>
   <div class="col-12 col-md-6">
     <%= search_form_for(@q, url: orchestrions_path, enforce_utf8: false,
                         class: 'form form-inline search-form d-flex mx-auto') do |f| %>
-      <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name',
+      <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'),
         class: 'form-control form-control-sm flex-grow-1' %>
-      <%= button_tag fa_icon('filter', text: 'Filters'), data: { toggle: 'modal', target: '#filters'},
+      <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
         type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-      <%= f.submit 'Search', name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
     <% end %>
   </div>
   <div class="col-md-3 d-none d-md-block"></div>
@@ -30,12 +30,12 @@
     <tr>
       <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
       <th scope="col" class="text-center all-hide<%= ' hidden' unless @category.present? %>">#</th>
-      <th scope="col" class="name">Name</th>
-      <th scope="col" class="hide-xs">Source</th>
-      <th scope="col" class="category text-center hide-xs">Category</th>
+      <th scope="col" class="name"><%= t('name') %></th>
+      <th scope="col" class="hide-xs"><%= t('source') %></th>
+      <th scope="col" class="category text-center hide-xs"><%= t('category') %></th>
       <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
-      <th scope="col" class="text-center hide-xs">Own</th>
-      <th scope="col" class="text-center">Patch</th>
+      <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+      <th scope="col" class="text-center"><%= t('patch') %></th>
       <% if character_selected? %>
         <th scope="col"></th><!-- Owned -->
       <% end %>

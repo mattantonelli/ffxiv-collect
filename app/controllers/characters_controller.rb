@@ -58,16 +58,16 @@ class CharactersController < ApplicationController
       begin
         @characters = Character.search(@server, @name)
         if @characters.empty?
-          flash.now[:alert] = 'No characters found.'
+          flash.now[:alert] = t('alerts.no_characters_found')
         end
       rescue XIVAPI::Errors::RequestError => e
         if e.message == 'Lodestone is currently down for maintenance.'
-          flash.now[:alert] = 'The Lodestone is currently down for maintenance.'
+          flash.now[:alert] = t('alerts.lodestone_maintenance')
         else
-          flash.now[:error] = 'There was a problem contacting the Lodestone.'
+          flash.now[:error] = t('alerts.lodestone_error')
         end
       rescue Exception => e
-        flash.now[:error] = 'There was a problem contacting the Lodestone.'
+        flash.now[:error] = t('alerts.lodestone_error')
         Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
         log_backtrace(e)
       end
@@ -87,17 +87,17 @@ class CharactersController < ApplicationController
       begin
         character = fetch_character(params[:id], basic: true)
         character.sync
-        flash[:notice] = 'Your collection data is being retrieved from the Lodestone. Please check back in a minute.'
+        flash[:notice] = t('alerts.collection_being_retrieved')
       rescue
         # The exception has been logged in the fetch. Now let the following logic alert the user.
       end
     end
 
     if !character.present?
-      flash[:error] = 'There was a problem selecting that character.'
+      flash[:error] = t('alerts.problem_selecting_character')
       redirect_back(fallback_location: root_path)
     elsif character.private?(current_user)
-      flash[:alert] = "Sorry, this character's verified user has set their collections to private."
+      flash[:alert] = t('alerts.private_character')
       redirect_back(fallback_location: root_path)
     else
       if params[:compare]
@@ -113,7 +113,11 @@ class CharactersController < ApplicationController
       end
 
       unless flash[:notice].present?
-        flash[:success] = "Your #{'comparison ' if params[:compare]}character has been set."
+        if params[:compare]
+          flash[:success] = t('alerts.comparison_set')
+        else
+          flash[:success] = t('alerts.character_set')
+        end
       end
 
       redirect_to character_path(character)
@@ -127,7 +131,7 @@ class CharactersController < ApplicationController
       cookies[:character] = nil
     end
 
-    flash[:success] = 'You are no longer tracking a character.'
+    flash[:success] = t('alerts.no_longer_tracking')
     redirect_to root_path
   end
 
@@ -143,27 +147,27 @@ class CharactersController < ApplicationController
 
   def refresh
     if !@character.refreshable?
-      flash[:alert] = 'Your character has already been refreshed in the past 30 minutes. Please try again later.'
+      flash[:alert] = t('alerts.already_refreshed')
     elsif @character.in_queue?
-      flash[:alert] = 'Your character is currently being synchronized with the Lodestone. Please check back in a minute.'
+      flash[:alert] = t('alerts.character_syncing')
     else
       begin
         character = fetch_character(@character.id)
 
         if character.present?
           character.update(refreshed_at: Time.now)
-          flash[:success] = 'Your character has been refreshed.'
+          flash[:success] = t('alerts.character_refreshed')
         else
-          flash[:error] = 'There was a problem contacting the Lodestone.'
+          flash[:error] = t('alerts.lodestone_error')
         end
       rescue XIVAPI::Errors::RequestError => e
         if e.message == 'Lodestone is currently down for maintenance.'
-          flash[:alert] = 'The Lodestone is currently down for maintenance.'
+          flash[:alert] = t('alerts.lodestone_maintenance')
         else
-          flash[:error] = 'There was a problem refreshing your character.'
+          flash[:error] = t('alerts.problem_refreshing')
         end
       rescue
-        flash[:error] = 'There was a problem refreshing your character.'
+        flash[:error] = t('alerts.problem_refreshing')
       end
     end
 
@@ -177,15 +181,15 @@ class CharactersController < ApplicationController
   def validate
     begin
       if @character.verify!(current_user)
-        flash[:success] = 'Your character has been verified. You can now remove the code from your profile.'
+        flash[:success] = t('alerts.character_verified')
         redirect_to_previous
       else
-        flash[:error] = 'Your character could not be verified. Please check your profile and try again.'
+        flash[:error] = t('alerts.character_verification_error')
         render :verify
       end
     rescue Exception => e
-      flash[:error] = 'There was a problem verifying your character.'
-      Rails.logger.error("There was a problem verifying character #{id}")
+      flash[:error] = t('alerts.problem_verifying')
+      Rails.logger.error("There was a problem verifying character #{@character.id}")
       log_backtrace(e)
       render :verify
     end
@@ -200,21 +204,21 @@ class CharactersController < ApplicationController
     @profile = Character.find_by(id: params[:id])
 
     unless @profile.present?
-      flash[:error] = 'Character could not be found.'
+      flash[:error] = t('alerts.character_not_found')
       redirect_to root_path
     end
   end
 
   def confirm_unverified!
     if @character.verified_user?(current_user)
-      flash[:alert] = 'Your character has already been verified.'
+      flash[:alert] = t('alerts.character_already_verified')
       redirect_to root_path
     end
   end
 
   def verify_privacy!
     unless @profile.public? || @profile.verified_user?(current_user)
-      flash[:error] = "This character's profile has been set to private."
+      flash[:error] = t('alerts.private_character')
       redirect_back(fallback_location: root_path)
     end
   end
