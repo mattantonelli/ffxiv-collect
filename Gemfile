@@ -18,6 +18,7 @@ gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
 gem 'omniauth-discord'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
