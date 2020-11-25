@@ -18,13 +18,15 @@
   .sidebar-sticky {
     position: relative;
     top: 0;
-    margin-left: 1rem;
+    padding-left: 1rem;
+    width: 250px;
     height: calc(100vh - 58px);
     overflow-x: hidden;
     overflow-y: auto;
 
     @media (max-width: 767px) {
       max-height: calc(90vh - 58px);
+      width: 100vw;
     }
   }
 
@@ -33,6 +35,21 @@
       position: -webkit-sticky;
       position: sticky;
     }
+  }
+}
+
+.main {
+  padding-left: 280px; // 250w + 30p
+  padding-right: 30px;
+
+  @media (max-width: 1199px) {
+    padding-left: 265px; // 250w + 15p
+    padding-right: 15px;
+  }
+
+  @media (max-width: 767px) {
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }
 
