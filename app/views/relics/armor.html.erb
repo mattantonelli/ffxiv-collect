@@ -22,7 +22,7 @@
 <div class="card mb-3">
   <%= render 'header', relic: @idealized_armor, name: 'Idealized Armor' %>
   <div class="collapse hide" id="collapse-idealized-armor">
-    <div class="card-body collection py-3">
+    <div class="card-body relics-sh collection py-3">
       <%= render partial: 'gear', collection: @idealized_armor.each_slice(5).to_a.transpose,
         locals: { sprite_image: 'items-armor' } %>
     </div>
@@ -44,7 +44,7 @@
   <div class="card mb-3">
     <%= render 'header', relic: armor, name: name %>
     <div class="collapse hide" id="<%= collapse_id(name) %>">
-      <div class="card-body collection py-3">
+      <div class="card-body relics-sb collection py-3">
         <%= render partial: 'gear', collection: armor.each_slice(5).to_a.transpose, locals: { sprite_image: 'items-armor' } %>
       </div>
     </div>

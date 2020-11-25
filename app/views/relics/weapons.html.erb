@@ -19,7 +19,7 @@
 <div class="card mb-3">
   <%= render 'header', relic: @eureka_weapons, name: 'Eureka Weapons' %>
   <div class="collapse" id="collapse-eureka-weapons">
-    <div class="card-body py-3">
+    <div class="card-body relics-sb py-3">
       <%= render partial: 'weapons', collection: @eureka_weapons.each_slice(@eureka_weapons.size / 15).to_a.transpose %>
     </div>
   </div>
@@ -28,7 +28,7 @@
 <div class="card mb-3">
   <%= render 'header', relic: @anima_weapons, name: 'Anima Weapons' %>
   <div class="collapse" id="collapse-anima-weapons">
-    <div class="card-body py-3">
+    <div class="card-body relics-hw py-3">
       <%= render partial: 'weapons', collection: @anima_weapons.each_slice(@anima_weapons.size / 13).to_a.transpose %>
     </div>
   </div>

@@ -3,19 +3,37 @@
 }
 
 .relics-sh .d-flex {
-  @media(max-width: 1324px) {
+  @media(max-width: 1320px) {
     justify-content: normal !important;
   }
 }
 
+.relics-sb .d-flex {
+  @media(max-width: 1208px) {
+    justify-content: normal !important;
+  }
+}
+
+.relics-hw .d-flex {
+  @media(min-width: 1066px) {
+    justify-content: space-around !important;
+  }
+}
+
+.relics-arr .d-flex {
+  @media(min-width: 956px) {
+    justify-content: space-around !important;
+  }
+}
+
 .relics-class .d-flex {
-  @media(min-width: 475px) {
+  @media(min-width: 471px) {
     justify-content: space-around !important;
   }
 }
 
 .relics-tools .d-flex {
-  @media(min-width: 992px) {
+  @media(min-width: 988px) {
     justify-content: space-around !important;
   }
 }
