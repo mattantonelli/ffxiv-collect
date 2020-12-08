@@ -74,6 +74,8 @@ namespace :sources do
           collectable = collection.find(item.item_action.data0)
         end
 
+        next unless collectable.present?
+
         collectable.update!(item_id: item.id) if item.is_untradable == 0
 
         next if collection == Orchestrion
