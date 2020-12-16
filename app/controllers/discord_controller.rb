@@ -23,6 +23,11 @@ class DiscordController < ApiController
         .sort_by { |collectable| collectable[:name].size }
       collectable = results.first
 
+      if collectable.nil?
+        response = { type: 3, data: { content: "#{type.titleize} not found." } }
+        return render json: response
+      end
+
       embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
 
       if type == 'spell'
