@@ -45,8 +45,9 @@ gem 'sidekiq', '~> 5.2.9'
 gem 'sidekiq-failures', '~> 1.0.0'
 gem 'nokogiri'
 gem 'ed25519'
+gem 'discordrb-webhooks', '3.3.0'
 
-gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.0'
+gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.3'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

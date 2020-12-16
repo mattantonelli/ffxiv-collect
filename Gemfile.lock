@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/xivapi/xivapi-ruby.git
-  revision: c6d1458e8bcce07f864de713128ae11d01245bdc
-  tag: v0.3.0
+  revision: 731f7ba7a73b4ce5cca095b0fbbcb09d1f8c5436
+  tag: v0.3.3
   specs:
-    xivapi (0.3.0)
-      rest-client (~> 2.0.2)
+    xivapi (0.3.3)
+      rest-client (>= 2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -103,6 +103,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    discordrb-webhooks (3.3.0)
+      rest-client (>= 2.1.0.rc1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     ed25519 (1.2.4)
@@ -116,6 +118,7 @@ GEM
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashie (4.1.0)
+    http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.8.5)
@@ -152,7 +155,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2019.1009)
+    mime-types-data (3.2020.1104)
     mimemagic (0.3.5)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
@@ -251,7 +254,8 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rest-client (2.0.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
@@ -312,7 +316,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (3.7.0)
@@ -346,6 +350,7 @@ DEPENDENCIES
   clipboard-rails
   coffee-rails (~> 4.2)
   devise
+  discordrb-webhooks (= 3.3.0)
   ed25519
   font_awesome5_rails
   i18n-js
