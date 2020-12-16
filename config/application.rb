@@ -38,6 +38,7 @@ module FfxivCollect
       allow do
         origins '*'
         resource '/api/*', headers: :any, methods: [:get, :options]
+        resource '/discord/interactions', headers: :any, methods: [:post]
       end
     end
   end

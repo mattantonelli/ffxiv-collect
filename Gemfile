@@ -44,6 +44,7 @@ gem 'paper_trail'
 gem 'sidekiq', '~> 5.2.9'
 gem 'sidekiq-failures', '~> 1.0.0'
 gem 'nokogiri'
+gem 'ed25519'
 
 gem 'xivapi', git: 'https://github.com/xivapi/xivapi-ruby.git', tag: 'v0.3.0'
 

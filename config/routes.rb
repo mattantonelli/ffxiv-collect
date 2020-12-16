@@ -91,6 +91,8 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'discord/interactions'
+
   namespace :admin do
     resources :users, only: :index
 
