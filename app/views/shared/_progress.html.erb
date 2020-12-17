@@ -4,7 +4,7 @@
     aria-valuemin="0" aria-valuemax="<%= max %>">
     <b class="px-2">
       <% if local_assigns[:text] %>
-        <%= number_with_delimiter(value) %> <%= t('of') %> <%= number_with_delimiter(max) %> <%= t(text) %>
+        <%= number_with_delimiter(value) %> <%= t('of') %> <%= number_with_delimiter(max) %> <%= t(text).downcase %>
       <% elsif max > 0 %>
         <%= value %>/<%= max %> (<%= ((value / max.to_f) * 100).to_i %>%)
       <% end %>
