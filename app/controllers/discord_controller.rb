@@ -30,10 +30,10 @@ class DiscordController < ApiController
         render json: { type: 3, data: data }
       rescue RestClient::ExceptionWithResponse => e
         # Return API error messages when they are provided
-        render json: { type: 3, content: JSON.parse(e.response)['error'] }
+        render json: { type: 3, data: { content: JSON.parse(e.response)['error'] } }
       rescue Exception => e
         log_backtrace(e)
-        render json: { type: 3, content: 'Sorry, something broke!' }
+        render json: { type: 3, data: { content: 'Sorry, something broke!' } }
       end
     end
   end

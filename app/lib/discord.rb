@@ -11,7 +11,7 @@ module Discord
     collectable = results.first
 
     if collectable.nil?
-      return { content: "#{type.titleize} not found." }
+      return { content: "#{type.titleize} not found" }
     end
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
