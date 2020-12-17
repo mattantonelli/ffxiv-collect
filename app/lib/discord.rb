@@ -64,7 +64,7 @@ module Discord
       count, total, points, points_total =
         character[:achievements].values_at(:count, :total, :points, :points_total).map { |value| number_with_delimiter(value) }
 
-      embed.add_field(name: 'Achievements', inline: true,
+      embed.add_field(name: "#{category_title('achievements')}#{star(count, total)}", inline: true,
                       value: "#{count} of #{total} complete\n#{points} of #{points_total} points")
     else
       embed.add_field(name: 'Achievements', inline: true, value: 'Set to private.')
@@ -75,7 +75,7 @@ module Discord
 
       count, total = character[category].values_at(:count, :total)
       value = "#{count}/#{total} (#{((count / total.to_f) * 100).to_i}%)"
-      embed.add_field(name: category_title(category.to_s), value: value, inline: true)
+      embed.add_field(name: "#{category_title(category.to_s)}#{star(count, total)}", value: value, inline: true)
     end
 
     { embeds: [embed.to_hash] }
@@ -103,5 +103,9 @@ module Discord
     when 'triad' then 'Triple Triad'
     else category.titleize
     end
+  end
+
+  def star(count, total)
+    " \u2605" if count == total
   end
 end
