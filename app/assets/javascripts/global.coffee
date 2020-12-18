@@ -1,6 +1,7 @@
 $(document).on 'turbolinks:load', ->
   $('.tooltip').remove()
   $('[data-toggle=tooltip]').tooltip()
+  $('.carousel').carousel()
 
   # Ignore blank fields on search form submission
   $('.search-form').submit ->

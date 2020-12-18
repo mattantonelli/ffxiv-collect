@@ -3,7 +3,7 @@
 <% image(image_url("hairstyles/#{@hairstyle.id}.png", skip_pipeline: true)) %>
 
 <div class="row">
-  <div class="col-12 col-xl-6 offset-xl-3">
+  <div class="col-12 col-xl-7 mx-auto">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="card-title">
@@ -39,3 +39,6 @@
     </div>
   </div>
 </div>
+<% if @screenshots.present? %>
+  <%= render 'screenshots' %>
+<% end %>

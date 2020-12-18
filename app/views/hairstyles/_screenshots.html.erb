@@ -1,0 +1,28 @@
+<div class="row mt-3">
+  <div class="col-12 col-xl-7 mx-auto">
+    <div class="carousel slide carousel-fade carousel-hairstyles" id="carousel" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <%= link_to(image_url(@screenshots.first)) do %>
+            <%= image_tag(@screenshots.first) %>
+          <% end %>
+        </div>
+        <% @screenshots.drop(1).each do |screenshot| %>
+          <div class="carousel-item">
+            <%= link_to(image_url(screenshot)) do %>
+              <%= image_tag(screenshot) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+</div>
