@@ -16,8 +16,17 @@ module Discord
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
 
-    name = collectable[:name]
-    name += " (No. #{collectable[:order]})" if type == 'spell'
+    if type == 'spell'
+      name = "#{collectable[:name]} (No. #{collectable[:order]})"
+    elsif type == 'title'
+      if collectable[:name] == collectable[:female_name]
+        name = collectable[:name]
+      else
+        name = "#{collectable[:name]} / #{collectable[:female_name]}"
+      end
+    else
+      name = collectable[:name]
+    end
 
     if type == 'spell'
       embed.description = collectable[:tooltip].gsub(/(?<=\n)(.*?):/, '**\1:**')
