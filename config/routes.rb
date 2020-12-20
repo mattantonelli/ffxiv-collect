@@ -119,7 +119,9 @@ Rails.application.routes.draw do
   end
 
   get 'parasols', to: redirect('images/parasols.png')
-  get 'commands', to: redirect('https://discord.com/oauth2/authorize?&client_id=788756679646904331&scope=applications.commands')
+  get 'commands', to: redirect('https://discord.com/oauth2/authorize' \
+                               "?client_id=#{Rails.application.credentials.dig(:discord, :interactions_client_id)}" \
+                               '&scope=applications.commands')
 
   get '404', to: 'home#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
