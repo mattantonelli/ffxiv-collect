@@ -49,13 +49,13 @@ class DiscordController < ApiController
           data = Discord.embed_collectable(type, query)
         end
 
-        render json: { type: 3, data: data }
+        render json: { type: 4, data: data }
       rescue RestClient::ExceptionWithResponse => e
         # Return API error messages when they are provided
-        render json: { type: 3, data: { content: JSON.parse(e.response)['error'] } }
+        render json: { type: 4, data: { content: JSON.parse(e.response)['error'] } }
       rescue Exception => e
         log_backtrace(e)
-        render json: { type: 3, data: { content: 'Sorry, something broke!' } }
+        render json: { type: 4, data: { content: 'Sorry, something broke!' } }
       end
     end
   end
