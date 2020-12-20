@@ -4,8 +4,8 @@ include ActionView::Helpers::NumberHelper
 module Discord
   extend self
 
-  def embed_collectable(type, name)
-    url = "https://ffxivcollect.com/api/#{type.pluralize}?name_en_cont=#{name}"
+  def embed_collectable(type, query)
+    url = "https://ffxivcollect.com/api/#{type.pluralize}?#{query}"
     results = JSON.parse(RestClient.get(url), symbolize_names: true)[:results]
       .sort_by { |collectable| collectable[:name].size }
     collectable = results.first
@@ -15,6 +15,9 @@ module Discord
     end
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
+
+    name = collectable[:name]
+    name += " (No. #{collectable[:order]})" if type == 'spell'
 
     if type == 'spell'
       embed.description = collectable[:tooltip].gsub(/(?<=\n)(.*?):/, '**\1:**')
@@ -26,8 +29,7 @@ module Discord
 
     embed.image = Discordrb::Webhooks::EmbedImage.new(url: collectable[:image])
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: collectable[:icon])
-    embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: collectable[:name],
-                                                        url: collectable_url(type, collectable[:id]))
+    embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: name, url: collectable_url(type, collectable[:id]))
 
     if results.size > 1
       embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: additional_results(results))
@@ -36,6 +38,7 @@ module Discord
     if type == 'spell'
       embed.add_field(name: 'Type', value: collectable.dig(:type, :name), inline: true)
       embed.add_field(name: 'Aspect', value: collectable.dig(:aspect, :name), inline: true)
+      embed.add_field(name: 'Rank', value: "\u2605" * collectable[:rank], inline: true)
     else
       embed.add_field(name: 'Owned', value: collectable[:owned], inline: true)
     end

@@ -23,8 +23,31 @@ class DiscordController < ApiController
           user = body['data']['options'].find { |option| option['name'] == 'user' }['value']
           data = Discord.embed_character(user)
         else
-          name = body['data']['options'].find { |option| option['name'] == 'name' }['value']
-          data = Discord.embed_collectable(type, name)
+          search = body['data']['options'].first
+
+          if search.has_key?('options')
+            # Command with subcommands (e.g. multiple search field options)
+            field = search['options'].first['name']
+            value = search['options'].first['value']
+          else
+            # Basic command
+            field = search['name']
+            value = search['value']
+          end
+
+          # Normalize fields names to match models
+          if type == 'spell' && field == 'number'
+            field = 'order'
+          end
+
+          # Construct Ransack query
+          if field == 'name'
+            query = "#{field}_en_cont=#{value}"
+          else
+            query = "#{field}_eq=#{value}"
+          end
+
+          data = Discord.embed_collectable(type, query)
         end
 
         render json: { type: 3, data: data }
