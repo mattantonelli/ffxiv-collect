@@ -70,6 +70,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'commands', to: 'static#commands'
+
   get   'settings',           to: 'settings#edit'
   patch 'settings/user',      to: 'settings#update_user',      as: :user_settings
   patch 'settings/character', to: 'settings#update_character', as: :character_settings
@@ -119,14 +121,11 @@ Rails.application.routes.draw do
   end
 
   get 'parasols', to: redirect('images/parasols.png')
-  get 'commands', to: redirect('https://discord.com/oauth2/authorize' \
-                               "?client_id=#{Rails.application.credentials.dig(:discord, :interactions_client_id)}" \
-                               '&scope=applications.commands')
 
-  get '404', to: 'home#not_found', as: :not_found
+  get '404', to: 'static#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
                                               ['{"status": 404, "error": "Not found"}'] ] }
   match "*path", via: :all, to: redirect('404')
 
-  root 'home#index'
+  root 'static#home'
 end

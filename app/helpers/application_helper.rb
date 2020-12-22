@@ -12,8 +12,9 @@ module ApplicationHelper
     path.match?(controller_name)
   end
 
-  def nav_link(text, icon, path)
-    link_to fa_icon(icon, text: text), path, class: "nav-link#{' bold' if active_path?(path)}"
+  def nav_link(text, icon, path, fab: false)
+    icon = fab ? fab_icon(icon, text: text) : fa_icon(icon, text: text)
+    link_to icon, path, class: "nav-link#{' bold' if active_path?(path)}"
   end
 
   def safe_image_tag(src, options = {})

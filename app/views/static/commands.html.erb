@@ -1,0 +1,38 @@
+<% title(t('commands.title')) %>
+<% description('Add FFXIV Collect slash commands to your Discord server.') %>
+
+<div class="row">
+  <div class="col-12 col-lg-10 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><%= t('commands.title') %></h5>
+      </div>
+      <div class="card-body py-3 text-center">
+        <p>
+          FFXIV Collect slash commands are now available for your Discord server! You can use these commands to search
+          for various collectables and share your profile.
+        </p>
+
+        <div class="carousel slide carousel-fade my-3" id="carousel" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <%= image_tag('commands1.png', alt: 'Mount command example') %>
+            </div>
+            <div class="carousel-item">
+              <%= image_tag('commands2.png', alt: 'Profile command example') %>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          This Discord integration is <b>not</b> a traditional bot. It has no access to your server and is only
+          capable of responding to user commands.
+        </p>
+
+        <div class="text-center mt-2">
+          <%= link_to(t('commands.add_to_server'), @oauth_url, target: '_blank', class: 'btn btn-primary') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

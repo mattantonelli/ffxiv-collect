@@ -103,6 +103,9 @@ en:
     remove: "Click to remove"
   clipboard: "Copy to clipboard"
   collapse: "Collapse All"
+  commands:
+    add_to_server: 'Add to your server'
+    title: 'Discord Commands'
   complete: "Complete"
   created_by: "Created by Raelys Skyborn of Behemoth"
   date: "Date"
