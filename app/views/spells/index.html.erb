@@ -16,51 +16,55 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<%= render 'shared/collection_progress', ids: @spells.map(&:id) %>
-<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
-      <th scope="col"><%= t('name') %></th>
-      <th scope="col" class="hide-xs"><%= t('spells.enemy') %></th>
-      <th scope="col" class="hide-xs"><%= t('spells.location') %></th>
-      <th scope="col" class="text-center hide-md"><%= t('type') %></th>
-      <th scope="col" class="text-center hide-md"><%= t('spells.aspect') %></th>
-      <th scope="col" class="text-center hide-md"><%= t('spells.rank') %></th>
-      <th scope="col" class="text-center hide-md"><%= t('own') %></th>
-      <% if character_selected? %>
-        <th scope="col"></th><!-- Owned -->
-      <% end %>
-      <% if @comparison.present? %>
-        <th scope="col"></th><!-- Comparison -->
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @spells.each do |spell| %>
-      <tr class="collectable<%= ' owned' if owned?(spell.id) %>">
-        <td class="number"><%= t('spells.number') %> <%= spell.order %></td>
-        <td class="spell-sprite">
-          <%= link_to(spell_path(spell)) do %>
-            <%= sprite(spell, :spell) %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <%= render 'shared/collection_progress', ids: @spells.map(&:id) %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('spells.enemy') %></th>
+          <th scope="col" class="hide-xs"><%= t('spells.location') %></th>
+          <th scope="col" class="text-center hide-md"><%= t('type') %></th>
+          <th scope="col" class="text-center hide-md"><%= t('spells.aspect') %></th>
+          <th scope="col" class="text-center hide-md"><%= t('spells.rank') %></th>
+          <th scope="col" class="text-center hide-md"><%= t('own') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
           <% end %>
-        </td>
-        <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
-        <td class="hide-xs"><%= spell_enemies(spell) %></td>
-        <td class="hide-xs"><%= spell_locations(spell) %></td>
-        <td class="text-center hide-md"><%= spell.type.name %></td>
-        <td class="text-center hide-md"><%= spell.aspect.name %></td>
-        <td class="text-center no-wrap hide-md" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
-        <td class="text-center hide-md" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
-        <% if character_selected? %>
-          <%= td_owned(spell, manual: true) %>
+          <% if @comparison.present? %>
+            <th scope="col"></th><!-- Comparison -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @spells.each do |spell| %>
+          <tr class="collectable<%= ' owned' if owned?(spell.id) %>">
+            <td class="number"><%= t('spells.number') %> <%= spell.order %></td>
+            <td class="spell-sprite">
+              <%= link_to(spell_path(spell)) do %>
+                <%= sprite(spell, :spell) %>
+              <% end %>
+            </td>
+            <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
+            <td class="hide-xs"><%= spell_enemies(spell) %></td>
+            <td class="hide-xs"><%= spell_locations(spell) %></td>
+            <td class="text-center hide-md"><%= spell.type.name %></td>
+            <td class="text-center hide-md"><%= spell.aspect.name %></td>
+            <td class="text-center no-wrap hide-md" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
+            <td class="text-center hide-md" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
+            <% if character_selected? %>
+              <%= td_owned(spell, manual: true) %>
+            <% end %>
+            <% if @comparison.present? %>
+              <%= td_comparison(spell) %>
+            <% end %>
+          </tr>
         <% end %>
-        <% if @comparison.present? %>
-          <%= td_comparison(spell) %>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,82 +1,86 @@
 <% title("#{@type.name} #{t('achievements.title')}") %>
 <% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
 
-<div class="d-flex flex-wrap align-items-center mb-2">
-  <h3 class="mr-auto"><%= @type.name %> <%= t('achievements.title') %></h3>
-  <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-  <button class="btn btn-secondary btn-sm ml-3 mr-1" id="collapseToggle" data-expanded="false">
-    <%= fa_icon('expand', text: t('expand')) %>
-  </button>
-</div>
-<%= render 'shared/filters' %>
-<div class="collection<%= ' comparing' if @comparison.present? %>" id="achievementCategories">
-  <% @categories.each do |category| %>
-    <div class="card mb-3">
-      <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
-        <div class="card-header achievement-type">
-          <h5 class="card-title">
-            <%= category.name %>
-          </h5>
-          <% if character_selected? %>
-            <h6 <%= 'class="complete"'.html_safe if completed?(category, @collection_ids) %>>
-              <%= achievement_completion(category, @collection_ids) %>
-            </h6>
-          <% else %>
-            <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+<div class="row">
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="d-flex flex-wrap align-items-center mb-2">
+      <h3 class="mr-auto"><%= @type.name %> <%= t('achievements.title') %></h3>
+      <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+        type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+      <button class="btn btn-secondary btn-sm ml-3 mr-1" id="collapseToggle" data-expanded="false">
+        <%= fa_icon('expand', text: t('expand')) %>
+      </button>
+    </div>
+    <%= render 'shared/filters' %>
+    <div class="collection<%= ' comparing' if @comparison.present? %>" id="achievementCategories">
+      <% @categories.each do |category| %>
+        <div class="card mb-3">
+          <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
+            <div class="card-header achievement-type">
+              <h5 class="card-title">
+                <%= category.name %>
+              </h5>
+              <% if character_selected? %>
+                <h6 <%= 'class="complete"'.html_safe if completed?(category, @collection_ids) %>>
+                  <%= achievement_completion(category, @collection_ids) %>
+                </h6>
+              <% else %>
+                <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+              <% end %>
+            </div>
           <% end %>
+          <div class="collapse" id="collapse-<%= category.id %>">
+            <div class="card-body card-table">
+              <table class="table table-striped table-sm shadow sortable">
+                <thead>
+                  <tr>
+                    <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+                    <th scope="col" class="name"><%= t('name') %></th>
+                    <th scope="col" class="hide-xs"><%= t('description') %></th>
+                    <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
+                    <th scope="col" class="text-center"><%= t('achievements.points') %></th>
+                    <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+                    <th scope="col" class="text-center"><%= t('patch') %></th>
+                    <% if character_selected? %>
+                      <th scope="col"></th>
+                    <% end %>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% category.achievements.sort_by(&:order).each do |achievement| %>
+                    <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
+                      <td>
+                        <%= link_to(achievement_path(achievement)) do %>
+                          <%= sprite(achievement, 'achievement') %>
+                        <% end %>
+                      </td>
+                      <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
+                      <td class="hide-xs"><%= format_text_long(achievement.description) %></td>
+                      <td data-value="<%= achievement_reward_value(achievement) %>">
+                        <%= achievement_reward(achievement) %>
+                      </td>
+                      <td class="text-center"><%= achievement.points %></td>
+                      <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
+                        <%= rarity(achievement) %>
+                      </td>
+                      <td class="text-center" data-value="<%= achievement.patch %><%= achievement.id %>">
+                        <%= achievement.patch %>
+                      </td>
+                      <% if character_selected? %>
+                        <% if @comparison.present? %>
+                          <%= td_comparison(achievement) %>
+                        <% else %>
+                          <%= td_owned(achievement) %>
+                        <% end %>
+                      <% end %>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       <% end %>
-      <div class="collapse" id="collapse-<%= category.id %>">
-        <div class="card-body card-table">
-          <table class="table table-striped table-sm shadow sortable">
-            <thead>
-              <tr>
-                <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
-                <th scope="col" class="name"><%= t('name') %></th>
-                <th scope="col" class="hide-xs"><%= t('description') %></th>
-                <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
-                <th scope="col" class="text-center"><%= t('achievements.points') %></th>
-                <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
-                <th scope="col" class="text-center"><%= t('patch') %></th>
-                <% if character_selected? %>
-                  <th scope="col"></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% category.achievements.sort_by(&:order).each do |achievement| %>
-                <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
-                  <td>
-                    <%= link_to(achievement_path(achievement)) do %>
-                      <%= sprite(achievement, 'achievement') %>
-                    <% end %>
-                  </td>
-                  <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
-                  <td class="hide-xs"><%= format_text_long(achievement.description) %></td>
-                  <td data-value="<%= achievement_reward_value(achievement) %>">
-                    <%= achievement_reward(achievement) %>
-                  </td>
-                  <td class="text-center"><%= achievement.points %></td>
-                  <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
-                    <%= rarity(achievement) %>
-                  </td>
-                  <td class="text-center" data-value="<%= achievement.patch %><%= achievement.id %>">
-                    <%= achievement.patch %>
-                  </td>
-                  <% if character_selected? %>
-                    <% if @comparison.present? %>
-                      <%= td_comparison(achievement) %>
-                    <% else %>
-                      <%= td_owned(achievement) %>
-                    <% end %>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </div>
-  <% end %>
+  </div>
 </div>

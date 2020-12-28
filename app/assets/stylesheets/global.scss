@@ -194,6 +194,23 @@ hr {
   td:last-child, th:last-child {
     padding-right: 1rem;
   }
+
+  &.collection {
+    margin: 0 auto;
+    width: auto;
+
+    @media (max-width: 1920px) {
+      min-width: calc(75vw - 59px);
+    }
+
+    @media (min-width: 1921px) {
+      min-width: calc(60vw - 59px);
+    }
+
+    thead th, tbody td {
+      width: auto;
+    }
+  }
 }
 
 .table:not(.table-sm) {

@@ -13,41 +13,45 @@
   <% end %>
 </div>
 <%= render 'shared/filters' %>
-<%= render 'shared/collection_progress', ids: @fashions.map(&:id) %>
-<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-<table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
-  <thead>
-    <tr>
-      <th scope="col">#</th><!-- Image -->
-      <th scope="col"><%= t('name') %></th>
-      <th scope="col" class="hide-xs"><%= t('source') %></th>
-      <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
-      <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
-      <th scope="col" class="text-center"><%= t('patch') %></th>
-      <% if character_selected? %>
-        <th scope="col"></th><!-- Owned -->
-      <% end %>
-      <% if @comparison.present? %>
-        <th scope="col"></th><!-- Comparison -->
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @fashions.each do |fashion| %>
-      <tr class="collectable<%= ' owned' if owned?(fashion.id) %>">
-        <td data-value="<%= fashion.order %>"><%= sprite(fashion, 'fashions-small') %></td>
-        <td><%= link_to(fashion.name, fashion_path(fashion), class: 'name') %></td>
-        <td class="hide-xs"><%= sources(fashion) %></td>
-        <td class="text-center" data-value="<%= fashion.item_id.present? ? 1 : 0 %>"><%= market_link(fashion) %></td>
-        <td class="text-center hide-xs" data-value="<%= rarity(fashion, numeric: true) %>"><%= rarity(fashion) %></td>
-        <td class="text-center" data-value="<%= sort_value(fashion) %>"><%= fashion.patch %></td>
-        <% if character_selected? %>
-          <%= td_owned(fashion, manual: true) %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <%= render 'shared/collection_progress', ids: @fashions.map(&:id) %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
+      <thead>
+        <tr>
+          <th scope="col">#</th><!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('source') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+          <th scope="col" class="text-center"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
+          <% end %>
+          <% if @comparison.present? %>
+            <th scope="col"></th><!-- Comparison -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @fashions.each do |fashion| %>
+          <tr class="collectable<%= ' owned' if owned?(fashion.id) %>">
+            <td data-value="<%= fashion.order %>"><%= sprite(fashion, 'fashions-small') %></td>
+            <td><%= link_to(fashion.name, fashion_path(fashion), class: 'name') %></td>
+            <td class="hide-xs"><%= sources(fashion) %></td>
+            <td class="text-center" data-value="<%= fashion.item_id.present? ? 1 : 0 %>"><%= market_link(fashion) %></td>
+            <td class="text-center hide-xs" data-value="<%= rarity(fashion, numeric: true) %>"><%= rarity(fashion) %></td>
+            <td class="text-center" data-value="<%= sort_value(fashion) %>"><%= fashion.patch %></td>
+            <% if character_selected? %>
+              <%= td_owned(fashion, manual: true) %>
+            <% end %>
+            <% if @comparison.present? %>
+              <%= td_comparison(fashion) %>
+            <% end %>
+          </tr>
         <% end %>
-        <% if @comparison.present? %>
-          <%= td_comparison(fashion) %>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
