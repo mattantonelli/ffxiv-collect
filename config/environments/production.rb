@@ -88,8 +88,15 @@ Rails.application.configure do
   end
 
   config.lograge.custom_options = lambda do |event|
-    params = event.payload[:params].except(*%w(controller action format id authenticity_token state code))
-    { params: params } if params.present?
+    params = event.payload[:params].except(*%i(controller action format id authenticity_token state code))
+
+    if params.present?
+      if event.payload.dig(:params, :controller) == 'discord'
+        { params: params.slice(:data, :type, :version)}
+      else
+        { params: params }
+      end
+    end
   end
 
   Sidekiq::Logging.logger.level = Logger::WARN
