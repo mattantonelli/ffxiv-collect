@@ -2,10 +2,12 @@ include ActionView::Helpers::DateHelper
 include ActionView::Helpers::NumberHelper
 
 module Discord
+  ROOT_URL = 'https://ffxivcollect.com'.freeze
+
   extend self
 
   def embed_collectable(type, query)
-    url = "https://ffxivcollect.com/api/#{type.pluralize}?#{query}"
+    url = "#{ROOT_URL}/api/#{type.pluralize}?#{query}"
     results = JSON.parse(RestClient.get(url), symbolize_names: true)[:results]
       .sort_by { |collectable| collectable[:name].size }
     collectable = results.first
@@ -62,7 +64,7 @@ module Discord
   end
 
   def embed_character(user)
-    url = "https://ffxivcollect.com/api/users/#{user}"
+    url = "#{ROOT_URL}/api/users/#{user}"
     character = JSON.parse(RestClient.get(url), symbolize_names: true)
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
@@ -95,7 +97,7 @@ module Discord
 
   private
   def collectable_url(type, id)
-    "https://ffxivcollect.com/#{type.pluralize}/#{id}"
+    "#{ROOT_URL}/#{type.pluralize}/#{id}"
   end
 
   def format_sources(collectable)
