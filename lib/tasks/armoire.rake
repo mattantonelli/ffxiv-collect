@@ -1,5 +1,4 @@
-ARMOIRE_COLUMNS = %w(ID Order CategoryTargetID Item.ID Item.Icon Item.Name_* Item.Description_en).freeze
-ARMOIRE_ITEM_COLUMNS = %w(ID GameContentLinks.Achievement.Item GamePatch.Version).freeze
+require 'xiv_data'
 
 namespace :armoires do
   desc 'Create the armoire items'
@@ -8,60 +7,58 @@ namespace :armoires do
 
     puts 'Creating armoire items'
 
-    XIVAPI_CLIENT.content(name: 'CabinetCategory', columns: %w(ID Category.Text_* MenuOrder)).each do |category|
-      next unless category.menu_order > 0
-      data = { id: category.id, order: category.menu_order }
+    categories = XIVData.sheet('CabinetCategory', raw: true).map do |category|
+      next if category['MenuOrder'] == '0'
+      { id: category['#'], name: category['Category'], order: category['MenuOrder'] }
+    end
 
-      %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = category.category["text_#{locale}"]
+    # The names are actually IDs referencing addon, so we need to look them up
+    category_name_ids = categories.compact!.map { |category| category[:name] }
+
+    category_names = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('Addon', locale: locale).each do |addon|
+        if category_name_ids.include?(addon['#'])
+          data = h[addon['#']] || {}
+          h[addon['#']] = data.merge("name_#{locale}" => addon['Text'])
+        end
       end
+    end
 
-      ArmoireCategory.find_or_create_by!(data)
+    categories.each do |category|
+      names = category_names[category.delete(:name)]
+      ArmoireCategory.find_or_create_by!(category.merge(names))
     end
 
     count = Armoire.count
-    armoires = XIVAPI_CLIENT.content(name: 'Cabinet', columns: ARMOIRE_COLUMNS, limit: 1000).map do |armoire|
-      next if armoire.order == 0 || armoire.item.name_en.empty?
-      data = { id: armoire.id + 1, category_id: armoire.category_target_id, order: armoire.order }
+    ACHIEVEMENT_TYPE = SourceType.find_by(name: 'Achievement').freeze
 
-      data[:gender] = case armoire.item.description_en
+    XIVData.sheet('Cabinet', raw: true, drop_zero: false).map do |armoire|
+      next if armoire['Order'] == '0'
+
+      item = Item.find_by(id: armoire['Item'])
+      next unless item.present?
+
+      data = { id: (armoire['#'].to_i + 1).to_s, category_id: armoire['Category'], order: armoire['Order'] }
+
+      data[:gender] = case item.description_en
                       when /♂/ then 'male'
                       when /♀/ then 'female'
                       end
 
-      %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = sanitize_name(armoire.item["name_#{locale}"])
-      end
+      data.merge!(item.slice(:name_en, :name_de, :name_fr, :name_ja,
+                             :description_en, :description_de, :description_fr, :description_ja))
 
-      download_image(data[:id], armoire.item.icon, 'armoires')
+      create_image(data[:id], item.icon_path, 'armoires')
 
       if existing = Armoire.find_by(id: data[:id])
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
-        nil
+        existing.update!(data) if updated?(existing, data)
       else
-        Armoire.create!(data)
-      end
+        created = Armoire.create!(data)
 
-      data.merge(item_id: armoire.item.id)
-    end
-
-    # Add patch data and achievement sources
-    item_ids = armoires.compact!.pluck(:item_id)
-    achievement_type = SourceType.find_by(name: 'Achievement')
-
-    item_ids.each_slice(1000) do |ids|
-      [*XIVAPI_CLIENT.content(name: 'Item', ids: ids, columns: ARMOIRE_ITEM_COLUMNS, limit: 1000)].each do |item|
-        id = armoires.find { |armoire| armoire[:item_id] == item.id }[:id]
-        achievement_id = item.game_content_links.achievement.item&.first
-        armoire = Armoire.find(id)
-
-        armoire.update!(patch: item.game_patch.version)
-
-        if achievement_id.present?
-          achievement = Achievement.find(achievement_id)
-          armoire.sources.find_or_create_by!(type: achievement_type, text: achievement.name_en,
-                                             related_type: 'Achievement', related_id: achievement_id)
+        # Automatically create Achievement sources for new Armoire items
+        if achievement = Achievement.find_by(item_id: armoire['Item'])
+          created.sources.create!(type: ACHIEVEMENT_TYPE, text: achievement.name_en,
+                                  related_type: 'Achievement', related_id: achievement.id)
         end
       end
     end

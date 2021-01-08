@@ -28,6 +28,10 @@
               <dd><%= collectable.patch %></dd>
             </div>
           </div>
+          <% if collectable.description.present? %>
+            <dt><%= t('description') %></dt>
+            <dd class="mb-0"><%= collectable.description %></dd>
+          <% end %>
           <dt><%= t('source') %></dt>
           <dd class="mb-0"><%= sources(collectable, list: true) %></dd>
         </div>

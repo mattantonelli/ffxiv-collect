@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_183939) do
+ActiveRecord::Schema.define(version: 2021_01_08_230637) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -96,6 +96,10 @@ ActiveRecord::Schema.define(version: 2021_01_07_183939) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "gender"
+    t.string "description_en"
+    t.string "description_de"
+    t.string "description_fr"
+    t.string "description_ja"
     t.index ["category_id"], name: "index_armoires_on_category_id"
     t.index ["gender"], name: "index_armoires_on_gender"
     t.index ["name_de"], name: "index_armoires_on_name_de"
@@ -115,6 +119,10 @@ ActiveRecord::Schema.define(version: 2021_01_07_183939) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "item_id"
+    t.string "description_en"
+    t.string "description_de"
+    t.string "description_fr"
+    t.string "description_ja"
     t.index ["name_de"], name: "index_bardings_on_name_de"
     t.index ["name_en"], name: "index_bardings_on_name_en"
     t.index ["name_fr"], name: "index_bardings_on_name_fr"
