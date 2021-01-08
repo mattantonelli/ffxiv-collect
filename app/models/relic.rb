@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: items
+# Table name: relics
 #
 #  id         :bigint(8)        not null, primary key
 #  name_en    :string(255)      not null
@@ -10,7 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class Item < ApplicationRecord
+class Relic < ApplicationRecord
   has_many "character_#{name.pluralize}".to_sym
   has_many :characters, through: "character_#{name.pluralize}".to_sym
   translates :name
@@ -40,7 +40,7 @@ class Item < ApplicationRecord
   end
 
   def self.manual_weapon_ids
-    (Item.arr_relic_weapon_ids + Item.deep_dungeon_weapon_ids + Item.eureka_physeos_weapon_ids).freeze
+    (Relic.arr_relic_weapon_ids + Relic.deep_dungeon_weapon_ids + Relic.eureka_physeos_weapon_ids).freeze
   end
 
   def self.lucis_tool_ids
@@ -56,7 +56,7 @@ class Item < ApplicationRecord
   end
 
   def self.relic_tool_ids
-    (Item.lucis_tool_ids + Item.skysteel_tool_ids).freeze
+    (Relic.lucis_tool_ids + Relic.skysteel_tool_ids).freeze
   end
 
   def self.eureka_job_armor_ids
@@ -82,6 +82,6 @@ class Item < ApplicationRecord
   end
 
   def self.relic_armor_ids
-    (Item.eureka_job_armor_ids + Item.eureka_elemental_armor_ids + Item.idealized_armor_ids + Item.bozjan_armor_ids).freeze
+    (Relic.eureka_job_armor_ids + Relic.eureka_elemental_armor_ids + Relic.idealized_armor_ids + Relic.bozjan_armor_ids).freeze
   end
 end

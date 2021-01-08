@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_04_163041) do
+ActiveRecord::Schema.define(version: 2021_01_07_133951) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -186,16 +186,6 @@ ActiveRecord::Schema.define(version: 2020_09_04_163041) do
     t.index ["hairstyle_id"], name: "index_character_hairstyles_on_hairstyle_id"
   end
 
-  create_table "character_items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "character_id"
-    t.integer "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["character_id", "item_id"], name: "index_character_items_on_character_id_and_item_id", unique: true
-    t.index ["character_id"], name: "index_character_items_on_character_id"
-    t.index ["item_id"], name: "index_character_items_on_item_id"
-  end
-
   create_table "character_minions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "minion_id"
@@ -224,6 +214,16 @@ ActiveRecord::Schema.define(version: 2020_09_04_163041) do
     t.index ["character_id", "orchestrion_id"], name: "index_character_orchestrions_on_character_id_and_orchestrion_id", unique: true
     t.index ["character_id"], name: "index_character_orchestrions_on_character_id"
     t.index ["orchestrion_id"], name: "index_character_orchestrions_on_orchestrion_id"
+  end
+
+  create_table "character_relics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "relic_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "relic_id"], name: "index_character_relics_on_character_id_and_relic_id", unique: true
+    t.index ["character_id"], name: "index_character_relics_on_character_id"
+    t.index ["relic_id"], name: "index_character_relics_on_relic_id"
   end
 
   create_table "character_spells", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(version: 2020_09_04_163041) do
     t.datetime "refreshed_at", default: "1970-01-01 00:00:00"
     t.string "gender"
     t.integer "spells_count", default: 0
-    t.integer "items_count", default: 0
+    t.integer "relics_count", default: 0
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
     t.integer "fashions_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
@@ -270,10 +270,10 @@ ActiveRecord::Schema.define(version: 2020_09_04_163041) do
     t.index ["fashions_count"], name: "index_characters_on_fashions_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
-    t.index ["items_count"], name: "index_characters_on_items_count"
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
+    t.index ["relics_count"], name: "index_characters_on_relics_count"
     t.index ["spells_count"], name: "index_characters_on_spells_count"
   end
 
@@ -373,15 +373,6 @@ ActiveRecord::Schema.define(version: 2020_09_04_163041) do
     t.datetime "updated_at", null: false
     t.index ["content_type"], name: "index_instances_on_content_type"
     t.index ["name_en"], name: "index_instances_on_name_en"
-  end
-
-  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name_en", null: false
-    t.string "name_fr", null: false
-    t.string "name_de", null: false
-    t.string "name_ja", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -550,6 +541,15 @@ ActiveRecord::Schema.define(version: 2020_09_04_163041) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name_en"], name: "index_quests_on_name_en"
+  end
+
+  create_table "relics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_fr", null: false
+    t.string "name_de", null: false
+    t.string "name_ja", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "source_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

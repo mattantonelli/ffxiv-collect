@@ -27,15 +27,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :items, only: [] do
-    post :add, :remove, on: :member
-  end
-
   namespace :relics, as: :relic do
     get :weapons
     get :weapons_manual, path: 'weapons/manual', action: :manual_weapons
     get :armor
     get :tools
+  end
+
+  resources :relics, as: :relic, only: [] do
+    post :add, :remove, on: :member
   end
 
   # Backwards compatibility for old relics URLs

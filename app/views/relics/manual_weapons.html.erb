@@ -12,7 +12,7 @@
   <%= render 'header', relic: @eureka_physeos_weapons, name: 'Eureka Physeos Weapons' %>
   <div class="collapse hide" id="collapse-eureka-physeos-weapons">
     <div class="card-body relics-sb collection py-3">
-      <%= render 'gear', gear: @eureka_physeos_weapons, sprite_image: 'items-weapon' %>
+      <%= render 'gear', gear: @eureka_physeos_weapons, sprite_image: 'relics-weapon' %>
     </div>
   </div>
 </div>
@@ -22,7 +22,7 @@
   <div class="collapse hide" id="collapse-deep-dungeon-weapons">
     <div class="card-body relics-sh collection py-3">
       <%= render partial: 'gear', collection: @deep_dungeon_weapons.each_slice(17).to_a,
-        locals: { sprite_image: 'items-weapon' } %>
+        locals: { sprite_image: 'relics-weapon' } %>
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
   <%= render 'header', relic: @arr_relic_weapons, name: 'A Relic Reborn' %>
   <div class="collapse show" id="collapse-a-relic-reborn">
     <div class="card-body relics-arr collection py-3">
-      <%= render partial: 'gear', collection: @arr_relic_weapons.each_slice(11).to_a, locals: { sprite_image: 'items-weapon' } %>
+      <%= render partial: 'gear', collection: @arr_relic_weapons.each_slice(11).to_a, locals: { sprite_image: 'relics-weapon' } %>
     </div>
   </div>
 </div>
