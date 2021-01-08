@@ -5,6 +5,7 @@ fr:
     item_reward:
       one: "Récompense"
       other: "Récompenses"
+    one: "Haut-Fait"
     overview: "Aperçu"
     points: "Points"
     title: "Hauts faits"

@@ -61,7 +61,13 @@ def without_custom(data)
 end
 
 def updated?(model, data)
+  data.symbolize_keys!
   current = model.attributes.symbolize_keys.select { |k, _| data.keys.include?(k) }
+
+  # The XIVData values are all strings, so convert integers to strings for comparison
+  current.each do |k, v|
+    current[k] = v.to_s if v.is_a?(Integer)
+  end
 
   if updated = data != current
     puts "  Found new data for #{model.name_en} (#{model.id}):"
@@ -74,27 +80,29 @@ def updated?(model, data)
   updated
 end
 
-def download_image(id, url, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
-  path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
+def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
+  return unless Dir.exist?(XIVData::IMAGE_PATH)
 
-  unless path.exist?
-    image_url = "https://xivapi.com#{url}"
+  output_path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
+  unless output_path.exist?
+    image_path = XIVData.image_path(icon_path)
+    puts "Creating image: #{image_path}"
 
     begin
       if mask_from.present?
         mask_to ||= mask_from
-        image = ChunkyPNG::Image.from_stream(open(image_url))
+        image = ChunkyPNG::Image.from_file(image_path)
         image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
                                   ChunkyPNG::Color::TRANSPARENT)
       elsif width.present?
-        image = ChunkyPNG::Image.from_stream(open(image_url))
+        image = ChunkyPNG::Image.from_file(image_path)
         image.resample_bilinear!(width, height)
       else
-        image = open(image_url).read
+        image = open(image_path).read
       end
-      open(path.to_s, 'wb') { |file| file << image }
+      open(output_path.to_s, 'wb') { |file| file << image }
     rescue Exception
-      puts "Could not download image: #{image_url}"
+      puts "Could not create image: #{output_path}"
     end
   end
 end

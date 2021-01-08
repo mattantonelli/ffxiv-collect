@@ -1,5 +1,4 @@
-ACHIEVEMENT_COLUMNS = %w(ID Name_* Description_* GamePatch.Version AchievementCategoryTargetID Icon IconID Points Order
-Title.* Item.ID Item.Icon Item.Name_*).freeze
+require 'xiv_data'
 
 namespace :achievements do
   desc 'Create the achievements'
@@ -7,26 +6,41 @@ namespace :achievements do
     PaperTrail.enabled = false
 
     puts 'Creating achievement types'
-    XIVAPI_CLIENT.content(name: 'AchievementKind', columns: %w(ID Name_* Order)).each do |type|
-      if type[:name_en].present? && type[:name_en] != 'Gathering'
-        data = type.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :order)
+    types = XIVData.sheet('AchievementKind', locale: 'en').each_with_object({}) do |type, h|
+      next unless type['Order'] != '0'
+      h[type['#']] = { id: type['#'], name_en: type['Name'], order: type['Order'] }
+    end
 
-        if existing = AchievementType.find_by(id: data[:id])
-          existing.update!(data) if updated?(existing, data.symbolize_keys)
-        else
-          AchievementType.find_or_create_by!(data)
-        end
+    %w(de fr ja).each do |locale|
+      XIVData.sheet('AchievementKind', locale: locale).each do |type|
+        next unless type['Order'] != '0'
+        types[type['#']]["name_#{locale}"] = type['Name']
+      end
+    end
+
+    types.values.each do |type|
+      if existing = AchievementType.find_by(id: type[:id])
+        existing.update!(type) if updated?(existing, type)
+      else
+        AchievementType.find_or_create_by!(type)
       end
     end
 
     puts 'Creating achievement categories'
-    XIVAPI_CLIENT.content(name: 'AchievementCategory', columns: %w(ID Name_* AchievementKindTargetID Order)).each do |category|
-      category = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :achievement_kind_target_id, :order)
-      category[:type_id] = category.delete(:achievement_kind_target_id)
-      next unless category[:name_en].present?
+    categories = XIVData.sheet('AchievementCategory', locale: 'en').each_with_object({}) do |category, h|
+      h[category['#']] = { id: category['#'], name_en: category['Name'], order: category['Order'],
+                           type_id: AchievementType.find_by(name_en: category['AchievementKind']).id.to_s }
+    end
 
+    %w(de fr ja).each do |locale|
+      XIVData.sheet('AchievementCategory', locale: locale).each do |category|
+        categories[category['#']]["name_#{locale}"] = category['Name']
+      end
+    end
+
+    categories.values.each do |category|
       if existing = AchievementCategory.find_by(id: category[:id])
-        existing.update!(category) if updated?(existing, category.symbolize_keys)
+        existing.update!(category) if updated?(existing, category)
       else
         AchievementCategory.find_or_create_by!(category)
       end
@@ -34,35 +48,55 @@ namespace :achievements do
 
     puts 'Creating achievements'
     count = Achievement.count
-    XIVAPI_CLIENT.content(name: 'Achievement', columns: ACHIEVEMENT_COLUMNS, limit: 10000).each do |achievement|
-      next if achievement.achievement_category_target_id == 0
 
-      data = { id: achievement.id, patch: achievement.game_patch.version, points: achievement.points,
-               order: achievement.order, category_id: achievement.achievement_category_target_id, icon_id: achievement.icon_id }
+    achievements = XIVData.sheet('Achievement', locale: 'en').each_with_object({}) do |achievement, h|
+      next unless achievement['AchievementCategory'].present?
 
-      %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = sanitize_name(achievement["name_#{locale}"])
-        data["description_#{locale}"] = sanitize_text(achievement["description_#{locale}"])
+      data = { id: achievement['#'], name_en: sanitize_name(achievement['Name']),
+               description_en: sanitize_text(achievement['Description']), points: achievement['Points'],
+               order: achievement['Order'], icon_path: achievement['Icon'] }
 
-        if achievement.item.id.present?
-          data[:item_id] = achievement.item.id
-          data["item_name_#{locale}"] = achievement.item["name_#{locale}"]
-          download_image(achievement.item.id, achievement.item.icon,
-                         Rails.root.join('app/assets/images/items', "#{achievement.item.id}.png"))
-        end
+      data[:icon_id] = data[:icon_path].sub(/.*?0+(\d+)\.tex/, '\1')
+
+      if achievement['Item'].present?
+        data[:item_id] = Item.find_by(name_en: achievement['Item']).id.to_s
       end
 
-      download_image(achievement.icon_id, achievement.icon, 'achievements')
+      h[achievement['#']] = data
+    end
 
-      if existing = Achievement.find_by(id: achievement.id)
-        data = data.symbolize_keys.except(:patch)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+    %w(de fr ja).each do |locale|
+      XIVData.sheet('Achievement', locale: locale).each do |achievement|
+        next unless achievement['AchievementCategory'].present?
+
+        achievements[achievement['#']].merge!("name_#{locale}" => sanitize_name(achievement['Name']),
+                                              "description_#{locale}" => sanitize_text(achievement['Description']))
+      end
+    end
+
+    # We need to use the raw data to set the category ID since names are duplicated
+    XIVData.sheet('Achievement', raw: true).each do |achievement|
+      next unless achievement['AchievementCategory'] != '0'
+      achievements[achievement['#']][:category_id] = achievement['AchievementCategory']
+    end
+
+    achievements.values.each do |achievement|
+      item_id = achievement[:item_id]
+      if item_id.present?
+        create_image(item_id, Item.find(item_id).icon_path, 'items')
+      end
+
+      create_image(achievement[:icon_id], achievement.delete(:icon_path), 'achievements')
+
+      if existing = Achievement.find_by(id: achievement[:id])
+        existing.update!(achievement) if updated?(existing, achievement)
       else
-        Achievement.create!(data)
+        Achievement.create!(achievement)
       end
     end
 
     create_spritesheet('achievements')
+    create_spritesheet('items')
 
     puts "Created #{Achievement.count - count} new achievements"
   end

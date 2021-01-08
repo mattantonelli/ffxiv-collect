@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_133951) do
+ActiveRecord::Schema.define(version: 2021_01_07_183939) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -60,10 +60,6 @@ ActiveRecord::Schema.define(version: 2021_01_07_133951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "item_id"
-    t.string "item_name_en"
-    t.string "item_name_de"
-    t.string "item_name_fr"
-    t.string "item_name_ja"
     t.integer "icon_id"
     t.index ["category_id"], name: "index_achievements_on_category_id"
     t.index ["name_de"], name: "index_achievements_on_name_de"
@@ -373,6 +369,27 @@ ActiveRecord::Schema.define(version: 2021_01_07_133951) do
     t.datetime "updated_at", null: false
     t.index ["content_type"], name: "index_instances_on_content_type"
     t.index ["name_en"], name: "index_instances_on_name_en"
+  end
+
+  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "description_en", limit: 1000, null: false
+    t.string "description_de", limit: 1000, null: false
+    t.string "description_fr", limit: 1000, null: false
+    t.string "description_ja", limit: 1000, null: false
+    t.string "icon_id", limit: 6
+    t.boolean "tradeable"
+    t.string "unlock_type"
+    t.integer "unlock_id"
+    t.string "crafter"
+    t.integer "recipe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_en"], name: "index_items_on_name_en"
+    t.index ["unlock_type"], name: "index_items_on_unlock_type"
   end
 
   create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
