@@ -86,7 +86,6 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
   output_path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
   unless output_path.exist?
     image_path = XIVData.image_path(icon_path)
-    puts "Creating image: #{image_path}"
 
     begin
       if mask_from.present?
