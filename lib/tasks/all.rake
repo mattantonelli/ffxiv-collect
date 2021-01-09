@@ -5,7 +5,6 @@ namespace :data do
   task initialize: :environment do
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
-    Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
     Rake::Task['relics:create'].invoke
   end
