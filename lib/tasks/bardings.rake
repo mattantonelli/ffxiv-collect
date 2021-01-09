@@ -1,5 +1,3 @@
-require 'xiv_data'
-
 namespace :bardings do
   desc 'Create the bardings'
   task create: :environment do

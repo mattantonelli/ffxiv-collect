@@ -1,5 +1,3 @@
-require 'xiv_data'
-
 namespace :emotes do
   desc 'Create the emotes'
   task create: :environment do

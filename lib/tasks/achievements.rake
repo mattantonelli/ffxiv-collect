@@ -1,5 +1,3 @@
-require 'xiv_data'
-
 namespace :achievements do
   desc 'Create the achievements'
   task create: :environment do

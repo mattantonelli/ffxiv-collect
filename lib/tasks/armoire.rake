@@ -1,5 +1,3 @@
-require 'xiv_data'
-
 namespace :armoires do
   desc 'Create the armoire items'
   task create: :environment do

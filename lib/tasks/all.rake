@@ -1,4 +1,5 @@
 require 'sprite_factory'
+require 'xiv_data'
 
 namespace :data do
   desc 'Initialize all data'
