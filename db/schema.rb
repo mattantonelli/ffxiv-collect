@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_08_230637) do
+ActiveRecord::Schema.define(version: 2021_01_09_202114) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -565,6 +565,8 @@ ActiveRecord::Schema.define(version: 2021_01_08_230637) do
     t.string "name_ja"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "reward_id"
+    t.boolean "event"
     t.index ["name_en"], name: "index_quests_on_name_en"
   end
 
