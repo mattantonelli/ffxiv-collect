@@ -1,4 +1,4 @@
-FASHION_COLUMNS = %w(ID Name_* Icon IconSmall Item.Description_* Item.ID Item.IsUntradable Order GamePatch.Version).freeze
+require 'xiv_data'
 
 namespace :fashions do
   desc 'Create the fashion accessories'
@@ -8,27 +8,32 @@ namespace :fashions do
     puts 'Creating fashion accessories'
 
     count = Fashion.count
-    fashions = XIVAPI_CLIENT.content(name: 'Ornament', columns: FASHION_COLUMNS, limit: 1000).map do |fashion|
-      next if fashion.name_en.empty?
-      data = { id: fashion.id, order: fashion.order, patch: fashion.game_patch.version }
+    fashions = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('Ornament', locale: locale).each do |fashion|
+        next unless fashion['Singular'].present?
 
-      if fashion.item.is_untradable == 0
-        data[:item_id] = fashion.item.id
+        data = h[fashion['#']] || { id: fashion['#'], order: fashion['Order'],
+                                    icon: fashion['Icon'], icon_large: fashion['Icon'].gsub('/008', '/067') }
+        data["name_#{locale}"] = sanitize_name(fashion['Singular'])
+        h[data[:id]] = data
       end
+    end
 
-      %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = sanitize_name(fashion["name_#{locale}"])
-        data["description_#{locale}"] = sanitize_text(fashion.item["description_#{locale}"])
-      end
+    # Set Fashion accessory descriptions from the item that unlocks them
+    Item.where(unlock_type: 'fashion').each do |item|
+      data = fashions[item.unlock_id.to_s]
+      data.merge!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
+      data[:item_id] = item.id if item.tradeable?
+    end
 
-      download_image(data[:id], fashion.icon, 'fashions/large')
-      download_image(data[:id], fashion.icon_small, 'fashions/small')
+    fashions.values.each do |fashion|
+      create_image(fashion[:id], fashion.delete(:icon), 'fashions/small')
+      create_image(fashion[:id], fashion.delete(:icon_large), 'fashions/large')
 
-      if existing = Fashion.find_by(id: data[:id])
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+      if existing = Fashion.find_by(id: fashion[:id])
+        existing.update!(fashion) if updated?(existing, fashion)
       else
-        Fashion.create!(data)
+        Fashion.create!(fashion)
       end
     end
 

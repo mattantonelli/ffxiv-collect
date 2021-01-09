@@ -15,6 +15,7 @@ namespace :items do
                       when '853'  then 'minion'
                       when '5845' then 'orchestrion'
                       when '1013' then 'barding'
+                      when '20086' then 'fashion'
                       when '2633' then 'other'
                       end
 
