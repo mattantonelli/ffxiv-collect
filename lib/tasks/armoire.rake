@@ -46,7 +46,7 @@ namespace :armoires do
       data.merge!(item.slice(:name_en, :name_de, :name_fr, :name_ja,
                              :description_en, :description_de, :description_fr, :description_ja))
 
-      create_image(data[:id], item.icon_path, 'armoires')
+      create_image(data[:id], XIVData.icon_path(item.icon_id), 'armoires')
 
       if existing = Armoire.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)

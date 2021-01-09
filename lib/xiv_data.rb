@@ -21,6 +21,12 @@ module XIVData
     CSV.new(data.drop(drop_zero ? 4 : 3).join, headers: headers.split(','))
   end
 
+  def icon_path(icon_id)
+    number = icon_id.to_s.rjust(6, '0')
+    directory = number.first(3).ljust(6, '0')
+    "ui/icon/#{directory}/#{number}.tex"
+  end
+
   def image_path(icon)
     "#{IMAGE_PATH}/#{icon.sub('tex', 'png')}"
   end

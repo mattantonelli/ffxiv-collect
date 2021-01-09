@@ -83,7 +83,13 @@ end
 def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
   return unless Dir.exist?(XIVData::IMAGE_PATH)
 
-  output_path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
+  # Use the custom output pathname if provided, otherwise generate it
+  if path.class == Pathname
+    output_path = path
+  else
+    output_path = Rails.root.join('public/images', path, "#{id}.png")
+  end
+
   unless output_path.exist?
     image_path = XIVData.image_path(icon_path)
 
@@ -99,6 +105,7 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
       else
         image = open(image_path).read
       end
+
       open(output_path.to_s, 'wb') { |file| file << image }
     rescue Exception
       puts "Could not create image: #{output_path}"

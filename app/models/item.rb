@@ -22,10 +22,4 @@
 #
 class Item < ApplicationRecord
   translates :name, :description
-
-  def icon_path
-    number = icon_id.to_s.rjust(6, '0')
-    directory = number.first(3).ljust(6, '0')
-    "ui/icon/#{directory}/#{number}.tex"
-  end
 end
