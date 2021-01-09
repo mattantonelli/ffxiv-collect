@@ -127,5 +127,10 @@ Rails.application.routes.draw do
                                               ['{"status": 404, "error": "Not found"}'] ] }
   match "*path", via: :all, to: redirect('404')
 
+  # Quick 404 for missing images
+  scope format: true, constraints: { format: 'png' } do
+    get "/*missing", to: proc { [404, {}, ['']] }
+  end
+
   root 'static#home'
 end
