@@ -18,7 +18,7 @@ namespace :bardings do
 
         if item = Item.find_by(unlock_type: 'barding', unlock_id: data[:id])
           data.merge!(item.slice("name_#{locale}", "description_#{locale}"))
-          data[:item_id] ||= item.id
+          data[:item_id] ||= item.id if item.tradeable
         else
           data["name_#{locale}"] = sanitize_name(barding['Name'])
         end
