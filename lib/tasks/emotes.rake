@@ -34,7 +34,7 @@ namespace :emotes do
       XIVData.sheet('Emote', locale: locale).each do |emote|
         next if emote['TextCommand'].nil? || emote['UnlockLink'] == '0'
 
-        data = h[emote['#']] || { id: emote['#'], icon: emote['Icon'] }
+        data = h[emote['#']] || { id: emote['#'], order: emote['Order'], icon: emote['Icon'] }
         data["name_#{locale}"] = sanitize_name(emote['Name'])
         h[data[:id]] = data
       end

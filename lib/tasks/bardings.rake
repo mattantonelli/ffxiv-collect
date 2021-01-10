@@ -11,12 +11,12 @@ namespace :bardings do
       XIVData.sheet('BuddyEquip', locale: locale).each do |barding|
         next unless barding['Name'].present?
 
-        data = h[barding['#']] || { id: barding['#'],
+        data = h[barding['#']] || { id: barding['#'], order: barding['Order'],
                                     icon: barding['Icon{Body}'].present? ? barding['Icon{Body}'] : barding['Icon{Head}'] }
 
         if item = Item.find_by(unlock_type: 'barding', unlock_id: data[:id])
           data.merge!(item.slice("name_#{locale}", "description_#{locale}"))
-          data[:item_id] ||= item.id if item.tradeable
+          data[:item_id] ||= item.id.to_s if item.tradeable
         else
           data["name_#{locale}"] = sanitize_name(barding['Name'])
         end

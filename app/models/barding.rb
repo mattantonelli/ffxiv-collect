@@ -15,6 +15,7 @@
 #  description_de :string(255)
 #  description_fr :string(255)
 #  description_ja :string(255)
+#  order          :integer
 #
 
 class Barding < ApplicationRecord

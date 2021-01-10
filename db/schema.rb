@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_135422) do
+ActiveRecord::Schema.define(version: 2021_01_10_154327) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -123,10 +123,12 @@ ActiveRecord::Schema.define(version: 2021_01_10_135422) do
     t.string "description_de"
     t.string "description_fr"
     t.string "description_ja"
+    t.integer "order"
     t.index ["name_de"], name: "index_bardings_on_name_de"
     t.index ["name_en"], name: "index_bardings_on_name_en"
     t.index ["name_fr"], name: "index_bardings_on_name_fr"
     t.index ["name_ja"], name: "index_bardings_on_name_ja"
+    t.index ["order"], name: "index_bardings_on_order"
     t.index ["patch"], name: "index_bardings_on_patch"
   end
 
@@ -308,11 +310,13 @@ ActiveRecord::Schema.define(version: 2021_01_10_135422) do
     t.string "command_de"
     t.string "command_fr"
     t.string "command_ja"
+    t.integer "order"
     t.index ["category_id"], name: "index_emotes_on_category_id"
     t.index ["name_de"], name: "index_emotes_on_name_de"
     t.index ["name_en"], name: "index_emotes_on_name_en"
     t.index ["name_fr"], name: "index_emotes_on_name_fr"
     t.index ["name_ja"], name: "index_emotes_on_name_ja"
+    t.index ["order"], name: "index_emotes_on_order"
     t.index ["patch"], name: "index_emotes_on_patch"
   end
 
