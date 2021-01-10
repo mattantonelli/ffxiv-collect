@@ -1,4 +1,4 @@
-json.(mount, :id, :name, :description, :enhanced_description, :tooltip, :flying, :movement,
+json.(mount, :id, :name, :description, :enhanced_description, :tooltip, :movement,
       :seats, :order, :order_group, :patch, :item_id)
 json.owned owned.fetch(mount.id.to_s, '0%')
 json.image image_url("mounts/large/#{mount.id}.png", skip_pipeline: true)
