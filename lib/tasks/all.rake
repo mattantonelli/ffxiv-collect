@@ -39,7 +39,7 @@ def sanitize_text(text)
     .gsub('<Indent/>', ' ')
     .gsub(/\<.*?\>/, '')
     .gsub("\r", "\n")
-    .gsub("\n\n", ' ')
+    .gsub("\n", ' ')
 end
 
 def sanitize_tooltip(text)
@@ -54,6 +54,14 @@ def sanitize_name(name)
     .gsub('[A]', 'er')
     .gsub('[p]', '')
     .gsub(/\uE0BE ?/, '')
+end
+
+# Like regular name sanitization with extra steps
+def sanitize_instance_name(name)
+  sanitize_name(name)
+    .gsub('<SoftHyphen/>', "\u00AD")
+    .gsub(/\<.*?\>/, '')
+    .gsub(/\((.)/) { |match| match.upcase } # (extreme) → (Extreme)
 end
 
 def without_custom(data)

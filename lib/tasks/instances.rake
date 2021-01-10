@@ -10,13 +10,13 @@ namespace :instances do
         # Use the Content ID as the Instance ID so we can sync with the ID used by the DB sites
         h[instance['#']] = { id: XIVData.related_id(instance['Content']),
                              content_type: instance['ContentType'],
-                             name_en: sanitize_name(instance['Name']) }
+                             name_en: sanitize_instance_name(instance['Name']) }
     end
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('ContentFinderCondition', locale: locale).each do |instance|
         next unless instances.has_key?(instance['#'])
-        instances[instance['#']]["name_#{locale}"] = sanitize_name(instance['Name'])
+        instances[instance['#']]["name_#{locale}"] = sanitize_instance_name(instance['Name'])
       end
     end
 
