@@ -1,44 +1,52 @@
-ORCHESTRION_COLUMNS = %w(ID Description_* GamePatch.Version Name_* OrchestrionUiparam.OrchestrionCategoryTargetID
-OrchestrionUiparam.Order).freeze
-
 namespace :orchestrions do
   desc 'Create the orchestrion rolls'
   task create: :environment do
     PaperTrail.enabled = false
 
     puts 'Creating orchestrion categories'
-    XIVAPI_CLIENT.content(name: 'OrchestrionCategory', columns: %w(ID Name_* Order)).each do |category|
-      next if category.id == 1
-      if category[:name_en].present?
-        data = category.to_h.slice(:id, :name_en, :name_de, :name_fr, :name_ja, :order)
+    categories = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('OrchestrionCategory', locale: locale).each do |category|
+        next if category['Order'] == '0'
 
-        if existing = OrchestrionCategory.find_by(id: data[:id])
-          existing.update!(data) if updated?(existing, data.symbolize_keys)
-        else
-          OrchestrionCategory.find_or_create_by!(data)
-        end
+        data = h[category['#']] || { id: category['#'], order: category['Order'] }
+        data["name_#{locale}"] = category ['Name']
+        h[data[:id]] = data
+      end
+    end
+
+    categories.values.each do |category|
+      if existing = OrchestrionCategory.find_by(id: category[:id])
+        existing.update!(category) if updated?(existing, category)
+      else
+        OrchestrionCategory.find_or_create_by!(category)
       end
     end
 
     puts 'Creating orchestrion rolls'
     count = Orchestrion.count
-    XIVAPI_CLIENT.content(name: 'Orchestrion', columns: ORCHESTRION_COLUMNS, limit: 1000).each do |orchestrion|
-      next unless orchestrion.name_en.present?
+    orchestrions = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('Orchestrion', locale: locale).each do |orchestrion|
+        next unless orchestrion['Name'].present?
 
-      order = orchestrion.orchestrion_uiparam.order
-      data = { id: orchestrion.id, patch: orchestrion.game_patch.version, order: order == 65535 ? nil : order,
-               category_id: orchestrion.orchestrion_uiparam.orchestrion_category_target_id }
-
-      %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = sanitize_name(orchestrion["name_#{locale}"])
-        data["description_#{locale}"] = sanitize_text(orchestrion["description_#{locale}"])
+        data = h[orchestrion['#']] || { id: orchestrion['#'] }
+        data.merge!("name_#{locale}" => sanitize_name(orchestrion['Name']),
+                    "description_#{locale}" => sanitize_text(orchestrion['Description']))
+        h[data[:id]] = data
       end
+    end
 
-      if existing = Orchestrion.find_by(id: orchestrion.id)
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+    XIVData.sheet('OrchestrionUiparam', raw: true).each do |orchestrion|
+      next unless orchestrions.has_key?(orchestrion['#'])
+      orchestrions[orchestrion['#']].merge!(order: orchestrion['Order'] == '65535' ? nil : orchestrion['Order'],
+                                            category_id: orchestrion['OrchestrionCategory'])
+    end
+
+    orchestrions.values.each do |orchestrion|
+      puts orchestrion
+      if existing = Orchestrion.find_by(id: orchestrion[:id])
+        existing.update!(orchestrion) if updated?(existing, orchestrion)
       else
-        Orchestrion.create!(data)
+        Orchestrion.create!(orchestrion)
       end
     end
 
