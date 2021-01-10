@@ -12,25 +12,20 @@ namespace :relics do
       tools: Relic.relic_tool_ids
     }
 
-    categories.each do |name, ids|
-      XIVAPI_CLIENT.content(name: 'Item', columns: %w(ID Name_* Icon), ids: ids, limit: 1000).map do |item|
-        data = { id: item.id }
+    categories.each do |category, ids|
+      Item.where(id: ids).each do |item|
+        data = { id: item.id.to_s }.merge(item.slice(:name_en, :name_de, :name_fr, :name_ja))
 
-        %w(en de fr ja).each do |locale|
-          data["name_#{locale}"] = sanitize_name(item["name_#{locale}"])
-        end
+        create_image(data[:id], XIVData.icon_path(item.icon_id), "relics/#{category}")
 
-        download_image(data[:id], item.icon, "relics/#{name}")
-
-        if existing = Relic.find_by(id: item.id)
-          data = without_custom(data)
-          existing.update!(data) if updated?(existing, data.symbolize_keys)
+        if existing = Relic.find_by(id: data[:id])
+          existing.update!(data) if updated?(existing, data)
         else
           Relic.create!(data)
         end
       end
 
-      create_spritesheet("relics/#{name}")
+      create_spritesheet("relics/#{category}")
     end
 
     puts "Created #{Relic.count - count} new relics"

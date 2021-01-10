@@ -46,7 +46,7 @@ def sanitize_tooltip(text)
   sanitize_text(text.gsub("\n\n", "\n"))
 end
 
-# Fix lowercase names and German gender tags
+# Titleize names and translate various tags
 def sanitize_name(name)
   name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
   name.gsub('[t]', 'der')
@@ -54,12 +54,8 @@ def sanitize_name(name)
     .gsub('[A]', 'er')
     .gsub('[p]', '')
     .gsub(/\uE0BE ?/, '')
-end
-
-# Like regular name sanitization with extra steps
-def sanitize_instance_name(name)
-  sanitize_name(name)
     .gsub('<SoftHyphen/>', "\u00AD")
+    .gsub('<Indent/>', ' ')
     .gsub(/\<.*?\>/, '')
     .gsub(/\((.)/) { |match| match.upcase } # (extreme) → (Extreme)
 end
