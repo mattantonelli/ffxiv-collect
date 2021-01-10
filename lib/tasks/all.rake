@@ -40,10 +40,7 @@ def sanitize_text(text)
     .gsub(/\<.*?\>/, '')
     .gsub("\r", "\n")
     .gsub("\n", ' ')
-end
-
-def sanitize_tooltip(text)
-  sanitize_text(text.gsub("\n\n", "\n"))
+    .strip
 end
 
 # Titleize names and translate various tags
