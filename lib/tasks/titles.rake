@@ -6,24 +6,35 @@ namespace :titles do
     puts 'Creating titles'
     count = Title.count
 
-    XIVAPI_CLIENT.content(name: 'Title', columns: TITLE_COLUMNS, limit: 10000).each do |title|
-      next if title.order == 0
-      data = { id: title.id, order: title.order, achievement_id: title.game_content_links.achievement.title.first }
+    titles = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('Title', locale: locale).each do |title|
+        next if title['Order'] == '0'
 
-      %w(en de fr ja).each do |locale|
-        if title.is_prefix == 1
-          data["name_#{locale}"] = "#{title["name_#{locale}"]}…"
-          data["female_name_#{locale}"] = "#{title["name_female_#{locale}"]}…"
+        data = h[title['#']] || { id: title['#'], order: title['Order'] }
+
+        if title['IsPrefix'] == 'True'
+          data["name_#{locale}"] = "#{title['Masculine']}…"
+          data["female_name_#{locale}"] = "#{title['Feminine']}…"
         else
-          data["name_#{locale}"] = "…#{title["name_#{locale}"]}"
-            data["female_name_#{locale}"] = "…#{title["name_female_#{locale}"]}"
+          data["name_#{locale}"] = "…#{title['Masculine']}"
+          data["female_name_#{locale}"] = "…#{title['Feminine']}"
         end
-      end
 
-      if existing = Title.find_by(id: title.id)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+        h[data[:id]] = data
+      end
+    end
+
+    XIVData.sheet('Achievement', raw: true).each do |achievement|
+      if title = titles[achievement['Title']]
+        title[:achievement_id] = achievement['#']
+      end
+    end
+
+    titles.values.each do |title|
+      if existing = Title.find_by(id: title[:id])
+        existing.update!(title) if updated?(existing, title)
       else
-        Title.create!(data)
+        Title.create!(title)
       end
     end
 
