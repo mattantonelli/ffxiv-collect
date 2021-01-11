@@ -1,11 +1,3 @@
-require 'csv'
-
-RECIPE_COLUMNS = %w(ID ClassJob.Name_en).freeze
-QUEST_COLUMNS = %w(ID Name_* ItemReward00 ItemReward01 ItemReward02 ItemReward03 ItemReward04
-ItemReward05 FestivalTargetID).freeze
-ITEM_COLUMNS = %w(ID Name_en Description_en ItemAction.Data0 GameContentLinks.Achievement.Item
-GameContentLinks.Recipe.ItemResult IsUntradable).freeze
-
 namespace :sources do
   desc 'Create the source types'
   task create_types: :environment do
@@ -48,73 +40,38 @@ namespace :sources do
     end
   end
 
-  desc 'Sets item IDs and known sources for various collectables'
+  desc 'Sets achievement, quest, and crafting sources for collectables'
   task update: :environment do
     PaperTrail.enabled = false
 
     achievement_type, crafting_type, event_type, quest_type =
       SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
 
-    # Mapping of internal values for ItemAction.Type
-    collections = { Mount => 1322, Minion => 853, Orchestrion => 5845, Emote => 2633, Barding => 1013, Hairstyle => 2633 }
+    # Create sources from Achievement rewards for non-time limited (or GARO) quests
+    achievements = Achievement.exclude_time_limited.where.not(id: [1771, 1772, 1773])
+      .joins(:item).where('items.unlock_type is not null')
 
-    # Exclude limited time achievement sources because they are a mess to filter
-    valid_achievement_ids = Achievement.exclude_time_limited.pluck(:id) - [1771, 1772, 1773] # Also exclude GARO
-
-    collectables = collections.each_with_object({}) do |(collection, type), h|
-      XIVAPI_CLIENT.search(indexes: 'Item', columns: ITEM_COLUMNS, filters: "ItemAction.Type=#{type}", limit: 999).each do |item|
-        if collection == Emote
-          next unless item.name_en.match?('Ballroom Etiquette')
-          command = item.description_en.match(/(\/.*) emote/).captures.first
-          collectable = collection.where('command_en like ?', "%#{command}%").first
-        elsif collection == Hairstyle
-          next unless item.name_en.match?('Modern Aesthetics')
-          collectable = collection.find_by(name_en: item.name_en.gsub(/.* - /, ''))
-        else
-          collectable = collection.find(item.item_action.data0)
-        end
-
-        next unless collectable.present?
-
-        collectable.update!(item_id: item.id) if item.is_untradable == 0
-
-        next if collection == Orchestrion
-
-        achievement_id = item.game_content_links.achievement.item&.first
-        if achievement_id.present? && valid_achievement_ids.include?(achievement_id)
-          achievement = Achievement.find(achievement_id)
-          collectable.sources.find_or_create_by!(text: achievement.name_en, type_id: achievement_type,
-                                                 related_type: 'Achievement', related_id: achievement_id)
-        end
-
-        recipe_id = item.game_content_links.recipe.item_result&.first
-        if recipe_id.present? && !collectable.sources.exists?(type_id: crafting_type)
-          collectable.sources.create!(type_id: crafting_type, related_id: recipe_id)
-        end
-
-        h[item.id] = collectable
-      end
+    achievements.each do |achievement|
+      Source.find_or_create_by!(collectable_id: achievement.item.unlock_id,
+                                collectable_type: achievement.item.unlock_type,
+                                text: achievement.name_en, type_id: achievement_type, related_id: achievement.id)
     end
 
-    collectable_ids = collectables.keys
-    XIVAPI_CLIENT.search(indexes: 'Quest', columns: QUEST_COLUMNS, filters: 'ItemReward00>0', limit: 10000)
-      .each_with_object({}) do |quest, h|
-      (0..5).each do |i|
-        reward = quest["item_reward0#{i}"]
-        break if reward == 0
+    # Create sources from Quest rewards
+    quests = Quest.where.not(reward_id: nil)
+      .joins(:reward).where('items.unlock_type IS NOT NULL')
 
-        if collectable_ids.include?(reward)
-          type_id = quest.festival_target_id > 0 ? event_type : quest_type
-          collectables[reward].sources.find_or_create_by!(text: quest.name_en, type_id: type_id,
-                                                          related_type: 'Quest', related_id: quest.id)
-        end
-      end
+    quests.each do |quest|
+      source_type = quest.event? ? event_type : quest_type
+      Source.find_or_create_by!(collectable_id: quest.reward.unlock_id,
+                                collectable_type: quest.reward.unlock_type,
+                                text: quest.name_en, type_id: source_type, related_id: quest.id)
     end
 
-    recipe_ids = Source.where(type_id: crafting_type).pluck(:related_id)
-    XIVAPI_CLIENT.content(name: 'Recipe', ids: recipe_ids, columns: RECIPE_COLUMNS, limit: 1000).each do |recipe|
-      text = "Crafted by #{recipe.class_job.name_en.capitalize}"
-      Source.where(type_id: crafting_type, related_id: recipe.id).update_all(text: text)
+    # Created sources from craftable Items
+    Item.where.not(unlock_type: nil, recipe_id: nil).each do |item|
+      Source.find_or_create_by!(collectable_id: item.unlock_id, collectable_type: item.unlock_type,
+                                text: "Crafted by #{item.crafter}", type_id: crafting_type, related_id: item.recipe_id)
     end
   end
 end
