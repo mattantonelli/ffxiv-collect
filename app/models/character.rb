@@ -25,7 +25,7 @@
 #  refreshed_at       :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #  gender             :string(255)
 #  spells_count       :integer          default(0)
-#  items_count        :integer          default(0)
+#  relics_count       :integer          default(0)
 #  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #  fashions_count     :integer          default(0)
 #
@@ -45,7 +45,7 @@ class Character < ApplicationRecord
     Character.Avatar Character.ID Character.Gender Character.Name Character.Portrait Character.Server).freeze
   CHARACTER_PROFILE_BASE = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
 
-  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells items fashions).each do |model|
+  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end

@@ -4,7 +4,7 @@ class BardingsController < ApplicationController
   def index
     @q = Barding.ransack(params[:q])
     @bardings = @q.result.include_sources.with_filters(cookies)
-      .order(patch: :desc, id: :desc).distinct
+      .order(patch: :desc, order: :desc).distinct
     @types = source_types(:barding)
   end
 

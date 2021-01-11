@@ -1,64 +1,70 @@
-SPELL_COLUMNS = %w(ID Description_* Stats_* Number Icon GamePatch.Version).freeze
-SPELL_STATS_REGEX = /[^>]+?\n/
+SPELL_STATS_REGEX = /[^>]+?(?:\n|$)/.freeze
 
 namespace :spells do
-  desc 'Create the blue magic spells'
+  desc 'Create the Blue Magic spells'
   task create: :environment do
     PaperTrail.enabled = false
 
-    puts 'Creating blue magic spells'
+    puts 'Creating Blue Magic spells'
 
+    # Create spell types
     SpellType.find_or_create_by!(name_en: 'Magic', name_de: 'Magie', name_fr: 'Magique', name_ja: '魔法')
     SpellType.find_or_create_by!(name_en: 'Physical', name_de: 'Physisch', name_fr: 'Physique', name_ja: '物理')
 
-    spells = XIVAPI_CLIENT.content(name: 'AozAction', columns: %w(ID Action.Name_* Action.ID), limit: 1000)
-      .each_with_object({}) do |spell, h|
-      if spell.action.name_en.present?
-        h[spell.id] = %w(en de fr ja).each_with_object({}) do |locale, names|
-          names["name_#{locale}"] = sanitize_name(spell.action["name_#{locale}"])
-        end
-
-        h[spell.id][:action_id] = spell.action.id
-      end
-    end
-
-    action_ids = spells.values.pluck(:action_id)
-    XIVAPI_CLIENT.content(name: 'Action', columns: %w(ID Description_*), ids: action_ids, limit: 1000).each do |action|
-      spell = spells.values.find { |spell| spell[:action_id] == action.id }
-
-      %w(en de fr ja).each do |locale|
-        spell["tooltip_#{locale}"] = sanitize_tooltip(action["description_#{locale}"])
-      end
-
-      spell.delete(:action_id)
-    end
-
     count = Spell.count
-    XIVAPI_CLIENT.content(name: 'AozActionTransient', columns: SPELL_COLUMNS, limit: 1000).each do |spell|
-      next unless spells.key?(spell.id)
+    spells = XIVData.sheet('AozAction', raw: true).each_with_object({}) do |spell, h|
+      next if spell['Action'] == '0'
+      h[spell['Action']] = { id: spell['#'], aspects: {} }
+    end
 
-      data = spells[spell.id].merge(id: spell.id, order: spell.number, patch: spell.game_patch.version)
-
-      %w(en de fr ja).each do |locale|
-        data["description_#{locale}"] = sanitize_text(spell["description_#{locale}"])
+    %w(en de fr ja).each do |locale|
+      XIVData.sheet('Action', locale: locale).each do |action|
+        next unless spells.has_key?(action['#'])
+        spells[action['#']]["name_#{locale}"] = sanitize_name(action['Name'])
       end
+    end
 
-      type, aspect, rank = spell.to_h.slice(:stats_en, :stats_de, :stats_fr, :stats_ja)
-        .map { |_, stats| stats.scan(SPELL_STATS_REGEX) }.transpose
-        .map { |stat| stat.map(&:strip) }
+    %w(en de fr ja).each do |locale|
+      XIVData.sheet('ActionTransient', locale: locale).each do |action|
+        next unless spells.has_key?(action['#'])
+        spells[action['#']]["description_#{locale}"] = sanitize_text(action['Description'])
+      end
+    end
 
-      type = SpellType.find_by(name_en: type[0])
-      aspect = SpellAspect.find_or_create_by!(name_en: aspect[0], name_de: aspect[1], name_fr: aspect[2], name_ja: aspect[3])
+    %w(en de fr ja).each do |locale|
+      XIVData.sheet('AozActionTransient', locale: locale).each do |spell|
+        data = spells.values.find { |s| s[:id] == spell['#'] }
+        next unless data.present?
 
-      data.merge!(type_id: type.id, aspect_id: aspect.id, rank: rank[0].count('★'))
+        data[:order] ||= spell['Number']
+        data[:icon] ||= spell['Icon']
+        data[:location] ||= sanitize_name(spell['Location']) if spell['Location'].present?
+        data["tooltip_#{locale}"] = sanitize_text(spell['Description'])
 
-      download_image(spell.id, spell.icon, 'spells', nil, nil, 42, 42)
+        type, aspect, rank = spell['Stats'].scan(SPELL_STATS_REGEX).map(&:strip)
 
-      if existing = Spell.find_by(id: spell.id)
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+        data[:type_id] ||= SpellType.find_by(name_en: type).id.to_s
+        data[:aspects]["name_#{locale}"] = aspect
+        data[:rank] ||= rank.count('★').to_s
+      end
+    end
+
+    other_type = SourceType.find_by(name: 'Other').id
+
+    spells.values.each do |spell|
+      aspect = SpellAspect.find_or_create_by!(spell.delete(:aspects))
+      spell[:aspect_id] = aspect.id.to_s
+      location = spell.delete(:location)
+
+      create_image(spell[:id], spell.delete(:icon), 'spells', nil, nil, 42, 42)
+
+      if existing = Spell.find_by(id: spell[:id])
+        existing.update!(spell) if updated?(existing, spell)
       else
-        Spell.create!(data)
+        spell = Spell.create!(spell)
+
+        # Create a stub source based on the location provided by the spellbook for new spells
+        spell.sources.create!(type_id: other_type, text: "Unreported / #{location}") if location.present?
       end
     end
 

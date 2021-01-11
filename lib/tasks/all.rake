@@ -1,17 +1,23 @@
 require 'sprite_factory'
+require 'xiv_data'
 
 namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
-    Rake::Task['patches:set'].invoke
     Rake::Task['sources:initialize'].invoke
-    Rake::Task['items:create'].invoke
+    Rake::Task['relics:create'].invoke
   end
 
   desc 'Updates all data'
   task update: :environment do
+    unless Dir.exist?(XIVData::IMAGE_PATH)
+      puts "ERROR: Could not find image source directory: #{XIVData::IMAGE_PATH}"
+      puts 'Images will not be generated.'
+    end
+
+    Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
     Rake::Task['achievements:create'].invoke
@@ -25,6 +31,8 @@ namespace :data do
     Rake::Task['armoires:create'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
+    Rake::Task['items:set_unlocks'].invoke
+    Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
   end
 end
@@ -39,14 +47,11 @@ def sanitize_text(text)
     .gsub('<Indent/>', ' ')
     .gsub(/\<.*?\>/, '')
     .gsub("\r", "\n")
-    .gsub("\n\n", ' ')
+    .gsub("\n", ' ')
+    .strip
 end
 
-def sanitize_tooltip(text)
-  sanitize_text(text.gsub("\n\n", "\n"))
-end
-
-# Fix lowercase names and German gender tags
+# Titleize names and translate various tags
 def sanitize_name(name)
   name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
   name.gsub('[t]', 'der')
@@ -54,6 +59,10 @@ def sanitize_name(name)
     .gsub('[A]', 'er')
     .gsub('[p]', '')
     .gsub(/\uE0BE ?/, '')
+    .gsub('<SoftHyphen/>', "\u00AD")
+    .gsub('<Indent/>', ' ')
+    .gsub(/\<.*?\>/, '')
+    .gsub(/\((.)/) { |match| match.upcase } # (extreme) → (Extreme)
 end
 
 def without_custom(data)
@@ -61,7 +70,13 @@ def without_custom(data)
 end
 
 def updated?(model, data)
+  data.symbolize_keys!
   current = model.attributes.symbolize_keys.select { |k, _| data.keys.include?(k) }
+
+  # The XIVData values are all strings, so convert integers to strings for comparison
+  current.each do |k, v|
+    current[k] = v.to_s if v.is_a?(Integer)
+  end
 
   if updated = data != current
     puts "  Found new data for #{model.name_en} (#{model.id}):"
@@ -74,27 +89,35 @@ def updated?(model, data)
   updated
 end
 
-def download_image(id, url, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
-  path = Rails.root.join('public/images', path, "#{id}.png") unless path.class == Pathname
+def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
+  return unless Dir.exist?(XIVData::IMAGE_PATH)
 
-  unless path.exist?
-    image_url = "https://xivapi.com#{url}"
+  # Use the custom output pathname if provided, otherwise generate it
+  if path.class == Pathname
+    output_path = path
+  else
+    output_path = Rails.root.join('public/images', path, "#{id}.png")
+  end
+
+  unless output_path.exist?
+    image_path = XIVData.image_path(icon_path)
 
     begin
       if mask_from.present?
         mask_to ||= mask_from
-        image = ChunkyPNG::Image.from_stream(open(image_url))
+        image = ChunkyPNG::Image.from_file(image_path)
         image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
                                   ChunkyPNG::Color::TRANSPARENT)
       elsif width.present?
-        image = ChunkyPNG::Image.from_stream(open(image_url))
+        image = ChunkyPNG::Image.from_file(image_path)
         image.resample_bilinear!(width, height)
       else
-        image = open(image_url).read
+        image = open(image_path).read
       end
-      open(path.to_s, 'wb') { |file| file << image }
+
+      open(output_path.to_s, 'wb') { |file| file << image }
     rescue Exception
-      puts "Could not download image: #{image_url}"
+      puts "Could not create image: #{output_path}"
     end
   end
 end

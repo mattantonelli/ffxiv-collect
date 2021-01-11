@@ -2,7 +2,7 @@ class RelicsController < ApplicationController
   include ManualCollection
   before_action :check_achievements!, only: :weapons
   before_action :display_verify_alert!, only: [:manual_weapons, :tools, :armor]
-  before_action :set_item_collection!, only: [:manual_weapons, :tools, :armor]
+  before_action :set_relic_collection!, only: [:manual_weapons, :tools, :armor]
   skip_before_action :display_verify_alert!, only: :weapons
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
@@ -16,32 +16,40 @@ class RelicsController < ApplicationController
   end
 
   def manual_weapons
-    @arr_relic_weapons = Item.where(id: Item.arr_relic_weapon_ids)
-      .sort_by { |item| Item.arr_relic_weapon_ids.index(item.id) }
-    @deep_dungeon_weapons = Item.where(id: Item.deep_dungeon_weapon_ids)
-      .sort_by { |item| Item.deep_dungeon_weapon_ids.index(item.id) }
-    @eureka_physeos_weapons = Item.where(id: Item.eureka_physeos_weapon_ids)
+    @arr_relic_weapons = Relic.where(id: Relic.arr_relic_weapon_ids)
+      .sort_by { |relic| Relic.arr_relic_weapon_ids.index(relic.id) }
+    @deep_dungeon_weapons = Relic.where(id: Relic.deep_dungeon_weapon_ids)
+      .sort_by { |relic| Relic.deep_dungeon_weapon_ids.index(relic.id) }
+    @eureka_physeos_weapons = Relic.where(id: Relic.eureka_physeos_weapon_ids)
   end
 
   def tools
-    @lucis_tools = Item.where(id: Item.lucis_tool_ids)
-    @skysteel_tools = Item.where(id: Item.skysteel_tool_ids)
+    @lucis_tools = Relic.where(id: Relic.lucis_tool_ids)
+    @skysteel_tools = Relic.where(id: Relic.skysteel_tool_ids)
   end
 
   def armor
     @eureka_job_armor = ["Eureka Anemos Armor", "Eureka Job Armor +2", "Eureka Job Armor +1", "Eureka Job Armor"]
-      .zip(Item.where(id: Item.eureka_job_armor_ids).each_slice(75).to_a.reverse).to_h
+      .zip(Relic.where(id: Relic.eureka_job_armor_ids).each_slice(75).to_a.reverse).to_h
     @eureka_elemental_armor = ['Elemental Armor +2', 'Elemental Armor +1', 'Elemental Armor']
-      .zip(Item.where(id: Item.eureka_elemental_armor_ids).each_slice(35).to_a.reverse).to_h
-    @idealized_armor = Item.where(id: Item.idealized_armor_ids)
+      .zip(Relic.where(id: Relic.eureka_elemental_armor_ids).each_slice(35).to_a.reverse).to_h
+    @idealized_armor = Relic.where(id: Relic.idealized_armor_ids)
     @bozjan_armor = ['Augmented Bozjan Armor', 'Bozjan Armor']
-      .zip(Item.where(id: Item.bozjan_armor_ids).each_slice(35).to_a.reverse).to_h
+      .zip(Relic.where(id: Relic.bozjan_armor_ids).each_slice(35).to_a.reverse).to_h
+  end
+
+  def add
+    add_collectable(@character.relics, Relic.find(params[:id]))
+  end
+
+  def remove
+    remove_collectable(@character.relics, params[:id])
   end
 
   private
-  def set_item_collection!
-    @collection_ids = @character&.item_ids || []
-    @owned = Redis.current.hgetall('items')
-    @dates = @character&.character_items&.pluck('item_id', :created_at).to_h || {}
+  def set_relic_collection!
+    @collection_ids = @character&.relic_ids || []
+    @owned = Redis.current.hgetall('relics')
+    @dates = @character&.character_relics&.pluck('relic_id', :created_at).to_h || {}
   end
 end

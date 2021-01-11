@@ -2,7 +2,7 @@ class Api::EmotesController < ApiController
   def index
     query = Emote.all.ransack(@query)
     @emotes = query.result.includes(:category).include_sources
-      .order(patch: :desc, id: :desc).distinct.limit(params[:limit])
+      .order(patch: :desc, order: :desc).distinct.limit(params[:limit])
     @owned = Redis.current.hgetall(:emotes)
   end
 

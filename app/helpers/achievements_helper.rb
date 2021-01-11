@@ -17,10 +17,6 @@ module AchievementsHelper
     end
   end
 
-  def link_to_achievement_item(achievement)
-    database_link(:item, achievement.item_name, achievement.item_id)
-  end
-
   def achievement_completion(category, ids)
     achievements = category.achievements
     complete = (achievements.map(&:id) & ids).size

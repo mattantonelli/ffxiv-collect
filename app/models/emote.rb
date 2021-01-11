@@ -16,6 +16,7 @@
 #  command_de  :string(255)
 #  command_fr  :string(255)
 #  command_ja  :string(255)
+#  order       :integer
 #
 
 class Emote < ApplicationRecord

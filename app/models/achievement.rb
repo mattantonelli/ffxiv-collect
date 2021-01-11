@@ -18,10 +18,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
-#  item_name_en   :string(255)
-#  item_name_de   :string(255)
-#  item_name_fr   :string(255)
-#  item_name_ja   :string(255)
 #  icon_id        :integer
 #
 
@@ -29,10 +25,13 @@ class Achievement < ApplicationRecord
   after_save :touch_title
 
   belongs_to :category, class_name: 'AchievementCategory'
+  belongs_to :item, required: false
   has_one :title, required: false
   has_many :character_achievements
   has_many :characters, through: :character_achievements
+
   delegate :type, to: :category
+
   translates :name, :description, :item_name
 
   scope :exclude_time_limited, -> do

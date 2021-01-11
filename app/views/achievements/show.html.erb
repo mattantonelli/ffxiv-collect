@@ -36,9 +36,14 @@
           <dt><%= t('achievements.title_reward') %></dt>
           <dd><%= title_name(@achievement.title) %></dd>
         <% elsif @achievement.item_id.present? %>
-          <hr>
-          <dt><%= t('achievements.item_reward', count: 1) %></dt>
-          <dd><%= link_to_achievement_item(@achievement) %></dd>
+          <hr class="mb-0">
+          <dt class="mb-2"><%= t('achievements.item_reward', count: 1) %></dt>
+          <dd>
+            <div class="d-flex align-items-center">
+              <%= sprite(@achievement.item, 'item') %>
+              <span class="ml-2"><%= @achievement.item.name %></span>
+            </div>
+          </dd>
         <% end %>
       </div>
     </div>

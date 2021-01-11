@@ -5,6 +5,7 @@ de:
     item_reward:
       one: "Objektbelohnung"
       other: "Objektbelohnungen"
+    one: "Errungenschaft"
     overview: "Überblick"
     points: "Punkte"
     title: "Errungenschaften"

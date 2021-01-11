@@ -26,9 +26,9 @@ namespace :spritesheets do
     create_spritesheet('spells')
 
     puts 'Creating item spritesheets'
-    create_spritesheet('items/weapons')
-    create_spritesheet('items/armor')
-    create_spritesheet('items/tools')
+    create_spritesheet('relics/weapons')
+    create_spritesheet('relics/armor')
+    create_spritesheet('relics/tools')
 
     puts 'Creating fashion spritesheets'
     create_spritesheet('fashions/small')

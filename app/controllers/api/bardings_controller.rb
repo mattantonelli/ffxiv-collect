@@ -1,7 +1,7 @@
 class Api::BardingsController < ApiController
   def index
     query = Barding.all.ransack(@query)
-    @bardings = query.result.include_sources.order(patch: :desc, id: :desc)
+    @bardings = query.result.include_sources.order(patch: :desc, order: :desc)
       .distinct.limit(params[:limit])
     @owned = Redis.current.hgetall(:bardings)
   end

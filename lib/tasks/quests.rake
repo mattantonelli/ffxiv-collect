@@ -4,19 +4,22 @@ namespace :quests do
     puts 'Creating quests'
 
     count = Quest.count
-    XIVAPI_CLIENT.search(indexes: 'Quest', columns: %w(ID Name_*), limit: 10000).each do |quest|
-      next unless quest.name_en.present?
+    quests = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('Quest', locale: locale).each do |quest|
+        next unless quest['Name'].present?
 
-      data = { id: quest.id }
-
-      %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = sanitize_name(quest["name_#{locale}"])
+        data = h[quest['#']] || { id: quest['#'], reward_id: Item.find_by(name_en: quest['Item{Reward}[0][0]'])&.id&.to_s,
+                                  event: quest['FestivalEnd'] != '0' }
+        data["name_#{locale}"] = sanitize_text(quest['Name'].gsub(/\uE0BE ?/, ''))
+        h[data[:id]] = data
       end
+    end
 
-      if existing = Quest.find_by(id: quest.id)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+    quests.values.each do |quest|
+      if existing = Quest.find_by(id: quest[:id])
+        existing.update!(quest) if updated?(existing, quest)
       else
-        Quest.create!(data)
+        Quest.find_or_create_by!(quest)
       end
     end
 

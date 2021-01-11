@@ -1,5 +1,5 @@
 # FFXIV Collect
-This is another application for tracking your Final Fantasy XIV collections written in [Ruby on Rails](https://rubyonrails.org/) and powered by [XIVAPI](https://xivapi.com/). This application strives to be as autonomous as possible by pulling as much data as possible from [XIVAPI](https://xivapi.com/). The rest is maintained by a small group of moderators using community-sourced data.
+This is another application for tracking your Final Fantasy XIV collections written in [Ruby on Rails](https://rubyonrails.org/). Game data is powered by [Saint Coinach](https://github.com/ufx/SaintCoinach) and characters are provided by [XIVAPI](https://xivapi.com/). This application strives to be as autonomous as possible by pulling as much data as possible from [Saint Coinach](https://github.com/ufx/SaintCoinach). The rest is maintained by myself and a small group of moderators using community-sourced data.
 
 ## API
 
@@ -45,6 +45,9 @@ google_analytics:
   tracking_id: GA-1234567-8
 ```
 
+#### Extract the images
+Extract images from the game data by following the instructions in the [data repository](https://github.com/mattantonelli/xiv-data#images).
+
 #### Load the database
 ```
 bundle exec rake db:schema:load
@@ -78,7 +81,12 @@ bundle exec rails console
 exit
 ```
 
+This data is available once the [data repository](https://github.com/mattantonelli/xiv-data) has been updated with the latest patch data.
+
 More action may be required in the event of complex game updates. Patch data must be populated manually.
+
+### Images
+Images are no longer provided by XIVAPI and must be extracted from the game data. Click [here](https://github.com/mattantonelli/xiv-data#images) for details.
 
 ---
 

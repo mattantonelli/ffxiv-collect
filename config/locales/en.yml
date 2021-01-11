@@ -5,6 +5,7 @@ en:
     item_reward:
       one: "Item Reward"
       other: "Item Rewards"
+    one: "Achievement"
     overview: "Overview"
     points: "Points"
     title: "Achievements"

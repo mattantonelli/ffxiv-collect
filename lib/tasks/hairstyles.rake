@@ -1,5 +1,3 @@
-HAIRSTYLE_COLUMNS = %w(Name_* Description_* GamePatch.Version ItemAction.Data0).freeze
-
 namespace :hairstyles do
   desc 'Create the hairstyles'
   task create: :environment do
@@ -8,41 +6,45 @@ namespace :hairstyles do
     puts 'Creating hairstyles'
 
     count = Hairstyle.count
-    XIVAPI_CLIENT.search(indexes: 'Item', columns: HAIRSTYLE_COLUMNS, string: 'modern aesthetics -').each do |hairstyle|
-      data = { id: hairstyle.item_action.data0, patch: hairstyle.game_patch.version }
 
+    XIVData.sheet('CharaMakeCustomize', raw: true).each do |custom|
+      next if custom['HintItem'] == '0'
+      item = Item.find_by(id: custom['HintItem'])
+      next unless item.present? && item.name_en.match?('Modern Aesthetics')
+
+      data = { id: custom['Data'] }
+
+      # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
       %w(en de fr ja).each do |locale|
-        data["name_#{locale}"] = sanitize_name(hairstyle["name_#{locale}"])
+        data["name_#{locale}"] = sanitize_name(item["name_#{locale}"])
           .gsub(/.*(?:- |:|“(?=\w))(.*)/, '\1')
           .delete('“”')
-
-        data["description_#{locale}"] = sanitize_text(hairstyle["description_#{locale}"])
       end
 
+      data.merge!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
+      data[:item_id] = item.id.to_s if item.tradeable?
+
       if existing = Hairstyle.find_by(id: data[:id])
-        data = without_custom(data)
-        existing.update!(data) if updated?(existing, data.symbolize_keys)
+        existing.update!(data) if updated?(existing, data)
       else
         Hairstyle.create!(data)
       end
-    end
 
-    Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Eternal Bonding',
-                                 name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding')
-
-    XIVAPI_CLIENT.content(name: 'CharaMakeCustomize', columns: %w(Data Icon), limit: 10000).each do |custom|
-      next if custom.data == 0 || !Hairstyle.exists?(id: custom.data)
-
-      path = Rails.root.join('public/images/hairstyles', custom.data.to_s)
+      # Create the hairstyle images
+      path = Rails.root.join('public/images/hairstyles', custom['Data'])
       Dir.mkdir(path) unless Dir.exist?(path)
 
-      filename = path.join("#{custom.icon.scan(/\d+\.png/).first}")
-      download_image(nil, custom.icon, filename)
+      filename = path.join("#{custom['Icon']}.png")
+      create_image(nil, XIVData.icon_path(custom['Icon']), filename)
 
       # Use the first image as a sample of the hairstyle
-      sample_filename = Rails.root.join('public/images/hairstyles/samples', "#{custom.data.to_s}.png")
+      sample_filename = Rails.root.join('public/images/hairstyles/samples', "#{custom['Data']}.png")
       FileUtils.cp(filename, sample_filename) unless File.exists?(sample_filename)
     end
+
+    # Create the Eternal Bonding hairstyle which lacks an item unlock
+    Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Eternal Bonding',
+                                 name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding')
 
     create_hair_spritesheets
 
