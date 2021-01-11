@@ -12,6 +12,11 @@ namespace :data do
 
   desc 'Updates all data'
   task update: :environment do
+    unless Dir.exist?(XIVData::IMAGE_PATH)
+      puts "ERROR: Could not find image source directory: #{XIVData::IMAGE_PATH}"
+      puts 'Images will not be generated.'
+    end
+
     Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
