@@ -22,4 +22,5 @@
 #
 class Item < ApplicationRecord
   translates :name, :description
+  belongs_to :unlock, polymorphic: true, required: false
 end

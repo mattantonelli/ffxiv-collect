@@ -42,7 +42,6 @@ namespace :orchestrions do
     end
 
     orchestrions.values.each do |orchestrion|
-      puts orchestrion
       if existing = Orchestrion.find_by(id: orchestrion[:id])
         existing.update!(orchestrion) if updated?(existing, orchestrion)
       else

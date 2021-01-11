@@ -12,6 +12,7 @@ namespace :data do
 
   desc 'Updates all data'
   task update: :environment do
+    Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
     Rake::Task['achievements:create'].invoke
@@ -25,6 +26,8 @@ namespace :data do
     Rake::Task['armoires:create'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
+    Rake::Task['items:set_unlocks'].invoke
+    Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
   end
 end

@@ -11,7 +11,7 @@ namespace :mounts do
 
     mounts = %w(en de fr ja).each_with_object({}) do |locale, h|
       XIVData.sheet('Mount', locale: locale).each do |mount|
-        next unless mount['Order'].to_i > 0
+        next unless mount['Order'].to_i >= 0 && mount['Singular'].present?
 
         data = h[mount['#']] || { id: mount['#'], order: mount['Order'], order_group: mount['UIPriority'],
                                   seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: mount['Icon'],
@@ -27,7 +27,8 @@ namespace :mounts do
         next unless mounts.has_key?(mount['#'])
 
         data = mounts[mount['#']]
-        data.merge!("enhanced_description_#{locale}" => sanitize_text(mount['Description{Enhanced}']),
+        data.merge!("description_#{locale}" => sanitize_text(mount['Description']),
+                    "enhanced_description_#{locale}" => sanitize_text(mount['Description{Enhanced}']),
                     "tooltip_#{locale}" => sanitize_text(mount['Tooltip']))
       end
     end

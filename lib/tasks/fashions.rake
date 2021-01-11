@@ -17,13 +17,6 @@ namespace :fashions do
       end
     end
 
-    # Set Fashion accessory descriptions from the item that unlocks them
-    Item.where(unlock_type: 'fashion').each do |item|
-      data = fashions[item.unlock_id.to_s]
-      data.merge!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
-      data[:item_id] = item.id.to_s if item.tradeable?
-    end
-
     fashions.values.each do |fashion|
       create_image(fashion[:id], fashion.delete(:icon), 'fashions/small')
       create_image(fashion[:id], fashion.delete(:icon_large), 'fashions/large')

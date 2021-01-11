@@ -7,10 +7,10 @@
 #  name_de        :string(255)      not null
 #  name_fr        :string(255)      not null
 #  name_ja        :string(255)      not null
-#  description_en :string(1000)     not null
-#  description_de :string(1000)     not null
-#  description_fr :string(1000)     not null
-#  description_ja :string(1000)     not null
+#  description_en :string(1000)
+#  description_de :string(1000)
+#  description_fr :string(1000)
+#  description_ja :string(1000)
 #  order          :integer          not null
 #  patch          :string(255)
 #  item_id        :integer

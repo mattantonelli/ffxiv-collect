@@ -61,13 +61,6 @@ namespace :emotes do
       end
     end
 
-    # Set item IDs for tradeable Emotes
-    Item.where(unlock_type: 'emote', tradeable: true).each do |item|
-      command = item.description_en.match(/(\/.*) emote/).captures.first
-      emote = Emote.where('command_en like ?', "%#{command}%").first
-      emote&.update(item_id: item.id)
-    end
-
     create_spritesheet('emotes')
 
     puts "Created #{Emote.count - count} new emotes"
