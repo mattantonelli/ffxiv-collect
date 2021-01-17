@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get :select, on: :collection
   end
 
+  get 'orchestrions/fool', to: redirect('images/fool.png')
   %i(orchestrions emotes bardings hairstyles armoires spells fashions).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
