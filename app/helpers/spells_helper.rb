@@ -3,20 +3,18 @@ module SpellsHelper
     (1..5).to_a.reverse.map { |x| ["\u2605" * x, x] }
   end
 
-  def spell_enemies(spell)
-    enemies = spell.sources.map do |source|
-      source.text.split(' / ').first if source.text.match?('/')
+  def spell_sources(spell, limit: 3)
+    sources = spell.sources.first(limit).pluck(:text).map { |source| source.split(' / ') }
+    count = spell.sources.size
+
+    if count > limit
+      additional = count - limit + 1
+      sources.pop
+      sources << ["&nbsp;", link_to("#{additional} more #{'source'.pluralize(additional)}",
+                                    spell_path(spell), class: 'font-italic')]
     end
 
-    enemies.join('<br>').html_safe
-  end
-
-  def spell_locations(spell)
-    locations = spell.sources.map do |source|
-      source.text.split(' / ').last
-    end
-
-    locations.join('<br>').html_safe
+    sources.transpose.map { |details| details.join('<br>').html_safe }
   end
 
   def spell_aspect(spell)
