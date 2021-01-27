@@ -4,8 +4,15 @@ module SpellsHelper
   end
 
   def spell_sources(spell, limit: 3)
-    sources = spell.sources.first(limit).pluck(:text).map { |source| source.split(' / ') }
     count = spell.sources.size
+    sources = spell.sources.first(limit).pluck(:text).map do |source|
+      if source.match?(' / ')
+        source.split(' / ')
+      else
+        # Handle splits for sources with no Enemy details
+        ["&nbsp;", source]
+      end
+    end
 
     if count > limit
       additional = count - limit + 1
