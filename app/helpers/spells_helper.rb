@@ -14,7 +14,10 @@ module SpellsHelper
       end
     end
 
-    if count > limit
+    if count == 0
+      # Handle spells with no recorded sources
+      sources = [["&nbsp;", "&nbsp;"]]
+    elsif count > limit
       additional = count - limit + 1
       sources.pop
       sources << ["&nbsp;", link_to("#{additional} more #{'source'.pluralize(additional)}",

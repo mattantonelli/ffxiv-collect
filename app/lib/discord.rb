@@ -31,7 +31,7 @@ module Discord
     end
 
     if type == 'spell'
-      embed.description = collectable[:tooltip].gsub(/(?<=\n)(.*?):/, '**\1:**')
+      embed.description = collectable[:description]
     elsif type == 'title'
       embed.description = collectable.dig(:achievement, :description)
     else
