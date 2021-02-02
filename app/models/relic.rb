@@ -50,9 +50,10 @@ class Relic < ApplicationRecord
   end
 
   def self.skysteel_tool_ids
-    (29612..29644).to_a.freeze + # Skysteel -> Dragonsung
-    (30282..30292).to_a.freeze + # Augmented Dragonsung
-    (30293..30303).to_a # Skysung
+    ((29612..29644).to_a + # Skysteel -> Dragonsung
+     (30282..30292).to_a + # Augmented Dragonsung
+     (30293..30303).to_a + # Skysung
+     (31714..31724).to_a).freeze # Skybuilders'
   end
 
   def self.relic_tool_ids
