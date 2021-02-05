@@ -9,6 +9,7 @@ namespace :spritesheets do
 
     puts 'Creating achievement spritesheet'
     create_spritesheet('achievements')
+    create_spritesheet('items')
 
     puts 'Creating emote spritesheet'
     create_spritesheet('emotes')
