@@ -1,15 +1,17 @@
-<% title(t('spells.title')) %>
-<% description("Track your character's Blue Magic spells and discover how to obtain new ones.") %>
+<% title("#{t('spells.title')} - #{t('spells.battle')}") %>
+<% description('Explore Blue Magic spells by their combat stats.') %>
 
 <div class="d-flex justify-content-center mb-3">
   <div class="btn-group">
-    <%= button_tag t('spells.learn'), class: 'btn btn-secondary active', disabled: true %>
-    <%= link_to t('spells.battle'), battle_spells_path, class: 'btn btn-secondary' %>
+    <%= link_to t('spells.learn'), spells_path, class: 'btn btn-secondary' %>
+    <%= button_tag t('spells.battle'), class: 'btn btn-secondary active', disabled: true %>
   </div>
 </div>
 <div class="d-flex justify-content-center my-2">
-  <%= search_form_for(@q, url: spells_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+  <%= search_form_for(@q, url: battle_spells_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
     <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+      class: 'form-control form-control-sm flex-grow-1' %>
+    <%= f.search_field "description_#{I18n.locale}_cont", placeholder: t('description'), size: 50,
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.collection_select :type_id_eq, SpellType.all.order("name_#{I18n.locale}"), :id, :name,
       { include_blank: t('all.types') }, class: 'form-control form-control-sm' %>
@@ -32,23 +34,18 @@
           <th scope="col">#</th>
           <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
           <th scope="col"><%= t('name') %></th>
-          <th scope="col" class="hide-xs"><%= t('spells.enemy') %></th>
-          <th scope="col" class="hide-xs"><%= t('spells.location') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('type') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('spells.aspect') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('spells.rank') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('own') %></th>
+          <th scope="col" class="spell-description hide-md"><%= t('description') %></th>
+          <th scope="col" class="text-center"><%= t('type') %></th>
+          <th scope="col" class="text-center"><%= t('spells.aspect') %></th>
+          <th scope="col" class="text-center"><%= t('spells.rank') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
-          <% end %>
-          <% if @comparison.present? %>
-            <th scope="col"></th><!-- Comparison -->
           <% end %>
         </tr>
       </thead>
       <tbody>
         <% @spells.each do |spell| %>
-          <tr class="collectable<%= ' owned' if owned?(spell.id) %>">
+          <tr class="collectable no-fade<%= ' owned' if owned?(spell.id) %>">
             <td class="number"><%= t('spells.number') %> <%= spell.order %></td>
             <td class="spell-sprite">
               <%= link_to(spell_path(spell)) do %>
@@ -56,18 +53,16 @@
               <% end %>
             </td>
             <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
-            <% spell_sources(spell).each do |source| %>
-              <td class="hide-xs"><%= source %></td>
-            <% end %>
-            <td class="text-center hide-md"><%= spell.type.name %></td>
-            <td class="text-center hide-md"><%= spell.aspect.name %></td>
-            <td class="text-center no-wrap hide-md" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
-            <td class="text-center hide-md" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
+            <td class="spell-description hide-md"><%= format_skill_description(spell.description) %></td>
+            <td class="text-center"><%= spell.type.name %></td>
+            <td class="text-center"><%= spell.aspect.name %></td>
+            <td class="text-center no-wrap" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
             <% if character_selected? %>
-              <%= td_owned(spell, manual: true) %>
-            <% end %>
-            <% if @comparison.present? %>
-              <%= td_comparison(spell) %>
+              <% if @comparison.present? %>
+                <%= td_comparison(spell) %>
+              <% else %>
+                <%= td_owned(spell) %>
+              <% end %>
             <% end %>
           </tr>
         <% end %>

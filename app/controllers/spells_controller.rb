@@ -1,10 +1,12 @@
 class SpellsController < ApplicationController
   include ManualCollection
+  before_action :set_ids!, on: :battle
+  before_action :set_spells!, only: [:index, :battle]
 
   def index
-    @q = Spell.ransack(params[:q])
-    @spells = @q.result.includes(:type, :aspect).include_sources.with_filters(cookies).order(:order).distinct
-    @aspects = SpellAspect.all.order("name_#{I18n.locale}").pluck("name_#{I18n.locale}").uniq
+  end
+
+  def battle
   end
 
   def show
@@ -17,5 +19,12 @@ class SpellsController < ApplicationController
 
   def remove
     remove_collectable(@character.spells, params[:id])
+  end
+
+  private
+  def set_spells!
+    @q = Spell.ransack(params[:q])
+    @spells = @q.result.includes(:type, :aspect).include_sources.with_filters(cookies).order(:order).distinct
+    @aspects = SpellAspect.all.order("name_#{I18n.locale}").pluck("name_#{I18n.locale}").uniq
   end
 end

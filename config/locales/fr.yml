@@ -198,9 +198,11 @@ fr:
   source: "Emplacement"
   spells:
     aspect: "Élément"
+    battle: "Combats"
     damage: "Dommage"
     enemy: "Ennemie"
     how_to_learn: "Comment l'apprendre"
+    learn: 'Apprendre'
     location: "Localisation"
     number: "N°"
     rank: "Rang"

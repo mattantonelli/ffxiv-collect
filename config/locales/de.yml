@@ -194,9 +194,11 @@ de:
   source: "Quelle"
   spells:
     aspect: "Element"
+    battle: "Kampferfolge"
     damage: "Schadensart"
     enemy: "Gegner"
     how_to_learn: "Wodurch erlernbar"
+    learn: 'Lernen'
     location: "Ort"
     number: "Nr."
     rank: "Stufe"

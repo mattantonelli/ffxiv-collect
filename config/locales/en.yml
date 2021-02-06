@@ -198,9 +198,11 @@ en:
   source: "Source"
   spells:
     aspect: "Aspect"
+    battle: "Battle"
     damage: "Damage"
     enemy: "Enemy"
     how_to_learn: "How to Learn"
+    learn: 'Learn'
     location: "Location"
     number: "No."
     rank: "Rank"
