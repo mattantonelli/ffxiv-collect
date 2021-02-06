@@ -79,6 +79,8 @@ en:
     lodestone: "Lodestone profile"
     lodestone_verify: "If the information above is correct, please add the code below to your %{link}, then click <b>Verify</b>."
     manage: "Manage Characters"
+    not_owned: "Your character does not own this."
+    owned: "Your character owns this."
     private: "Private"
     profile: "Profile"
     public: "Public"

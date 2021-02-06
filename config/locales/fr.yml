@@ -79,6 +79,8 @@ fr:
     lodestone: "Profil sur le Lodestone"
     lodestone_verify: "Si les informations ci-dessus sont corrects, veuillez ajouter le code ci-dessous à votre %{link}, puis cliquez sur <b>Vérifier</b>."
     manage: "Gérer les personnages"
+    not_owned: "Votre personnage ne possède pas encore cela."
+    owned: "Votre personnage possède déjà cela."
     private: "Privée"
     profile: "Profil"
     public: "Public"

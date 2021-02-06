@@ -46,6 +46,16 @@ module CollectionsHelper
     @collection_ids.include?(id)
   end
 
+  def ownership(character, collectable)
+    if character.present?
+      owned = collectable.characters.include?(character)
+
+      content_tag(:span, data: { toggle: 'tooltip' }, title: t(owned ? 'characters.owned' : 'characters.not_owned')) do
+        fa_check(owned, false)
+      end
+    end
+  end
+
   def td_owned(collectable, manual: false)
     date = @dates&.dig(collectable.id)
     owned = @collection_ids.include?(collectable.id)
