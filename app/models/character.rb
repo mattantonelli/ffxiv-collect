@@ -208,16 +208,16 @@ class Character < ApplicationRecord
 
     if data.achievements_public
       current_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
-      achievements = data.achievements.list.reject { |achievement| current_ids.include?(achievement.id) }
+      achievements = data.achievements&.list&.reject { |achievement| current_ids.include?(achievement.id) } || []
       Character.bulk_insert_achievements(character, achievements)
     end
 
     current_names = CharacterMount.joins(:mount).where(character_id: character.id).pluck(:name_en).map(&:downcase)
-    names = data.mounts.reject { |mount| current_names.include?(mount.name.downcase) }.pluck(:name)
+    names = data.mounts&.reject { |mount| current_names.include?(mount.name.downcase) }&.pluck(:name) || []
     Character.bulk_insert(character.id, CharacterMount, :mount, Mount.where(name_en: names).pluck(:id))
 
     current_names = CharacterMinion.joins(:minion).where(character_id: character.id).pluck(:name_en).map(&:downcase)
-    names = data.minions.reject { |minion| current_names.include?(minion.name.downcase) }.pluck(:name)
+    names = data.minions&.reject { |minion| current_names.include?(minion.name.downcase) }&.pluck(:name) || []
     Character.bulk_insert(character.id, CharacterMinion, :minion,
                           Minion.where(name_en: names).pluck(:id) - Minion.unsummonable_ids)
 
