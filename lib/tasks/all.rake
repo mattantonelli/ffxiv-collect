@@ -51,6 +51,13 @@ def sanitize_text(text)
     .strip
 end
 
+def sanitize_skill_description(text)
+  text.gsub('<SoftHyphen/>', "\u00AD")
+    .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
+    .gsub(/\<.*?\>/, '')
+    .strip
+end
+
 # Titleize names and translate various tags
 def sanitize_name(name)
   name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')

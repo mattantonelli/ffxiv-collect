@@ -72,7 +72,7 @@ namespace :minions do
                     "enhanced_description_#{locale}" => sanitize_text(minion['Description{Enhanced}']),
                     "tooltip_#{locale}" => sanitize_text(minion['Tooltip']),
                     "skill_#{locale}" => sanitize_name(minion['SpecialAction{Name}']),
-                    "skill_description_#{locale}" => sanitize_text(minion['SpecialAction{Description}']),
+                    "skill_description_#{locale}" => sanitize_skill_description(minion['SpecialAction{Description}']),
                     attack: minion['Attack'], defense: minion['Defense'], speed: minion['Speed'],
                     area_attack: minion['HasAreaAttack'] == 'True', gate: minion['Strength{Gate}'] == 'True',
                     eye: minion['Strength{Eye}'] == 'True', shield: minion['Strength{Shield}'] == 'True',

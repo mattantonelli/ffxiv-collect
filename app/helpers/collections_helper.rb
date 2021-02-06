@@ -1,4 +1,8 @@
 module CollectionsHelper
+  def format_skill_description(description)
+    format_text(description.gsub("\n", '<br>'))
+  end
+
   def sprite(collectable, model)
     id = model == 'achievement' ? collectable.icon_id : collectable.id
     image_tag('blank.png', class: "#{model} #{model}-#{id}")

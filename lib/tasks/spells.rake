@@ -27,7 +27,7 @@ namespace :spells do
     %w(en de fr ja).each do |locale|
       XIVData.sheet('ActionTransient', locale: locale).each do |action|
         next unless spells.has_key?(action['#'])
-        spells[action['#']]["description_#{locale}"] = sanitize_text(action['Description'])
+        spells[action['#']]["description_#{locale}"] = sanitize_skill_description(action['Description'])
       end
     end
 
