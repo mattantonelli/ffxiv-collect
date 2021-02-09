@@ -80,17 +80,10 @@ class CharactersController < ApplicationController
   end
 
   def select
-    character = Character.find_by(id: params[:id])
-
-    # For new characters, retrieve their basic data and queue them for a full sync
-    unless character.present?
-      begin
-        character = fetch_character(params[:id], basic: true)
-        character.sync
-        flash[:notice] = t('alerts.collection_being_retrieved')
-      rescue
-        # The exception has been logged in the fetch. Now let the following logic alert the user.
-      end
+    begin
+      character = Character.find_by(id: params[:id]) || fetch_character(params[:id])
+    rescue
+      # The exception has been logged in the fetch. Now let the following logic alert the user.
     end
 
     if !character.present?
@@ -160,12 +153,6 @@ class CharactersController < ApplicationController
         else
           flash[:error] = t('alerts.lodestone_error')
         end
-      rescue XIVAPI::Errors::RequestError => e
-        if e.message == 'Lodestone is currently down for maintenance.'
-          flash[:alert] = t('alerts.lodestone_maintenance')
-        else
-          flash[:error] = t('alerts.problem_refreshing')
-        end
       rescue
         flash[:error] = t('alerts.problem_refreshing')
       end
@@ -223,10 +210,9 @@ class CharactersController < ApplicationController
     end
   end
 
-  def fetch_character(id, basic: false)
+  def fetch_character(id)
     begin
-      character = Character.fetch(id, basic: basic)
-      character
+      Character.fetch(id)
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching character #{id}")
       Rails.logger.error(e.response)
