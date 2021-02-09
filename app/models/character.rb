@@ -40,11 +40,6 @@ class Character < ApplicationRecord
   scope :visible,  -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
-  CHARACTER_API_BASE = 'https://xivapi.com/character'.freeze
-  CHARACTER_COLUMNS = %w(Achievements AchievementsPublic Mounts Minions FreeCompany.ID FreeCompany.Name
-    Character.Avatar Character.ID Character.Gender Character.Name Character.Portrait Character.Server).freeze
-  CHARACTER_PROFILE_BASE = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
-
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
@@ -146,10 +141,6 @@ class Character < ApplicationRecord
     end
 
     Character.update_collectables!(character, data)
-  end
-
-  def self.search(server, name)
-    XIVAPI_CLIENT.character_search(server: server, name: name).to_a
   end
 
   def self.data_centers

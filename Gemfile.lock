@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/xivapi/xivapi-ruby.git
-  revision: 731f7ba7a73b4ce5cca095b0fbbcb09d1f8c5436
-  tag: v0.3.3
-  specs:
-    xivapi (0.3.3)
-      rest-client (>= 2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -391,7 +383,6 @@ DEPENDENCIES
   whenever
   will_paginate
   will_paginate-bootstrap4
-  xivapi!
 
 RUBY VERSION
    ruby 2.4.1p111
