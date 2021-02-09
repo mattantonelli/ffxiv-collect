@@ -8,15 +8,13 @@ module Lodestone
   extend self
 
   def fetch(character_id)
-    character = {}
-    threads = []
+    character = fetch_character(character_id)
+    character[:mounts] = fetch_mounts(character_id)
+    character[:minions] = fetch_minions(character_id)
 
-    threads << Thread.new { character.merge!(fetch_character(character_id)) }
-    threads << Thread.new { character[:mounts] = fetch_mounts(character_id) }
-    threads << Thread.new { character[:minions] = fetch_minions(character_id) }
-    threads << Thread.new { character[:achievements] = fetch_achievements(character_id) }
+    # Do not fetch achievements if they are set to private
+    character[:achievements] = character[:achievements_count] == -1 ? [] : fetch_achievements(character_id)
 
-    ThreadsWait.all_waits(*threads)
     character
   end
 
@@ -52,6 +50,9 @@ module Lodestone
       last_parsed: Time.now
     }
 
+    # If the character's achievements are private, the link will be missing from the nav
+    character[:achievements_count] = -1 unless doc.css('.ldst-nav').text.match?('Achievements')
+
     # If the character has a free company, create/update it and add it to the profile
     if free_company = doc.at_css('.entry__freecompany')
       free_company_id = element_id(free_company)
@@ -70,11 +71,13 @@ module Lodestone
 
   def fetch_mounts(id)
     doc = document(endpoint: 'mount', id: id)
+    return [] unless doc.present?
     Mount.where(name_en: doc.css('.mount__name').map(&:text)).pluck(:id)
   end
 
   def fetch_minions(id)
     doc = document(endpoint: 'minion', id: id)
+    return [] unless doc.present?
     Minion.summonable.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
   end
 
@@ -91,17 +94,11 @@ module Lodestone
     end
 
     # Otherwise, grab the achievements from each page
-    achievements = []
-    threads = AchievementType.pluck(:id).map do |type|
-      Thread.new do
-        doc = document(endpoint: "achievement/kind/#{type}", id: id)
-        break unless doc.present?
-        achievements += doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
-      end
+    AchievementType.pluck(:id).flat_map do |type|
+      doc = document(endpoint: "achievement/kind/#{type}", id: id)
+      next [] unless doc.present?
+      doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
     end
-
-    ThreadsWait.all_waits(*threads)
-    achievements
   end
 
   def parse_achievement(achievement)
@@ -113,8 +110,7 @@ module Lodestone
     begin
       Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
     rescue RestClient::NotFound
-      # Ignore 404s on Legacy achievements
-      raise unless url.match?('/achievement/kind/13')
+      # Ignore 404s on missing collections
     end
   end
 
