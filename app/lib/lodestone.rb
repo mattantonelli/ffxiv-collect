@@ -32,7 +32,7 @@ module Lodestone
 
   def verified?(character_id, code)
     doc = document(id: character_id)
-    doc.css('.character__selfintroduction').text.include?(code)
+    doc.css('.character__character_profile').text.include?(code)
   end
 
   private
