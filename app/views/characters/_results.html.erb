@@ -12,16 +12,16 @@
   <div class="card-body card-table d-flex flex-column character-select">
     <% @characters.each do |character| %>
       <div class="d-flex align-items-center">
-        <%= link_to select_character_path(character.id, ({ compare: 1 } if params[:compare])),
+        <%= link_to select_character_path(character[:id], ({ compare: 1 } if params[:compare])),
           class: 'name w-100', method: :post do %>
           <div class="d-flex align-items-center">
-            <%= image_tag(character.avatar, class: 'avatar mr-3') %>
+            <%= image_tag(character[:avatar], class: 'avatar mr-3') %>
             <div class="d-flex flex-column">
               <% if @search %>
-                <%= character.name %>
+                <%= character[:name] %>
               <% else %>
-                <b><%= character.name %></b>
-                <span><%= character.server %> <%= verified(character, true) %></span>
+                <b><%= character[:name] %></b>
+                <span><%= character[:server] %> <%= verified(character, true) %></span>
               <% end %>
             </div>
           </div>

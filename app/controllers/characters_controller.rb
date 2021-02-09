@@ -51,20 +51,14 @@ class CharactersController < ApplicationController
   end
 
   def search
-    @server, @name = params.values_at(:server, :name)
+    @name, @server = params.values_at(:name, :server)
     @search = @server.present? && @name.present?
 
     if @search
       begin
-        @characters = Character.search(@server, @name)
+        @characters = Lodestone.search(@name, @server)
         if @characters.empty?
           flash.now[:alert] = t('alerts.no_characters_found')
-        end
-      rescue XIVAPI::Errors::RequestError => e
-        if e.message == 'Lodestone is currently down for maintenance.'
-          flash.now[:alert] = t('alerts.lodestone_maintenance')
-        else
-          flash.now[:error] = t('alerts.lodestone_error')
         end
       rescue Exception => e
         flash.now[:error] = t('alerts.lodestone_error')
