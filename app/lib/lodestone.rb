@@ -7,26 +7,39 @@ module Lodestone
 
   extend self
 
-  def fetch(id)
+  def fetch(character_id)
     character = {}
     threads = []
 
-    threads << Thread.new { character.merge!(fetch_character(id)) }
-    threads << Thread.new { character[:mounts] = fetch_mounts(id) }
-    threads << Thread.new { character[:minions] = fetch_mounts(id) }
-    threads << Thread.new { character[:achievements] = fetch_achievements(id) }
+    threads << Thread.new { character.merge!(fetch_character(character_id)) }
+    threads << Thread.new { character[:mounts] = fetch_mounts(character_id) }
+    threads << Thread.new { character[:minions] = fetch_minions(character_id) }
+    threads << Thread.new { character[:achievements] = fetch_achievements(character_id) }
 
     ThreadsWait.all_waits(*threads)
     character
   end
 
   def search(name, server)
-    # TODO
+    doc = document(params: { q: name.strip, server: server })
+    doc.css('.entry__chara__link').map do |character|
+      {
+        id: element_id(character),
+        name: character.at_css('.entry__name').text,
+        avatar: character.at_css('.entry__chara__face > img').attributes['src'].value,
+        server: server
+      }
+    end
+  end
+
+  def verified?(character_id, code)
+    doc = document(id: character_id)
+    doc.css('.character__selfintroduction').text.include?(code)
   end
 
   private
   def fetch_character(id)
-    doc = document(id)
+    doc = document(id: id)
     doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/#{id}", user_agent: MOBILE_USER_AGENT))
 
     character = {
@@ -34,14 +47,14 @@ module Lodestone
       name: doc.at_css('.frame__chara__name').text,
       server: doc.at_css('.frame__chara__world').text[/^\w+/],
       gender: doc.at_css('.character-block__profile').text.match?('♂') ? 'male' : 'female',
-      portait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
+      portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
       avatar: doc.at_css('.frame__chara__face > img').attributes['src'].value,
       last_parsed: Time.now
     }
 
     # If the character has a free company, create/update it and add it to the profile
     if free_company = doc.at_css('.entry__freecompany')
-      free_company_id = free_company.attributes['href'].value[/\d+/]
+      free_company_id = element_id(free_company)
       name = doc.at_css('.character__freecompany__name > h4').text
       character[:free_company_id] = free_company_id
 
@@ -56,20 +69,21 @@ module Lodestone
   end
 
   def fetch_mounts(id)
-    doc = document(id, 'mount')
+    doc = document(endpoint: 'mount', id: id)
     Mount.where(name_en: doc.css('.mount__name').map(&:text)).pluck(:id)
   end
 
   def fetch_minions(id)
-    doc = document(id, 'minion')
-    Minion.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
+    doc = document(endpoint: 'minion', id: id)
+    Minion.summonable.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
   end
 
   def fetch_achievements(id)
     # If the character exists, grab their recent achievements from the overview page
     # and return those achievements, unless they fill the whole page
     if character = Character.find_by(id: id)
-      doc = document(id, 'achievement')
+      doc = document(endpoint: 'achievement', id: id)
+
       recent = doc.css('.entry__achievement').map { |achievement| parse_achievement(achievement) }
       owned = character.achievement_ids
       new_achievements = recent.reject { |achievement| owned.include?(achievement[:id]) }
@@ -80,7 +94,7 @@ module Lodestone
     achievements = []
     threads = AchievementType.pluck(:id).map do |type|
       Thread.new do
-        doc = document(id, "achievement/kind/#{type}")
+        doc = document(endpoint: "achievement/kind/#{type}", id: id)
         break unless doc.present?
         achievements += doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
       end
@@ -91,19 +105,25 @@ module Lodestone
   end
 
   def parse_achievement(achievement)
-    {
-      id: achievement.attributes['href'].value.match(/(\d+)\/$/)[1].to_i,
-      date: Time.at(achievement.at_css('.entry__activity__time').text.match(/ldst_strftime\((\d+)/)[1].to_i)
-    }
+    { id: element_id(achievement), date: element_time(achievement) }
   end
 
-  def document(id, endpoint = nil)
+  def document(endpoint: nil, id: nil, params: {})
     url = [ROOT_URL, id, endpoint].compact.join('/')
     begin
-      Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT))
+      Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
     rescue RestClient::NotFound
       # Ignore 404s on Legacy achievements
       raise unless url.match?('/achievement/kind/13')
     end
+  end
+
+  def element_id(element)
+    element.attributes['href'].value.match(/(\d+)\/$/)[1].to_i
+  end
+
+  def element_time(element)
+    time = element.at_css('.entry__activity__time').text.match(/ldst_strftime\((\d+)/)[1]
+    Time.at(time.to_i).to_formatted_s(:db)
   end
 end
