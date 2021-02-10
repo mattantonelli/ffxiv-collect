@@ -54,7 +54,9 @@ module Lodestone
     character[:achievements_count] = -1 unless doc.css('.ldst-nav').text.match?('Achievements')
 
     # If the character has a free company, create/update it and add it to the profile
-    if free_company = doc.at_css('.entry__freecompany')
+    free_company = doc.at_css('.entry__freecompany')
+
+    if free_company.present? && !free_company.attributes['href'].value.match?('pvp')
       free_company_id = element_id(free_company)
       name = doc.at_css('.character__freecompany__name > h4').text
       character[:free_company_id] = free_company_id
