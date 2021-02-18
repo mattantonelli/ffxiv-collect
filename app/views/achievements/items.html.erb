@@ -32,7 +32,9 @@
             <td class="wide hide-xs">
               <div class="d-flex align-items-center">
                 <%= sprite(achievement.item, 'item') %>
-                <span class="ml-2"><%= achievement.item.name %></span>
+                <span class="ml-2 unstyled">
+                  <%= database_link('item', achievement.item.name, achievement.item.id) %>
+                </span>
               </div>
             </td>
             <td class="wide">

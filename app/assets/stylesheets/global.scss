@@ -108,6 +108,10 @@ a.unstyled {
   text-decoration: none;
 }
 
+span.unstyled > a {
+  text-decoration: none;
+}
+
 .btn.btn-dark {
   background-color: #292929;
   border-color: #282828;

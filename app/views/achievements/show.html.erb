@@ -41,7 +41,9 @@
           <dd>
             <div class="d-flex align-items-center">
               <%= sprite(@achievement.item, 'item') %>
-              <span class="ml-2"><%= @achievement.item.name %></span>
+              <span class="ml-2">
+                <%= database_link('item', @achievement.item.name, @achievement.item.id) %>
+              </span>
             </div>
           </dd>
         <% end %>
