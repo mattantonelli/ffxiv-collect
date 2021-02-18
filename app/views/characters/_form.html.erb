@@ -6,12 +6,12 @@
         <%= hidden_field_tag :compare, 1 %>
       <% end %>
       <div class="form-group">
-        <%= label_tag :server %>
+        <%= label_tag :server, t('characters.server') %>
         <%= select_tag :server, options_for_select(Character.servers, @server), prompt: 'Select a server',
           required: true, class: 'form-control' %>
       </div>
       <div class="form-group">
-        <%= label_tag :name %>
+        <%= label_tag :name, t('name') %>
         <%= text_field_tag :name, @name, required: true, class: 'form-control' %>
       </div>
       <div class="text-right mt-3 mb-2">
@@ -20,3 +20,22 @@
     <% end %>
   </div>
 </div>
+<% if @characters.present? && @characters.size >= 20 %>
+  <div class="card shadow mt-3">
+    <h5 class="card-header"><%= t('characters.lodestone_id_lookup') %></h5>
+    <div class="card-body">
+      <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form') do %>
+        <% if params[:compare] %>
+          <%= hidden_field_tag :compare, 1 %>
+        <% end %>
+        <div class="form-group">
+          <%= label_tag :id, t('characters.lodestone_id') %>
+          <%= text_field_tag :id, params[:id], required: true, class: 'form-control' %>
+        </div>
+        <div class="text-right mt-3 mb-2">
+          <%= submit_tag t('search'), name: nil, class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

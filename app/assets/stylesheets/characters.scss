@@ -20,6 +20,12 @@
       border-bottom: none;
     }
   }
+
+  &.disabled {
+    a {
+      pointer-events: none;
+    }
+  }
 }
 
 .menu-character {

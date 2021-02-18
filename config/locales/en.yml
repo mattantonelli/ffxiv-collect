@@ -77,6 +77,8 @@ en:
     last_parsed: "Last Parsed"
     last_updated: "Last updated %{timespan} ago."
     lodestone: "Lodestone profile"
+    lodestone_id: "Lodestone Character ID"
+    lodestone_id_lookup: "Lodestone ID Lookup"
     lodestone_verify: "If the information above is correct, please add the code below to your %{link}, then click <b>Verify</b>."
     manage: "Manage Characters"
     not_owned: "Your character does not own this."

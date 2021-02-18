@@ -76,6 +76,8 @@ de:
     last_parsed: "Letzte Erfassung"
     last_updated: "Letzte Aktualisierung %{timespan} her."
     lodestone: "Lodestone Profil"
+    lodestone_id: "Lodestone Charakter ID"
+    lodestone_id_lookup: "Lodestone ID suchen"
     lodestone_verify: "Wenn die oben genannten Informationen stimmen, füge bitte den Text von unten in dein %{link}, und drücke im Anschluss auf <b>Verifizieren</b>."
     manage: "Verwalten des Charakters"
     not_owned: "Dein Charakter besitzt dies noch nicht."

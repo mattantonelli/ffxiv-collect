@@ -77,6 +77,8 @@ fr:
     last_parsed: "Dernière analyse"
     last_updated: "Dernière mise à jour, il y a %{timespan} ."
     lodestone: "Profil sur le Lodestone"
+    lodestone_id: "ID de personnage Lodestone"
+    lodestone_id_lookup: "Recherche de l'ID Lodestone"
     lodestone_verify: "Si les informations ci-dessus sont corrects, veuillez ajouter le code ci-dessous à votre %{link}, puis cliquez sur <b>Vérifier</b>."
     manage: "Gérer les personnages"
     not_owned: "Votre personnage ne possède pas encore cela."

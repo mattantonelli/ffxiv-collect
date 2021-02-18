@@ -51,7 +51,7 @@ class CharactersController < ApplicationController
   end
 
   def search
-    @name, @server = params.values_at(:name, :server)
+    @name, @server, @id = params.values_at(:name, :server, :id)
     @search = @server.present? && @name.present?
 
     if @search
@@ -65,6 +65,8 @@ class CharactersController < ApplicationController
         Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
         log_backtrace(e)
       end
+    elsif @id
+      select
     else
       if user_signed_in?
         @characters = current_user.characters.order(:server, :name).to_a
