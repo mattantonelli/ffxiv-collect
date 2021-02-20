@@ -45,7 +45,7 @@ def sanitize_text(text)
     .gsub(/<\/?Emphasis>/, '*')
     .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
     .gsub('<Indent/>', ' ')
-    .gsub(/\<.*?\>/, '')
+    .gsub(/<.*?>(.*?)<\/.*?>/, '')
     .gsub("\r", "\n")
     .gsub("\n", ' ')
     .strip
@@ -54,7 +54,8 @@ end
 def sanitize_skill_description(text)
   text.gsub('<SoftHyphen/>', "\u00AD")
     .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
-    .gsub(/\<.*?\>/, '')
+    .gsub('<Indent/>', ' ')
+    .gsub(/<.*?>(.*?)<\/.*?>/, '')
     .strip
 end
 
