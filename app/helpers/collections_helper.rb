@@ -149,7 +149,7 @@ module CollectionsHelper
       return [format_text_long(collectable.description), collectable.details].compact.join('<br>').html_safe
     end
 
-    sources = collectable.sources.map do |source|
+    sources = collectable.sources.flat_map do |source|
       type = source.type.name
 
       if type == 'Achievement'
@@ -164,6 +164,18 @@ module CollectionsHelper
         "The Feast: #{source.text}"
       elsif type == 'Mog Station'
         'Mog Station'
+      elsif type == 'Voyages'
+        if list
+          type, texts = source.text.split(' - ')
+          texts.split(', ').map { |text| "#{type} - #{text}"}
+        else
+          texts = source.text.split(', ')
+          if texts.size > 3
+            "#{source.text.split(', ').first(3).join(', ')}..."
+          else
+            source.text
+          end
+        end
       else
         source.text
       end
