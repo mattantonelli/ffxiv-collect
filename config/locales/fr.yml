@@ -179,6 +179,8 @@ fr:
     eureka_physeos_weapons: "Arme Eurêka personnalisée"
     eureka_weapons: "Armes Eurêka"
     idealized_armor: "Armures des idéalistes"
+    laws_order: "Armure du verdict des Juges"
+    augmented_laws_order: "Amure du verdict des Juges améliorée"
     lucis_tools: "Outils Lucis"
     manual: "Manuel"
     relic_armor: "Armures reliques"

@@ -175,6 +175,8 @@ de:
     eureka_physeos_weapons: "Eureka (Physeos) Waffen"
     eureka_weapons: "Eureka Waffen"
     idealized_armor: "Idealisierte Rüstung"
+    laws_order: "Richterspruch-Ausrüstung"
+    augmented_laws_order: "Modifizierte Richterspruch-Ausrüstung"
     lucis_tools: "Lucis Werkzeuge"
     manual: "Manuell"
     relic_armor: "Reliktrüstung"

@@ -34,7 +34,7 @@ class RelicsController < ApplicationController
     @eureka_elemental_armor = ['Elemental Armor +2', 'Elemental Armor +1', 'Elemental Armor']
       .zip(Relic.where(id: Relic.eureka_elemental_armor_ids).each_slice(35).to_a.reverse).to_h
     @idealized_armor = Relic.where(id: Relic.idealized_armor_ids)
-    @bozjan_armor = ['Augmented Bozjan Armor', 'Bozjan Armor']
+    @bozjan_armor = ["Augmented Law's Order", "Law's Order", 'Augmented Bozjan Armor', 'Bozjan Armor']
       .zip(Relic.where(id: Relic.bozjan_armor_ids).each_slice(35).to_a.reverse).to_h
   end
 

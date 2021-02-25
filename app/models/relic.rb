@@ -79,7 +79,9 @@ class Relic < ApplicationRecord
 
   def self.bozjan_armor_ids
     (30715..30749).to_a + # Bozjan
-    (31358..31392).to_a.freeze # Augmented Bozjan
+    (31358..31392).to_a + # Augmented Bozjan
+    (32723..32757).to_a + # Law's Order
+    (32758..32792).to_a.freeze # Augmented Law's Order
   end
 
   def self.relic_armor_ids

@@ -1,6 +1,6 @@
 module RelicsHelper
   def collapse_id(name)
-    "collapse-#{name.downcase.gsub(' ', '-').delete('+')}"
+    "collapse-#{name.downcase.gsub(' ', '-').delete("+'")}"
   end
 
   def relic_completion(relics, owned_ids)
