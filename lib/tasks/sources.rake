@@ -63,9 +63,14 @@ namespace :sources do
 
     quests.each do |quest|
       source_type = quest.event? ? event_type : quest_type
-      Source.find_or_create_by!(collectable_id: quest.reward.unlock_id,
-                                collectable_type: quest.reward.unlock_type,
-                                text: quest.name_en, type_id: source_type, related_id: quest.id)
+
+      # Create the quest source if it is non-event quest, or if it is an event quest and the collectable has
+      # no known sources. We will replace event quest sources with the actual event name later.
+      if !quest.event? || no_sources?(quest.reward.unlock_type, quest.reward.unlock_id)
+        Source.find_or_create_by!(collectable_id: quest.reward.unlock_id,
+                                  collectable_type: quest.reward.unlock_type,
+                                  text: quest.name_en, type_id: source_type, related_id: quest.id)
+      end
     end
 
     # Created sources from craftable Items
@@ -73,5 +78,10 @@ namespace :sources do
       Source.find_or_create_by!(collectable_id: item.unlock_id, collectable_type: item.unlock_type,
                                 text: "Crafted by #{item.crafter}", type_id: crafting_type, related_id: item.recipe_id)
     end
+  end
+
+  private
+  def no_sources?(type, id)
+    Source.where(collectable_type: type, collectable_id: id).empty?
   end
 end

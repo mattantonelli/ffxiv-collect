@@ -46,6 +46,9 @@ namespace :armoires do
       data.merge!(item.slice(:name_en, :name_de, :name_fr, :name_ja,
                              :description_en, :description_de, :description_fr, :description_ja))
 
+      # Update the Item to indicate that it unlocks this Armoire
+      item.update!(unlock_type: 'Armoire', unlock_id: data[:id])
+
       create_image(data[:id], XIVData.icon_path(item.icon_id), 'armoires')
 
       if existing = Armoire.find_by(id: data[:id])
