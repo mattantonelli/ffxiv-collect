@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   resources :tomestones, only: [] do
     collection do
-      get :mythology, :soldiery, :law
+      get :mythology, :soldiery, :law, :esoterics
     end
   end
 

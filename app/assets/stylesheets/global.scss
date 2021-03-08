@@ -205,6 +205,15 @@ hr {
       width: auto;
     }
   }
+
+  &.compact {
+    margin: 0 auto;
+    width: auto;
+
+    @media (min-width: 1000px) {
+      min-width: 750px;
+    }
+  }
 }
 
 .table:not(.table-sm) {
