@@ -1,5 +1,5 @@
 <% if character_selected? %>
-  <div class="my-2">
+  <div class="mb-2">
     <%= render 'shared/progress', value: (ids & @collection_ids).size, min: 0, max: ids.size %>
     <% if @comparison.present? %>
       <div class="mt-1">
