@@ -129,10 +129,10 @@ class Character < ApplicationRecord
     end
   end
 
-  def self.fetch(id)
-    data = Lodestone.fetch(id)
+  def self.fetch(id, sess_id = nil)
+    data = Lodestone.fetch(id, sess_id)
     data[:achievements_count] = -1 if data[:achievements].empty?
-    profile_data = data.except(:achievements, :mounts, :minions)
+    profile_data = data.except(:achievements, :mounts, :minions, :orchestrions, :spells)
 
     if character = Character.find_by(id: data[:id])
       character.update!(profile_data)
@@ -179,6 +179,14 @@ class Character < ApplicationRecord
     current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
     minions = data[:minions].reject { |id| current_ids.include?(id) }
     Character.bulk_insert(character.id, CharacterMinion, :minion, minions)
+
+    current_ids = CharacterOrchestrion.where(character_id: character.id).pluck(:orchestrion_id)
+    orchestrions = data[:orchestrions].reject { |id| current_ids.include?(id) }
+    Character.bulk_insert(character.id, CharacterOrchestrion, :orchestrion, orchestrions)
+
+    current_ids = CharacterSpell.where(character_id: character.id).pluck(:spell_id)
+    spells = data[:spells].reject { |id| current_ids.include?(id) }
+    Character.bulk_insert(character.id, CharacterSpell, :spell, spells)
 
     Character.find(character.id)
   end

@@ -7,10 +7,12 @@ module Lodestone
 
   extend self
 
-  def fetch(character_id)
+  def fetch(character_id, sess_id = nil)
     character = fetch_character(character_id)
     character[:mounts] = fetch_mounts(character_id)
     character[:minions] = fetch_minions(character_id)
+    character[:orchestrions] = fetch_orchestrions(character_id, sess_id)
+    character[:spells] = fetch_spells(character_id, sess_id)
 
     # Do not fetch achievements if they are set to private
     character[:achievements] = character[:achievements_count] == -1 ? [] : fetch_achievements(character_id)
@@ -83,6 +85,20 @@ module Lodestone
     Minion.summonable.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
   end
 
+  def fetch_orchestrions(character_id, sess_id)
+    return if sess_id.nil?
+    doc = document(endpoint: 'orchestrion', character_id: character_id, sess_id: sess_id)
+    return [] unless doc.present?
+    Orchestrion.where(name_en: doc.css('li:not([class])').css('.orchestrion-list__name').map { |ele| ele.text.gsub("\t", '').gsub("\n", '') }).pluck(:id)
+  end
+
+  def fetch_spells(character_id, sess_id)
+    return if sess_id.nil?
+    doc = document(endpoint: 'bluemage', character_id: character_id, sess_id: sess_id)
+    return [] unless doc.present?
+    Spell.where(name_en: doc.css('.sys-reward').css('.bluemage-action__name').map { |ele| ele.text.gsub("\t", '').gsub("\n", '') }).pluck(:id)
+  end
+
   def fetch_achievements(character_id)
     # If the character exists, grab their recent achievements from the overview page
     # and return those achievements, unless they fill the whole page
@@ -107,10 +123,14 @@ module Lodestone
     { id: element_id(achievement), date: element_time(achievement) }
   end
 
-  def document(endpoint: nil, character_id: nil, params: {})
+  def document(endpoint: nil, character_id: nil, params: {}, sess_id: nil)
     url = [ROOT_URL, character_id, endpoint].compact.join('/')
     begin
-      Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
+      if sess_id.present?
+        Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, Cookie: "ldst_sess=#{sess_id}", params: params))
+      else
+        Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
+      end
     rescue RestClient::NotFound
       # Ignore 404s on missing collections
     end
