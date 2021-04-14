@@ -56,7 +56,7 @@ module Discord
 
     embed.add_field(name: 'Patch', value: collectable[:patch], inline: true)
 
-    if collectable[:sources]
+    if collectable[:sources].present?
       embed.add_field(name: 'Source', value: format_sources(collectable))
     end
 
