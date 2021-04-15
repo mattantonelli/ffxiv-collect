@@ -9,6 +9,15 @@
 </div>
 
 <div class="card mb-3">
+  <%= render 'header', relic: @resplendent_tools, name: 'Resplendent Tools' %>
+  <div class="collapse show" id="collapse-resplendent-tools">
+    <div class="card-body relics-tools collection py-3">
+      <%= render partial: 'gear', collection: [@resplendent_tools], locals: { sprite_image: 'relics-tool' } %>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
   <%= render 'header', relic: @skysteel_tools, name: 'Skysteel Tools' %>
   <div class="collapse show" id="collapse-skysteel-tools">
     <div class="card-body relics-tools collection py-3">

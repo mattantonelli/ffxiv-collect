@@ -26,6 +26,7 @@ class RelicsController < ApplicationController
   def tools
     @lucis_tools = Relic.where(id: Relic.lucis_tool_ids)
     @skysteel_tools = Relic.where(id: Relic.skysteel_tool_ids)
+    @resplendent_tools = Relic.where(id: Relic.resplendent_tool_ids)
   end
 
   def armor

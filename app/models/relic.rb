@@ -56,8 +56,13 @@ class Relic < ApplicationRecord
      (31714..31724).to_a).freeze # Skybuilders'
   end
 
+  def self.resplendent_tool_ids
+    ((33154..33161).to_a + # Resplendent DoH
+     (33356..33358).to_a).freeze # Respldent DoL
+  end
+
   def self.relic_tool_ids
-    (Relic.lucis_tool_ids + Relic.skysteel_tool_ids).freeze
+    (Relic.lucis_tool_ids + Relic.skysteel_tool_ids + Relic.resplendent_tool_ids).freeze
   end
 
   def self.eureka_job_armor_ids
