@@ -92,7 +92,7 @@ Rails.application.configure do
 
     if params.present?
       if event.payload.dig(:params, :controller) == 'discord'
-        { params: params.slice(:data, :type, :version)}
+        { params: params['data'].except('resolved').merge(params.slice('type', 'version')) }
       else
         { params: params }
       end
