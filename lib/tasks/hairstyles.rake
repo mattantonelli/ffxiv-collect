@@ -34,12 +34,12 @@ namespace :hairstyles do
       path = Rails.root.join('public/images/hairstyles', custom['Data'])
       Dir.mkdir(path) unless Dir.exist?(path)
 
-      filename = path.join("#{custom['Icon']}.png")
-      create_image(nil, XIVData.icon_path(custom['Icon']), filename)
+      output_path = path.join("#{custom['Icon']}.png")
+      create_image(nil, XIVData.icon_path(custom['Icon'], hd: true), output_path)
 
       # Use the first image as a sample of the hairstyle
-      sample_filename = Rails.root.join('public/images/hairstyles/samples', "#{custom['Data']}.png")
-      FileUtils.cp(filename, sample_filename) unless File.exists?(sample_filename)
+      sample_path = Rails.root.join('public/images/hairstyles/samples', "#{custom['Data']}.png")
+      FileUtils.cp(output_path, sample_path) unless File.exists?(sample_path)
     end
 
     # Create the Eternal Bonding hairstyle which lacks an item unlock
