@@ -66,6 +66,8 @@ module Lodestone
       else
         FreeCompany.create!(id: free_company_id, name: name)
       end
+    else
+      character[:free_company_id] = nil
     end
 
     character
