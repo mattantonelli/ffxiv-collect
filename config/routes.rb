@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   post 'locale/set', to: 'locale#update'
 
+  get 'mounts/pickorpokkur'
   resources :mounts, only: [:index, :show]
 
   get 'minions/dark_helmet'

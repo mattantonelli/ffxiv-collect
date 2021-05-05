@@ -1,0 +1,63 @@
+<% title('Pickorpokkur') %>
+<% description('An Ishgardian delicacy, the pickorpokkur are usually enjoyed for their fresh crunch. This pickorpokkur seems to have not only survived the pickling...') %>
+<% image(image_url("mounts/large/pickorpokkur.png", skip_pipeline: true)) %>
+
+<div class="row">
+  <div class="col-12 col-xl-8 offset-xl-2">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <h5 class="card-title">Pickorpokkur</h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="d-none d-sm-block mr-4">
+            <%= safe_image_tag("mounts/large/pickorpokkur.png", class: 'image-large') %>
+          </div>
+          <div class="d-flex flex-column flex-info">
+            <div class="d-flex flex-wrap">
+              <div>
+                <dt><%= t('mounts.movement') %></dt>
+                <dd>Terrestrial</dd>
+              </div>
+              <div>
+                <dt><%= t('tradeable') %></dt>
+                <dd><%= fa_check(false) %></dd>
+              </div>
+              <div>
+                <dt>
+                  <%= t('owned') %>
+                  <span data-toggle="tooltip" title="Active public characters who own this mount.">
+                    <%= fa_icon('question-circle') %>
+                  </span>
+                </dt>
+                <dd>
+                  <%= fa_check(false, false) %>
+                  0%
+                </dd>
+              </div>
+              <div>
+                <dt><%= t('patch') %></dt>
+                <dd>6.9</dd>
+              </div>
+            </div>
+            <dt><%= t('source') %></dt>
+            <dd>• A Joke Gone Too Far</dd>
+            <dt><%= t('description') %></dt>
+            <dd>Summon forth a pickorpokkur, which is unsurprisingly full of vinegar.</dd>
+            <dt><%= t('journal') %></dt>
+            <dd>
+              An Ishgardian delicacy, the pickorpokkur are usually enjoyed for their fresh crunch.
+              This pickorpokkur seems to have not only survived the pickling process, but grown stronger as a result.
+            </dd>
+            <dt><%= t('tooltip') %></dt>
+            <dd>As you can see, I seem to have found myself in a pickle, and by pickle I mean the ground...<br>
+            &nbsp;&nbsp;&nbsp;- Hildibrand</dd>
+            <div class="d-block d-sm-none">
+              <%= safe_image_tag("mounts/large/pickorpokkur.png", class: 'image-large') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
