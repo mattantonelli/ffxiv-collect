@@ -30,6 +30,14 @@ class TomestonesController < ApplicationController
     render :index
   end
 
+  def pageantry
+    @title = 'Moogle Treasure Trove (Pageantry)'
+    @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202105/dubrw051tv'
+    @collectables = collectables('Pageantry')
+    @items = items('Pageantry')
+    render :index
+  end
+
   private
   def set_collection
     if @character.present?

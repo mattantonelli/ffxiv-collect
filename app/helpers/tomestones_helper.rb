@@ -6,6 +6,8 @@ module TomestonesHelper
   def reward_image(reward)
     if reward.collectable_type == 'Orchestrion'
       image_tag('orchestrion.png')
+    elsif reward.collectable_type == 'Hairstyle'
+      hairstyle_sample_image(reward.collectable)
     elsif reward.collectable_type == 'Mount' || reward.collectable_type == 'Minion'
       sprite(reward.collectable, "#{reward.collectable_type.downcase.pluralize}-small")
     else
