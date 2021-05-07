@@ -33,11 +33,11 @@ module TomestonesHelper
   end
 
   def reward_instance_cost(reward)
-    if reward.cost % 7 == 0
-      cost = reward.cost / 7
+    if reward.cost <= 14
+      cost = (reward.cost / 14.0).ceil
       "#{cost} #{'run'.pluralize(cost)} of Castrum Meridianum"
     else
-      cost = (reward.cost / 10.0).ceil
+      cost = (reward.cost / 20.0).ceil
       "#{cost} #{'run'.pluralize(cost)} of The Praetorium"
     end
   end
