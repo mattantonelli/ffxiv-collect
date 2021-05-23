@@ -30,7 +30,10 @@
           <dd class="mb-0"><%= format_text(@hairstyle.description) %></dd>
         <% end %>
         <hr>
-        <div class="d-flex flex-wrap hairstyle-list">
+        <% if @screenshots.present? %>
+          <%= render 'screenshots' %>
+        <% end %>
+        <div class="d-flex flex-wrap justify-content-center hairstyle-list">
           <% 14.times do |i| %>
             <%= hairstyle_image(@hairstyle, i) %>
           <% end %>
@@ -39,6 +42,3 @@
     </div>
   </div>
 </div>
-<% if @screenshots.present? %>
-  <%= render 'screenshots' %>
-<% end %>
