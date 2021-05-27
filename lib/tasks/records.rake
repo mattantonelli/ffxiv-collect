@@ -55,7 +55,7 @@ namespace :records do
     desc 'Create the field record sources'
     task create: :environment do
       PaperTrail.enabled = false
-      puts 'Creating field records'
+      puts 'Creating field record sources'
       file = Rails.root.join('vendor/sources/records.csv')
 
       bozja = SourceType.find_by(name: 'Bozja')
