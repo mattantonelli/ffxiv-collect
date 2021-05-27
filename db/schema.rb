@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_10_235252) do
+ActiveRecord::Schema.define(version: 2021_05_27_190101) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -222,6 +222,16 @@ ActiveRecord::Schema.define(version: 2021_01_10_235252) do
     t.index ["orchestrion_id"], name: "index_character_orchestrions_on_orchestrion_id"
   end
 
+  create_table "character_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "record_id"], name: "index_character_records_on_character_id_and_record_id", unique: true
+    t.index ["character_id"], name: "index_character_records_on_character_id"
+    t.index ["record_id"], name: "index_character_records_on_record_id"
+  end
+
   create_table "character_relics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "relic_id"
@@ -268,6 +278,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_235252) do
     t.integer "relics_count", default: 0
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
     t.integer "fashions_count", default: 0
+    t.integer "records_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -279,6 +290,7 @@ ActiveRecord::Schema.define(version: 2021_01_10_235252) do
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
+    t.index ["records_count"], name: "index_characters_on_records_count"
     t.index ["relics_count"], name: "index_characters_on_relics_count"
     t.index ["spells_count"], name: "index_characters_on_spells_count"
   end
@@ -571,6 +583,27 @@ ActiveRecord::Schema.define(version: 2021_01_10_235252) do
     t.integer "reward_id"
     t.boolean "event"
     t.index ["name_en"], name: "index_quests_on_name_en"
+  end
+
+  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.text "description_en", null: false
+    t.text "description_de", null: false
+    t.text "description_fr", null: false
+    t.text "description_ja", null: false
+    t.integer "rarity", null: false
+    t.string "patch"
+    t.integer "linked_record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["linked_record_id"], name: "index_records_on_linked_record_id"
+    t.index ["name_de"], name: "index_records_on_name_de"
+    t.index ["name_en"], name: "index_records_on_name_en"
+    t.index ["name_fr"], name: "index_records_on_name_fr"
+    t.index ["name_ja"], name: "index_records_on_name_ja"
   end
 
   create_table "relics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

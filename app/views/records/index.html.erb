@@ -1,0 +1,62 @@
+<% title('Field Records') %>
+<% description("Track your character's field records and discover how to obtain new ones.") %>
+
+<div class="d-flex justify-content-center my-2">
+  <%= search_form_for(@q, url: records_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+      class: 'form-control form-control-sm flex-grow-1' %>
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+  <% end %>
+</div>
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <%= render 'shared/collection_progress', ids: @records.map(&:id) %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('records.rarity') %></th>
+          <th scope="col"><%= t('source') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
+          <% end %>
+          <% if @comparison.present? %>
+            <th scope="col"></th><!-- Comparison -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @records.each do |record| %>
+          <tr class="collectable<%= ' owned' if owned?(record.id) %>">
+            <td class="record-icon">
+              <%= link_to(record_path(record), class: 'unstyled d-flex align-items-center') do %>
+                <span class="mr-2"><%= format_record_number(record) %></span>
+                <div class="hide-xs">
+                  <%= sprite(record, 'records-small') %>
+                </div>
+              <% end %>
+            </td>
+            <td><%= link_to(record.name, record_path(record), class: 'name') %></td>
+            <td class="no-wrap hide-xs" data-value="<%= record.rarity %>"><%= record_rarity(record) %></td>
+            <td><%= sources(record) %></td>
+            <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>"><%= rarity(record) %></td>
+            <td class="text-center hide-xs" data-value="<%= sort_value(record) %>"><%= record.patch %></td>
+            <% if character_selected? %>
+              <%= td_owned(record, manual: true) %>
+            <% end %>
+            <% if @comparison.present? %>
+              <%= td_comparison(record) %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

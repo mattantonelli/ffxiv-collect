@@ -166,6 +166,10 @@ en:
   ownership: "Owned by %{percent} of players"
   patch: "Patch"
   powered_by: "Powered by"
+  records:
+    page: 'Page'
+    rarity: 'Rarity'
+    title: 'Field Records'
   relics:
     a_relic_reborn: "A Relic Reborn"
     anima_weapons: "Anima Weapons"

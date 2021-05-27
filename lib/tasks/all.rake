@@ -8,6 +8,8 @@ namespace :data do
     Rake::Task['data:update'].invoke
     Rake::Task['sources:initialize'].invoke
     Rake::Task['relics:create'].invoke
+    Rake::Task['records:create'].invoke
+    Rake::Task['records:sources:create'].invoke
   end
 
   desc 'Updates all data'

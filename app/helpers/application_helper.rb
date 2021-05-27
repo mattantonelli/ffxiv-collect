@@ -91,6 +91,10 @@ module ApplicationHelper
     fa_icon(gender == 'male' ? 'mars' : 'venus', data: { toggle: 'tooltip', title: "#{gender.capitalize} Only" })
   end
 
+  def stars(value)
+    (fa_icon('star') * value).html_safe
+  end
+
   def region
     case(I18n.locale)
     when :fr then 'fr'

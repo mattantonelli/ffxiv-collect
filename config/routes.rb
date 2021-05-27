@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   get 'orchestrions/fool', to: redirect('images/fool.png')
-  %i(orchestrions emotes bardings hairstyles armoires spells fashions).each do |resource|
+  %i(orchestrions emotes bardings hairstyles armoires spells fashions records).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
     end
@@ -118,7 +118,7 @@ Rails.application.routes.draw do
   end
 
   namespace :mod do
-    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions).each do |resource|
+    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions records).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 

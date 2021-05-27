@@ -32,6 +32,6 @@ module SpellsHelper
   end
 
   def spell_rank(spell)
-    (fa_icon('star') * spell.rank).html_safe
+    stars(spell.rank)
   end
 end

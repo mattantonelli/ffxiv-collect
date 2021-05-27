@@ -33,5 +33,8 @@ namespace :spritesheets do
 
     puts 'Creating fashion spritesheets'
     create_spritesheet('fashions/small')
+
+    puts 'Creating record spritesheets'
+    create_spritesheet('records/small')
   end
 end

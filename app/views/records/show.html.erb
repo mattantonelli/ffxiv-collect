@@ -1,0 +1,41 @@
+<% title(@record.name) %>
+<% description(@record.description.truncate(150)) %>
+<% image(image_url("records/small/#{@record.id}.png", skip_pipeline: true)) %>
+
+<div class="row">
+  <div class="col-12 col-xl-8 offset-xl-2">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title"><%= format_record_number(@record) %>. <%= @record.name %></h5>
+        <%= render 'record_link' if @record.linked_record.present? %>
+      </div>
+      <div class="card-body">
+        <div class="d-flex">
+          <div class="d-none d-sm-block mr-4">
+            <%= safe_image_tag("records/large/#{@record.id}.png", class: 'image-record') %>
+          </div>
+          <div class="d-flex flex-column flex-info">
+            <div class="d-flex flex-wrap">
+              <div>
+                <dt><%= t('records.rarity') %></dt>
+                <dd><%= record_rarity(@record) %></dd>
+              </div>
+              <%= render 'shared/ownership', collectable: @record %>
+              <div>
+                <dt><%= t('patch') %></dt>
+                <dd><%= @record.patch %></dd>
+              </div>
+            </div>
+            <dt><%= t('source') %></dt>
+            <dd><%= sources(@record, list: true) %></dd>
+            <dt><%= t('description') %></dt>
+            <dd><%= format_skill_description(@record.description) %></dd>
+            <div class="d-block d-sm-none">
+              <%= safe_image_tag("records/large/#{@record.id}.png", class: 'image-record') %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

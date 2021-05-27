@@ -43,6 +43,8 @@ config/deploy*
 /app/assets/images/armoires.png
 /app/assets/images/spells.png
 /app/assets/images/fashions-small.png
+/app/assets/images/records/*
+/app/assets/images/records-small.png
 
 /app/assets/stylesheets/images/*
 
@@ -57,3 +59,4 @@ config/deploy*
 /public/images/spells/*
 /public/images/fashions/*
 /public/images/relics/*
+/public/images/records/*
