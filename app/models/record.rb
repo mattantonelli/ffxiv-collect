@@ -16,6 +16,7 @@
 #  linked_record_id :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  location         :string(255)
 #
 class Record < ApplicationRecord
   include Collectable

@@ -20,6 +20,10 @@
                 <dt><%= t('records.rarity') %></dt>
                 <dd><%= record_rarity(@record) %></dd>
               </div>
+              <div>
+                <dt><%= t('spells.location') %></dt>
+                <dd><%= @record.location %></dd>
+              </div>
               <%= render 'shared/ownership', collectable: @record %>
               <div>
                 <dt><%= t('patch') %></dt>

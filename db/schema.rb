@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_190101) do
+ActiveRecord::Schema.define(version: 2021_05_27_222048) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -599,6 +599,7 @@ ActiveRecord::Schema.define(version: 2021_05_27_190101) do
     t.integer "linked_record_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "location"
     t.index ["linked_record_id"], name: "index_records_on_linked_record_id"
     t.index ["name_de"], name: "index_records_on_name_de"
     t.index ["name_en"], name: "index_records_on_name_en"

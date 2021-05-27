@@ -42,9 +42,9 @@ namespace :records do
       end
     end
 
-    Record.where(id: 1..20).update_all(patch: '5.35')
-    Record.where(id: 21..30).update_all(patch: '5.45')
-    Record.where(id: 31..50).update_all(patch: '5.55')
+    Record.where(id: 1..20).update_all(location: 'Southern Front', patch: '5.35')
+    Record.where(id: 21..30).update_all(location: 'Delubrium Reginae', patch: '5.45')
+    Record.where(id: 31..50).update_all(location: 'Zadnor', patch: '5.55')
 
     create_spritesheet('records/small')
 

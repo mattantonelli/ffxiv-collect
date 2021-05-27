@@ -21,6 +21,7 @@
           <th scope="col">#</th>
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('records.rarity') %></th>
+          <th scope="col"><%= t('spells.location') %></th>
           <th scope="col"><%= t('source') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
@@ -45,6 +46,7 @@
             </td>
             <td><%= link_to(record.name, record_path(record), class: 'name') %></td>
             <td class="no-wrap hide-xs" data-value="<%= record.rarity %>"><%= record_rarity(record) %></td>
+            <td><%= record.location %></td>
             <td><%= sources(record) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>"><%= rarity(record) %></td>
             <td class="text-center hide-xs" data-value="<%= sort_value(record) %>"><%= record.patch %></td>
