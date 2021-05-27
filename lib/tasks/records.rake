@@ -62,7 +62,7 @@ namespace :records do
       quest = SourceType.find_by(name: 'Quest')
 
       CSV.foreach(file) do |row|
-        order, source = row
+        id, source = row
 
         if source.match?('Quest')
           source = source.gsub('Quest: ', '')
@@ -71,7 +71,7 @@ namespace :records do
           source_type = bozja
         end
 
-        Record.find_by(order: order).sources.find_or_create_by!(type: source_type, text: source)
+        Record.find_by(id: id).sources.find_or_create_by!(type: source_type, text: source)
       end
     end
   end
