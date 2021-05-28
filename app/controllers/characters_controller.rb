@@ -60,7 +60,7 @@ class CharactersController < ApplicationController
         if @characters.empty?
           flash.now[:alert] = t('alerts.no_characters_found')
         end
-      rescue RestClient::BadGateway
+      rescue RestClient::BadGateway, RestClient::ServiceUnavailable
         flash.now[:error] = t('alerts.lodestone_maintenance')
       rescue Exception => e
         flash.now[:error] = t('alerts.lodestone_error')
@@ -151,7 +151,7 @@ class CharactersController < ApplicationController
         else
           flash[:error] = t('alerts.lodestone_error')
         end
-      rescue RestClient::BadGateway
+      rescue RestClient::BadGateway, RestClient::ServiceUnavailable
         flash[:error] = t('alerts.lodestone_maintenance')
       rescue
         flash[:error] = t('alerts.problem_refreshing')
@@ -213,7 +213,7 @@ class CharactersController < ApplicationController
   def fetch_character(id)
     begin
       Character.fetch(id)
-    rescue RestClient::BadGateway
+    rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Rails.logger.info('Lodestone is down for maintenance.')
       raise
     rescue RestClient::ExceptionWithResponse => e
