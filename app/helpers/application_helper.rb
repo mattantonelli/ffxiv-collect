@@ -71,7 +71,7 @@ module ApplicationHelper
     case collection
     when 'titles'
       sprite(collectable, 'achievement')
-    when /(mounts|minions|fashions)/
+    when /(mounts|minions|fashions|records)/
       sprite(collectable, "#{collection}-small")
     when 'spells'
       content_tag :div, class: 'spell-sprite' do

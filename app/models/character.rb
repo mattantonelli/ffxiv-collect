@@ -105,8 +105,10 @@ class Character < ApplicationRecord
       collectables = send(collection).order("character_#{collection}.created_at desc")
     end
 
+    count = collection == 'records' ? 5 : 10
+
     collectables = collectables.with_filters(filters, self) if filters.present?
-    collectables.first(10)
+    collectables.first(count)
   end
 
   def most_rare(collection, filters: nil)
@@ -125,7 +127,9 @@ class Character < ApplicationRecord
     collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
       .sort_by { |collectable| sorted_ids.index(collectable.id) }
 
-    collectables.first(10).map do |collectable|
+    count = collection == 'records' ? 5 : 10
+
+    collectables.first(count).map do |collectable|
       [collectable, rarities[collectable.id.to_s]]
     end
   end
