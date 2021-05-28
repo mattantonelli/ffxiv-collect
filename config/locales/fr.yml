@@ -224,7 +224,7 @@ fr:
   tomestones:
     collectables: "Objets collectionnables"
     description: "Ce collectible est obtenable en récompense de l'évènement %{link} ."
-    original_source: "Origine"
+    original_source: "Autres moyens d'obtention"
     other_items: "Autres récompenses"
     source: "Emplacement original"
     title: "Collection MogMog"
