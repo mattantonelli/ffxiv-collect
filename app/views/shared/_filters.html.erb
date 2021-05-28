@@ -6,7 +6,7 @@
         <%= link_to fa_icon('times'), nil, data: { dismiss: 'modal' } %>
       </div>
       <div class="modal-body">
-        <%= form_tag(nil, class: 'form d-flex flex-column mt-2', id: 'filters-form') do  %>
+        <%= form_tag(nil, class: 'form d-flex flex-column my-2', id: 'filters-form') do  %>
           <% unless %w(characters).include?(controller_name) %>
             <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
           <% end %>
