@@ -167,9 +167,9 @@ fr:
   patch: "Patch"
   powered_by: "Powered by"
   records:
-    page: "Seite"
-    rarity: "Seltenheit"
-    title: "Frontberichte"
+    page: "Page"
+    rarity: "Rareté"
+    title: "Rapport du front bozjien"
   relics:
     a_relic_reborn: "Armes antiques"
     anima_weapons: "Armes anima"

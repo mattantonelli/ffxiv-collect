@@ -163,9 +163,9 @@ de:
   patch: "Patch"
   powered_by: "Unterstützung durch"
   records:
-    page: "Page"
-    rarity: "Rareté"
-    title: "Rapport du front bozjien"
+    page: "Seite"
+    rarity: "Seltenheit"
+    title: "Frontberichte"
   relics:
     a_relic_reborn: "Restaurierung der Reliktwaffen"
     anima_weapons: "Anima Waffen"
