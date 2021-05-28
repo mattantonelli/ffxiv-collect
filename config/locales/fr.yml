@@ -166,6 +166,10 @@ fr:
   ownership: "Possédé par %{percent} des joueurs"
   patch: "Patch"
   powered_by: "Powered by"
+  records:
+    page: "Seite"
+    rarity: "Seltenheit"
+    title: "Frontberichte"
   relics:
     a_relic_reborn: "Armes antiques"
     anima_weapons: "Armes anima"
@@ -218,7 +222,10 @@ fr:
   titles:
     title: "Titres"
   tomestones:
+    collectables: "Objets collectionnables"
     description: "Ce collectible est obtenable en récompense de l'évènement %{link} ."
+    original_source: "Origine"
+    other_items: "Autres récompenses"
     source: "Emplacement original"
     title: "Collection MogMog"
   tooltip:

@@ -162,6 +162,10 @@ de:
   ownership: "In Besitz von %{percent} der Spieler"
   patch: "Patch"
   powered_by: "Unterstützung durch"
+  records:
+    page: "Page"
+    rarity: "Rareté"
+    title: "Rapport du front bozjien"
   relics:
     a_relic_reborn: "Restaurierung der Reliktwaffen"
     anima_weapons: "Anima Waffen"
@@ -214,7 +218,10 @@ de:
   titles:
     title: "Titel"
   tomestones:
+    collectables: "Sammelbares"
     description: "Die folgenden Sammelobjekte können als Belohnung durch das das Event %{link} erhalten werden."
+    original_source: "Ursprüngliche Quelle"
+    other_items: "Andere Gegenstände"
     source: "Ursprüngliche Quelle"
     title: "MogMog Kollektion"
   tooltip:

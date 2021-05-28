@@ -167,9 +167,9 @@ en:
   patch: "Patch"
   powered_by: "Powered by"
   records:
-    page: 'Page'
-    rarity: 'Rarity'
-    title: 'Field Records'
+    page: "Page"
+    rarity: "Rarity"
+    title: "Field Records"
   relics:
     a_relic_reborn: "A Relic Reborn"
     anima_weapons: "Anima Weapons"
@@ -222,7 +222,10 @@ en:
   titles:
     title: "Titles"
   tomestones:
+    collectables: "Collectables"
     description: "The following collectables are available as rewards from the %{link} event."
+    original_source: "Original Source"
+    other_items: "Other Items"
     source: "Original Source"
     title: "Moogle Treasure Trove"
   tooltip:
