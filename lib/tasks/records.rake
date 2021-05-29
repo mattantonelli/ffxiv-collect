@@ -18,10 +18,10 @@ namespace :records do
         end
 
         data = h[record['Number']] || { id: record['Number'], rarity: record['Rarity'],
-                                       icon: record['Icon'], image: record['Image'] }
+                                        icon: record['Icon'], image: record['Image'] }
 
         data["name_#{locale}"] = sanitize_name(record['Name'])
-        data["description_#{locale}"] = sanitize_skill_description(record['Description'])
+        data["description_#{locale}"] = sanitize_text(record['Description'], preserve_space: true)
         h[data[:id]] = data
       end
     end

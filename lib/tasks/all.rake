@@ -40,17 +40,20 @@ namespace :data do
 end
 
 # Replace various tags with the appropriate text
-def sanitize_text(text)
-  text.gsub('<SoftHyphen/>', "\u00AD")
-    .gsub(/<Switch.*?><Case\(1\)>(.*?)<\/Case>.*?<\/Switch>/, '\1')
-    .gsub(/<If.*?>(.*?)<Else\/>.*?<\/If>/, '\1')
+def sanitize_text(text, preserve_space: false)
+  text = text.gsub('<SoftHyphen/>', "\u00AD")
+    .gsub(/<Switch.*?><Case\(1\)>(.*?)<\/Case>.*?<\/Switch>/m, '\1')
+    .gsub(/<If.*?>(.*?)<Else\/>.*?<\/If>/m, '\1')
     .gsub(/<\/?Emphasis>/, '*')
     .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
     .gsub('<Indent/>', ' ')
     .gsub(/<.*?>(.*?)<\/.*?>/, '')
-    .gsub("\r", "\n")
-    .gsub("\n", ' ')
-    .strip
+
+  unless preserve_space
+    text = text.gsub("\r", "\n").gsub("\n", ' ')
+  end
+
+  text.strip
 end
 
 def sanitize_skill_description(text)
