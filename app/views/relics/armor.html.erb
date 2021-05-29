@@ -8,10 +8,10 @@
   </button>
 </div>
 
-<% @bozjan_armor.each do |name, armor| %>
+<% @bozjan_armor.each_with_index do |(name, armor), i| %>
   <div class="card mb-3">
     <%= render 'header', relic: armor, name: name %>
-    <div class="collapse hide" id="<%= collapse_id(name) %>">
+    <div class="collapse <%= i == 0 ? 'show' : 'hide' %>" id="<%= collapse_id(name) %>">
       <div class="card-body relics-class collection py-3">
         <%= render partial: 'gear', collection: armor.each_slice(5).to_a.transpose, locals: { sprite_image: 'relics-armor' } %>
       </div>
