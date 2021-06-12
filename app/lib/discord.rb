@@ -26,6 +26,8 @@ module Discord
       else
         name = "#{collectable[:name]} / #{collectable[:female_name]}"
       end
+    elsif type == 'record'
+      name = "#{collectable[:id].to_s.rjust(2, '0')}. #{collectable[:name]}"
     else
       name = collectable[:name]
     end
