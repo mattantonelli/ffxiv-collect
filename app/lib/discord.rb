@@ -34,6 +34,8 @@ module Discord
       embed.description = collectable[:description]
     elsif type == 'title'
       embed.description = collectable.dig(:achievement, :description)
+    elsif type == 'record'
+      embed.description = collectable[:description].split("\n\n").first(2).join("\n\n")
     else
       embed.description = collectable[:enhanced_description] || collectable[:description]
     end
