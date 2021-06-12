@@ -42,7 +42,7 @@ module Discord
       embed.description = collectable[:enhanced_description] || collectable[:description]
     end
 
-    embed.image = Discordrb::Webhooks::EmbedImage.new(url: collectable[:image])
+    embed.image = Discordrb::Webhooks::EmbedImage.new(url: collectable[:image]) unless type == 'record'
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: collectable[:icon])
     embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: name, url: collectable_url(type, collectable[:id]))
 
