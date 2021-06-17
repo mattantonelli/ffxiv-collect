@@ -17,6 +17,7 @@ class DiscordController < ApiController
     else
       # Respond to /commands
       type = body['data']['name']
+      I18n.locale = 'en'
 
       begin
         if type == 'profile'
