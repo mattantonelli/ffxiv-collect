@@ -38,6 +38,7 @@ class Achievement < ApplicationRecord
     joins(category: :type)
       .where('achievement_types.name_en <> ?', 'Legacy')
       .where('achievement_categories.name_en <> ?', 'Seasonal Events')
+      .where.not('achievements.id in (?)', Achievement.limited_time_ids)
   end
 
   scope :with_filters, -> (filters, character = nil) do
@@ -47,6 +48,15 @@ class Achievement < ApplicationRecord
   end
 
   scope :ordered, -> { order('patch DESC, achievement_types.order, achievement_categories.order, achievements.order DESC') }
+
+  def self.limited_time_ids
+    ((310..312).to_a +   # Starting township quests
+     (1757..1773).to_a + # GORO
+     (2110..2114).to_a + # Feast Championships
+     [2487, 2488, 2712, 2713, 2785, 2786] + # Ishgardian Reconstruction
+     [1404, 1419, 1420, 1421, 1422, 1423, 1424, 1425, 1426, 1427, 1428, 1429, 1430,
+      1431, 1432, 1734, 1735, 1736, 1737, 1743, 1744, 1745]).freeze # Diadem
+  end
 
   private
   def touch_title

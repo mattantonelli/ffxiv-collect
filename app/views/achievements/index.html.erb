@@ -3,6 +3,11 @@
 
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="d-flex align-items-end mr-3 mb-2">
+      <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+        type: 'button', class: 'btn btn-secondary btn-sm modal-toggle ml-auto' %>
+    </div>
+    <%= render 'shared/filters' %>
     <div class="d-flex flex-wrap justify-content-around justify-content-md-start">
       <% @types.each do |type| %>
         <div class="col-12 col-lg-6 mb-3">
@@ -11,11 +16,11 @@
               <%= link_to type.name, achievement_type_path(type), class: 'unstyled' %>
             </h5>
             <div class="card-body py-3">
-              <%= render 'shared/progress', value: type_count(@collection_ids, type),
-                min: 0, max: type.achievements.size, text: 'complete' %>
+              <%= render 'shared/progress', value: achievement_count(@achievements[type.id], @collection_ids),
+                min: 0, max: @achievements[type.id].size, text: 'complete' %>
               <div class="mt-3">
-                <%= render 'shared/progress', value: type_points(@collection_ids, type),
-                  min: 0, max: type.achievements.pluck(:points).sum, text: 'achievements.points', alt: true %>
+                <%= render 'shared/progress', value: point_count(@achievements[type.id], @collection_ids),
+                  min: 0, max: @achievements[type.id].pluck(:points).sum, text: 'achievements.points', alt: true %>
               </div>
             </div>
           </div>

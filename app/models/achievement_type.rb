@@ -17,4 +17,10 @@ class AchievementType < ApplicationRecord
   has_many :achievements, through: :categories
 
   translates :name
+
+  scope :with_filters, -> (filters) do
+    if filters[:limited] == 'hide'
+      where.not(name_en: 'Legacy')
+    end
+  end
 end

@@ -19,8 +19,7 @@
               <%= label_tag :premium, t('exclude.premium') %>
             </div>
           <% end %>
-          <% unless %w(tomestones records).include?(controller_name) ||
-              (controller_name == 'achievements' && action_name != 'items') %>
+          <% unless %w(tomestones records).include?(controller_name) %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
               <%= label_tag :limited, t('exclude.time_limited') %>

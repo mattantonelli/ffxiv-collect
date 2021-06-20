@@ -18,4 +18,10 @@ class AchievementCategory < ApplicationRecord
   has_many :achievements, foreign_key: 'category_id'
 
   translates :name
+
+  scope :with_filters, -> (filters) do
+    if filters[:limited] == 'hide'
+      where.not(name_en: 'Seasonal Events')
+    end
+  end
 end

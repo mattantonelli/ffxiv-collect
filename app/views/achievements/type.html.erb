@@ -21,11 +21,14 @@
                 <%= category.name %>
               </h5>
               <% if character_selected? %>
-                <h6 <%= 'class="complete"'.html_safe if completed?(category, @collection_ids) %>>
-                  <%= achievement_completion(category, @collection_ids) %>
+                <h6 <%= 'class="complete"'.html_safe if completed?(@achievements[category.id], @collection_ids) %>>
+                  <%= achievement_completion(@achievements[category.id], @collection_ids) %>
                 </h6>
               <% else %>
-                <h6><%= category.achievements.size %> Achievements / <%= category.achievements.pluck(:points).sum %> Points</h6>
+                <h6>
+                  <%= @achievements[category.id].size %> Achievements /
+                  <%= @achievements[category.id].pluck(:points).sum %> Points
+                </h6>
               <% end %>
             </div>
           <% end %>
@@ -47,7 +50,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% category.achievements.sort_by(&:order).each do |achievement| %>
+                  <% @achievements[category.id].each do |achievement| %>
                     <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
                       <td>
                         <%= link_to(achievement_path(achievement)) do %>

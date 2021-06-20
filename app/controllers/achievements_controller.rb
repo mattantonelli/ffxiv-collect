@@ -6,7 +6,10 @@ class AchievementsController < ApplicationController
   before_action :set_ids!, :set_dates!, on: [:type, :items]
 
   def index
-    @types = AchievementType.all.order(:order).includes(:categories, :achievements)
+    @types = AchievementType.all.with_filters(cookies).order(:order)
+    @achievements = @types.each_with_object({}) do |type, h|
+      h[type.id] = type.achievements.with_filters(cookies)
+    end
   end
 
   def show
@@ -15,8 +18,10 @@ class AchievementsController < ApplicationController
 
   def type
     @type = AchievementType.find(params[:id])
-    @achievements = @type.achievements
-    @categories = @type.categories.includes(achievements: :title).order(:order)
+    @categories = @type.categories.with_filters(cookies).order(:order)
+    @achievements = @categories.each_with_object({}) do |category, h|
+      h[category.id] = category.achievements.with_filters(cookies).includes(:title).order(:order)
+    end
   end
 
   def items

@@ -17,24 +17,23 @@ module AchievementsHelper
     end
   end
 
-  def achievement_completion(category, ids)
-    achievements = category.achievements
+  def achievement_completion(achievements, ids)
     complete = (achievements.map(&:id) & ids).size
-    points = achievements.select { |achievement| ids.include?(achievement.id) }.pluck(:points).sum
+    points = achievements.select { |achievement| ids.include?(achievement.id) }.map(&:points).sum
     total_points = achievements.pluck(:points).sum
 
     "#{complete} #{t('of')} #{achievements.size} #{t('complete')}. #{points}/#{total_points} #{fa_icon('star')}".html_safe
   end
 
-  def completed?(category, ids)
-    (category.achievements.map(&:id) - ids).size == 0
+  def completed?(achievements, ids)
+    (achievements.map(&:id) - ids).size == 0
   end
 
-  def type_count(achievement_ids, type)
-    (type.achievements.pluck(:id) & achievement_ids).size
+  def achievement_count(achievements, ids)
+    (achievements.map(&:id) & ids).size
   end
 
-  def type_points(achievement_ids, type)
-    Achievement.where(id: type.achievements.pluck(:id) & achievement_ids).pluck(:points).sum
+  def point_count(achievements, ids)
+    achievements.select { |achievement| ids.include?(achievement.id) }.map(&:points).sum
   end
 end
