@@ -27,24 +27,23 @@
 /config/master.key
 
 # Capistrano
-Capfile
-config/deploy*
+config/deploy/*
 
 # Images
 /app/assets/images/mounts-small.png
 /app/assets/images/minions-small.png
+/app/assets/images/achievements.png
 /app/assets/images/items.png
 /app/assets/images/items/*
-/app/assets/images/relics-*
-/app/assets/images/hairstyles/*
-/app/assets/images/achievements.png
 /app/assets/images/emotes.png
 /app/assets/images/bardings.png
 /app/assets/images/armoires.png
+/app/assets/images/hairstyles/*
 /app/assets/images/spells.png
+/app/assets/images/relics-*
 /app/assets/images/fashions-small.png
-/app/assets/images/records/*
 /app/assets/images/records-small.png
+/app/assets/images/records/*
 
 /app/assets/stylesheets/images/*
 
