@@ -6,7 +6,7 @@ class MinionsController < ApplicationController
   def index
     @q = Minion.summonable.ransack(params[:q])
     @minions = @q.result.includes(:race)
-      .include_sources.with_filters(cookies).order(patch: :desc, order: :desc).distinct
+      .include_sources.with_filters(cookies).order(patch: :desc, order: :desc, id: :desc).distinct
     @types = source_types(:minion)
   end
 

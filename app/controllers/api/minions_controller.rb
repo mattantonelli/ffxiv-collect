@@ -2,7 +2,7 @@ class Api::MinionsController < ApiController
   def index
     query = Minion.summonable.ransack(@query)
     @minions = query.result.includes(:behavior, :race, :skill_type)
-      .include_sources.order(patch: :desc, order: :desc).limit(params[:limit])
+      .include_sources.order(patch: :desc, order: :desc, id: :desc).limit(params[:limit])
     @owned = Redis.current.hgetall(:minions)
   end
 
