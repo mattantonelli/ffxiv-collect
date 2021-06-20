@@ -20,13 +20,13 @@ class AchievementsController < ApplicationController
     @type = AchievementType.find(params[:id])
     @categories = @type.categories.with_filters(cookies).order(:order)
     @achievements = @categories.each_with_object({}) do |category, h|
-      h[category.id] = category.achievements.with_filters(cookies).includes(:item, :title).order(:order)
+      h[category.id] = category.achievements.with_filters(cookies).includes(:item, :title).order(:order, :id)
     end
   end
 
   def items
     @q = Achievement.where.not(item_id: nil).with_filters(cookies).ransack(params[:q])
-    @achievements = @q.result.joins(category: :type).includes(:item, category: :type).ordered
+    @achievements = @q.result.ordered
     @owned = Redis.current.hgetall(:achievements)
   end
 
@@ -40,6 +40,6 @@ class AchievementsController < ApplicationController
       @achievements = Achievement.where(patch: Achievement.all.maximum(:patch))
     end
 
-    @achievements = @achievements.joins(category: :type).includes(:item, :title, category: :type).ordered
+    @achievements = @achievements.ordered
   end
 end

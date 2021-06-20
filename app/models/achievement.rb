@@ -47,7 +47,12 @@ class Achievement < ApplicationRecord
     end
   end
 
-  scope :ordered, -> { order('patch DESC, achievement_types.order, achievement_categories.order, achievements.order DESC') }
+  scope :ordered, -> do
+    joins(category: :type)
+      .includes(:item, :title, category: :type)
+      .order('achievements.patch DESC, achievement_types.order, achievement_categories.order, ' \
+             'achievements.order DESC, achievements.id DESC')
+  end
 
   def self.limited_time_ids
     ((310..312).to_a +   # Starting township quests
