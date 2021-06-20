@@ -7,9 +7,13 @@
       <a class="nav-link dropdown-toggle" href="#" id="achievementsDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('trophy', text: t('achievements.title')) %></a>
       <div class="dropdown-menu" aria-labelledBy="achievementsDropdown">
-        <%= link_to t('achievements.overview'), achievements_path, class: 'dropdown-item bold' if @character.present? %>
-        <%= link_to t('titles.title'), titles_path, class: 'dropdown-item bold' %>
-        <%= link_to t('achievements.item_reward', count: 2), achievement_items_path, class: 'dropdown-item bold' %>
+        <% if @character.present? %>
+          <%= link_to fa_icon('list', text: t('achievements.overview')), achievements_path, class: 'dropdown-item bold' %>
+        <% end %>
+        <%= link_to fa_icon('search', text: t('search')), achievement_search_path, class: 'dropdown-item bold' %>
+        <%= link_to fa_icon('medal', text: t('titles.title')), titles_path, class: 'dropdown-item bold' %>
+        <%= link_to fa_icon('box', text: t('achievements.item_reward', count: 2)), achievement_items_path,
+          class: 'dropdown-item bold' %>
         <% AchievementType.order(:order).all.each do |type| %>
           <%= link_to type.name, achievement_type_path(type), class: 'dropdown-item' %>
         <% end %>

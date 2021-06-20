@@ -46,6 +46,8 @@ class Achievement < ApplicationRecord
     end
   end
 
+  scope :ordered, -> { order('patch DESC, achievement_types.order, achievement_categories.order, achievements.order DESC') }
+
   private
   def touch_title
     title&.update_column(:updated_at, Time.now)

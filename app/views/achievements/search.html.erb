@@ -1,0 +1,68 @@
+<% title("#{t('achievements.title')} - #{t('search')}") %>
+<% description('Search for achievements.') %>
+
+<div class="d-flex justify-content-center mb-2">
+  <%= search_form_for(@q, url: achievement_search_path, enforce_utf8: false,
+                      class: 'form form-inline search-form d-flex') do |f| %>
+    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40, minlength: 3,
+      class: 'form-control form-control-sm flex-grow-1' %>
+    <%= f.search_field "description_#{I18n.locale}_cont", placeholder: t('description'), size: 40, minlength: 3,
+      class: 'form-control form-control-sm flex-grow-1' %>
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+  <% end %>
+</div>
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <%= render 'shared/collection_progress', ids: @achievements.map(&:id), skip_comparison: true %>
+    <%= render 'shared/progress', value: @achievements.select { |a| @collection_ids.include?(a.id) }.map(&:points).sum,
+      min: 0, max: @achievements.pluck(:points).sum, text: 'achievements.points', alt: true %>
+    <table class="table table-striped table-sm shadow collection sortable mt-2">
+      <thead>
+        <tr>
+          <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+          <th scope="col" class="name"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('description') %></th>
+          <th scope="col" class="name hide-sm"><%= t('category') %></th>
+          <th scope="col" data-firstsort="desc" class="reward"><%= fa_icon('star-o') %></th>
+          <th scope="col" class="text-center"><%= t('achievements.points') %></th>
+          <th scope="col" class="text-center hide-sm"><%= t('own') %></th>
+          <th scope="col" class="text-center"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @achievements.each do |achievement| %>
+          <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
+            <td>
+              <%= link_to(achievement_path(achievement)) do %>
+                <%= sprite(achievement, 'achievement') %>
+              <% end %>
+            </td>
+            <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
+            <td class="hide-xs"><%= format_text_long(achievement.description) %></td>
+            <td class="hide-sm"><%= link_to achievement.category.name,
+              achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled' %></td>
+            <td data-value="<%= achievement_reward_value(achievement) %>">
+              <%= achievement_reward(achievement) %>
+            </td>
+            <td class="text-center"><%= achievement.points %></td>
+            <td class="text-center hide-sm" data-value="<%= rarity(achievement, numeric: true) %>">
+              <%= rarity(achievement) %>
+            </td>
+            <td class="text-center" data-value="<%= achievement.patch %><%= achievement.id %>">
+              <%= achievement.patch %>
+            </td>
+            <% if character_selected? %>
+              <%= td_owned(achievement) %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
