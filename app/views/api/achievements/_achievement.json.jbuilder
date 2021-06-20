@@ -21,7 +21,7 @@ unless local_assigns[:skip_reward]
       end
     elsif achievement.item_id.present?
       json.type 'Item'
-      json.name achievement.item_name
+      json.name achievement.item.name
     end
   end
 end

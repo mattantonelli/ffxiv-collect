@@ -20,7 +20,7 @@ class AchievementsController < ApplicationController
     @type = AchievementType.find(params[:id])
     @categories = @type.categories.with_filters(cookies).order(:order)
     @achievements = @categories.each_with_object({}) do |category, h|
-      h[category.id] = category.achievements.with_filters(cookies).includes(:title).order(:order)
+      h[category.id] = category.achievements.with_filters(cookies).includes(:item, :title).order(:order)
     end
   end
 
