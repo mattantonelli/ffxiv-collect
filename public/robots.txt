@@ -1,2 +1,3 @@
 User-agent: *
-Disallow:
+Disallow: /characters/search
+Disallow: /users/auth/discord
