@@ -33,6 +33,7 @@ namespace :data do
     Rake::Task['armoires:create'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
+    Rake::Task['records:create'].invoke
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
