@@ -1,0 +1,41 @@
+<% title('FAQ') %>
+<% description('Frequently Asked Questions') %>
+
+<div class="row">
+  <div class="col-12 col-lg-10 mx-auto">
+    <div class="card shadow">
+      <div class="card-header">
+        <h5 class="card-title">Frequently Asked Questions</h5>
+      </div>
+      <div class="card-body pt-3">
+        <h5>Why aren't my emotes/bardings/etc. being updated?</h5>
+        <p>Only achievements, mounts, and minions can be updated automatically based on your Lodestone profile. All other collectibles must be tracked manually.</p>
+        <hr>
+        <h5>What about things like Blue Magic spells?</h5>
+        <p>The additional collections available on your profile are only visible when you are signed in.</p>
+        <hr>
+        <h5>Why aren't my achievements being updated after I set them to Public?</h5>
+        <p>You will need to <%= link_to 'refresh your character', refresh_character_path, method: :post %> to fetch the achievements after you have updated your privacy settings.</p>
+        <hr>
+        <h5>Why does the website say my character is private and keep me from selecting it?</h5>
+        <p>This typically occurs when you have made your character private on another Discord account. You will need to <%= link_to 'join the Discord server', 'https://discord.gg/bA9fYQjEYy', target: '_blank' %> so we can re-verify your identity and resolve this.</p>
+        <hr>
+        <h5>How are your ownership percentages calculated?</h5>
+        <p>Ownership is calculated based on publicly available characters who have been updated on the site in the past 3 months and possess at least one collectable in a given category.</p>
+        <p>These percentages are not a reflection of the entire playerbase, but rather a subset of players who are interested in collecting things. If you are looking to collect competetively, then this is probably the data you want.</p>
+        <hr>
+        <h5>How many players are tracked by FFXIV Collect?</h5>
+        <dl>
+          <dt>Users</dt>
+          <dd><%= number_with_delimiter(@users) %></dd>
+          <dt>Public Characters</dt>
+          <dd><%= number_with_delimiter(@characters) %></dd>
+          <dt>Active Public Characters</dt>
+          <dd><%= number_with_delimiter(@active_characters) %></dd>
+          <dt>Active Characters with Public Achievements</dt>
+          <dd><%= number_with_delimiter(@achievement_characters) %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

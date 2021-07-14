@@ -8,6 +8,13 @@ class StaticController < ApplicationController
       '&scope=applications.commands'
   end
 
+  def faq
+    @users = User.count
+    @characters = Character.visible.count
+    @active_characters = Character.visible.recent.count
+    @achievement_characters = Character.visible.recent.with_public_achievements.count
+  end
+
   def not_found
     flash[:error] = t('alerts.not_found')
     redirect_to root_path
