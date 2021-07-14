@@ -5,8 +5,9 @@
         <h5>Manage Users</h5>
       <% end %>
       <%= search_form_for(@q, url: admin_users_path, class: 'form form-inline admin-search-form') do |f| %>
-        <%= f.search_field :username_cont, placeholder: 'Username', size: 30, class: 'form-control form-control-sm mr-2' %>
-        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+        <%= f.search_field :username_cont, placeholder: 'Username', size: 30, class: 'form-control form-control-sm' %>
+        <%= f.search_field :uid_eq, placeholder: 'Discord ID', size: 30, class: 'form-control form-control-sm' %>
+        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm ml-2' %>
       <% end %>
     </div>
   </div>

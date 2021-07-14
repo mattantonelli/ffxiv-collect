@@ -3,7 +3,7 @@ class Admin::CharactersController < AdminController
     @q = Character.all.ransack(params[:q])
 
     @verified, @public = params.values_at(:verified, :public)
-    result = @q.result.includes(:verified_user).order(:name)
+    result = @q.result.includes(:verified_user).order(:created_at)
     result = result.where.not(verified_user_id: nil) if @verified
     result = result.where(public: true) if @public
 
