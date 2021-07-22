@@ -101,8 +101,7 @@ namespace :items do
     puts 'Setting extra data for collectables based on item unlocks'
 
     Item.where(unlock_type: 'Barding').each do |item|
-      Barding.find(item.unlock_id).update!(item.slice(:name_en, :name_de, :name_fr, :name_ja,
-                                                      :description_en, :description_de, :description_fr, :description_ja))
+      Barding.find(item.unlock_id).update!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
     end
 
     Item.where(unlock_type: 'Fashion').each do |item|
