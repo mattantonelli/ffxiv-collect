@@ -166,6 +166,10 @@ en:
   ownership: "Owned by %{percent} of players"
   patch: "Patch"
   powered_by: "Powered by"
+  prices:
+    price: "Price"
+    updated: "Updated"
+    world: "World"
   records:
     page: "Page"
     rarity: "Rarity"
@@ -175,6 +179,7 @@ en:
     anima_weapons: "Anima Weapons"
     armor: "Armor"
     augmented_bozjan_armor: "Augmented Bozjan Armor"
+    augmented_laws_order: "Augmented Law's Order"
     blades_armor: "Blade's Armor"
     bozjan_armor: "Bozjan Armor"
     deep_dungeon_weapons: "Deep Dungeon Weapons"
@@ -185,7 +190,6 @@ en:
     eureka_weapons: "Eureka Weapons"
     idealized_armor: "Idealized Armor"
     laws_order: "Law's Order"
-    augmented_laws_order: "Augmented Law's Order"
     lucis_tools: "Lucis Tools"
     manual: "Manual"
     relic_armor: "Relic Armor"

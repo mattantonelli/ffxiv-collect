@@ -4,6 +4,7 @@ class AchievementsController < ApplicationController
   before_action :check_achievements!, except: :show
   before_action :set_owned!, on: :items
   before_action :set_ids!, :set_dates!, on: [:type, :items]
+  skip_before_action :set_prices!
 
   def index
     @types = AchievementType.all.with_filters(cookies).order(:order)

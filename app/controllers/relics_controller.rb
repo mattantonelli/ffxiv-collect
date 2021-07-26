@@ -4,7 +4,7 @@ class RelicsController < ApplicationController
   before_action :display_verify_alert!, only: [:manual_weapons, :tools, :armor]
   before_action :set_relic_collection!, only: [:manual_weapons, :tools, :armor]
   skip_before_action :display_verify_alert!, only: :weapons
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
 
   def weapons
     @anima_weapons = AchievementCategory.find_by(name_en: 'Anima Weapons').achievements.order(:order)

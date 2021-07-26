@@ -6,3 +6,8 @@ set :output, 'log/whenever.log'
 every '10 3 * * *' do
   rake 'ownership:cache'
 end
+
+# Cache item prices
+every '0 0 * * *' do
+  rake 'prices:cache'
+end

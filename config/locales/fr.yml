@@ -166,6 +166,10 @@ fr:
   ownership: "Possédé par %{percent} des joueurs"
   patch: "Patch"
   powered_by: "Powered by"
+  prices:
+    price: "Prix"
+    updated: "Mise à jour"
+    world: "Monde"
   records:
     page: "Page"
     rarity: "Rareté"
@@ -175,6 +179,7 @@ fr:
     anima_weapons: "Armes anima"
     armor: "Armure"
     augmented_bozjan_armor: "Armure améliorée de Bozjan"
+    augmented_laws_order: "Armure du verdict des Juges améliorée"
     blades_armor: "Armure de Gunnhildr"
     bozjan_armor: "Armure de Bozjan"
     deep_dungeon_weapons: "Armes Donjons sans fond"
@@ -185,7 +190,6 @@ fr:
     eureka_weapons: "Armes Eurêka"
     idealized_armor: "Armures des idéalistes"
     laws_order: "Armure du verdict des Juges"
-    augmented_laws_order: "Armure du verdict des Juges améliorée"
     lucis_tools: "Outils Lucis"
     manual: "Manuel"
     relic_armor: "Armures reliques"

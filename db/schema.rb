@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_222048) do
+ActiveRecord::Schema.define(version: 2021_07_26_190845) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -279,10 +279,12 @@ ActiveRecord::Schema.define(version: 2021_05_27_222048) do
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
     t.integer "fashions_count", default: 0
     t.integer "records_count", default: 0
+    t.string "data_center"
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
     t.index ["bardings_count"], name: "index_characters_on_bardings_count"
+    t.index ["data_center"], name: "index_characters_on_data_center"
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
     t.index ["fashions_count"], name: "index_characters_on_fashions_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"

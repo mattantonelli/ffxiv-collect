@@ -1,5 +1,3 @@
-require 'thwait'
-
 module Lodestone
   ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
   MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) ' \
@@ -44,6 +42,7 @@ module Lodestone
       id: character_id,
       name: doc.at_css('.frame__chara__name').text,
       server: doc.at_css('.frame__chara__world').text[/^\w+/],
+      data_center: doc.at_css('.frame__chara__world').text.gsub(/.*\((\w+)\)/, '\1'),
       gender: doc.at_css('.character-block__profile').text.match?('♂') ? 'male' : 'female',
       portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
       avatar: doc.at_css('.frame__chara__face > img').attributes['src'].value,

@@ -5,6 +5,7 @@ module Collection
     before_action :set_owned!, only: [:index, :type]
     before_action :set_ids!, on: :index
     before_action :set_dates!, on: :index
+    before_action :set_prices!, on: :index
   end
 
   def source_types(model)
@@ -26,6 +27,11 @@ module Collection
   def set_dates!
     @dates = @character&.send("character_#{controller_name}")
       &.pluck("#{controller_name.singularize}_id", :created_at).to_h || {}
+  end
+
+  def set_prices!
+    data_center = @character&.data_center&.downcase || 'primal'
+    @prices = Redis.current.hgetall("prices-#{data_center}")
   end
 
   def check_achievements!

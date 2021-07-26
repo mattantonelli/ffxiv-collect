@@ -98,7 +98,11 @@ module CollectionsHelper
     can_trade = collectable[:item_id].present?
 
     if can_trade
-      link_to(universalis_url(collectable[:item_id]), class: 'name', target: '_blank') do
+      data_center = @character&.data_center&.downcase || 'primal'
+      price = Redis.current.hget("prices-#{data_center}", collectable.item_id)
+
+      link_to(universalis_url(collectable[:item_id]), class: 'name', target: '_blank',
+              data: { toggle: 'tooltip', html: true }, title: price_tooltip(collectable, price)) do
         fa_check(can_trade)
       end
     else
@@ -122,7 +126,8 @@ module CollectionsHelper
 
   def market_link(collectable)
     if collectable.item_id.present?
-      link_to(fa_icon('dollar-sign'), universalis_url(collectable.item_id), target: '_blank')
+      link_to(fa_icon('dollar-sign'), universalis_url(collectable.item_id), target: '_blank',
+              data: { toggle: 'tooltip', html: true }, title: price_tooltip(collectable))
     end
   end
 
@@ -189,6 +194,22 @@ module CollectionsHelper
       end
     else
       sources.join('<br>').html_safe
+    end
+  end
+
+  private
+  def price_tooltip(collectable, data = nil)
+    begin
+      if data.present?
+        price = JSON.parse(data)
+      else
+        price = JSON.parse(@prices[collectable.item_id.to_s])
+      end
+
+      "<b>#{t('prices.price')}:</b> #{number_with_delimiter(price['price'])} Gil<br>" \
+        "<b>#{t('prices.world')}:</b> #{price['world']}<br>" \
+        "<b>#{t('prices.updated')}:</b> #{price['last_updated']}"
+    rescue
     end
   end
 end

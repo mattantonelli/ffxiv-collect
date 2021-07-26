@@ -2,6 +2,7 @@ class SpellsController < ApplicationController
   include ManualCollection
   before_action :set_ids!, on: :battle
   before_action :set_spells!, only: [:index, :battle]
+  skip_before_action :set_prices!
 
   def index
   end

@@ -162,6 +162,10 @@ de:
   ownership: "In Besitz von %{percent} der Spieler"
   patch: "Patch"
   powered_by: "Unterstützung durch"
+  prices:
+    price: "Preis"
+    updated: "Aktualisiert"
+    world: "Welt"
   records:
     page: "Seite"
     rarity: "Seltenheit"
@@ -171,6 +175,7 @@ de:
     anima_weapons: "Anima Waffen"
     armor: "Rüstung"
     augmented_bozjan_armor: "Modifizierte Bozja Rüstung"
+    augmented_laws_order: "Modifizierte Richterspruch-Ausrüstung"
     blades_armor: "Gunnhildrs Rüstung"
     bozjan_armor: "Bozja Rüstung"
     deep_dungeon_weapons: "Tiefes Gewölbe - Waffen"
@@ -181,7 +186,6 @@ de:
     eureka_weapons: "Eureka Waffen"
     idealized_armor: "Idealisierte Rüstung"
     laws_order: "Richterspruch-Ausrüstung"
-    augmented_laws_order: "Modifizierte Richterspruch-Ausrüstung"
     lucis_tools: "Lucis Werkzeuge"
     manual: "Manuell"
     relic_armor: "Reliktrüstung"

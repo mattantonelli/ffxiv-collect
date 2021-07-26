@@ -1,7 +1,7 @@
 class TitlesController < ApplicationController
   include Collection
   before_action :check_achievements!
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
 
   def index
     @q = Title.ransack(params[:q])

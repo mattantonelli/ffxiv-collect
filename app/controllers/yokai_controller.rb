@@ -1,7 +1,7 @@
 class YokaiController < ApplicationController
   include Collection
   before_action :check_achievements!
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
 
   def index
     @minions = Achievement.where('name_en like ?', 'Watch Me If You Can%').order(:order)

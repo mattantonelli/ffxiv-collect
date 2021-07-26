@@ -1,5 +1,6 @@
 class RecordsController < ApplicationController
   include ManualCollection
+  skip_before_action :set_prices!
 
   def index
     @q = Record.ransack(params[:q])
