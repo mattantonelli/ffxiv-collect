@@ -44,7 +44,7 @@ module Discord
 
     embed.image = Discordrb::Webhooks::EmbedImage.new(url: collectable[:image]) unless type == 'record'
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: collectable[:icon])
-    embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: name, url: collectable_url(type, collectable[:id]))
+    embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: name, url: collectable_url(type, collectable))
 
     if results.size > 1
       embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: additional_results(results))
@@ -100,8 +100,12 @@ module Discord
   end
 
   private
-  def collectable_url(type, id)
-    "#{ROOT_URL}/#{type.pluralize}/#{id}"
+  def collectable_url(type, collectable)
+    if type == 'title'
+      "#{ROOT_URL}/achievements/#{collectable.dig(:achievement, :id)}"
+    else
+      "#{ROOT_URL}/#{type.pluralize}/#{collectable[:id]}"
+    end
   end
 
   def format_sources(collectable)
