@@ -117,6 +117,7 @@ de:
   exclude:
     premium: "Premium ausschließen"
     time_limited: "Zeitexklusive ausschließen"
+    unknown: "Unbekannte ausschließen"
   expand: "Alle aufklappen"
   fashions:
     title: "Modeaccessoires"

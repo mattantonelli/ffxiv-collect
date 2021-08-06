@@ -121,6 +121,7 @@ fr:
   exclude:
     premium: "Exclure les objets premiums"
     time_limited: "Exclure les objets limités dans le temps"
+    unknown: "Exclure les objets d'emplacements inconnus"
   expand: "Développer tout"
   fashions:
     title: "Accessoires de mode"
