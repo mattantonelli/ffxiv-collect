@@ -10,6 +10,10 @@ module Collectable
       where('sources.limited = FALSE or sources.type_id IS NULL') if hide
     end
 
+    scope :hide_unknown, -> (hide) do
+      where('sources.id IS NOT NULL') if hide
+    end
+
     scope :filter_gender, -> (option, character) do
       if option.present? && model.column_names.include?('gender')
         if option == 'character'
@@ -26,6 +30,7 @@ module Collectable
       left_joins(:sources)
         .hide_premium(filters[:premium] == 'hide')
         .hide_limited(filters[:limited] == 'hide')
+        .hide_unknown(filters[:unknown] == 'hide')
         .filter_gender(filters[:gender], character)
         .distinct
     end

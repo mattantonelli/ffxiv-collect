@@ -121,6 +121,7 @@ en:
   exclude:
     premium: "Exclude Premium"
     time_limited: "Exclude Time Limited"
+    unknown: "Exclude Unknown"
   expand: "Expand All"
   fashions:
     title: "Fashion Accessories"
