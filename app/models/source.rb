@@ -22,6 +22,9 @@ class Source < ApplicationRecord
 
   has_paper_trail meta: { collectable_type: :collectable_type, collectable_id: :collectable_id }
 
+  scope :exclude_premium, -> { where(premium: false) }
+  scope :exclude_limited, -> { where(limited: false) }
+
   private
   def assign_relations!
     type = SourceType.find(type_id)

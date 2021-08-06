@@ -3,11 +3,11 @@ module Collectable
 
   included do
     scope :hide_premium, -> (hide) do
-      where('sources.type_id <> ? or sources.type_id is null', SourceType.premium) if hide
+      where('sources.premium = FALSE or sources.type_id IS NULL') if hide
     end
 
     scope :hide_limited, -> (hide) do
-      where('sources.type_id not in (?) or sources.type_id is null', SourceType.limited.pluck(:id)) if hide
+      where('sources.limited = FALSE or sources.type_id IS NULL') if hide
     end
 
     scope :filter_gender, -> (option, character) do
