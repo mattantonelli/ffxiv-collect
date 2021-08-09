@@ -5,7 +5,9 @@ module LeaderboardsHelper
                         [t('mounts.title'), 'mounts'], [t('minions.title'), 'minions'],
                         [t('orchestrions.title'), 'orchestrions'], [t('emotes.title'), 'emotes'],
                         [t('bardings.title'), 'bardings'], [t('hairstyles.title'), 'hairstyles'],
-                        [t('armoires.title'), 'armoires']], selected).freeze
+                        [t('armoires.title'), 'armoires'],
+                        [t('fashions.title'), 'fashions'],
+                        [t('records.title'), 'records']], selected).freeze
   end
 
   def data_center(server)
