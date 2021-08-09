@@ -32,6 +32,19 @@ module TomestonesHelper
     end
   end
 
+  def tomestone_name(tomestone)
+    name = Item.find_by(name_en: "Irregular Tomestone of #{tomestone}").name
+
+    case I18n.locale
+    when :fr
+      name.split(' ')[-2]
+    when :ja
+      name.split(':').last
+    else
+      name.split(' ').last
+    end
+  end
+
   def reward_instance_cost(reward)
     if reward.cost <= 14
       cost = (reward.cost / 14.0).ceil

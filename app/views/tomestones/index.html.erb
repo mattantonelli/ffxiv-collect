@@ -1,21 +1,21 @@
 <% title(@title) %>
 <% description("Browse the collectable rewards from the #{@title} and see which ones your character is missing.") %>
 
-<div class="d-flex inline-flex justify-content-center align-items-center mb-4 tomestones">
-  <div class="card mr-2">
-    <div class="card-body text-center">
-      The following collectables are available as rewards from the <%= reward_event_link(@url) %> event.
-    </div>
-  </div>
-  <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+<h2 class="tomestones text-center mb-3"><%= @title %></h2>
+
+<div class="d-flex flex-wrap justify-content-center">
+  <% @tomestones.each do |tomestone| %>
+    <%= link_to(tomestone_name(tomestone), tomestone_path(tomestone.downcase),
+                class: "btn btn-dark bold mr-2 mb-1#{' active' if @tomestone == tomestone}") %>
+  <% end %>
 </div>
 
 <%= render 'shared/filters' %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <h4 class="text-center"><%= t('tomestones.collectables') %></h4>
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle ml-auto' %>
     <% if character_selected? %>
       <div class="my-2">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>

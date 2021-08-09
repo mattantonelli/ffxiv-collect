@@ -48,11 +48,7 @@ Rails.application.routes.draw do
   get 'relics', to: redirect('relics/weapons')
   get 'relics/gear', to: redirect('relics/armor')
 
-  resources :tomestones, only: [] do
-    collection do
-      get :mythology, :soldiery, :law, :esoterics, :pageantry
-    end
-  end
+  resources :tomestones, only: [:index, :show]
 
   get 'yokai', to: 'yokai#index'
 

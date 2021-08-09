@@ -42,6 +42,38 @@ namespace :tomestones do
       create_rewards('pageantry')
     end
   end
+
+  desc 'Create the latest tomestone rewards from SpecialShop data'
+  namespace :latest do
+    task create: :environment do
+      puts 'Creating tomestone rewards'
+      count = TomestoneReward.count
+
+      XIVData.sheet('SpecialShop', raw: true).each do |shop|
+        next unless shop['Name'] == 'Newest Irregular Tomestone Exchange'
+
+        tomestone = Item.find(shop['Item{Cost}[0][0]']).name_en.split(' ').last
+
+        60.times do |i|
+          item_id = shop["Item{Receive}[#{i}][0]"]
+          break if item_id == '0'
+
+          item = Item.find(item_id)
+          collectable = item.unlock
+          cost = shop["Count{Cost}[#{i}][0]"]
+
+          TomestoneReward.find_or_create_by!(collectable: collectable || item, cost: cost, tomestone: tomestone)
+
+          unless collectable.present?
+            create_image(item.id, XIVData.icon_path(item.icon_id),
+                         Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
+          end
+        end
+      end
+
+      puts "Created #{TomestoneReward.count - count} new tomestone rewards"
+    end
+  end
 end
 
 def create_rewards(tomestone)

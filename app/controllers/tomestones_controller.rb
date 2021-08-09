@@ -1,52 +1,33 @@
 class TomestonesController < ApplicationController
-  before_action :set_collection
+  include TomestonesHelper
 
-  def mythology
-    @title = 'Moogle Treasure Trove (Mythology)'
-    @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/201909/'
-    @collectables = collectables('Mythology')
-    render :index
-  end
-
-  def soldiery
-    @title = 'Moogle Treasure Trove (Soldiery)'
-    @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202001/'
-    @collectables = collectables('Soldiery')
-    render :index
-  end
-
-  def law
-    @title = 'Moogle Treasure Trove (Law)'
-    @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202005/'
-    @collectables = collectables('Law')
-    render :index
-  end
-
-  def esoterics
-    @title = 'Moogle Treasure Trove (Esoterics)'
-    @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202103/2ozonfi9xh'
-    @collectables = collectables('Esoterics')
-    @items = items('Esoterics')
-    render :index
-  end
-
-  def pageantry
-    @title = 'Moogle Treasure Trove (Pageantry)'
-    @url = 'https://na.finalfantasyxiv.com/lodestone/special/mogmog-collection/202105/dubrw051tv'
-    @collectables = collectables('Pageantry')
-    @items = items('Pageantry')
-    render :index
-  end
-
-  private
-  def set_collection
+  def index
     if @character.present?
       @collections_ids = TomestoneReward.collectable.pluck(:collectable_type).uniq.each_with_object({}) do |type, h|
         h[type] = "Character#{type}".constantize.where(character: @character).pluck("#{type.downcase}_id")
       end
     end
+
+    @tomestones = TomestoneReward.order(:created_at).pluck(:tomestone).uniq
+
+    if params[:action] == 'index'
+      @tomestone = @tomestones.last
+    else
+      @tomestone = params[:id].capitalize
+    end
+
+    @title = "#{t('tomestones.title')}: #{tomestone_name(@tomestone)}"
+    @collectables = collectables(@tomestone)
+    @items = items(@tomestone)
   end
 
+  # Leverage ID param to dynamically route to tomestone rewards by name
+  def show
+    index
+    render :index
+  end
+
+  private
   def collectables(tomestone)
     TomestoneReward.collectable.includes(collectable: { sources: [:type, :related] })
       .where(tomestone: tomestone).order(cost: :desc)
