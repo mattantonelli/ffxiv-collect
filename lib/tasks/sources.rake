@@ -67,9 +67,8 @@ namespace :sources do
       # Create the quest source if it is non-event quest, or if it is an event quest and the collectable has
       # no known sources. We will replace event quest sources with the actual event name later.
       if !quest.event? || no_sources?(quest.reward.unlock_type, quest.reward.unlock_id)
-        Source.find_or_create_by!(collectable_id: quest.reward.unlock_id,
-                                  collectable_type: quest.reward.unlock_type,
-                                  text: quest.name_en, type_id: source_type, related_id: quest.id)
+        Source.find_or_create_by!(collectable_id: quest.reward.unlock_id, collectable_type: quest.reward.unlock_type,
+                                  text: quest.name_en, type_id: source_type, related_id: quest.id, limited: quest.event?)
       end
     end
 

@@ -29,6 +29,7 @@
 #  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00 UTC +00:00)
 #  fashions_count     :integer          default(0)
 #  records_count      :integer          default(0)
+#  data_center        :string(255)
 #
 
 class Character < ApplicationRecord

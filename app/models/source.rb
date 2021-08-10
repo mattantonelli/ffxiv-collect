@@ -11,6 +11,8 @@
 #  updated_at       :datetime         not null
 #  related_id       :integer
 #  related_type     :string(255)
+#  premium          :boolean          default(FALSE)
+#  limited          :boolean          default(FALSE)
 #
 
 class Source < ApplicationRecord
@@ -40,6 +42,8 @@ class Source < ApplicationRecord
         self.related_type = 'Instance'
       end
     when 'Event'
+      self.limited = true
+
       if quest = Quest.find_by(name_en: text)
         self.related_id = quest.id
         self.related_type = 'Quest'
