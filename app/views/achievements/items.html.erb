@@ -1,7 +1,7 @@
 <% title("#{t('achievements.title')} - #{t('achievements.item_reward', count: 2)}") %>
 <% description("Automatically track your character's achievement items and discover how to obtain new ones.") %>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mb-2">
   <%= search_form_for(@q, url: achievement_items_path, enforce_utf8: false,
                       class: 'form form-inline search-form d-flex') do |f| %>
     <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: t('item'),
