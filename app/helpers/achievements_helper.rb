@@ -1,4 +1,9 @@
 module AchievementsHelper
+  def achievement_category_link(achievement)
+    link_to(achievement.category.name,
+            achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled')
+  end
+
   def achievement_reward(achievement)
     if achievement.title.present?
       image_tag('title.png', data: { toggle: 'tooltip', title: title_name(achievement.title), html: true })

@@ -45,8 +45,7 @@
             </td>
             <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
             <td class="hide-xs"><%= format_text_long(achievement.description) %></td>
-            <td class="hide-sm"><%= link_to achievement.category.name,
-              achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled' %></td>
+            <td class="hide-sm"><%= achievement_category_link(achievement) %></td>
             <td data-value="<%= achievement_reward_value(achievement) %>">
               <%= achievement_reward(achievement) %>
             </td>

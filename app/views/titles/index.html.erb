@@ -34,10 +34,7 @@
             <td data-value="<%= title.order %>"></td>
             <td><%= title_name(title) %></td>
             <td class="hide-xs"><%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name') %></td>
-            <td class="title-category hide-xs">
-              <%= link_to(title.achievement.type.name,
-                          achievement_type_path(title.achievement.type, anchor: title.achievement.category_id), class: 'name') %>
-            </td>
+            <td class="hide-xs"><%= achievement_category_link(title.achievement) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
               <%= rarity(title.achievement) %>
             </td>
