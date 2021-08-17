@@ -34,9 +34,9 @@
         <tr>
           <td></td>
           <td></td>
-          <td><%= number_to_currency(@prices.values.sum { |price| price['price']}) %></td>
-          <td>(<%= number_with_delimiter(Character.visible.recent.count) %>)</td>
-          <td><%= number_to_currency(@prices.values.sum { |price| price['total']}) %></td>
+          <td><b><%= number_to_currency(@prices.values.sum { |price| price['price']}) %></b></td>
+          <td><b>(<%= number_with_delimiter(Character.visible.recent.count) %>)</b></td>
+          <td><b><%= number_to_currency(@prices.values.sum { |price| price['total']}) %></b></td>
         </tr>
       </tbody>
     </table>
