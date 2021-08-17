@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   resources :tomestones, only: [:index, :show]
 
+  resources :p2w, only: :index
+
   get 'yokai', to: 'yokai#index'
 
   get 'achievements/types', to: redirect('404')
