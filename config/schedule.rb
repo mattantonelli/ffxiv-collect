@@ -11,3 +11,8 @@ end
 every '0 0 * * *' do
   rake 'prices:cache'
 end
+
+# Cache P2W data
+every '5 0 * * *' do
+  rake 'p2w:cache'
+end

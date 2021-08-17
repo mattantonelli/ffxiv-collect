@@ -26,17 +26,17 @@
               <% end %>
             </td>
             <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
-            <td><%= number_to_currency(@prices[mount.id]) %></td>
-            <td><%= number_with_delimiter(@counts[mount.id] || 0) %></td>
-            <td><%= number_to_currency(@prices[mount.id] * (@counts[mount.id] || 0)) %></td>
+            <td><%= number_to_currency(@prices[mount.id.to_s]['price']) %></td>
+            <td><%= number_with_delimiter(@prices[mount.id.to_s]['characters']) %> (<%= rarity(mount) %>)</td>
+            <td><%= number_to_currency(@prices[mount.id.to_s]['total']) %></td>
           </tr>
         <% end %>
         <tr>
           <td></td>
           <td></td>
-          <td><%= number_to_currency(@prices.values.sum) %></td>
-          <td></td>
-          <td><%= number_to_currency(p2w_total(@prices, @counts)) %></td>
+          <td><%= number_to_currency(@prices.values.sum { |price| price['price']}) %></td>
+          <td>(<%= number_with_delimiter(Character.visible.recent.count) %>)</td>
+          <td><%= number_to_currency(@prices.values.sum { |price| price['total']}) %></td>
         </tr>
       </tbody>
     </table>
