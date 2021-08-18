@@ -9,11 +9,10 @@
 #  name_ja    :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  reward_id  :integer
 #  event      :boolean
 #
 
 class Quest < ApplicationRecord
   translates :name
-  belongs_to :reward, class_name: 'Item', required: false
+  has_many :rewards, class_name: 'Item'
 end

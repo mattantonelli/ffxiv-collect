@@ -24,8 +24,10 @@
 #  plural_de      :string(255)
 #  plural_fr      :string(255)
 #  plural_ja      :string(255)
+#  quest_id       :integer
 #
 class Item < ApplicationRecord
   translates :name, :description, :plural
   belongs_to :unlock, polymorphic: true, required: false
+  belongs_to :quest, required: false
 end

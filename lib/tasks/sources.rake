@@ -49,7 +49,7 @@ namespace :sources do
 
     # Create sources from Achievement rewards for non-time limited (or GARO) quests
     achievements = Achievement.exclude_time_limited.where.not(id: [1771, 1772, 1773])
-      .joins(:item).where('items.unlock_type is not null')
+      .joins(:item).where('items.unlock_type is not null').where('items.unlock_type <> "Orchestrion"')
 
     achievements.each do |achievement|
       Source.find_or_create_by!(collectable_id: achievement.item.unlock_id,
@@ -58,17 +58,17 @@ namespace :sources do
     end
 
     # Create sources from Quest rewards
-    quests = Quest.where.not(reward_id: nil)
-      .joins(:reward).where('items.unlock_type IS NOT NULL')
+    Item.includes(:quest).where.not(unlock_id: nil, quest_id: nil).each do |item|
+      if item.unlock_type == 'Orchestrion'
+        item.unlock.update!(details: item.quest.name_en)
+      else
+        source_type = item.quest.event? ? event_type : quest_type
 
-    quests.each do |quest|
-      source_type = quest.event? ? event_type : quest_type
-
-      # Create the quest source if it is non-event quest, or if it is an event quest and the collectable has
-      # no known sources. We will replace event quest sources with the actual event name later.
-      if !quest.event? || no_sources?(quest.reward.unlock_type, quest.reward.unlock_id)
-        Source.find_or_create_by!(collectable_id: quest.reward.unlock_id, collectable_type: quest.reward.unlock_type,
-                                  text: quest.name_en, type_id: source_type, related_id: quest.id, limited: quest.event?)
+        # Create quest sources if no sources exist. This avoids creating extra sources after we switch to the event name.
+        if item.unlock.sources.none?
+          item.unlock.sources.find_or_create_by!(text: item.quest.name_en, type_id: source_type,
+                                                 related_id: item.quest_id, limited: item.quest.event?)
+        end
       end
     end
 
@@ -77,10 +77,5 @@ namespace :sources do
       Source.find_or_create_by!(collectable_id: item.unlock_id, collectable_type: item.unlock_type,
                                 text: "Crafted by #{item.crafter}", type_id: crafting_type, related_id: item.recipe_id)
     end
-  end
-
-  private
-  def no_sources?(type, id)
-    Source.where(collectable_type: type, collectable_id: id).empty?
   end
 end

@@ -8,8 +8,19 @@ namespace :quests do
       XIVData.sheet('Quest', locale: locale).each do |quest|
         next unless quest['Name'].present?
 
-        data = h[quest['#']] || { id: quest['#'], reward_id: Item.find_by(name_en: quest['Item{Reward}[0][0]'])&.id&.to_s,
-                                  event: quest['FestivalEnd'] != '0' }
+        # Initialize the data and process rewards on the first pass
+        if locale == 'en'
+          data = { id: quest['#'], event: quest['FestivalEnd'] != '0' }
+
+          7.times do |i|
+            reward = quest["Item{Reward}[0][#{i}]"]
+            break if reward.nil?
+            Item.find_by(name_en: reward)&.update!(quest_id: quest['#'])
+          end
+        else
+          data = h[quest['#']]
+        end
+
         data["name_#{locale}"] = sanitize_text(quest['Name'].gsub(/\uE0BE ?/, ''))
         h[data[:id]] = data
       end
