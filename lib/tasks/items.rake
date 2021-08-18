@@ -66,9 +66,9 @@ namespace :items do
                     when '1013' then 'Barding'
                     when '20086' then 'Fashion'
                     when '2633'
-                      if data[:name_en].match?('Modern Aesthetics')
+                      if data[:name_en].match?('Aesthetics')
                         'Hairstyle'
-                      elsif data[:name_en].match?('Ballroom Etiquette')
+                      elsif data[:name_en].match?('Etiquette')
                         'Emote'
                       else
                         next

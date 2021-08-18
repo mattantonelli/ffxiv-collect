@@ -10,7 +10,7 @@ namespace :hairstyles do
     XIVData.sheet('CharaMakeCustomize', raw: true).each do |custom|
       next if custom['HintItem'] == '0'
       item = Item.find_by(id: custom['HintItem'])
-      next unless item.present? && item.name_en.match?('Modern Aesthetics')
+      next unless item.present? && item.name_en.match?('Aesthetics')
 
       data = { id: custom['Data'] }
 
