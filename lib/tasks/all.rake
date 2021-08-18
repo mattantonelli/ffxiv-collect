@@ -37,6 +37,7 @@ namespace :data do
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
+    Rake::Task['shops:sources:update'].invoke
   end
 end
 

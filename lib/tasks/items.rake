@@ -12,8 +12,9 @@ namespace :items do
       icon_id = item['Icon'].sub(/.*?(\d+)\.tex/, '\1')
       tradeable = item['ItemSearchCategory'].present?
 
-      data = { id: item['#'], name_en: sanitize_name(item['Name']), description_en: sanitize_text(item['Description']),
-               icon_id: icon_id, tradeable: tradeable }
+      data = { id: item['#'], name_en: sanitize_name(item['Name']), plural_en: sanitize_name(item['Plural']),
+               description_en: sanitize_text(item['Description']), icon_id: icon_id, tradeable: tradeable,
+               price: item['Price{Mid}'] }
 
       h[data[:id]] = data
     end
@@ -23,6 +24,7 @@ namespace :items do
         next unless item['Name'].present?
 
         items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name']),
+                                "plural_#{locale}" => sanitize_name(item['Plural']),
                                 "description_#{locale}" => sanitize_text(item['Description']))
       end
     end

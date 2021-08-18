@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_05_230419) do
+ActiveRecord::Schema.define(version: 2021_08_18_001533) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -414,6 +414,11 @@ ActiveRecord::Schema.define(version: 2021_08_05_230419) do
     t.integer "recipe_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price"
+    t.string "plural_en"
+    t.string "plural_de"
+    t.string "plural_fr"
+    t.string "plural_ja"
     t.index ["name_en"], name: "index_items_on_name_en"
     t.index ["unlock_type"], name: "index_items_on_unlock_type"
   end

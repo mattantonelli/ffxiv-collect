@@ -19,8 +19,13 @@
 #  recipe_id      :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  price          :integer
+#  plural_en      :string(255)
+#  plural_de      :string(255)
+#  plural_fr      :string(255)
+#  plural_ja      :string(255)
 #
 class Item < ApplicationRecord
-  translates :name, :description
+  translates :name, :description, :plural
   belongs_to :unlock, polymorphic: true, required: false
 end
