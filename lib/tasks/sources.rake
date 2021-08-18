@@ -60,11 +60,10 @@ namespace :sources do
     # Create sources from Quest rewards
     Item.includes(:quest).where.not(unlock_id: nil, quest_id: nil).each do |item|
       if item.unlock_type == 'Orchestrion'
-        item.unlock.update!(details: item.quest.name_en)
+        item.unlock.update!(details: item.quest.name_en) unless item.unlock.details.present?
       else
         source_type = item.quest.event? ? event_type : quest_type
 
-        # Create quest sources if no sources exist. This avoids creating extra sources after we switch to the event name.
         if item.unlock.sources.none?
           item.unlock.sources.find_or_create_by!(text: item.quest.name_en, type_id: source_type,
                                                  related_id: item.quest_id, limited: item.quest.event?)
