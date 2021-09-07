@@ -11,7 +11,7 @@ namespace :prices do
 
       item_ids.each_slice(100) do |ids|
         begin
-          url = "#{UNIVERSALIS_BASE_URL}/#{dc}/#{ids.join(',')}"
+          url = "#{UNIVERSALIS_BASE_URL}/#{dc}/#{ids.join(',')}?listings=1&entries=0"
           response = JSON.parse(RestClient.get(url))
 
           prices = response['items'].map do |id, item|
