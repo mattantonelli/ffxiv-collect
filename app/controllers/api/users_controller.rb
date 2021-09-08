@@ -10,7 +10,7 @@ class Api::UsersController < ApiController
       elsif !character.public?
         render json: { status: 403, error: "User's character is set to private" }, status: :forbidden
       else
-        redirect_to api_character_path(character)
+        redirect_to api_character_path(character, request.query_parameters)
       end
     else
       render json: { status: 404, error: "User not found. Sign in with Discord and select your character at #{root_url}" },
