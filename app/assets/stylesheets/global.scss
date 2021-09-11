@@ -138,6 +138,10 @@ label, input[type="checkbox"] {
   cursor: pointer;
 }
 
+input[type="checkbox"] {
+  -webkit-filter: grayscale(100%);
+}
+
 hr {
   border-top: 1px solid rgba(233, 233, 233, 0.1);
   margin-left: 0;
