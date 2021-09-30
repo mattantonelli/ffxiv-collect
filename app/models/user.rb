@@ -32,7 +32,8 @@ class User < ApplicationRecord
 
   def triple_triad
     begin
-      response = RestClient.get("https://triad.raelys.com/api/users/#{self.uid}?limit_missing=0")
+      response = RestClient::Request.execute(url: "https://triad.raelys.com/api/users/#{self.uid}?limit_missing=0",
+                                             method: :get, verify_ssl: false)
       JSON.parse(response, symbolize_names: true).merge(status: :ok)
     rescue RestClient::Forbidden
       { status: :private }
