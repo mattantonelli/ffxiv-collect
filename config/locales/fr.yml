@@ -146,6 +146,7 @@ fr:
     behavior: "Comportement"
     title: "Mascottes"
   mounts:
+    custom_music: "Cette monture dispose d'une musique spéciale"
     flying: "Volante"
     movement: "Mouvement"
     preview: "Aperçu vidéo"

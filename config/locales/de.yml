@@ -142,6 +142,7 @@ de:
     behavior: "Verhalten"
     title: "Begleiter"
   mounts:
+    custom_music: "Dieses Reittier spielt spezielle Musik"
     flying: "Fliegen"
     movement: "Bewegung"
     preview: "Video-Vorschau"

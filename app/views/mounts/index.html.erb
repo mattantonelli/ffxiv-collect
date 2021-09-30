@@ -23,6 +23,7 @@
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('music') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
           <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
@@ -41,6 +42,7 @@
             <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
             <td class="hide-xs"><%= sources(mount) %></td>
             <td class="text-center" data-value="<%= mount.item_id.present? ? 1 : 0 %>"><%= market_link(mount) %></td>
+            <td class="text-center" data-value="<%= mount.bgm_sample.present? ? 1 : 0 %>"><%= custom_music_link(mount) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
             <td class="text-center" data-value="<%= sort_value(mount) %>"><%= mount.patch %></td>
             <% if character_selected? %>

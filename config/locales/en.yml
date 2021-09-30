@@ -146,6 +146,7 @@ en:
     behavior: "Behavior"
     title: "Minions"
   mounts:
+    custom_music: "This mount plays custom music"
     flying: "Flying"
     movement: "Movement"
     preview: "Video Preview"
