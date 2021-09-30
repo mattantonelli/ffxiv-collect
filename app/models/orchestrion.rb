@@ -18,6 +18,7 @@
 #  updated_at     :datetime         not null
 #  item_id        :integer
 #  details        :string(255)
+#  sample         :string(255)      not null
 #
 
 class Orchestrion < ApplicationRecord

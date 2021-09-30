@@ -28,6 +28,7 @@
 #  item_id                 :integer
 #  video                   :string(255)
 #  order_group             :integer
+#  bgm_sample              :string(255)
 #
 
 class Mount < ApplicationRecord

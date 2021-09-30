@@ -46,6 +46,12 @@
             <div class="d-block d-sm-none">
               <%= safe_image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>
             </div>
+            <% if @mount.bgm_sample.present? %>
+              <h6 class="mt-2"><%= t('orchestrions.sample') %></h6>
+              <audio controls="" controlslist="nodownload" class="my-2">
+                <source src="/music/<%= @mount.bgm_sample %>" type="audio/ogg">
+              </audio>
+            <% end %>
           </div>
         </div>
         <div class="mount-footprint">

@@ -1,6 +1,3 @@
-MOUNT_COLUMNS = %w(ID Description_* DescriptionEnhanced_* Icon IconSmall IconID IsFlying Name_* Order
-UIPriority Tooltip_* GamePatch.Version IsAirborne ExtraSeats).freeze
-
 namespace :mounts do
   desc 'Create the mounts'
   task create: :environment do
@@ -17,6 +14,13 @@ namespace :mounts do
                                   seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: mount['Icon'],
                                   movement: mount['IsAirborne'] == 'True' ? 'Airborne' : 'Terrestrial'}
         data["name_#{locale}"] = sanitize_name(mount['Singular'])
+
+        # Set unique BGM samples on the first pass
+        unless h.has_key?(mount['#']) || mount['RideBGM'].match?(/(Ride_Chocobo|CommonMonster|FlyingMount)/)
+          data[:bgm_sample] = XIVData.music_filename(mount['RideBGM'])
+          link_music(XIVData.music_path(mount['RideBGM']))
+        end
+
         h[data[:id]] = data
       end
     end

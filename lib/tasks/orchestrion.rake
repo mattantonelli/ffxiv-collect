@@ -41,6 +41,12 @@ namespace :orchestrions do
                                             category_id: orchestrion['OrchestrionCategory'])
     end
 
+    XIVData.sheet('OrchestrionPath', raw: true).each do |path|
+      next unless path['File'].present?
+      orchestrions[path['#']][:sample] = XIVData.music_filename(path['File'])
+      link_music(XIVData.music_path(path['File']))
+    end
+
     orchestrions.values.each do |orchestrion|
       if existing = Orchestrion.find_by(id: orchestrion[:id])
         existing.update!(orchestrion) if updated?(existing, orchestrion)

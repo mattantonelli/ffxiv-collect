@@ -19,6 +19,11 @@ namespace :data do
       puts 'Images will not be generated.'
     end
 
+    unless Dir.exist?(XIVData::MUSIC_PATH)
+      puts "ERROR: Could not find music source directory: #{XIVData::MUSIC_PATH}"
+      puts 'Music samples will not be generated.'
+    end
+
     Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
@@ -102,6 +107,12 @@ def updated?(model, data)
   end
 
   updated
+end
+
+def link_music(path)
+  return unless Dir.exist?(XIVData::MUSIC_PATH)
+
+  FileUtils.ln_s(path, Rails.root.join('public/music', path.sub(/.*\//, '')), force: true)
 end
 
 def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)

@@ -37,11 +37,8 @@
           <hr>
           <h6><%= t('orchestrions.sample') %></h6>
           <audio controls="" controlslist="nodownload" class="my-2">
-            <source src="https://www.garlandtools.org/files/orchestrion/<%= @orchestrion.id %>.ogg" type="audio/ogg">
+            <source src="/music/<%= @orchestrion.sample %>" type="audio/ogg">
           </audio>
-          <p class="mb-0">
-            <%= t('powered_by') %> <%= link_to 'Garland Tools', 'http://www.garlandtools.org/db', target: '_blank' %>
-          </p>
         </div>
       </div>
     </div>

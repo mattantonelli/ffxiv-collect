@@ -6,6 +6,7 @@ module XIVData
 
   BASE_URL = 'https://raw.githubusercontent.com/mattantonelli/xiv-data/master'.freeze
   IMAGE_PATH = '/var/rails/images/ffxiv'.freeze
+  MUSIC_PATH = '/var/rails/music/ffxiv'.freeze
 
   def sheet(sheet, locale: nil, raw: false, drop_zero: true)
     if raw
@@ -29,6 +30,14 @@ module XIVData
 
   def image_path(icon)
     "#{IMAGE_PATH}/#{icon.sub('tex', 'png')}"
+  end
+
+  def music_filename(path)
+    "#{path.sub(/.*\//, '').sub('.scd', '.ogg')}"
+  end
+
+  def music_path(path)
+    "#{MUSIC_PATH}/#{music_filename(path)}"
   end
 
   def related_id(value)

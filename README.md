@@ -43,8 +43,8 @@ google_analytics:
   tracking_id: GA-1234567-8
 ```
 
-#### Extract the images
-Extract images from the game data by following the instructions in the [data repository](https://github.com/mattantonelli/xiv-data#images).
+#### Extract the images & music samples
+Extract images & music samples from the game data by following the instructions in the [data repository](https://github.com/mattantonelli/xiv-data).
 
 #### Load the database
 ```
