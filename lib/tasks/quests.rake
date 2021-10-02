@@ -21,7 +21,7 @@ namespace :quests do
           data = h[quest['#']]
         end
 
-        data["name_#{locale}"] = sanitize_text(quest['Name'].gsub(/\uE0BE ?/, ''))
+        data["name_#{locale}"] = sanitize_text(quest['Name'].gsub(/[\uE0BE\uE0BF] ?/, ''))
         h[data[:id]] = data
       end
     end
