@@ -49,7 +49,7 @@
               <% end %>
             </td>
             <td class="hide-xs"><%= sources(hairstyle) %></td>
-            <td class="text-center" data-value="<%= hairstyle.item_id.present? ? 1 : 0 %>"><%= market_link(hairstyle) %></td>
+            <td class="text-center" data-value="<%= price_sort_value(hairstyle) %>"><%= market_link(hairstyle) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(hairstyle, numeric: true) %>"><%= rarity(hairstyle) %></td>
             <td class="text-center" data-value="<%= sort_value(hairstyle) %>"><%= hairstyle.patch %></td>
             <% if character_selected? %>

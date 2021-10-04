@@ -40,7 +40,7 @@
             <td data-value="<%= barding.order %>"><%= sprite(barding, 'barding') %></td>
             <td><%= link_to(barding.name, barding_path(barding), class: 'name') %></td>
             <td class="hide-xs"><%= sources(barding) %></td>
-            <td class="text-center" data-value="<%= barding.item_id.present? ? 1 : 0 %>"><%= market_link(barding) %></td>
+            <td class="text-center" data-value="<%= price_sort_value(barding) %>"><%= market_link(barding) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(barding, numeric: true) %>"><%= rarity(barding) %></td>
             <td class="text-center" data-value="<%= sort_value(barding) %>"><%= barding.patch %></td>
             <% if character_selected? %>

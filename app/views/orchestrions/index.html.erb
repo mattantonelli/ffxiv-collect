@@ -58,7 +58,7 @@
             <td><%= link_to(orchestrion.name, orchestrion_path(orchestrion), class: 'name') %></td>
             <td class="orchestrion-source hide-xs"><%= sources(orchestrion) %></td>
             <td class="orchestrion-category text-center hide-xs"><%= orchestrion.category.name %></td>
-            <td class="text-center" data-value="<%= orchestrion.item_id.present? ? 1 : 0 %>">
+            <td class="text-center" data-value="<%= price_sort_value(orchestrion) %>">
               <%= market_link(orchestrion) %>
             </td>
             <td class="text-center hide-xs" data-value="<%= rarity(orchestrion, numeric: true) %>">

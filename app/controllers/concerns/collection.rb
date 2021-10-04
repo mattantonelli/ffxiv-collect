@@ -31,7 +31,15 @@ module Collection
 
   def set_prices!
     data_center = @character&.data_center&.downcase || 'primal'
-    @prices = Redis.current.hgetall("prices-#{data_center}")
+
+    begin
+      @prices = Redis.current.hgetall("prices-#{data_center}").each_with_object({}) do |(k, v), h|
+        h[k.to_i] = JSON.parse(v)
+      end
+    rescue
+      Rails.logger.error("There was a problem retrieving Universalis prices for #{data_center}")
+      @prices = {}
+    end
   end
 
   def check_achievements!

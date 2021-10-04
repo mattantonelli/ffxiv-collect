@@ -116,6 +116,14 @@ module CollectionsHelper
     "#{patch.ljust(4, '0')}#{order}"
   end
 
+  def price_sort_value(collectable)
+    if price = @prices[collectable.item_id]
+      price['price']
+    else
+      '9999999'
+    end
+  end
+
   def achievement_link(source)
     if source.related_id.present?
       link_to(source.related.name, achievement_path(source.related_id))
@@ -203,7 +211,7 @@ module CollectionsHelper
       if data.present?
         price = JSON.parse(data)
       else
-        price = JSON.parse(@prices[collectable.item_id.to_s])
+        price = @prices[collectable.item_id]
       end
 
       "<b>#{t('prices.price')}:</b> #{number_with_delimiter(price['price'])} Gil<br>" \
