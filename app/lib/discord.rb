@@ -8,8 +8,8 @@ module Discord
 
   def embed_collectable(type, query)
     url = "#{ROOT_URL}/api/#{type.pluralize}?#{query}"
-    results = JSON.parse(RestClient.get(url), symbolize_names: true)[:results]
-      .sort_by { |collectable| collectable[:name].size }
+    response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
+    results = JSON.parse(response, symbolize_names: true)[:results].sort_by { |collectable| collectable[:name].size }
     collectable = results.first
 
     if collectable.nil?
@@ -69,7 +69,8 @@ module Discord
 
   def embed_character(user)
     url = "#{ROOT_URL}/api/users/#{user}"
-    character = JSON.parse(RestClient.get(url), symbolize_names: true)
+    response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
+    character = JSON.parse(response, symbolize_names: true)
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
 

@@ -12,7 +12,7 @@ namespace :prices do
       item_ids.each_slice(100) do |ids|
         begin
           url = "#{UNIVERSALIS_BASE_URL}/#{dc}/#{ids.join(',')}?listings=1&entries=0"
-          response = JSON.parse(RestClient.get(url))
+          response = JSON.parse(RestClient::Request.execute(url: url, method: :get, verify_ssl: false))
 
           prices = response['items'].map do |id, item|
             last_updated = Time.at(item['lastUploadTime'] / 1000).to_date
