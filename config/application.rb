@@ -29,7 +29,7 @@ module FfxivCollect
 
     config.cache_store = :file_store, 'tmp/cache'
 
-    config.session_store :cookie_store, key: '_ffxiv_collect_session', expire_after: 1.month
+    config.session_store :cookie_store, key: '_ffxiv_collect_session', expire_after: 1.month, same_site: :lax
 
     config.active_job.queue_adapter = :sidekiq
 

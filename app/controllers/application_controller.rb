@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     redirect_to session.delete(:return_to) || root_path
   end
 
+  def set_permanent_cookie(key, value)
+    cookies[key] = { value: value, expires: 20.years.from_now, same_site: :lax }
+  end
+
   def verify_signed_in!
     unless user_signed_in?
       flash[:alert] = t('alerts.not_signed_in')
@@ -32,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   private
   def set_locale
-    locale = cookies['locale']
+    locale = cookies[:locale]
 
     unless locale.present?
       locale = request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/^[a-z]{2}/)&.first&.downcase
@@ -41,10 +45,10 @@ class ApplicationController < ActionController::Base
         locale = I18n.default_locale
       end
 
-      cookies['locale'] = locale
+      set_permanent_cookie(:locale, locale)
     end
 
-    I18n.locale = cookies['locale']
+    I18n.locale = cookies[:locale]
   end
 
   def set_characters
@@ -55,8 +59,8 @@ class ApplicationController < ActionController::Base
         flash[:error] = t('alerts.character_set_to_private')
         redirect_to root_path
       end
-    elsif cookies['character'].present?
-      @character = Character.find_by(id: cookies['character'])
+    elsif cookies[:character].present?
+      @character = Character.find_by(id: cookies[:character])
       if @character&.private?
         cookies[:character] = nil
         flash[:error] = t('alerts.character_set_to_private')
@@ -64,12 +68,12 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if cookies['comparison'].present?
+    if cookies[:comparison].present?
       unless @character.present?
         cookies[:comparison] = nil
       end
 
-      @comparison = Character.find_by(id: cookies['comparison'])
+      @comparison = Character.find_by(id: cookies[:comparison])
       if @comparison&.private?(current_user)
         cookies[:comparison] = nil
         flash[:error] = t('alerts.comparison_set_to_private')

@@ -168,10 +168,10 @@ $(document).on 'turbolinks:load', ->
       (gender.length > 0 && Cookies.get('gender') != gender.val())
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
-      Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300 })
+      Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300, sameSite: 'Lax' })
 
     $(@).find('select').each (_, option) ->
-      Cookies.set("#{$(option).attr('id')}", $(option).val(), { expires: 7300 })
+      Cookies.set("#{$(option).attr('id')}", $(option).val(), { expires: 7300, sameSite: 'Lax' })
 
     $('#filters').modal('hide')
 

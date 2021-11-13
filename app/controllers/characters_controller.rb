@@ -92,11 +92,11 @@ class CharactersController < ApplicationController
       redirect_back(fallback_location: root_path)
     else
       if params[:compare]
-        cookies[:comparison] = params[:id]
+        set_permanent_cookie(:comparison, params[:id])
       elsif user_signed_in?
         current_user.update(character_id: params[:id])
       else
-        cookies[:character] = params[:id]
+        set_permanent_cookie(:character, params[:id])
       end
 
       if user_signed_in?
@@ -119,7 +119,7 @@ class CharactersController < ApplicationController
     if user_signed_in?
       current_user.update(character_id: nil)
     else
-      cookies[:character] = nil
+      cookies.delete(:character)
     end
 
     flash[:success] = t('alerts.no_longer_tracking')
@@ -127,7 +127,7 @@ class CharactersController < ApplicationController
   end
 
   def forget_comparison
-    cookies[:comparison] = nil
+    cookies.delete(:comparison)
     redirect_back(fallback_location: root_path)
   end
 
