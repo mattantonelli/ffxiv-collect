@@ -197,8 +197,12 @@ hr {
     margin: 0 auto;
     width: auto;
 
-    @media (max-width: 1920px) {
-      min-width: calc(75vw - 59px);
+    @media (max-width: 575px) {
+      min-width: 90vw;
+    }
+
+    @media (min-width: 576px) {
+      min-width: calc(70vw - 59px);
     }
 
     @media (min-width: 1921px) {
