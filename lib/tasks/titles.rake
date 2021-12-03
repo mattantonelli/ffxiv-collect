@@ -33,7 +33,7 @@ namespace :titles do
     titles.values.each do |title|
       if existing = Title.find_by(id: title[:id])
         existing.update!(title) if updated?(existing, title)
-      else
+      elsif title[:achievement_id].present?
         Title.create!(title)
       end
     end
