@@ -43,6 +43,17 @@ namespace :tomestones do
     end
   end
 
+  # Clean up changed icon IDs on item rewards
+  namespace :images do
+    task create: :environment do
+      TomestoneReward.where(collectable_type: 'Item').each do |reward|
+        item = reward.collectable
+        create_image(item.id, XIVData.icon_path(item.icon_id),
+                     Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
+      end
+    end
+  end
+
   desc 'Create the latest tomestone rewards from SpecialShop data'
   namespace :latest do
     task create: :environment do

@@ -43,6 +43,7 @@ namespace :data do
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
     Rake::Task['shops:sources:update'].invoke
+    Rake::Task['tomestones:images:create'].invoke
   end
 end
 
