@@ -13,7 +13,7 @@ namespace :quests do
           data = { id: quest['#'], event: quest['FestivalEnd'] != '0' }
 
           7.times do |i|
-            reward = quest["Item{Reward}[0][#{i}]"]
+            reward = quest["Item{Reward}[#{i}]"]
             break if reward.nil?
             Item.find_by(name_en: reward)&.update!(quest_id: quest['#'])
           end

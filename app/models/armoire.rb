@@ -23,4 +23,8 @@ class Armoire < ApplicationRecord
   include Collectable
   translates :name, :description
   belongs_to :category, class_name: 'ArmoireCategory'
+
+  def item
+    Item.find_by(name_en: name_en)
+  end
 end
