@@ -34,9 +34,9 @@ class Relic < ApplicationRecord
   end
 
   def self.deep_dungeon_weapon_ids
-    ((15181..15193).to_a + [20456, 20457, 27347, 27348] + # Padjali
-     (16152..16164).to_a + [20458, 20459, 27349, 27350] + # Kinna
-     (22977..22991).to_a + [27379, 27380]).freeze # Empyrean
+    ((15181..15193).to_a + [20456, 20457, 27347, 27348, 35756, 35774] + # Padjali
+     (16152..16164).to_a + [20458, 20459, 27349, 27350, 35757, 35775] + # Kinna
+     (22977..22991).to_a + [27379, 27380, 35759, 35777]).freeze # Empyrean
   end
 
   def self.manual_weapon_ids
