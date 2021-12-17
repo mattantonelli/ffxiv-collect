@@ -55,7 +55,17 @@ namespace :items do
       next unless item['Name'].present? && item['ItemAction'] != 'ItemAction#0'
 
       action_id = XIVData.related_id(item['ItemAction'])
-      h[action_id] = { id: item['#'], name_en: sanitize_name(item['Name']) }
+
+      if action_id == '2235'
+        # Orchestrion roll unlock links live in the item's AdditionalData
+        the_item = Item.find(item['#'])
+        orchestrion_id = XIVData.related_id(item['AdditionalData'])
+
+        the_item.update!(unlock_type: 'Orchestrion', unlock_id: orchestrion_id)
+        Orchestrion.find(orchestrion_id).update!(item_id: the_item.id) if the_item.tradeable?
+      else
+        h[action_id] = { id: item['#'], name_en: sanitize_name(item['Name']) }
+      end
     end
 
     XIVData.sheet('ItemAction', raw: true).each do |action|
@@ -64,7 +74,7 @@ namespace :items do
       unlock_type = case action['Type']
                     when '1322' then 'Mount'
                     when '853'  then 'Minion'
-                    when '5845' then 'Orchestrion'
+                    #when '25183' then 'Orchestrion'
                     when '1013' then 'Barding'
                     when '20086' then 'Fashion'
                     when '2633'
