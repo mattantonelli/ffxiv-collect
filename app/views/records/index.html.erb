@@ -35,7 +35,7 @@
       </thead>
       <tbody>
         <% @records.each do |record| %>
-          <tr class="collectable<%= ' owned' if owned?(record.id) %>">
+          <tr class="<%= collectable_classes(record) %>">
             <td class="record-icon">
               <%= link_to(record_path(record), class: 'unstyled d-flex align-items-center') do %>
                 <span class="mr-2"><%= format_record_number(record) %></span>

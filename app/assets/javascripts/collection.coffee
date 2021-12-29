@@ -6,25 +6,27 @@ $(document).on 'turbolinks:load', ->
   restripe = ->
     return if $('.quick-select').length > 0
 
+    $('.collectable:not(.hidden)').show()
+
     if Cookies.get('owned') == 'owned'
       $('.collection').addClass('only-owned')
-      $('.collectable:not(.owned):not(.hidden)').hide()
-      $('.collectable.owned:not(.hidden)').show()
+      $('.collectable:not(.owned)').hide()
     else if Cookies.get('owned') == 'missing'
       $('.collection').removeClass('only-owned')
-      $('.collectable:not(.owned):not(.hidden)').show()
-      $('.collectable.owned:not(.hidden)').hide()
-    else
-      $('.collection').removeClass('only-owned')
-      $('.collectable:not(.hidden)').show()
+      $('.collectable.owned').hide()
+
+    if Cookies.get('tradeable') == 'tradeable'
+      $('.collectable:not(.tradeable)').hide()
+    else if Cookies.get('tradeable') == 'untradeable'
+      $('.collectable.tradeable').hide()
 
     $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
     # Update the collection progress bar based on visible collectables
     progress = $('.progress-bar:first')
-    current = $('.owned:not(.hidden)').length
-    max = $('tr.collectable:not(.hidden)').length
+    current = $('.owned:visible').length
+    max = $('tr.collectable:visible').length
 
     if max > 0
       completion = (current / max) * 100

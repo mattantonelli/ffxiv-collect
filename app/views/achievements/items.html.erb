@@ -28,7 +28,7 @@
       </thead>
       <tbody>
         <% @achievements.each do |achievement| %>
-          <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
+          <tr class="<%= collectable_classes(achievement) %>">
             <td class="wide hide-xs">
               <div class="d-flex align-items-center">
                 <%= sprite(achievement.item, 'item') %>

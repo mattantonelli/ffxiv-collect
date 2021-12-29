@@ -10,6 +10,9 @@
           <% unless %w(characters).include?(controller_name) %>
             <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
           <% end %>
+          <% unless %w(achievements titles tomestones spells armoires records characters).include?(controller_name) %>
+            <%= select_tag :tradeable, tradeable_options(cookies[:tradeable]), class: 'form-control mb-2' %>
+          <% end %>
           <% if %w(hairstyles armoires characters).include?(controller_name) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>

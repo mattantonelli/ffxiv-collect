@@ -48,7 +48,7 @@
       </thead>
       <tbody>
         <% @spells.each do |spell| %>
-          <tr class="collectable<%= ' owned' if owned?(spell.id) %>">
+          <tr class="<%= collectable_classes(spell) %>">
             <td class="number"><%= t('spells.number') %> <%= spell.order %></td>
             <td class="spell-sprite">
               <%= link_to(spell_path(spell)) do %>

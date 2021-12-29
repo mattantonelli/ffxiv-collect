@@ -33,7 +33,7 @@
       </thead>
       <tbody>
         <% @mounts.each do |mount| %>
-          <tr class="collectable<%= ' owned' if owned?(mount.id) %>">
+          <tr class="<%= collectable_classes(mount) %>">
             <td data-value="<%= mount.order_group %><%= mount.order.to_s.rjust(3, '0') %>">
               <%= link_to(mount_path(mount)) do %>
                 <%= sprite(mount, 'mounts-small') %>

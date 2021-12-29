@@ -59,6 +59,7 @@ en:
     title: "All"
     types: "All Types"
   any: "Any"
+  any_tradeable: "Any Tradeability"
   apply_filters: "Apply Filters"
   armoires:
     title: "Armoire"
@@ -158,6 +159,8 @@ en:
   only:
     missing: "Only Missing"
     owned: "Only Owned"
+    tradeable: "Only Tradeable"
+    untradeable: "Only Untradeable"
   orchestrions:
     quick_select: "Quick Select"
     sample: "Audio sample"

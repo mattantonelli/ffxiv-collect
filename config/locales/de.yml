@@ -58,6 +58,7 @@ de:
     title: "Alle"
     types: "Alle Typen"
   any: "Irgendeins"
+  any_tradeable: "Beliebige Handelbarkeit"
   apply_filters: "Filter anwenden"
   armoires:
     title: "Ausrüstung"
@@ -154,6 +155,8 @@ de:
   only:
     missing: "Nur Fehlende"
     owned: "Nur in Besitz"
+    tradeable: "Nur Handelbar"
+    untradeable: "Nur Nicht Handelbar"
   orchestrions:
     quick_select: "Schnellauswahl"
     sample: "Musikvorschau"

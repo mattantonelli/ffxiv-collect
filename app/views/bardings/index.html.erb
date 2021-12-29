@@ -36,7 +36,7 @@
       </thead>
       <tbody>
         <% @bardings.each do |barding| %>
-          <tr class="collectable<%= ' owned' if owned?(barding.id) %>">
+          <tr class="<%= collectable_classes(barding) %>">
             <td data-value="<%= barding.order %>"><%= sprite(barding, 'barding') %></td>
             <td><%= link_to(barding.name, barding_path(barding), class: 'name') %></td>
             <td class="hide-xs"><%= sources(barding) %></td>

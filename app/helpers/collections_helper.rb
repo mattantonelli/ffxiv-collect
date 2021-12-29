@@ -1,4 +1,8 @@
 module CollectionsHelper
+  def collectable_classes(collectable)
+    "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if tradeable?(collectable)}"
+  end
+
   def format_skill_description(description)
     format_text(description.gsub("\n", '<br>'))
   end
@@ -27,9 +31,14 @@ module CollectionsHelper
                         [t('characters.usable'), 'character']], selected)
   end
 
+  def tradeable_options(selected = nil)
+    options_for_select([[t('any_tradeable'), 'all'], [t('only.tradeable'), 'tradeable'],
+                        [t('only.untradeable'), 'untradeable']], selected)
+  end
+
   def category_row_classes(collectable, active_category)
     hidden = active_category.present? && collectable.category_id != active_category
-    "collectable category-row category-#{collectable.category_id}#{' hidden' if hidden }#{' owned' if owned?(collectable.id)}"
+    "#{collectable_classes(collectable)} category-row category-#{collectable.category_id}#{' hidden' if hidden }"
   end
 
   def rarity(collectable, numeric: false)
@@ -95,7 +104,7 @@ module CollectionsHelper
   end
 
   def tradeable(collectable)
-    can_trade = collectable[:item_id].present?
+    can_trade = tradeable?(collectable)
 
     if can_trade
       data_center = @character&.data_center&.downcase || 'primal'
@@ -108,6 +117,10 @@ module CollectionsHelper
     else
       fa_check(can_trade)
     end
+  end
+
+  def tradeable?(collectable)
+    collectable[:item_id].present?
   end
 
   def sort_value(collectable)
@@ -133,7 +146,7 @@ module CollectionsHelper
   end
 
   def market_link(collectable)
-    if collectable.item_id.present?
+    if tradeable?(collectable)
       link_to(fa_icon('dollar-sign'), universalis_url(collectable.item_id), target: '_blank',
               data: { toggle: 'tooltip', html: true }, title: price_tooltip(collectable))
     end

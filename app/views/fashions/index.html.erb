@@ -36,7 +36,7 @@
       </thead>
       <tbody>
         <% @fashions.each do |fashion| %>
-          <tr class="collectable<%= ' owned' if owned?(fashion.id) %>">
+          <tr class="<%= collectable_classes(fashion) %>">
             <td data-value="<%= fashion.order %>"><%= sprite(fashion, 'fashions-small') %></td>
             <td><%= link_to(fashion.name, fashion_path(fashion), class: 'name') %></td>
             <td class="hide-xs"><%= sources(fashion) %></td>

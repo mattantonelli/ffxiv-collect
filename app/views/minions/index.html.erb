@@ -38,7 +38,7 @@
       </thead>
       <tbody>
         <% @minions.each do |minion| %>
-          <tr class="collectable<%= ' owned' if owned?(minion.id) %>">
+          <tr class="<%= collectable_classes(minion) %>">
             <td data-value="<%= minion.order %><%= minion.id.to_s.rjust(3, '0') %>">
               <%= link_to(minion_path(minion)) do %>
                 <%= sprite(minion, 'minions-small') %>

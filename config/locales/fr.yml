@@ -59,6 +59,7 @@ fr:
     title: "Tous"
     types: "Tous les types"
   any: "Tout"
+  any_tradeable:
   apply_filters: "Appliquer les filtres"
   armoires:
     title: "Armoire"
@@ -158,6 +159,8 @@ fr:
   only:
     missing: "Manquant uniquement"
     owned: "Possédé uniquement"
+    tradeable:
+    untradeable:
   orchestrions:
     quick_select: "Sélection rapide"
     sample: "Échantillon audio"

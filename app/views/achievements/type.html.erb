@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                   <% @achievements[category.id].each do |achievement| %>
-                    <tr class="collectable<%= ' owned' if owned?(achievement.id) %>">
+                    <tr class="<%= collectable_classes(achievement) %>">
                       <td>
                         <%= link_to(achievement_path(achievement)) do %>
                           <%= sprite(achievement, 'achievement') %>
