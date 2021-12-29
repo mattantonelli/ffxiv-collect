@@ -8,4 +8,8 @@ module HairstylesHelper
   def hairstyle_sample_image(hairstyle)
     safe_image_tag("hairstyles/samples/#{hairstyle.id}.png", class: 'hairstyle-small')
   end
+
+  def vierable(hairstyle)
+    fa_icon('carrot') if hairstyle.vierable?
+  end
 end

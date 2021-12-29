@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_30_040915) do
+ActiveRecord::Schema.define(version: 2021_12_29_180129) do
 
   create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -377,6 +377,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_040915) do
     t.datetime "updated_at", null: false
     t.integer "item_id"
     t.string "gender"
+    t.boolean "vierable", default: false
     t.index ["gender"], name: "index_hairstyles_on_gender"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"

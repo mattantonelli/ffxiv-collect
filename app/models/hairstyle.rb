@@ -16,6 +16,7 @@
 #  updated_at     :datetime         not null
 #  item_id        :integer
 #  gender         :string(255)
+#  vierable       :boolean          default(FALSE)
 #
 
 class Hairstyle < ApplicationRecord
