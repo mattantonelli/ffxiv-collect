@@ -74,10 +74,10 @@ module Discord
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
 
+    embed.description = "Last updated <t:#{DateTime.parse(character[:last_parsed]).to_i}:R>."
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: character[:avatar])
     embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: "#{character[:name]} (#{character[:server]})",
                                                         url: "#{ROOT_URL}/characters/#{character[:id]}")
-    embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "Last updated <t:#{DateTime.parse(character[:last_parsed]).to_i}:R>.")
 
     if character[:achievements][:public]
       count, total, points, points_total =
