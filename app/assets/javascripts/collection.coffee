@@ -25,8 +25,8 @@ $(document).on 'turbolinks:load', ->
 
     # Update the collection progress bar based on visible collectables
     progress = $('.progress-bar:first')
-    current = $('.owned:visible').length
-    max = $('tr.collectable:visible').length
+    current = $('.owned:not(.hidden)').length
+    max = $('tr.collectable:not(.hidden)').length
 
     if max > 0
       completion = (current / max) * 100
