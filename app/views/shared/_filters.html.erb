@@ -16,19 +16,19 @@
           <% if %w(hairstyles armoires characters).include?(controller_name) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% unless %w(achievements tomestones records).include?(controller_name) %>
+          <% unless %w(achievements spells tomestones records).include?(controller_name) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, t('exclude.premium') %>
             </div>
           <% end %>
-          <% unless %w(tomestones records).include?(controller_name) %>
+          <% unless %w(spells tomestones records).include?(controller_name) %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
               <%= label_tag :limited, t('exclude.time_limited') %>
             </div>
           <% end %>
-          <% unless %w(achievements titles orchestrions tomestones).include?(controller_name) %>
+          <% unless %w(achievements titles orchestrions spells tomestones).include?(controller_name) %>
             <div>
               <%= check_box_tag :unknown, nil, cookies[:unknown] == 'hide' %>
               <%= label_tag :unknown, t('exclude.unknown') %>
