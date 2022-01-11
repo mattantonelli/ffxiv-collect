@@ -16,7 +16,7 @@
           <% if %w(hairstyles armoires characters).include?(controller_name) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% unless %w(achievements spells tomestones records).include?(controller_name) %>
+          <% unless %w(achievements titles spells tomestones records).include?(controller_name) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, t('exclude.premium') %>

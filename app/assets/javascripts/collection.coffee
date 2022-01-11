@@ -15,10 +15,12 @@ $(document).on 'turbolinks:load', ->
       $('.collection').removeClass('only-owned')
       $('.collectable.owned').hide()
 
-    if Cookies.get('tradeable') == 'tradeable'
-      $('.collectable:not(.tradeable)').hide()
-    else if Cookies.get('tradeable') == 'untradeable'
-      $('.collectable.tradeable').hide()
+    # Only show/hide tradeables if the filter is available
+    if $('#tradeable').length > 0
+      if Cookies.get('tradeable') == 'tradeable'
+        $('.collectable:not(.tradeable)').hide()
+      else if Cookies.get('tradeable') == 'untradeable'
+        $('.collectable.tradeable').hide()
 
     $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
