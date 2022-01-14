@@ -166,6 +166,7 @@ class Character < ApplicationRecord
       "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima Valefor Yojimbo Zeromus),
       "Light" => %w(Lich Odin Phoenix Shiva Zodiark Twintania),
       "Mana" => %w(Anima Asura Belias Chocobo Hades Ixion Mandragora Masamune Pandaemonium Shinryu Titan),
+      "Materia" => %w(Bismarck Ravana Sephirot Sophia Zurvan),
       "Primal" => %w(Behemoth Excalibur Exodus Famfrit Hyperion Lamia Leviathan Ultros)
     }.freeze
   end
