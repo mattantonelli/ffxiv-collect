@@ -100,7 +100,7 @@ fr:
     statistics: "Statistiques"
     stats: "Statistiques du personnage"
     title: "Personnage"
-    unverifed: "Non vérifié"
+    unverified: "Non vérifié"
     usable: "Personnage utilisable"
     verified: "Vérifié"
     verify: "Personnage vérifié"

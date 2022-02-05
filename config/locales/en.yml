@@ -100,9 +100,9 @@ en:
     statistics: "Statistics"
     stats: "Character Stats"
     title: "Character"
-    unverifed: "Unverifed"
+    unverified: "Unverified"
     usable: "Character Usable"
-    verified: "Verifed"
+    verified: "Verified"
     verify: "Verify Character"
   click:
     add: "Click to add"
