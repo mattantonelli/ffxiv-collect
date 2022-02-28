@@ -5,15 +5,15 @@ namespace :ownership do
     mount_minion_characters = Character.visible.recent
     manual_collection_characters = Character.visible.recent.verified
 
-    cache_ownership(Achievement, achievement_characters)
+    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record].each do |model|
+      cache_ownership(model, manual_collection_characters)
+    end
 
     [Mount, Minion].each do |model|
       cache_ownership(model, mount_minion_characters)
     end
 
-    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record].each do |model|
-      cache_ownership(model, manual_collection_characters)
-    end
+    cache_ownership(Achievement, achievement_characters)
 
     puts
   end
