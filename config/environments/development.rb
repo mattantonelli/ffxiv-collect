@@ -54,8 +54,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.web_console.whitelisted_ips << '10.0.2.2'
+  config.web_console.permissions = '10.0.2.2'
 
   config.i18n.fallbacks = [I18n.default_locale]
-  config.action_view.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = true
 end
