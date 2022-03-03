@@ -8,6 +8,9 @@ require "action_controller/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
 
+# ActionMailer is required for Devise as per https://github.com/heartcombo/devise/issues/5140
+require "action_mailer/railtie"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
