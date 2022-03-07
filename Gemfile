@@ -43,8 +43,15 @@ gem 'paper_trail'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0.0'
 gem 'nokogiri', '>= 1.13.2'
+
+# Discord interactions
 gem 'ed25519'
 gem 'discordrb-webhooks', '3.3.0'
+
+# Compatibility fix for Rails 6 / Ruby 3.1. Should be resolved in Rails 7.0.1
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+gem 'net-smtp', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
