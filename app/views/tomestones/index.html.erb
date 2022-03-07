@@ -15,9 +15,9 @@
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
     <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle ml-auto' %>
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle ml-auto mb-2' %>
     <% if character_selected? %>
-      <div class="my-2">
+      <div class="mb-2">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.map(&:cost).sum, alt: true %>
       </div>
