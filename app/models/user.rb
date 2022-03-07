@@ -44,7 +44,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     # Clean up any special characters in the username
-    username = auth.info.name.encode(Encoding.find('ASCII'), { invalid: :replace, undef: :replace, replace: '' })
+    username = auth.info.name.encode(Encoding.find('ASCII'), invalid: :replace, undef: :replace, replace: '')
 
     discord_user = User.find_by(provider: auth.provider, uid: auth.uid)
     attributes = { username: username, discriminator: auth.extra.raw_info.discriminator, avatar_url: auth.info.image }

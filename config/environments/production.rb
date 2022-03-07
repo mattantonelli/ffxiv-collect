@@ -99,5 +99,5 @@ Rails.application.configure do
     end
   end
 
-  Sidekiq::Logging.logger.level = Logger::WARN
+  Sidekiq.logger.level = Logger::WARN
 end
