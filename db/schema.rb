@@ -2,17 +2,17 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_000912) do
+ActiveRecord::Schema.define(version: 2022_03_10_154920) do
 
-  create_table "achievement_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["type_id"], name: "index_achievement_categories_on_type_id"
   end
 
-  create_table "achievement_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "achievement_types", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["order"], name: "index_achievement_types_on_order"
   end
 
-  create_table "achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "achievements", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_achievements_on_patch"
   end
 
-  create_table "armoire_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "armoire_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["order"], name: "index_armoire_categories_on_order"
   end
 
-  create_table "armoires", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "armoires", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_armoires_on_patch"
   end
 
-  create_table "bardings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "bardings", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_bardings_on_patch"
   end
 
-  create_table "character_achievements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_achievements", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "achievement_id"
     t.datetime "created_at", null: false
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["character_id"], name: "index_character_achievements_on_character_id"
   end
 
-  create_table "character_armoires", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_armoires", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "armoire_id"
     t.datetime "created_at", null: false
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["character_id"], name: "index_character_armoires_on_character_id"
   end
 
-  create_table "character_bardings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_bardings", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "barding_id"
     t.datetime "created_at", null: false
@@ -162,7 +162,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["character_id"], name: "index_character_bardings_on_character_id"
   end
 
-  create_table "character_emotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_emotes", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "emote_id"
     t.datetime "created_at", null: false
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["emote_id"], name: "index_character_emotes_on_emote_id"
   end
 
-  create_table "character_fashions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_fashions", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "fashion_id"
     t.datetime "created_at", null: false
@@ -182,7 +182,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["fashion_id"], name: "index_character_fashions_on_fashion_id"
   end
 
-  create_table "character_hairstyles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_hairstyles", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "hairstyle_id"
     t.datetime "created_at", null: false
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["hairstyle_id"], name: "index_character_hairstyles_on_hairstyle_id"
   end
 
-  create_table "character_minions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_minions", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "minion_id"
     t.datetime "created_at", null: false
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["minion_id"], name: "index_character_minions_on_minion_id"
   end
 
-  create_table "character_mounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_mounts", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "mount_id"
     t.datetime "created_at", null: false
@@ -212,7 +212,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["mount_id"], name: "index_character_mounts_on_mount_id"
   end
 
-  create_table "character_orchestrions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_orchestrions", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "orchestrion_id"
     t.datetime "created_at", null: false
@@ -222,7 +222,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["orchestrion_id"], name: "index_character_orchestrions_on_orchestrion_id"
   end
 
-  create_table "character_records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_records", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "record_id"
     t.datetime "created_at", null: false
@@ -232,7 +232,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["record_id"], name: "index_character_records_on_record_id"
   end
 
-  create_table "character_relics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_relics", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "relic_id"
     t.datetime "created_at", null: false
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["relic_id"], name: "index_character_relics_on_relic_id"
   end
 
-  create_table "character_spells", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "character_spells", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "spell_id"
     t.datetime "created_at", null: false
@@ -252,7 +252,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["spell_id"], name: "index_character_spells_on_spell_id"
   end
 
-  create_table "characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "characters", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "server", null: false
     t.string "portrait", null: false
@@ -292,12 +292,14 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
+    t.index ["public"], name: "index_characters_on_public"
     t.index ["records_count"], name: "index_characters_on_records_count"
     t.index ["relics_count"], name: "index_characters_on_relics_count"
     t.index ["spells_count"], name: "index_characters_on_spells_count"
+    t.index ["updated_at"], name: "index_characters_on_updated_at"
   end
 
-  create_table "emote_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "emote_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -310,7 +312,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["name_ja"], name: "index_emote_categories_on_name_ja"
   end
 
-  create_table "emotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "emotes", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -334,7 +336,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_emotes_on_patch"
   end
 
-  create_table "fashions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "fashions", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -356,14 +358,14 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_fashions_on_patch"
   end
 
-  create_table "free_companies", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "free_companies", id: :string, charset: "utf8", force: :cascade do |t|
     t.string "name"
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "hairstyles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "hairstyles", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -386,7 +388,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_hairstyles_on_patch"
   end
 
-  create_table "instances", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "instances", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -398,7 +400,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["name_en"], name: "index_instances_on_name_en"
   end
 
-  create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "items", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -426,7 +428,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["unlock_type"], name: "index_items_on_unlock_type"
   end
 
-  create_table "minion_behaviors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "minion_behaviors", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -435,7 +437,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "minion_races", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "minion_races", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -444,7 +446,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "minion_skill_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "minion_skill_types", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -453,7 +455,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "minions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "minions", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -509,7 +511,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["skill_type_id"], name: "index_minions_on_skill_type_id"
   end
 
-  create_table "mounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "mounts", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -544,7 +546,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_mounts_on_patch"
   end
 
-  create_table "orchestrion_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "orchestrion_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -559,7 +561,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["order"], name: "index_orchestrion_categories_on_order"
   end
 
-  create_table "orchestrions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "orchestrions", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -585,7 +587,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["patch"], name: "index_orchestrions_on_patch"
   end
 
-  create_table "quests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "quests", charset: "utf8", force: :cascade do |t|
     t.string "name_en"
     t.string "name_de"
     t.string "name_fr"
@@ -596,7 +598,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["name_en"], name: "index_quests_on_name_en"
   end
 
-  create_table "records", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "records", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -618,7 +620,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["name_ja"], name: "index_records_on_name_ja"
   end
 
-  create_table "relics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "relics", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_fr", null: false
     t.string "name_de", null: false
@@ -627,14 +629,14 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "source_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "source_types", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_source_types_on_name", unique: true
   end
 
-  create_table "sources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sources", charset: "utf8", force: :cascade do |t|
     t.integer "collectable_id", null: false
     t.string "collectable_type", null: false
     t.string "text"
@@ -652,7 +654,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["type_id"], name: "index_sources_on_type_id"
   end
 
-  create_table "spell_aspects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "spell_aspects", charset: "utf8", force: :cascade do |t|
     t.string "name_en"
     t.string "name_de"
     t.string "name_fr"
@@ -665,7 +667,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["name_ja"], name: "index_spell_aspects_on_name_ja"
   end
 
-  create_table "spell_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "spell_types", charset: "utf8", force: :cascade do |t|
     t.string "name_en"
     t.string "name_de"
     t.string "name_fr"
@@ -678,7 +680,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["name_ja"], name: "index_spell_types_on_name_ja"
   end
 
-  create_table "spells", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "spells", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -707,7 +709,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["type_id"], name: "index_spells_on_type_id"
   end
 
-  create_table "titles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "titles", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
@@ -723,7 +725,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["achievement_id"], name: "index_titles_on_achievement_id"
   end
 
-  create_table "tomestone_rewards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "tomestone_rewards", charset: "utf8", force: :cascade do |t|
     t.integer "cost"
     t.integer "collectable_id"
     t.string "collectable_type"
@@ -734,7 +736,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["tomestone"], name: "index_tomestone_rewards_on_tomestone"
   end
 
-  create_table "user_characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "user_characters", charset: "utf8", force: :cascade do |t|
     t.integer "user_id"
     t.integer "character_id"
     t.datetime "created_at", null: false
@@ -744,7 +746,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["user_id"], name: "index_user_characters_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "username"
     t.integer "discriminator"
     t.string "avatar_url"
@@ -765,16 +767,16 @@ ActiveRecord::Schema.define(version: 2022_01_20_000912) do
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end
 
-  create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "versions", charset: "utf8mb4", force: :cascade do |t|
     t.string "item_type", limit: 191, null: false
     t.bigint "item_id", null: false
     t.string "collectable_type", limit: 191
     t.bigint "collectable_id"
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 4294967295
+    t.text "object", size: :long
     t.datetime "created_at"
-    t.text "object_changes", limit: 4294967295
+    t.text "object_changes", size: :long
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
