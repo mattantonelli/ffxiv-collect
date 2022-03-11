@@ -29,9 +29,9 @@ module ModHelper
 
   def change_link(change)
     if change.item_type == 'Source'
-      url = polymorphic_url([:mod, change.collectable_type.downcase], id: change.collectable_id, action: :edit)
+      url = polymorphic_url([:mod, change.collectable_type.downcase.to_sym], id: change.collectable_id, action: :edit)
     else
-      url = polymorphic_url([:mod, change.item_type.downcase], id: change.item_id, action: :edit)
+      url = polymorphic_url([:mod, change.item_type.downcase.to_sym], id: change.item_id, action: :edit)
     end
 
     link_to fa_icon('pen'), url, class: 'btn btn-secondary btn-sm my-1'
