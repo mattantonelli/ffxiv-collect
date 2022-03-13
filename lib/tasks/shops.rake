@@ -32,7 +32,11 @@ namespace :shops do
           unlock = Item.find(item_id).unlock
           currency = Item.find(shop["Item{Cost}[#{i}][0]"])
           text = "#{number_with_delimiter(price)} #{price == '1' ? currency.name_en : currency.plural_en}"
-          create_shop_source(unlock, purchase_type, text)
+
+          # Do not create shop sources for Moogle Treasure Trove rewards
+          unless text.match?('Irregular Tomestones')
+            create_shop_source(unlock, purchase_type, text)
+          end
         end
       end
 
