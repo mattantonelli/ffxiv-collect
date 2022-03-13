@@ -1,5 +1,4 @@
 require 'csv'
-require 'open-uri'
 
 module XIVData
   extend self
@@ -17,7 +16,7 @@ module XIVData
       url = "#{BASE_URL}/exd-all/#{sheet}.csv"
     end
 
-    data = open(url) { |f| f.readlines }
+    data = URI.open(url).readlines
     headers = data[1].chomp
     CSV.new(data.drop(drop_zero ? 4 : 3).join, headers: headers.split(','))
   end

@@ -2,7 +2,7 @@ namespace :shops do
   namespace :sources do
     desc 'Create shop sources'
     task update: :environment do
-      include ActionView::Helpers
+      include ActionView::Helpers::NumberHelper
 
       purchase_type = SourceType.find_by(name: 'Purchase')
 

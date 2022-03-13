@@ -141,10 +141,10 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
         image = ChunkyPNG::Image.from_file(image_path)
         image.resample_bilinear!(width, height)
       else
-        image = open(image_path).read
+        image = URI.open(image_path).read
       end
 
-      open(output_path.to_s, 'wb') { |file| file << image }
+      URI.open(output_path.to_s, 'wb') { |file| file << image }
     rescue Exception
       puts "Could not create image: #{output_path}"
     end

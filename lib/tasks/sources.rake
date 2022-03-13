@@ -58,7 +58,7 @@ namespace :sources do
     end
 
     # Create sources from Quest rewards
-    Item.includes(:quest).where.not(unlock_id: nil, quest_id: nil).each do |item|
+    Item.includes(:quest).where.not(unlock_id: nil).where.not(quest_id: nil).each do |item|
       if item.unlock_type == 'Orchestrion'
         item.unlock.update!(details: item.quest.name_en) unless item.unlock.details.present?
       else
@@ -72,7 +72,7 @@ namespace :sources do
     end
 
     # Created sources from craftable Items
-    Item.where.not(unlock_type: nil, recipe_id: nil).each do |item|
+    Item.where.not(unlock_type: nil).where.not(recipe_id: nil).each do |item|
       Source.find_or_create_by!(collectable_id: item.unlock_id, collectable_type: item.unlock_type,
                                 text: "Crafted by #{item.crafter}", type_id: crafting_type, related_id: item.recipe_id)
     end
