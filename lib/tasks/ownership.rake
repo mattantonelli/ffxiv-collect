@@ -21,12 +21,13 @@ namespace :ownership do
   def cache_ownership(model, characters)
     puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching #{model}s"
     key = model.to_s.downcase.pluralize
+    relation = "Character#{model}".constantize
     current = Redis.current.hgetall(key)
     total = characters.where("#{key}_count > 0").size
 
     puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Setting percentages"
-    percentages = model.joins(:characters).merge(characters)
-      .group(:id).count.each_with_object({}) do |(id, owners), h|
+    percentages = relation.where(character: characters).group("#{key.singularize}_id").count
+      .each_with_object({}) do |(id, owners), h|
       percentage = ((owners / total.to_f) * 100).to_s[0..2].sub(/\.\Z/, '').sub(/0\.0/, '0')
       h[id] = "#{percentage}%"
     end
