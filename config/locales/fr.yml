@@ -16,7 +16,7 @@ fr:
     character_already_verified: "Votre personnage a déjà été vérifié."
     character_not_found: "Votre personnage est introuvable."
     character_not_selected: "Vous n'avez pas sélectionné de personnage."
-    character_refreshed: "Les informations de votre personnage n'ont pas été actualisées."
+    character_refreshed: "Les informations de votre personnage ont été actualisées."
     character_set: "Votre personnage a été défini."
     character_set_to_private: "Les informations de votre personnage sont désormais privé et ne seront doncs plus traqué."
     character_syncing: "Les informations de votre personnage sont en train d'être synchronisé avec le Lodestone. Veuillez patienter."
