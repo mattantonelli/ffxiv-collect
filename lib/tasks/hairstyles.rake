@@ -12,13 +12,7 @@ namespace :hairstyles do
       item = Item.find_by(id: custom['HintItem'])
       next unless item.present?
 
-      if item.name_en.match?('Aesthetics')
-        data = { id: custom['Data'] }
-      elsif item.name_en.match?('Cosmetics')
-        data = { id: "#{custom['Data']}#{custom['FeatureID']}" }
-      else
-        next
-      end
+      data = { id: custom['Data'] }
 
       # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
       %w(en de fr ja).each do |locale|
@@ -51,6 +45,11 @@ namespace :hairstyles do
     # Create the Eternal Bonding hairstyle which lacks an item unlock
     Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Eternal Bonding',
                                  name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding')
+
+    # Cache hairstyle image counts in the database
+    Hairstyle.all.each do |hairstyle|
+      hairstyle.update!(image_count: Dir.glob(Rails.root.join("public/images/hairstyles/#{hairstyle.id}/*.png")).size)
+    end
 
     create_hair_spritesheets
 

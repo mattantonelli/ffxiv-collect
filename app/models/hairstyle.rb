@@ -17,13 +17,10 @@
 #  item_id        :integer
 #  gender         :string(255)
 #  vierable       :boolean          default(FALSE)
+#  image_count    :integer
 #
 
 class Hairstyle < ApplicationRecord
   include Collectable
   translates :name, :description
-
-  def image_count
-    Dir.glob(Rails.root.join("public/images/hairstyles/#{id}/*.png")).size
-  end
 end
