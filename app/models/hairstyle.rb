@@ -22,4 +22,8 @@
 class Hairstyle < ApplicationRecord
   include Collectable
   translates :name, :description
+
+  def image_count
+    Dir.glob(Rails.root.join("public/images/hairstyles/#{id}/*.png")).size
+  end
 end
