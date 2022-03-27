@@ -17,7 +17,7 @@ module Lodestone
   end
 
   def search(name, server)
-    doc = document(params: { q: name.strip, worldname: server })
+    doc = document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: server })
     doc.css('.entry__chara__link').map do |character|
       {
         id: element_id(character),
