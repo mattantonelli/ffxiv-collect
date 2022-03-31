@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_21_153030) do
+ActiveRecord::Schema.define(version: 2022_03_29_130010) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -621,6 +621,21 @@ ActiveRecord::Schema.define(version: 2022_03_21_153030) do
     t.index ["name_ja"], name: "index_records_on_name_ja"
   end
 
+  create_table "relic_types", charset: "utf8", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.string "category"
+    t.integer "jobs"
+    t.integer "order"
+    t.integer "expansion"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["expansion"], name: "index_relic_types_on_expansion"
+    t.index ["order"], name: "index_relic_types_on_order"
+  end
+
   create_table "relics", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_fr", null: false
@@ -628,6 +643,12 @@ ActiveRecord::Schema.define(version: 2022_03_21_153030) do
     t.string "name_ja", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order"
+    t.integer "type_id"
+    t.integer "achievement_id"
+    t.index ["achievement_id"], name: "index_relics_on_achievement_id"
+    t.index ["order"], name: "index_relics_on_order"
+    t.index ["type_id"], name: "index_relics_on_type_id"
   end
 
   create_table "source_types", charset: "utf8", force: :cascade do |t|

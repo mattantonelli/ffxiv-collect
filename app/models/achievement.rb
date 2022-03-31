@@ -29,6 +29,7 @@ class Achievement < ApplicationRecord
   has_one :title, required: false
   has_many :character_achievements
   has_many :characters, through: :character_achievements
+  has_many :relics
 
   delegate :type, to: :category
 

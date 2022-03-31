@@ -364,6 +364,18 @@ td.wide {
   }
 }
 
+.d-flex.flex-column {
+  .progress {
+    &:not(:first-of-type) {
+      margin-top: 0.5rem;
+    }
+
+    &:nth-child(even) .progress-bar {
+      background-color: #917D54;
+    }
+  }
+}
+
 pre {
   color: #e83e8c;
   background-color: rgba(0, 0, 0, 0.2);

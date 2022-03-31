@@ -38,11 +38,9 @@
       <a class="nav-link dropdown-toggle" href="#" id="relicsDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('shield-alt', text: t('relics.title')) %></a>
       <div class="dropdown-menu" aria-labelledBy="relicsDropdown">
-        <%= link_to fa_icon('sync', text: t('relics.weapons'), right: true), relic_weapons_path, class: 'dropdown-item' %>
-        <%= link_to fa_icon('check-square', text: t('relics.weapons'), right: true), relic_weapons_manual_path,
-          class: 'dropdown-item' %>
-        <%= link_to t('relics.armor'), relic_armor_path, class: 'dropdown-item' %>
-        <%= link_to t('relics.tools'), relic_tools_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('pen-nib', text: t('relics.weapons')), relic_weapons_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('tshirt', text: t('relics.armor')), relic_armor_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('hammer', text: t('relics.tools')), relic_tools_path, class: 'dropdown-item' %>
       </div>
     </div>
 

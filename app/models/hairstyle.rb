@@ -17,7 +17,7 @@
 #  item_id        :integer
 #  gender         :string(255)
 #  vierable       :boolean          default(FALSE)
-#  image_count    :integer
+#  image_count    :integer          default(0)
 #
 
 class Hairstyle < ApplicationRecord

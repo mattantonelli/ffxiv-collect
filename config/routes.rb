@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   namespace :relics, as: :relic do
     get :weapons
-    get :weapons_manual, path: 'weapons/manual', action: :manual_weapons
     get :armor
     get :tools
   end
@@ -47,6 +46,7 @@ Rails.application.routes.draw do
   # Backwards compatibility for old relics URLs
   get 'relics', to: redirect('relics/weapons')
   get 'relics/gear', to: redirect('relics/armor')
+  get 'relics/weapons/manual', to: redirect('relics/weapons')
 
   resources :tomestones, only: [:index, :show]
 
@@ -94,7 +94,8 @@ Rails.application.routes.draw do
     resources :characters, only: :show
     resources :users, only: :show
 
-    %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells fashions records).each do |resource|
+    %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells fashions records relics)
+      .each do |resource|
       resources resource, only: [:index, :show]
     end
   end

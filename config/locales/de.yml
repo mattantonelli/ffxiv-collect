@@ -120,6 +120,12 @@ de:
     time_limited: "Zeitexklusive ausschließen"
     unknown: "Unbekannte ausschließen"
   expand: "Alle aufklappen"
+  expansions:
+    2: "A Realm Reborn"
+    3: "Heavensward"
+    4: "Stormblood"
+    5: "Shadowbringers"
+    6: "Endwalker"
   fashions:
     title: "Modeaccessoires"
   filters: "Filter"

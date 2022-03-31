@@ -55,14 +55,12 @@
                   <div class="d-flex flex-column">
                     <%= render 'shared/progress', value: @scores['achievements'][:value],
                       min: 0, max: @scores['achievements'][:max], text: 'complete' %>
-                    <div class="mt-2">
-                      <%= render 'shared/progress', value: @scores['achievements'][:points],
-                        min: 0, max: @scores['achievements'][:points_max], text: 'achievements.points', alt: true %>
-                    </div>
+                    <%= render 'shared/progress', value: @scores['achievements'][:points],
+                      min: 0, max: @scores['achievements'][:points_max], text: 'achievements.points' %>
                   </div>
                 <% end %>
               </div>
-              <% @scores.except('achievements').each do |collectable, score| %>
+              <% @scores.except('achievements', 'relics').each do |collectable, score| %>
                 <% if %w(mount minion).include?(collectable) || score[:value] > 0 %>
                   <div class="profile-progress">
                     <h6><%= collection_name(collectable, score: score) %></h6>
@@ -90,6 +88,19 @@
                       <%= render 'shared/progress', value: @triad[:cards][:owned], min: 0, max: @triad[:cards][:total] %>
                     </div>
                   <% end %>
+                </div>
+              <% end %>
+              <% if @scores['relics'].values.any? { |score| score[:value] > 0} %>
+                <div class="profile-progress">
+                  <h6><%= t('relics.title') %></h6>
+                  <div class="d-flex flex-column">
+                    <% @scores['relics'].each do |category, score| %>
+                      <% if score[:value] > 0 %>
+                        <%= render 'shared/progress', value: score[:value], min: 0, max: score[:max],
+                          text: "relics.#{category}" %>
+                      <% end %>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
             </div>

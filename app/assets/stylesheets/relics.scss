@@ -2,38 +2,38 @@
   opacity: 0.2;
 }
 
-.relics-sh .d-flex {
-  @media(max-width: 1320px) {
-    justify-content: normal !important;
-  }
-}
-
-.relics-sb .d-flex {
-  @media(max-width: 1208px) {
-    justify-content: normal !important;
-  }
-}
-
-.relics-hw .d-flex {
-  @media(min-width: 1066px) {
-    justify-content: space-around !important;
-  }
-}
-
-.relics-arr .d-flex {
-  @media(min-width: 956px) {
-    justify-content: space-around !important;
-  }
-}
-
-.relics-class .d-flex {
+.relics-7 .d-flex {
   @media(min-width: 471px) {
     justify-content: space-around !important;
   }
 }
 
-.relics-tools .d-flex {
+.relics-10 .d-flex {
+  @media(min-width: 956px) {
+    justify-content: space-around !important;
+  }
+}
+
+.relics-11 .d-flex {
   @media(min-width: 988px) {
     justify-content: space-around !important;
+  }
+}
+
+.relics-12 .d-flex {
+  @media(min-width: 1066px) {
+    justify-content: space-around !important;
+  }
+}
+
+.relics-15 .d-flex {
+  @media(max-width: 1208px) {
+    justify-content: normal !important;
+  }
+}
+
+.relics-17 .d-flex {
+  @media(max-width: 1320px) {
+    justify-content: normal !important;
   }
 }

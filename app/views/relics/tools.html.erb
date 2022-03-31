@@ -2,35 +2,5 @@
 <% description("Track your character's relic tools.") %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
 
-<div class="d-flex justify-content-end mb-2">
-  <button class="btn btn-secondary btn-sm mr-1" id="collapseToggle" data-expanded="false">
-    <%= fa_icon('expand', text: t('expand')) %>
-  </button>
-</div>
-
-<div class="card mb-3">
-  <%= render 'header', relic: @resplendent_tools, name: 'Resplendent Tools' %>
-  <div class="collapse show" id="collapse-resplendent-tools">
-    <div class="card-body relics-tools collection py-3">
-      <%= render partial: 'gear', collection: [@resplendent_tools], locals: { sprite_image: 'relics-tool' } %>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3">
-  <%= render 'header', relic: @skysteel_tools, name: 'Skysteel Tools' %>
-  <div class="collapse show" id="collapse-skysteel-tools">
-    <div class="card-body relics-tools collection py-3">
-      <%= render partial: 'gear', collection: @skysteel_tools.each_slice(11).to_a, locals: { sprite_image: 'relics-tool' } %>
-    </div>
-  </div>
-</div>
-
-<div class="card mb-3">
-  <%= render 'header', relic: @lucis_tools, name: 'Lucis Tools' %>
-  <div class="collapse" id="collapse-lucis-tools">
-    <div class="card-body relics-tools collection py-3">
-      <%= render partial: 'gear', collection: @lucis_tools.each_slice(11).to_a, locals: { sprite_image: 'relics-tool' } %>
-    </div>
-  </div>
-</div>
+<%= render 'collapse_toggle' %>
+<%= render partial: 'types', collection: @types, as: :type %>

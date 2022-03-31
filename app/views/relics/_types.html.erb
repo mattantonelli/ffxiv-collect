@@ -1,0 +1,18 @@
+<div class="card mb-3">
+  <%= link_to "##{collapse_id(type)}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="card-title mr-2"><%= type.name %></h5>
+      <% if character_selected? %>
+        <h6 class="text-right<%= ' complete'.html_safe if relic_type_completed?(type, @collection_ids) %>">
+          <%= relic_type_completion(type, @collection_ids) %>
+        </h6>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="collapse<%= ' show' if type_counter == 0 %>" id="<%= collapse_id(type) %>">
+    <div class="card-body relics-<%= type.jobs %> collection py-3">
+      <%= render partial: 'relics', collection: type.relics_by_tier, as: :relics,
+        locals: { sprite_class: "relics-#{type.category.singularize}" } %>
+    </div>
+  </div>
+</div>

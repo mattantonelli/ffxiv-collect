@@ -173,16 +173,43 @@ class Character < ApplicationRecord
 
   private
   def self.update_collectables!(character, data)
+    # Achievements
+    character_achievements = CharacterAchievement.where(character_id: character.id)
+
     unless data[:achievements].empty?
-      current_ids = CharacterAchievement.where(character_id: character.id).pluck(:achievement_id)
+      current_ids = character_achievements.pluck(:achievement_id)
       achievements = data[:achievements].reject { |achievement| current_ids.include?(achievement[:id]) }
-      Character.bulk_insert_achievements(character, achievements)
+
+      # Character.bulk_insert_achievements(character, achievements)
+      Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
+      character.update(achievement_points: character.achievements.sum(:points))
     end
 
+    # Relics - Update based on ALL of a character's record achievements so we can add them retroactively
+    current_relic_ids = CharacterRelic.where(character_id: character.id).pluck(:relic_id)
+    relic_id_map = Relic.where.not(achievement_id: nil).pluck(:id, :achievement_id).to_h
+    relic_achievement_ids = relic_id_map.values
+
+    relics = character_achievements.flat_map do |achievement|
+      achievement_id = achievement.achievement_id
+
+      if relic_achievement_ids.include?(achievement_id)
+        relic_id_map.filter_map do |r_id, a_id|
+          if a_id == achievement_id && !current_relic_ids.include?(r_id)
+            { id: r_id, date: achievement.created_at.to_formatted_s(:db) }
+          end
+        end
+      end
+    end
+
+    Character.bulk_insert_with_dates(character.id, CharacterRelic, :relic, relics.compact)
+
+    # Mounts
     current_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
     mounts = data[:mounts].reject { |id| current_ids.include?(id) }
     Character.bulk_insert(character.id, CharacterMount, :mount, mounts)
 
+    # Minions
     current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
     minions = data[:minions].reject { |id| current_ids.include?(id) }
     Character.bulk_insert(character.id, CharacterMinion, :minion, minions)
@@ -200,19 +227,17 @@ class Character < ApplicationRecord
     Character.reset_counters(character_id, "#{model_name}s_count")
   end
 
-  def self.bulk_insert_achievements(character, achievements)
-    return unless achievements.present?
+  def self.bulk_insert_with_dates(character_id, model, model_name, collectables)
+    return unless collectables.present?
 
-    values = achievements.map do |achievement|
-      "(#{character.id}, #{achievement[:id]}, '#{achievement[:date]}', '#{achievement[:date]}')"
+    values = collectables.map do |collectable|
+      "(#{character_id}, #{collectable[:id]}, '#{collectable[:date]}', '#{collectable[:date]}')"
     end
 
-    CharacterAchievement.connection
-      .execute("INSERT INTO character_achievements(character_id, achievement_id, created_at, updated_at)" \
-               " values #{values.join(',')}")
+    model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
+                             " values #{values.join(',')}")
 
-    Character.reset_counters(character.id, :achievements_count)
-    character.update(achievement_points: character.achievements.sum(:points))
+    Character.reset_counters(character_id, "#{model_name}s_count")
   end
 
   def clear_user_characters
