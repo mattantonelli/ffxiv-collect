@@ -129,6 +129,7 @@ Rails.application.routes.draw do
     get 'dashboard', action: :index
   end
 
+  get 'fish', to: redirect('minions/396')
   get 'parasols', to: redirect('images/parasols.png')
 
   get '404', to: 'static#not_found', as: :not_found
