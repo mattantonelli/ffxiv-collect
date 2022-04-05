@@ -22,12 +22,12 @@ module RelicsHelper
     owned = owned?(relic.id)
 
     if @character&.verified_user?(current_user)
-      if owned
-        unless @achievement_ids.include?(relic.achievement_id)
+      unless @achievement_ids.include?(relic.achievement_id)
+        if owned
           text += "<br>(#{t('click.remove')})"
+        else
+          text += "<br>(#{t('click.add')})"
         end
-      else
-        text += "<br>(#{t('click.add')})"
       end
     end
 
