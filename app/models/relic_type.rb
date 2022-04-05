@@ -19,7 +19,7 @@ class RelicType < ApplicationRecord
   translates :name
 
   def relics_by_tier
-    if category == 'armor'
+    if category == 'armor' || name_en == 'GARO Armor'
       # Armor will be displayed from head to toe
       relics.order(:order).each_slice(5).to_a.transpose
     else

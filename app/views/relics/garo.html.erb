@@ -1,0 +1,7 @@
+<% title(t('relics.garo')) %>
+<% description("Track your character's GARO gear.") %>
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+
+<%= render 'collapse_toggle' %>
+<%= render partial: 'types', collection: [@weapons], as: :type %>
+<%= render partial: 'types', collection: [@armor], as: :type %>

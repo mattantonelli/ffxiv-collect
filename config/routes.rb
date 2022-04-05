@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     get :weapons
     get :armor
     get :tools
+    get :garo
   end
 
   resources :relics, as: :relic, only: [] do
