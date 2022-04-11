@@ -5,3 +5,29 @@
 <%= render 'collapse_toggle' %>
 <%= render partial: 'types', collection: [@weapons], as: :type %>
 <%= render partial: 'types', collection: [@armor], as: :type %>
+
+<div class="card">
+  <%= link_to "#collapse-mounts", data: { toggle: 'collapse' }, class: 'unstyled' do %>
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="card-title"><%= t('mounts.title') %></h5>
+      <% if character_selected? %>
+        <h6 class="text-right<%= ' complete' if garo_mounts_completed?(@mounts, @mount_ids)  %>">
+          <%= garo_mounts_completion(@mounts, @mount_ids) %>
+        </h6>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="collapse show" id="collapse-mounts">
+    <div class="card-body py-4">
+      <div class="d-flex flex-wrap justify-content-center yokai">
+        <% @mounts.each do |mount| %>
+          <%= link_to(achievement_path(mount.sources.first.related_id),
+                      class: "mx-2 #{'missing' unless @mount_ids.include?(mount.id)}",
+                      data: { toggle: 'tooltip' }, title: mount.name) do %>
+            <%= safe_image_tag("mounts/large/#{mount.id}.png", class: 'image-large') %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

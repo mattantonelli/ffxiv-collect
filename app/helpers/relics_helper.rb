@@ -12,6 +12,14 @@ module RelicsHelper
     (type.relics.pluck(:id) - owned_ids).size == 0
   end
 
+  def garo_mounts_completion(mounts, mount_ids)
+    "#{(mounts.pluck(:id) & mount_ids).size} #{t('of')} #{mounts.length} #{t('complete')}"
+  end
+
+  def garo_mounts_completed?(mounts, mount_ids)
+    (mounts.pluck(:id) - mount_ids).size == 0
+  end
+
   def relic_tooltip(relic)
     date = format_date_short(@dates[relic.id])
 

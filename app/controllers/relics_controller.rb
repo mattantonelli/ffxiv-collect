@@ -23,6 +23,8 @@ class RelicsController < ApplicationController
   def garo
     @weapons = RelicType.find_by(name_en: 'GARO Weapons')
     @armor = RelicType.find_by(name_en: 'GARO Armor')
+    @mounts = Mount.where(id: [95, 96, 102]).order(:order)
+    @mount_ids = @character&.mount_ids || []
   end
 
   def add
