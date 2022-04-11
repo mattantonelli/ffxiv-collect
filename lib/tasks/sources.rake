@@ -47,8 +47,8 @@ namespace :sources do
     achievement_type, crafting_type, event_type, quest_type =
       SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
 
-    # Create sources from Achievement rewards for non-time limited (or GARO) quests
-    achievements = Achievement.exclude_time_limited.where.not(id: [1771, 1772, 1773])
+    # Create sources from Achievement rewards for non-time limited quests
+    achievements = Achievement.exclude_time_limited
       .joins(:item).where('items.unlock_type is not null').where('items.unlock_type <> "Orchestrion"')
 
     achievements.each do |achievement|
