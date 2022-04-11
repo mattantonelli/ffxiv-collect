@@ -49,15 +49,15 @@
     <% if @character&.free_company_id.present? %>
       <div class="nav-item dropdown<%= ' bold' if active_path?(leaderboards_path) %>">
         <a class="nav-link dropdown-toggle" href="#" id="leaderboardsDropdown" role="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false"><%= fa_icon('globe', text: t('leaderboards.title')) %></a>
+          aria-haspopup="true" aria-expanded="false"><%= fa_icon('trophy', text: t('leaderboards.title')) %></a>
         <div class="dropdown-menu" aria-labelledBy="leaderboardsDropdown">
-          <%= link_to t('leaderboards.global'), leaderboards_path, class: 'nav-link' %>
-          <%= link_to t('leaderboards.free_company'), free_company_leaderboards_path(@character.free_company_id),
-            class: 'nav-link' %>
+          <%= link_to fa_icon('globe', text: t('leaderboards.global')), leaderboards_path, class: 'nav-link' %>
+          <%= link_to fa_icon('user-friends', text: t('leaderboards.free_company')),
+            free_company_leaderboards_path(@character.free_company_id), class: 'nav-link' %>
         </div>
       </div>
     <% else %>
-      <%= nav_link(t('leaderboards.global_leaderboards'), 'globe', leaderboards_path) %>
+      <%= nav_link(t('leaderboards.title'), 'trophy', leaderboards_path) %>
     <% end %>
 
     <%= nav_link(t('tomestones.title'), 'clock', tomestones_path) %>
