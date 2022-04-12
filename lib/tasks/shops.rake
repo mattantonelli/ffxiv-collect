@@ -21,21 +21,23 @@ namespace :shops do
       item_ids = Item.where.not(unlock_id: nil).pluck(:id).map(&:to_s)
 
       XIVData.sheet('SpecialShop', raw: true).each do |shop|
-        60.times do |i|
-          item_id = shop["Item{Receive}[#{i}][0]"]
-          break if item_id == '0'
-          next unless item_ids.include?(item_id)
+        2.times do |j|
+          60.times do |i|
+            item_id = shop["Item{Receive}[#{i}][#{j}]"]
+            break if item_id == '0'
+            next unless item_ids.include?(item_id)
 
-          price = shop["Count{Cost}[#{i}][0]"]
-          next if price == '0'
+            price = shop["Count{Cost}[#{i}][#{j}]"]
+            next if price == '0'
 
-          unlock = Item.find(item_id).unlock
-          currency = Item.find(shop["Item{Cost}[#{i}][0]"])
-          text = "#{number_with_delimiter(price)} #{price == '1' ? currency.name_en : currency.plural_en}"
+            unlock = Item.find(item_id).unlock
+            currency = Item.find(shop["Item{Cost}[#{i}][#{j}]"])
+            text = "#{number_with_delimiter(price)} #{price == '1' ? currency.name_en : currency.plural_en}"
 
-          # Do not create shop sources for Moogle Treasure Trove rewards
-          unless text.match?('Irregular Tomestones')
-            create_shop_source(unlock, purchase_type, text)
+            # Do not create shop sources for Moogle Treasure Trove rewards
+            unless text.match?('Irregular Tomestones')
+              create_shop_source(unlock, purchase_type, text)
+            end
           end
         end
       end

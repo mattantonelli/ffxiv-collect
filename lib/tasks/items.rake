@@ -92,7 +92,7 @@ namespace :items do
       unlock_class = unlock_type.constantize
       item = Item.find(data[:id])
 
-      (0..9).each do |i|
+      (0..9).reverse_each do |i|
         data = action["Data[#{i}]"]
 
         if data != '0' && collectable = unlock_class.find_by(id: data)
