@@ -56,12 +56,13 @@ namespace :hairstyles do
     puts "Created #{Hairstyle.count - count} new hairstyles"
   end
 
-  desc 'Sets Vierable hairstyles'
-  task vierify: :environment do
+  desc 'Sets special race flags on hairstyles'
+  task racify: :environment do
     PaperTrail.enabled = false
 
-    puts 'Vierifying hairstyles'
+    puts 'Racifying hairstyles'
 
-    Hairstyle.where(id: [72, 243, 303, 420, 421]).update_all(vierable: true)
+    Hairstyle.where(id: [72, 227, 239, 243, 268, 303, 337, 419, 420, 421, 435]).update_all(vierable: true)
+    Hairstyle.where(id: [72, 227, 239, 303, 420, 421]).update_all(hrothable: true)
   end
 end

@@ -12,4 +12,8 @@ module HairstylesHelper
   def vierable(hairstyle)
     fa_icon('carrot') if hairstyle.vierable?
   end
+
+  def hrothable(hairstyle)
+    fa_icon('paw') if hairstyle.hrothable?
+  end
 end
