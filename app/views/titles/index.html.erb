@@ -33,7 +33,10 @@
           <tr class="collectable<%= ' owned' if owned?(title.achievement_id) %>">
             <td data-value="<%= title.order %>"></td>
             <td><%= title_name(title) %></td>
-            <td class="hide-xs"><%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name') %></td>
+            <td class="hide-xs">
+              <%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name',
+                          title: title.achievement.description, data: { toggle: 'tooltip' }) %>
+            </td>
             <td class="hide-xs"><%= achievement_category_link(title.achievement) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
               <%= rarity(title.achievement) %>

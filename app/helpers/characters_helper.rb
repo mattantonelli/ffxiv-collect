@@ -17,6 +17,20 @@ module CharactersHelper
     content_tag(:span, t('characters.last_updated', timespan: time_ago_in_words(character.last_parsed)), class: 'updated')
   end
 
+  def collectable_name(collection, collectable)
+    if collection == 'titles'
+      name = title_name(collectable.title)
+    else
+      name = collectable.name
+    end
+
+    if collection == 'achievements' || collection == 'titles'
+      content_tag(:span, name, title: collectable.description, data: { toggle: 'tooltip' })
+    else
+      name
+    end
+  end
+
   def collection_name(collection, score: {})
     name = t("#{collection}.title")
 
