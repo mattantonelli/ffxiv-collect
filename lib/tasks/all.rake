@@ -10,7 +10,6 @@ namespace :data do
     Rake::Task['relics:create'].invoke
     Rake::Task['records:create'].invoke
     Rake::Task['records:sources:create'].invoke
-    Rake::Task['hairstyles:vierify'].invoke
   end
 
   desc 'Updates all data'
