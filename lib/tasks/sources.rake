@@ -35,7 +35,9 @@ namespace :sources do
           end
         end
 
-        model.find_by(name_en: row[0]).sources.find_or_create_by!(data)
+        if collectable = model.find_by(name_en: row[0])
+          collectable.sources.find_or_create_by!(data)
+        end
       end
     end
   end
