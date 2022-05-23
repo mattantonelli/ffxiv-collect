@@ -17,6 +17,10 @@ namespace :deploy do
       # Application credentials
       execute :ln, '-s', shared_path.join('master.key'), release_path.join('config/master.key')
 
+      # Persisted logs
+      execute :ln, '-s', shared_path.join("log/#{fetch(:rails_env)}.log"), release_path.join("log/#{fetch(:rails_env)}.log")
+      execute :ln, '-s', shared_path.join('log/whenever.log'), release_path.join('log/whenever.log')
+
       # Individual collectable images
       %w(mounts minions).each do |model|
         %w(footprint large small).each do |type|
