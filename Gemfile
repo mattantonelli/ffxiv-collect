@@ -12,7 +12,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors', '~> 1.1.0'
-gem 'rack', '>= 2.2.3'
+gem 'rack', '>= 2.2.3.1'
 gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
@@ -42,7 +42,7 @@ gem 'rest-client'
 gem 'paper_trail', '~> 11.1.0'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0.0'
-gem 'nokogiri', '>= 1.13.2'
+gem 'nokogiri', '>= 1.13.6'
 
 # Discord interactions
 gem 'ed25519'

@@ -197,7 +197,7 @@ GEM
     net-ssh (6.1.0)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.4-x86_64-linux)
+    nokogiri (1.13.6-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.9)
       faraday (>= 0.17.3, < 3.0)
@@ -226,7 +226,7 @@ GEM
     puma (5.6.2)
       nio4r (~> 2.0)
     racc (1.6.0)
-    rack (2.2.3)
+    rack (2.2.3.1)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-mini-profiler (3.0.0)
@@ -380,12 +380,12 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
-  nokogiri (>= 1.13.2)
+  nokogiri (>= 1.13.6)
   omniauth-discord
   omniauth-rails_csrf_protection (~> 1.0)
   paper_trail (~> 11.1.0)
   puma (~> 5.0)
-  rack (>= 2.2.3)
+  rack (>= 2.2.3.1)
   rack-cors (~> 1.1.0)
   rack-mini-profiler
   rails (~> 6.1.4, >= 6.1.5.1)
