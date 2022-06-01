@@ -16,7 +16,7 @@ namespace :mounts do
         data["name_#{locale}"] = sanitize_name(mount['Singular'])
 
         # Set unique BGM samples on the first pass
-        unless h.has_key?(mount['#']) || mount['RideBGM'].match?(/(Ride_Chocobo|CommonMonster|FlyingMount|EX4Common)/)
+        unless h.has_key?(mount['#']) || mount['RideBGM'].match?(/(Ride_Chocobo|Common|FlyingMount)/)
           data[:bgm_sample] = XIVData.music_filename(mount['RideBGM'])
           link_music(XIVData.music_path(mount['RideBGM']))
         end
