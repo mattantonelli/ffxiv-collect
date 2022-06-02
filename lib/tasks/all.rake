@@ -144,7 +144,7 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
       end
 
       URI.open(output_path.to_s, 'wb') { |file| file << image }
-    rescue Exception
+    rescue StandardError
       puts "Could not create image: #{output_path}"
     end
   end

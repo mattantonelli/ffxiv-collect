@@ -71,7 +71,7 @@ class CharactersController < ApplicationController
         end
       rescue RestClient::BadGateway, RestClient::ServiceUnavailable
         flash.now[:error] = t('alerts.lodestone_maintenance')
-      rescue Exception => e
+      rescue StandardError => e
         flash.now[:error] = t('alerts.lodestone_error')
         Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
         log_backtrace(e)
@@ -183,7 +183,7 @@ class CharactersController < ApplicationController
         flash[:error] = t('alerts.character_verification_error')
         render :verify
       end
-    rescue Exception => e
+    rescue StandardError => e
       flash[:error] = t('alerts.problem_verifying')
       Rails.logger.error("There was a problem verifying character #{@character.id}")
       log_backtrace(e)
@@ -229,7 +229,7 @@ class CharactersController < ApplicationController
       Rails.logger.error("There was a problem fetching character #{id}")
       Rails.logger.error(e.response)
       raise
-    rescue Exception => e
+    rescue StandardError => e
       Rails.logger.error("There was a problem fetching character #{id}")
       log_backtrace(e)
       raise
