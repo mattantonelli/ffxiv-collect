@@ -50,7 +50,7 @@ class Source < ApplicationRecord
       else
         remove_relation!
       end
-    when /(Feast|Limited)/
+    when 'Limited'
       self.limited = true
     when 'Premium'
       self.premium = true

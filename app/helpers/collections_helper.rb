@@ -186,8 +186,6 @@ module CollectionsHelper
         database_link(:item, source.text, collectable.item_id)
       elsif type == 'Quest' || type == 'Event'
         database_link(:quest, source.related&.name || source.text, source.related_id)
-      elsif type == 'Feast'
-        "The Feast: #{source.text}"
       elsif type == 'Mog Station'
         'Mog Station'
       elsif type == 'Voyages'
