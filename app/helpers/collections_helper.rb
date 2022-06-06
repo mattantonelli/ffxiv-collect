@@ -152,6 +152,26 @@ module CollectionsHelper
     end
   end
 
+  def materiel_container(collectable)
+    return nil unless tradeable?(collectable)
+
+    case collectable.patch
+    when /^[23]/ then '3.0'
+    when /^4/ then '4.0'
+    else nil
+    end
+  end
+
+  def materiel_sort_value(collectable)
+    collectable.patch if materiel_container(collectable).present?
+  end
+
+  def materiel_icon(collectable)
+    if number = materiel_container(collectable)
+      content_tag(:span, fa_icon('box'), data: { toggle: 'tooltip' }, title: t("materiel.#{number[0]}"))
+    end
+  end
+
   def database_link(type, text, id = nil)
     return text unless id.present?
 

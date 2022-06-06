@@ -149,6 +149,9 @@ fr:
     score: "Score"
     title: "Classements"
     top: "Top"
+  materiel:
+    3: "Récompense possible de la malle-surprise (ARR/Heavensward)"
+    4: "Récompense possible de la malle-surprise (Stormblood)"
   minions:
     behavior: "Comportement"
     title: "Mascottes"

@@ -145,6 +145,9 @@ de:
     score: "Punkte"
     title: "Rangliste"
     top: "Top"
+  materiel:
+    3: "Möglicher Loot aus Sonderziehungstruhe (A Realm Reborn, Heavensward)"
+    4: "Möglicher Loot aus Sonderziehungstruhe (Stormblood)"
   minions:
     behavior: "Verhalten"
     title: "Begleiter"

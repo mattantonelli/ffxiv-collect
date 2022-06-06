@@ -149,6 +149,9 @@ en:
     score: "Score"
     title: "Leaderboards"
     top: "Top"
+  materiel:
+    3: "Possible loot from Materiel Container 3.0"
+    4: "Possible loot from Materiel Container 4.0"
   minions:
     behavior: "Behavior"
     title: "Minions"
