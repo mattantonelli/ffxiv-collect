@@ -3,7 +3,7 @@
     <div class="p-2" data-toggle="tooltip" data-html="true" title="<%= relic_tooltip(relic) %>">
       <% if @character&.verified_user?(current_user) %>
         <% if @achievement_ids.include?(relic.achievement_id) %>
-          <div class="relic<%= ' owned' if owned?(relic.id) %>">
+          <div class="relic item<%= ' owned' if owned?(relic.id) %>">
             <%= sprite(relic, sprite_class) %>
           </div>
         <% else %>
@@ -13,11 +13,11 @@
           </div>
         <% end %>
       <% elsif character_selected? %>
-        <div class="relic<%= ' owned' if owned?(relic.id) %>">
+        <div class="relic item<%= ' owned' if owned?(relic.id) %>">
           <%= sprite(relic, sprite_class) %>
         </div>
       <% else %>
-        <div class="relic owned">
+        <div class="relic item owned">
           <%= sprite(relic, sprite_class) %>
         </div>
       <% end %>
