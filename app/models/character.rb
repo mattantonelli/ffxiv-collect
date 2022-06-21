@@ -162,11 +162,12 @@ class Character < ApplicationRecord
       "Aether" => %w(Adamantoise Cactuar Faerie Gilgamesh Jenova Midgardsormr Sargatanas Siren),
       "Chaos" => %w(Cerberus Louisoix Moogle Omega Ragnarok Spriggan),
       "Crystal" => %w(Balmung Brynhildr Coeurl Diabolos Goblin Malboro Mateus Zalera),
-      "Elemental" => %w(Aegis Atomos Carbuncle Garuda Gungnir Kujata Ramuh Tonberry Typhon Unicorn),
-      "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima Valefor Yojimbo Zeromus),
+      "Elemental" => %w(Aegis Atomos Carbuncle Garuda Gungnir Kujata Tonberry Typhon),
+      "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima),
       "Light" => %w(Lich Odin Phoenix Shiva Zodiark Twintania),
-      "Mana" => %w(Anima Asura Belias Chocobo Hades Ixion Mandragora Masamune Pandaemonium Shinryu Titan),
+      "Mana" => %w(Anima Asura Chocobo Hades Ixion Masamune Pandaemonium Titan),
       "Materia" => %w(Bismarck Ravana Sephirot Sophia Zurvan),
+      "Meteor" => %w(Belias Mandragora Ramuh Shinryu Unicorn Valefor Yojimbo Zeromus),
       "Primal" => %w(Behemoth Excalibur Exodus Famfrit Hyperion Lamia Leviathan Ultros)
     }.freeze
   end
