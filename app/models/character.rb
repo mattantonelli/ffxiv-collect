@@ -160,11 +160,11 @@ class Character < ApplicationRecord
   def self.servers_by_data_center
     {
       "Aether" => %w(Adamantoise Cactuar Faerie Gilgamesh Jenova Midgardsormr Sargatanas Siren),
-      "Chaos" => %w(Cerberus Louisoix Moogle Omega Ragnarok Spriggan),
+      "Chaos" => %w(Cerberus Louisoix Moogle Omega Phantom Ragnarok Sagittarius Spriggan),
       "Crystal" => %w(Balmung Brynhildr Coeurl Diabolos Goblin Malboro Mateus Zalera),
       "Elemental" => %w(Aegis Atomos Carbuncle Garuda Gungnir Kujata Tonberry Typhon),
       "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima),
-      "Light" => %w(Lich Odin Phoenix Shiva Zodiark Twintania),
+      "Light" => %w(Alpha Lich Odin Phoenix Raiden Shiva Zodiark Twintania),
       "Mana" => %w(Anima Asura Chocobo Hades Ixion Masamune Pandaemonium Titan),
       "Materia" => %w(Bismarck Ravana Sephirot Sophia Zurvan),
       "Meteor" => %w(Belias Mandragora Ramuh Shinryu Unicorn Valefor Yojimbo Zeromus),
