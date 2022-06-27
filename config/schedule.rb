@@ -7,9 +7,10 @@ every '10 3 * * *' do
   rake 'ownership:cache'
 end
 
-# Cache item prices
+# Cache item prices and FAQ stats
 every '0 0 * * *' do
   rake 'prices:cache'
+  rake 'stats:cache'
 end
 
 # Cache P2W data

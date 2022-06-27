@@ -9,10 +9,10 @@ class StaticController < ApplicationController
   end
 
   def faq
-    @users = User.count
-    @characters = Character.visible.count
-    @active_characters = Character.visible.recent.count
-    @achievement_characters = Character.visible.recent.with_public_achievements.count
+    @users = Redis.current.get('stats-users')
+    @characters = Redis.current.get('stats-characters')
+    @active_characters = Redis.current.get('stats-active-characters')
+    @achievement_characters = Redis.current.get('stats-achievement-characters')
   end
 
   def not_found
