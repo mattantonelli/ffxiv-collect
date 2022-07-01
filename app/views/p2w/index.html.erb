@@ -18,35 +18,35 @@
         </tr>
       </thead>
       <tbody>
-        <% @mounts.values.each do |mount| %>
+        <% @mounts.each do |mount| %>
           <tr>
             <td>
-              <%= link_to(mount_path(mount['collectable'])) do %>
-                <%= sprite(mount['collectable'], 'mounts-small') %>
+              <%= link_to(mount_path(mount)) do %>
+                <%= sprite(mount, 'mounts-small') %>
               <% end %>
             </td>
-            <td><%= link_to(mount['collectable'].name, mount_path(mount['collectable']), class: 'name') %></td>
-            <td data-value="<%= mount['price'] %>">
-              <%= number_to_currency(mount['price']) %></td>
-            <td data-value="<%= mount['characters'] %>">
-              <%= number_with_delimiter(mount['characters']) %> (<%= rarity(mount['collectable']) %>)
+            <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
+            <td data-value="<%= @data[mount.id.to_s]['price'] %>">
+              <%= number_to_currency(@data[mount.id.to_s]['price']) %></td>
+            <td data-value="<%= @data[mount.id.to_s]['characters'] %>">
+              <%= number_with_delimiter(@data[mount.id.to_s]['characters']) %> (<%= rarity(mount) %>)
             </td>
-            <td data-value="<%= mount['total'] %>">
-              <%= number_to_currency(mount['total']) %>
+            <td data-value="<%= @data[mount.id.to_s]['total'] %>">
+              <%= number_to_currency(@data[mount.id.to_s]['total']) %>
             </td>
           </tr>
         <% end %>
         <tr>
           <td></td>
           <td></td>
-          <td data-value="<%= @mounts.values.sum { |mount| mount['price']} %>">
-            <b><%= number_to_currency(@mounts.values.sum { |mount| mount['price']}) %></b>
+          <td data-value="<%= @data.values.sum { |mount| mount['price']} %>">
+            <b><%= number_to_currency(@data.values.sum { |mount| mount['price']}) %></b>
           </td>
           <td data-value="<%= @characters %>">
             <b>(<%= number_with_delimiter(@characters) %>)</b>
           </td>
-          <td data-value="<%= @mounts.values.sum { |mount| mount['total']} %>">
-            <b><%= number_to_currency(@mounts.values.sum { |mount| mount['total']}) %></b>
+          <td data-value="<%= @data.values.sum { |mount| mount['total']} %>">
+            <b><%= number_to_currency(@data.values.sum { |mount| mount['total']}) %></b>
           </td>
         </tr>
       </tbody>
