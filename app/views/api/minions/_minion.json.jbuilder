@@ -1,4 +1,5 @@
 json.(minion, :id, :name, :description, :enhanced_description, :tooltip, :patch, :item_id)
+json.tradeable minion.item_id.present?
 
 json.behavior do
   json.(minion.behavior, :id, :name)

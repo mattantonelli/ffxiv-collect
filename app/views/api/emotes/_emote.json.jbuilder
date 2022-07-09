@@ -1,4 +1,5 @@
 json.(emote, :id, :name, :command, :order, :patch, :item_id)
+json.tradeable emote.item_id.present?
 json.owned owned.fetch(emote.id.to_s, '0%')
 json.icon image_url("emotes/#{emote.id}.png", skip_pipeline: true)
 
