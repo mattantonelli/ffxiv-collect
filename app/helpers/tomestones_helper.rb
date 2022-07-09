@@ -1,8 +1,4 @@
 module TomestonesHelper
-  def reward_event_link(url)
-    link_to('Moogle Treasure Trove', url.gsub('na.', "#{region}."), target: '_blank')
-  end
-
   def reward_image(reward)
     if reward.collectable_type == 'Orchestrion'
       image_tag('orchestrion.png')
@@ -42,16 +38,6 @@ module TomestonesHelper
       name.split(':').last
     else
       name.split(' ').last
-    end
-  end
-
-  def reward_instance_cost(reward)
-    if reward.cost <= 7
-      cost = (reward.cost / 7.0).ceil
-      "#{cost} #{'run'.pluralize(cost)} of Castrum Meridianum"
-    else
-      cost = (reward.cost / 10.0).ceil
-      "#{cost} #{'run'.pluralize(cost)} of The Praetorium"
     end
   end
 end

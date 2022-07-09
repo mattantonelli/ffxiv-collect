@@ -27,4 +27,8 @@ class Armoire < ApplicationRecord
   def item
     Item.find_by(name_en: name_en)
   end
+
+  def item_id
+    item.id
+  end
 end

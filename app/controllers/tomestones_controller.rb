@@ -1,5 +1,8 @@
 class TomestonesController < ApplicationController
+  include Collection
   include TomestonesHelper
+
+  skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index
     if @character.present?

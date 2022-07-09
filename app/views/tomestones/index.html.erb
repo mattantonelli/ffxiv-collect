@@ -28,6 +28,7 @@
           <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('tomestones.original_source') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
           <th scope="col" class="text-center"><%= t('verminion.cost') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
@@ -40,7 +41,10 @@
             <td><%= reward_image(reward) %></td>
             <td class="w-25"><%= link_to(reward.collectable.name, polymorphic_path(reward.collectable), class: 'name') %></td>
             <td class="w-50 hide-xs"><%= sources(reward.collectable) %></td>
-            <td class="text-center cost" data-toggle="tooltip" title="<%= reward_instance_cost(reward) %>">
+            <td class="text-center" data-value="<%= price_sort_value(reward.collectable) %>">
+              <%= market_link(reward.collectable) %>
+            </td>
+            <td class="text-center cost">
               <b><%= reward.cost %></b>
             </td>
             <% if character_selected? %>
@@ -66,7 +70,7 @@
             <tr>
               <td><%= image_tag("items/#{reward.collectable.icon_id}.png") %></td>
               <td><%= reward.collectable.name %></td>
-              <td class="text-center" data-toggle="tooltip" title="<%= reward_instance_cost(reward) %>">
+              <td class="text-center">
                 <b><%= reward.cost %></b>
               </td>
             </tr>
