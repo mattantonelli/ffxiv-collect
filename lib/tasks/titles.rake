@@ -13,11 +13,11 @@ namespace :titles do
         data = h[title['#']] || { id: title['#'], order: title['Order'] }
 
         if title['IsPrefix'] == 'True'
-          data["name_#{locale}"] = "#{title['Masculine']}…"
-          data["female_name_#{locale}"] = "#{title['Feminine']}…"
+          data["name_#{locale}"] = sanitize_text("#{title['Masculine']}…")
+          data["female_name_#{locale}"] = sanitize_text("#{title['Feminine']}…")
         else
-          data["name_#{locale}"] = "…#{title['Masculine']}"
-          data["female_name_#{locale}"] = "…#{title['Feminine']}"
+          data["name_#{locale}"] = sanitize_text("…#{title['Masculine']}")
+          data["female_name_#{locale}"] = sanitize_text("…#{title['Feminine']}")
         end
 
         h[data[:id]] = data
