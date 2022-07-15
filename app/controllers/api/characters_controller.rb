@@ -10,10 +10,12 @@ class Api::CharactersController < ApiController
       @triad = @character.triple_triad
     end
 
-    owned_relic_ids = @character.relic_ids
+    relic_ids = @character.relic_ids
     @relics = Relic.categories.each_with_object({}) do |category, h|
       ids = Relic.joins(:type).where('relic_types.category = ?', category).pluck(:id)
-      h[category] = { count: (ids & owned_relic_ids).size, total: ids.size }
+      owned_relic_ids = (ids & relic_ids)
+      h[category] = { count: owned_relic_ids.size, total: ids.size }
+      h[category][:ids] = owned_relic_ids if params[:ids].present?
     end
 
     if @character&.syncable?
