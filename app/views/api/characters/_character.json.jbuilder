@@ -18,6 +18,8 @@ end
   end
 end
 
+json.relics @relics
+
 if @triad.present? && @triad[:status] == :ok
   json.triad do
     json.count @triad[:status] == :ok ? @triad[:cards][:owned] : 0
