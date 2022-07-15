@@ -97,6 +97,19 @@ module Discord
       embed.add_field(name: "#{category_title(category.to_s)}#{star(count, total)}", value: value, inline: true)
     end
 
+    relics = character[:relics]
+    if relics.values.any? { |category| category[:count] > 0 }
+      count = relics.values.sum { |category| category[:count] }
+      total = relics.values.sum { |category| category[:count] > 0 ? category[:total] : 0 }
+      values = relics.filter_map do |category, values|
+        if values[:count] > 0
+          "#{values[:count]} of #{values[:total]} #{category.capitalize}"
+        end
+      end
+
+      embed.add_field(name: "Relics#{star(count, total)}", value: values.join("\n"), inline: true)
+    end
+
     { embeds: [embed.to_hash] }
   end
 
