@@ -6,7 +6,7 @@ class RelicsController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
 
   def weapons
-    @types = RelicType.where(category: 'weapons').where.not(jobs: 0).order(order: :desc)
+    @types = RelicType.where(category: 'weapons').order(order: :desc)
   end
 
   def tools
