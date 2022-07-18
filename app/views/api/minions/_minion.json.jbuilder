@@ -13,7 +13,7 @@ json.image image_url("minions/large/#{minion.id}.png", skip_pipeline: true)
 json.icon image_url("minions/small/#{minion.id}.png", skip_pipeline: true)
 
 unless minion.variant?
-  json.owned owned.fetch(minion.id.to_s, '0%')
+  json.owned @owned.fetch(minion.id.to_s, '0%')
   json.partial! 'api/shared/sources', collectable: minion
 end
 

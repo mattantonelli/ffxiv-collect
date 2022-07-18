@@ -1,6 +1,6 @@
 class ApiController < ApplicationController
   skip_before_action :set_locale, :set_characters
-  before_action :set_defaults, :set_language, :track_request
+  before_action :set_defaults, :set_language, :set_owned, :track_request
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
   GA_URL = 'www.google-analytics.com/collect'.freeze
@@ -47,6 +47,17 @@ class ApiController < ApplicationController
       I18n.locale = language
     else
       I18n.locale = 'en'
+    end
+  end
+
+  def set_owned
+    collectable = controller_name.downcase
+
+    case action_name
+    when 'index'
+      @owned = Redis.current.hgetall(collectable)
+    when 'show'
+      @owned = { params[:id] => Redis.current.hget(collectable, params[:id]) }
     end
   end
 
