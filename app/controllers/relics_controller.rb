@@ -6,24 +6,24 @@ class RelicsController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
 
   def weapons
-    @types = RelicType.where(category: 'weapons').order(order: :desc)
+    @types = RelicType.includes(:relics).where(category: 'weapons').order(order: :desc)
   end
 
   def tools
-    @types = RelicType.where(category: 'tools').order(order: :desc)
+    @types = RelicType.includes(:relics).where(category: 'tools').order(order: :desc)
   end
 
   def armor
-    @types = RelicType.where(category: 'armor').order(expansion: :desc, order: :desc)
+    @types = RelicType.includes(:relics).where(category: 'armor').order(expansion: :desc, order: :desc)
     @categories = @types.pluck(:expansion).uniq.map do |expansion|
       OpenStruct.new(id: expansion, name: t("expansions.#{expansion}"))
     end
   end
 
   def garo
-    @weapons = RelicType.find_by(name_en: 'GARO Weapons')
-    @armor = RelicType.find_by(name_en: 'GARO Armor')
-    @mounts = Mount.where(id: [95, 96, 102]).order(:order)
+    @weapons = RelicType.includes(:relics).find_by(name_en: 'GARO Weapons')
+    @armor = RelicType.includes(:relics).find_by(name_en: 'GARO Armor')
+    @mounts = Mount.includes(:sources).where(id: [95, 96, 102]).order(:order)
     @mount_ids = @character&.mount_ids || []
   end
 
