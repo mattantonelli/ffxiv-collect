@@ -41,6 +41,5 @@ class RelicsController < ApplicationController
     @achievement_ids = @character&.achievement_ids || []
     @owned = Redis.current.hgetall('relics')
     @dates = @character&.character_relics&.pluck('relic_id', :created_at).to_h || {}
-    @achievements = Achievement.where(id: Relic.all.pluck(:achievement_id).compact).pluck(:id, :name_en).to_h # TODO: remove this
   end
 end
