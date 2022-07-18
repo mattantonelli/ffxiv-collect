@@ -20,7 +20,7 @@ end
 variants = minion.variants
 if variants.present?
   json.variants do
-    json.partial! 'minion', collection: variants, as: :minion
+    json.partial! 'api/minions/minion', collection: variants, as: :minion
   end
 else
   json.verminion do

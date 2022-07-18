@@ -29,6 +29,9 @@ class Orchestrion < ApplicationRecord
   translates :name, :description
   has_paper_trail on: [:update, :destroy]
 
+  # Stub for common collectable scope
+  scope :include_sources, -> { all }
+
   scope :with_filters, -> (filters, character = nil) do
     where(category: OrchestrionCategory.with_filters(filters, character))
   end

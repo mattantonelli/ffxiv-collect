@@ -20,6 +20,9 @@ class Relic < ApplicationRecord
   belongs_to :achievement, required: false
   translates :name
 
+  # Stub for common collectable scope
+  scope :include_sources, -> { all }
+
   def self.categories
     %w(weapons armor tools).freeze
   end

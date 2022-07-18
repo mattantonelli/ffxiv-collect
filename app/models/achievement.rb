@@ -42,6 +42,9 @@ class Achievement < ApplicationRecord
       .where.not('achievements.id in (?)', Achievement.limited_time_ids)
   end
 
+  # Stub for common collectable scope
+  scope :include_sources, -> { all }
+
   scope :with_filters, -> (filters, character = nil) do
     if filters[:limited] == 'hide'
       exclude_time_limited

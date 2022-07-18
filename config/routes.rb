@@ -92,8 +92,15 @@ Rails.application.routes.draw do
   delete 'character/comparison/forget', to: 'characters#forget_comparison', as: :forget_character_comparison
 
   namespace :api do
-    resources :characters, only: :show
-    resources :users, only: :show
+    resources :characters, only: :show do
+      get ':collection/owned', action: :owned, as: :owned
+      get ':collection/missing', action: :missing, as: :missing
+    end
+
+    resources :users, only: :show do
+      get ':collection/owned', action: :owned, as: :owned
+      get ':collection/missing', action: :missing, as: :missing
+    end
 
     %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells fashions records relics)
       .each do |resource|
