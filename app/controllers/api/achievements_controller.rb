@@ -1,7 +1,7 @@
 class Api::AchievementsController < ApiController
   def index
     query = Achievement.all.ransack(@query)
-    @achievements = query.result.ordered.limit(params[:limit])
+    @achievements = query.result.include_related.ordered.limit(params[:limit])
   end
 
   def show

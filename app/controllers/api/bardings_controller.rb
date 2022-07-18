@@ -1,8 +1,7 @@
 class Api::BardingsController < ApiController
   def index
     query = Barding.all.ransack(@query)
-    @bardings = query.result.include_sources.order(patch: :desc, order: :desc)
-      .distinct.limit(params[:limit])
+    @bardings = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

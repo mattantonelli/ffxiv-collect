@@ -1,7 +1,7 @@
 class Api::RecordsController < ApiController
   def index
     query = Record.all.ransack(@query)
-    @records = query.result.include_sources.order(:id).distinct.limit(params[:limit])
+    @records = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

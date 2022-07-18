@@ -20,8 +20,8 @@ class Relic < ApplicationRecord
   belongs_to :achievement, required: false
   translates :name
 
-  # Stub for common collectable scope
-  scope :include_sources, -> { all }
+  scope :include_related, -> { includes(:type) }
+  scope :ordered, -> { joins(:type).order('relic_types.category desc', expansion: :desc, order: :desc) }
 
   def self.categories
     %w(weapons armor tools).freeze

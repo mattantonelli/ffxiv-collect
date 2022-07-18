@@ -4,8 +4,7 @@ class MountsController < ApplicationController
 
   def index
     @q = Mount.ransack(params[:q])
-    @mounts = @q.result.include_sources.with_filters(cookies)
-      .order(patch: :desc, order: :desc).distinct
+    @mounts = @q.result.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:mount)
   end
 

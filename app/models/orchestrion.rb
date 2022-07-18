@@ -30,8 +30,8 @@ class Orchestrion < ApplicationRecord
   has_paper_trail on: [:update, :destroy]
 
   # Stub for common collectable scope
-  scope :include_sources, -> { all }
-
+  scope :include_related, -> { includes(:category) }
+  scope :ordered, -> { order(patch: :desc, order: :desc, id: :desc) }
   scope :with_filters, -> (filters, character = nil) do
     where(category: OrchestrionCategory.with_filters(filters, character))
   end

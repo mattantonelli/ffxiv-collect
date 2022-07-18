@@ -17,10 +17,9 @@ unless minion.variant?
   json.partial! 'api/shared/sources', collectable: minion
 end
 
-variants = minion.variants
-if variants.present?
+if minion.variants?
   json.variants do
-    json.partial! 'api/minions/minion', collection: variants, as: :minion
+    json.partial! 'api/minions/minion', collection: minion.variants.include_related.ordered, as: :minion
   end
 else
   json.verminion do

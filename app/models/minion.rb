@@ -57,6 +57,8 @@ class Minion < ApplicationRecord
   belongs_to :race, class_name: 'MinionRace'
   belongs_to :skill_type, class_name: 'MinionSkillType', optional: true
 
+  scope :include_related, -> { include_sources.includes(:behavior, :race, :skill_type) }
+  scope :ordered, -> { order(patch: :desc, order: :desc, id: :desc) }
   scope :summonable, -> { where.not(id: unsummonable_ids) }
   scope :verminion,  -> { where.not(id: variant_ids) }
 

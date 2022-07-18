@@ -4,7 +4,7 @@ class RecordsController < ApplicationController
 
   def index
     @q = Record.ransack(params[:q])
-    @records = @q.result.include_sources.order(:id).distinct
+    @records = @q.result.include_related.ordered.distinct
   end
 
   def show

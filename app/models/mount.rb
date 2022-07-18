@@ -34,4 +34,7 @@
 class Mount < ApplicationRecord
   include Collectable
   translates :name, :description, :enhanced_description, :tooltip
+
+  scope :include_related, -> { include_sources }
+  scope :ordered, -> { order(patch: :desc, order: :desc) }
 end

@@ -3,7 +3,7 @@ class FashionsController < ApplicationController
 
   def index
     @q = Fashion.ransack(params[:q])
-    @fashions = @q.result.include_sources.with_filters(cookies).order(patch: :desc, order: :desc).distinct
+    @fashions = @q.result.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:fashion)
   end
 

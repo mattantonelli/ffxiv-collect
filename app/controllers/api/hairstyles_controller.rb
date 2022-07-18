@@ -1,7 +1,7 @@
 class Api::HairstylesController < ApiController
   def index
     query = Hairstyle.all.ransack(@query)
-    @hairstyles = query.result.include_sources.order(patch: :desc, id: :desc).distinct.limit(params[:limit])
+    @hairstyles = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

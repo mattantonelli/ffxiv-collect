@@ -23,4 +23,7 @@
 class Hairstyle < ApplicationRecord
   include Collectable
   translates :name, :description
+
+  scope :include_related, -> { include_sources }
+  scope :ordered, -> { order(patch: :desc, id: :desc) }
 end

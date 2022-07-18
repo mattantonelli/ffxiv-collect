@@ -1,8 +1,7 @@
 class Api::MountsController < ApiController
   def index
     query = Mount.all.ransack(@query)
-    @mounts = query.result.include_sources.order(patch: :desc, order: :desc)
-      .distinct.limit(params[:limit])
+    @mounts = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

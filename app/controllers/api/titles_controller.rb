@@ -1,7 +1,7 @@
 class Api::TitlesController < ApiController
   def index
-    query = Title.includes(achievement: { category: :type }).all.ransack(@query)
-    @titles = query.result.order('achievements.patch desc', order: :desc).limit(params[:limit])
+    query = Title.include_related.all.ransack(@query)
+    @titles = query.result.ordered.distinct.limit(params[:limit])
   end
 
   def show

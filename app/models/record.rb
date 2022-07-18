@@ -23,4 +23,7 @@ class Record < ApplicationRecord
 
   belongs_to :linked_record, class_name: 'Record', optional: true
   translates :name, :description
+
+  scope :include_related, -> { include_sources }
+  scope :ordered, -> { order(:id) }
 end

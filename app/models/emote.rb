@@ -23,4 +23,7 @@ class Emote < ApplicationRecord
   include Collectable
   translates :name, :command
   belongs_to :category, class_name: 'EmoteCategory'
+
+  scope :include_related, -> { include_sources.includes(:category) }
+  scope :ordered, -> { order(patch: :desc, order: :desc) }
 end

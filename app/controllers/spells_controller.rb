@@ -25,7 +25,7 @@ class SpellsController < ApplicationController
   private
   def set_spells!
     @q = Spell.ransack(params[:q])
-    @spells = @q.result.includes(:type, :aspect).include_sources.with_filters(cookies).order(:order).distinct
+    @spells = @q.result.include_related.with_filters(cookies).ordered.distinct
     @aspects = SpellAspect.all.order("name_#{I18n.locale}").pluck("name_#{I18n.locale}").uniq
   end
 end

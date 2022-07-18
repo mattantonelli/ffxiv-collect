@@ -3,8 +3,7 @@ class EmotesController < ApplicationController
 
   def index
     @q = Emote.ransack(params[:q])
-    @emotes = @q.result.includes(:category).include_sources.with_filters(cookies)
-      .order(patch: :desc, order: :desc).distinct
+    @emotes = @q.result.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:emote)
     @categories = EmoteCategory.all.order(:id)
 

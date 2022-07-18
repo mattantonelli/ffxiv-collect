@@ -1,8 +1,7 @@
 class Api::MinionsController < ApiController
   def index
     query = Minion.summonable.ransack(@query)
-    @minions = query.result.includes(:behavior, :race, :skill_type)
-      .include_sources.order(patch: :desc, order: :desc, id: :desc).limit(params[:limit])
+    @minions = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

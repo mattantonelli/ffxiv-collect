@@ -53,7 +53,7 @@ class Api::CharactersController < ApiController
     end
 
     # Add scopes
-    @collectables = @collectables.include_sources
+    @collectables = @collectables.ordered.include_related.ordered
   end
 
   def set_character

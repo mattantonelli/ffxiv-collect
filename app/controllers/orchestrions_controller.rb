@@ -7,8 +7,7 @@ class OrchestrionsController < ApplicationController
   def index
     @category = nil if @category < 2
     @q = Orchestrion.ransack(params[:q])
-    @orchestrions = @q.result.includes(:category).with_filters(cookies)
-      .order(patch: :desc, order: :desc, id: :desc)
+    @orchestrions = @q.result.include_related.with_filters(cookies).ordered
     @categories = OrchestrionCategory.with_filters(cookies).order(:order)
   end
 

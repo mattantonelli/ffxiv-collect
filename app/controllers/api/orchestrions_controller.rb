@@ -1,7 +1,7 @@
 class Api::OrchestrionsController < ApiController
   def index
     query = Orchestrion.all.ransack(@query)
-    @orchestrions = query.result.includes(:category).order(patch: :desc, order: :desc, id: :desc).limit(params[:limit])
+    @orchestrions = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

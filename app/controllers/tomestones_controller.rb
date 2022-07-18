@@ -32,11 +32,10 @@ class TomestonesController < ApplicationController
 
   private
   def collectables(tomestone)
-    TomestoneReward.collectable.includes(collectable: { sources: [:type, :related] })
-      .where(tomestone: tomestone).order(cost: :desc)
+    TomestoneReward.collectable.where(tomestone: tomestone).include_related.ordered
   end
 
   def items(tomestone)
-    TomestoneReward.items.includes(:collectable).where(tomestone: tomestone).order(cost: :desc)
+    TomestoneReward.items.where(tomestone: tomestone).include_related.ordered
   end
 end

@@ -5,7 +5,7 @@ class TitlesController < ApplicationController
 
   def index
     @q = Title.ransack(params[:q])
-    @titles = @q.result.includes(achievement: { category: :type }).all.order('achievements.patch desc', order: :desc)
+    @titles = @q.result.include_related.ordered.distinct
 
     if cookies[:limited] == 'hide'
       @titles = @titles.joins(:achievement).merge(Achievement.exclude_time_limited)

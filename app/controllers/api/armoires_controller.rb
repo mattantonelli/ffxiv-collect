@@ -1,8 +1,7 @@
 class Api::ArmoiresController < ApiController
   def index
     query = Armoire.all.ransack(@query)
-    @armoires = query.result.includes(:category).include_sources
-      .order(patch: :desc, order: :desc).distinct.limit(params[:limit])
+    @armoires = query.result.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show
