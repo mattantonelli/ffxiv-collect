@@ -79,7 +79,6 @@ class Api::CharactersController < ApiController
       end
     rescue
       Rails.logger.error("There was a problem retrieving Universalis prices for #{data_center}")
-      @prices = {}
     end
   end
 
