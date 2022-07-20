@@ -57,14 +57,14 @@ class ApplicationController < ActionController::Base
       if @character&.private?(current_user)
         current_user.update(character_id: nil)
         flash[:error] = t('alerts.character_set_to_private')
-        redirect_to root_path
+        return redirect_to root_path
       end
     elsif cookies[:character].present?
       @character = Character.find_by(id: cookies[:character])
       if @character&.private?
         cookies[:character] = nil
         flash[:error] = t('alerts.character_set_to_private')
-        redirect_to root_path
+        return redirect_to root_path
       end
     end
 
@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
       if @comparison&.private?(current_user)
         cookies[:comparison] = nil
         flash[:error] = t('alerts.comparison_set_to_private')
-        redirect_to root_path
+        return redirect_to root_path
       end
     end
 
