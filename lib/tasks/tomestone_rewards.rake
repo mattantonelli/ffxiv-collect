@@ -1,4 +1,11 @@
 namespace :tomestones do
+  desc 'Create Philosophy tomestone rewards from CSV data'
+  namespace :philosophy do
+    task create: :environment do
+      create_rewards('philosophy')
+    end
+  end
+
   desc 'Create Mythology tomestone rewards from CSV data'
   namespace :mythology do
     task create: :environment do

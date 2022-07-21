@@ -5,8 +5,8 @@
 
 <div class="d-flex flex-wrap justify-content-center">
   <% @tomestones.each do |tomestone| %>
-    <%= link_to(tomestone_name(tomestone), tomestone_path(tomestone.downcase),
-                class: "btn btn-dark bold mr-2 mb-1#{' active' if @tomestone == tomestone}") %>
+    <%= link_to(tomestone_name(tomestone, I18n.locale), tomestone_path(tomestone_name(tomestone).downcase),
+                class: "btn btn-dark bold mr-2 mb-1#{' active' if @tomestone == tomestone_name(tomestone)}") %>
   <% end %>
 </div>
 
@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @collectables.collectable.each do |reward| %>
+        <% @collectables.each do |reward| %>
           <tr class="collectable<%= ' owned' if reward_owned?(reward) %>">
             <td><%= reward_image(reward) %></td>
             <td class="w-25"><%= link_to(reward.collectable.name, polymorphic_path(reward.collectable), class: 'name') %></td>

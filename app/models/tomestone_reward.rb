@@ -14,8 +14,8 @@
 class TomestoneReward < ApplicationRecord
   belongs_to :collectable, polymorphic: true
 
-  scope :collectable, -> { where.not(collectable_type: 'Item') }
   scope :include_related, -> { includes(collectable: { sources: [:type, :related] }) }
-  scope :items, -> { where(collectable_type: 'Item') }
   scope :ordered, -> { order(cost: :desc) }
+  scope :collectables, -> { where.not(collectable_type: 'Item') }
+  scope :items, -> { where(collectable_type: 'Item') }
 end

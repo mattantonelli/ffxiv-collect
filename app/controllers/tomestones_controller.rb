@@ -6,20 +6,20 @@ class TomestonesController < ApplicationController
 
   def index
     if @character.present?
-      @collections_ids = TomestoneReward.collectable.pluck(:collectable_type).uniq.each_with_object({}) do |type, h|
+      @collections_ids = TomestoneReward.collectables.pluck(:collectable_type).uniq.each_with_object({}) do |type, h|
         h[type] = "Character#{type}".constantize.where(character: @character).pluck("#{type.downcase}_id")
       end
     end
 
-    @tomestones = TomestoneReward.order(:created_at).pluck(:tomestone).uniq
+    @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%').order(:id)
 
     if params[:action] == 'index'
-      @tomestone = @tomestones.last
+      @tomestone = tomestone_name(@tomestones.last)
     else
       @tomestone = params[:id].capitalize
     end
 
-    @title = "#{t('tomestones.title')}: #{tomestone_name(@tomestone)}"
+    @title = "#{t('tomestones.title')}: #{@tomestone}"
     @collectables = collectables(@tomestone)
     @items = items(@tomestone)
   end
@@ -32,7 +32,7 @@ class TomestonesController < ApplicationController
 
   private
   def collectables(tomestone)
-    TomestoneReward.collectable.where(tomestone: tomestone).include_related.ordered
+    TomestoneReward.collectables.where(tomestone: tomestone).include_related.ordered
   end
 
   def items(tomestone)

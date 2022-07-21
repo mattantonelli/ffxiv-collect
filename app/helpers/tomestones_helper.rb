@@ -28,10 +28,10 @@ module TomestonesHelper
     end
   end
 
-  def tomestone_name(tomestone)
-    name = Item.find_by(name_en: "Irregular Tomestone of #{tomestone}").name
+  def tomestone_name(tomestone, locale = :en)
+    name = tomestone["name_#{locale}"]
 
-    case I18n.locale
+    case locale
     when :fr
       name.split(' ')[-2]
     when :ja
