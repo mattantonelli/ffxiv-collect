@@ -7,7 +7,7 @@ class AchievementsController < ApplicationController
   skip_before_action :set_prices!
 
   def index
-    @types = AchievementType.all.with_filters(cookies).order(:order)
+    @types = AchievementType.all.with_filters(cookies).ordered
     @achievements = @types.each_with_object({}) do |type, h|
       h[type.id] = type.achievements.with_filters(cookies)
     end
@@ -19,7 +19,7 @@ class AchievementsController < ApplicationController
 
   def type
     @type = AchievementType.find(params[:id])
-    @categories = @type.categories.with_filters(cookies).order(:order)
+    @categories = @type.categories.with_filters(cookies).ordered
     @achievements = @categories.each_with_object({}) do |category, h|
       h[category.id] = category.achievements.with_filters(cookies).includes(:item, :title).order(:order, :id)
     end
@@ -32,15 +32,12 @@ class AchievementsController < ApplicationController
   end
 
   def search
-    @q = Achievement.with_filters(cookies).ransack(params[:q])
+    @search = params[:q] || { patch_eq: Achievement.all.maximum(:patch) }
+    @search.delete(:patch_eq) if @search[:patch_eq] == 'all'
+    @q = Achievement.with_filters(cookies).ransack(@search)
+    @achievements = @q.result.ordered
 
-    if params[:q].present?
-      @achievements = @q.result
-    else
-      # Default search results to the latest patch
-      @achievements = Achievement.where(patch: Achievement.all.maximum(:patch))
-    end
-
-    @achievements = @achievements.ordered
+    @patches = Achievement.pluck(:patch).uniq.sort.reverse
+    @types = AchievementType.all.ordered
   end
 end

@@ -49,6 +49,7 @@ en:
     aspects: "All Aspects"
     data_centers: "All Data Centers"
     genders: "All Genders"
+    patches: "All Patches"
     race_types: "All Minion Types"
     ranks: "All Ranks"
     servers: "All Servers"

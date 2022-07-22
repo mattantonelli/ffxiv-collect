@@ -16,10 +16,7 @@
         <div class="d-flex mb-2">
           <div>
             <dt><%= t('category') %></dt>
-            <dd>
-              <%= link_to "#{@achievement.type.name} / #{@achievement.category.name}",
-                achievement_type_path(@achievement.type, anchor: @achievement.category_id), class: 'unstyled' %>
-            </dd>
+            <dd><%= achievement_type_category_link(@achievement) %></dd>
           </div>
           <%= render 'shared/ownership', collectable: @achievement %>
           <div>

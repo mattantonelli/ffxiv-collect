@@ -4,6 +4,15 @@ module AchievementsHelper
             achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled')
   end
 
+  def achievement_type_link(achievement)
+    link_to(achievement.type.name, achievement_type_path(achievement.type), class: 'unstyled')
+  end
+
+  def achievement_type_category_link(achievement)
+    link_to("#{achievement.type.name} / #{achievement.category.name}",
+            achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled')
+  end
+
   def achievement_reward(achievement)
     if achievement.title.present?
       image_tag('title.png', data: { toggle: 'tooltip', title: title_name(achievement.title), html: true })
@@ -40,5 +49,10 @@ module AchievementsHelper
 
   def point_count(achievements, ids)
     achievements.select { |achievement| ids.include?(achievement.id) }.map(&:points).sum
+  end
+
+  def patch_options_for_select(patches, selected)
+    patches.map { |patch| ["#{t('patch')} #{patch}", patch] }
+      .prepend([t('all.patches'), 'all'])
   end
 end

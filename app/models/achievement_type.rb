@@ -18,6 +18,7 @@ class AchievementType < ApplicationRecord
 
   translates :name
 
+  scope :ordered, -> { order(:order) }
   scope :with_filters, -> (filters) do
     if filters[:limited] == 'hide'
       where.not(name_en: 'Legacy')

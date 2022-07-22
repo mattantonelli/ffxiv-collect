@@ -49,6 +49,7 @@ fr:
     aspects: "Tous les éléments"
     data_centers: "Tous les centres de données"
     genders: "Tous les genres"
+    patches: "Tous les patches"
     race_types: "Tous les types de mascottes"
     ranks: "Tous les rangs"
     servers: "Tous les serveurs"

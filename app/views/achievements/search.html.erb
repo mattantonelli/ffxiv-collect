@@ -8,6 +8,10 @@
       class: 'form-control form-control-sm flex-grow-1' %>
     <%= f.search_field "description_#{I18n.locale}_cont", placeholder: t('description'), size: 40, minlength: 3,
       class: 'form-control form-control-sm flex-grow-1' %>
+    <%= f.collection_select :category_type_id_eq, @types, :id, "name_#{I18n.locale}", { include_blank: t('all.types') },
+      class: 'form-control form-control-sm' %>
+    <%= f.select :patch_eq, patch_options_for_select(@patches, @search[:patch_eq]), {},
+      class: 'form-control form-control-sm' %>
     <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
     <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
@@ -45,7 +49,7 @@
             </td>
             <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
             <td class="hide-xs"><%= format_text_long(achievement.description) %></td>
-            <td class="hide-sm"><%= achievement_category_link(achievement) %></td>
+            <td class="hide-sm"><%= achievement_type_category_link(achievement) %></td>
             <td data-value="<%= achievement_reward_value(achievement) %>">
               <%= achievement_reward(achievement) %>
             </td>
