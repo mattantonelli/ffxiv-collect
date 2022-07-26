@@ -131,6 +131,8 @@ de:
     title: "Modeaccessoires"
   filters: "Filter"
   hairstyles:
+    hrothgar: "Verfügbar für Hrothgar"
+    viera: "Verfügbar für Viera"
     title: "Frisuren"
   hide:
     female: "Verberge Weiblich"

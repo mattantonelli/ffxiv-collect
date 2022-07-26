@@ -136,6 +136,8 @@ en:
   filters: "Filters"
   hairstyles:
     title: "Hairstyles"
+    hrothgar: "Available to Hrothgar"
+    viera: "Available to Viera"
   hide:
     female: "Hide Female"
     male: "Hide Male"

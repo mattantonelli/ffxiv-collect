@@ -9,11 +9,15 @@ module HairstylesHelper
     safe_image_tag("hairstyles/samples/#{hairstyle.id}.png", class: 'hairstyle-small')
   end
 
-  def vierable(hairstyle)
-    fa_icon('carrot') if hairstyle.vierable?
+  def hrothable(hairstyle)
+    if hairstyle.hrothable?
+      content_tag(:span, fa_icon('paw'), data: { toggle: 'tooltip' }, title: t('hairstyles.hrothgar'))
+    end
   end
 
-  def hrothable(hairstyle)
-    fa_icon('paw') if hairstyle.hrothable?
+  def vierable(hairstyle)
+    if hairstyle.vierable?
+      content_tag(:span, fa_icon('carrot'), data: { toggle: 'tooltip' }, title: t('hairstyles.viera'))
+    end
   end
 end
