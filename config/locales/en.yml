@@ -169,6 +169,8 @@ en:
   "no": "no"
   of: "of"
   only:
+    female: "Female Only"
+    male: "Male Only"
     missing: "Only Missing"
     owned: "Only Owned"
     tradeable: "Only Tradeable"

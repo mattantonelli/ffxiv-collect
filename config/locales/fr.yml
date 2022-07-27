@@ -169,6 +169,8 @@ fr:
   "no": "non"
   of: "de"
   only:
+    female: "Réservé aux femmes"
+    male: "Réservé aux hommes"
     missing: "Manquant uniquement"
     owned: "Possédé uniquement"
     tradeable: "Échangeable"

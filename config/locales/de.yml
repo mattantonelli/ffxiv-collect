@@ -165,6 +165,8 @@ de:
   "no": "nein"
   of: "von"
   only:
+    female: "Nur für Damen"
+    male: "Nur für Herren"
     missing: "Nur Fehlende"
     owned: "Nur in Besitz"
     tradeable: "Nur Handelbar"

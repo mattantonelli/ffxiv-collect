@@ -88,7 +88,7 @@ module ApplicationHelper
 
   def gender_symbol(gender)
     return nil unless gender.present?
-    fa_icon(gender == 'male' ? 'mars' : 'venus', data: { toggle: 'tooltip', title: "#{gender.capitalize} Only" })
+    fa_icon(gender == 'male' ? 'mars' : 'venus', data: { toggle: 'tooltip', title: t("only.#{gender}") })
   end
 
   def stars(value)
