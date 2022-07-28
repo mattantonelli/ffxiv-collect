@@ -28,15 +28,6 @@ class CharactersController < ApplicationController
         h[collection][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
       end
     end
-
-    # Add relic scores
-    @scores['relics'] = {}
-    owned_relic_ids = @profile.relic_ids
-
-    Relic.categories.each do |category|
-      ids = Relic.joins(:type).where('relic_types.category = ?', category).pluck(:id)
-      @scores['relics'][category] = { value: (owned_relic_ids & ids).size, max: ids.size }
-    end
   end
 
   def profile
