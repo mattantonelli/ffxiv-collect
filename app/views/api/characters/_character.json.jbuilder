@@ -18,12 +18,4 @@ end
   end
 end
 
-json.relics @relics
-
-if @triad.present? && @triad[:status] == :ok
-  json.triad do
-    json.count @triad[:status] == :ok ? @triad[:cards][:owned] : 0
-    json.total @triad[:status] == :ok ? @triad[:cards][:total] : 0
-    json.ids @triad[:cards][:ids] if params[:ids].present?
-  end
-end
+json.relics character_relics(character)
