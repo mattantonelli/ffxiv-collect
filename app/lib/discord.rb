@@ -89,7 +89,7 @@ module Discord
       embed.add_field(name: 'Achievements', inline: true, value: 'Set to private.')
     end
 
-    %i(mounts minions orchestrions spells emotes bardings hairstyles armoires fashions records triad).each do |category|
+    %i(mounts minions orchestrions spells emotes bardings hairstyles armoires fashions records).each do |category|
       next unless character[category].present? && character[category][:count] > 0
 
       count, total = character[category].values_at(:count, :total)
@@ -136,7 +136,6 @@ module Discord
     case category
     when 'orchestrions' then 'Orchestrion'
     when 'spells' then 'Blue Magic'
-    when 'triad' then 'Triple Triad'
     else category.titleize
     end
   end
