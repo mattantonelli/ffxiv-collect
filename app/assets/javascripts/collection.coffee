@@ -36,18 +36,6 @@ $(document).on 'turbolinks:load', ->
       progress.attr('style', "width: #{completion}%")
       progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
-    # Update progress for the comparison character if one is selected
-    if $('.comparison').length > 0
-      progress = $('.progress-bar:last')
-      # current = $('.avatar:not(.faded)').length
-      current = $('tr.collectable:not(.hidden) .comparison > .avatar:last-child:not(.faded)').length
-
-      if max > 0
-        completion = (current / max) * 100
-        progress.attr('aria-valuenow', current)
-        progress.attr('style', "width: #{completion}%")
-        progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
-
   restripe()
 
   updateCollection = (collectable) ->

@@ -23,6 +23,7 @@ en:
     character_verification_error: "Your character could not be verified. Please check your profile and try again."
     character_verified: "Your character has been verified. You can now remove the code from your profile."
     collection_being_retrieved: "Your collection data is being retrieved from the Lodestone. Please check back in a minute."
+    comparison_is_you: "You cannot compare with yourself."
     comparison_set: "Your comparison character has been set."
     comparison_set_to_private: "Your comparison character has been set to private and can no longer be tracked."
     here: "here"

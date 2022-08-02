@@ -23,6 +23,7 @@ fr:
     character_verification_error: "Nous n'arrivons pas à vérifier votre personnage. Vérifié votre profil et réessayé."
     character_verified: "Votre personnage a été vérifié. Vous pouvez retirer le code de votre profil."
     collection_being_retrieved: "Les informations de votre collection sont en train d'être synchronisé avec le Lodestone. Veuillez patienter."
+    comparison_is_you: "Vous ne pouvez pas comparer votre Personnage à lui même."
     comparison_set: "Les informations de comparaison ont été ajoutées."
     comparison_set_to_private: "Les informations de comparaison sont désormais privées et ne seront donc plus traquées."
     here: "ici"

@@ -23,6 +23,7 @@ de:
     character_verification_error: "Dein Charakter konnte nicht verifiziert werden. Bitte prüfe dein Lodestone Profil und versuche es erneut."
     character_verified: "Dein Charakter wurde verifiziert. Du kannst den Code wieder aus deinem Profil entfernen."
     collection_being_retrieved: "Deine Sammlung wurde vom Lodestone empfangen. Bitte versuche es in einer Minute wieder."
+    comparison_is_you: "Du kannst nicht mit deinem eigenen Charakter vergleichen."
     comparison_set: "Dein Vergleichscharakter wurde gesetzt."
     comparison_set_to_private: "Dein Vergleichscharakter wurde auf privat gesetzt und kann nicht länger verglichen werden."
     here: "hier"
