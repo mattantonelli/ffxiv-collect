@@ -137,8 +137,8 @@ fr:
   filters: "Filtres"
   hairstyles:
     hrothgar: "Disponible pour Hrothgar"
-    viera: "Disponible pour Viera"
     title: "Coiffures"
+    viera: "Disponible pour Viera"
   hide:
     female: "Masquer les objets pour femme"
     male: "Masquer les objets pour homme"
@@ -254,6 +254,13 @@ fr:
     other_items: "Autres récompenses"
     source: "Emplacement original"
     title: "Collection MogMog"
+  tools:
+    materiel:
+      container:
+        3: "Malle-surprise (ARR/Heavensward)"
+        4: "Malle-surprise (Stormblood)"
+      title: "Malle-surprise"
+    title: "Outils"
   tooltip:
     ownership: "Personnages publics actifs qui possèdent %{collectable}"
   tooltip: "Tooltip"

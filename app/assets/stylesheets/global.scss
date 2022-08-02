@@ -214,6 +214,11 @@ hr {
     }
   }
 
+  &.fill {
+    min-width: auto;
+    width: 100%;
+  }
+
   &.compact {
     margin: 0 auto;
     width: auto;

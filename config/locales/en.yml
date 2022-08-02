@@ -136,8 +136,8 @@ en:
     title: "Fashion Accessories"
   filters: "Filters"
   hairstyles:
-    title: "Hairstyles"
     hrothgar: "Available to Hrothgar"
+    title: "Hairstyles"
     viera: "Available to Viera"
   hide:
     female: "Hide Female"
@@ -254,6 +254,13 @@ en:
     other_items: "Other Items"
     source: "Original Source"
     title: "Moogle Treasure Trove"
+  tools:
+    materiel:
+      container:
+        3: "Materiel Container 3.0"
+        4: "Materiel Container 4.0"
+      title: "Materiel Container"
+    title: "Tools"
   tooltip:
     ownership: "Active public characters who own this %{collectable}"
   tooltip: "Tooltip"

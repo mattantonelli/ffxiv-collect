@@ -3,6 +3,26 @@ module CollectionsHelper
     "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if tradeable?(collectable)}"
   end
 
+  def collectable_name_link(collectable)
+    link_to(collectable.name, polymorphic_path(collectable), class: 'name')
+  end
+
+  def collectable_image(collectable)
+    type = collectable.class.to_s
+
+    case type
+    when 'Orchestrion'
+      image_tag('orchestrion.png')
+    when 'Hairstyle'
+      hairstyle_sample_image(collectable)
+    when 'Mount', 'Minion'
+      sprite(collectable, "#{type.downcase.pluralize}-small")
+    else
+      sprite(collectable, type.downcase)
+    end
+  end
+
+
   def format_skill_description(description)
     format_text(description.gsub("\n", '<br>'))
   end

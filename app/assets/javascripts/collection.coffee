@@ -25,16 +25,17 @@ $(document).on 'turbolinks:load', ->
     $('tr.collectable:visible').each (index) ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
-    # Update the collection progress bar based on visible collectables
-    progress = $('.progress-bar:first')
-    current = $('.owned:not(.hidden)').length
-    max = $('tr.collectable:not(.hidden)').length
+    # Update the collection progress bar based on visible collectables, with the exception of special pages
+    unless $('.materiel').length > 0
+      progress = $('.progress-bar:first')
+      current = $('.owned:not(.hidden)').length
+      max = $('tr.collectable:not(.hidden)').length
 
-    if max > 0
-      completion = (current / max) * 100
-      progress.attr('aria-valuenow', current)
-      progress.attr('style', "width: #{completion}%")
-      progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+      if max > 0
+        completion = (current / max) * 100
+        progress.attr('aria-valuenow', current)
+        progress.attr('style', "width: #{completion}%")
+        progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
   restripe()
 

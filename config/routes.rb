@@ -44,6 +44,12 @@ Rails.application.routes.draw do
     post :add, :remove, on: :member
   end
 
+  resources :tools, only: [] do
+    collection do
+      get :materiel
+    end
+  end
+
   # Backwards compatibility for old relics URLs
   get 'relics', to: redirect('relics/weapons')
   get 'relics/gear', to: redirect('relics/armor')

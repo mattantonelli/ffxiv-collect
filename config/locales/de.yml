@@ -133,8 +133,8 @@ de:
   filters: "Filter"
   hairstyles:
     hrothgar: "Verfügbar für Hrothgar"
-    viera: "Verfügbar für Viera"
     title: "Frisuren"
+    viera: "Verfügbar für Viera"
   hide:
     female: "Verberge Weiblich"
     male: "Verberge Männlich"
@@ -250,6 +250,13 @@ de:
     other_items: "Andere Gegenstände"
     source: "Ursprüngliche Quelle"
     title: "MogMog Kollektion"
+  tools:
+    materiel:
+      container:
+        3: "Sonderziehungstruhe (A Realm Reborn, Heavensward)"
+        4: "Sonderziehungstruhe (Stormblood)"
+      title: "Sonderziehungstruhe"
+    title: "Werkzeuge"
   tooltip:
     ownership: "Aktive öffentliche Charakter in Besitz der/des %{collectable}"
   tooltip: "Kurzinfo"

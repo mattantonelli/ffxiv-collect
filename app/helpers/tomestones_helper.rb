@@ -1,16 +1,4 @@
 module TomestonesHelper
-  def reward_image(reward)
-    if reward.collectable_type == 'Orchestrion'
-      image_tag('orchestrion.png')
-    elsif reward.collectable_type == 'Hairstyle'
-      hairstyle_sample_image(reward.collectable)
-    elsif reward.collectable_type == 'Mount' || reward.collectable_type == 'Minion'
-      sprite(reward.collectable, "#{reward.collectable_type.downcase.pluralize}-small")
-    else
-      sprite(reward.collectable, reward.collectable_type.downcase)
-    end
-  end
-
   def reward_owned?(reward)
     @collections_ids&.fetch(reward.collectable_type)&.include?(reward.collectable_id)
   end

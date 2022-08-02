@@ -2,6 +2,8 @@ module Collectable
   extend ActiveSupport::Concern
 
   included do
+    scope :tradeable, -> { where.not(item_id: nil) }
+
     scope :hide_premium, -> (hide) do
       where('sources.premium = FALSE or sources.type_id IS NULL') if hide
     end
@@ -42,5 +44,18 @@ module Collectable
     has_many :sources, as: :collectable, dependent: :delete_all
     accepts_nested_attributes_for :sources
     has_paper_trail
+  end
+
+  class_methods do
+    def materiel_container(number)
+      case number
+      when 3
+        tradeable.where('patch < 4.0')
+      when 4
+        tradeable.where('patch >= 4.0 AND patch < 5.0')
+      else
+        none
+      end
+    end
   end
 end
