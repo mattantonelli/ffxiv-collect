@@ -255,6 +255,8 @@ en:
     source: "Original Source"
     title: "Moogle Treasure Trove"
   tools:
+    gemstones:
+      title: "Bicolor Gemstones"
     materiel:
       container:
         3: "Materiel Container 3.0"

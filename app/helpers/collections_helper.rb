@@ -15,7 +15,7 @@ module CollectionsHelper
       image_tag('orchestrion.png')
     when 'Hairstyle'
       hairstyle_sample_image(collectable)
-    when 'Mount', 'Minion'
+    when 'Mount', 'Minion', 'Fashion'
       sprite(collectable, "#{type.downcase.pluralize}-small")
     else
       sprite(collectable, type.downcase)

@@ -255,6 +255,8 @@ fr:
     source: "Emplacement original"
     title: "Collection MogMog"
   tools:
+    gemstones:
+      title: "Gemmes bicolore"
     materiel:
       container:
         3: "Malle-surprise (ARR/Heavensward)"

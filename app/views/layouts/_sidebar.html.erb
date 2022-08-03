@@ -50,6 +50,7 @@
       <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('toolbox', text: t('tools.title')) %></a>
       <div class="dropdown-menu" aria-labelledBy="toolsDropdown">
+        <%= link_to far_icon('gem', text: t('tools.gemstones.title')), gemstones_tools_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('box', text: t('tools.materiel.title')), materiel_tools_path, class: 'dropdown-item' %>
       </div>
     </div>

@@ -251,6 +251,8 @@ de:
     source: "Ursprüngliche Quelle"
     title: "MogMog Kollektion"
   tools:
+    gemstones:
+      title: "Zweifarbiger Edelsteine"
     materiel:
       container:
         3: "Sonderziehungstruhe (A Realm Reborn, Heavensward)"
