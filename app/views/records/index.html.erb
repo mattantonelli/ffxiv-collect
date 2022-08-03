@@ -51,7 +51,7 @@
             <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>"><%= rarity(record) %></td>
             <td class="text-center hide-xs" data-value="<%= sort_value(record) %>"><%= record.patch %></td>
             <% if character_selected? %>
-              <%= td_owned(record, manual: true) %>
+              <%= td_owned(record) %>
             <% end %>
             <% if @comparison.present? %>
               <%= td_comparison(record) %>

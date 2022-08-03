@@ -59,7 +59,7 @@
             <td class="text-center hide-xs" data-value="<%= rarity(armoire, numeric: true) %>"><%= rarity(armoire) %></td>
             <td class="text-center" data-value="<%= sort_value(armoire) %>"><%= armoire.patch %></td>
             <% if character_selected? %>
-              <%= td_owned(armoire, manual: true) %>
+              <%= td_owned(armoire) %>
             <% end %>
             <% if @comparison.present? %>
               <%= td_comparison(armoire) %>

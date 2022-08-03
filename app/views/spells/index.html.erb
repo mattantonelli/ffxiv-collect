@@ -64,7 +64,7 @@
             <td class="text-center no-wrap hide-md" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
             <td class="text-center hide-md" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
             <% if character_selected? %>
-              <%= td_owned(spell, manual: true) %>
+              <%= td_owned(spell) %>
             <% end %>
             <% if @comparison.present? %>
               <%= td_comparison(spell) %>

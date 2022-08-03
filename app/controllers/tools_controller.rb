@@ -11,7 +11,7 @@ class ToolsController < ApplicationController
     end
 
     if @character.present?
-      @ids = {
+      @owned_ids = {
         mounts: @character.mount_ids,
         minions: @character.minion_ids
       }

@@ -44,7 +44,7 @@
             <td class="text-center hide-xs" data-value="<%= rarity(fashion, numeric: true) %>"><%= rarity(fashion) %></td>
             <td class="text-center" data-value="<%= sort_value(fashion) %>"><%= fashion.patch %></td>
             <% if character_selected? %>
-              <%= td_owned(fashion, manual: true) %>
+              <%= td_owned(fashion) %>
             <% end %>
             <% if @comparison.present? %>
               <%= td_comparison(fashion) %>

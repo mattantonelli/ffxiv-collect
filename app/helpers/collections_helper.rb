@@ -22,6 +22,13 @@ module CollectionsHelper
     end
   end
 
+  def collectable_owned?(collectable)
+    @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
+  end
+
+  def collectable_type(collectable)
+    collectable.class.to_s.downcase.pluralize.to_sym
+  end
 
   def format_skill_description(description)
     format_text(description.gsub("\n", '<br>'))
@@ -85,9 +92,11 @@ module CollectionsHelper
     end
   end
 
-  def td_owned(collectable, manual: false)
+  def td_owned(collectable)
     date = @dates&.dig(collectable.id)
-    owned = @collection_ids.include?(collectable.id)
+    manual = !(collectable.class == Mount || collectable.class == Minion)
+    owned = @collection_ids&.include?(collectable.id) ||
+      (@owned_ids.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id))
 
     if manual && @character.verified_user?(current_user)
       content_tag(:td, class: 'text-center',

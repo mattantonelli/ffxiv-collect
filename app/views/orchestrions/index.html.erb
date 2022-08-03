@@ -66,7 +66,7 @@
             </td>
             <td class="text-center" data-value="<%= sort_value(orchestrion) %>"><%= orchestrion.patch %></td>
             <% if character_selected? %>
-              <%= td_owned(orchestrion, manual: true) %>
+              <%= td_owned(orchestrion) %>
             <% end %>
             <% if @comparison.present? %>
               <%= td_comparison(orchestrion) %>
