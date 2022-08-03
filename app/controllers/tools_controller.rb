@@ -1,7 +1,6 @@
 class ToolsController < ApplicationController
   include Collection
   skip_before_action :set_owned!, :set_ids!, :set_dates!
-  before_action :verify_character_selected!
 
   def materiel
     @containers = (3..4).each_with_object({}) do |number, h|
@@ -11,10 +10,12 @@ class ToolsController < ApplicationController
       }
     end
 
-    @ids = {
-      mounts: @character.mount_ids,
-      minions: @character.minion_ids
-    }
+    if @character.present?
+      @ids = {
+        mounts: @character.mount_ids,
+        minions: @character.minion_ids
+      }
+    end
   end
 
   private
