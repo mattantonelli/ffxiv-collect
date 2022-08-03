@@ -94,7 +94,7 @@ module CollectionsHelper
 
   def td_owned(collectable)
     date = @dates&.dig(collectable.id)
-    manual = !(collectable.class == Mount || collectable.class == Minion)
+    manual = ![Achievement, Mount, Minion].include?(collectable.class)
     owned = @collection_ids&.include?(collectable.id) ||
       (@owned_ids.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id))
 
