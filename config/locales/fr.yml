@@ -135,6 +135,8 @@ fr:
   fashions:
     title: "Accessoires de mode"
   filters: "Filtres"
+  fish:
+    title: "Poisson légendaire"
   hairstyles:
     hrothgar: "Disponible pour Hrothgar"
     title: "Coiffures"

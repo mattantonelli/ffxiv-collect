@@ -131,6 +131,8 @@ de:
   fashions:
     title: "Modeaccessoires"
   filters: "Filter"
+  fish:
+    title: "Kapitalfische"
   hairstyles:
     hrothgar: "Verfügbar für Hrothgar"
     title: "Frisuren"

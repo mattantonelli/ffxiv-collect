@@ -135,6 +135,8 @@ en:
   fashions:
     title: "Fashion Accessories"
   filters: "Filters"
+  fish:
+    title: "Big Fish"
   hairstyles:
     hrothgar: "Available to Hrothgar"
     title: "Hairstyles"
