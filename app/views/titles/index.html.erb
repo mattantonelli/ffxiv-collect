@@ -21,7 +21,7 @@
           <th scope="col">Title</th>
           <th scope="col" class="hide-xs">Achievement</th>
           <th scope="col" class="hide-xs"><%= t('category') %></th>
-          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+          <th scope="col" class="text-center hide-sm"><%= t('own') %></th>
           <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
@@ -37,7 +37,7 @@
               <%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name',
                           title: title.achievement.description, data: { toggle: 'tooltip' }) %>
             </td>
-            <td class="hide-xs"><%= achievement_category_link(title.achievement) %></td>
+            <td class="hide-sm"><%= achievement_type_category_link(title.achievement) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
               <%= rarity(title.achievement) %>
             </td>

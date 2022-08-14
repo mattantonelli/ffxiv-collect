@@ -19,7 +19,7 @@
       <thead>
         <th scope="col" class="name hide-xs"><%= t('item') %></th>
         <th scope="col" class="name"><%= t('achievements.one') %></th>
-        <th scope="col" class="name hide-xs"><%= t('category') %></th>
+        <th scope="col" class="name hide-sm"><%= t('category') %></th>
         <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
         <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
         <% if character_selected? %>
@@ -45,7 +45,7 @@
                 <%= link_to(achievement.name, achievement_path(achievement), class: 'name ml-2') %>
               </div>
             </td>
-            <td class="hide-xs"><%= achievement_category_link(achievement) %></td>
+            <td class="hide-sm"><%= achievement_type_category_link(achievement) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
               <%= rarity(achievement) %>
             </td>
