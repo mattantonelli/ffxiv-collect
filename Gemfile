@@ -42,6 +42,7 @@ gem 'rest-client'
 gem 'paper_trail', '~> 11.1.0'
 gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0.0'
+gem 'activejob-uniqueness'
 gem 'nokogiri', '>= 1.13.6'
 
 # Discord interactions
