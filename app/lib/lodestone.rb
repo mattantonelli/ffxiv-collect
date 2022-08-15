@@ -1,12 +1,14 @@
 module Lodestone
-  ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone/character'.freeze
+  ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
+  DESKTOP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
+    'Chrome/104.0.0.0 Safari/537.36'
   MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) ' \
     'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.76 Mobile Safari/537.36'.freeze
 
   extend self
 
-  def fetch(character_id)
-    character = fetch_character(character_id)
+  def fetch_character(character_id)
+    character = fetch_profile(character_id)
     character[:mounts] = fetch_mounts(character_id)
     character[:minions] = fetch_minions(character_id)
 
@@ -14,6 +16,24 @@ module Lodestone
     character[:achievements] = character[:achievements_count] == -1 ? [] : fetch_achievements(character_id)
 
     character
+  end
+
+  def free_company_members(free_company_id, page: 1)
+    url = "#{ROOT_URL}/freecompany/#{free_company_id}/member?page=#{page}"
+
+    begin
+      doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
+      members = doc.css('.entry__bg').map { |entry| element_id(entry) }
+
+      # If there are additional pages, recursively continue fetching members
+      if doc.at_css('.btn__pager__next:not(.btn__pager__no)').present?
+        members += free_company_members(free_company_id, page: page + 1)
+      end
+
+      members
+    rescue RestClient::ExceptionWithResponse, StandardError
+      []
+    end
   end
 
   def search(name, server)
@@ -34,9 +54,9 @@ module Lodestone
   end
 
   private
-  def fetch_character(character_id)
+  def fetch_profile(character_id)
     doc = document(character_id: character_id)
-    doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/#{character_id}", user_agent: MOBILE_USER_AGENT))
+    doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/character/#{character_id}", user_agent: MOBILE_USER_AGENT))
 
     character = {
       id: character_id,
@@ -73,13 +93,13 @@ module Lodestone
   end
 
   def fetch_mounts(character_id)
-    doc = document(endpoint: 'mount', character_id: character_id)
+    doc = character_document(endpoint: 'mount', character_id: character_id)
     return [] unless doc.present?
     Mount.where(name_en: doc.css('.mount__name').map(&:text)).pluck(:id)
   end
 
   def fetch_minions(character_id)
-    doc = document(endpoint: 'minion', character_id: character_id)
+    doc = character_document(endpoint: 'minion', character_id: character_id)
     return [] unless doc.present?
     Minion.summonable.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
   end
@@ -88,7 +108,7 @@ module Lodestone
     # If the character exists, grab their recent achievements from the overview page
     # and return those achievements, unless they fill the whole page
     if character = Character.find_by(id: character_id)
-      doc = document(endpoint: 'achievement', character_id: character_id)
+      doc = character_document(endpoint: 'achievement', character_id: character_id)
 
       recent = doc.css('.entry__achievement').map { |achievement| parse_achievement(achievement) }
       owned = character.achievement_ids
@@ -98,7 +118,7 @@ module Lodestone
 
     # Otherwise, grab the achievements from each page
     AchievementType.pluck(:id).flat_map do |type|
-      doc = document(endpoint: "achievement/kind/#{type}", character_id: character_id)
+      doc = character_document(endpoint: "achievement/kind/#{type}", character_id: character_id)
       next [] unless doc.present?
       doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
     end
@@ -108,8 +128,9 @@ module Lodestone
     { id: element_id(achievement), date: element_time(achievement) }
   end
 
-  def document(endpoint: nil, character_id: nil, params: {})
-    url = [ROOT_URL, character_id, endpoint].compact.join('/')
+  def character_document(endpoint: nil, character_id: nil, params: {})
+    url = [ROOT_URL, 'character', character_id, endpoint].compact.join('/')
+
     begin
       Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
     rescue RestClient::NotFound
