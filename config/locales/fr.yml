@@ -69,6 +69,9 @@ fr:
   bardings:
     title: "Bardes"
   category: "Categorie"
+  character:
+    one: "personnage"
+    other: "personnages"
   characters:
     change: "Changer de personnage"
     character_profile: "Profil du personnage"

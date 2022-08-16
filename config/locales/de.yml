@@ -68,6 +68,9 @@ de:
   bardings:
     title: "Rossharnische"
   category: "Kategorie"
+  character:
+    one: "charakter"
+    other: "charaktere"
   characters:
     change: "Charakter ändern"
     character_profile: "Charakterprofil"

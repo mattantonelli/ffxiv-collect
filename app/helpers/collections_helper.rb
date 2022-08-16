@@ -69,13 +69,25 @@ module CollectionsHelper
   end
 
   def rarity(collectable, numeric: false)
+    # Set the count and percentage from the full ownership dataset if we have it,
+    # otherwise fetch the values from Redis for the given collectable.
     if @owned.present?
-      rarity = @owned.fetch(collectable.id.to_s, '0%')
+      count = @owned.dig(:count, collectable.id.to_s).to_i
+      percentage = @owned.dig(:percentage, collectable.id.to_s) || '0%'
     else
-      rarity = Redis.current.hget(collectable.class.to_s.downcase.pluralize, collectable.id) || '0%'
+      key = collectable.class.to_s.downcase.pluralize
+      count = Redis.current.hget("#{key}-count", collectable.id).to_i
+      percentage = Redis.current.hget(key, collectable.id) || '0%'
     end
 
-    numeric ? rarity.delete('%') : rarity
+    if numeric
+      # Numeric returns just the count for sorting
+      count
+    else
+      # Otherwise render a fancy tooltip with the percentage and the count
+      content_tag(:span, percentage, data: { toggle: 'tooltip' },
+                  title: "#{number_with_delimiter(count)} #{t('character', count: count)}")
+    end
   end
 
   def owned?(id)

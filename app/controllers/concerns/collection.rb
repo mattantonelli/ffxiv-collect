@@ -15,7 +15,12 @@ module Collection
 
   private
   def set_owned!
-    @owned = Redis.current.hgetall(controller_name.downcase)
+    key = controller_name.downcase
+
+    @owned = {
+      count: Redis.current.hgetall("#{key}-count"),
+      percentage: Redis.current.hgetall(key)
+    }
   end
 
   def set_ids!
