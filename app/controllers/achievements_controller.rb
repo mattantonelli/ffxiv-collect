@@ -28,7 +28,10 @@ class AchievementsController < ApplicationController
   def items
     @q = Achievement.where.not(item_id: nil).with_filters(cookies).ransack(params[:q])
     @achievements = @q.result.ordered
-    @owned = Redis.current.hgetall(:achievements)
+    @owned = {
+      count: Redis.current.hgetall('achievements-count'),
+      percentage: Redis.current.hgetall('achievements')
+    }
   end
 
   def search

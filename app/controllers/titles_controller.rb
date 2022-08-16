@@ -14,6 +14,9 @@ class TitlesController < ApplicationController
     @collection_ids = @character&.achievement_ids || []
     @comparison_ids = @comparison&.achievement_ids || []
     @dates = @character&.character_achievements&.pluck(:achievement_id, :created_at).to_h || {}
-    @owned = Redis.current.hgetall(:achievements)
+    @owned = {
+      count: Redis.current.hgetall('achievements-count'),
+      percentage: Redis.current.hgetall('achievements')
+    }
   end
 end
