@@ -37,7 +37,7 @@ module Lodestone
   end
 
   def search(name, server)
-    doc = document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: server })
+    doc = character_document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: server })
     doc.css('.entry__chara__link').map do |character|
       {
         id: element_id(character),
@@ -49,13 +49,13 @@ module Lodestone
   end
 
   def verified?(character_id, code)
-    doc = document(character_id: character_id)
+    doc = character_document(character_id: character_id)
     doc.css('.character__character_profile').text.include?(code)
   end
 
   private
   def fetch_profile(character_id)
-    doc = document(character_id: character_id)
+    doc = character_document(character_id: character_id)
     doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/character/#{character_id}", user_agent: MOBILE_USER_AGENT))
 
     character = {

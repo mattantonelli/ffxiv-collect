@@ -90,7 +90,7 @@ class CharactersController < ApplicationController
     elsif character.private?(current_user)
       flash[:alert] = t('alerts.private_character')
       redirect_back(fallback_location: root_path)
-    elsif character == @character
+    elsif params[:compare] && character == @character
       flash[:alert] = t('alerts.comparison_is_you')
       redirect_back(fallback_location: root_path)
     else
