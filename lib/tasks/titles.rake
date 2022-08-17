@@ -8,7 +8,7 @@ namespace :titles do
 
     titles = %w(en de fr ja).each_with_object({}) do |locale, h|
       XIVData.sheet('Title', locale: locale).each do |title|
-        next if title['Order'] == '0'
+        next unless title['Masculine'].present?
 
         data = h[title['#']] || { id: title['#'], order: title['Order'] }
 
