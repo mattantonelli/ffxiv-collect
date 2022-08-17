@@ -52,4 +52,9 @@ module CharactersHelper
       h[category][:ids] = owned_relic_ids if params[:ids].present?
     end
   end
+
+  def statistic_data_rarity(data)
+    content_tag(:span, data[:percentage], data: { toggle: 'tooltip' },
+                title: "#{number_with_delimiter(data[:count])} #{t('character', count: data[:count].to_i)}")
+  end
 end

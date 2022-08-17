@@ -7,14 +7,14 @@
         </div>
         <div class="card-body">
           <ul class="list-unstyled">
-            <% collectables.each do |collectable, stat| %>
+            <% collectables.each do |data| %>
               <li class="mb-2">
-                <%= link_to(polymorphic_path(collectable), class: 'unstyled d-flex align-items-center') do %>
-                  <%= generic_sprite(collection, collectable) %>
+                <%= link_to(polymorphic_path(data[:collectable]), class: 'unstyled d-flex align-items-center') do %>
+                  <%= generic_sprite(collection, data[:collectable]) %>
                   <span class="ml-2">
-                    <%= collectable_name(collection, collectable) %>
-                    <% if stat.present? %>
-                      <br>(<%= stat %>)
+                    <%= collectable_name(collection, data[:collectable]) %>
+                    <% if data[:count].present? %>
+                      <br><%= statistic_data_rarity(data) %>
                     <% end %>
                   </span>
                 <% end %>

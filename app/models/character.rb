@@ -109,20 +109,27 @@ class Character < ApplicationRecord
     count = collection == 'records' ? 5 : 10
 
     collectables = collectables.with_filters(filters, self) if filters.present?
-    collectables.first(count)
+    collectables.first(count).map do |collectable|
+      { collectable: collectable }
+    end
   end
 
   def most_rare(collection, filters: nil)
     if collection == 'titles'
       collectables = achievements.joins(:title)
-      rarities = Redis.current.hgetall('achievements')
+      key = 'achievements'
     else
       collectables = send(collection)
-      rarities = Redis.current.hgetall(collection)
+      key = collection
     end
 
-    sorted_ids = rarities.sort_by { |k, v| v.to_f }.map { |k, v| k.to_i }
-    valid_ids = rarities.keys.map(&:to_i) # Exclude new collectables with no rarity values
+    rarities = {
+      count: Redis.current.hgetall("#{key}-count"),
+      percentage: Redis.current.hgetall(key)
+    }
+
+    sorted_ids = rarities[:count].sort_by { |k, v| v.to_f }.map { |k, v| k.to_i }
+    valid_ids = rarities[:count].keys.map(&:to_i) # Exclude new collectables with no rarity values
 
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
@@ -131,7 +138,9 @@ class Character < ApplicationRecord
     count = collection == 'records' ? 5 : 10
 
     collectables.first(count).map do |collectable|
-      [collectable, rarities[collectable.id.to_s]]
+      { collectable: collectable,
+        count: rarities[:count][collectable.id.to_s],
+        percentage: rarities[:percentage][collectable.id.to_s] }
     end
   end
 
