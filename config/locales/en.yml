@@ -188,7 +188,7 @@ en:
   other: "Other"
   own: "Own"
   owned: "Owned"
-  ownership: "Owned by %{percent} of players"
+  ownership: "Owned by %{percent} of characters"
   patch: "Patch"
   powered_by: "Powered by"
   prices:

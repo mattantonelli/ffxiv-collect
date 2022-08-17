@@ -188,7 +188,7 @@ fr:
   other: "Autre"
   own: "Posséder"
   owned: "Possédé"
-  ownership: "Possédé par %{percent} des joueurs"
+  ownership: "Possédé par %{percent} des personnages"
   patch: "Patch"
   powered_by: "Powered by"
   prices:

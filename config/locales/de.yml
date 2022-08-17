@@ -184,7 +184,7 @@ de:
   other: "Andere"
   own: "Besitz"
   owned: "In Besitz"
-  ownership: "In Besitz von %{percent} der Spieler"
+  ownership: "In Besitz von %{percent} der Charaktere"
   patch: "Patch"
   powered_by: "Unterstützung durch"
   prices:
