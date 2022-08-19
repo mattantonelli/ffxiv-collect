@@ -7,13 +7,13 @@ module Lodestone
 
   extend self
 
-  def fetch_character(character_id)
-    character = fetch_profile(character_id)
-    character[:mounts] = fetch_mounts(character_id)
-    character[:minions] = fetch_minions(character_id)
+  def character(character_id)
+    character = profile(character_id)
+    character[:mounts] = mounts(character_id)
+    character[:minions] = minions(character_id)
 
     # Do not fetch achievements if they are set to private
-    character[:achievements] = character[:achievements_count] == -1 ? [] : fetch_achievements(character_id)
+    character[:achievements] = character[:achievements_count] == -1 ? [] : achievements(character_id)
 
     character
   end
@@ -54,7 +54,7 @@ module Lodestone
   end
 
   private
-  def fetch_profile(character_id)
+  def profile(character_id)
     doc = character_document(character_id: character_id)
     doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/character/#{character_id}", user_agent: MOBILE_USER_AGENT))
 
@@ -92,19 +92,19 @@ module Lodestone
     character
   end
 
-  def fetch_mounts(character_id)
+  def mounts(character_id)
     doc = character_document(endpoint: 'mount', character_id: character_id)
     return [] unless doc.present?
     Mount.where(name_en: doc.css('.mount__name').map(&:text)).pluck(:id)
   end
 
-  def fetch_minions(character_id)
+  def minions(character_id)
     doc = character_document(endpoint: 'minion', character_id: character_id)
     return [] unless doc.present?
     Minion.summonable.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
   end
 
-  def fetch_achievements(character_id)
+  def achievements(character_id)
     # If the character exists, grab their recent achievements from the overview page
     # and return those achievements, unless they fill the whole page
     if character = Character.find_by(id: character_id)

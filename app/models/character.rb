@@ -145,7 +145,7 @@ class Character < ApplicationRecord
   end
 
   def self.fetch(id)
-    data = Lodestone.fetch_character(id)
+    data = Lodestone.character(id)
     data[:achievements_count] = -1 if data[:achievements].empty?
     profile_data = data.except(:achievements, :mounts, :minions)
 
