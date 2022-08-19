@@ -36,13 +36,12 @@
               <div class="d-flex flex-column">
                 <h5 class="mb-1">
                   <%= @profile.name %>
-                </h5>
-                <div>
-                  <%= @profile.server %>
                   <% unless @profile.public? %>
                     <span class="badge badge-danger"><%= t('characters.private') %></span>
                   <% end %>
-                </div>
+                </h5>
+                <%= server_leaderboards_link(@profile.server) %>
+                <%= character_free_company_link(@profile) %>
               </div>
             </div>
             <hr class="mb-0">

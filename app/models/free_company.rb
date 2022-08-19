@@ -11,4 +11,22 @@
 
 class FreeCompany < ApplicationRecord
   has_many :members, class_name: 'Character'
+
+  def self.fetch(id)
+    data = Lodestone.free_company(id)
+
+    if free_company = FreeCompany.find_by(id: id)
+      free_company.update!(data)
+    else
+      FreeCompany.create!(data)
+    end
+  end
+
+  def formatted_name
+    if tag.present?
+      "#{name} <#{tag}>"
+    else
+      name
+    end
+  end
 end

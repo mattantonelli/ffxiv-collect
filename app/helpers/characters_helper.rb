@@ -1,8 +1,13 @@
 module CharactersHelper
-  def fc_tag_link(character)
-    if character.free_company.present?
-      link_to("<#{character.free_company.tag}>", free_company_leaderboards_path(character.free_company), class: 'name')
+  def character_free_company_link(character)
+    if free_company = character.free_company
+      link_to(fa_icon('users', text: free_company.formatted_name),
+              free_company_leaderboards_path(character.free_company), class: 'name')
     end
+  end
+
+  def server_leaderboards_link(world)
+    link_to(fa_icon('globe', text: world), leaderboards_path(q: { server_eq: world }), class: 'name')
   end
 
   def verified(character, only_verified = true)

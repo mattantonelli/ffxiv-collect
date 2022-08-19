@@ -18,6 +18,21 @@ module Lodestone
     character
   end
 
+  def free_company(free_company_id)
+    url = "#{ROOT_URL}/freecompany/#{free_company_id}"
+
+    begin
+      doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
+      {
+        id: free_company_id,
+        name: doc.at_css('.freecompany__text__name').text,
+        tag: doc.at_css('p.freecompany__text__tag').text[/\w+/]
+      }
+    rescue RestClient::ExceptionWithResponse, StandardError
+      nil
+    end
+  end
+
   def free_company_members(free_company_id, page: 1)
     url = "#{ROOT_URL}/freecompany/#{free_company_id}/member?page=#{page}"
 
