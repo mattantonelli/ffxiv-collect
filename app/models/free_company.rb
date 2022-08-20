@@ -18,8 +18,10 @@ class FreeCompany < ApplicationRecord
     if free_company = FreeCompany.find_by(id: id)
       free_company.update!(data)
     else
-      FreeCompany.create!(data)
+      free_company = FreeCompany.create!(data)
     end
+
+    free_company
   end
 
   def formatted_name
@@ -28,5 +30,9 @@ class FreeCompany < ApplicationRecord
     else
       name
     end
+  end
+
+  def sync_members
+    FreeCompanySyncJob.perform_later(id)
   end
 end
