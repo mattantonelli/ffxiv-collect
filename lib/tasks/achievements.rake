@@ -26,12 +26,14 @@ namespace :achievements do
 
     puts 'Creating achievement categories'
     categories = XIVData.sheet('AchievementCategory', locale: 'en').each_with_object({}) do |category, h|
+      next unless category['Order'] != '0'
       h[category['#']] = { id: category['#'], name_en: category['Name'], order: category['Order'],
                            type_id: AchievementType.find_by(name_en: category['AchievementKind']).id.to_s }
     end
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('AchievementCategory', locale: locale).each do |category|
+        next unless category['Order'] != '0'
         categories[category['#']]["name_#{locale}"] = category['Name']
       end
     end
