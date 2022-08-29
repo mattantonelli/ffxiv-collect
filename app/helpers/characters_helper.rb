@@ -2,7 +2,7 @@ module CharactersHelper
   def character_free_company_link(character)
     if free_company = character.free_company
       link_to(fa_icon('users', text: free_company.formatted_name),
-              free_company_leaderboards_path(character.free_company), class: 'name')
+              free_company_path(character.free_company), class: 'name')
     end
   end
 
