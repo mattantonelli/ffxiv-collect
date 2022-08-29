@@ -1,0 +1,44 @@
+<% title(t('free_companies.title')) %>
+<% description(@free_company.formatted_name) %>
+
+<div class="row">
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="card-title"><%= @free_company.formatted_name %></h5>
+          <h6>
+            <span class="mr-1">
+              <%= @members.size %> <%= t('free_companies.member', count: @members.size) %>
+            </span>
+            <% if @free_company.in_queue? %>
+              <span class="badge badge-secondary">
+                <%= fa_icon('sync', text: t('free_companies.refresh.in_progress')) %>
+              </span>
+            <% elsif !@free_company.syncable? %>
+              <span class="badge badge-success">
+                <%= fa_icon('check', text: t('free_companies.refresh.up_to_date')) %>
+              </span>
+            <% end %>
+          </h6>
+        </div>
+        <div>
+          <%= link_to fa_icon('trophy', text: t('leaderboards.title')), free_company_leaderboards_path(@free_company),
+            class: 'btn btn-sm btn-primary' %>
+          <% if @free_company.syncable? %>
+            <%= link_to fa_icon('sync', text: t('free_companies.refresh.button')), refresh_free_company_path(@free_company),
+              class: 'btn btn-sm btn-success', method: :post %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-body d-flex flex-wrap">
+        <% @members.each do |character| %>
+          <%= link_to character_path(character), class: 'free-company-avatar' do %>
+            <%= image_tag(character.avatar, class: 'avatar-free-company') %>
+            <span><%= character.name %></span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

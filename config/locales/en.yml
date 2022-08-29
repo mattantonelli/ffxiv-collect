@@ -26,6 +26,9 @@ en:
     comparison_is_you: "You cannot compare with yourself."
     comparison_set: "Your comparison character has been set."
     comparison_set_to_private: "Your comparison character has been set to private and can no longer be tracked."
+    free_company_already_refreshed: "All of the members of this free company are up to date."
+    free_company_refreshed: "This free company is now being synchronized with the Lodestone. This can take several minutes."
+    free_company_syncing: "This free company is currently being synchronized with the Lodestone. This can take several minutes."
     here: "here"
     lodestone_error: "There was a problem contacting the Lodestone."
     lodestone_maintenance: "The Lodestone is currently down for maintenance."
@@ -140,6 +143,15 @@ en:
   filters: "Filters"
   fish:
     title: "Big Fish"
+  free_companies:
+    member:
+      one: "member"
+      other: "members"
+    refresh:
+      button: "Refresh Members"
+      in_progress: "Refreshing Now"
+      up_to_date: "Up To Date"
+    title: "Free Company Profile"
   hairstyles:
     hrothgar: "Available to Hrothgar"
     title: "Hairstyles"

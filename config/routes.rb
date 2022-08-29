@@ -75,6 +75,10 @@ Rails.application.routes.draw do
     get 'stats/rarity', on: :member, to: 'characters#stats_rarity', as: :stats_rarity
   end
 
+  resources :free_companies, only: [:show], path: :fc do
+    post :refresh, on: :member
+  end
+
   resources :titles, only: :index
 
   resources :leaderboards, only: :index do

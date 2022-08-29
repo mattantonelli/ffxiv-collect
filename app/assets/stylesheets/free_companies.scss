@@ -1,0 +1,19 @@
+.free-company-avatar {
+  margin: 0.5rem;
+  width: 100px;
+  height: 100px;
+
+  text-align: center;
+  text-decoration: none;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }
+}
