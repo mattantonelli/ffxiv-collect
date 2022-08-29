@@ -33,6 +33,8 @@
 #
 
 class Character < ApplicationRecord
+  include Queueable
+
   after_destroy :clear_user_characters
   belongs_to :verified_user, class_name: 'User', required: false
   belongs_to :free_company, required: false
@@ -83,12 +85,13 @@ class Character < ApplicationRecord
     end
   end
 
-  def stale?
-    last_parsed < Time.now - 6.hours
+  def expire!
+    time = Time.at(0)
+    update!(last_parsed: time, queued_at: time, refreshed_at: time)
   end
 
-  def in_queue?
-    Sidekiq::Workers.new.any? { |_, _, worker| worker['payload']['args'][0]['arguments'][0] == self.id }
+  def stale?
+    last_parsed < Time.now - 6.hours
   end
 
   def refreshable?
@@ -96,7 +99,7 @@ class Character < ApplicationRecord
   end
 
   def syncable?
-    stale? && queued_at < Time.now - 30.minutes
+    stale? && !in_queue?
   end
 
   def most_recent(collection, filters: nil)

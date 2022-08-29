@@ -10,6 +10,8 @@
 #
 
 class FreeCompany < ApplicationRecord
+  include Queueable
+
   has_many :members, class_name: 'Character'
 
   def self.fetch(id)
@@ -24,12 +26,20 @@ class FreeCompany < ApplicationRecord
     free_company
   end
 
+  def expire!
+    members.first.expire!
+  end
+
   def formatted_name
     if tag.present?
       "#{name} <#{tag}>"
     else
       name
     end
+  end
+
+  def syncable?
+    members.any?(&:syncable?) && !in_queue?
   end
 
   def sync_members

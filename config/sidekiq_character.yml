@@ -1,5 +1,3 @@
 concurrency: 5
-
 :queues:
   - character
-  - free_company
