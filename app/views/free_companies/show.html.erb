@@ -25,10 +25,8 @@
         <div>
           <%= link_to fa_icon('trophy', text: t('leaderboards.title')), free_company_leaderboards_path(@free_company),
             class: 'btn btn-sm btn-primary' %>
-          <% if @free_company.syncable? %>
-            <%= link_to fa_icon('sync', text: t('free_companies.refresh.button')), refresh_free_company_path(@free_company),
-              class: 'btn btn-sm btn-success', method: :post %>
-          <% end %>
+          <%= link_to fa_icon('sync', text: t('free_companies.refresh.button')), refresh_free_company_path(@free_company),
+            class: "btn btn-sm btn-success#{' disabled' unless free_company_refreshable?(@free_company)}", method: :post %>
         </div>
       </div>
       <div class="card-body d-flex flex-wrap">
@@ -36,6 +34,9 @@
           <%= link_to character_path(character), class: 'free-company-avatar' do %>
             <%= image_tag(character.avatar, class: 'avatar-free-company') %>
             <span><%= character.name %></span>
+            <% if character.stale? %>
+              <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('free_companies.stale')) %>
+            <% end %>
           <% end %>
         <% end %>
       </div>

@@ -1,4 +1,5 @@
 .free-company-avatar {
+  position: relative;
   margin: 0.5rem;
   width: 100px;
   height: 100px;
@@ -15,5 +16,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+  }
+
+  .status {
+    position: absolute;
+    top: 44px;
+    right: 20px;
   }
 }

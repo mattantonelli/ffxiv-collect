@@ -151,6 +151,7 @@ en:
       button: "Refresh Members"
       in_progress: "Refreshing Now"
       up_to_date: "Up To Date"
+    stale: "This character is out of date."
     title: "Free Company Profile"
   hairstyles:
     hrothgar: "Available to Hrothgar"

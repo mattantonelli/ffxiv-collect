@@ -6,10 +6,10 @@ class FreeCompaniesController < ApplicationController
   end
 
   def refresh
-    if !@free_company.syncable?
-      flash[:alert] = t('alerts.free_company_already_refreshed')
-    elsif @free_company.in_queue?
+    if @free_company.in_queue?
       flash[:alert] = t('alerts.free_company_syncing')
+    elsif !@free_company.syncable?
+      flash[:alert] = t('alerts.free_company_already_refreshed')
     else
       begin
         FreeCompanySyncJob.perform_later(@free_company.id)
