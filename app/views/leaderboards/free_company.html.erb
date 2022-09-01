@@ -1,11 +1,15 @@
-<% title("#{@free_company.name} #{t('leaderboards.title')}") %>
+<% title("#{@free_company.formatted_name} #{t('leaderboards.title')}") %>
 <% description("Browse the top collectors in the #{@free_company.name} free company.") %>
 
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
     <div class="card shadow">
-      <div class="card-header">
-        <h5 class="card-title"><%= @free_company.name %> <%= t('leaderboards.title') %> - <%= t("#{@category}.title") %></h5>
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title">
+          <%= @free_company.formatted_name %> <%= t('leaderboards.title') %> - <%= t("#{@category}.title") %>
+        </h5>
+        <%= link_to(fa_icon('users', text: t('free_companies.title')), free_company_path(@free_company),
+                            class: 'btn btn-sm btn-primary no-wrap') %>
       </div>
       <div class="card-body card-table">
         <%= form_tag(free_company_leaderboards_path(params[:id]), method: :get, enforce_utf8: false,

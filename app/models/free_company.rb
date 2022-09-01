@@ -32,7 +32,7 @@ class FreeCompany < ApplicationRecord
 
   def formatted_name
     if tag.present?
-      "#{name} <#{tag}>"
+      "#{name} «#{tag}»"
     else
       name
     end
