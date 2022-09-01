@@ -44,6 +44,9 @@
       <% end %>
       <hr class="my-2">
       <%= link_to fa_icon('user', text: t('characters.character_profile')), character_path(@character), class: 'dropdown-item' %>
+      <% if @character.free_company.present? %>
+        <%= link_to fa_icon('users', text: t('free_companies.title')), free_company_path(@character.free_company), class: 'dropdown-item' %>
+      <% end %>
       <%= link_to fa_icon('chart-bar', text: t('characters.stats')), stats_rarity_character_path(@character),
         class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified_user?(current_user) %>
