@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_12_112850) do
+ActiveRecord::Schema.define(version: 2022_09_02_202839) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 2022_04_12_112850) do
     t.string "tag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "queued_at", default: "1970-01-01 00:00:00"
   end
 
   create_table "hairstyles", charset: "utf8", force: :cascade do |t|

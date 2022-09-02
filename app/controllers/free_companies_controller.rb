@@ -28,7 +28,7 @@ class FreeCompaniesController < ApplicationController
       flash[:alert] = t('alerts.free_company_already_refreshed')
     else
       begin
-        FreeCompanySyncJob.perform_later(@free_company.id)
+        @free_company.sync_members
         flash[:success] = t('alerts.free_company_refreshed')
       rescue ActiveJob::Uniqueness::JobNotUnique
         flash[:alert] = t('alerts.free_company_syncing')

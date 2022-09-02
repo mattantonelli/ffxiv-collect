@@ -7,6 +7,7 @@
 #  tag        :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  queued_at  :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
 #
 
 class FreeCompany < ApplicationRecord
@@ -27,7 +28,7 @@ class FreeCompany < ApplicationRecord
   end
 
   def expire!
-    members.first.expire!
+    update!(queued_at: Time.at(0))
   end
 
   def formatted_name
@@ -39,10 +40,11 @@ class FreeCompany < ApplicationRecord
   end
 
   def syncable?
-    members.any?(&:syncable?) && !in_queue?
+    !in_queue? && (members.any?(&:syncable?) || queued_at < Time.now - 6.hours)
   end
 
   def sync_members
+    update(queued_at: Time.now)
     FreeCompanySyncJob.perform_later(id)
   end
 end
