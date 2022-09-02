@@ -40,11 +40,15 @@ class FreeCompany < ApplicationRecord
   end
 
   def syncable?
-    !in_queue? && (members.any?(&:syncable?) || queued_at < Time.now - 6.hours)
+    !in_queue? && (!up_to_date? || queued_at < Time.now - 6.hours)
   end
 
   def sync_members
     update(queued_at: Time.now)
     FreeCompanySyncJob.perform_later(id)
+  end
+
+  def up_to_date?
+    members.none?(&:syncable?)
   end
 end

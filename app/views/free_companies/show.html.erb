@@ -15,7 +15,7 @@
               <span class="badge badge-secondary">
                 <%= fa_icon('sync', text: t('free_companies.refresh.in_progress')) %>
               </span>
-            <% elsif !@free_company.syncable? %>
+            <% elsif @free_company.up_to_date? %>
               <span class="badge badge-success">
                 <%= fa_icon('check', text: t('free_companies.refresh.up_to_date')) %>
               </span>
