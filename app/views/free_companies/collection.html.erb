@@ -6,7 +6,7 @@
   <%= t("#{@collection}.title") %>
 </h3>
 <div class="d-flex flex-wrap justify-content-center mb-2">
-  <% @collectables.group_by(&:expansion).keys.each do |expansion| %>
+  <% @collectables.keys.each do |expansion| %>
     <div class="form-check-inline">
       <%= check_box_tag("expansion-#{expansion}", expansion, true, class: 'form-check-input expansion-filter') %>
       <%= label_tag("expansion-#{expansion}", t("expansions.#{expansion}"), class: 'form-check-label') %>
@@ -18,7 +18,7 @@
     <thead>
       <tr>
         <th></th>
-        <% @collectables.group_by(&:expansion).each do |expansion, collectables| %>
+        <% @collectables.each do |expansion, collectables| %>
           <th colspan="<%= collectables.size %>" class="text-center expansion-<%= expansion %>">
             <%= t("expansions.#{expansion}") %>
           </th>
@@ -26,7 +26,7 @@
       </tr>
       <tr>
         <th></th>
-        <% @collectables.group_by(&:expansion).each do |expansion, collectables| %>
+        <% @collectables.each do |expansion, collectables| %>
           <% collectables.each do |collectable| %>
             <th class="expansion-<%= expansion %>">
               <%= link_to(polymorphic_path(collectable), data: { toggle: 'tooltip' }, title: collectable.name) do %>
@@ -48,8 +48,10 @@
               <% end %>
             <% end %>
           </th>
-          <% @collectables.each do |collectable| %>
-            <%= free_company_collectable_td(character, collectable) %>
+          <% @collectables.each do |expansion, collectables| %>
+            <% collectables.each do |collectable| %>
+              <%= free_company_collectable_td(character, collectable) %>
+            <% end %>
           <% end %>
         </tr>
       <% end %>

@@ -6,9 +6,13 @@ class FreeCompaniesController < ApplicationController
   end
 
   def mounts
-    @collectables = Mount.joins(sources: :type).where('source_types.name = ?', 'Trial').distinct.ordered.reverse
     @collection = 'mounts'
     @sprite_key = 'mounts-small'
+    @collectables = Mount.joins(sources: :type)
+      .where('source_types.name in (?)', %w(Trial Raid))
+      .order('source_types.name DESC, mounts.patch ASC')
+      .distinct.group_by(&:expansion)
+
     @owned_ids = CharacterMount.where(character_id: @members)
       .each_with_object(Hash.new { |k, v| k[v] = [] }) do |char, h|
         h[char.character_id] << char.mount_id
