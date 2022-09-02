@@ -77,6 +77,7 @@ Rails.application.routes.draw do
 
   resources :free_companies, only: [:show], path: :fc do
     post :refresh, on: :member
+    get :mounts
   end
 
   resources :titles, only: :index

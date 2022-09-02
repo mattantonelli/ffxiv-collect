@@ -1,0 +1,58 @@
+<% title("#{@free_company.formatted_name} - #{t("#{@collection}.title")}") %>
+<% description("Track your free company's #{@collection} by expansion.") %>
+
+<h3 class="text-center">
+  <%= link_to(@free_company.formatted_name, free_company_path(@free_company), class: 'name') %>
+  <%= t("#{@collection}.title") %>
+</h3>
+<div class="d-flex flex-wrap justify-content-center mb-2">
+  <% @collectables.group_by(&:expansion).keys.each do |expansion| %>
+    <div class="form-check-inline">
+      <%= check_box_tag("expansion-#{expansion}", expansion, true, class: 'form-check-input expansion-filter') %>
+      <%= label_tag("expansion-#{expansion}", t("expansions.#{expansion}"), class: 'form-check-label') %>
+    </div>
+  <% end %>
+</div>
+<div class="d-flex">
+  <table class="table table-bordered table-hover table-sm table-responsive free-company-collection">
+    <thead>
+      <tr>
+        <th></th>
+        <% @collectables.group_by(&:expansion).each do |expansion, collectables| %>
+          <th colspan="<%= collectables.size %>" class="text-center expansion-<%= expansion %>">
+            <%= t("expansions.#{expansion}") %>
+          </th>
+        <% end %>
+      </tr>
+      <tr>
+        <th></th>
+        <% @collectables.group_by(&:expansion).each do |expansion, collectables| %>
+          <% collectables.each do |collectable| %>
+            <th class="expansion-<%= expansion %>">
+              <%= link_to(polymorphic_path(collectable), data: { toggle: 'tooltip' }, title: collectable.name) do %>
+                <%= sprite(collectable, @sprite_key) %>
+              <% end %>
+            </th>
+          <% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |character| %>
+        <tr>
+          <th>
+            <%= link_to character_path(character), class: 'free-company-avatar small' do %>
+              <%= image_tag(character.avatar, data: { toggle: 'tooltip' }, title: character.name) %>
+              <% if character.stale? %>
+                <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('free_companies.stale')) %>
+              <% end %>
+            <% end %>
+          </th>
+          <% @collectables.each do |collectable| %>
+            <%= free_company_collectable_td(character, collectable) %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

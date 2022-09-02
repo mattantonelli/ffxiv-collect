@@ -44,6 +44,10 @@ module Collectable
     has_many :sources, as: :collectable, dependent: :delete_all
     accepts_nested_attributes_for :sources
     has_paper_trail
+
+    def expansion
+      patch[0]
+    end
   end
 
   class_methods do
