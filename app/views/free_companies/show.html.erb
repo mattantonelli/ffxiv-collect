@@ -27,7 +27,8 @@
             class: 'btn btn-sm btn-primary' %>
           <%= link_to fa_icon('horse', text: t('mounts.title')), free_company_mounts_path(@free_company),
             class: 'btn btn-sm btn-secondary' %>
-          <%= link_to fa_icon('sync', text: t('free_companies.refresh.button')), refresh_free_company_path(@free_company),
+          <%= link_to fa_icon('sync', text: "#{t('free_companies.refresh.button')} #{t('experimental')}"),
+            refresh_free_company_path(@free_company),
             class: "btn btn-sm btn-success#{' disabled' unless free_company_refreshable?(@free_company)}", method: :post %>
         </div>
       </div>

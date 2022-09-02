@@ -26,6 +26,9 @@ de:
     comparison_is_you: "Du kannst nicht mit deinem eigenen Charakter vergleichen."
     comparison_set: "Dein Vergleichscharakter wurde gesetzt."
     comparison_set_to_private: "Dein Vergleichscharakter wurde auf privat gesetzt und kann nicht länger verglichen werden."
+    free_company_already_refreshed: "Tous les membres de cette compagnie libre sont à jour."
+    free_company_refreshed: "Cette compagnie libre va être synchronisée avec le Lodestone. Cela peut prendre plusieurs minutes."
+    free_company_syncing: "Cette compagnie libre est en cours de synchronisation avec le Lodestone. Cela peut prendre plusieurs minutes."
     here: "hier"
     lodestone_error: "Es wurde ein Problem festgestellt beim Verbinden zum Lodestone."
     lodestone_maintenance: "Der Lodestone ist gerade aufgrund von Wartungsarbeiten nicht verfügbar."
@@ -131,11 +134,22 @@ de:
     4: "Stormblood"
     5: "Shadowbringers"
     6: "Endwalker"
+  experimental: "(Expérimental)"
   fashions:
     title: "Modeaccessoires"
   filters: "Filter"
   fish:
     title: "Kapitalfische"
+  free_companies:
+    member:
+      one: "membre"
+      other: "membres"
+    refresh:
+      button: "Actualiser les membres"
+      in_progress: "Actualiser maintenant"
+      up_to_date: "À jour"
+    stale: "Dieser Charakter ist nicht aktuell."
+    title: "Profil de la compagnie libre"
   hairstyles:
     hrothgar: "Verfügbar für Hrothgar"
     title: "Frisuren"

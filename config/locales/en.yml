@@ -138,6 +138,7 @@ en:
     4: "Stormblood"
     5: "Shadowbringers"
     6: "Endwalker"
+  experimental: "(Experimental)"
   fashions:
     title: "Fashion Accessories"
   filters: "Filters"

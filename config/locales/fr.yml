@@ -26,6 +26,9 @@ fr:
     comparison_is_you: "Vous ne pouvez pas comparer votre Personnage à lui même."
     comparison_set: "Les informations de comparaison ont été ajoutées."
     comparison_set_to_private: "Les informations de comparaison sont désormais privées et ne seront donc plus traquées."
+    free_company_already_refreshed: "Alle Mitglieder dieser Freien Gesellschaft sind aktuell."
+    free_company_refreshed: "Diese Freie Gesellschaft wird nun mit dem Lodestone synchronisiert. Dies kann mehrere Minuten dauern."
+    free_company_syncing: "Diese Freie Gesellschaft wird derzeit mit dem Lodestone synchronisiert. Dies kann mehrere Minuten dauern."
     here: "ici"
     lodestone_error: "Une erreur est survenue lors de l'accès à Lodestone."
     lodestone_maintenance: "Le Lodestone est actuellement en maintenance."
@@ -135,11 +138,22 @@ fr:
     4: "Stormblood"
     5: "Shadowbringers"
     6: "Endwalker"
+  experimental: "(Experimentell)"
   fashions:
     title: "Accessoires de mode"
   filters: "Filtres"
   fish:
     title: "Poisson légendaire"
+  free_companies:
+    member:
+      one: "Mitglied"
+      other: "Mitglieder"
+    refresh:
+      button: "Mitglieder aktualisieren"
+      in_progress: "Wird aktualisiert"
+      up_to_date:  "Aktuell"
+    stale: "Ce personnage n'est pas à jour."
+    title: "Profil der Freien Gesellschaft"
   hairstyles:
     hrothgar: "Disponible pour Hrothgar"
     title: "Coiffures"
