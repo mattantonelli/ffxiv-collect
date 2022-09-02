@@ -10,13 +10,6 @@ set :default_env, { path: '$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH' }
 set :rbenv_type, :user
 set :rbenv_ruby, '3.1.0'
 
-# sidekiq
-set :sidekiq_configs, [
-  'config/sidekiq_character.yml',
-  'config/sidekiq_free_company.yml'
-]
-set :sidekiq_processes, 2
-
 namespace :deploy do
   desc 'Create symlinks'
   after :updating, :symlink do
