@@ -64,7 +64,12 @@ Please note that if you did not install your Ruby using rbenv, you will need to 
 #### Start the server
 ```
 rails server
-bundle exec sidekiq
+```
+
+#### Start the Sidekiq processes as needed for background sync jobs
+```
+bundle exec sidekiq -C config/sidekiq_character.yml
+bundle exec sidekiq -C config/sidekiq_free_company.yml
 ```
 
 ## Updating

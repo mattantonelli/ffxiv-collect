@@ -93,6 +93,8 @@ namespace :deploy do
   desc 'Restart application'
   after :publishing, :restart do
     on roles(:app) do
+      execute 'sudo systemctl restart sidekiq-ffxiv-collect-character'
+      execute 'sudo systemctl restart sidekiq-ffxiv-collect-free-company'
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end

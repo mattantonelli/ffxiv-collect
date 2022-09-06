@@ -1,12 +1,12 @@
-<% title(t('characters.character_profile')) %>
-<% description("#{@profile.name} (#{@profile.server})") %>
+<% title("#{@profile.name} (#{@profile.server})") %>
+<% description('Character Profile') %>
 <% image(@profile.avatar) %>
 
 <%= render 'shared/filters' %>
 
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
-    <div class="card">
+    <div class="card shadow">
       <div class="card-header d-flex justify-content-between align-items-center py-2">
         <h5 class="card-title text-center mr-2"><%= t('characters.character_profile') %></h5>
         <div class="profile-buttons text-right">

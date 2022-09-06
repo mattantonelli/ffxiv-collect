@@ -26,6 +26,9 @@ fr:
     comparison_is_you: "Vous ne pouvez pas comparer votre Personnage à lui même."
     comparison_set: "Les informations de comparaison ont été ajoutées."
     comparison_set_to_private: "Les informations de comparaison sont désormais privées et ne seront donc plus traquées."
+    free_company_already_refreshed: "Tous les membres de cette compagnie libre sont à jour."
+    free_company_refreshed: "Cette compagnie libre va être synchronisée avec le Lodestone. Cela peut prendre plusieurs minutes."
+    free_company_syncing: "Cette compagnie libre est en cours de synchronisation avec le Lodestone. Cela peut prendre plusieurs minutes."
     here: "ici"
     lodestone_error: "Une erreur est survenue lors de l'accès à Lodestone."
     lodestone_maintenance: "Le Lodestone est actuellement en maintenance."
@@ -34,8 +37,7 @@ fr:
     not_found: "Cette page n'a pas pu être trouvée."
     not_signed_in: "Vous devez être identifié pour pouvoir faire cela."
     not_signed_in_and_verified: "Vous devez être identifié et votre personnage vérifié pour pouvoir traquer des collections dites 'manuelles'."
-    not_verified: "Ce personnage n'est pas vérifié. Si vous souhaité traquer ses collections 'manuelles',
-      utilisé %{link}."
+    not_verified: "Ce personnage n'est pas vérifié. Si vous souhaité traquer ses collections 'manuelles', utilisé %{link}."
     private_achievements: "Les hauts faits de ce personnage sont privés. Vous pouvez rendre les informations public grâce à %{link}."
     private_character: "Les collections de ce personnage sont privées."
     problem_refreshing: "Une erreur est survenue lors de la synchronisation de votre personnage."
@@ -114,9 +116,6 @@ fr:
     remove: "Cliquez pour supprimer"
   clipboard: "Copier dans le presse-papier"
   collapse: "Tout réduire"
-  commands:
-    add_to_server: 'Ajouter à votre serveur'
-    title: 'Commandes Discord'
   complete: "Achevé"
   created_by: "Créé par Raelys Skyborn de Behemoth"
   date: "Date"
@@ -135,11 +134,22 @@ fr:
     4: "Stormblood"
     5: "Shadowbringers"
     6: "Endwalker"
+  experimental: "(Expérimental)"
   fashions:
     title: "Accessoires de mode"
   filters: "Filtres"
   fish:
     title: "Poisson légendaire"
+  free_companies:
+    member:
+      one: "membre"
+      other: "membres"
+    refresh:
+      button: "Actualiser les membres"
+      in_progress: "Actualiser maintenant"
+      up_to_date: "À jour"
+    stale: "Ce personnage n'est pas à jour."
+    title: "Profil der Freien Gesellschaft"
   hairstyles:
     hrothgar: "Disponible pour Hrothgar"
     title: "Coiffures"

@@ -163,7 +163,36 @@ hr {
   border-radius: 50%;
 }
 
+.table.table-bordered {
+  border-color: #191919;
+
+  th, td {
+    border-color: #191919;
+    border-width: 2px;
+  }
+
+  td:first-child, th:first-child {
+    padding-left: 0.3rem;
+  }
+
+  td:last-child, th:last-child {
+    padding-right: 0.3rem;
+  }
+
+  &.table-responsive {
+    border: 0;
+  }
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.1)
+}
+
 .table-striped tbody tr:nth-of-type(even), thead {
+  background-color: rgba(0, 0, 0, 0.2)
+}
+
+.table tbody tr th {
   background-color: rgba(0, 0, 0, 0.2)
 }
 
