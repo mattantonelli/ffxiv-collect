@@ -51,6 +51,17 @@ module Lodestone
     end
   end
 
+  def profile_link(character)
+    case locale = I18n.locale.to_s
+    when 'en'
+      locale = character.region == 'eu' ? 'eu' : 'na'
+    when 'ja'
+      locale = 'jp'
+    end
+
+    "#{ROOT_URL}/character/#{character.id}".sub('na', locale)
+  end
+
   def search(name, server)
     doc = character_document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: server })
     doc.css('.entry__chara__link').map do |character|

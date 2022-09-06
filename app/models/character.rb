@@ -147,6 +147,19 @@ class Character < ApplicationRecord
     end
   end
 
+  def region
+    case data_center
+    when 'Aether', 'Crystal', 'Primal'
+      'na'
+    when 'Chaos', 'Light', 'Materia'
+      'eu'
+    when 'Elemental', 'Gaia', 'Mana', 'Meteor'
+      'jp'
+    else
+      'na'
+    end
+  end
+
   def self.fetch(id)
     data = Lodestone.character(id)
     data[:achievements_count] = -1 if data[:achievements].empty?
