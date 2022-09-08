@@ -12,14 +12,14 @@
       </div>
       <div class="form-group">
         <%= label_tag :server, t('characters.server') %>
-        <%= select_tag :server, servers_for_select(@server), include_blank: t('all.servers'), class: 'form-control' %>
+        <%= select_tag :server, servers_for_select(@server), include_blank: t('all.worlds'), class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= label_tag :name, t('name') %>
         <%= text_field_tag :name, @name, required: true, class: 'form-control' %>
       </div>
       <div class="text-right mt-3 mb-2">
-        <%= submit_tag t('search'), name: nil, class: 'btn btn-primary' %>
+        <%= submit_tag t('search'), name: nil, class: 'btn btn-primary m-0' %>
       </div>
     <% end %>
   </div>
@@ -28,7 +28,7 @@
   <div class="card shadow mt-3">
     <h5 class="card-header"><%= t('characters.lodestone_id_lookup') %></h5>
     <div class="card-body">
-      <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form') do %>
+      <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form search-form') do %>
         <% if params[:compare] %>
           <%= hidden_field_tag :compare, 1 %>
         <% end %>
@@ -37,7 +37,7 @@
           <%= text_field_tag :id, params[:id], required: true, class: 'form-control' %>
         </div>
         <div class="text-right mt-3 mb-2">
-          <%= submit_tag t('search'), name: nil, class: 'btn btn-primary' %>
+          <%= submit_tag t('search'), name: nil, class: 'btn btn-primary m-0' %>
         </div>
       <% end %>
     </div>

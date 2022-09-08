@@ -121,6 +121,7 @@ en:
   commands:
     add_to_server: 'Add to your server'
     title: 'Discord Commands'
+  compare: "Compare"
   complete: "Complete"
   created_by: "Created by Raelys Skyborn of Behemoth"
   date: "Date"
@@ -145,6 +146,7 @@ en:
   filters: "Filters"
   fish:
     title: "Big Fish"
+  forget: "Forget"
   free_companies:
     member:
       one: "member"
@@ -314,6 +316,7 @@ en:
     standard: "Standard"
     strengths: "Strengths"
     title: "Verminion"
+  view: "View"
   "yes": "yes"
   yokai:
     locations: "Legendary Medal Locations"

@@ -10,9 +10,14 @@ module CharactersHelper
     link_to(fa_icon('globe', text: world), leaderboards_path(q: { server_eq: world }), class: 'name')
   end
 
-  def verified(character, only_verified = true)
+  def verified(character, only_verified: false, compact: false)
     if character.verified_user?(current_user)
-      content_tag(:span, t('characters.verified'), class: 'badge badge-pill badge-success')
+      if compact
+        content_tag(:span, far_icon('check-circle'), title: t('characters.verified'), data: { toggle: 'tooltip' },
+                    class: 'text-success')
+      else
+        content_tag(:span, t('characters.verified'), class: 'badge badge-pill badge-success')
+      end
     elsif !only_verified
       content_tag(:span, t('characters.unverified'), class: 'badge badge-pill badge-secondary')
     end

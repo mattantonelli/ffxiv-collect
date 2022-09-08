@@ -11,19 +11,28 @@
       background-color: rgba(0, 0, 0, 0.2);
     }
 
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(0, 0, 0, 0.25);
-    }
-
     &:last-child {
       border-bottom: none;
     }
+
   }
 
   &.disabled {
     a {
       pointer-events: none;
+    }
+  }
+
+  .character-name {
+    width: 150px;
+    padding-right: 0.5rem;
+  }
+
+  .select-options {
+    margin-left: auto;
+
+    a {
+      margin: 0.25rem 0;
     }
   }
 }

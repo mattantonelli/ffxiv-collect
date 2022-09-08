@@ -54,9 +54,7 @@
       <% end %>
       <%= link_to fa_icon('sync', text: t('characters.refresh')), refresh_character_path,
         method: :post, class: 'dropdown-item' %>
-      <%= link_to fa_icon('undo', text: t('characters.change')), search_characters_path, class: 'dropdown-item' %>
-      <%= link_to fa_icon('retweet', text: t('characters.compare')), search_characters_path(compare: 1),
-        class: 'dropdown-item' %>
+      <%= link_to fa_icon('search', text: t('characters.search')), search_characters_path, class: 'dropdown-item' %>
       <%= link_to fa_icon('times', text: t('characters.forget')), forget_character_path, class: 'dropdown-item',
         method: :delete %>
       <% if user_signed_in? %>

@@ -12,22 +12,21 @@
   <div class="card-body card-table d-flex flex-column character-select">
     <% @characters.each do |character| %>
       <div class="d-flex align-items-center">
-        <%= link_to select_character_path(character[:id], ({ compare: 1 } if params[:compare])),
-          class: 'name w-100', method: :post do %>
-          <div class="d-flex align-items-center">
-            <%= image_tag(character[:avatar], class: 'avatar mr-3') %>
-            <div class="d-flex flex-column">
-              <b><%= character[:name] %></b>
-              <span>
-                <%= fa_icon('globe', text: character[:server]) %>
-                <%= verified(character, true) unless @search %>
-              </span>
-            </div>
-          </div>
-        <% end %>
+        <%= image_tag(character[:avatar], class: 'avatar mr-3') %>
+        <div class="d-flex flex-column character-name">
+          <b><%= character[:name] %> <%= verified(character, only_verified: true, compact: true) unless @search %></b>
+          <span><%= fa_icon('globe', text: character[:server]) %></span>
+        </div>
+        <div class="select-options ml-auto">
+          <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]), class: 'btn btn-sm btn-secondary' %>
+          <%= link_to fa_icon('undo', text: t('select')), select_character_path(character[:id]),
+            method: :post, class: 'btn btn-sm btn-primary' %>
+          <%= link_to fa_icon('retweet', text: t('compare')), select_character_path(character[:id], { compare: 1 }),
+            method: :post, class: 'btn btn-sm btn-success' %>
+          <%= link_to fa_icon('times', text: t('forget')), character_path(character),
+            method: :delete, class: 'btn btn-sm btn-danger' %>
+        </div>
         <% unless @search %>
-          <%= link_to fa_icon('times', class: 'delete'),
-            character_path(character, ({ compare: 1 } if params[:compare])), method: :delete %>
         <% end %>
       </div>
     <% end %>

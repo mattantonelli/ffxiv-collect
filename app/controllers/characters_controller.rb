@@ -136,7 +136,7 @@ class CharactersController < ApplicationController
 
   def destroy
     current_user.characters.delete(params[:id])
-    redirect_to search_characters_path(({ compare: 1 } if params[:compare]))
+    redirect_to search_characters_path
   end
 
   def refresh
