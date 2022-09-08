@@ -1,6 +1,8 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
+  before_action :set_selected, only: [:select, :compare]
+  after_action  :save_selected, only: [:select, :compare]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
@@ -78,44 +80,23 @@ class CharactersController < ApplicationController
   end
 
   def select
-    begin
-      character = Character.find_by(id: params[:id]) || fetch_character(params[:id])
-    rescue
-      # The exception has been logged in the fetch. Now let the following logic alert the user.
-    end
-
-    if !character.present?
-      flash[:error] = t('alerts.problem_selecting_character')
-      redirect_back(fallback_location: root_path)
-    elsif character.private?(current_user)
-      flash[:alert] = t('alerts.private_character')
-      redirect_back(fallback_location: root_path)
-    elsif params[:compare] && character == @character
-      flash[:alert] = t('alerts.comparison_is_you')
-      redirect_back(fallback_location: root_path)
+    if user_signed_in?
+      # If the user is signed in, update their selected character in the database
+      current_user.update(character_id: params[:id])
     else
-      if params[:compare]
-        set_permanent_cookie(:comparison, params[:id])
-      elsif user_signed_in?
-        current_user.update(character_id: params[:id])
-      else
-        set_permanent_cookie(:character, params[:id])
-      end
-
-      if user_signed_in?
-        current_user.characters << character unless current_user.characters.exists?(character.id)
-      end
-
-      unless flash[:notice].present?
-        if params[:compare]
-          flash[:success] = t('alerts.comparison_set')
-        else
-          flash[:success] = t('alerts.character_set')
-        end
-      end
-
-      redirect_to character_path(character)
+      # Otherwise, persist the selected character as a cookie
+      set_permanent_cookie(:character, params[:id])
     end
+
+    flash[:success] = t('alerts.character_set') unless flash[:notice].present?
+
+    redirect_to character_path(@selected)
+  end
+
+  def compare
+    set_permanent_cookie(:comparison, params[:id])
+    flash[:success] = t('alerts.comparison_set') unless flash[:notice].present?
+    redirect_to character_path(@selected)
   end
 
   def forget
@@ -196,6 +177,31 @@ class CharactersController < ApplicationController
     unless @profile.present?
       flash[:error] = t('alerts.character_not_found')
       redirect_to root_path
+    end
+  end
+
+  def set_selected
+    begin
+      @selected = Character.find_by(id: params[:id]) || fetch_character(params[:id])
+    rescue
+      # The exception has been logged in the fetch. Now let the following logic alert the user.
+    end
+
+    if !@selected.present?
+      flash[:error] = t('alerts.problem_selecting_character')
+      redirect_back(fallback_location: root_path)
+    elsif @selected.private?(current_user)
+      flash[:alert] = t('alerts.private_character')
+      redirect_back(fallback_location: root_path)
+    elsif action_name == 'compare' && @selected == @character
+      flash[:alert] = t('alerts.comparison_is_you')
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def save_selected
+    if user_signed_in? && !current_user.characters.exists?(@selected.id)
+      current_user.characters << @selected
     end
   end
 

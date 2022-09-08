@@ -21,7 +21,7 @@
           <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]), class: 'btn btn-sm btn-secondary' %>
           <%= link_to fa_icon('undo', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
-          <%= link_to fa_icon('retweet', text: t('compare')), select_character_path(character[:id], { compare: 1 }),
+          <%= link_to fa_icon('retweet', text: t('compare')), compare_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-success' %>
           <%= link_to fa_icon('times', text: t('forget')), character_path(character),
             method: :delete, class: 'btn btn-sm btn-danger' %>

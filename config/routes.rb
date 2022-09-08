@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   resources :characters, only: [:show, :destroy] do
     get :search, :profile, on: :collection
     post :select, on: :member
+    post :compare, on: :member
     get 'stats/recent', on: :member, to: 'characters#stats_recent', as: :stats_recent
     get 'stats/rarity', on: :member, to: 'characters#stats_rarity', as: :stats_rarity
   end
