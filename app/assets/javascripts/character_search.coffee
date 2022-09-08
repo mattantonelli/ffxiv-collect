@@ -4,6 +4,7 @@ $(document).on 'turbolinks:load', ->
   if characters.length > 0
     characters.find('a').click ->
       characters.addClass('disabled')
+      $(this).blur()
 
   # Dynamically update server selection based on the selected data center
   if $('.character-search').length > 0
