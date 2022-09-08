@@ -62,14 +62,20 @@ module Lodestone
     "#{ROOT_URL}/character/#{character.id}".sub('na', locale)
   end
 
-  def search(name, server)
-    doc = character_document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: server })
+  def search(name:, server:, data_center:)
+    if server.present?
+      worldname = server
+    elsif data_center.present?
+      worldname = "_dc_#{data_center}"
+    end
+
+    doc = character_document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: worldname }.compact)
     doc.css('.entry__chara__link').map do |character|
       {
         id: element_id(character),
         name: character.at_css('.entry__name').text,
         avatar: character.at_css('.entry__chara__face > img').attributes['src'].value,
-        server: server
+        server: character.at_css('.entry__world').text.split(' ').first
       }
     end
   end

@@ -62,4 +62,13 @@ module CharactersHelper
     content_tag(:span, data[:percentage], data: { toggle: 'tooltip' },
                 title: "#{number_with_delimiter(data[:count])} #{t('character', count: data[:count].to_i)}")
   end
+
+  def servers_for_select(selected)
+    servers = Character.servers_by_data_center.flat_map do |data_center, servers|
+      clazz = "dc-#{data_center.downcase}"
+      servers.map { |server| [server, { class: clazz }]}
+    end
+
+    options_for_select(servers.sort, selected)
+  end
 end

@@ -1,14 +1,18 @@
 <div class="card shadow">
   <h5 class="card-header"><%= t('characters.search') %></h5>
   <div class="card-body">
-    <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form') do %>
+    <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form search-form character-search') do %>
       <% if params[:compare] %>
         <%= hidden_field_tag :compare, 1 %>
       <% end %>
       <div class="form-group">
+        <%= label_tag :data_center, t('characters.data_center') %>
+        <%= select_tag :data_center, options_for_select(Character.data_centers, @data_center),
+          include_blank: t('all.data_centers'), class: 'form-control' %>
+      </div>
+      <div class="form-group">
         <%= label_tag :server, t('characters.server') %>
-        <%= select_tag :server, options_for_select(Character.servers, @server), prompt: 'Select a server',
-          required: true, class: 'form-control' %>
+        <%= select_tag :server, servers_for_select(@server), include_blank: t('all.servers'), class: 'form-control' %>
       </div>
       <div class="form-group">
         <%= label_tag :name, t('name') %>

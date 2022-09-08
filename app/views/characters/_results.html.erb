@@ -17,12 +17,11 @@
           <div class="d-flex align-items-center">
             <%= image_tag(character[:avatar], class: 'avatar mr-3') %>
             <div class="d-flex flex-column">
-              <% if @search %>
-                <%= character[:name] %>
-              <% else %>
-                <b><%= character[:name] %></b>
-                <span><%= character[:server] %> <%= verified(character, true) %></span>
-              <% end %>
+              <b><%= character[:name] %></b>
+              <span>
+                <%= fa_icon('globe', text: character[:server]) %>
+                <%= verified(character, true) unless @search %>
+              </span>
             </div>
           </div>
         <% end %>

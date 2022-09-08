@@ -51,12 +51,12 @@ class CharactersController < ApplicationController
   end
 
   def search
-    @name, @server, @id = params.values_at(:name, :server, :id)
-    @search = @server.present? && @name.present?
+    @id, @name, @server, @data_center = params.values_at(:id, :name, :server, :data_center)
+    @search = @name.present?
 
     if @search
       begin
-        @characters = Lodestone.search(@name, @server)
+        @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
         if @characters.empty?
           flash.now[:alert] = t('alerts.no_characters_found')
         end
@@ -64,7 +64,7 @@ class CharactersController < ApplicationController
         flash.now[:error] = t('alerts.lodestone_maintenance')
       rescue StandardError => e
         flash.now[:error] = t('alerts.lodestone_error')
-        Rails.logger.error("There was a problem searching for \"#{@name}\" on \"#{@server}\"")
+        Rails.logger.error("There was a problem searching for \"#{params[:name]}\"")
         log_backtrace(e)
       end
     elsif @id
