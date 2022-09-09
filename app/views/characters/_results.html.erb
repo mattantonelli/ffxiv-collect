@@ -19,15 +19,17 @@
         </div>
         <div class="select-options ml-auto">
           <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]), class: 'btn btn-sm btn-secondary' %>
-          <%= link_to fa_icon('undo', text: t('select')), select_character_path(character[:id]),
+          <%= link_to fa_icon('user', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
-          <%= link_to fa_icon('retweet', text: t('compare')), compare_character_path(character[:id]),
-            method: :post, class: 'btn btn-sm btn-success' %>
-          <%= link_to fa_icon('times', text: t('forget')), character_path(character),
-            method: :delete, class: 'btn btn-sm btn-danger' %>
+          <% if @character.present? %>
+            <%= link_to fa_icon('retweet', text: t('compare')), compare_character_path(character[:id]),
+              method: :post, class: 'btn btn-sm btn-success' %>
+          <% end %>
+          <% if user_signed_in? && !@search.present? %>
+            <%= link_to fa_icon('times', text: t('forget')), character_path(character),
+              method: :delete, class: 'btn btn-sm btn-danger' %>
+          <% end %>
         </div>
-        <% unless @search %>
-        <% end %>
       </div>
     <% end %>
   </div>

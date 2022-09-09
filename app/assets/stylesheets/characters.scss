@@ -25,8 +25,13 @@
   }
 
   .character-name {
-    width: 150px;
+    width: 250px;
     padding-right: 0.5rem;
+
+    // Below lg
+    @media (max-width: 1199px) {
+      width: 150px;
+    }
   }
 
   .select-options {
