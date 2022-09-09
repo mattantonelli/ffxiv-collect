@@ -18,7 +18,8 @@
           <span><%= fa_icon('globe', text: character[:server]) %></span>
         </div>
         <div class="select-options ml-auto">
-          <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]), class: 'btn btn-sm btn-secondary' %>
+          <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]),
+            class: 'btn btn-sm btn-secondary' %>
           <%= link_to fa_icon('user', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
           <% if @character.present? %>
@@ -33,4 +34,14 @@
       </div>
     <% end %>
   </div>
+  <% if @search && action_name == 'search' %>
+    <div class="card-footer">
+      <div class="d-flex align-items-center">
+        <p class="mb-0 mr-3"><%= t('characters.search_lodestone_prompt') %></p>
+        <%= link_to fa_icon('search', text: t('characters.search_lodestone')),
+          search_lodestone_characters_path(params.permit(:name, :server, :data_center)),
+          class: 'btn btn-sm btn-primary lodestone-search' %>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -1,6 +1,7 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
+  before_action :set_search, only: [:search, :search_lodestone]
   before_action :set_selected, only: [:select, :compare]
   after_action  :save_selected, only: [:select, :compare]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
@@ -53,30 +54,39 @@ class CharactersController < ApplicationController
   end
 
   def search
-    @id, @name, @server, @data_center = params.values_at(:id, :name, :server, :data_center)
-    @search = @name.present?
-
     if @search
-      begin
-        @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
-        if @characters.empty?
-          flash.now[:alert] = t('alerts.no_characters_found')
-        end
-      rescue RestClient::BadGateway, RestClient::ServiceUnavailable
-        flash.now[:error] = t('alerts.lodestone_maintenance')
-      rescue StandardError => e
-        flash.now[:error] = t('alerts.lodestone_error')
-        Rails.logger.error("There was a problem searching for \"#{params[:name]}\"")
-        log_backtrace(e)
+      @characters = Character.where('name like ?', "%#{search_params[:name]}%").order(:name).limit(10)
+
+      %i(data_center server).each do |param|
+        value = search_params[param]
+        @characters = @characters.where(param => value) if value.present?
       end
-    elsif @id
-      select
-    else
-      if user_signed_in?
-        @characters = current_user.characters.order(:server, :name).to_a
-          .sort_by { |character| character.verified_user_id == current_user.id ? 0 : 1 }
-      end
+
+      redirect_to search_lodestone_characters_path(search_params) if @characters.empty?
+    elsif user_signed_in?
+      @characters = current_user.characters.order(:server, :name).to_a
+        .sort_by { |character| character.verified_user_id == current_user.id ? 0 : 1 }
     end
+  end
+
+  def search_lodestone
+    redirect_to(select_character_path(@id)) if @id.present?
+
+    begin
+      @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
+
+      if @characters.empty?
+        flash.now[:alert] = t('alerts.no_characters_found')
+      end
+    rescue RestClient::BadGateway, RestClient::ServiceUnavailable
+      flash.now[:error] = t('alerts.lodestone_maintenance')
+    rescue StandardError => e
+      flash.now[:error] = t('alerts.lodestone_error')
+      Rails.logger.error("There was a problem searching for \"#{params[:name]}\"")
+      log_backtrace(e)
+    end
+
+    render 'search'
   end
 
   def select
@@ -178,6 +188,15 @@ class CharactersController < ApplicationController
       flash[:error] = t('alerts.character_not_found')
       redirect_to root_path
     end
+  end
+
+  def search_params
+    params.permit(:id, :name, :server, :data_center)
+  end
+
+  def set_search
+    @id, @name, @server, @data_center = search_params.values_at(:id, :name, :server, :data_center)
+    @search = @name.present?
   end
 
   def set_selected

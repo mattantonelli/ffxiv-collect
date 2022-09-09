@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_02_202839) do
+ActiveRecord::Schema.define(version: 2022_09_09_180833) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -291,10 +291,12 @@ ActiveRecord::Schema.define(version: 2022_09_02_202839) do
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
+    t.index ["name"], name: "index_characters_on_name"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
     t.index ["public"], name: "index_characters_on_public"
     t.index ["records_count"], name: "index_characters_on_records_count"
     t.index ["relics_count"], name: "index_characters_on_relics_count"
+    t.index ["server"], name: "index_characters_on_server"
     t.index ["spells_count"], name: "index_characters_on_spells_count"
     t.index ["updated_at"], name: "index_characters_on_updated_at"
   end

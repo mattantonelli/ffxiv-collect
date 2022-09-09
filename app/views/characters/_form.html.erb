@@ -1,7 +1,7 @@
 <div class="card shadow">
   <h5 class="card-header"><%= t('characters.search') %></h5>
   <div class="card-body">
-    <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form search-form character-search') do %>
+    <%= form_tag(request.path, method: :get, enforce_utf8: false, class: 'form search-form character-search') do %>
       <% if params[:compare] %>
         <%= hidden_field_tag :compare, 1 %>
       <% end %>
@@ -24,7 +24,7 @@
     <% end %>
   </div>
 </div>
-<% if @characters.present? && @characters.size >= 20 %>
+<% if action_name == 'search_lodestone' && @characters.present? && @characters.size == 10 %>
   <div class="card shadow mt-3">
     <h5 class="card-header"><%= t('characters.lodestone_id_lookup') %></h5>
     <div class="card-body">

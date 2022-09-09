@@ -20,3 +20,7 @@ $(document).on 'turbolinks:load', ->
     $('#data_center').change ->
       $('#server').val('')
       filterServers($(this).val())
+
+  $('.lodestone-search').click ->
+    $(this).addClass('disabled')
+    $(this).blur()

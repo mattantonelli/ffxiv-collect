@@ -101,6 +101,8 @@ en:
     refresh: "Refresh Character"
     saved: "Saved Characters"
     search: "Character Search"
+    search_lodestone_prompt: "Don't see your character? Try searching the Lodestone:"
+    search_lodestone: "Search Lodestone"
     search_results: "Search Results"
     select: "Select Character"
     select_server: "Select a server"
