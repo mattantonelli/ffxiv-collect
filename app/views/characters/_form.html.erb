@@ -2,9 +2,6 @@
   <h5 class="card-header"><%= t('characters.search') %></h5>
   <div class="card-body">
     <%= form_tag(request.path, method: :get, enforce_utf8: false, class: 'form search-form character-search') do %>
-      <% if params[:compare] %>
-        <%= hidden_field_tag :compare, 1 %>
-      <% end %>
       <div class="form-group">
         <%= label_tag :data_center, t('characters.data_center') %>
         <%= select_tag :data_center, options_for_select(Character.data_centers, @data_center),
@@ -28,10 +25,7 @@
   <div class="card shadow mt-3">
     <h5 class="card-header"><%= t('characters.lodestone_id_lookup') %></h5>
     <div class="card-body">
-      <%= form_tag(search_characters_path, method: :get, enforce_utf8: false, class: 'form search-form') do %>
-        <% if params[:compare] %>
-          <%= hidden_field_tag :compare, 1 %>
-        <% end %>
+      <%= form_tag(search_lodestone_id_characters_path, enforce_utf8: false, class: 'form search-form') do %>
         <div class="form-group">
           <%= label_tag :id, t('characters.lodestone_id') %>
           <%= text_field_tag :id, params[:id], required: true, class: 'form-control' %>

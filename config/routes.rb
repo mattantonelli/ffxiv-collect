@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   resources :characters, only: [:show, :destroy] do
     get :search, :profile, on: :collection
     get 'search/lodestone', to: 'characters#search_lodestone', on: :collection
+    post 'search/lodestone_id', to: 'characters#search_lodestone_id', on: :collection, as: :search_lodestone_id
     post :select, on: :member
     post :compare, on: :member
     get 'stats/recent', on: :member, to: 'characters#stats_recent', as: :stats_recent

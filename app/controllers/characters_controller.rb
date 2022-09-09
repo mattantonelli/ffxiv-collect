@@ -2,7 +2,7 @@ class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
   before_action :set_search, only: [:search, :search_lodestone]
-  before_action :set_selected, only: [:select, :compare]
+  before_action :set_selected, only: [:search_lodestone_id, :select, :compare]
   after_action  :save_selected, only: [:select, :compare]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
@@ -72,8 +72,6 @@ class CharactersController < ApplicationController
   end
 
   def search_lodestone
-    redirect_to(select_character_path(@id)) if @id.present?
-
     begin
       @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
       @known_characters = Character.where(id: @characters.pluck(:id)).pluck(:id)
@@ -90,6 +88,10 @@ class CharactersController < ApplicationController
     end
 
     render 'search'
+  end
+
+  def search_lodestone_id
+    select
   end
 
   def select
@@ -194,11 +196,11 @@ class CharactersController < ApplicationController
   end
 
   def search_params
-    params.permit(:id, :name, :server, :data_center)
+    params.permit(:name, :server, :data_center)
   end
 
   def set_search
-    @id, @name, @server, @data_center = search_params.values_at(:id, :name, :server, :data_center)
+    @name, @server, @data_center = search_params.values_at(:name, :server, :data_center)
     @search = @name.present?
   end
 
