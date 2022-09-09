@@ -1,4 +1,10 @@
 $(document).on 'turbolinks:load', ->
+  filterServers = (data_center) ->
+    $('#server option').show()
+
+    if data_center.length > 0
+      $("#server option:not(.dc-#{data_center.toLowerCase()})").hide()
+
   # Disable character selection on click to avoid multiple submissions
   characters = $('.character-select')
   if characters.length > 0
@@ -8,10 +14,9 @@ $(document).on 'turbolinks:load', ->
 
   # Dynamically update server selection based on the selected data center
   if $('.character-search').length > 0
-    $('#data_center').change ->
-      data_center = $(this).val().toLowerCase()
-      $('#server').val('')
-      $('#server option').show()
+    # Filter servers on page load in case a DC is already selected
+    filterServers($('#data_center').val())
 
-      if data_center.length > 0
-        $("#server option:not(.dc-#{data_center})").hide()
+    $('#data_center').change ->
+      $('#server').val('')
+      filterServers($(this).val())
