@@ -67,6 +67,8 @@ class CharactersController < ApplicationController
       @characters = current_user.characters.order(:server, :name).to_a
         .sort_by { |character| character.verified_user_id == current_user.id ? 0 : 1 }
     end
+
+    @known_characters = @characters.pluck(:id)
   end
 
   def search_lodestone
@@ -74,6 +76,7 @@ class CharactersController < ApplicationController
 
     begin
       @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
+      @known_characters = Character.where(id: @characters.pluck(:id)).pluck(:id)
 
       if @characters.empty?
         flash.now[:alert] = t('alerts.no_characters_found')
