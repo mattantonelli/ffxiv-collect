@@ -55,15 +55,16 @@ class CharactersController < ApplicationController
 
   def search
     if @search
-      @characters = Character.where('name like ?', "%#{search_params[:name]}%").order(:name).limit(10)
+      @characters = Character.where('name like ?', "%#{search_params[:name]}%").limit(10)
 
       %i(data_center server).each do |param|
         value = search_params[param]
         @characters = @characters.where(param => value) if value.present?
       end
 
-      # Turn this relation into an array to ensure subsequent operations on it do not hit the database
-      @characters = @characters.to_a
+      # Turn this relation into an array to ensure subsequent operations on it do not hit the database.
+      # Sort by name afterwards instead of ordering all characters to improve query speed.
+      @characters = @characters.to_a.sort_by(&:name)
 
       redirect_to search_lodestone_characters_path(search_params) if @characters.empty?
     elsif user_signed_in?

@@ -1,7 +1,7 @@
 <div class="card shadow">
   <h5 class="card-header"><%= t('characters.search') %></h5>
   <div class="card-body">
-    <%= form_tag(search_lodestone_characters_path, method: :get, enforce_utf8: false, class: 'form search-form character-search') do %>
+    <%= form_tag(request.path, method: :get, enforce_utf8: false, class: 'form search-form character-search') do %>
       <div class="form-group">
         <%= label_tag :data_center, t('characters.data_center') %>
         <%= select_tag :data_center, options_for_select(Character.data_centers, @data_center),
