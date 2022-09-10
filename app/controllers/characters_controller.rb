@@ -66,6 +66,8 @@ class CharactersController < ApplicationController
     elsif user_signed_in?
       @characters = current_user.characters.order(:server, :name).to_a
         .sort_by { |character| character.verified_user_id == current_user.id ? 0 : 1 }
+    else
+      @characters = Character.none
     end
 
     @known_characters = @characters.pluck(:id)
