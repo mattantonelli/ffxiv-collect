@@ -62,6 +62,9 @@ class CharactersController < ApplicationController
         @characters = @characters.where(param => value) if value.present?
       end
 
+      # Turn this relation into an array to ensure subsequent operations on it do not hit the database
+      @characters = @characters.to_a
+
       redirect_to search_lodestone_characters_path(search_params) if @characters.empty?
     elsif user_signed_in?
       @characters = current_user.characters.order(:server, :name).to_a
