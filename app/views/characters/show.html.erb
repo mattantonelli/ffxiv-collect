@@ -14,7 +14,7 @@
             <%= link_to fa_icon('user', text: t('characters.select')), select_character_path(@profile),
               method: :post, class: 'btn btn-primary btn-sm' %>
             <% if @character.present? %>
-              <%= link_to fa_icon('retweet', text: t('characters.compare')), select_character_path(@profile, compare: 1),
+              <%= link_to fa_icon('retweet', text: t('characters.compare')), compare_character_path(@profile),
                 method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
             <% end %>
           <% end %>
