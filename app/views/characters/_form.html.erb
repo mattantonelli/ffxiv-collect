@@ -21,7 +21,7 @@
     <% end %>
   </div>
 </div>
-<% if action_name == 'search_lodestone' && @characters.present? && @characters.size == 10 %>
+<% if action_name == 'search_lodestone' && @characters.present? && @characters.size >= 20 %>
   <div class="card shadow mt-3">
     <h5 class="card-header"><%= t('characters.lodestone_id_lookup') %></h5>
     <div class="card-body">

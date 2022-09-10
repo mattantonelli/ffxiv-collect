@@ -71,7 +71,7 @@ module Lodestone
 
     doc = character_document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: worldname }.compact)
 
-    characters = doc.css('.entry__chara__link').map do |character|
+    doc.css('.entry__chara__link').map do |character|
       {
         id: element_id(character),
         name: character.at_css('.entry__name').text,
@@ -79,8 +79,6 @@ module Lodestone
         server: character.at_css('.entry__world').text.split(' ').first
       }
     end
-
-    characters.first(10)
   end
 
   def verified?(character_id, code)
