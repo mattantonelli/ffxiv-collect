@@ -62,6 +62,7 @@ fr:
     strengths: "Toutes les forces"
     title: "Tous"
     types: "Tous les types"
+    worlds: "Tous les mondes"
   any: "Tout"
   any_tradeable: "Tout type de transaction"
   apply_filters: "Appliquer les filtres"
@@ -99,9 +100,12 @@ fr:
     refresh: "Rafraîchir les informations du personnage"
     saved: "Personnages enregistrés"
     search: "Recherche de personnage"
+    search_lodestone: "Rechercher"
+    search_lodestone_prompt: "Vous ne trouvez pas votre personnage ? Recherchez-le sur le Lodestone :"
     search_results: "Résultats"
     select: "Sélectionner un personnage"
     select_server: "Sélectionner un serveur"
+    server: "Monde d'origine"
     server: "Serveur"
     set_to_private: "Définir un accès privé."
     statistics: "Statistiques"
@@ -116,6 +120,7 @@ fr:
     remove: "Cliquez pour supprimer"
   clipboard: "Copier dans le presse-papier"
   collapse: "Tout réduire"
+  compare: "Comparer"
   complete: "Achevé"
   created_by: "Créé par Raelys Skyborn de Behemoth"
   date: "Date"
@@ -140,6 +145,7 @@ fr:
   filters: "Filtres"
   fish:
     title: "Poisson légendaire"
+  forget: "Oublier"
   free_companies:
     member:
       one: "membre"
@@ -309,6 +315,7 @@ fr:
     standard: "Standard"
     strengths: "Forces"
     title: "Choc des mascottes"
+  view: "Voir"
   "yes": "oui"
   yokai:
     locations: "Emplacements des médailles légendaires"
