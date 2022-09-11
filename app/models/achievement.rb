@@ -38,7 +38,7 @@ class Achievement < ApplicationRecord
   scope :exclude_time_limited, -> do
     joins(category: :type)
       .where('achievement_types.name_en <> ?', 'Legacy')
-      .where('achievement_categories.name_en <> ?', 'Seasonal Events')
+      .where('achievement_categories.name_en not in (?)', ['Seasonal Events', 'Ranking'])
       .where.not('achievements.id in (?)', Achievement.limited_time_ids)
   end
 
@@ -60,7 +60,7 @@ class Achievement < ApplicationRecord
     ((310..312).to_a +   # Starting township quests
      (1757..1773).to_a + # GARO
      (2110..2114).to_a + # Feast Championships
-     (1540..1547).to_a + (1565..1572).to_a + (2007..2012).to_a + # The Feast
+     (2007..2012).to_a + # The Feast
      [2487, 2488, 2712, 2713, 2785, 2786] + # Ishgardian Reconstruction
      [1419, 1420, 1421, 1422, 1423, 1424, 1425, 1426, 1427, 1428, 1429, 1430, 1431, 1432,
       1734, 1735, 1736, 1737, 1743, 1744, 1745, 1746]).freeze # Diadem
