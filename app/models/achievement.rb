@@ -58,7 +58,7 @@ class Achievement < ApplicationRecord
 
   def self.limited_time_ids
     ((310..312).to_a +   # Starting township quests
-     (1757..1773).to_a + # GARO
+     (1757..1773).to_a + (3083..3088).to_a + # GARO
      (2110..2114).to_a + # Feast Championships
      (2007..2012).to_a + # The Feast
      [2487, 2488, 2712, 2713, 2785, 2786] + # Ishgardian Reconstruction
