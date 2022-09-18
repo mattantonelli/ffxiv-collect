@@ -1,5 +1,5 @@
 <div class="card shadow">
-  <div class="card-header d-flex justify-content-between">
+  <div class="card-header d-flex justify-content-between align-items-center">
     <% if @search %>
       <h5 class="card-title"><%= t('characters.search_results') %></h5>
       <%= link_to fa_icon('chevron-left', text: t('back')), search_characters_path, class: 'btn btn-secondary btn-sm' %>
