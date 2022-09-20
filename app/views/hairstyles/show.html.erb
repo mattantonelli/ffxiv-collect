@@ -34,9 +34,6 @@
           <dd class="mb-0"><%= format_text(@hairstyle.description) %></dd>
         <% end %>
         <hr>
-        <% if @screenshots.present? %>
-          <%= render 'screenshots' %>
-        <% end %>
         <div class="d-flex flex-wrap hairstyle-list">
           <% @hairstyle.image_count.times do |i| %>
             <%= hairstyle_image(@hairstyle, i) %>
@@ -44,5 +41,10 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-12 col-xl-7 mx-auto">
+    <%= render 'shared/screenshots', collectable: @hairstyle %>
   </div>
 </div>

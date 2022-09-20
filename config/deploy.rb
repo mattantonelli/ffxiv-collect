@@ -43,9 +43,6 @@ namespace :deploy do
         execute :ln, '-s', shared_path.join('public/images', model), release_path.join('public/images', model)
       end
 
-      # Hairstyle screenshots
-      execute :ln, '-s', shared_path.join('hairstyles/*'), release_path.join('app/assets/images/hairstyles/screenshots')
-
       # Music samples
       execute :rm, '-rf', release_path.join('public/music')
       execute :ln, '-s', shared_path.join('public/music'), release_path.join('public/music')
@@ -79,7 +76,8 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/relics-*.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/fashions-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/records-small.png'), release_path.join('app/assets/images')
-        execute :cp, current_path.join('app/assets/stylesheets/images/*.scss'), release_path.join('app/assets/stylesheets/images')
+        execute :cp, current_path.join('app/assets/stylesheets/images/*.scss'),
+          release_path.join('app/assets/stylesheets/images')
       else
         within release_path do
           with rails_env: fetch(:rails_env) do
