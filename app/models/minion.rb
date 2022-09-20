@@ -51,6 +51,8 @@
 
 class Minion < ApplicationRecord
   include Collectable
+  include Screenshottable
+
   translates :name, :description, :enhanced_description, :tooltip, :skill, :skill_description
 
   belongs_to :behavior, class_name: 'MinionBehavior'

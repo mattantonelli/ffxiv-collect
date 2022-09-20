@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Screenshots</h5>
+  </div>
+  <div class="card-body screenshots">
+    <% if collectable.screenshots.empty? %>
+      <p class="text-center my-1">
+        <%= t('screenshots.none') %> <%= t("#{collectable.class.to_s.downcase.pluralize}.one") %>.
+        <% if user_signed_in? %>
+          <br><%= t('screenshots.upload_prompt') %>
+        <% else %>
+          <br><%= t('screenshots.sign_in_and_upload_prompt') %>
+        <% end %>
+      </p>
+    <% else %>
+      <div class="d-flex flex-wrap justify-content-center">
+        <% collectable.screenshots.each do |screenshot| %>
+          <%= link_to(screenshot, target: '_blank') do %>
+            <%= image_tag(screenshot, clasS: 'screenshot-tile') %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if user_signed_in? %>
+      <hr>
+      <div class="text-center">
+        <% unless collectable.screenshots.empty? %>
+          <p class="card-text"><%= t('screenshots.upload_prompt') %></p>
+        <% end %>
+        <%= form_for(collectable) do |f| %>
+          <div class="form-group">
+            <%= f.file_field :screenshot, direct_upload: true, accept: 'image/png,image/jpg,image/jpeg', required: true %>
+          </div>
+          <%= f.submit t('upload'), class: 'btn btn-success' %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -33,6 +33,7 @@
 
 class Mount < ApplicationRecord
   include Collectable
+  include Screenshottable
   translates :name, :description, :enhanced_description, :tooltip
 
   scope :include_related, -> { include_sources }

@@ -60,7 +60,14 @@
       </div>
     </div>
   </div>
-  <% if @mount.video.present? %>
+</div>
+<div class="row mt-2">
+  <div class="col-12 col-xl-8 offset-xl-2">
+    <%= render 'shared/screenshots', collectable: @mount %>
+  </div>
+</div>
+<% if @mount.video.present? %>
+  <div class="row">
     <div class="col-12 mt-2 d-none d-sm-block">
       <div class="card video">
         <div class="card-header">
@@ -72,5 +79,5 @@
         </div>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

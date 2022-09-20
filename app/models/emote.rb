@@ -21,6 +21,8 @@
 
 class Emote < ApplicationRecord
   include Collectable
+  include Screenshottable
+
   translates :name, :command
   belongs_to :category, class_name: 'EmoteCategory'
 

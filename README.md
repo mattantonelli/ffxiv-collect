@@ -23,10 +23,13 @@ bundle exec rake app:update:bin
 #### Set up the database
 Create the MySQL databases `ffxiv_collect_development` and `ffxiv_collect_test` as well as a database user with access to them
 
-#### Create the necessary 3rd party applications
-1. Create a new [Discord app](https://discord.com/developers/applications/) for user authentication. Take note of the **client ID** and **secret**.
-    1. Set the redirect URI on the OAuth2 page of your app: `http://localhost:3000/users/auth/discord/callback`
-2. Configure the credentials file to match the format below using your data.
+#### Create 3rd party applications
+* You will need to create a new [Discord app](https://discord.com/developers/applications/) for user authentication. Take note of the **client ID** and **secret**.
+    * Set the redirect URI on the OAuth2 page of your app: `http://localhost:3000/users/auth/discord/callback`
+* You can optionally set up Google Analytics to analyze website traffic
+* You can optionally set up an S3 bucket on AWS to allow users to upload screenshots of collectables
+
+Configure the credentials file to match the format below using your data.
 ```
 rm config/credentials.yml.enc
 rails credentials:edit
@@ -41,6 +44,9 @@ discord:
   client_secret: abc123
 google_analytics:
   tracking_id: GA-1234567-8
+aws:
+  access_key_id: abc
+  secret_access_key: 123
 ```
 
 #### Extract the images & music samples

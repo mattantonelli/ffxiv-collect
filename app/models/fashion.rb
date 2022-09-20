@@ -19,6 +19,8 @@
 #
 class Fashion < ApplicationRecord
   include Collectable
+  include Screenshottable
+
   translates :name, :description
 
   scope :include_related, -> { include_sources }

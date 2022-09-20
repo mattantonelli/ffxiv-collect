@@ -1,5 +1,6 @@
 class BardingsController < ApplicationController
   include ManualCollection
+  include Attachable
 
   def index
     @q = Barding.ransack(params[:q])

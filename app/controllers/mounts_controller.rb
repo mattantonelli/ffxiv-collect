@@ -1,5 +1,7 @@
 class MountsController < ApplicationController
   include Collection
+  include Attachable
+
   skip_before_action :set_dates!
 
   def index

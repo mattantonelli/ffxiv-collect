@@ -1,5 +1,6 @@
 class FashionsController < ApplicationController
   include ManualCollection
+  include Attachable
 
   def index
     @q = Fashion.ransack(params[:q])

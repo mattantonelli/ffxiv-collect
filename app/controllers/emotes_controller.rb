@@ -1,5 +1,6 @@
 class EmotesController < ApplicationController
   include ManualCollection
+  include Attachable
 
   def index
     @q = Emote.ransack(params[:q])

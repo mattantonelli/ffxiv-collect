@@ -44,6 +44,7 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0.0'
 gem 'activejob-uniqueness'
 gem 'nokogiri', '>= 1.13.6'
+gem 'aws-sdk-s3', require: false
 
 # Discord interactions
 gem 'ed25519'

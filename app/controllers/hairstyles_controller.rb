@@ -1,5 +1,6 @@
 class HairstylesController < ApplicationController
   include ManualCollection
+  include Attachable
 
   def index
     @q = Hairstyle.ransack(params[:q])

@@ -20,4 +20,5 @@
 //= require bootstrap-sortable
 //= require js.cookie
 //= require i18n/translations
+//= require activestorage
 //= require_tree .

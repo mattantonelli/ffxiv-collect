@@ -6,6 +6,7 @@ require "active_model/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_view/railtie"
+require "active_storage/engine"
 require "sprockets/railtie"
 
 # ActionMailer is required for Devise as per https://github.com/heartcombo/devise/issues/5140

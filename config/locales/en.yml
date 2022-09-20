@@ -49,6 +49,8 @@ en:
     settings_not_verified: "If you wish to change the settings for this character, please %{link}."
     settings_updated: "Your settings have been updated."
     verify_ownership: "verify your ownership"
+    screenshot_added: "Your screenshot has been added."
+    screenshot_error: "There as a problem uploading the screenshot."
   all:
     aspects: "All Aspects"
     data_centers: "All Data Centers"
@@ -71,6 +73,7 @@ en:
     title: "Armoire"
   back: "Back"
   bardings:
+    one: 'barding'
     title: "Bardings"
   category: "Category"
   character:
@@ -130,6 +133,7 @@ en:
   description: "Description"
   emotes:
     command: "Command"
+    one: 'emote'
     title: "Emotes"
   exclude:
     premium: "Exclude Premium"
@@ -144,6 +148,7 @@ en:
     6: "Endwalker"
   experimental: "(Experimental)"
   fashions:
+    one: 'fashion'
     title: "Fashion Accessories"
   filters: "Filters"
   fish:
@@ -161,6 +166,7 @@ en:
     title: "Free Company Profile"
   hairstyles:
     hrothgar: "Available to Hrothgar"
+    one: 'hairstyle'
     title: "Hairstyles"
     viera: "Available to Viera"
   hide:
@@ -182,11 +188,13 @@ en:
     4: "Possible loot from Materiel Container 4.0"
   minions:
     behavior: "Behavior"
+    one: 'minion'
     title: "Minions"
   mounts:
     custom_music: "This mount plays custom music"
     flying: "Flying"
     movement: "Movement"
+    one: 'mount'
     preview: "Video Preview"
     seats: "Seats"
     title: "Mounts"
@@ -247,6 +255,10 @@ en:
     tools: "Tools"
     weapons: "Weapons"
   save: "Save"
+  screenshots:
+    none: "It looks like nobody has uploaded a screenshot for this"
+    sign_in_and_upload_prompt: "You can help by signing in and uploading a screenshot of your own!"
+    upload_prompt: "You can contribute by uploading a screenshot of your own!"
   search: "Search"
   select: "Select"
   settings:
@@ -294,6 +306,7 @@ en:
   triple_triad:
     title: "Triple Triad"
   type: "Type"
+  upload: "Upload"
   users:
     sign_in: "Sign in with Discord"
     sign_out: "Sign Out"

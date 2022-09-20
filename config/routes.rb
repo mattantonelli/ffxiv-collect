@@ -33,6 +33,10 @@ Rails.application.routes.draw do
     end
   end
 
+  %i(mounts minions emotes bardings hairstyles fashions).each do |resource|
+    resources resource, only: [:update]
+  end
+
   namespace :relics, as: :relic do
     get :weapons
     get :armor
@@ -158,11 +162,11 @@ Rails.application.routes.draw do
   get '404', to: 'static#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
                                               ['{"status": 404, "error": "Not found"}'] ] }
-  match "*path", via: :all, to: redirect('404')
+  match "*path", via: :all, to: redirect('404'), constraints: lambda { |req| req.path.exclude? 'rails/active_storage' }
 
   # Quick 404 for missing images
   scope format: true, constraints: { format: 'png' } do
-    get "/*missing", to: proc { [404, {}, ['']] }
+    get "/*missing", to: proc { [404, {}, ['']] }, constraints: lambda { |req| req.path.exclude? 'rails/active_storage' }
   end
 
   root 'static#home'
