@@ -2,6 +2,8 @@ namespace :shops do
   namespace :sources do
     desc 'Create shop sources'
     task update: :environment do
+      PaperTrail.enabled = false
+
       include ActionView::Helpers::NumberHelper
 
       purchase_type = SourceType.find_by(name: 'Purchase')
