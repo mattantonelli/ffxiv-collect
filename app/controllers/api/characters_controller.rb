@@ -2,7 +2,6 @@ class Api::CharactersController < ApiController
   before_action :set_character
   before_action :set_collection, :set_owned, :set_prices, only: [:owned, :missing]
   before_action :check_latest
-  after_action :sync_character
 
   def show
   end
@@ -77,12 +76,6 @@ class Api::CharactersController < ApiController
       end
     rescue
       Rails.logger.error("There was a problem retrieving Universalis prices for #{data_center}")
-    end
-  end
-
-  def sync_character
-    if @character&.syncable?
-      @character.sync
     end
   end
 end
