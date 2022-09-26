@@ -1,6 +1,7 @@
 class Api::CharactersController < ApiController
   before_action :set_character
   before_action :set_collection, :set_owned, :set_prices, only: [:owned, :missing]
+  before_action :check_latest
   after_action :sync_character
 
   def show
@@ -15,6 +16,12 @@ class Api::CharactersController < ApiController
   end
 
   private
+  def check_latest
+    if params[:latest] && @character&.stale?
+      @character = Character.fetch(@character.id)
+    end
+  end
+
   def set_collection
     @collection = params[:collection]
     model = @collection.singularize.capitalize.constantize
