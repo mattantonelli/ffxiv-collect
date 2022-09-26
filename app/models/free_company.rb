@@ -39,8 +39,12 @@ class FreeCompany < ApplicationRecord
     end
   end
 
+  def recently_queued?
+    queued_at > Time.now - 5.seconds
+  end
+
   def syncable?
-    !in_queue? && (!up_to_date? || queued_at < Time.now - 6.hours)
+    !recently_queued? && !in_queue? && (!up_to_date? || queued_at < Time.now - 6.hours)
   end
 
   def sync_members
@@ -49,6 +53,6 @@ class FreeCompany < ApplicationRecord
   end
 
   def up_to_date?
-    members.none?(&:syncable?)
+    members.none?(&:stale?)
   end
 end

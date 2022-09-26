@@ -7,11 +7,11 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <div>
           <h5 class="card-title"><%= @free_company.formatted_name %></h5>
-          <h6>
-            <span class="mr-1">
+          <h6 class="d-flex align-items-center">
+            <span class="mr-2">
               <%= @members.size %> <%= t('free_companies.member', count: @members.size) %>
             </span>
-            <% if @free_company.in_queue? %>
+            <% if @free_company.recently_queued? || @free_company.in_queue? %>
               <span class="badge badge-secondary">
                 <%= fa_icon('sync', text: t('free_companies.refresh.in_progress')) %>
               </span>
@@ -27,8 +27,7 @@
             class: 'btn btn-sm btn-primary' %>
           <%= link_to fa_icon('horse', text: t('mounts.title')), free_company_mounts_path(@free_company),
             class: 'btn btn-sm btn-secondary' %>
-          <%= link_to fa_icon('sync', text: "#{t('free_companies.refresh.button')} #{t('experimental')}"),
-            refresh_free_company_path(@free_company),
+          <%= link_to fa_icon('sync', text: t('free_companies.refresh.button')), refresh_free_company_path(@free_company),
             class: "btn btn-sm btn-success#{' disabled' unless @free_company.syncable?}", method: :post %>
         </div>
       </div>
