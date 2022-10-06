@@ -49,11 +49,12 @@
             <hr class="mb-0">
             <div class="d-flex flex-wrap">
               <div class="profile-progress">
-                <h6><%= collection_name('achievements') %></h6>
+                <h6 class="mb-0"><%= collection_name('achievements') %></h6>
                 <% if @profile.achievements_count == -1 %>
-                  <span><%= t('characters.set_to_private') %></span>
+                  <span class="mt-2"><%= t('characters.set_to_private') %></span>
                 <% else %>
                   <div class="d-flex flex-column">
+                    <%= render 'shared/rankings', key: 'achievements', character: @profile %>
                     <%= render 'shared/progress', value: @scores['achievements'][:value],
                       min: 0, max: @scores['achievements'][:max], text: 'complete' %>
                     <%= render 'shared/progress', value: @scores['achievements'][:points],

@@ -2,34 +2,35 @@
 #
 # Table name: characters
 #
-#  id                 :bigint(8)        not null, primary key
-#  name               :string(255)      not null
-#  server             :string(255)      not null
-#  portrait           :string(255)      not null
-#  avatar             :string(255)      not null
-#  last_parsed        :datetime
-#  verified_user_id   :integer
-#  achievements_count :integer          default(0)
-#  mounts_count       :integer          default(0)
-#  minions_count      :integer          default(0)
-#  orchestrions_count :integer          default(0)
-#  emotes_count       :integer          default(0)
-#  bardings_count     :integer          default(0)
-#  hairstyles_count   :integer          default(0)
-#  armoires_count     :integer          default(0)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  public             :boolean          default(TRUE)
-#  achievement_points :integer          default(0)
-#  free_company_id    :string(255)
-#  refreshed_at       :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
-#  gender             :string(255)
-#  spells_count       :integer          default(0)
-#  relics_count       :integer          default(0)
-#  queued_at          :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
-#  fashions_count     :integer          default(0)
-#  records_count      :integer          default(0)
-#  data_center        :string(255)
+#  id                        :bigint(8)        not null, primary key
+#  name                      :string(255)      not null
+#  server                    :string(255)      not null
+#  portrait                  :string(255)      not null
+#  avatar                    :string(255)      not null
+#  last_parsed               :datetime
+#  verified_user_id          :integer
+#  achievements_count        :integer          default(0)
+#  mounts_count              :integer          default(0)
+#  minions_count             :integer          default(0)
+#  orchestrions_count        :integer          default(0)
+#  emotes_count              :integer          default(0)
+#  bardings_count            :integer          default(0)
+#  hairstyles_count          :integer          default(0)
+#  armoires_count            :integer          default(0)
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  public                    :boolean          default(TRUE)
+#  achievement_points        :integer          default(0)
+#  free_company_id           :string(255)
+#  refreshed_at              :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
+#  gender                    :string(255)
+#  spells_count              :integer          default(0)
+#  relics_count              :integer          default(0)
+#  queued_at                 :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
+#  fashions_count            :integer          default(0)
+#  records_count             :integer          default(0)
+#  data_center               :string(255)
+#  ranked_achievement_points :integer
 #
 
 class Character < ApplicationRecord
@@ -209,6 +210,7 @@ class Character < ApplicationRecord
       # Character.bulk_insert_achievements(character, achievements)
       Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
       character.update(achievement_points: character.achievements.sum(:points))
+      character.update(ranked_achievement_points: character.achievements.exclude_time_limited.sum(:points))
     end
 
     # Relics - Update based on ALL of a character's record achievements so we can add them retroactively
