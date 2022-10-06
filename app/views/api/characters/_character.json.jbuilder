@@ -20,4 +20,5 @@ end
   end
 end
 
+json.rankings character.rankings
 json.relics character_relics(character)

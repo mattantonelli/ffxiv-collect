@@ -148,6 +148,16 @@ class Character < ApplicationRecord
     end
   end
 
+  def rankings
+    %i(achievements).each_with_object({}) do |category, h|
+      h[category] = {
+        server: Redis.current.hget("rankings-#{category}-#{server.downcase}", id)&.to_i,
+        data_center: Redis.current.hget("rankings-#{category}-#{data_center.downcase}", id)&.to_i,
+        global: Redis.current.hget("rankings-#{category}-global", id)&.to_i
+      }
+    end
+  end
+
   def region
     case data_center
     when 'Aether', 'Crystal', 'Primal'

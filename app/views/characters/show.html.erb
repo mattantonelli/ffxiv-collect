@@ -54,7 +54,7 @@
                   <span class="mt-2"><%= t('characters.set_to_private') %></span>
                 <% else %>
                   <div class="d-flex flex-column">
-                    <%= render 'shared/rankings', key: 'achievements', character: @profile %>
+                    <%= render 'rankings', category: :achievements %>
                     <%= render 'shared/progress', value: @scores['achievements'][:value],
                       min: 0, max: @scores['achievements'][:max], text: 'complete' %>
                     <%= render 'shared/progress', value: @scores['achievements'][:points],

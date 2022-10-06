@@ -1,0 +1,11 @@
+<ul class="list-unstyled list-inline m-0">
+  <li class="list-inline-item">
+    #<%= number_with_delimiter(@rankings[category][:server]) %> <%= @profile.server %>
+  </li>
+  <li class="list-inline-item">
+    #<%= number_with_delimiter(@rankings[category][:data_center]) %> <%= @profile.data_center %>
+  </li>
+  <li class="list-inline-item">
+    #<%= number_with_delimiter(@rankings[category][:global]) %> <%= t('leaderboards.global') %>
+  </li>
+</ul>

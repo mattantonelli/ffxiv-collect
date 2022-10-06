@@ -15,6 +15,7 @@ class CharactersController < ApplicationController
       @profile.sync
     end
 
+    @rankings = @profile.rankings
     @triad = @profile.triple_triad
 
     @scores = COLLECTIONS.each_with_object({}) do |collection, h|
