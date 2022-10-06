@@ -211,6 +211,8 @@ de:
     price: "Preis"
     updated: "Aktualisiert"
     world: "Welt"
+  ranked_achievement_points:
+    title: "Errungenschaftspunkte"
   records:
     page: "Seite"
     rarity: "Seltenheit"

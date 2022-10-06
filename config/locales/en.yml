@@ -214,6 +214,8 @@ en:
     price: "Price"
     updated: "Updated"
     world: "World"
+  ranked_achievement_points:
+    title: "Achievement Points"
   records:
     page: "Page"
     rarity: "Rarity"

@@ -1,7 +1,6 @@
 module LeaderboardsHelper
   def leaderboards_categories(selected = nil)
-    options_for_select([[t('achievements.title'), 'achievements'],
-                        [t('achievement_points.title'), 'achievement_points'],
+    options_for_select([[t('achievements.title'), 'ranked_achievement_points'],
                         [t('mounts.title'), 'mounts'], [t('minions.title'), 'minions'],
                         [t('orchestrions.title'), 'orchestrions'], [t('emotes.title'), 'emotes'],
                         [t('bardings.title'), 'bardings'], [t('hairstyles.title'), 'hairstyles'],

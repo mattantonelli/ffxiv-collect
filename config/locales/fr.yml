@@ -211,6 +211,8 @@ fr:
     price: "Prix"
     updated: "Mise à jour"
     world: "Monde"
+  ranked_achievement_points:
+    title: "Points de hauts faits"
   records:
     page: "Page"
     rarity: "Rareté"
