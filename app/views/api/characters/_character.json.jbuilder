@@ -6,6 +6,8 @@ json.achievements do
   json.total Achievement.count
   json.points character.achievement_points
   json.points_total Achievement.sum(:points)
+  json.ranked_points character.ranked_achievement_points
+  json.ranked_points_total Achievement.exclude_time_limited.sum(:points)
   json.public character.achievements_count != -1
   json.ids character.achievement_ids if params[:ids].present?
 end
