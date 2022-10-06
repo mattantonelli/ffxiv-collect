@@ -2,9 +2,10 @@
 set :bundle_command, '~/.rbenv/shims/bundle exec'
 set :output, 'log/whenever.log'
 
-# Cache collectable ownership
+# Cache collectable ownership and rankings
 every '10 3 * * *' do
   rake 'ownership:cache'
+  rake 'rankings:cache'
 end
 
 # Cache item prices and FAQ stats
