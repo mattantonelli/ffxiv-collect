@@ -5,11 +5,11 @@ module Collectable
     scope :tradeable, -> { where.not(item_id: nil) }
 
     scope :hide_premium, -> (hide) do
-      where('sources.premium = FALSE or sources.type_id IS NULL') if hide
+      where('sources.premium = FALSE or sources.id IS NULL') if hide
     end
 
     scope :hide_limited, -> (hide) do
-      where('sources.limited = FALSE or sources.type_id IS NULL') if hide
+      where('sources.limited = FALSE or sources.id IS NULL') if hide
     end
 
     scope :hide_unknown, -> (hide) do
