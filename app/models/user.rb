@@ -30,18 +30,6 @@ class User < ApplicationRecord
 
   devise :timeoutable, :trackable, :omniauthable, omniauth_providers: [:discord]
 
-  def triple_triad
-    begin
-      response = RestClient::Request.execute(url: "https://triad.raelys.com/api/users/#{self.uid}?limit_missing=0",
-                                             method: :get, verify_ssl: false)
-      JSON.parse(response, symbolize_names: true).merge(status: :ok)
-    rescue RestClient::Forbidden
-      { status: :private }
-    rescue RestClient::NotFound
-      { status: :not_found }
-    end
-  end
-
   def self.from_omniauth(auth)
     # Clean up any special characters in the username
     username = auth.info.name.encode(Encoding.find('ASCII'), invalid: :replace, undef: :replace, replace: '')

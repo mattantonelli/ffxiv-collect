@@ -55,10 +55,6 @@ class Character < ApplicationRecord
     CharacterSyncJob.perform_later(id)
   end
 
-  def triple_triad
-    verified_user&.triple_triad
-  end
-
   def verify!(user)
     if Lodestone.verified?(id, verification_code(user))
       update!(verified_user_id: user.id)

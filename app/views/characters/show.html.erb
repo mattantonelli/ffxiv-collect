@@ -72,26 +72,6 @@
                   </div>
                 <% end %>
               <% end %>
-              <% if @triad.present? && @triad[:status] == :ok %>
-                <div class="profile-progress">
-                  <h6>
-                    Triple Triad
-                    <% if @triad[:cards][:completion] == '100%' %>
-                      <%= fa_icon('star', class: 'complete') %>
-                    <% end %>
-                    <span data-toggle="tooltip" title="Based on the character's verified user.">
-                      <%= fa_icon('exclamation-circle') %>
-                    </span>
-                  </h6>
-                  <% if @triad[:status] == :private %>
-                    <span><%= t('characters.set_to_private') %></span>
-                  <% else %>
-                    <div class="count">
-                      <%= render 'shared/progress', value: @triad[:cards][:owned], min: 0, max: @triad[:cards][:total] %>
-                    </div>
-                  <% end %>
-                </div>
-              <% end %>
               <% if (@relics = character_relics(@profile)) && @relics.values.any? { |values| values[:count] > 0} %>
                 <div class="profile-progress">
                   <h6><%= t('relics.title') %></h6>
