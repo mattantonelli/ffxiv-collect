@@ -211,8 +211,14 @@ fr:
     price: "Prix"
     updated: "Mise à jour"
     world: "Monde"
+  ranked_achievements:
+    title: "Hauts faits permanentes"
   ranked_achievement_points:
-    title: "Points de hauts faits"
+    title: "Hauts faits permanentes"
+  ranked_minions:
+    title: "Mascote permanentes"
+  ranked_mounts:
+    title: "Monture permanentes"
   records:
     page: "Page"
     rarity: "Rareté"

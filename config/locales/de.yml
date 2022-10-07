@@ -211,8 +211,14 @@ de:
     price: "Preis"
     updated: "Aktualisiert"
     world: "Welt"
+  ranked_achievements:
+    title: "Gewertete Errungenschaften"
   ranked_achievement_points:
-    title: "Errungenschaftspunkte"
+    title: "Gewertete Errungenschaften"
+  ranked_minions:
+    title: "Gewertete Begleiter"
+  ranked_mounts:
+    title: "Gewertete Reittiere"
   records:
     page: "Seite"
     rarity: "Seltenheit"

@@ -62,10 +62,18 @@
                   </div>
                 <% end %>
               </div>
+              <div class="profile-progress d-none d-sm-block">
+                <% # Placeholder block for alignment %>
+              </div>
               <% @scores.except('achievements', 'relics').each do |collectable, score| %>
-                <% if %w(mount minion).include?(collectable) || score[:value] > 0 %>
+                <% if %w(mounts minions).include?(collectable) || score[:value] > 0 %>
                   <div class="profile-progress">
-                    <h6><%= collection_name(collectable, score: score) %></h6>
+                    <% if %w(mounts minions).include?(collectable) %>
+                      <h6 class="mb-0"><%= collection_name(collectable, score: score) %></h6>
+                      <%= render 'rankings', category: collectable.to_sym %>
+                    <% else %>
+                      <h6><%= collection_name(collectable, score: score) %></h6>
+                    <% end %>
                     <div class="count">
                       <%= render 'shared/progress', value: score[:value], min: 0, max: score[:max] %>
                     </div>

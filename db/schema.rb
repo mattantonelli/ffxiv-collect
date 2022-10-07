@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_06_122444) do
+ActiveRecord::Schema.define(version: 2022_10_07_170511) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -281,10 +281,11 @@ ActiveRecord::Schema.define(version: 2022_10_06_122444) do
     t.integer "records_count", default: 0
     t.string "data_center"
     t.integer "ranked_achievement_points", default: 0
+    t.integer "ranked_mounts_count", default: 0
+    t.integer "ranked_minions_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
-    t.index ["ranked_achievement_points"], name: "index_characters_on_ranked_achievement_points"
     t.index ["bardings_count"], name: "index_characters_on_bardings_count"
     t.index ["data_center"], name: "index_characters_on_data_center"
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
@@ -296,6 +297,9 @@ ActiveRecord::Schema.define(version: 2022_10_06_122444) do
     t.index ["name"], name: "index_characters_on_name"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
     t.index ["public"], name: "index_characters_on_public"
+    t.index ["ranked_achievement_points"], name: "index_characters_on_ranked_achievement_points"
+    t.index ["ranked_minions_count"], name: "index_characters_on_ranked_minions_count"
+    t.index ["ranked_mounts_count"], name: "index_characters_on_ranked_mounts_count"
     t.index ["records_count"], name: "index_characters_on_records_count"
     t.index ["relics_count"], name: "index_characters_on_relics_count"
     t.index ["server"], name: "index_characters_on_server"

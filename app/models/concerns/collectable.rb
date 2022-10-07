@@ -37,6 +37,12 @@ module Collectable
         .distinct
     end
 
+    scope :ranked, -> do
+      joins(:sources)
+        .where('sources.limited = FALSE AND sources.premium = FALSE')
+        .distinct
+    end
+
     scope :include_sources, -> { includes(sources: [:type, :related] )}
 
     has_many "character_#{name.pluralize}".to_sym

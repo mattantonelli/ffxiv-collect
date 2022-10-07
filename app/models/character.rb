@@ -30,7 +30,9 @@
 #  fashions_count            :integer          default(0)
 #  records_count             :integer          default(0)
 #  data_center               :string(255)
-#  ranked_achievement_points :integer
+#  ranked_achievement_points :integer          default(0)
+#  ranked_mounts_count       :integer          default(0)
+#  ranked_minions_count      :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -145,7 +147,7 @@ class Character < ApplicationRecord
   end
 
   def rankings
-    %i(achievements).each_with_object({}) do |category, h|
+    %i(achievements mounts minions).each_with_object({}) do |category, h|
       h[category] = {
         server: Redis.current.hget("rankings-#{category}-#{server.downcase}", id)&.to_i,
         data_center: Redis.current.hget("rankings-#{category}-#{data_center.downcase}", id)&.to_i,
@@ -213,7 +215,6 @@ class Character < ApplicationRecord
       current_ids = character_achievements.pluck(:achievement_id)
       achievements = data[:achievements].reject { |achievement| current_ids.include?(achievement[:id]) }
 
-      # Character.bulk_insert_achievements(character, achievements)
       Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
       character.update(achievement_points: character.achievements.sum(:points))
       character.update(ranked_achievement_points: character.achievements.exclude_time_limited.sum(:points))
@@ -240,20 +241,26 @@ class Character < ApplicationRecord
 
     # Mounts
     current_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
-    mounts = data[:mounts].reject { |id| current_ids.include?(id) }
-    Character.bulk_insert(character.id, CharacterMount, :mount, mounts)
+    new_mounts = data[:mounts].reject { |id| current_ids.include?(id) }
+
+    if new_mounts.present?
+      Character.bulk_insert(character.id, CharacterMount, :mount, new_mounts)
+      character.update(ranked_mounts_count: character.mounts.ranked.count)
+    end
 
     # Minions
     current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
-    minions = data[:minions].reject { |id| current_ids.include?(id) }
-    Character.bulk_insert(character.id, CharacterMinion, :minion, minions)
+    new_minions = data[:minions].reject { |id| current_ids.include?(id) }
+
+    if new_minions.present?
+      Character.bulk_insert(character.id, CharacterMinion, :minion, new_minions)
+      character.update(ranked_minions_count: character.minions.ranked.count)
+    end
 
     Character.find(character.id)
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)
-    return unless ids.present?
-
     date = Time.now.to_formatted_s(:db)
     values = ids.map { |id| "(#{character_id}, #{id}, '#{date}', '#{date}')" }
     model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \

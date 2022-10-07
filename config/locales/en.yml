@@ -215,7 +215,13 @@ en:
     updated: "Updated"
     world: "World"
   ranked_achievement_points:
-    title: "Achievement Points"
+    title: "Ranked Achievements"
+  ranked_achievements:
+    title: "Ranked Achievements"
+  ranked_minions:
+    title: "Ranked Minions"
+  ranked_mounts:
+    title: "Ranked Mounts"
   records:
     page: "Page"
     rarity: "Rarity"
