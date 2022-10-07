@@ -8,7 +8,7 @@
   <div class="col-12 col-xl-10 offset-xl-1">
     <div class="card shadow">
       <div class="card-header d-flex justify-content-between align-items-center py-2">
-        <h5 class="card-title text-center mr-2"><%= t('characters.character_profile') %></h5>
+        <h5 class="card-title mr-2"><%= t('characters.character_profile') %></h5>
         <div class="profile-buttons text-right">
           <% unless @character == @profile %>
             <%= link_to fa_icon('user', text: t('characters.select')), select_character_path(@profile),
