@@ -12,15 +12,6 @@ $(document).on 'turbolinks:load', ->
       characters.addClass('disabled')
       $(this).blur()
 
-  # Dynamically update server selection based on the selected data center
-  if $('.character-search').length > 0
-    # Filter servers on page load in case a DC is already selected
-    filterServers($('#data_center').val())
-
-    $('#data_center').change ->
-      $('#server').val('')
-      filterServers($(this).val())
-
   $('.lodestone-search').click ->
     $(this).addClass('disabled')
     $(this).blur()

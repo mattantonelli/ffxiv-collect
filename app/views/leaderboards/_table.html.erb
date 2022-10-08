@@ -10,24 +10,24 @@
     </tr>
   </thead>
   <tbody>
-    <% @results.each_with_index do |character, i| %>
-      <tr <%= 'class="mine"'.html_safe if @character == character %>>
-        <td class="text-center"><%= i + 1 %></td>
-        <td><%= image_tag(character.avatar, class: 'avatar') %></td>
-        <td><%= link_to(character.name, character_path(character), class: 'name') %></td>
-        <td><%= data_center(character.server) %></td>
-        <td><%= character.server %></td>
-        <td><%= character.send(@metric) %></td>
+    <% @rankings.each do |ranking| %>
+      <tr <%= 'class="mine"'.html_safe if @character == ranking[:character] %>>
+        <td class="text-center"><%= ranking[:rank] %></td>
+        <td><%= image_tag(ranking[:character].avatar, class: 'avatar') %></td>
+        <td><%= link_to(ranking[:character].name, character_path(ranking[:character]), class: 'name') %></td>
+        <td><%= ranking[:character].data_center %></td>
+        <td><%= ranking[:character].server %></td>
+        <td><%= ranking[:score] %></td>
       </tr>
     <% end %>
-    <% if @character_rank.present? && @character_rank > @limit.to_i %>
+    <% if action_name == 'index' && @rankings.present? && @character[@metric] < @rankings.last[:score] %>
       <tr class="my-rankings mine">
-        <td class="text-center"><%= @character_rank %></td>
+        <td></td>
         <td><%= image_tag(@character.avatar, class: 'avatar') %></td>
         <td><%= link_to(@character.name, character_path(@character), class: 'name') %></td>
-        <td><%= data_center(@character.server) %></td>
+        <td><%= @character.data_center %></td>
         <td><%= @character.server %></td>
-        <td><%= @character.send(@metric) %></td>
+        <td><%= @character[@metric] %></td>
       </tr>
     <% end %>
   </tbody>

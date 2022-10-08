@@ -206,6 +206,26 @@ class Character < ApplicationRecord
     }.freeze
   end
 
+  def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil)
+    q = { data_center_eq: data_center, server_eq: server, "#{metric}_gt" => 0 }.compact
+    ranked_characters = characters.ransack(q).result.order(metric => :desc, name: :asc).limit(limit)
+    return [] if ranked_characters.empty?
+
+    current_score = ranked_characters[0][metric]
+    rank = 1
+
+    ranked_characters.map do |character|
+      score = character[metric]
+
+      if score != current_score
+        rank += 1
+        current_score = score
+      end
+
+      { rank: rank, character: character, score: character[metric] }
+    end
+  end
+
   private
   def self.update_collectables!(character, data)
     # Achievements

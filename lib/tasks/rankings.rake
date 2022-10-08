@@ -27,10 +27,10 @@ namespace :rankings do
   end
 end
 
-def cache_rankings(characters, field, key)
-  rankings = characters.where("#{field} > 0")
-    .order(field => :desc)
-    .map.with_index(1) { |character, rank| [character.id, rank] }
+def cache_rankings(characters, metric, key)
+  rankings = Character.leaderboards(characters: characters, metric: metric).flat_map do |ranking|
+    [ranking[:character].id, ranking[:rank]]
+  end
 
-  Redis.current.hmset(key, rankings.flatten) unless rankings.empty?
+  Redis.current.hmset(key, rankings) unless rankings.empty?
 end

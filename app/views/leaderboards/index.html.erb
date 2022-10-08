@@ -8,15 +8,15 @@
         <h5 class="card-title"><%= t('leaderboards.global_leaderboards') %> - <%= t("#{@category}.title") %></h5>
       </div>
       <div class="card-body card-table">
-        <%= search_form_for(@q, url: leaderboards_path, enforce_utf8: false,
-                            class: 'form form-inline search-form ml-3 my-2') do |f| %>
+        <%= form_tag(leaderboards_path, method: :get, enforce_utf8: false,
+                     class: 'form form-inline search-form ml-3 my-2') do |f| %>
           <%= select_tag :category, leaderboards_categories(@category), class: 'form-control form-control-sm' %>
-          <%= select_tag :data_center, options_for_select(Character.data_centers, @data_center),
+          <%= select_tag :data_center, options_for_select(Character.data_centers, params[:data_center]),
             include_blank: t('all.data_centers'), class: 'form-control form-control-sm' %>
-          <%= f.select :server_eq, grouped_servers(@q.server_eq), { include_blank: t('all.servers') },
+          <%= select_tag :server, servers_for_select(params[:server]), include_blank: t('all.servers'),
             class: 'form-control form-control-sm' %>
           <%= select_tag :limit, limit_options(@limit), class: 'form-control form-control-sm' %>
-          <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm' %>
+          <%= submit_tag t('search'), name: nil, class: 'btn btn-primary btn-sm' %>
         <% end %>
         <%= render 'table' %>
       </div>
