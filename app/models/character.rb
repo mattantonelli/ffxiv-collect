@@ -2,37 +2,38 @@
 #
 # Table name: characters
 #
-#  id                        :bigint(8)        not null, primary key
-#  name                      :string(255)      not null
-#  server                    :string(255)      not null
-#  portrait                  :string(255)      not null
-#  avatar                    :string(255)      not null
-#  last_parsed               :datetime
-#  verified_user_id          :integer
-#  achievements_count        :integer          default(0)
-#  mounts_count              :integer          default(0)
-#  minions_count             :integer          default(0)
-#  orchestrions_count        :integer          default(0)
-#  emotes_count              :integer          default(0)
-#  bardings_count            :integer          default(0)
-#  hairstyles_count          :integer          default(0)
-#  armoires_count            :integer          default(0)
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  public                    :boolean          default(TRUE)
-#  achievement_points        :integer          default(0)
-#  free_company_id           :string(255)
-#  refreshed_at              :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
-#  gender                    :string(255)
-#  spells_count              :integer          default(0)
-#  relics_count              :integer          default(0)
-#  queued_at                 :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
-#  fashions_count            :integer          default(0)
-#  records_count             :integer          default(0)
-#  data_center               :string(255)
-#  ranked_achievement_points :integer          default(0)
-#  ranked_mounts_count       :integer          default(0)
-#  ranked_minions_count      :integer          default(0)
+#  id                           :bigint(8)        not null, primary key
+#  name                         :string(255)      not null
+#  server                       :string(255)      not null
+#  portrait                     :string(255)      not null
+#  avatar                       :string(255)      not null
+#  last_parsed                  :datetime
+#  verified_user_id             :integer
+#  achievements_count           :integer          default(0)
+#  mounts_count                 :integer          default(0)
+#  minions_count                :integer          default(0)
+#  orchestrions_count           :integer          default(0)
+#  emotes_count                 :integer          default(0)
+#  bardings_count               :integer          default(0)
+#  hairstyles_count             :integer          default(0)
+#  armoires_count               :integer          default(0)
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  public                       :boolean          default(TRUE)
+#  achievement_points           :integer          default(0)
+#  free_company_id              :string(255)
+#  refreshed_at                 :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
+#  gender                       :string(255)
+#  spells_count                 :integer          default(0)
+#  relics_count                 :integer          default(0)
+#  queued_at                    :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
+#  fashions_count               :integer          default(0)
+#  records_count                :integer          default(0)
+#  data_center                  :string(255)
+#  ranked_achievement_points    :integer          default(0)
+#  ranked_mounts_count          :integer          default(0)
+#  ranked_minions_count         :integer          default(0)
+#  last_ranked_achievement_time :datetime
 #
 
 class Character < ApplicationRecord
@@ -169,6 +170,10 @@ class Character < ApplicationRecord
     end
   end
 
+  def fetch!
+    Character.fetch(id)
+  end
+
   def self.fetch(id)
     data = Lodestone.character(id)
     data[:achievements_count] = -1 if data[:achievements].empty?
@@ -208,21 +213,38 @@ class Character < ApplicationRecord
 
   def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil)
     q = { data_center_eq: data_center, server_eq: server, "#{metric}_gt" => 0 }.compact
-    ranked_characters = characters.ransack(q).result.order(metric => :desc, name: :asc).limit(limit)
+    ranked_characters = characters.ransack(q).result
+
+    if metric.match?('achievement')
+      ranked_characters = ranked_characters.order(metric => :desc, last_ranked_achievement_time: :asc, name: :asc).limit(limit)
+    else
+      ranked_characters = ranked_characters.order(metric => :desc, name: :asc).limit(limit)
+    end
+
     return [] if ranked_characters.empty?
 
-    current_score = ranked_characters[0][metric]
+    current_score, current_date = ranked_characters[0].values_at(metric, :last_ranked_achievement_time)
     rank = 1
 
     ranked_characters.map do |character|
       score = character[metric]
 
-      if score != current_score
-        rank += 1
-        current_score = score
+      if metric.match?('achievement')
+        date = character.last_ranked_achievement_time
+
+        if score != current_score || date != current_date
+          rank += 1
+          current_score = score
+          current_date = date
+        end
+      else
+        if score != current_score
+          rank += 1
+          current_score = score
+        end
       end
 
-      { rank: rank, character: character, score: character[metric] }
+      { rank: rank, character: character, score: score, date: date }
     end
   end
 
@@ -237,7 +259,13 @@ class Character < ApplicationRecord
 
       Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
       character.update(achievement_points: character.achievements.sum(:points))
-      character.update(ranked_achievement_points: character.achievements.exclude_time_limited.sum(:points))
+
+      ranked_time = CharacterAchievement.where(character_id: character.id)
+        .joins(:achievement).merge(Achievement.exclude_time_limited)
+        .order(:created_at).last.created_at
+
+      character.update(ranked_achievement_points: character.achievements.exclude_time_limited.sum(:points),
+                       last_ranked_achievement_time: ranked_time)
     end
 
     # Relics - Update based on ALL of a character's record achievements so we can add them retroactively

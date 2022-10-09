@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_170511) do
+ActiveRecord::Schema.define(version: 2022_10_09_143713) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -283,6 +283,7 @@ ActiveRecord::Schema.define(version: 2022_10_07_170511) do
     t.integer "ranked_achievement_points", default: 0
     t.integer "ranked_mounts_count", default: 0
     t.integer "ranked_minions_count", default: 0
+    t.datetime "last_ranked_achievement_time"
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -292,6 +293,7 @@ ActiveRecord::Schema.define(version: 2022_10_07_170511) do
     t.index ["fashions_count"], name: "index_characters_on_fashions_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
+    t.index ["last_ranked_achievement_time"], name: "index_characters_on_last_ranked_achievement_time"
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["name"], name: "index_characters_on_name"

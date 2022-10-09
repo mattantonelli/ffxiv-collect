@@ -17,7 +17,15 @@
         <td><%= link_to(ranking[:character].name, character_path(ranking[:character]), class: 'name') %></td>
         <td><%= ranking[:character].data_center %></td>
         <td><%= ranking[:character].server %></td>
-        <td><%= ranking[:score] %></td>
+        <td>
+          <% if ranking[:date].present? %>
+            <span data-toggle="tooltip" title="<%= "#{t('acquired')} #{format_date_short(ranking[:date])}" %>">
+              <%= ranking[:score] %>
+            </span>
+          <% else %>
+            <%= ranking[:score] %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     <% if action_name == 'index' && @rankings.present? && @character[@metric] < @rankings.last[:score] %>
