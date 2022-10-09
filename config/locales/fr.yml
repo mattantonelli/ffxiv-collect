@@ -212,13 +212,13 @@ fr:
     updated: "Mise à jour"
     world: "Monde"
   ranked_achievements:
-    title: "Hauts faits permanentes"
+    title: "Hauts faits permanents"
   ranked_achievement_points:
-    title: "Hauts faits permanentes"
+    title: "Hauts faits permanents"
   ranked_minions:
-    title: "Mascote permanentes"
+    title: "Mascottes permanentes"
   ranked_mounts:
-    title: "Monture permanentes"
+    title: "Montures permanentes"
   records:
     page: "Page"
     rarity: "Rareté"
