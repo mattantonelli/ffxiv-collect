@@ -226,20 +226,20 @@ class Character < ApplicationRecord
     current_score, current_date = ranked_characters[0].values_at(metric, :last_ranked_achievement_time)
     rank = 1
 
-    ranked_characters.map do |character|
+    ranked_characters.map.with_index(1) do |character, i|
       score = character[metric]
 
       if metric.match?('achievement')
         date = character.last_ranked_achievement_time
 
         if score != current_score || date != current_date
-          rank += 1
+          rank = i
           current_score = score
           current_date = date
         end
       else
         if score != current_score
-          rank += 1
+          rank = i
           current_score = score
         end
       end
