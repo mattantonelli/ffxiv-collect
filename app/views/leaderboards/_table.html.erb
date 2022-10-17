@@ -28,7 +28,7 @@
         </td>
       </tr>
     <% end %>
-    <% if action_name == 'index' && @rankings.present? && @character[@metric] < @rankings.last[:score] %>
+    <% if action_name == 'index' && @character.present? && @rankings.present? && @character[@metric] < @rankings.last[:score] %>
       <tr class="my-rankings mine">
         <td></td>
         <td><%= image_tag(@character.avatar, class: 'avatar') %></td>
