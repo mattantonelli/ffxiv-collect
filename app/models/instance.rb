@@ -16,6 +16,6 @@ class Instance < ApplicationRecord
   translates :name
 
   def self.valid_types
-    ['Dungeon', 'Trial', 'Raid', 'Treasure Hunt'].freeze
+    ['Dungeon', 'Trial', 'Raid', 'Treasure Hunt', 'V&C Dungeon Finder'].freeze
   end
 end
