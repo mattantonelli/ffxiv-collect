@@ -24,6 +24,7 @@ module RelicsHelper
     date = format_date_short(@dates[relic.id])
 
     text = "<b>#{relic.name}</b><br>"
+    text += "<i>#{relic.achievement.name}</i><br>" if relic.achievement_id.present?
     text += "#{t('acquired')} #{format_date_short(@dates[relic.id])}<br>" if date.present?
     text += t('ownership', percent: @owned[relic.id.to_s] || '0%')
 

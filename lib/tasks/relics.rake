@@ -86,11 +86,23 @@ namespace :relics do
       (32669..32685).to_a + # Augmented Law's Order
       (33462..33478).to_a   # Blade's
 
-    # Base  > Recollection (2) > Augmented Law's Order (2) > Blade's (2)
+    # Base > Recollection (2) > Augmented Law's Order (2) > Blade's (2)
     achievement_ids = [2569, 2574, 2570, 2573, 2577, 2575, 2571, 2578, 2583, 2580, 2581, 2584, 2585, 2576, 2582, 2572, 2579] +
       [2694, 2699, 2695, 2698, 2702, 2700, 2696, 2703, 2708, 2705, 2706, 2709, 2710, 2701, 2707, 2697, 2704] * 2 +
       [2768, 2773, 2769, 2772, 2776, 2774, 2770, 2777, 2782, 2779, 2780, 2783, 2784, 2775, 2781, 2771, 2778] * 2 +
       [2857, 2862, 2858, 2861, 2865, 2863, 2859, 2866, 2871, 2868, 2869, 2872, 2873, 2864, 2870, 2860, 2867] * 2
+
+    create_relics(type, ids, achievement_ids)
+
+    ## Manderville
+    type = RelicType.find_or_create_by!(name_en: "Manderville Weapons", name_de: "Manderville-Waffen",
+                                        name_fr: "Armes des Manderville", category: 'weapons',
+                                        order: 7, jobs: 19, expansion: 6)
+
+    ids = (38400..38418).to_a # Base
+
+    # Base
+    achievement_ids = [3128, 3133, 3129, 3132, 3137, 3134, 3130, 3138, 3143, 3140, 3141, 3144, 3145, 3135, 3142, 3131, 3139, 3146, 3136]
 
     create_relics(type, ids, achievement_ids)
 
