@@ -1,4 +1,4 @@
-<% title("Edit #{@model}") %>
+<% title("Edit #{@model.to_s.titleize}") %>
 
 <div class="row">
   <div class="col-12 col-lg-10 col-xl-8 mx-auto">
@@ -32,6 +32,14 @@
               <div class="col-4 form-group pr-0">
                 <%= f.label :gender %>
                 <%= f.select :gender, gender_options(@collectable.gender), { include_blank: 'Any' }, { class: 'form-control' } %>
+              </div>
+            </div>
+          <% end %>
+          <% if @collectable.has_attribute?(:solution) %>
+            <div class="row">
+              <div class="col-12 form-group">
+                <%= f.label :solution %>
+                <%= f.text_field :solution, class: 'form-control' %>
               </div>
             </div>
           <% end %>

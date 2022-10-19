@@ -8,8 +8,8 @@ namespace :data do
     Rake::Task['data:update'].invoke
     Rake::Task['sources:initialize'].invoke
     Rake::Task['relics:create'].invoke
-    Rake::Task['records:create'].invoke
     Rake::Task['records:sources:create'].invoke
+    Rake::Task['survey_records:solutions:set'].invoke
   end
 
   desc 'Updates all data'
@@ -39,6 +39,7 @@ namespace :data do
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
     Rake::Task['records:create'].invoke
+    Rake::Task['survey_records:create'].invoke
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke

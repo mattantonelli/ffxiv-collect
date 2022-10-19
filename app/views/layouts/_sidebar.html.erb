@@ -30,6 +30,7 @@
     <%= nav_link(t('armoires.title'), 'tshirt', armoires_path) %>
     <%= nav_link(t('fashions.title'), 'umbrella', fashions_path) %>
     <%= nav_link(t('records.title'), 'file-alt', records_path) %>
+    <%= nav_link("#{t('survey_records.title')} #{fa_icon('exclamation-circle')}".html_safe, 'book', survey_records_path) %>
     <%= link_to "#{fa_icon('th', text: t('triple_triad.title'))} #{fa_icon('external-link-alt')}".html_safe,
       'https://triad.raelys.com/', target: '_blank', class: 'nav-link' %>
     <%= link_to "#{fa_icon('fish', text: t('fish.title'))} #{fa_icon('external-link-alt')}".html_safe,

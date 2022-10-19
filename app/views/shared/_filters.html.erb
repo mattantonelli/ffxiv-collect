@@ -10,25 +10,26 @@
           <% unless %w(characters).include?(controller_name) %>
             <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
           <% end %>
-          <% unless %w(achievements titles tomestones spells armoires records characters tools).include?(controller_name) %>
+          <% unless %w(achievements titles tomestones spells armoires records survey_records characters tools)
+            .include?(controller_name) %>
             <%= select_tag :tradeable, tradeable_options(cookies[:tradeable]), class: 'form-control mb-2' %>
           <% end %>
           <% if %w(hairstyles armoires characters).include?(controller_name) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% unless %w(achievements titles spells tomestones records tools).include?(controller_name) %>
+          <% unless %w(achievements titles spells tomestones records survey_records tools).include?(controller_name) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, t('exclude.premium') %>
             </div>
           <% end %>
-          <% unless %w(spells tomestones records tools).include?(controller_name) %>
+          <% unless %w(spells tomestones records survey_records tools).include?(controller_name) %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
               <%= label_tag :limited, t('exclude.time_limited') %>
             </div>
           <% end %>
-          <% unless %w(achievements titles orchestrions spells tomestones tools).include?(controller_name) %>
+          <% unless %w(achievements titles orchestrions spells survey_records tomestones tools).include?(controller_name) %>
             <div>
               <%= check_box_tag :unknown, nil, cookies[:unknown] == 'hide' %>
               <%= label_tag :unknown, t('exclude.unknown') %>

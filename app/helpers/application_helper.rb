@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def active_path?(path)
-    path.match?(controller_name)
+    path.match?("/#{controller_name}")
   end
 
   def nav_link(text, icon, path, fab: false)

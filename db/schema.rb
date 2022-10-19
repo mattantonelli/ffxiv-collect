@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_09_143713) do
+ActiveRecord::Schema.define(version: 2022_10_18_233419) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -252,6 +252,16 @@ ActiveRecord::Schema.define(version: 2022_10_09_143713) do
     t.index ["spell_id"], name: "index_character_spells_on_spell_id"
   end
 
+  create_table "character_survey_records", charset: "utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "survey_record_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id", "survey_record_id"], name: "character_id_and_survey_record_id", unique: true
+    t.index ["character_id"], name: "index_character_survey_records_on_character_id"
+    t.index ["survey_record_id"], name: "index_character_survey_records_on_survey_record_id"
+  end
+
   create_table "characters", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "server", null: false
@@ -284,6 +294,7 @@ ActiveRecord::Schema.define(version: 2022_10_09_143713) do
     t.integer "ranked_mounts_count", default: 0
     t.integer "ranked_minions_count", default: 0
     t.datetime "last_ranked_achievement_time"
+    t.integer "survey_records_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -306,6 +317,7 @@ ActiveRecord::Schema.define(version: 2022_10_09_143713) do
     t.index ["relics_count"], name: "index_characters_on_relics_count"
     t.index ["server"], name: "index_characters_on_server"
     t.index ["spells_count"], name: "index_characters_on_spells_count"
+    t.index ["survey_records_count"], name: "index_characters_on_survey_records_count"
     t.index ["updated_at"], name: "index_characters_on_updated_at"
   end
 
@@ -741,6 +753,32 @@ ActiveRecord::Schema.define(version: 2022_10_09_143713) do
     t.index ["name_ja"], name: "index_spells_on_name_ja"
     t.index ["order"], name: "index_spells_on_order"
     t.index ["type_id"], name: "index_spells_on_type_id"
+  end
+
+  create_table "survey_record_series", charset: "utf8", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "survey_records", charset: "utf8", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.text "description_en"
+    t.text "description_de"
+    t.text "description_fr"
+    t.text "description_ja"
+    t.string "solution", limit: 1000
+    t.string "patch"
+    t.integer "series_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["series_id"], name: "index_survey_records_on_series_id"
   end
 
   create_table "titles", charset: "utf8", force: :cascade do |t|

@@ -1,0 +1,35 @@
+<% title(@record.name) %>
+<% description(@record.description.truncate(150)) %>
+<% image(image_url("survey_records/small/#{@record.id}.png", skip_pipeline: true)) %>
+
+<div class="row">
+  <div class="col-12 col-xl-8 offset-xl-2">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <h5 class="card-title"><%= format_record_number(@record) %>. <%= @record.name %></h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-column flex-info">
+          <div class="d-flex flex-wrap">
+            <div>
+              <dt><%= t('dungeon') %></dt>
+              <dd><%= @record.series.name %></dd>
+            </div>
+            <%= render 'shared/ownership', collectable: @record %>
+            <div>
+              <dt><%= t('patch') %></dt>
+              <dd><%= @record.patch %></dd>
+            </div>
+          </div>
+          <dt><%= t('survey_records.solution') %></dt>
+          <dd><span class="spoiler"><%= @record.solution %></span></dd>
+          <div class="d-none d-sm-block survey-image-large">
+            <%= safe_image_tag("survey_records/large/#{@record.id}.png") %>
+          </div>
+          <dt><%= t('description') %></dt>
+          <dd><%= format_tooltip(@record.description) %></dd>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ namespace :ownership do
     mount_minion_characters = Character.visible.recent
     manual_collection_characters = Character.visible.recent.verified
 
-    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record].each do |model|
+    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record, SurveyRecord].each do |model|
       cache_ownership(model, manual_collection_characters)
     end
 
@@ -19,8 +19,8 @@ namespace :ownership do
   end
 
   def cache_ownership(model, characters)
-    puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching #{model}s"
-    key = model.to_s.downcase.pluralize
+    puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching #{model.name.titleize.pluralize}"
+    key = model.name.underscore.pluralize
     relation = "Character#{model}".constantize
     current = Redis.current.hgetall("#{key}-count")
     total = characters.where("#{key}_count > 0").size

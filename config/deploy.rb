@@ -30,7 +30,7 @@ namespace :deploy do
         end
       end
 
-      %w(fashions records).each do |model|
+      %w(fashions records survey_records).each do |model|
         %w(large small).each do |type|
           path = "#{model}/#{type}"
           execute :rm, '-rf', release_path.join('public/images', path)

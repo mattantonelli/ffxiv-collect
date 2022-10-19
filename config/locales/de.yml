@@ -125,6 +125,7 @@ de:
   created_by: "Erstellt durch Raelys Skyborn von Behemoth"
   date: "Datum"
   description: "Beschreibung"
+  dungeon: "Dungeon"
   emotes:
     command: "Befehl"
     title: "Emotes"
@@ -211,9 +212,9 @@ de:
     price: "Preis"
     updated: "Aktualisiert"
     world: "Welt"
-  ranked_achievements:
-    title: "Gewertete Errungenschaften"
   ranked_achievement_points:
+    title: "Gewertete Errungenschaften"
+  ranked_achievements:
     title: "Gewertete Errungenschaften"
   ranked_minions:
     title: "Gewertete Begleiter"
@@ -274,6 +275,9 @@ de:
     rank: "Stufe"
     title: "Blaumagier"
   submit: "Senden"
+  survey_records:
+    solution: "Lösung"
+    title: "Erkundungsberichten"
   titles:
     title: "Titel"
   tomestones:

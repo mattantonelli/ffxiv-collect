@@ -1,11 +1,11 @@
-<% title("Manage #{@model.to_s.pluralize}") %>
+<% title("Manage #{@model.name.titleize.pluralize}") %>
 
 <div class="card">
   <div class="card-header">
     <div class="d-flex flex-wrap align-items-center">
       <h5 class="mb-2 mb-md-0 mr-auto">
         <%= link_to 'Manage Collectables', mod_dashboard_path, class: 'unstyled' %> /
-        <%= link_to @model.to_s.pluralize, polymorphic_url([:mod, @model]), class: 'unstyled' %>
+        <%= link_to @model.name.titleize.pluralize, polymorphic_url([:mod, @model]), class: 'unstyled' %>
       </h5>
       <%= search_form_for(@q, url: polymorphic_url([:mod, @model]), class: 'form form-inline admin-search-form') do |f| %>
         <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 30,
@@ -35,7 +35,13 @@
             <td><%= sprite(collectable, @sprite_key) %></td>
           <% end %>
           <td><%= collectable.name %></td>
-          <td><%= sources(collectable) %></td>
+          <td>
+            <% if @model == SurveyRecord %>
+              <%= collectable.solution %>
+            <% else %>
+              <%= sources(collectable) %>
+            <% end %>
+          </td>
           <td><%= collectable.patch %></td>
           <td class="text-center">
             <%= link_to fa_icon('pen'), polymorphic_url([:mod, collectable], action: :edit),

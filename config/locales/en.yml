@@ -128,6 +128,7 @@ en:
   created_by: "Created by Raelys Skyborn of Behemoth"
   date: "Date"
   description: "Description"
+  dungeon: "Dungeon"
   emotes:
     command: "Command"
     title: "Emotes"
@@ -277,6 +278,9 @@ en:
     rank: "Rank"
     title: "Blue Magic"
   submit: "Submit"
+  survey_records:
+    solution: "Solution"
+    title: "Survey Records"
   titles:
     title: "Titles"
   tomestones:

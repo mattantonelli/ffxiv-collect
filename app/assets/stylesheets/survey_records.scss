@@ -1,0 +1,22 @@
+td.solution {
+  max-width: 500px;
+}
+
+.spoiler {
+  background-color: #111;
+  color: transparent;
+  border-radius: 0.25rem;
+
+  &:hover {
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+.survey-image-large {
+  align-self: center;
+
+  img {
+    border-radius: 0.25rem;
+  }
+}

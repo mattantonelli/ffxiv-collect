@@ -34,7 +34,7 @@ class Mod::CollectablesController < ModController
 
   private
   def set_model
-    @model = controller_name.singularize.capitalize.constantize
+    @model = controller_name.singularize.classify.constantize
   end
 
   def set_collectable
@@ -60,7 +60,7 @@ class Mod::CollectablesController < ModController
   end
 
   def collectable_params
-    params.require(@model.to_s.downcase).permit(:name_en, :patch, :details, :gender, sources_attributes:
-                                                [:id, :type_id, :collectable_id, :collectable_type, :text, :limited, :premium])
+    params.require(@model.name.underscore).permit(:name_en, :patch, :details, :gender, :solution, sources_attributes:
+                                                  [:id, :type_id, :collectable_id, :collectable_type, :text, :limited, :premium])
   end
 end

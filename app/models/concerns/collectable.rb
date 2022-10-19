@@ -45,8 +45,8 @@ module Collectable
 
     scope :include_sources, -> { includes(sources: [:type, :related] )}
 
-    has_many "character_#{name.pluralize}".to_sym
-    has_many :characters, through: "character_#{name.pluralize}".to_sym
+    has_many "character_#{name.pluralize.underscore}".to_sym
+    has_many :characters, through: "character_#{name.pluralize.underscore}".to_sym
     has_many :sources, as: :collectable, dependent: :delete_all
     accepts_nested_attributes_for :sources
     has_paper_trail
