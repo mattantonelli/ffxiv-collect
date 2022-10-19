@@ -31,10 +31,13 @@ namespace :spritesheets do
     create_spritesheet('relics/armor')
     create_spritesheet('relics/tools')
 
-    puts 'Creating fashion spritesheets'
+    puts 'Creating fashion spritesheet'
     create_spritesheet('fashions/small')
 
-    puts 'Creating record spritesheets'
+    puts 'Creating record spritesheet'
     create_spritesheet('records/small')
+
+    puts 'Creating survey record spritesheet'
+    create_spritesheet('survey_records/small')
   end
 end

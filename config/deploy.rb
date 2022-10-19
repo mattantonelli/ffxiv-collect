@@ -79,6 +79,7 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/relics-*.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/fashions-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/records-small.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/survey_records-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/stylesheets/images/*.scss'), release_path.join('app/assets/stylesheets/images')
       else
         within release_path do
