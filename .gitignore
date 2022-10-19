@@ -44,7 +44,6 @@ config/deploy/*
 /app/assets/images/fashions-small.png
 /app/assets/images/records-small.png
 /app/assets/images/records/*
-/app/assets/images/survey_records/*
 /app/assets/images/survey_records-small.png
 
 /app/assets/stylesheets/images/*
