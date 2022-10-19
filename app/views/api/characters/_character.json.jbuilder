@@ -16,7 +16,7 @@ end
 %w(mount minion orchestrion spell emote barding hairstyle armoire fashion record survey_record).each do |collectable|
   json.set! collectable.pluralize do
     json.count character.send("#{collectable}s_count")
-    json.total collectable == 'minion' ? Minion.summonable.count : collectable.capitalize.constantize.count
+    json.total collectable == 'minion' ? Minion.summonable.count : collectable.classify.constantize.count
 
     if collectable.match?(/mount|minion/)
       json.ranked_count character.send("ranked_#{collectable}s_count")
