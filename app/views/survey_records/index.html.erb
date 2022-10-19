@@ -36,7 +36,7 @@
                 <% end %>
               </div>
             </td>
-            <td><%= record.series.name %></td>
+            <td><%= record.series&.name %></td>
             <td><%= link_to(record.name, survey_record_path(record), class: 'name') %></td>
             <td class="solution hide-xs"><span class="spoiler"><%= record.solution %></span></td>
             <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>"><%= rarity(record) %></td>

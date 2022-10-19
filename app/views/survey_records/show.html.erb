@@ -13,7 +13,7 @@
           <div class="d-flex flex-wrap">
             <div>
               <dt><%= t('dungeon') %></dt>
-              <dd><%= @record.series.name %></dd>
+              <dd><%= @record.series&.name %></dd>
             </div>
             <%= render 'shared/ownership', collectable: @record %>
             <div>

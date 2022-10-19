@@ -20,7 +20,7 @@
 class SurveyRecord < ApplicationRecord
   include Collectable
 
-  belongs_to :series, class_name: 'SurveyRecordSeries'
+  belongs_to :series, class_name: 'SurveyRecordSeries', required: false
   translates :name, :description
 
   scope :include_related, -> { includes(:series) }
