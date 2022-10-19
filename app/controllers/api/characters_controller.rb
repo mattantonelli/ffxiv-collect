@@ -23,9 +23,9 @@ class Api::CharactersController < ApiController
 
   def set_collection
     @collection = params[:collection]
-    model = @collection.singularize.capitalize.constantize
+    model = @collection.classify.constantize
 
-    # Titles need special handlign since ownership is based on achievement ID
+    # Titles need special handling since ownership is based on achievement ID
     if @collection == 'titles'
       owned_ids = @character.achievement_ids
 
