@@ -48,7 +48,10 @@ module ApplicationHelper
   end
 
   def format_text_long(text)
-    format_text(text.gsub(/\u203B/, "<br>\u203B"))
+    format_text(
+      text.gsub(/\u203B/, "<br>\u203B")
+      .gsub("\n", '<br>')
+    )
   end
 
   def format_tooltip(tooltip)
