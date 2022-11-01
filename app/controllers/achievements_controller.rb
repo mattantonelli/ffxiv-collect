@@ -40,7 +40,7 @@ class AchievementsController < ApplicationController
     @q = Achievement.with_filters(cookies).ransack(@search)
     @achievements = @q.result.ordered
 
-    @patches = Achievement.pluck(:patch).uniq.sort.reverse
+    @patches = Achievement.pluck(:patch).compact.uniq.sort.reverse
     @types = AchievementType.all.ordered
   end
 end
