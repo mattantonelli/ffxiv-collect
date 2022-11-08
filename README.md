@@ -39,8 +39,6 @@ mysql:
 discord:
   client_id: 123456789
   client_secret: abc123
-google_analytics:
-  tracking_id: GA-1234567-8
 ```
 
 #### Extract the images & music samples
