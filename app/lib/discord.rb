@@ -83,8 +83,11 @@ module Discord
       count, total, points, points_total =
         character[:achievements].values_at(:count, :total, :points, :points_total).map { |value| number_with_delimiter(value) }
 
-      embed.add_field(name: "#{category_title('achievements')}#{star(count, total)}", inline: true,
-                      value: "#{count} of #{total} complete\n#{points} of #{points_total} points")
+      value = [rankings(character, :achievements),
+              "#{count} of #{total} complete",
+              "#{points} of #{points_total} points"].compact.join("\n")
+
+      embed.add_field(name: "#{category_title('achievements')}#{star(count, total)}", inline: true, value: value)
     else
       embed.add_field(name: 'Achievements', inline: true, value: 'Set to private.')
     end
@@ -94,6 +97,13 @@ module Discord
 
       count, total = character[category].values_at(:count, :total)
       value = "#{count}/#{total} (#{((count / total.to_f) * 100).to_i}%)"
+
+      # Add rankings for mounts/minions categories
+      if category == :mounts || category == :minions
+        ranks = rankings(character, category)
+        value = "#{ranks}\n#{value}" if ranks.present?
+      end
+
       embed.add_field(name: "#{category_title(category.to_s)}#{star(count, total)}", value: value, inline: true)
     end
 
@@ -142,5 +152,16 @@ module Discord
 
   def star(count, total)
     " \u2605" if count == total
+  end
+
+  def rankings(character, category)
+    rankings = character.dig(:rankings, category)
+
+    if rankings&.values&.any?
+      server, data_center = character.values_at(:server, :data_center)
+      "##{number_with_delimiter(rankings[:server])} #{server} — " \
+        "##{number_with_delimiter(rankings[:data_center])} #{data_center} — " \
+        "##{number_with_delimiter(rankings[:global])} Global"
+    end
   end
 end
