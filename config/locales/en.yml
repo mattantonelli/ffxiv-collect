@@ -300,7 +300,7 @@ en:
       title: "Materiel Container"
     title: "Tools"
   tooltip:
-    ownership: "Active public characters who own this %{collectable}"
+    ownership: "Active characters who own this %{collectable}"
   tooltip: "Tooltip"
   tradeable: "Tradeable"
   triple_triad:

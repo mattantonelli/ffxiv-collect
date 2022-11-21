@@ -297,7 +297,7 @@ fr:
       title: "Malle-surprise"
     title: "Outils"
   tooltip:
-    ownership: "Personnages publics actifs qui possèdent %{collectable}"
+    ownership: "Personnages actifs qui possèdent %{collectable}"
   tooltip: "Tooltip"
   tradeable: "Échangeable"
   triple_triad:

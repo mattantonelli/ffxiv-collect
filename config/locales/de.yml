@@ -297,7 +297,7 @@ de:
       title: "Sonderziehungstruhe"
     title: "Werkzeuge"
   tooltip:
-    ownership: "Aktive öffentliche Charakter in Besitz der/des %{collectable}"
+    ownership: "Aktive Charakter in Besitz der/des %{collectable}"
   tooltip: "Kurzinfo"
   tradeable: "Handelbar"
   triple_triad:

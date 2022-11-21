@@ -21,7 +21,7 @@
         <p>This typically occurs when you have made your character private on another Discord account. You will need to <%= link_to 'join the Discord server', 'https://discord.gg/bA9fYQjEYy', target: '_blank' %> so we can re-verify your identity and resolve this.</p>
         <hr>
         <h5>How are your ownership percentages calculated?</h5>
-        <p>Ownership is calculated based on publicly available characters who have been updated on the site in the past 3 months and possess at least one collectable in a given category.</p>
+        <p>Ownership is calculated based on characters who have been updated on the site in the past 3 months and possess at least one collectable in a given category.</p>
         <p>These percentages are not a reflection of the entire playerbase, but rather a subset of players who are interested in collecting things. If you are looking to collect competitively, then this is probably the data you want.</p>
         <p>If you are looking for statistics for the entire playerbase, try <%= link_to 'Lucky Bancho', 'https://luckybancho.ldblog.jp/wsurvey.htm?world=Global', target: '_blank' %>.</p>
         <hr>
@@ -29,18 +29,20 @@
         <p>Achievements are hidden by default on your Lodestone profile, which makes achievement ownership a much smaller dataset. See the statistics below for details.</p>
         <hr>
         <h5>How are rankings calculated?</h5>
-        <p>Rankings are based on non-time limited collectable ownership for all public characters. Profile rankings are calculated nightly, so you may notice a small difference between profiles and the leaderboards.</p>
+        <p>Rankings are based on non-time limited collectable ownership for all characters. Profile rankings are cached at 00:00, 06:00, 12:00, and 18:00 ET. You may notice a small difference between profiles and the leaderboards due to caching.</p>
         <hr>
         <h5>How many players are tracked by FFXIV Collect?</h5>
         <dl>
           <dt>Users</dt>
           <dd><%= number_with_delimiter(@users) %></dd>
-          <dt>Public Characters</dt>
+          <dt>Characters</dt>
           <dd><%= number_with_delimiter(@characters) %></dd>
-          <dt>Active Public Characters</dt>
+          <dt>Characters with Public Achievements</dt>
+          <dd><%= number_with_delimiter(@achievement_characters) %></dd>
+          <dt>Active Characters</dt>
           <dd><%= number_with_delimiter(@active_characters) %></dd>
           <dt>Active Characters with Public Achievements</dt>
-          <dd><%= number_with_delimiter(@achievement_characters) %></dd>
+          <dd><%= number_with_delimiter(@active_achievement_characters) %></dd>
         </dl>
       </div>
     </div>
