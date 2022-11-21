@@ -4,7 +4,11 @@ set :output, 'log/whenever.log'
 
 # Cache collectable ownership and rankings
 every '10 3 * * *' do
-  rake 'ownership:cache'
+  rake 'rankings:cache'
+end
+
+# Cache leaderboard rankings for character profiles and the API
+every '0 0,6,12,18 * * *' do
   rake 'rankings:cache'
 end
 
