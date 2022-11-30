@@ -5,6 +5,7 @@ class CharactersController < ApplicationController
   before_action :set_selected, only: [:search_lodestone_id, :select, :compare]
   after_action  :save_selected, only: [:select, :compare]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
+  before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires fashions
@@ -44,13 +45,13 @@ class CharactersController < ApplicationController
 
   def stats_recent
     @collections = STATS_COLLECTIONS.each_with_object({}) do |collection, h|
-      h[collection] = @profile.most_recent(collection, filters: cookies)
+      h[collection] = @profile.most_recent(collection, filters: cookies, limit: @limit)
     end
   end
 
   def stats_rarity
     @collections = STATS_COLLECTIONS.each_with_object({}) do |collection, h|
-      h[collection] = @profile.most_rare(collection, filters: cookies)
+      h[collection] = @profile.most_rare(collection, filters: cookies, limit: @limit)
     end
   end
 
@@ -227,6 +228,14 @@ class CharactersController < ApplicationController
     elsif action_name == 'compare' && @selected == @character
       flash[:alert] = t('alerts.comparison_is_you')
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def set_stats_limit
+    if params[:limit].present?
+      @limit = [params[:limit].to_i, 100].min
+    else
+      @limit = 10
     end
   end
 

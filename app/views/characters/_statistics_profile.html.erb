@@ -4,6 +4,11 @@
   <h4 class="mr-2"><%= @profile.name %> (<%= @profile.server %>)</h4>
   <%= link_to fa_icon('user', text: t('characters.profile')), character_path(@profile),
     class: 'btn btn-primary btn-sm mr-auto' %>
-  <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-    type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+  <div class="d-flex">
+    <%= form_tag(request.path, method: :get, enforce_utf8: false, class: 'form mr-2', id: 'stat-limit') do %>
+      <%= select_tag :limit, stat_limit_options(@limit), class: 'form-control form-control-sm' %>
+    <% end %>
+    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+  </div>
 </div>

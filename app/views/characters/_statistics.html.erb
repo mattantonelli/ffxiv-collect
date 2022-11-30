@@ -1,26 +1,30 @@
 <div class="d-flex flex-wrap justify-content-around statistics mt-3">
   <% @collections.each do |collection, collectables| %>
     <% if collectables.size > 0 %>
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title"><%= collection_name(collection.pluralize) %></h5>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled">
-            <% collectables.each do |data| %>
-              <li class="mb-2">
-                <%= link_to(polymorphic_path(data[:collectable]), class: 'unstyled d-flex align-items-center') do %>
-                  <%= generic_sprite(collection, data[:collectable]) %>
-                  <span class="ml-2">
-                    <%= collectable_name(collection, data[:collectable]) %>
-                    <% if data[:count].present? %>
-                      <br><%= statistic_data_rarity(data) %>
+      <div class="card borderless">
+        <%= link_to "#collapse-#{collection}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
+          <div class="card-header">
+            <h5 class="card-title"><%= collection_name(collection.pluralize) %></h5>
+          </div>
+        <% end %>
+        <div class="collapse show" id="collapse-<%= collection %>">
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <% collectables.each do |data| %>
+                <li class="mb-2">
+                  <%= link_to(polymorphic_path(data[:collectable]), class: 'unstyled d-flex align-items-center') do %>
+                    <%= generic_sprite(collection, data[:collectable]) %>
+                    <span class="ml-2">
+                      <%= collectable_name(collection, data[:collectable]) %>
+                      <% if data[:count].present? %>
+                        <br><%= statistic_data_rarity(data) %>
                     <% end %>
-                  </span>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
+                    </span>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       </div>
     <% end %>

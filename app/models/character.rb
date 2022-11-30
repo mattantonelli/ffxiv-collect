@@ -103,24 +103,25 @@ class Character < ApplicationRecord
     stale? && !in_queue?
   end
 
-  def most_recent(collection, filters: nil)
+  def most_recent(collection, filters: nil, limit: 10)
     if collection == 'titles'
-      collectables = achievements.joins(:title).order('character_achievements.created_at desc')
+      collectables = achievements.joins(:title).includes(:title).order('character_achievements.created_at desc')
     else
       collectables = send(collection).order("character_#{collection}.created_at desc")
     end
 
-    count = collection == 'records' ? 5 : 10
+    # Only show half as many Field Records due to the size of their icons
+    limit /= 2 if collection == 'records'
 
     collectables = collectables.with_filters(filters, self) if filters.present?
-    collectables.first(count).map do |collectable|
+    collectables.first(limit).map do |collectable|
       { collectable: collectable }
     end
   end
 
-  def most_rare(collection, filters: nil)
+  def most_rare(collection, filters: nil, limit: 10)
     if collection == 'titles'
-      collectables = achievements.joins(:title)
+      collectables = achievements.joins(:title).includes(:title)
       key = 'achievements'
     else
       collectables = send(collection)
@@ -139,9 +140,10 @@ class Character < ApplicationRecord
     collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
       .sort_by { |collectable| sorted_ids.index(collectable.id) }
 
-    count = collection == 'records' ? 5 : 10
+    # Only show half as many Field Records due to the size of their icons
+    limit /= 2 if collection == 'records'
 
-    collectables.first(count).map do |collectable|
+    collectables.first(limit).map do |collectable|
       { collectable: collectable,
         count: rarities[:count][collectable.id.to_s],
         percentage: rarities[:percentage][collectable.id.to_s] }

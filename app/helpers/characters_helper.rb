@@ -76,4 +76,12 @@ module CharactersHelper
 
     options_for_select(servers.sort, selected)
   end
+
+  def stat_limit_options(limit)
+    options = [10, 20, 50, 100].map do |option|
+      ["#{t('leaderboards.top')} #{option}", option]
+    end
+
+    options_for_select(options, limit)
+  end
 end
