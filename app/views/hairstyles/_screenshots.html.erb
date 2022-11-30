@@ -1,14 +1,14 @@
 <div class="carousel slide carousel-fade carousel-hairstyles hide-xs mb-3" id="carousel" data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <%= link_to(image_url(@screenshots.first)) do %>
-        <%= image_tag(@screenshots.first) %>
+      <%= link_to(image_url(@screenshots.first, skip_pipeline: true)) do %>
+        <%= image_tag(@screenshots.first, skip_pipeline: true) %>
       <% end %>
     </div>
     <% @screenshots.drop(1).each do |screenshot| %>
       <div class="carousel-item">
-        <%= link_to(image_url(screenshot)) do %>
-          <%= image_tag(screenshot) %>
+        <%= link_to(image_url(screenshot, skip_pipeline: true)) do %>
+          <%= image_tag(screenshot, skip_pipeline: true) %>
         <% end %>
       </div>
     <% end %>

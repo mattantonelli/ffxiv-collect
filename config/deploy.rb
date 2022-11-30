@@ -43,9 +43,6 @@ namespace :deploy do
         execute :ln, '-s', shared_path.join('public/images', model), release_path.join('public/images', model)
       end
 
-      # Hairstyle screenshots
-      execute :ln, '-s', shared_path.join('hairstyles/*'), release_path.join('app/assets/images/hairstyles/screenshots')
-
       # Music samples
       execute :rm, '-rf', release_path.join('public/music')
       execute :ln, '-s', shared_path.join('public/music'), release_path.join('public/music')
