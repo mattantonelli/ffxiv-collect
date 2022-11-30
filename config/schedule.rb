@@ -2,9 +2,9 @@
 set :bundle_command, '~/.rbenv/shims/bundle exec'
 set :output, 'log/whenever.log'
 
-# Cache collectable ownership and rankings
+# Cache collectable ownership
 every '10 3 * * *' do
-  rake 'rankings:cache'
+  rake 'ownership:cache'
 end
 
 # Cache leaderboard rankings for character profiles and the API
