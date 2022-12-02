@@ -8,7 +8,8 @@ module LeaderboardsHelper
                         [t('bardings.title'), 'bardings'], [t('hairstyles.title'), 'hairstyles'],
                         [t('armoires.title'), 'armoires'],
                         [t('fashions.title'), 'fashions'],
-                        [t('records.title'), 'records']], selected).freeze
+                        [t('records.title'), 'records'],
+                        [t('survey_records.title'), 'survey_records']], selected).freeze
   end
 
   def limit_options(limit)
