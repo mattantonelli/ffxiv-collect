@@ -1,14 +1,10 @@
 <% if @rankings[category].values.any? %>
   <ul class="list-unstyled list-inline m-0">
-    <li class="list-inline-item">
-      #<%= number_with_delimiter(@rankings[category][:server]) %> <%= @profile.server %>
-    </li>
-    <li class="list-inline-item">
-      #<%= number_with_delimiter(@rankings[category][:data_center]) %> <%= @profile.data_center %>
-    </li>
-    <li class="list-inline-item">
-      #<%= number_with_delimiter(@rankings[category][:global]) %> <%= t('leaderboards.global') %>
-    </li>
+    <% %i(server data_center global).each do |context| %>
+      <li class="list-inline-item">
+        <%= rankings_link(@rankings, @profile, category, context) %>
+      </li>
+    <% end %>
   </ul>
 <% else %>
   <div class="mt-2"></div>

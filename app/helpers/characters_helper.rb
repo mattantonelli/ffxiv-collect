@@ -84,4 +84,28 @@ module CharactersHelper
 
     options_for_select(options, limit)
   end
+
+  def rankings_link(rankings, character, category, context)
+    rank = number_with_delimiter(rankings.dig(category, context))
+
+    case(context)
+    when :server
+      text = character.server
+      query = { server: character.server }
+    when :data_center
+      text = character.data_center
+      query = { data_center: character.data_center }
+    else
+      text = t("leaderboards.#{context}")
+      query = {}
+    end
+
+    if category == :achievements
+      query[:category] = 'ranked_achievement_points'
+    else
+      query[:category] = "ranked_#{category}"
+    end
+
+    link_to("##{rank} #{text}", leaderboards_path(query), class: 'unstyled')
+  end
 end
