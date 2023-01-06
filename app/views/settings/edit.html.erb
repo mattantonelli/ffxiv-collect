@@ -27,9 +27,9 @@
         </div>
         <div class="card-body py-3">
           <%= form_for(@character, url: character_settings_path, html: { class: 'form' }) do |f| %>
-            <div class="form-group form-check">
-              <%= f.check_box :public %>
-              <%= f.label :public, t('settings.make_public') %>
+            <div class="form-check">
+              <%= f.check_box :public, class: 'form-check-input' %>
+              <%= f.label :public, t('settings.make_public'), class: 'form-check-label' %>
             </div>
             <div class="text-right mt-2">
               <%= f.submit t('save'), class: 'btn btn-primary' %>

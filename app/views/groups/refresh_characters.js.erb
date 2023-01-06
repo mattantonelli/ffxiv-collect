@@ -1,0 +1,2 @@
+$('.group-members tbody').html("<%= escape_javascript render(partial: 'member_row', collection: @characters, as: :character,
+                               locals: { button: :remove }) %>")

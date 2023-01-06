@@ -132,6 +132,8 @@ GEM
     font_awesome5_rails (1.5.0)
       nokogiri (>= 1.11.3)
       railties (>= 4.2)
+    friendly_id (5.4.2)
+      activerecord (>= 4.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
@@ -373,6 +375,7 @@ DEPENDENCIES
   discordrb-webhooks (= 3.3.0)
   ed25519
   font_awesome5_rails
+  friendly_id (~> 5.4.0)
   i18n-js (= 3.9.1)
   i18n_yaml_sorter
   jbuilder (~> 2.5)

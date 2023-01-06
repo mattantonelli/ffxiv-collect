@@ -83,8 +83,20 @@ Rails.application.routes.draw do
   end
 
   resources :free_companies, only: [:show], path: :fc do
-    post :refresh, on: :member
     get :mounts
+    post :refresh, on: :member
+  end
+
+  resources :groups do
+    get :mounts
+
+    member do
+      get :manage
+      post :refresh
+      post :character_search
+      post 'add/:character_id', action: :add_character, as: :add_character
+      post 'remove/:character_id', action: :remove_character, as: :remove_character
+    end
   end
 
   resources :titles, only: :index
@@ -92,6 +104,7 @@ Rails.application.routes.draw do
   resources :leaderboards, only: :index do
     collection do
       get 'fc/:id', as: :free_company, action: :free_company
+      get 'group/:id', as: :group, action: :group
     end
   end
 

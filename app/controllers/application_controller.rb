@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def verify_group_membership!
+    unless @group.public? || @group.valid_member?(user: current_user, character: @character)
+      flash[:alert] = t('alerts.groups.membership_failure')
+      redirect_to root_path
+    end
+  end
+
   def log_backtrace(exception)
     Rails.logger.error(exception.inspect)
     exception.backtrace.first(3).each { |line| Rails.logger.error(line) }

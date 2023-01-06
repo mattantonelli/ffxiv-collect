@@ -1,0 +1,22 @@
+.group-buttons {
+  a {
+    margin: 0.25rem;
+  }
+}
+
+.group-members {
+  margin: 0 auto;
+  width: 100%;
+  overflow-y: auto;
+  min-height: 50px;
+  max-height: calc(50vh);
+}
+
+.card .card-body.group-character-search {
+  padding: 0.5rem 0 0 0;
+
+  form {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}

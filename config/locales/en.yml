@@ -11,6 +11,12 @@ en:
     title: "Achievements"
     title_reward: "Title Reward"
   acquired: "Acquired on"
+  activerecord:
+    attributes:
+      group:
+        description: "Description"
+        name: "Name"
+        public: "Public"
   add: "Add"
   alerts:
     already_refreshed: "Your character has already been refreshed in the past 30 minutes. Please try again later."
@@ -27,9 +33,23 @@ en:
     comparison_is_you: "You cannot compare with yourself."
     comparison_set: "Your comparison character has been set."
     comparison_set_to_private: "Your comparison character has been set to private and can no longer be tracked."
-    free_company_already_refreshed: "All of the members of this free company are up to date."
-    free_company_refreshed: "This free company is now being synchronized with the Lodestone. This can take several minutes."
-    free_company_syncing: "This free company is currently being synchronized with the Lodestone. This can take several minutes."
+    groups:
+      add_character_failure: "There was a problem adding that character."
+      already_refreshed: "All characters are up to date."
+      character_limit: "Sorry, you cannot add more than 100 characters to a group."
+      create_failure: "There was a problem creating your group."
+      create_success: "Your group has been created. Use the search function below to add members."
+      delete_confirm: "Are you sure you wish to delete this group?"
+      delete_failure: "There was a problem deleting the group."
+      delete_success: "The group has been deleted."
+      membership_failure: "This private group can only be viewed by verified members."
+      permission_failure: "You do not have permission to modify this group."
+      refreshed: "These characters are now being synchronized with the Lodestone. This can take several minutes."
+      remove_character_failure: "There was a problem removing that character."
+      search_failure: "There was a problem executing your search."
+      syncing: "These characters are currently being synchronized with the Lodestone. This can take several minutes."
+      update_failure: "There was a problem updating your group."
+      update_success: "Your group has been updated."
     here: "here"
     lodestone_error: "There was a problem contacting the Lodestone."
     lodestone_maintenance: "The Lodestone is currently down for maintenance."
@@ -128,8 +148,10 @@ en:
   complete: "Complete"
   created_by: "Created by Raelys Skyborn of Behemoth"
   date: "Date"
+  delete: "Delete"
   description: "Description"
   dungeon: "Dungeon"
+  edit: "Edit"
   emotes:
     command: "Command"
     title: "Emotes"
@@ -152,15 +174,22 @@ en:
     title: "Big Fish"
   forget: "Forget"
   free_companies:
+    title: "Free Company Profile"
+  groups:
+    character_not_found: "No characters found.<br>Please add this character through the %{link} and try again."
+    edit: "Edit Group"
+    manage_members: "Manage Members"
     member:
       one: "member"
       other: "members"
+    new: "New Group"
+    profile: "Group Profile"
     refresh:
       button: "Refresh Members"
       in_progress: "Refreshing Now"
       up_to_date: "Up To Date"
     stale: "This character is out of date."
-    title: "Free Company Profile"
+    title: "Custom Groups"
   hairstyles:
     hrothgar: "Available to Hrothgar"
     title: "Hairstyles"
@@ -256,6 +285,7 @@ en:
     title: "Relics"
     tools: "Tools"
     weapons: "Weapons"
+  remove: "Remove"
   save: "Save"
   search: "Search"
   select: "Select"

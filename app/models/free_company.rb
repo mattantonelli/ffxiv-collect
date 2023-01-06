@@ -11,9 +11,23 @@
 #
 
 class FreeCompany < ApplicationRecord
-  include Queueable
+  include Syncable
 
-  has_many :members, class_name: 'Character'
+  has_many :characters
+  alias_method :members, :characters
+
+  def formatted_name
+    if tag.present?
+      "#{name} «#{tag}»"
+    else
+      name
+    end
+  end
+
+  def refresh
+    update(queued_at: Time.now)
+    FreeCompanySyncJob.perform_later(id)
+  end
 
   def self.fetch(id)
     data = Lodestone.free_company(id)
@@ -25,34 +39,5 @@ class FreeCompany < ApplicationRecord
     end
 
     free_company
-  end
-
-  def expire!
-    update!(queued_at: Time.at(0))
-  end
-
-  def formatted_name
-    if tag.present?
-      "#{name} «#{tag}»"
-    else
-      name
-    end
-  end
-
-  def recently_queued?
-    queued_at > Time.now - 5.seconds
-  end
-
-  def syncable?
-    !recently_queued? && !in_queue? && (!up_to_date? || queued_at < Time.now - 6.hours)
-  end
-
-  def sync_members
-    update(queued_at: Time.now)
-    FreeCompanySyncJob.perform_later(id)
-  end
-
-  def up_to_date?
-    members.none?(&:stale?)
   end
 end

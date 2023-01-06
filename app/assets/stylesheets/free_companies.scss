@@ -1,5 +1,6 @@
-.free-company-avatar {
+.group-avatar {
   position: relative;
+  text-decoration: none;
 
   img {
     border-radius: 50%;
@@ -13,9 +14,7 @@
     margin: 0.5rem;
     width: 100px;
     height: 100px;
-
     text-align: center;
-    text-decoration: none;
 
     display: flex;
     flex-direction: column;
@@ -34,6 +33,10 @@
   }
 
   &.small {
+    &:hover {
+      text-decoration: none;
+    }
+
     img {
       margin: 0.25rem;
       width: 50px;
@@ -47,7 +50,7 @@
   }
 }
 
-.table.free-company-collection {
+.table.group-collection {
   margin: 0 auto;
   width: auto;
   overflow-y: auto;
@@ -68,6 +71,10 @@
 
       &:first-child {
         border-left: 1px solid #191919;
+      }
+
+      &:last-child {
+        border-right: 1px solid #191919;
       }
     }
   }

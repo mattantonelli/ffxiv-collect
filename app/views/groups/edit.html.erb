@@ -1,0 +1,15 @@
+<% title("#{t('groups.edit')} - #{@group.name}") %>
+
+<div class="row">
+  <div class="col-12 col-lg-8 col-xl-6 mx-auto">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title"><%= t('groups.edit') %></h5>
+        <%= link_to fa_icon('chevron-left', text: t('back')), groups_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+      <div class="card-body">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+</div>

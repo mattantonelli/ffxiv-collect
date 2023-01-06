@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_18_233419) do
+ActiveRecord::Schema.define(version: 2023_01_03_152743) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -386,6 +386,29 @@ ActiveRecord::Schema.define(version: 2022_10_18_233419) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "queued_at", default: "1970-01-01 00:00:00"
+  end
+
+  create_table "group_memberships", charset: "utf8", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "character_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_group_memberships_on_character_id"
+    t.index ["group_id", "character_id"], name: "index_group_memberships_on_group_id_and_character_id", unique: true
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+  end
+
+  create_table "groups", charset: "utf8", force: :cascade do |t|
+    t.string "slug", null: false
+    t.string "name", null: false
+    t.string "description"
+    t.boolean "public", default: true
+    t.integer "owner_id", null: false
+    t.datetime "queued_at", default: "1970-01-01 00:00:00"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_groups_on_owner_id"
+    t.index ["slug"], name: "index_groups_on_slug", unique: true
   end
 
   create_table "hairstyles", charset: "utf8", force: :cascade do |t|

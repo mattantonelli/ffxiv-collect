@@ -1,0 +1,28 @@
+<% title("#{t('groups.manage_members')} - #{@group.name}") %>
+
+<div class="row">
+  <div class="col-12 col-sm-6 col-xl-5 offset-xl-1 mb-3">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title"><%= t('groups.manage_members') %></h5>
+        <%= link_to fa_icon('chevron-left', text: t('back')), groups_path, class: 'btn btn-secondary btn-sm' %>
+      </div>
+      <div class="card-body card-table group-members">
+        <table class="table table-striped table-sm">
+          <tbody>
+            <%= render partial: 'member_row', collection: @group.characters.order(:name), as: :character %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-5">
+    <div class="card shadow">
+      <h5 class="card-header"><%= t('characters.search') %></h5>
+      <div class="card-body group-character-search">
+        <%= render 'search_form' %>
+        <div id="search-results"></div>
+      </div>
+    </div>
+  </div>
+</div>

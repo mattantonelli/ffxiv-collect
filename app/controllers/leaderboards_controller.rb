@@ -9,8 +9,13 @@ class LeaderboardsController < ApplicationController
 
   def free_company
     @free_company = FreeCompany.find(params[:id])
-    @rankings = Character.leaderboards(characters: @free_company.members.visible, metric: @metric,
-                                       data_center: params[:data_center], server: params[:server], limit: @limit)
+    @rankings = Character.leaderboards(characters: @free_company.members.visible, metric: @metric)
+  end
+
+  def group
+    @group = Group.friendly.find(params[:id])
+    verify_group_membership!
+    @rankings = Character.leaderboards(characters: @group.members.visible, metric: @metric)
   end
 
   private

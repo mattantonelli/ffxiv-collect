@@ -1,0 +1,61 @@
+<% title(t('groups.title')) %>
+<% description('Manage your custom groups') %>
+
+<div class="row">
+  <div class="col-12 col-lg-8 mx-auto">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title"><%= t('groups.title') %></h5>
+        <%= link_to fa_icon('plus', text: t('groups.new')), new_group_path, class: 'btn btn-sm btn-success' %>
+      </div>
+      <div class="card-body card-table">
+        <table class="table table-striped table sortable">
+          <tbody>
+            <% @groups.each do |group| %>
+              <tr>
+                <td>
+                  <div class="d-flex flex-column mx-2">
+                    <h5 class="mb-0">
+                      <%= group.name %>
+                      <small>
+                        <% if group.public? %>
+                          <span class="badge badge-success"><%= t('characters.public') %></span>
+                        <% else %>
+                          <span class="badge badge-danger"><%= t('characters.private') %></span>
+                        <% end %>
+                      </small>
+                    </h5>
+                    <% if group.description.present? %>
+                      <span><%= group.description %></span>
+                    <% end %>
+                    <div class="d-flex flex-wrap align-items-center my-2">
+                      <% group.characters.sort_by(&:name).first(10).each do |character| %>
+                        <%= link_to character_path(character), class: 'group-avatar small' do %>
+                          <%= image_tag(character.avatar, data: { toggle: 'tooltip' }, title: character.name) %>
+                        <% end %>
+                      <% end %>
+                      <% if group.characters.size > 10 %>
+                        <span class="group-avatar">+<%= group.characters.size - 10 %></span>
+                      <% end %>
+                    </div>
+                    <hr class="mt-0 mb-1">
+                    <div class="d-flex flex-wrap align-items-center group-buttons">
+                      <%= link_to far_icon('eye', text: t('view')), group_path(group.friendly_id),
+                        class: 'btn btn-sm btn-primary' %>
+                      <%= link_to fa_icon('user-friends', text: t('groups.manage_members')),
+                      manage_group_path(group.friendly_id), class: 'btn btn-sm btn-success' %>
+                    <%= link_to fa_icon('pen', text: t('edit')), edit_group_path(group.friendly_id),
+                      class: 'btn btn-sm btn-secondary' %>
+                    <%= link_to fa_icon('trash', text: t('delete')), group_path(group.friendly_id),
+                      method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: t('alerts.groups.delete_confirm') } %>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<hr class="mb-0">
+<% if @characters.present? %>
+  <div class="d-flex flex-column character-select">
+    <% @characters.each do |character| %>
+      <div class="d-flex align-items-center">
+        <%= image_tag(character[:avatar], class: 'avatar mr-3') %>
+        <div class="d-flex flex-column character-name">
+          <b><%= character[:name] %></b>
+          <span><%= fa_icon('globe', text: character[:server]) %></span>
+        </div>
+        <div class="d-block d-lg-none ml-auto">
+          <%= link_to fa_icon('plus'), add_character_group_path(@group, character_id: character),
+            method: :post, remote: true, class: 'btn btn-sm btn-success' %>
+        </div>
+        <div class="d-none d-lg-block ml-auto">
+          <%= link_to fa_icon('plus', text: t('add')), add_character_group_path(@group, character_id: character),
+            method: :post, remote: true, class: 'btn btn-sm btn-success' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-center my-3">
+    <%= t('groups.character_not_found',
+          link: link_to(t('characters.search'), search_characters_path, target: '_blank')).html_safe %>
+  </p>
+<% end %>

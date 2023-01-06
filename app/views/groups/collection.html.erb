@@ -1,8 +1,8 @@
-<% title("#{@free_company.formatted_name} - #{t("#{@collection}.title")}") %>
-<% description("Track your free company's #{@collection} by expansion.") %>
+<% title("#{@group.formatted_name} - #{t("#{@collection}.title")}") %>
+<% description("Track your #{group_type(@group).downcase}'s #{@collection} by expansion.") %>
 
 <h3 class="text-center">
-  <%= link_to(@free_company.formatted_name, free_company_path(@free_company), class: 'name') %>
+  <%= link_to(@group.formatted_name, polymorphic_path(@group), class: 'name') %>
   <%= t("#{@collection}.title") %>
 </h3>
 <div class="d-flex flex-wrap justify-content-center mb-2">
@@ -14,7 +14,7 @@
   <% end %>
 </div>
 <div class="d-flex">
-  <table class="table table-bordered table-hover table-sm table-responsive free-company-collection">
+  <table class="table table-bordered table-hover table-sm table-responsive group-collection">
     <thead>
       <tr>
         <th></th>
@@ -41,16 +41,16 @@
       <% @members.each do |character| %>
         <tr>
           <th>
-            <%= link_to character_path(character), class: 'free-company-avatar small' do %>
+            <%= link_to character_path(character), class: 'group-avatar small' do %>
               <%= image_tag(character.avatar, data: { toggle: 'tooltip' }, title: character.name) %>
               <% if character.stale? %>
-                <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('free_companies.stale')) %>
+                <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('groups.stale')) %>
               <% end %>
             <% end %>
           </th>
           <% @collectables.each do |expansion, collectables| %>
             <% collectables.each do |collectable| %>
-              <%= free_company_collectable_td(character, collectable) %>
+              <%= group_collectable_td(character, collectable) %>
             <% end %>
           <% end %>
         </tr>

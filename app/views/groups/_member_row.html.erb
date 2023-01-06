@@ -1,0 +1,14 @@
+<tr>
+  <td><%= image_tag(character.avatar, class: 'avatar') %></td>
+  <td><%= character.name %></td>
+  <td class="text-right">
+    <div class="d-block d-lg-none">
+      <%= link_to fa_icon('minus'), remove_character_group_path(@group, character_id: character),
+        method: :post, remote: true, class: 'btn btn-sm btn-danger' %>
+    </div>
+    <div class="d-none d-lg-block">
+      <%= link_to fa_icon('minus', text: t('remove')), remove_character_group_path(@group, character_id: character),
+        method: :post, remote: true, class: 'btn btn-sm btn-danger' %>
+    </div>
+  </td>
+</tr>

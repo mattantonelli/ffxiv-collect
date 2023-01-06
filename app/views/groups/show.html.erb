@@ -1,0 +1,47 @@
+<% title(@group.formatted_name) %>
+<% description("#{group_type(@group)} Profile") %>
+
+<div class="row">
+  <div class="col-12 col-xl-10 offset-xl-1">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="card-title"><%= @group.formatted_name %></h5>
+          <h6 class="d-flex align-items-center">
+            <span class="mr-2">
+              <%= @members.size %> <%= t('groups.member', count: @members.size) %>
+            </span>
+            <% if @group.recently_queued? || @group.in_queue? %>
+              <span class="badge badge-secondary">
+                <%= fa_icon('sync', text: t('groups.refresh.in_progress')) %>
+              </span>
+            <% elsif @group.up_to_date? %>
+              <span class="badge badge-success">
+                <%= fa_icon('check', text: t('groups.refresh.up_to_date')) %>
+              </span>
+            <% end %>
+          </h6>
+        </div>
+        <div>
+          <%= link_to fa_icon('trophy', text: t('leaderboards.title')), polymorphic_group_path(@group, :leaderboards),
+            class: 'btn btn-sm btn-primary' %>
+          <%= link_to fa_icon('horse', text: t('mounts.title')), polymorphic_group_path(@group, :mounts),
+            class: 'btn btn-sm btn-secondary' %>
+          <%= link_to fa_icon('sync', text: t('groups.refresh.button')), polymorphic_path(@group, action: :refresh),
+            class: "btn btn-sm btn-success#{' disabled' unless @group.syncable?}", method: :post %>
+        </div>
+      </div>
+      <div class="card-body d-flex flex-wrap">
+        <% @members.each do |character| %>
+          <%= link_to character_path(character), class: 'group-avatar large' do %>
+            <%= image_tag(character.avatar) %>
+            <span><%= character.name %></span>
+            <% if character.stale? %>
+              <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('groups.stale')) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

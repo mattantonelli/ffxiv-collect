@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :characters, through: :user_characters
   has_many :verified_characters, -> (user) { where(verified_user: user) }, through: :user_characters, source: :character
   has_many :modifications, class_name: 'PaperTrail::Version', foreign_key: :whodunnit
+  has_many :owned_groups, class_name: 'Group', foreign_key: :owner_id
 
   devise :timeoutable, :trackable, :omniauthable, omniauth_providers: [:discord]
 
