@@ -5,8 +5,9 @@ $(document).on 'turbolinks:load', ->
     if data_center.length > 0
       $("#server option:not(.dc-#{data_center.toLowerCase()})").hide()
 
-  # Disable character selection on click to avoid multiple submissions
   characters = $('.character-select')
+
+  # Disable character selection on click to avoid multiple submissions
   if characters.length > 0
     characters.find('a').click ->
       characters.addClass('disabled')
@@ -15,3 +16,6 @@ $(document).on 'turbolinks:load', ->
   $('.lodestone-search').click ->
     $(this).addClass('disabled')
     $(this).blur()
+
+  # Reset disabled buttons on page load in case of back navigation
+  characters.removeClass('disabled')

@@ -11,6 +11,7 @@ de:
     title: "Errungenschaften"
     title_reward: "Titelbelohnung"
   acquired: "Erhalten am"
+  add: "Hinzuzufügen"
   alerts:
     already_refreshed: "Dein Charakter wurde bereits in den letzten 30 Minuten aktualisiert. Bitte versuch es später noch einmal."
     character_already_verified: "Dein Charakter wurde bereits verifiziert."

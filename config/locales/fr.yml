@@ -11,6 +11,7 @@ fr:
     title: "Hauts faits"
     title_reward: "Titres"
   acquired: "Récupérer grâce à"
+  add: "Ajouter"
   alerts:
     already_refreshed: "Les informations de votre personnage ont déjà été actualisés ces dernières 30 minutes. Veuillez réessayer plus tard."
     character_already_verified: "Votre personnage a déjà été vérifié."

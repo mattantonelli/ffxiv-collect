@@ -18,8 +18,13 @@
           <span><%= fa_icon('globe', text: character[:server]) %></span>
         </div>
         <div class="select-options ml-auto">
-          <%= link_to far_icon('eye', text: t('view')), view_character_path(character[:id]),
-            method: :post, class: 'btn btn-sm btn-secondary' %>
+          <% if @known_characters.include?(character[:id]) %>
+            <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]),
+              class: 'btn btn-sm btn-secondary' %>
+          <% else %>
+            <%= link_to fa_icon('cloud-download-alt', text: t('add')), view_character_path(character[:id]),
+              method: :post, class: 'btn btn-sm btn-secondary' %>
+          <% end %>
           <%= link_to fa_icon('user', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
           <% if @character.present? %>

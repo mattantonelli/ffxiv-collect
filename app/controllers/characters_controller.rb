@@ -75,11 +75,14 @@ class CharactersController < ApplicationController
     else
       @characters = Character.none
     end
+
+    @known_characters = @characters.pluck(:id)
   end
 
   def search_lodestone
     begin
       @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
+      @known_characters = Character.where(id: @characters.pluck(:id)).pluck(:id)
 
       if @characters.empty?
         flash.now[:alert] = t('alerts.no_characters_found')

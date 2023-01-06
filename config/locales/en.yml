@@ -11,6 +11,7 @@ en:
     title: "Achievements"
     title_reward: "Title Reward"
   acquired: "Acquired on"
+  add: "Add"
   alerts:
     already_refreshed: "Your character has already been refreshed in the past 30 minutes. Please try again later."
     character_already_verified: "Your character has already been verified."
