@@ -121,8 +121,8 @@ en:
   clipboard: "Copy to clipboard"
   collapse: "Collapse All"
   commands:
-    add_to_server: 'Add to your server'
-    title: 'Discord Commands'
+    add_to_server: "Add to your server"
+    title: "Discord Commands"
   compare: "Compare"
   complete: "Complete"
   created_by: "Created by Raelys Skyborn of Behemoth"
@@ -272,7 +272,7 @@ en:
     damage: "Damage"
     enemy: "Enemy"
     how_to_learn: "How to Learn"
-    learn: 'Learn'
+    learn: "Learn"
     location: "Location"
     number: "No."
     rank: "Rank"

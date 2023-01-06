@@ -1,8 +1,8 @@
 de:
   number:
     format:
-      delimiter: '.'
+      delimiter: "."
 fr:
   number:
     format:
-      delimiter: ' '
+      delimiter: " "
