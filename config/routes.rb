@@ -69,13 +69,17 @@ Rails.application.routes.draw do
   resources :achievements, only: [:index, :show]
 
   resources :characters, only: [:show, :destroy] do
-    get :search, :profile, on: :collection
-    get 'search/lodestone', to: 'characters#search_lodestone', on: :collection
-    post 'search/lodestone_id', to: 'characters#search_lodestone_id', on: :collection, as: :search_lodestone_id
-    post :select, on: :member
-    post :compare, on: :member
-    get 'stats/recent', on: :member, to: 'characters#stats_recent', as: :stats_recent
-    get 'stats/rarity', on: :member, to: 'characters#stats_rarity', as: :stats_rarity
+    member do
+      get 'stats/recent', to: 'characters#stats_recent', as: :stats_recent
+      get 'stats/rarity', to: 'characters#stats_rarity', as: :stats_rarity
+      post :view, :select, :compare
+    end
+
+    collection do
+      get :search, :profile
+      get 'search/lodestone', to: 'characters#search_lodestone'
+      post 'search/lodestone_id', to: 'characters#search_lodestone_id', as: :search_lodestone_id
+    end
   end
 
   resources :free_companies, only: [:show], path: :fc do

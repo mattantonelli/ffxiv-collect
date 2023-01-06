@@ -2,7 +2,7 @@ class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
   before_action :set_search, only: [:search, :search_lodestone]
-  before_action :set_selected, only: [:search_lodestone_id, :select, :compare]
+  before_action :set_selected, only: [:search_lodestone_id, :view, :select, :compare]
   after_action  :save_selected, only: [:select, :compare]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
   before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
@@ -75,14 +75,11 @@ class CharactersController < ApplicationController
     else
       @characters = Character.none
     end
-
-    @known_characters = @characters.pluck(:id)
   end
 
   def search_lodestone
     begin
       @characters = Lodestone.search(name: @name, server: @server, data_center: @data_center)
-      @known_characters = Character.where(id: @characters.pluck(:id)).pluck(:id)
 
       if @characters.empty?
         flash.now[:alert] = t('alerts.no_characters_found')
@@ -100,6 +97,10 @@ class CharactersController < ApplicationController
 
   def search_lodestone_id
     select
+  end
+
+  def view
+    redirect_to character_path(@selected)
   end
 
   def select
