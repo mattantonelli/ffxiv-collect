@@ -227,7 +227,7 @@ class CharactersController < ApplicationController
       flash[:error] = t('alerts.problem_selecting_character')
       redirect_back(fallback_location: root_path)
     elsif @selected.private?(current_user)
-      flash[:alert] = t('alerts.private_character')
+      flash[:error] = t('alerts.private_character')
       redirect_back(fallback_location: root_path)
     elsif action_name == 'compare' && @selected == @character
       flash[:alert] = t('alerts.comparison_is_you')

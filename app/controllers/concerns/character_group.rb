@@ -45,6 +45,6 @@ module CharacterGroup
 
   private
   def set_members
-    @members = @group.members.order(:name)
+    @members = @group.members.visible.order(:name)
   end
 end

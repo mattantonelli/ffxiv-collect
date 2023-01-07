@@ -64,12 +64,17 @@ class GroupsController < ApplicationController
   end
 
   def add_character
-    if @group.characters.size >= 100
+    @character = Character.find(params[:character_id])
+
+    if @character.private?
+      flash[:error] = t('alerts.private_character')
+      redirect_to manage_group_path(@group)
+    elsif @group.characters.size >= 100
       flash[:error] = t('alerts.groups.character_limit')
       redirect_to manage_group_path(@group)
-    elsif !@group.character_ids.include?(params[:character_id].to_i)
+    elsif !@group.character_ids.include?(@character.id)
       begin
-        @group.add_character(Character.find(params[:character_id]))
+        @group.add_character(@character)
         @characters = @group.characters.order(:name)
         render 'refresh_characters'
       rescue
