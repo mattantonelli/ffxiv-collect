@@ -11,6 +11,12 @@ de:
     title: "Errungenschaften"
     title_reward: "Titelbelohnung"
   acquired: "Erhalten am"
+  activerecord:
+    attributes:
+      group:
+        description: "Beschreibung"
+        name: "Name"
+        public: "Öffentlich"
   add: "Hinzuzufügen"
   alerts:
     already_refreshed: "Dein Charakter wurde bereits in den letzten 30 Minuten aktualisiert. Bitte versuch es später noch einmal."
@@ -27,9 +33,23 @@ de:
     comparison_is_you: "Du kannst nicht mit deinem eigenen Charakter vergleichen."
     comparison_set: "Dein Vergleichscharakter wurde gesetzt."
     comparison_set_to_private: "Dein Vergleichscharakter wurde auf privat gesetzt und kann nicht länger verglichen werden."
-    free_company_already_refreshed: "Alle Mitglieder dieser Freien Gesellschaft sind aktuell."
-    free_company_refreshed: "Diese Freie Gesellschaft wird nun mit dem Lodestone synchronisiert. Dies kann mehrere Minuten dauern."
-    free_company_syncing: "Diese Freie Gesellschaft wird derzeit mit dem Lodestone synchronisiert. Dies kann mehrere Minuten dauern."
+    groups:
+      add_character_failure: "Es gab ein Problem beim Hinzufügen dieses Charakters."
+      already_refreshed: "Alle Charaktere sind auf dem neuesten Stand."
+      character_limit: "Entschuldige, du kannst nicht mehr als 100 Charaktere zu einer Gruppe hinzufügen."
+      create_failure: "Es gab ein Problem beim Erstellen deiner Gruppe."
+      create_success: "Deine Gruppe wurde erstellt. Verwende die Suchfunktion unten um Mitglieder hinzuzufügen."
+      delete_confirm: "Bist du sicher, dass du diese Gruppe löschen möchtest?"
+      delete_failure: "Es gab ein Problem beim Löschen der Gruppe."
+      delete_success: "Die Gruppe wurde gelöscht."
+      membership_failure: "Diese private Gruppe kann nur von verifizierten Mitgliedern angesehen werden."
+      permission_failure: "Du hast nicht die Erlaubnis, diese Gruppe zu ändern."
+      refreshed: "Diese Charaktere werden nun mit dem Lodestone synchronisiert. Dies kann mehrere Minuten dauern."
+      remove_character_failure: "Es gab ein Problem beim Entfernen dieses Charakters."
+      search_failure: "Es gab ein Problem bei der Ausführung deiner Suche."
+      syncing: "Diese Charaktere werden derzeit mit dem Lodestone synchronisiert. Dies kann mehrere Minuten dauern."
+      update_failure: "Es gab ein Problem beim Aktualisieren deiner Gruppe."
+      update_success: "Deine Gruppe wurde aktualisiert."
     here: "hier"
     lodestone_error: "Es wurde ein Problem festgestellt beim Verbinden zum Lodestone."
     lodestone_maintenance: "Der Lodestone ist gerade aufgrund von Wartungsarbeiten nicht verfügbar."
@@ -125,8 +145,10 @@ de:
   complete: "abgeschlossen"
   created_by: "Erstellt durch Raelys Skyborn von Behemoth"
   date: "Datum"
+  delete: "Löschen"
   description: "Beschreibung"
   dungeon: "Dungeon"
+  edit: "Bearbeiten"
   emotes:
     command: "Befehl"
     title: "Emotes"
@@ -151,14 +173,20 @@ de:
   free_companies:
     title: "Profil der Freien Gesellschaft"
   groups:
+    character_not_found: "Keine Charaktere gefunden.<br>Bitte füge diesen Charakter via der %{link} hinzu und versuche es noch einmal."
+    edit: "Gruppe bearbeiten"
+    manage_members: "Mitglieder verwalten"
     member:
       one: "Mitglied"
       other: "Mitglieder"
+    new: "Neue Gruppe"
+    profile: "Gruppenprofil"
     refresh:
       button: "Mitglieder aktualisieren"
       in_progress: "Wird aktualisiert"
       up_to_date:  "Aktuell"
     stale: "Dieser Charakter ist nicht aktuell."
+    title: "Benutzerdefinierte Gruppen"
   hairstyles:
     hrothgar: "Verfügbar für Hrothgar"
     title: "Frisuren"
@@ -254,6 +282,7 @@ de:
     title: "Relikte"
     tools: "Werkzeuge"
     weapons: "Waffen"
+  remove: "Entfernen"
   save: "Speichern"
   search: "Suche"
   select: "Auswählen"
