@@ -25,4 +25,5 @@ class SurveyRecord < ApplicationRecord
 
   scope :include_related, -> { includes(:series) }
   scope :ordered, -> { order(:id) }
+  scope :hide_unknown, -> (hide) { all }
 end
