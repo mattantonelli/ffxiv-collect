@@ -15,7 +15,8 @@ namespace :pvp do
 
           if item_id != '0' && unlock = Item.find(item_id).unlock
             unless unlock.sources.any?
-              unlock.sources.create!(type: pvp_type, text: "Crystalline Conflict - Series #{number} - Level #{i}")
+              unlock.sources.create!(text: "Crystalline Conflict - Series #{number} - Level #{i}",
+                                     type: pvp_type, limited: true)
             end
           end
         end
