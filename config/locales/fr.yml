@@ -171,6 +171,9 @@ fr:
   fish:
     title: "Poisson légendaire"
   forget: "Oublier"
+  frames:
+    item_name: ""
+    title: ""
   free_companies:
     title: "Profil de la compagnie libre"
   groups:

@@ -35,6 +35,7 @@
 #  ranked_minions_count         :integer          default(0)
 #  last_ranked_achievement_time :datetime
 #  survey_records_count         :integer          default(0)
+#  frames_count                 :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -52,7 +53,8 @@ class Character < ApplicationRecord
   scope :visible,  -> { where(public: true) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
-  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records survey_records).each do |model|
+  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records
+  survey_records frames).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end

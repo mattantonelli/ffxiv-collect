@@ -40,6 +40,7 @@ namespace :data do
     Rake::Task['fashions:create'].invoke
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
+    Rake::Task['frames:create'].invoke
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke

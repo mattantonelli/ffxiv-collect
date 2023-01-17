@@ -1,0 +1,35 @@
+<% title(@frame.name) %>
+<% description(@frame.description.truncate(150)) %>
+<% image(image_url('frame.png', skip_pipeline: true)) %>
+
+<div class="row">
+  <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
+    <div class="card">
+      <div class="card-header d-flex align-items-center">
+        <%= image_tag('frame.png') %>
+        <h5 class="card-title ml-2">
+          <%= @frame.name %>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-column flex-info">
+          <div class="d-flex flex-wrap">
+            <div>
+              <dt><%= t('frames.item_name') %></dt>
+              <dd><%= @item.name %></dd>
+            </div>
+            <%= render 'shared/ownership', collectable: @frame %>
+            <div>
+              <dt><%= t('patch') %></dt>
+              <dd><%= @frame.patch %></dd>
+            </div>
+          </div>
+          <dt><%= t('source') %></dt>
+          <dd><%= sources(@frame) %></dd>
+          <dt><%= t('description') %></dt>
+          <dd><%= format_text_long(@item.description) %></dd>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

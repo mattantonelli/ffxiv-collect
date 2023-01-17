@@ -13,8 +13,8 @@ namespace :items do
       tradeable = item['ItemSearchCategory'].present?
 
       data = { id: item['#'], name_en: sanitize_name(item['Name']), plural_en: sanitize_name(item['Plural']),
-               description_en: sanitize_text(item['Description']), icon_id: icon_id, tradeable: tradeable,
-               price: item['Price{Mid}'] }
+               description_en: sanitize_text(item['Description'], preserve_space: true), icon_id: icon_id,
+               tradeable: tradeable, price: item['Price{Mid}'] }
 
       h[data[:id]] = data
     end
@@ -25,7 +25,7 @@ namespace :items do
 
         items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name']),
                                 "plural_#{locale}" => sanitize_name(item['Plural']),
-                                "description_#{locale}" => sanitize_text(item['Description']))
+                                "description_#{locale}" => sanitize_text(item['Description'], preserve_space: true))
       end
     end
 

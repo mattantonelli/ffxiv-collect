@@ -84,6 +84,8 @@ module ApplicationHelper
       hairstyle_sample_image(collectable)
     when 'orchestrions'
       image_tag('orchestrion.png')
+    when 'frames'
+      image_tag('frame.png')
     else
       sprite(collectable, collection.singularize)
     end

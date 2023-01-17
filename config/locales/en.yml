@@ -173,6 +173,9 @@ en:
   fish:
     title: "Big Fish"
   forget: "Forget"
+  frames:
+    item_name: "Item Name"
+    title: "Framer's Kits"
   free_companies:
     title: "Free Company Profile"
   groups:

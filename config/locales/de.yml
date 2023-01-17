@@ -170,6 +170,9 @@ de:
   fish:
     title: "Kapitalfische"
   forget: "Löschen"
+  frames:
+    item_name: ""
+    title: ""
   free_companies:
     title: "Profil der Freien Gesellschaft"
   groups:
