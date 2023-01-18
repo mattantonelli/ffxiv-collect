@@ -172,8 +172,8 @@ fr:
     title: "Poisson légendaire"
   forget: "Oublier"
   frames:
-    item_name: ""
-    title: ""
+    item_name: "Nom de l'objet"
+    title: "L'art du portrait"
   free_companies:
     title: "Profil de la compagnie libre"
   groups:

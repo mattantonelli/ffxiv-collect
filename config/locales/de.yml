@@ -171,8 +171,8 @@ de:
     title: "Kapitalfische"
   forget: "Löschen"
   frames:
-    item_name: ""
-    title: ""
+    item_name: "Itemname"
+    title: "Portraitmaterial"
   free_companies:
     title: "Profil der Freien Gesellschaft"
   groups:
