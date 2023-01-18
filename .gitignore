@@ -45,6 +45,7 @@ config/deploy/*
 /app/assets/images/records-small.png
 /app/assets/images/records/*
 /app/assets/images/survey_records-small.png
+/app/assets/images/frames/*
 
 /app/assets/stylesheets/images/*
 
@@ -61,4 +62,5 @@ config/deploy/*
 /public/images/relics/*
 /public/images/records/*
 /public/images/survey_records/*
+/public/images/frames/*
 /public/music/*

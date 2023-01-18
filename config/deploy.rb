@@ -38,7 +38,7 @@ namespace :deploy do
         end
       end
 
-      %w(achievements armoires bardings emotes relics hairstyles spells items).each do |model|
+      %w(achievements armoires bardings emotes relics hairstyles spells items frames).each do |model|
         execute :rm, '-rf', release_path.join('public/images', model)
         execute :ln, '-s', shared_path.join('public/images', model), release_path.join('public/images', model)
       end

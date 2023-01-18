@@ -22,4 +22,8 @@ class Frame < ApplicationRecord
   belongs_to :item
   delegate :description, to: :item
   delegate :name, to: :item, prefix: :item
+
+  def portrait_only?
+    !item.description_en.match?('adventurer plate')
+  end
 end
