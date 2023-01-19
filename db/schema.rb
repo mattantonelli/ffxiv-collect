@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_16_204226) do
+ActiveRecord::Schema.define(version: 2023_01_19_044352) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -401,11 +401,13 @@ ActiveRecord::Schema.define(version: 2023_01_16_204226) do
     t.integer "item_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order"
     t.index ["item_id"], name: "index_frames_on_item_id"
     t.index ["name_de"], name: "index_frames_on_name_de"
     t.index ["name_en"], name: "index_frames_on_name_en"
     t.index ["name_fr"], name: "index_frames_on_name_fr"
     t.index ["name_ja"], name: "index_frames_on_name_ja"
+    t.index ["order"], name: "index_frames_on_order"
     t.index ["patch"], name: "index_frames_on_patch"
   end
 

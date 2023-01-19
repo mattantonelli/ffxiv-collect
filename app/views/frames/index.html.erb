@@ -39,9 +39,9 @@
       <tbody>
         <% @frames.each do |frame| %>
           <tr class="<%= collectable_classes(frame) %>">
-            <td data-value="<%= frame.id %>"><%= image_tag('frame.png') %></td>
+            <td data-value="<%= frame.order %>"><%= image_tag('frame.png') %></td>
             <td><%= link_to(frame.name, frame_path(frame), class: 'name') %></td>
-            <td><%= link_to(frame.item_name, frame_path(frame), class: 'name') %></td>
+            <td><%= frame.item_name %></td>
             <td class="hide-xs"><%= sources(frame) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(frame, numeric: true) %>"><%= rarity(frame) %></td>
             <td class="text-center" data-value="<%= sort_value(frame) %>"><%= frame.patch %></td>

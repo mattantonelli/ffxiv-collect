@@ -11,19 +11,20 @@
 #  item_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  order      :integer
 #
 class Frame < ApplicationRecord
   include Collectable
   translates :name, :description
 
   scope :include_related, -> { includes(:item).include_sources }
-  scope :ordered, -> { order(patch: :desc, id: :desc) }
+  scope :ordered, -> { order(patch: :desc, order: :asc) }
 
-  belongs_to :item
-  delegate :description, to: :item
-  delegate :name, to: :item, prefix: :item
+  belongs_to :item, required: false
+  delegate :description, to: :item, allow_nil: true
+  delegate :name, to: :item, prefix: :item, allow_nil: true
 
   def portrait_only?
-    !item.description_en.match?('adventurer plate')
+    item_id.present? && !item.description_en.match?('adventurer plate')
   end
 end

@@ -1,5 +1,5 @@
 <% title(@frame.name) %>
-<% description(@frame.description.truncate(150)) %>
+<% description(@frame.description&.truncate(150)) %>
 <% image(image_url('frame.png', skip_pipeline: true)) %>
 
 <div class="row">
@@ -14,10 +14,12 @@
       <div class="card-body">
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
-            <div>
-              <dt><%= t('frames.item_name') %></dt>
-              <dd><%= @item.name %></dd>
-            </div>
+            <% if @item.present? %>
+              <div>
+                <dt><%= t('frames.item_name') %></dt>
+                <dd><%= @item.name %></dd>
+              </div>
+            <% end %>
             <%= render 'shared/ownership', collectable: @frame %>
             <div>
               <dt><%= t('patch') %></dt>
@@ -26,8 +28,10 @@
           </div>
           <dt><%= t('source') %></dt>
           <dd><%= sources(@frame) %></dd>
-          <dt><%= t('description') %></dt>
-          <dd><%= format_text_long(@item.description) %></dd>
+          <% if @item.present? %>
+            <dt><%= t('description') %></dt>
+            <dd><%= format_text_long(@item.description) %></dd>
+          <% end %>
         </div>
       </div>
     </div>
