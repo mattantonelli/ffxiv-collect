@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   get 'orchestrions/fool', to: redirect('images/fool.png')
-  %i(orchestrions emotes bardings hairstyles armoires spells fashions records survey_records frames).each do |resource|
+  %i(orchestrions emotes bardings hairstyles armoires spells fashions frames records survey_records).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
     end
@@ -134,8 +134,8 @@ Rails.application.routes.draw do
       get ':collection/missing', action: :missing, as: :missing
     end
 
-    %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells fashions records
-    survey_records frames relics tomestones).each do |resource|
+    %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires spells fashions frames
+    records survey_records relics tomestones).each do |resource|
       resources resource, only: [:index, :show]
     end
   end
@@ -161,7 +161,7 @@ Rails.application.routes.draw do
   end
 
   namespace :mod do
-    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions records survey_records).each do |resource|
+    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions frames records survey_records).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 

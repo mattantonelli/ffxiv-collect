@@ -8,7 +8,7 @@ class Mod::CollectablesController < ModController
     @q = @model.all.ransack(params[:q])
     @missing = params[:missing]
 
-    @collectables = @q.result.order(patch: :desc, id: :desc).paginate(page: params[:page])
+    @collectables = @q.result.ordered.paginate(page: params[:page])
     @collectables = @collectables.summonable if @model == Minion
     @collectables = @collectables.includes(sources: [:type, :related]) unless @skip_sources
     @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id").having('count(sources.id) = 0') if @missing
