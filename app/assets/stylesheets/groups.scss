@@ -20,3 +20,86 @@
     padding-right: 1.25rem;
   }
 }
+
+.group-avatar {
+  position: relative;
+  text-decoration: none;
+
+  img {
+    border-radius: 50%;
+  }
+
+  .status {
+    position: absolute;
+  }
+
+  &.large {
+    margin: 0.5rem;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    img {
+      width: 60px;
+      height: 60px;
+    }
+
+    .status {
+      top: 44px;
+      right: 20px;
+    }
+  }
+
+  &.small {
+    &:hover {
+      text-decoration: none;
+    }
+
+    img {
+      margin: 0.25rem;
+      width: 50px;
+      height: 50px;
+    }
+
+    .status {
+      top: 22px;
+      right: 0px;
+    }
+  }
+}
+
+.table.group-collection {
+  margin: 0 auto;
+  width: auto;
+  overflow-y: auto;
+  height: calc(100vh - 250px);
+
+  // Sticky table header for the collectables
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    th {
+      background-color: #292929;
+
+      // Create a fake border with box shadow since borders can't stick
+      border: none;
+      box-shadow: inset 1px -2px #191919, 0 2px #191919,
+                  inset 1px 1px #191919, 0 2px #191919;
+
+      &:first-child {
+        border-left: 1px solid #191919;
+      }
+
+      &:last-child {
+        border-right: 1px solid #191919;
+      }
+    }
+  }
+}
