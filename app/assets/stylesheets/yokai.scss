@@ -12,12 +12,4 @@ table.yokai {
   th, td {
     text-align: center;
   }
-
-  tr {
-    cursor: pointer;
-
-    &.active {
-      background-color: rgba(0, 80, 80, 0.2);
-    }
-  }
 }

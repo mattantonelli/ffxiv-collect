@@ -102,4 +102,19 @@
       }
     }
   }
+
+  // Sticky first column in the body for the characters
+  tbody th {
+    position: sticky;
+    left: -1px;
+    z-index: 1;
+    background-color: #292929;
+
+    // Create a fake border with box shadow since borders can't stick
+    border: none;
+    box-shadow: inset -2px 1px #191919, 0 2px #191919,
+                inset 1px 1px #191919, 0 2px #191919;
+
+    border-left: 1px solid #191919;
+  }
 }

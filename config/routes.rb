@@ -83,12 +83,12 @@ Rails.application.routes.draw do
   end
 
   resources :free_companies, only: [:show], path: :fc do
-    get :mounts
+    get :mounts, :spells
     post :refresh, on: :member
   end
 
   resources :groups do
-    get :mounts
+    get :mounts, :spells
 
     member do
       get :manage

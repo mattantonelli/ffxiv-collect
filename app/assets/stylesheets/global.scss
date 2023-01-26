@@ -184,6 +184,14 @@ hr {
   }
 }
 
+.table-clickable tbody tr {
+  cursor: pointer;
+
+  &.active {
+    background-color: rgba(0, 80, 80, 0.2) !important;
+  }
+}
+
 .table-hover tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.1)
 }

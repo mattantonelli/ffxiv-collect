@@ -16,3 +16,7 @@ $(document).on 'turbolinks:load', ->
     if !hasData
       window.location = window.location.pathname
       return false
+
+  # Highlight rows on click in clickable tables
+  $('.table-clickable tbody tr').click ->
+    $(@).toggleClass('active')
