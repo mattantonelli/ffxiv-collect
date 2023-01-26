@@ -27,8 +27,10 @@
       <% if @collection == 'spells' %>
         <tr>
           <th></th>
-          <% @collectables.values.flatten.each do |collectable| %>
-            <th class="text-center">#<%= collectable.order %></th>
+          <% @collectables.each do |expansion, collectables| %>
+            <% collectables.each do |collectable| %>
+              <th class="text-center expansion-<%= expansion %>">#<%= collectable.order %></th>
+            <% end %>
           <% end %>
         </tr>
       <% end %>
