@@ -171,6 +171,7 @@ de:
     title: "Kapitalfische"
   forget: "Löschen"
   frames:
+    name: "Portrait Hintergrund"
     item_name: "Itemname"
     title: "Portraitmaterial"
   free_companies:

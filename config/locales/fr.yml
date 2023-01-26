@@ -172,6 +172,7 @@ fr:
     title: "Poisson légendaire"
   forget: "Oublier"
   frames:
+    name: "Arrière-plan de portrait"
     item_name: "Nom de l'objet"
     title: "L'art du portrait"
   free_companies:
