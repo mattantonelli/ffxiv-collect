@@ -9,10 +9,10 @@
         <p><%= t('characters.discord_ownership') %></p>
         <hr>
         <div class="d-flex my-3 align-items-center">
-          <%= image_tag(@character.avatar, class: 'avatar mr-3') %>
+          <%= image_tag(@profile.avatar, class: 'avatar mr-3') %>
           <div>
-            <b><%= @character.name %></b><br>
-            <%= @character.server %>
+            <b><%= @profile.name %></b><br>
+            <%= @profile.server %>
           </div>
           <div class="mx-3">
             <%= avatar(current_user) %>
@@ -28,7 +28,7 @@
         <div class="d-flex justify-content-between">
           <%= button_tag fa_icon('copy', text: t('clipboard')), class: 'btn btn-secondary btn-sm clipboard mt-0',
             data: { clipboard_action: 'copy', clipboard_target: '#verification'} %>
-          <%= link_to t('verify'), validate_character_path, method: :post, class: 'btn btn-primary' %>
+          <%= link_to t('verify'), validate_character_path(@profile), method: :post, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>

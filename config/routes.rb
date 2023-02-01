@@ -72,7 +72,8 @@ Rails.application.routes.draw do
     member do
       get 'stats/recent', to: 'characters#stats_recent', as: :stats_recent
       get 'stats/rarity', to: 'characters#stats_rarity', as: :stats_rarity
-      post :view, :select, :compare
+      get :verify
+      post :view, :select, :compare, :validate
     end
 
     collection do
@@ -117,9 +118,7 @@ Rails.application.routes.draw do
   get   'settings/user',      to: redirect('settings')
   get   'settings/character', to: redirect('settings')
 
-  get 'character/verify',     to: 'characters#verify',   as: :verify_character
   post 'character/refresh',   to: 'characters#refresh',  as: :refresh_character
-  post 'character/validate',  to: 'characters#validate', as: :validate_character
   delete 'character/forget',  to: 'characters#forget',   as: :forget_character
   delete 'character/comparison/forget', to: 'characters#forget_comparison', as: :forget_character_comparison
 

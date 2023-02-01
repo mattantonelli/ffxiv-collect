@@ -1,10 +1,9 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
-  before_action :confirm_unverified!, :set_code, only: [:verify, :validate]
   before_action :set_search, only: [:search, :search_lodestone]
   before_action :set_selected, only: [:search_lodestone_id, :view, :select, :compare]
   after_action  :save_selected, only: [:select, :compare]
-  before_action :set_profile, only: [:show, :stats_recent, :stats_rarity]
+  before_action :set_profile, only: [:show, :stats_recent, :stats_rarity, :verify, :validate]
   before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
@@ -174,11 +173,12 @@ class CharactersController < ApplicationController
 
   def verify
     session[:return_to] = request.referer
+    @code = @profile.verification_code(current_user)
   end
 
   def validate
     begin
-      if @character.verify!(current_user)
+      if @profile.verify!(current_user)
         flash[:success] = t('alerts.character_verified')
         redirect_to_previous
       else
@@ -187,17 +187,13 @@ class CharactersController < ApplicationController
       end
     rescue StandardError => e
       flash[:error] = t('alerts.problem_verifying')
-      Rails.logger.error("There was a problem verifying character #{@character.id}")
+      Rails.logger.error("There was a problem verifying character #{@profile.id}")
       log_backtrace(e)
       render :verify
     end
   end
 
   private
-  def set_code
-    @code = @character.verification_code(current_user)
-  end
-
   def set_profile
     @profile = Character.find_by(id: params[:id])
 
@@ -227,7 +223,8 @@ class CharactersController < ApplicationController
       flash[:error] = t('alerts.problem_selecting_character')
       redirect_back(fallback_location: root_path)
     elsif @selected.private?(current_user)
-      flash[:error] = t('alerts.private_character')
+      flash[:error] = t('alerts.private_character',
+                        link: view_context.link_to(t('alerts.here'), verify_character_path(@selected)))
       redirect_back(fallback_location: root_path)
     elsif action_name == 'compare' && @selected == @character
       flash[:alert] = t('alerts.comparison_is_you')
@@ -246,13 +243,6 @@ class CharactersController < ApplicationController
   def save_selected
     if user_signed_in? && !current_user.characters.exists?(@selected.id)
       current_user.characters << @selected
-    end
-  end
-
-  def confirm_unverified!
-    if @character.verified_user?(current_user)
-      flash[:alert] = t('alerts.character_already_verified')
-      redirect_to root_path
     end
   end
 

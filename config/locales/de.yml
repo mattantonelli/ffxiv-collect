@@ -60,7 +60,7 @@ de:
     not_signed_in_and_verified: "Du musst eingeloggt und verifiziert sein, um die Sammlung manuell zu verfolgen."
     not_verified: "Du bist nicht als dieser Charakter verifiziert. Wenn du die manuelle Sammlung dieses Charakters verfolgen möchtest, %{link}."
     private_achievements: "Die Erfolge dieses Charakters sind auf \"Privat\" gesetzt. Du kannst %{link} deine Erfolge auf \"Öffentlich\" setzen."
-    private_character: "Der Benutzer dieses Charakters hat seine Sammlung auf privat gestellt."
+    private_character: "Der Benutzer dieses Charakters hat seine Sammlung auf privat gestellt. Wenn du diesen Charakter besitzt und ihn auf deinen aktuellen Account übertragen möchtest, klicke %{link}."
     problem_refreshing: "Es ist ein Problem beim Aktualisieren des Charakters aufgetreten."
     problem_selecting_character: "Ein ist ein Problem bei der Auswahl des Charakters aufgetreten."
     problem_updating: "Es ist ein Problem beim Aktualisieren deiner Sammlung aufgetreten."

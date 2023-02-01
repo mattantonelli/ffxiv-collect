@@ -49,7 +49,7 @@
       <%= link_to fa_icon('sync', text: t('characters.refresh')), refresh_character_path,
         method: :post, class: 'dropdown-item' %>
       <% if user_signed_in? && !@character.verified_user?(current_user) %>
-        <%= link_to fa_icon('check-circle', text: t('characters.verify')), verify_character_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('check-circle', text: t('characters.verify')), verify_character_path(@character), class: 'dropdown-item' %>
       <% end %>
       <% if @character.free_company_id.present? %>
         <%= link_to fa_icon('users', text: t('free_companies.title')), free_company_path(@character.free_company_id), class: 'dropdown-item' %>

@@ -61,7 +61,7 @@ en:
     not_verified: "You are not verified as this character. If you wish to track this character's manual collections,
       please %{link}."
     private_achievements: "Achievements for this character are set to private. You can make your achievements public %{link}."
-    private_character: "This character's verified user has set their collections to private."
+    private_character: "This character's verified user has set their collections to private. If you own this character and want to transfer it to your current account, click %{link}."
     problem_refreshing: "There was a problem refreshing your character."
     problem_selecting_character: "There was a problem selecting that character."
     problem_updating: "There was a problem updating your collection. Please try again."
