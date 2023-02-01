@@ -145,7 +145,7 @@ Rails.application.routes.draw do
   post 'discord/interactions'
 
   namespace :admin do
-    resources :users, only: :index
+    resources :users, :groups, only: :index
 
     resources :characters, only: :index do
       delete :unverify, on: :member

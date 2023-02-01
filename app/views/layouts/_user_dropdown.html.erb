@@ -71,6 +71,7 @@
         <% end %>
         <%= link_to fa_icon('user', text: 'Manage Users'), admin_users_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('users', text: 'Manage Characters'), admin_characters_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('user-friends', text: 'Manage Groups'), admin_groups_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('chart-line', text: 'Sidekiq'), '/admin/sidekiq', class: 'dropdown-item', target: '_blank' %>
       <% end %>
       <% if current_user.mod? %>
