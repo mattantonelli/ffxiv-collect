@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
     cookies[key] = { value: value, expires: 20.years.from_now, same_site: :lax }
   end
 
+  def render_private_character_flash!(character)
+    flash[:error] = t('alerts.private_character',
+                      link: view_context.link_to(t('alerts.here'), verify_character_path(character)))
+  end
+
   def verify_signed_in!
     unless user_signed_in?
       flash[:alert] = t('alerts.not_signed_in')

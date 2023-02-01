@@ -68,7 +68,7 @@ class GroupsController < ApplicationController
       @character = Character.find(params[:character_id])
 
       if @character.private?
-        flash[:error] = t('alerts.private_character')
+        render_private_character_flash!(@character)
         redirect_to manage_group_path(@group)
       elsif @group.characters.size >= 100
         flash[:error] = t('alerts.groups.character_limit')

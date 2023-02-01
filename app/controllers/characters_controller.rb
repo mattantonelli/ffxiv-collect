@@ -223,8 +223,7 @@ class CharactersController < ApplicationController
       flash[:error] = t('alerts.problem_selecting_character')
       redirect_back(fallback_location: root_path)
     elsif @selected.private?(current_user)
-      flash[:error] = t('alerts.private_character',
-                        link: view_context.link_to(t('alerts.here'), verify_character_path(@selected)))
+      render_private_character_flash!(@selected)
       redirect_back(fallback_location: root_path)
     elsif action_name == 'compare' && @selected == @character
       flash[:alert] = t('alerts.comparison_is_you')
@@ -248,7 +247,7 @@ class CharactersController < ApplicationController
 
   def verify_privacy!
     unless @profile.public? || @profile.verified_user?(current_user)
-      flash[:error] = t('alerts.private_character')
+      render_private_character_flash!(@profile)
       redirect_back(fallback_location: root_path)
     end
   end
