@@ -109,6 +109,7 @@ de:
     lodestone: "Lodestone Profil"
     lodestone_id: "Lodestone Charakter ID"
     lodestone_id_lookup: "Lodestone ID suchen"
+    lodestone_id_validation: "Die numerische ID in der URL deines Lodestone-Charakterprofils (z.B. 7660136)"
     lodestone_verify: "Wenn die oben genannten Informationen stimmen, füge bitte den Text von unten in dein %{link}, und drücke im Anschluss auf <b>Verifizieren</b>."
     manage: "Verwalten des Charakters"
     not_owned: "Dein Charakter besitzt dies noch nicht."
