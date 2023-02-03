@@ -4,7 +4,7 @@ class SettingsController < ApplicationController
 
   def edit
     if @character.present? && !@character.verified_user?(@user)
-      link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path)
+      link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path(@character))
       flash.now[:alert_fixed] = t('alerts.settings_not_verified', link: link)
     end
   end

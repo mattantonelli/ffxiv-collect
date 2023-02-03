@@ -38,7 +38,7 @@ module ManualCollection
 
     if user_signed_in?
       unless verified?
-        link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path)
+        link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path(@character))
         flash.now[:alert_fixed] = t('alerts.not_verified', link: link)
       end
     else
