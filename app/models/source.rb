@@ -27,6 +27,10 @@ class Source < ApplicationRecord
   scope :exclude_premium, -> { where(premium: false) }
   scope :exclude_limited, -> { where(limited: false) }
 
+  def self.treasure_hunts
+    [' Map', 'Aquapolis', 'Uznair', 'Lyhe Ghiah', 'Excitatron', 'Gymnasion']
+  end
+
   private
   def assign_relations!
     type = SourceType.find(type_id)

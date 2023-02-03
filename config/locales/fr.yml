@@ -333,6 +333,8 @@ fr:
         4: "Malle-surprise (Stormblood)"
       title: "Malle-surprise"
     title: "Outils"
+    treasure:
+      title: "Chasse aux trésors"
   tooltip:
     ownership: "Personnages actifs qui possèdent %{collectable}"
   tooltip: "Tooltip"

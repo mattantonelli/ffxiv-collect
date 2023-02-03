@@ -332,6 +332,8 @@ de:
         4: "Sonderziehungstruhe (Stormblood)"
       title: "Sonderziehungstruhe"
     title: "Werkzeuge"
+    treasure:
+      title: "Schatzsuche"
   tooltip:
     ownership: "Aktive Charakter in Besitz der/des %{collectable}"
   tooltip: "Kurzinfo"
