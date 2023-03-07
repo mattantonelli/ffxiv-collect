@@ -25,6 +25,6 @@ class Frame < ApplicationRecord
   delegate :name, to: :item, prefix: :item, allow_nil: true
 
   def portrait_only?
-    item_id.present? && !item.description_en.match?('adventurer plate')
+    item_id.present? && !item.description_en.downcase.match?('plate elements')
   end
 end
