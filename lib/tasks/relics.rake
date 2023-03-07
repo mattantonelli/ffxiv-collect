@@ -99,10 +99,12 @@ namespace :relics do
                                         name_fr: "Armes des Manderville", category: 'weapons',
                                         order: 7, jobs: 19, expansion: 6)
 
-    ids = (38400..38418).to_a # Base
+    ids = (38400..38418).to_a + # Base
+      (39144..39162).to_a # Amazing
 
-    # Base
-    achievement_ids = [3128, 3133, 3129, 3132, 3137, 3134, 3130, 3138, 3143, 3140, 3141, 3144, 3145, 3135, 3142, 3131, 3139, 3146, 3136]
+    # Base > Amazing
+    achievement_ids = [3128, 3133, 3129, 3132, 3137, 3134, 3130, 3138, 3143, 3140, 3141, 3144, 3145, 3135, 3142, 3131, 3139, 3146, 3136] +
+      [3224, 3229, 3225, 3228, 3233, 3230, 3226, 3234, 3239, 3236, 3237, 3240, 3241, 3231, 3238, 3227, 3235, 3242, 3232]
 
     create_relics(type, ids, achievement_ids)
 
@@ -112,7 +114,9 @@ namespace :relics do
 
     ids = (15181..15193).to_a + [20456, 20457, 27347, 27348, 35756, 35774] + # Padjali
       (16152..16164).to_a + [20458, 20459, 27349, 27350, 35757, 35775] + # Kinna
-      (22977..22991).to_a + [27379, 27380, 35759, 35777] # Empyrean
+      (22977..22991).to_a + [27379, 27380, 35759, 35777] + # Empyrean
+      (39184..39202).to_a + # Orthos
+      (39204..39222).to_a # Enaretos
 
     achievement_ids = [1581, 1582, 1583, 1584, 1585, 1588, 1591, 1592, 1587, 1586, 1589, 1590, 1593, 1962, 1963,
                        2394, 2395, 3001, 3002]
@@ -241,9 +245,20 @@ namespace :relics do
                                         name_fr: "Outils resplendissants", category: 'tools', order: 3, jobs: 11, expansion: 5)
 
     ids = (33154..33161).to_a + # Resplendent DoH
-      (33356..33358).to_a  # Respldent DoL
+      (33356..33358).to_a  # Resplendent DoL
 
     achievement_ids = [2821, 2822, 2823, 2824, 2826, 2825, 2827, 2828, 2830, 2831, 2832]
+
+    create_relics(type, ids, achievement_ids)
+
+    ## Splendorous
+    type = RelicType.find_or_create_by!(name_en: "Splendorous Tools", name_de: "Mowen-Werkzeuge",
+                                        name_fr: "Outils des merveilles", name_ja: "モーエンツール",
+                                        category: 'tools', order: 4, jobs: 11, expansion: 6)
+
+    ids = (38715..38747).to_a # Splendorous -> Crystalline
+
+    achievement_ids = (3193..3203).to_a * 3
 
     create_relics(type, ids, achievement_ids)
 
