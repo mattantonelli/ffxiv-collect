@@ -1,6 +1,6 @@
 class CharacterSyncJob < ApplicationJob
   queue_as :character
-  unique :until_executed, on_conflict: :log
+  unique :until_and_while_executing, on_conflict: :log
 
   def perform(*args)
     id = args[0]
@@ -21,6 +21,12 @@ class CharacterSyncJob < ApplicationJob
       else
         Sidekiq.logger.error("Rate limited while fetching character #{id}")
       end
+    rescue RestClient::ExceptionWithResponse => e
+      Rails.logger.error("There was a problem fetching character #{id}")
+      Rails.logger.error(e.response)
+    rescue StandardError
+      Rails.logger.error("There was a problem fetching character #{id}")
+      raise
     end
   end
 end
