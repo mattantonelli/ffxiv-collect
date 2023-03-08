@@ -31,6 +31,7 @@ class FreeCompany < ApplicationRecord
 
   def self.fetch(id)
     data = Lodestone.free_company(id)
+    return nil unless data.present?
 
     if free_company = FreeCompany.find_by(id: id)
       free_company.update!(data)

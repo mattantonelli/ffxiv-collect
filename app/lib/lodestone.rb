@@ -21,34 +21,26 @@ module Lodestone
   def free_company(free_company_id)
     url = "#{ROOT_URL}/freecompany/#{free_company_id}"
 
-    begin
-      doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
-      {
-        id: free_company_id,
-        name: doc.at_css('.freecompany__text__name').text,
-        tag: doc.at_css('p.freecompany__text__tag').text[/\w+/]
-      }
-    rescue RestClient::ExceptionWithResponse, StandardError
-      nil
-    end
+    doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
+    {
+      id: free_company_id,
+      name: doc.at_css('.freecompany__text__name').text,
+      tag: doc.at_css('p.freecompany__text__tag').text[/\w+/]
+    }
   end
 
   def free_company_members(free_company_id, page: 1)
     url = "#{ROOT_URL}/freecompany/#{free_company_id}/member?page=#{page}"
 
-    begin
-      doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
-      members = doc.css('.entry__bg').map { |entry| element_id(entry) }
+    doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
+    members = doc.css('.entry__bg').map { |entry| element_id(entry) }
 
-      # If there are additional pages, recursively continue fetching members
-      if doc.at_css('.btn__pager__next:not(.btn__pager__no)').present?
-        members += free_company_members(free_company_id, page: page + 1)
-      end
-
-      members
-    rescue RestClient::ExceptionWithResponse, StandardError
-      []
+    # If there are additional pages, recursively continue fetching members
+    if doc.at_css('.btn__pager__next:not(.btn__pager__no)').present?
+      members += free_company_members(free_company_id, page: page + 1)
     end
+
+    members
   end
 
   def profile_link(character)
