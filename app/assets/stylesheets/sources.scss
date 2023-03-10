@@ -1,0 +1,48 @@
+.sources {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  span.source {
+    display: flex;
+    align-items: center;
+
+    &:not(:first-child) {
+      margin-top: 0.25rem;
+    }
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      margin-right: 0.5rem;
+    }
+
+    &.source-achievement:before { background: url(image_path('sources/achievement.png')) no-repeat; }
+    &.source-bozja:before { background: url(image_path('sources/bozja.png')) no-repeat; }
+    &.source-crafting:before { background: url(image_path('sources/crafting.png')) no-repeat; }
+    &.source-deep-dungeon:before { background: url(image_path('sources/deep_dungeon.png')) no-repeat; }
+    &.source-dungeon:before { background: url(image_path('sources/dungeon.png')) no-repeat; }
+    &.source-eureka:before { background: url(image_path('sources/eureka.png')) no-repeat; }
+    &.source-event:before { background: url(image_path('sources/event.png')) no-repeat; }
+    &.source-fate:before { background: url(image_path('sources/fate.png')) no-repeat; }
+    &.source-gathering:before { background: url(image_path('sources/gathering.png')) no-repeat; }
+    &.source-island-sanctuary:before { background: url(image_path('sources/island_sanctuary.png')) no-repeat; }
+    &.source-limited:before { background: url(image_path('sources/limited.png')) no-repeat; }
+    &.source-other:before { background: url(image_path('sources/other.png')) no-repeat; }
+    &.source-premium:before { background: url(image_path('sources/premium.png')) no-repeat; }
+    &.source-purchase:before { background: url(image_path('sources/purchase.png')) no-repeat; }
+    &.source-pvp:before { background: url(image_path('sources/pvp.png')) no-repeat; }
+    &.source-quest:before { background: url(image_path('sources/quest.png')) no-repeat; }
+    &.source-raid:before { background: url(image_path('sources/raid.png')) no-repeat; }
+    &.source-skybuilders:before { background: url(image_path('sources/skybuilders.png')) no-repeat; }
+    &.source-treasure-hunt:before { background: url(image_path('sources/treasure_hunt.png')) no-repeat; }
+    &.source-trial:before { background: url(image_path('sources/trial.png')) no-repeat; }
+    &.source-tribal:before { background: url(image_path('sources/tribal.png')) no-repeat; }
+    &.source-ultimate-raid:before { background: url(image_path('sources/ultimate_raid.png')) no-repeat; }
+    &.source-venture:before { background: url(image_path('sources/venture.png')) no-repeat; }
+    &.source-voyages:before { background: url(image_path('sources/voyages.png')) no-repeat; }
+    &.source-wondrous-tails:before { background: url(image_path('sources/wondrous_tails.png')) no-repeat; }
+  }
+}

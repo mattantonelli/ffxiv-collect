@@ -240,40 +240,38 @@ module CollectionsHelper
       type = source.type.name
 
       if type == 'Achievement'
-        achievement_link(source)
+        content = achievement_link(source)
       elsif Instance.valid_types.include?(type)
-        database_link(:instance, source.related&.name || source.text, source.related_id)
+        content = database_link(:instance, source.related&.name || source.text, source.related_id)
       elsif type == 'Crafting' || type == 'Gathering'
-        database_link(:item, source.text, collectable.item_id)
+        content = database_link(:item, source.text, collectable.item_id)
       elsif type == 'Quest' || type == 'Event'
-        database_link(:quest, source.related&.name || source.text, source.related_id)
-      elsif type == 'Mog Station'
-        'Mog Station'
+        content = database_link(:quest, source.related&.name || source.text, source.related_id)
+      elsif type == 'Online Store'
+        content = 'Online Store'
       elsif type == 'Voyages'
         if list
           type, texts = source.text.split(' - ')
-          texts.split(', ').map { |text| "#{type} - #{text}"}
+          content = texts.split(', ').map { |text| "#{type} - #{text}"}
         else
           texts = source.text.split(', ')
           if texts.size > 3
-            "#{source.text.split(', ').first(3).join(', ')}..."
+            content = "#{source.text.split(', ').first(3).join(', ')}..."
           else
-            source.text
+            content = source.text
           end
         end
       else
-        source.text
+        content = source.text
       end
+
+      { type: type, content: content }
     end
 
-    if list && sources.size > 1
-      content_tag(:ul, class: 'list-unstyled mb-0') do
-        sources.each do |source|
-          concat content_tag(:li, "\u2022 #{source}".html_safe)
-        end
+    content_tag(:div, class: 'sources') do
+      sources.each do |source|
+        concat(content_tag(:span, source[:content], class: "source source-#{source[:type].parameterize(separator: '-')}"))
       end
-    else
-      sources.join('<br>').html_safe
     end
   end
 
