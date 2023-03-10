@@ -251,8 +251,8 @@ module CollectionsHelper
         content = 'Online Store'
       elsif type == 'Voyages'
         if list
-          type, texts = source.text.split(' - ')
-          content = texts.split(', ').map { |text| "#{type} - #{text}"}
+          voyage_type, texts = source.text.split(' - ')
+          content = texts.split(', ').map { |text| "#{voyage_type} - #{text}"}.join('<br>').html_safe
         else
           texts = source.text.split(', ')
           if texts.size > 3
