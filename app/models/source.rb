@@ -40,7 +40,7 @@ class Source < ApplicationRecord
       relation = type.name.constantize.find_by(name_en: text)
       self.related_id = relation&.id
       self.related_type = type.name
-    when /(Dungeon|Trial|Raid|Treasure Hunt)/
+    when /(Dungeon|V&C Dungeon|Trial|Raid|Treasure Hunt)/
       if relation = Instance.find_by(name_en: text)
         self.related_id = relation.id
         self.related_type = 'Instance'
