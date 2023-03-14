@@ -60,7 +60,7 @@ class Mod::CollectablesController < ModController
   end
 
   def collectable_params
-    params.require(@model.name.underscore).permit(:name_en, :patch, :details, :gender, :solution, sources_attributes:
+    params.require(@model.name.underscore).permit(:name_en, :patch, :gender, :solution, sources_attributes:
                                                   [:id, :type_id, :collectable_id, :collectable_type, :text, :limited, :premium])
   end
 end

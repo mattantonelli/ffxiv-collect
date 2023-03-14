@@ -19,14 +19,6 @@
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
           </div>
-          <% if @collectable.has_attribute?(:details) %>
-            <div class="row">
-              <div class="col-12 form-group">
-                <%= f.label :details %>
-                <%= f.text_field :details, class: 'form-control' %>
-              </div>
-            </div>
-          <% end %>
           <% if @collectable.has_attribute?(:gender) %>
             <div class="row">
               <div class="col-4 form-group pr-0">
