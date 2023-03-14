@@ -18,8 +18,8 @@
                             class: 'form form-inline search-form d-flex mx-auto') do |f| %>
           <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'),
             class: 'form-control form-control-sm flex-grow-1' %>
-          <%= f.search_field "description_#{I18n.locale}_or_details_cont", placeholder: t('source'),
-            class: 'form-control form-control-sm flex-grow-1' %>
+          <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+            { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
           <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
             type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
           <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>

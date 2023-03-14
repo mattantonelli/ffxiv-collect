@@ -9,6 +9,7 @@ class OrchestrionsController < ApplicationController
     @q = Orchestrion.ransack(params[:q])
     @orchestrions = @q.result.include_related.with_filters(cookies).ordered
     @categories = OrchestrionCategory.with_filters(cookies).order(:order)
+    @types = source_types(:orchestrion)
   end
 
   def select

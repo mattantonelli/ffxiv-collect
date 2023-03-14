@@ -232,11 +232,6 @@ module CollectionsHelper
   end
 
   def sources(collectable, list: false)
-    # Temporarily render the new sources only on the Mod Dashboard while we migrate Orchestrion rolls to standard sources
-    if collectable.class == Orchestrion && !controller_path.match?('mod')
-      return [format_text_long(collectable.description), collectable.details].compact.join('<br>').html_safe
-    end
-
     sources = collectable.sources.flat_map do |source|
       type = source.type.name
 
