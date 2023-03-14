@@ -22,17 +22,11 @@
 #
 
 class Orchestrion < ApplicationRecord
-  belongs_to :category, class_name: 'OrchestrionCategory'
-  has_many :character_orchestrions
-  has_many :characters, through: :character_orchestrions
-  has_many :sources, as: :collectable # Stub relationship for TomestoneReward eager load
+  include Collectable
   translates :name, :description
-  has_paper_trail on: [:update, :destroy]
 
-  # Stub for common collectable scope
-  scope :include_related, -> { includes(:category) }
+  belongs_to :category, class_name: 'OrchestrionCategory'
+
+  scope :include_related, -> { include_sources.includes(:category) }
   scope :ordered, -> { order(patch: :desc, order: :desc, id: :desc) }
-  scope :with_filters, -> (filters, character = nil) do
-    where(category: OrchestrionCategory.with_filters(filters, character))
-  end
 end
