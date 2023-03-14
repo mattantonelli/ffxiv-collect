@@ -9,7 +9,7 @@ namespace :sources do
     end
   end
 
-  desc 'Initializes source data for various collectables'
+  desc 'Initialize source data for various collectables'
   task initialize: :environment do
     PaperTrail.enabled = false
 
@@ -42,41 +42,13 @@ namespace :sources do
     end
   end
 
-  desc 'Sets achievement, quest, and crafting sources for collectables'
+  desc 'Set automated collectable sources'
   task update: :environment do
-    PaperTrail.enabled = false
-
-    achievement_type, crafting_type, event_type, quest_type =
-      SourceType.where(name: %w(Achievement Crafting Event Quest)).order(:name).pluck(:id)
-
-    # Create sources from Achievement rewards for non-time limited quests
-    achievements = Achievement.exclude_time_limited
-      .joins(:item).where('items.unlock_type is not null').where('items.unlock_type <> "Orchestrion"')
-
-    achievements.each do |achievement|
-      Source.find_or_create_by!(collectable_id: achievement.item.unlock_id,
-                                collectable_type: achievement.item.unlock_type,
-                                text: achievement.name_en, type_id: achievement_type, related_id: achievement.id)
-    end
-
-    # Create sources from Quest rewards
-    Item.includes(:quest).where.not(unlock_id: nil).where.not(quest_id: nil).each do |item|
-      if item.unlock_type == 'Orchestrion'
-        item.unlock.update!(details: item.quest.name_en) unless item.unlock.details.present?
-      else
-        source_type = item.quest.event? ? event_type : quest_type
-
-        if item.unlock.sources.none?
-          item.unlock.sources.find_or_create_by!(text: item.quest.name_en, type_id: source_type,
-                                                 related_id: item.quest_id, limited: item.quest.event?)
-        end
-      end
-    end
-
-    # Created sources from craftable Items
-    Item.where.not(unlock_type: nil).where.not(recipe_id: nil).each do |item|
-      Source.find_or_create_by!(collectable_id: item.unlock_id, collectable_type: item.unlock_type,
-                                text: "Crafted by #{item.crafter}", type_id: crafting_type, related_id: item.recipe_id)
-    end
+    Rake::Task['sources:achievements:update'].invoke
+    Rake::Task['sources:crafting:update'].invoke
+    Rake::Task['sources:orchestrions:update'].invoke
+    Rake::Task['sources:pvp:update'].invoke
+    Rake::Task['sources:quests:update'].invoke
+    Rake::Task['sources:shops:update'].invoke
   end
 end

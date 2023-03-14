@@ -44,8 +44,6 @@ namespace :data do
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
-    Rake::Task['shops:sources:update'].invoke
-    Rake::Task['pvp:sources:update'].invoke
     Rake::Task['tomestones:latest:create'].invoke
     Rake::Task['tomestones:images:create'].invoke
   end
