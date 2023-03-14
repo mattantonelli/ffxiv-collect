@@ -52,7 +52,8 @@ class Achievement < ApplicationRecord
   scope :ordered, -> do
     joins(category: :type)
       .includes(:item, :title, category: :type)
-      .order('achievement_types.order, achievement_categories.order, achievements.order, achievements.id')
+      .order('achievements.patch DESC, achievement_types.order, achievement_categories.order, ' \
+             'achievements.order DESC, achievements.id DESC')
   end
 
   def self.limited_time_ids
