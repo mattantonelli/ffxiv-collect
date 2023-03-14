@@ -19,6 +19,16 @@
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
           </div>
+          <% if @collectable.class == Orchestrion %>
+            <div class="row">
+              <div class="col-12">
+                <hr>
+                <%= @collectable.description_en %><br>
+                <%= @collectable.details %>
+                <hr>
+              </div>
+            </div>
+          <% end %>
           <% if @collectable.has_attribute?(:gender) %>
             <div class="row">
               <div class="col-4 form-group pr-0">
