@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_locale, :set_characters
+  before_action :set_locale, :set_characters, :display_announcements
 
   SUPPORTED_LOCALES = %w(en de fr ja).freeze
 
@@ -98,5 +98,10 @@ class ApplicationController < ActionController::Base
         character.sync
       end
     end
+  end
+
+  def display_announcements
+    flash.now[:success_fixed] = "The #{view_context.link_to('Achievement Battle Pass', battle_pass_index_path)}" \
+      " is now available! Earn achievement points to obtain cool rewards!"
   end
 end

@@ -1,0 +1,26 @@
+<% title('Achievement Battle Pass') %>
+<% description('Earn achievement points to obtain cool rewards!') %>
+
+<div class="d-flex flex-column">
+  <h1 class="text-center">Achievement Battle Pass</h1>
+  <% if @character.present? %>
+    <h4 class="mt-2">You have reached level <%= @level %>! Earn a new reward every 500 achievement points!</h4>
+    <%= render 'shared/progress', value: @progress, max: 500 %>
+  <% end %>
+  <div class="d-flex flex-wrap align-items-center battle-pass mt-2">
+    <% @rewards.each_with_index do |reward, i| %>
+      <div class="d-flex flex-column align-items-center justify-content-around reward <%= 'available' if @level >= i + 1 %>">
+        <h5>Level <%= i + 1 %></h5>
+        <div class="d-flex flex-column align-items-center">
+          <%= reward[:image].html_safe %>
+          <span class="text-center"><%= reward[:text] %></span>
+        </div>
+        <% if @level >= i + 1 %>
+          <%= link_to('Claim Reward', 'https://www.youtube.com/watch?v=vk6dTkAmpfI&t=38s',
+                      class: 'font-weight-bold', target: '_blank') %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <p class="text-center font-weight-bold font-italic mt-2">Happy April Fools' Day!</p>
+</div>

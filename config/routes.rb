@@ -10,10 +10,8 @@ Rails.application.routes.draw do
 
   post 'locale/set', to: 'locale#update'
 
-  get 'mounts/pickorpokkur'
   resources :mounts, only: [:index, :show]
 
-  get 'minions/dark_helmet'
   resources :minions, only: [:index, :show] do
     get :verminion, on: :collection
   end
@@ -26,7 +24,6 @@ Rails.application.routes.draw do
     get :battle, on: :collection
   end
 
-  get 'orchestrions/fool', to: redirect('images/fool.png')
   %i(orchestrions emotes bardings hairstyles armoires spells fashions frames records survey_records).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
@@ -56,8 +53,6 @@ Rails.application.routes.draw do
   get 'relics/weapons/manual', to: redirect('relics/weapons')
 
   resources :tomestones, only: [:index, :show]
-
-  resources :p2w, only: :index
 
   get 'yokai', to: 'yokai#index'
 
@@ -167,7 +162,13 @@ Rails.application.routes.draw do
     get 'dashboard', action: :index
   end
 
+  # Memes
+  resources :battle_pass, only: :index
+  resources :p2w, only: :index
   get 'fish', to: redirect('minions/396')
+  get 'minions/dark_helmet'
+  get 'mounts/pickorpokkur'
+  get 'orchestrions/fool', to: redirect('images/fool.png')
   get 'parasols', to: redirect('images/parasols.png')
 
   get '404', to: 'static#not_found', as: :not_found
