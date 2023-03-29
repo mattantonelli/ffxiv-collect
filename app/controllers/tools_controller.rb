@@ -15,7 +15,7 @@ class ToolsController < ApplicationController
 
     # Create a numeric order of prices by adding the item ID to the price data, sorting, and extracting it
     @price_order = @prices.map { |id, data| data.merge(id: id) }
-      .sort_by { |item| item[:price] }
+      .sort_by { |item| item[:price] == 'N/A' ? 9999999999 : item[:price] }
       .pluck(:id)
 
     # Collect all of the tradeable collectables through their Item association and sort them by price
