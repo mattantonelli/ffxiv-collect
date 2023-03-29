@@ -40,8 +40,6 @@ class ToolsController < ApplicationController
       @collectables[type] = model.where(id: ids).include_sources
     end
 
-    @collectables[:orchestrions] = Orchestrion.where('details regexp ? OR description_en regexp ?', text, text)
-
     if @character.present?
       @owned_ids = @collectables.keys.each_with_object({}) do |type, h|
         h[type] = @character.send("#{type.to_s.downcase.singularize}_ids")
