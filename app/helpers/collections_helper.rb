@@ -174,7 +174,7 @@ module CollectionsHelper
     if price = @prices[collectable.item_id]
       price['price']
     else
-      '999999999'
+      '9999999999'
     end
   end
 
