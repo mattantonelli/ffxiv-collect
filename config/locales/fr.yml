@@ -327,6 +327,9 @@ fr:
   tools:
     gemstones:
       title: "Gemmes bicolore"
+    market_board:
+      disclaimer: "Les prix sont récupérés quotidiennement à partir d'Universalis et ne sont destinés qu'à donner une idée générale de la valeur d'un objet."
+      title: "Tableau des ventes"
     materiel:
       container:
         3: "Malle-surprise (ARR/Heavensward)"

@@ -28,6 +28,10 @@
 #
 class Item < ApplicationRecord
   translates :name, :description, :plural
+
   belongs_to :unlock, polymorphic: true, required: false
   belongs_to :quest, required: false
+
+  scope :collectable, -> { where.not(unlock_id: nil) }
+  scope :tradeable, -> { where(tradeable: true) }
 end

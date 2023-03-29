@@ -1,0 +1,59 @@
+<% title(t('tools.market_board.title')) %>
+<% description("Track your character's progress for tradeable collectables.") %>
+
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <div class="d-flex justify-content-between align-items-center">
+      <h2><%= fa_icon('poll', text: t('tools.market_board.title')) %></h2>
+      <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+        type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    </div>
+    <% if character_selected? %>
+      <div class="mb-2">
+        <%= render 'shared/progress', value: 0, min: 0, max: @items.size %>
+        <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+      </div>
+    <% end %>
+    <table class="table table-striped table-sm shadow collection sortable">
+      <thead>
+        <tr>
+          <th scope="col">#</th> <!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('source') %></th>
+          <th scope="col"><%= t('prices.price') %></th>
+          <th scope="col" class="hide-sm"><%= t('prices.world') %></th>
+          <th scope="col" class="hide-sm"><%= t('prices.updated') %></th>
+          <th scope="col" class="text-center hide-sm"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr class="collectable<%= ' owned' if collectable_owned?(item.unlock) %>">
+            <td><%= collectable_image(item.unlock) %></td>
+            <td class="orchestrion-name"><%= collectable_name_link(item.unlock) %></td>
+            <td class="orchestrion-source hide-xs"><%= sources(item.unlock) %></td>
+            <td>
+              <%= link_to(number_with_delimiter(@prices.dig(item.id, :price)),
+                          universalis_url(item.id), class: 'name', target: '_blank') %>
+            </td>
+            <td class="hide-sm">
+              <%= link_to(@prices.dig(item.id, :world), universalis_url(item.id), class: 'name', target: '_blank') %>
+            </td>
+            <td class="hide-sm">
+              <%= link_to(@prices.dig(item.id, :last_updated), universalis_url(item.id), class: 'name', target: '_blank') %>
+            </td>
+            <td class="text-center hide-sm"><%= item.unlock.patch %></td>
+            <% if character_selected? %>
+              <%= td_owned(item.unlock) %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p class="text-right mt-2">*<%= t('tools.market_board.disclaimer') %></p>
+  </div>
+</div>

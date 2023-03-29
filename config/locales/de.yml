@@ -326,6 +326,9 @@ de:
   tools:
     gemstones:
       title: "Zweifarbiger Edelsteine"
+    market_board:
+      disclaimer: "Preise werden einmal täglich über Universalis aktualisiert und sollen nur einen ungefähren Wert eines Items darstellen."
+      title: "Marktbrett"
     materiel:
       container:
         3: "Sonderziehungstruhe (A Realm Reborn, Heavensward)"

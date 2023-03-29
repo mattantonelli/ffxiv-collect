@@ -46,7 +46,7 @@ Rails.application.routes.draw do
 
   resources :tools, only: [] do
     collection do
-      get :gemstones, :materiel, :treasure
+      get :gemstones, :market_board, :materiel, :treasure
     end
   end
 

@@ -329,6 +329,9 @@ en:
   tools:
     gemstones:
       title: "Bicolor Gemstones"
+    market_board:
+      disclaimer: "Prices are retrieved daily from Universalis and are only meant to give a general idea of an item's value."
+      title: "Market Board"
     materiel:
       container:
         3: "Materiel Container 3.0"

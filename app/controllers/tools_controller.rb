@@ -6,6 +6,29 @@ class ToolsController < ApplicationController
     find_collectables_by_source!('Bicolor Gemstone')
   end
 
+  def market_board
+    # Fetch all of the item prices from Redis
+    @prices = Redis.current.hgetall('prices-primal').each_with_object({}) do |(id, price), h|
+      h[id.to_i] = JSON.parse(price, symbolize_names: true)
+    end
+
+    # Create a numeric order of prices by adding the item ID to the price data, sorting, and extracting it
+    @price_order = @prices.map { |id, data| data.merge(id: id) }
+      .sort_by { |item| item[:price] }
+      .pluck(:id)
+
+    # Collect all of the tradeable collectables through their Item association and sort them by price
+    @items = Item.collectable.tradeable.includes(unlock: { sources: [:type, :related] })
+      .to_a.sort_by { |item| @price_order.index(item.id) || 9999 }
+
+    # Collect the relevant IDs of collectables owned by the player
+    if @character.present?
+      @owned_ids = Item.collectable.tradeable.pluck(:unlock_type).uniq.each_with_object({}) do |type, h|
+        h[type.downcase.pluralize.to_sym] = @character.send("#{type.downcase}_ids")
+      end
+    end
+  end
+
   def materiel
     @containers = (3..4).each_with_object({}) do |number, h|
       h[number] = {
