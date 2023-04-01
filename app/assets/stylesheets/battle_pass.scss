@@ -1,0 +1,15 @@
+.battle-pass {
+  .reward {
+    width: 150px;
+    height: 150px;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    border: 1px solid #eee;
+    border-radius: 0.25rem;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    &.available {
+      background-color: rgba(0, 80, 80, 0.2);
+    }
+  }
+}
