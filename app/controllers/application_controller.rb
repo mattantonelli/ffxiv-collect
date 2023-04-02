@@ -101,7 +101,6 @@ class ApplicationController < ActionController::Base
   end
 
   def display_announcements
-    flash.now[:success_fixed] = "The #{view_context.link_to('Achievement Battle Pass', battle_pass_index_path)}" \
-      " is now available! Earn achievement points to obtain cool rewards!"
+    # flash.now[:success_fixed] = 'This is an announcement.'
   end
 end
