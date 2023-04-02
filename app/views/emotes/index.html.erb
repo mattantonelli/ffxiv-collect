@@ -42,7 +42,7 @@
           <tr class="<%= category_row_classes(emote, @category) %>">
             <td data-value="<%= emote.order %>"><%= sprite(emote, :emote) %></td>
             <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
-            <td class="hide-xs"><%= sources(emote) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(emote) %>"><%= sources(emote) %></td>
             <td class="hide-md"><%= emote.command.split(', ').first %></td>
             <td class="text-center hide-md"><%= emote.category.name %></td>
             <td class="text-center" data-value="<%= price_sort_value(emote) %>"><%= market_link(emote) %></td>

@@ -50,7 +50,7 @@
                 <%= gender_symbol(armoire.gender) %>
               <% end %>
             </td>
-            <td class="hide-xs"><%= sources(armoire) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(armoire) %>"><%= sources(armoire) %></td>
             <td class="text-center no-wrap hide-xs"><%= armoire.category.name %></td>
             <td class="text-center px-3 hide-xs">
               <%= fa_icon('search', class: 'isearch',

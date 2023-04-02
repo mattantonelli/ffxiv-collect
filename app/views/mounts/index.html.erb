@@ -41,7 +41,7 @@
               <% end %>
             </td>
             <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
-            <td class="hide-xs"><%= sources(mount) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(mount) %>"><%= sources(mount) %></td>
             <td class="text-center" data-value="<%= materiel_sort_value(mount) %>"><%= materiel_icon(mount) %></td>
             <td class="text-center" data-value="<%= price_sort_value(mount) %>"><%= market_link(mount) %></td>
             <td class="text-center" data-value="<%= mount.bgm_sample.present? ? 1 : 0 %>"><%= custom_music_link(mount) %></td>

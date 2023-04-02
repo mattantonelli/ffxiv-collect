@@ -35,7 +35,9 @@
           <tr class="collectable<%= ' owned' if collectable_owned?(item.unlock) %>">
             <td><%= collectable_image(item.unlock) %></td>
             <td class="orchestrion-name"><%= collectable_name_link(item.unlock) %></td>
-            <td class="orchestrion-source hide-xs"><%= sources(item.unlock) %></td>
+            <td class="orchestrion-source hide-xs" data-value="<%= source_sort_value(item.unlock) %>">
+              <%= sources(item.unlock) %>
+            </td>
             <td data-value="<%= @prices.dig(item.id, :price) %>">
               <%= link_to(number_with_delimiter(@prices.dig(item.id, :price)),
                           universalis_url(item.id), class: 'name', target: '_blank') %>

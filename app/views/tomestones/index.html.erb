@@ -40,7 +40,9 @@
           <tr class="collectable<%= ' owned' if collectable_owned?(reward.collectable) %>">
             <td><%= collectable_image(reward.collectable) %></td>
             <td class="w-25"><%= collectable_name_link(reward.collectable) %></td>
-            <td class="w-50 hide-xs"><%= sources(reward.collectable) %></td>
+            <td class="w-50 hide-xs" data-value="<%= source_sort_value(reward.collectable) %>">
+              <%= sources(reward.collectable) %>
+            </td>
             <td class="text-center" data-value="<%= price_sort_value(reward.collectable) %>">
               <%= market_link(reward.collectable) %>
             </td>

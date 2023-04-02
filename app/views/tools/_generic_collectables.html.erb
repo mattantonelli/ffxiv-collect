@@ -30,7 +30,7 @@
             <tr class="collectable<%= ' owned' if collectable_owned?(collectable) %>">
               <td><%= collectable_image(collectable) %></td>
               <td><%= collectable_name_link(collectable) %></td>
-              <td class="hide-xs"><%= sources(collectable) %></td>
+              <td class="hide-xs" data-value="<%= source_sort_value(collectable) %>"><%= sources(collectable) %></td>
               <td class="text-center" data-value="<%= price_sort_value(collectable) %>"><%= market_link(collectable) %></td>
               <td class="text-center"><%= collectable.patch %></td>
               <% if character_selected? %>

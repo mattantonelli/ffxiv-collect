@@ -42,7 +42,7 @@
             <td data-value="<%= frame.order %>"><%= image_tag('frame.png') %></td>
             <td><%= link_to(frame.name, frame_path(frame), class: 'name') %></td>
             <td class="hide-xs"><%= frame.item_name %></td>
-            <td class="hide-xs"><%= sources(frame) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(frame) %>"><%= sources(frame) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(frame, numeric: true) %>"><%= rarity(frame) %></td>
             <td class="text-center" data-value="<%= sort_value(frame) %>"><%= frame.patch %></td>
             <% if character_selected? %>

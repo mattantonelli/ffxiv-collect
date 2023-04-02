@@ -231,6 +231,10 @@ module CollectionsHelper
     link_to(text, teamcraft_url(type, id), target: '_blank')
   end
 
+  def source_sort_value(collectable)
+    collectable.sources&.first&.type&.name
+  end
+
   def sources(collectable, list: false)
     sources = collectable.sources.flat_map do |source|
       type = source.type.name

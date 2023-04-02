@@ -39,7 +39,7 @@
           <tr class="<%= collectable_classes(fashion) %>">
             <td data-value="<%= fashion.order %>"><%= sprite(fashion, 'fashions-small') %></td>
             <td><%= link_to(fashion.name, fashion_path(fashion), class: 'name') %></td>
-            <td class="hide-xs"><%= sources(fashion) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(fashion) %>"><%= sources(fashion) %></td>
             <td class="text-center" data-value="<%= price_sort_value(fashion) %>"><%= market_link(fashion) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(fashion, numeric: true) %>"><%= rarity(fashion) %></td>
             <td class="text-center" data-value="<%= sort_value(fashion) %>"><%= fashion.patch %></td>

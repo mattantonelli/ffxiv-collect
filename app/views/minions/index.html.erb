@@ -46,7 +46,7 @@
               <% end %>
             </td>
             <td><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>
-            <td class="hide-xs"><%= sources(minion) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(minion) %>"><%= sources(minion) %></td>
             <td class="text-center" data-value="<%= materiel_sort_value(minion) %>"><%= materiel_icon(minion) %></td>
             <td class="text-center" data-value="<%= price_sort_value(minion) %>"><%= market_link(minion) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(minion, numeric: true) %>"><%= rarity(minion) %></td>

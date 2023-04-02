@@ -50,7 +50,7 @@
                 <%= gender_symbol(hairstyle.gender) %>
               <% end %>
             </td>
-            <td class="hide-xs"><%= sources(hairstyle) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(hairstyle) %>"><%= sources(hairstyle) %></td>
             <td class="text-center" data-value="<%= hairstyle.hrothable? ? 1 : 0 %>"><%= hrothable(hairstyle) %></td>
             <td class="text-center" data-value="<%= hairstyle.vierable? ? 1 : 0 %>"><%= vierable(hairstyle) %></td>
             <td class="text-center" data-value="<%= price_sort_value(hairstyle) %>"><%= market_link(hairstyle) %></td>
