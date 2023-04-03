@@ -180,7 +180,8 @@ module CollectionsHelper
 
   def achievement_link(source)
     if source.related_id.present?
-      link_to(source.related.name, achievement_path(source.related_id))
+      link_to(source.related.name, achievement_path(source.related_id), title: source.related.description,
+              data: { toggle: 'tooltip' })
     else
       source.text
     end
