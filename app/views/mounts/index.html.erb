@@ -22,7 +22,7 @@
           <th scope="col">#</th> <!-- Image -->
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
-          <th scope="col" class="text-center"><%= fa_icon('couch') %></th>
+          <th scope="col" class="text-center hide-xs"><%= fa_icon('couch') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
           <th scope="col" class="text-center"><%= fa_icon('music') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
@@ -42,7 +42,7 @@
             </td>
             <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
             <td class="hide-xs" data-value="<%= source_sort_value(mount) %>"><%= sources(mount) %></td>
-            <td class="text-center"><%= fa_icon('couch', text: mount.seats, right: true) if mount.multi_seated? %></td>
+            <td class="text-center no-wrap hide-xs"><%= fa_icon('couch', text: mount.seats, right: true) if mount.multi_seated? %></td>
             <td class="text-center" data-value="<%= price_sort_value(mount) %>"><%= market_link(mount) %></td>
             <td class="text-center" data-value="<%= mount.bgm_sample.present? ? 1 : 0 %>"><%= custom_music_link(mount) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
