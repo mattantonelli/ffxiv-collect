@@ -8,7 +8,6 @@ namespace 'sources:achievements' do
 
     achievements = Achievement.exclude_time_limited.joins(:item)
       .where('items.unlock_type is not null')
-      .where('items.unlock_type <> "Orchestrion"')
 
     achievements.each do |achievement|
       Source.find_or_create_by!(collectable_id: achievement.item.unlock_id, collectable_type: achievement.item.unlock_type,

@@ -59,13 +59,7 @@ private
 # Create shop sources for collectables with no known sources.
 # In the event of Orchestrion rolls, set the details.
 def create_shop_source(unlock, type, text)
-  if unlock.class == Orchestrion
-    unless unlock.details.present?
-      unlock.update(details: text)
-    end
-  else
-    unless unlock.sources.any?
-      unlock.sources.create!(type: type, text: text)
-    end
+  unless unlock.sources.any?
+    unlock.sources.create!(type: type, text: text)
   end
 end
