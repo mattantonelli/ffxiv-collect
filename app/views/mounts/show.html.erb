@@ -23,12 +23,10 @@
                 <dt><%= t('tradeable') %></dt>
                 <dd><%= tradeable(@mount) %></dd>
               </div>
-              <% if @mount.seats > 1 %>
-                <div>
-                  <dt><%= t('mounts.seats') %></dt>
-                  <dd><%= @mount.seats %></dd>
-                </div>
-              <% end %>
+              <div>
+                <dt><%= t('mounts.seats') %></dt>
+                <dd><%= fa_icon('couch', text: @mount.seats) %></dd>
+              </div>
               <%= render 'shared/ownership', collectable: @mount %>
               <div>
                 <dt><%= t('patch') %></dt>

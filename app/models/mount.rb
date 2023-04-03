@@ -37,4 +37,8 @@ class Mount < ApplicationRecord
 
   scope :include_related, -> { include_sources }
   scope :ordered, -> { order(patch: :desc, order: :desc) }
+
+  def multi_seated?
+    seats > 1
+  end
 end
