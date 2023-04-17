@@ -340,8 +340,8 @@ en:
     title: "Tools"
     treasure:
       title: "Treasure Hunt"
-  tooltip:
-    ownership: "Active characters who own this %{collectable}"
+  tooltips:
+    ownership: "Active public characters who own this %{collectable}"
   tooltip: "Tooltip"
   tradeable: "Tradeable"
   triple_triad:

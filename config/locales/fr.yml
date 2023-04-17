@@ -338,7 +338,7 @@ fr:
     title: "Outils"
     treasure:
       title: "Chasse aux trésors"
-  tooltip:
+  tooltips:
     ownership: "Personnages actifs qui possèdent %{collectable}"
   tooltip: "Tooltip"
   tradeable: "Échangeable"

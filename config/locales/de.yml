@@ -337,8 +337,8 @@ de:
     title: "Werkzeuge"
     treasure:
       title: "Schatzsuche"
-  tooltip:
-    ownership: "Aktive Charakter in Besitz der/des %{collectable}"
+  tooltips:
+    ownership: "Aktive Charakter in Besitz des %{collectable}"
   tooltip: "Kurzinfo"
   tradeable: "Handelbar"
   triple_triad:
