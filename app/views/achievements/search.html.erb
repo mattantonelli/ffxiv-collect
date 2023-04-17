@@ -47,7 +47,12 @@
                 <%= sprite(achievement, 'achievement') %>
               <% end %>
             </td>
-            <td><%= link_to(achievement.name, achievement_path(achievement), class: 'name') %></td>
+            <td>
+              <%= link_to(achievement.name, achievement_path(achievement), class: 'name') %>
+              <% if achievement.time_limited? %>
+                <%= far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited_achievement')) %>
+              <% end %>
+            </td>
             <td class="hide-xs"><%= format_text_long(achievement.description) %></td>
             <td class="hide-sm"><%= achievement_type_category_link(achievement) %></td>
             <td data-value="<%= achievement_reward_value(achievement) %>">

@@ -9,6 +9,9 @@
         <div class="d-flex align-items-center">
           <%= sprite(@achievement, 'achievement') %>
           <h5 class="card-title ml-2"><%= @achievement.name %></h5>
+          <% if @achievement.time_limited? %>
+            <%= far_icon('clock', class: 'ml-1', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited_achievement')) %>
+          <% end %>
         </div>
         <h4 class="mb-0"><%= @achievement.points %></h4>
       </div>

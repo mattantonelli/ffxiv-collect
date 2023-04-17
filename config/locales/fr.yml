@@ -340,6 +340,7 @@ fr:
       title: "Chasse aux trésors"
   tooltips:
     ownership: "Personnages actifs qui possèdent %{collectable}"
+    time_limited_achievement: "Ce haut fait est limité dans le temps. Il n'est pas pris en compte dans les classements."
   tooltip: "Tooltip"
   tradeable: "Échangeable"
   triple_triad:

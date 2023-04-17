@@ -339,6 +339,7 @@ de:
       title: "Schatzsuche"
   tooltips:
     ownership: "Aktive Charakter in Besitz des %{collectable}"
+    time_limited_achievement: "Dies ist eine zeitlich begrenzte Errungenschaft und beeinflusst die Ranglisten nicht."
   tooltip: "Kurzinfo"
   tradeable: "Handelbar"
   triple_triad:

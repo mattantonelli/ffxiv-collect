@@ -39,7 +39,7 @@ class Achievement < ApplicationRecord
     joins(category: :type)
       .where('achievement_types.name_en <> ?', 'Legacy')
       .where('achievement_categories.name_en not in (?)', ['Seasonal Events', 'Ranking'])
-      .where.not('achievements.id in (?)', Achievement.limited_time_ids)
+      .where.not('achievements.id in (?)', Achievement.time_limited_ids)
   end
 
   scope :include_related, -> { includes(:item, :title) }
@@ -56,7 +56,11 @@ class Achievement < ApplicationRecord
              'achievements.order DESC, achievements.id DESC')
   end
 
-  def self.limited_time_ids
+  def time_limited?
+    Achievement.time_limited_ids.include?(id) || Achievement.time_limited_category_ids.include?(category_id)
+  end
+
+  def self.time_limited_ids
     ((310..312).to_a +   # Starting township quests
      [1166] + # Retired quests
      (1757..1773).to_a + (3083..3088).to_a + # GARO
@@ -65,6 +69,14 @@ class Achievement < ApplicationRecord
      [2487, 2488, 2712, 2713, 2785, 2786] + # Ishgardian Reconstruction
      [1419, 1420, 1421, 1422, 1423, 1424, 1425, 1426, 1427, 1428, 1429, 1430, 1431, 1432,
       1734, 1735, 1736, 1737, 1743, 1744, 1745, 1746]).freeze # Diadem
+  end
+
+  def self.time_limited_category_ids
+    [
+      8,  # PvP > Ranking
+      38, # Quests > Seasonal Events
+      54, 55, 56, 57, 58, 59, 60, 61 # Legacy
+    ].freeze
   end
 
   private

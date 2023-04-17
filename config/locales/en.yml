@@ -342,6 +342,7 @@ en:
       title: "Treasure Hunt"
   tooltips:
     ownership: "Active public characters who own this %{collectable}"
+    time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
   tooltip: "Tooltip"
   tradeable: "Tradeable"
   triple_triad:
