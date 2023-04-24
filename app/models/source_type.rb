@@ -18,6 +18,6 @@ class SourceType < ApplicationRecord
   scope :with_filters, -> (filters) do
     excluded = filters[:premium] == 'hide' ? ['Premium'] : []
     excluded += %w(Event Limited) if filters[:limited] == 'hide'
-    where.not(name: excluded)
+    where.not(name_en: excluded)
   end
 end

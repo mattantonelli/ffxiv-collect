@@ -238,7 +238,7 @@ module CollectionsHelper
 
   def sources(collectable, list: false)
     sources = collectable.sources.flat_map do |source|
-      type = source.type.name
+      type = source.type.name_en
 
       if type == 'Achievement'
         content = achievement_link(source)
