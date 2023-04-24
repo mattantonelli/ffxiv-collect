@@ -52,7 +52,22 @@ module AchievementsHelper
   end
 
   def patch_options_for_select(patches, selected)
-    patches.map { |patch| ["#{t('patch')} #{patch}", patch] }
-      .prepend([t('all.patches'), 'all'])
+    # Collect all of the patch numbers and add the Patch text to the display values
+    options = @patches.map do |patch|
+      ["#{t('patch')} #{patch}", patch]
+    end
+
+    # Add special options for searching by exansion
+    t('expansions').each do |value, expansion|
+      options << [expansion, value]
+    end
+
+    # Sort the patches in reverse chronological order
+    options.sort_by! { |patch| -patch[1].to_f }
+
+    # Add an All Patches option to the start of the list
+    options.unshift([t('all.patches'), 'all'])
+
+    options_for_select(options, selected)
   end
 end
