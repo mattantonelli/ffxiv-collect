@@ -173,8 +173,8 @@ fr:
     title: "Poisson légendaire"
   forget: "Oublier"
   frames:
-    name: "Arrière-plan de portrait"
     item_name: "Nom de l'objet"
+    name: "Arrière-plan de portrait"
     title: "L'art du portrait"
   free_companies:
     title: "Profil de la compagnie libre"
@@ -338,10 +338,10 @@ fr:
     title: "Outils"
     treasure:
       title: "Chasse aux trésors"
+  tooltip: "Tooltip"
   tooltips:
     ownership: "Personnages actifs qui possèdent %{collectable}"
     time_limited_achievement: "Ce haut fait est limité dans le temps. Il n'est pas pris en compte dans les classements."
-  tooltip: "Tooltip"
   tradeable: "Échangeable"
   triple_triad:
     title: "Triple Triade"

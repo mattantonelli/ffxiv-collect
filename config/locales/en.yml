@@ -175,8 +175,8 @@ en:
     title: "Big Fish"
   forget: "Forget"
   frames:
-    name: "Portrait Background"
     item_name: "Item Name"
+    name: "Portrait Background"
     title: "Framer's Kits"
   free_companies:
     title: "Free Company Profile"
@@ -340,10 +340,10 @@ en:
     title: "Tools"
     treasure:
       title: "Treasure Hunt"
+  tooltip: "Tooltip"
   tooltips:
     ownership: "Active public characters who own this %{collectable}"
     time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
-  tooltip: "Tooltip"
   tradeable: "Tradeable"
   triple_triad:
     title: "Triple Triad"

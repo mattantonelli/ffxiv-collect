@@ -172,8 +172,8 @@ de:
     title: "Kapitalfische"
   forget: "Löschen"
   frames:
-    name: "Portrait Hintergrund"
     item_name: "Itemname"
+    name: "Portrait Hintergrund"
     title: "Portraitmaterial"
   free_companies:
     title: "Profil der Freien Gesellschaft"
@@ -337,10 +337,10 @@ de:
     title: "Werkzeuge"
     treasure:
       title: "Schatzsuche"
+  tooltip: "Kurzinfo"
   tooltips:
     ownership: "Aktive Charakter in Besitz des %{collectable}"
     time_limited_achievement: "Dies ist eine zeitlich begrenzte Errungenschaft und beeinflusst die Ranglisten nicht."
-  tooltip: "Kurzinfo"
   tradeable: "Handelbar"
   triple_triad:
     title: "Triple Triad"
