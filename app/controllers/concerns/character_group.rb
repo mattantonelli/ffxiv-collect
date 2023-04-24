@@ -15,8 +15,8 @@ module CharacterGroup
     @collection = 'mounts'
     @sprite_key = 'mounts-small'
     @collectables = Mount.joins(sources: :type)
-      .where('source_types.name in (?)', %w(Trial Raid))
-      .order('source_types.name DESC, mounts.patch ASC')
+      .where('source_types.name_en in (?)', %w(Trial Raid))
+      .order('source_types.name_en DESC, mounts.patch ASC')
       .distinct.group_by(&:expansion)
 
     render 'groups/collection'
