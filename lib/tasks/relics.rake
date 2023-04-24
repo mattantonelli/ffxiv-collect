@@ -75,7 +75,7 @@ namespace :relics do
     create_relics(type, ids, achievement_ids)
 
     ## Resistance
-    type = RelicType.find_or_create_by!(name_en: "Resistance Weapons", name_de: "Wiederstands-Waffen",
+    type = RelicType.find_or_create_by!(name_en: "Resistance Weapons", name_de: "Widerstands-Waffen",
                                         name_fr: "Armes de la résistance", category: 'weapons',
                                         order: 6, jobs: 17, expansion: 5)
 
@@ -153,19 +153,19 @@ namespace :relics do
     create_relics(type, ids)
 
     ## Elemental
-    type = RelicType.find_or_create_by!(name_en: "Elemental Armor", name_de: "Elementar Rüstun",
+    type = RelicType.find_or_create_by!(name_en: "Elemental Armor", name_de: "Elementar Rüstung",
                                         name_fr: "Armure élémentaire", category: 'armor', order: 5, jobs: 7, expansion: 4)
     ids = 24087..24121
     create_relics(type, ids)
 
     ## Elemental +1
-    type = RelicType.find_or_create_by!(name_en: "Elemental Armor +1", name_de: "Elementar Rüstun +1",
+    type = RelicType.find_or_create_by!(name_en: "Elemental Armor +1", name_de: "Elementar Rüstung +1",
                                         name_fr: "Armure élémentaire +1", category: 'armor', order: 6, jobs: 7, expansion: 4)
     ids = 24723..24757
     create_relics(type, ids)
 
     ## Elemental +2
-    type = RelicType.find_or_create_by!(name_en: "Elemental Armor +2", name_de: "Elementar Rüstun +2",
+    type = RelicType.find_or_create_by!(name_en: "Elemental Armor +2", name_de: "Elementar Rüstung +2",
                                         name_fr: "Armure élémentaire +2", category: 'armor', order: 7, jobs: 7, expansion: 4)
     ids = 24758..24792
     create_relics(type, ids)

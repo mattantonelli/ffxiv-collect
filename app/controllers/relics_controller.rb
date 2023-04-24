@@ -15,7 +15,7 @@ class RelicsController < ApplicationController
 
   def armor
     @types = RelicType.includes(:relics).where(category: 'armor').order(expansion: :desc, order: :desc)
-    @categories = @types.pluck(:expansion).uniq.map do |expansion|
+    @categories = @types.pluck(:expansion).uniq.sort.map do |expansion|
       OpenStruct.new(id: expansion, name: t("expansions.#{expansion}"))
     end
   end
