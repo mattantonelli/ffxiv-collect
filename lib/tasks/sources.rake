@@ -5,7 +5,7 @@ namespace :sources do
              'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture', 'Premium', 'Limited']
 
     names.each do |name|
-      SourceType.find_or_create_by!(name: name)
+      SourceType.find_or_create_by!(name_en: name)
     end
   end
 
@@ -15,7 +15,7 @@ namespace :sources do
 
     puts 'Setting initial collectable sources'
 
-    sources = SourceType.pluck(:name, :id).to_h
+    sources = SourceType.pluck(:name_en, :id).to_h
 
     %w(armoires bardings emotes hairstyles minions mounts).each do |type|
       file = Rails.root.join('vendor/sources', "#{type}.csv")

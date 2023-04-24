@@ -2,7 +2,7 @@ namespace 'sources:pvp' do
   desc 'Create PvP sources'
   task update: :environment do
     PaperTrail.enabled = false
-    pvp_type = SourceType.find_by(name: 'PvP')
+    pvp_type = SourceType.find_by(name_en: 'PvP')
 
     puts 'Creating PvP Series sources'
 

@@ -42,7 +42,7 @@ class Mod::CollectablesController < ModController
   end
 
   def set_types
-    @types = SourceType.all.order(:name)
+    @types = SourceType.all.order("name_#{I18n.locale}")
   end
 
   def set_changes

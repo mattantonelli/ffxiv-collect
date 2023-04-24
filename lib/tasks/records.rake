@@ -66,8 +66,8 @@ namespace :records do
       puts 'Creating field record sources'
       file = Rails.root.join('vendor/sources/records.csv')
 
-      bozja = SourceType.find_by(name: 'Bozja')
-      quest = SourceType.find_by(name: 'Quest')
+      bozja = SourceType.find_by(name_en: 'Bozja')
+      quest = SourceType.find_by(name_en: 'Quest')
 
       CSV.foreach(file) do |row|
         id, source = row

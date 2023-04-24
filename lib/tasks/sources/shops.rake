@@ -5,7 +5,7 @@ namespace 'sources:shops' do
 
     include ActionView::Helpers::NumberHelper
 
-    purchase_type = SourceType.find_by(name: 'Purchase')
+    purchase_type = SourceType.find_by(name_en: 'Purchase')
 
     puts 'Creating GilShop sources'
     item_ids = XIVData.sheet('GilShopItem', raw: true).map do |entry|

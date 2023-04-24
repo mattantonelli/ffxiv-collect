@@ -11,39 +11,39 @@ namespace 'sources:orchestrions' do
 
       case orchestrion.category.name_en
       when 'Ambient'
-        type = SourceType.find_by(name: 'Purchase')
+        type = SourceType.find_by(name_en: 'Purchase')
       when /Dungeons/
-        type = SourceType.find_by(name: 'Dungeon')
+        type = SourceType.find_by(name_en: 'Dungeon')
         if text = instance_text(orchestrion)
           related = Instance.find_by(name_en: text)
         end
       when /Locales/
-        type = SourceType.find_by(name: 'Other')
+        type = SourceType.find_by(name_en: 'Other')
       when 'Online Store & Bonuses'
-        type = SourceType.find_by(name: 'Premium')
+        type = SourceType.find_by(name_en: 'Premium')
         text = orchestrion.details
       when 'Others'
-        type = SourceType.find_by(name: 'Other')
+        type = SourceType.find_by(name_en: 'Other')
       when 'Quests'
-        type = SourceType.find_by(name: 'Quest')
+        type = SourceType.find_by(name_en: 'Quest')
         if related = Quest.find_by(name_en: orchestrion.details)
           text = orchestrion.details
         end
       when /Raids/
-        type = SourceType.find_by(name: 'Raid')
+        type = SourceType.find_by(name_en: 'Raid')
         if text = instance_text(orchestrion)
           related = Instance.find_by(name_en: text)
         end
       when 'Seasonal'
-        type = SourceType.find_by(name: 'Event')
+        type = SourceType.find_by(name_en: 'Event')
         limited = true
       when 'Trials'
-        type = SourceType.find_by(name: 'Trial')
+        type = SourceType.find_by(name_en: 'Trial')
         if text = instance_text(orchestrion)
           related = Instance.find_by(name_en: text)
         end
       else
-        type = SourceType.find_by(name: 'Other')
+        type = SourceType.find_by(name_en: 'Other')
       end
 
       text ||= default_text(orchestrion)

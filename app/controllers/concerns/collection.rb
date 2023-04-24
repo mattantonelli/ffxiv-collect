@@ -10,7 +10,7 @@ module Collection
 
   def source_types(model)
     SourceType.joins(:sources).where('sources.collectable_type = ?', model)
-      .with_filters(cookies).order(:name).distinct
+      .with_filters(cookies).order("name_#{I18n.locale}").distinct
   end
 
   private

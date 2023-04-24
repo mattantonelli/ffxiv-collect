@@ -49,7 +49,7 @@ namespace :spells do
       end
     end
 
-    other_type = SourceType.find_by(name: 'Other').id
+    other_type = SourceType.find_by(name_en: 'Other').id
 
     spells.values.each do |spell|
       aspect = SpellAspect.find_or_create_by!(spell.delete(:aspects))

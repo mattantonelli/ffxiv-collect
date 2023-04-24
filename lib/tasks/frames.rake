@@ -72,8 +72,8 @@ namespace :frames do
     end
 
     count = Frame.count
-    PVP_TYPE = SourceType.find_by(name: 'PvP').freeze
-    QUEST_TYPE = SourceType.find_by(name: 'Quest').freeze
+    PVP_TYPE = SourceType.find_by(name_en: 'PvP').freeze
+    QUEST_TYPE = SourceType.find_by(name_en: 'Quest').freeze
 
     frames.values.each do |frame|
       data = frame.except(:unlock_type, :unlock_id)
@@ -91,7 +91,7 @@ namespace :frames do
         elsif frame[:unlock_type] == 'Instance'
           instance = Instance.find(frame[:unlock_id])
           instance_type = instance.content_type.singularize
-          created.sources.create!(type: SourceType.find_by(name: instance_type), text: instance.name_en,
+          created.sources.create!(type: SourceType.find_by(name_en: instance_type), text: instance.name_en,
                                   related_type: instance_type, related_id: frame[:unlock_id])
         end
       end

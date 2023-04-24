@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_19_044352) do
+ActiveRecord::Schema.define(version: 2023_04_24_122747) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -730,10 +730,13 @@ ActiveRecord::Schema.define(version: 2023_01_19_044352) do
   end
 
   create_table "source_types", charset: "utf8", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name_en", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_source_types_on_name", unique: true
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.index ["name_en"], name: "index_source_types_on_name_en", unique: true
   end
 
   create_table "sources", charset: "utf8", force: :cascade do |t|

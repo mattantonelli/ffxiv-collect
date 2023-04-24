@@ -5,8 +5,8 @@ namespace 'sources:quests' do
 
     puts 'Creating Quest sources'
 
-    event_type = SourceType.find_by(name: 'Event')
-    quest_type = SourceType.find_by(name: 'Quest')
+    event_type = SourceType.find_by(name_en: 'Event')
+    quest_type = SourceType.find_by(name_en: 'Quest')
 
     Item.includes(:quest).where.not(unlock_id: nil).where.not(quest_id: nil).each do |item|
       source_type = item.quest.event? ? event_type : quest_type

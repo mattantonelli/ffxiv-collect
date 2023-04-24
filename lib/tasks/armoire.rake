@@ -28,7 +28,7 @@ namespace :armoires do
     end
 
     count = Armoire.count
-    ACHIEVEMENT_TYPE = SourceType.find_by(name: 'Achievement').freeze
+    ACHIEVEMENT_TYPE = SourceType.find_by(name_en: 'Achievement').freeze
 
     XIVData.sheet('Cabinet', raw: true, drop_zero: false).map do |armoire|
       next if armoire['Order'] == '0'

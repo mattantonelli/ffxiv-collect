@@ -2,7 +2,7 @@ namespace 'sources:achievements' do
   desc 'Create sources from Achievement rewards for non-time limited quests'
   task update: :environment do
     PaperTrail.enabled = false
-    achievement_type = SourceType.find_by(name: 'Achievement')
+    achievement_type = SourceType.find_by(name_en: 'Achievement')
 
     puts 'Creating Achievement sources'
 

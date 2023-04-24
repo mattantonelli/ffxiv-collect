@@ -2,7 +2,7 @@ namespace 'sources:crafting' do
   desc 'Create sources from craftable items'
   task update: :environment do
     PaperTrail.enabled = false
-    crafting_type = SourceType.find_by(name: 'Crafting')
+    crafting_type = SourceType.find_by(name_en: 'Crafting')
 
     puts 'Creating Crafting sources'
 
