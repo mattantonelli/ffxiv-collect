@@ -58,7 +58,6 @@ fr:
     no_longer_tracking: "Vous ne traquez plus le personnage."
     not_found: "Cette page n'a pas pu être trouvée."
     not_signed_in: "Vous devez être identifié pour pouvoir faire cela."
-    not_signed_in_and_verified: "Vous devez être identifié et votre personnage vérifié pour pouvoir traquer des collections dites 'manuelles'."
     not_verified: "Ce personnage n'est pas vérifié. Si vous souhaité traquer ses collections 'manuelles', utilisé %{link}."
     private_achievements: "Les hauts faits de ce personnage sont privés. Vous pouvez rendre les informations public grâce à %{link}."
     private_character: "Les collections de ce personnage sont privées. Si vous possédez ce personnage et voulez le transférer à votre compte actuel, cliquez %{link}."
@@ -69,6 +68,8 @@ fr:
     settings_error: "Une erreur est survenue lors de la mise à jour de vos paramètres."
     settings_not_verified: "Si vous voulez changer les paramètres de votre personnage, utilisé %{link}."
     settings_updated: "Vos paramètres ont été mis à jour."
+    sign_in_to_track: "Vous devez être %{link} pour rajouter des éléments à votre collection."
+    signed_in: "connecté"
     verify_ownership: "Vérifier vos droits"
   all:
     aspects: "Tous les éléments"

@@ -57,7 +57,6 @@ de:
     no_longer_tracking: "Du verfolgst nicht länger einen Charakter."
     not_found: "Die Seite konnte nicht gefunden werden."
     not_signed_in: "Du musst eingeloggt sein, um dies zu tun."
-    not_signed_in_and_verified: "Du musst eingeloggt und verifiziert sein, um die Sammlung manuell zu verfolgen."
     not_verified: "Du bist nicht als dieser Charakter verifiziert. Wenn du die manuelle Sammlung dieses Charakters verfolgen möchtest, %{link}."
     private_achievements: "Die Erfolge dieses Charakters sind auf \"Privat\" gesetzt. Du kannst %{link} deine Erfolge auf \"Öffentlich\" setzen."
     private_character: "Der Benutzer dieses Charakters hat seine Sammlung auf privat gestellt. Wenn du diesen Charakter besitzt und ihn auf deinen aktuellen Account übertragen möchtest, klicke %{link}."
@@ -68,6 +67,8 @@ de:
     settings_error: "Es ist ein Problem beim Aktualisieren deiner Einstellungen aufgetreten."
     settings_not_verified: "Wenn du deine Einstellungen für den Charakter ändern möchtest, bitte %{link}."
     settings_updated: "Deine Einstellungen wurden gespeichert."
+    sign_in_to_track: "Du musst %{link} sein um manuelle Sammlungen benutzen zu können."
+    signed_in: "eingeloggt"
     verify_ownership: "verifiziere bitte deinen Charakter"
   all:
     aspects: "Alle Elemente"

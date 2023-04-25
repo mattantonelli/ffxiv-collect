@@ -57,7 +57,6 @@ en:
     no_longer_tracking: "You are no longer tracking a character."
     not_found: "That page could not be found."
     not_signed_in: "You must be signed in to do that."
-    not_signed_in_and_verified: "You must be signed in and verified in order to track manual collections."
     not_verified: "You are not verified as this character. If you wish to track this character's manual collections,
       please %{link}."
     private_achievements: "Achievements for this character are set to private. You can make your achievements public %{link}."
@@ -69,6 +68,8 @@ en:
     settings_error: "There was a problem updating your settings."
     settings_not_verified: "If you wish to change the settings for this character, please %{link}."
     settings_updated: "Your settings have been updated."
+    sign_in_to_track: "You must be %{link} to track manual collections."
+    signed_in: "signed in"
     verify_ownership: "verify your ownership"
   all:
     aspects: "All Aspects"
