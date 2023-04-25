@@ -223,6 +223,7 @@ fr:
     movement: "Mouvement"
     preview: "Aperçu vidéo"
     seats: "Places"
+    seats_tooltip: "Cette monture peut transporter %{number} personnes."
     title: "Montures"
   name: "Nom"
   "no": "non"

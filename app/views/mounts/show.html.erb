@@ -25,7 +25,7 @@
               </div>
               <div>
                 <dt><%= t('mounts.seats') %></dt>
-                <dd><%= fa_icon('couch', text: @mount.seats) %></dd>
+                <dd><%= seat_count(@mount, right: false) %></dd>
               </div>
               <%= render 'shared/ownership', collectable: @mount %>
               <div>

@@ -225,6 +225,7 @@ en:
     movement: "Movement"
     preview: "Video Preview"
     seats: "Seats"
+    seats_tooltip: "This mount seats %{number} people."
     title: "Mounts"
   name: "Name"
   "no": "no"
