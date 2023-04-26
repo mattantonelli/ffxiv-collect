@@ -28,14 +28,10 @@
       <tr>
         <th></th>
         <% @collectables.each do |collectable| %>
-          <th class="expansion-<%= collectable.expansion %>">
-            <%= link_to(polymorphic_path(collectable), data: { toggle: 'tooltip' },
-                        title: collectable.name, target: '_blank') do %>
-              <% if @collection == 'orchestrions' %>
-                <%= collectable.name %>
-              <% else %>
-                <%= generic_sprite(@collection, collectable) %>
-              <% end %>
+          <th class="expansion-<%= collectable.expansion %>" title="<%= collectable.name %>"
+            data-toggle="tooltip" data-placement="top" data-boundary="window">
+            <%= link_to(polymorphic_path(collectable), target: '_blank') do %>
+              <%= generic_sprite(@collection, collectable) %>
             <% end %>
           </th>
         <% end %>
