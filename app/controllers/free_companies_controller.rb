@@ -7,6 +7,16 @@ class FreeCompaniesController < ApplicationController
     super
   end
 
+  def mounts
+    # Redirect for legacy URL
+    redirect_to(free_company_collections_path(@group, { collection: 'mounts' }))
+  end
+
+  def spells
+    # Redirect for legacy URL
+    redirect_to(free_company_collections_path(@group, { collection: 'spells' }))
+  end
+
   private
   def set_group
     @group = FreeCompany.find(params[:id] || params[:free_company_id])

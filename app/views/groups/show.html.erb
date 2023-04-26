@@ -25,7 +25,7 @@
         <div>
           <%= link_to fa_icon('trophy', text: t('leaderboards.title')), polymorphic_group_path(@group, :leaderboards),
             class: 'btn btn-sm btn-primary' %>
-          <%= link_to fa_icon('list', text: t('groups.collections')), group_collections_path(@group),
+          <%= link_to fa_icon('list', text: t('groups.collections')), polymorphic_group_path(@group, :collections),
             class: 'btn btn-sm btn-secondary' %>
           <%= link_to fa_icon('sync', text: t('groups.refresh.button')), polymorphic_path(@group, action: :refresh),
             class: "btn btn-sm btn-success#{' disabled' unless @group.syncable?}", method: :post %>

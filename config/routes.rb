@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   end
 
   resources :free_companies, only: [:show], path: :fc do
-    get :mounts, :spells
+    get :collections, :mounts, :spells
     post :refresh, on: :member
   end
 

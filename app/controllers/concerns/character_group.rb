@@ -20,16 +20,6 @@ module CharacterGroup
     render 'groups/collections'
   end
 
-  def mounts
-    # Redirect for legacy URL
-    redirect_to(group_collections_path(@group, { collection: 'mounts' }))
-  end
-
-  def spells
-    # Redirect for legacy URL
-    redirect_to(group_collections_path(@group, { collection: 'spells' }))
-  end
-
   def refresh
     if @group.in_queue?
       flash[:alert] = t('alerts.groups.syncing')
