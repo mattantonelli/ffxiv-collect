@@ -77,7 +77,11 @@
   margin: 0 auto;
   width: auto;
   overflow-y: auto;
-  height: calc(100vh - 250px);
+  max-height: calc(100vh - 100px);
+
+  @media (min-height: 800px) {
+    max-height: calc(100vh - 250px);
+  }
 
   // Sticky table header for the collectables
   thead {

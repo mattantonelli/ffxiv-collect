@@ -1,0 +1,70 @@
+<% title("#{@group.formatted_name} - #{t("#{@collection}.title")}") %>
+<% description("Track your #{group_type(@group).downcase}'s #{@collection}.") %>
+
+<h3 class="text-center">
+  <%= link_to(@group.formatted_name, polymorphic_path(@group), class: 'name') %>
+  <%= t("#{@collection.downcase.pluralize}.title") %>
+</h3>
+<div class="d-flex justify-content-center mb-2">
+  <%= form_with(class: 'form form-inline search-form d-flex', method: :get, local: true) do |f| %>
+    <%= f.select :collection, group_collection_options(@collection), {}, class: 'form-control form-control-sm' %>
+    <%= f.collection_select :source_type_id, SourceType.all.order("name_#{I18n.locale}"), :id, :name,
+      { include_blank: t('all.sources'), selected: params[:source_type_id] },
+      class: 'form-control form-control-sm' %>
+    <%= f.submit t('submit'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+  <% end %>
+</div>
+<div class="d-flex flex-wrap justify-content-center mb-2">
+  <% t('expansions').each do |value, text| %>
+    <div class="form-check-inline">
+      <%= check_box_tag("expansion-#{value}", value, true, class: 'form-check-input expansion-filter') %>
+      <%= label_tag("expansion-#{value}", text, class: 'form-check-label') %>
+    </div>
+  <% end %>
+</div>
+<div class="d-flex">
+  <table class="table table-bordered table-hover table-sm table-responsive table-clickable group-collection">
+    <thead>
+      <tr>
+        <th></th>
+        <% @collectables.each do |collectable| %>
+          <th class="expansion-<%= collectable.expansion %>">
+            <%= link_to(polymorphic_path(collectable), data: { toggle: 'tooltip' },
+                        title: collectable.name, target: '_blank') do %>
+              <% if @collection == 'orchestrions' %>
+                <%= collectable.name %>
+              <% else %>
+                <%= generic_sprite(@collection, collectable) %>
+              <% end %>
+            <% end %>
+          </th>
+        <% end %>
+        <% if @collection == 'spells' %>
+          <tr>
+            <th></th>
+            <% @collectables.each do |spell| %>
+              <th class="text-center expansion-<%= spell.expansion %>">#<%= spell.order %></th>
+            <% end %>
+          </tr>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @members.each do |character| %>
+        <tr>
+          <th>
+            <%= link_to character_path(character), class: 'group-avatar small' do %>
+              <%= image_tag(character.avatar, data: { toggle: 'tooltip' }, title: character.name) %>
+              <% if character.stale? %>
+                <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('groups.stale')) %>
+              <% end %>
+            <% end %>
+          </th>
+          <% @collectables.each do |collectable| %>
+            <%= group_collectable_td(character, collectable) %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

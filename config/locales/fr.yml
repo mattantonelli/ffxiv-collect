@@ -181,6 +181,7 @@ fr:
     title: "Profil de la compagnie libre"
   groups:
     character_not_found: "Aucun personnage trouvé.<br>Merci d'ajouter ce personnage depuis la %{link} et ré-essayez."
+    collections: "Collections"
     edit: "Modifier le groupe"
     manage_members: "Gérer les membres"
     member:

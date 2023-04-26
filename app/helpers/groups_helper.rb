@@ -7,6 +7,14 @@ module GroupsHelper
                 class: "text-center #{owned ? 'text-success' : 'text-danger'} expansion-#{expansion}")
   end
 
+  def group_collection_options(selected)
+    options = %w(mounts minions spells emotes bardings hairstyles fashions records).map do |option|
+      [t("#{option}.title"), option]
+    end
+
+    options_for_select(options, selected)
+  end
+
   def group_type(group)
     group.class.to_s.titleize
   end

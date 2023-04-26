@@ -183,6 +183,7 @@ en:
     title: "Free Company Profile"
   groups:
     character_not_found: "No characters found.<br>Please add this character through the %{link} and try again."
+    collections: "Collections"
     edit: "Edit Group"
     manage_members: "Manage Members"
     member:

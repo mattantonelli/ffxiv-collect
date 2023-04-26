@@ -2,31 +2,32 @@ module CharacterGroup
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_members, only: [:show, :mounts, :spells]
-    before_action :set_owned_ids, only: [:mounts, :spells]
-    before_action :verify_group_membership!, only: [:show, :mounts, :spells, :refresh]
+    before_action :set_members, only: [:show, :collections]
+    before_action :verify_group_membership!, only: [:show, :collections, :refresh]
   end
 
   def show
     render 'groups/show'
   end
 
-  def mounts
-    @collection = 'mounts'
-    @sprite_key = 'mounts-small'
-    @collectables = Mount.joins(sources: :type)
-      .where('source_types.name_en in (?)', %w(Trial Raid))
-      .order('source_types.name_en DESC, mounts.patch ASC')
-      .distinct.group_by(&:expansion)
+  def collections
+    @collection = params[:collection] || 'mounts'
+    @collectables = @collection.classify.constantize.joins(sources: :type).ordered.reverse_order.distinct
+    @collectables = @collectables.where('source_types.id = ?', params[:source_type_id]) if params[:source_type_id].present?
 
-    render 'groups/collection'
+    @owned_ids = owned_ids(@collection.classify)
+
+    render 'groups/collections'
+  end
+
+  def mounts
+    # Redirect for legacy URL
+    redirect_to(group_collections_path(@group, { collection: 'mounts' }))
   end
 
   def spells
-    @collection = 'spells'
-    @sprite_key = 'spell'
-    @collectables = Spell.ordered.group_by(&:expansion)
-    render 'groups/collection'
+    # Redirect for legacy URL
+    redirect_to(group_collections_path(@group, { collection: 'spells' }))
   end
 
   def refresh
@@ -51,9 +52,9 @@ module CharacterGroup
     @members = @group.members.visible.order(:name)
   end
 
-  def set_owned_ids
-    model = "Character#{action_name.classify}".constantize
-    id_column = "#{action_name.singularize}_id"
+  def owned_ids(collection)
+    model = "Character#{collection.classify}".constantize
+    id_column = "#{collection.downcase.singularize}_id"
 
     @owned_ids = model.where(character_id: @members).each_with_object(Hash.new { |k, v| k[v] = [] }) do |char, h|
       h[char.character_id] << char[id_column]

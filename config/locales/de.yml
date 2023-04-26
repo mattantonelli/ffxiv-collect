@@ -180,6 +180,7 @@ de:
     title: "Profil der Freien Gesellschaft"
   groups:
     character_not_found: "Keine Charaktere gefunden.<br>Bitte füge diesen Charakter via der %{link} hinzu und versuche es noch einmal."
+    collections: "Sammlungen"
     edit: "Gruppe bearbeiten"
     manage_members: "Mitglieder verwalten"
     member:

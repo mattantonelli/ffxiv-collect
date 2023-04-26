@@ -83,7 +83,7 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
-    get :mounts, :spells
+    get :collections, :mounts, :spells
 
     member do
       get :manage
