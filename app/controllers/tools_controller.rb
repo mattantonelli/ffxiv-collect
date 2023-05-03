@@ -56,7 +56,7 @@ class ToolsController < ApplicationController
 
     @collectables = Source.where('text regexp ?', text)
       .each_with_object(Hash.new { |h, k| h[k] = [] }) do |source, h|
-        h[source.collectable_type.downcase.pluralize.to_sym] << source.collectable_id
+        h[source.collectable_type.underscore.pluralize.to_sym] << source.collectable_id
       end
 
     @collectables.each do |type, ids|
@@ -66,7 +66,7 @@ class ToolsController < ApplicationController
 
     if @character.present?
       @owned_ids = @collectables.keys.each_with_object({}) do |type, h|
-        h[type] = @character.send("#{type.to_s.downcase.singularize}_ids")
+        h[type] = @character.send("#{type.to_s.singularize}_ids")
       end
     end
   end
