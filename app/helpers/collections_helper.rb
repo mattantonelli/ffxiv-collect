@@ -15,6 +15,8 @@ module CollectionsHelper
     type = collectable.class.to_s
 
     case type
+    when 'Frame'
+      image_tag('frame.png')
     when 'Orchestrion'
       image_tag('orchestrion.png')
     when 'Hairstyle'
@@ -237,8 +239,12 @@ module CollectionsHelper
   end
 
   def source_sort_value(collectable)
-    source = collectable.sources&.first
-    "#{source&.type&.name} #{source&.text}"
+    if collectable.class == Achievement
+      "Achievement #{collectable.description}"
+    else
+      source = collectable.sources&.first
+      "#{source&.type&.name} #{source&.text}"
+    end
   end
 
   def sources(collectable, list: false)

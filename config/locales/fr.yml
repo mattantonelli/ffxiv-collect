@@ -206,6 +206,8 @@ fr:
   how_to_obtain: "Comment l'obtenir"
   item: "Objet"
   journal: "Journal"
+  latest:
+    title: "Dernier patch"
   leaderboards:
     free_company: "Compagnie libre"
     global: "Global"
@@ -228,6 +230,7 @@ fr:
     seats_tooltip: "Cette monture peut transporter %{number} personnes."
     title: "Montures"
   name: "Nom"
+  new: "Nouveau !"
   "no": "non"
   of: "de"
   only:

@@ -43,6 +43,8 @@ class Achievement < ApplicationRecord
   end
 
   scope :include_related, -> { includes(:item, :title) }
+  scope :include_sources, -> { all }
+
   scope :with_filters, -> (filters, character = nil) do
     if filters[:limited] == 'hide'
       exclude_time_limited
@@ -54,6 +56,10 @@ class Achievement < ApplicationRecord
       .includes(:item, :title, category: :type)
       .order('achievements.patch DESC, achievement_types.order, achievement_categories.order, ' \
              'achievements.order DESC, achievements.id DESC')
+  end
+
+  def sources
+    []
   end
 
   def time_limited?

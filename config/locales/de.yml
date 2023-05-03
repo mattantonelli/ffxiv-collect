@@ -205,6 +205,8 @@ de:
   how_to_obtain: "Wodurch erhältlich"
   item: "Objekt"
   journal: "Journal"
+  latest:
+    title: "Neu!"
   leaderboards:
     free_company: "Freie Gesellschaft"
     global: "Weltweit"
@@ -227,6 +229,7 @@ de:
     seats_tooltip: "Dieses Reittier hat %{number} Sitzplätze."
     title: "Reittiere"
   name: "Name"
+  new: "Neuester Patch"
   "no": "nein"
   of: "von"
   only:

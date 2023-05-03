@@ -1,0 +1,61 @@
+<% title(t('latest.title')) %>
+<% description("Find all the collectables added in the latest patch.") %>
+
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <div class="d-flex justify-content-center mb-2">
+      <%= form_with(class: 'form form-inline search-form d-flex', method: :get, local: true) do |f| %>
+        <%= f.text_field "q[name_#{I18n.locale}_cont]", placeholder: t('name'), size: 40,
+          value: @search["name_#{I18n.locale}_cont"], class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.select "q[patch_eq]", patch_options_for_select(@patches, @search[:patch_eq], all: false), {},
+          class: 'form-control form-control-sm' %>
+        <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+          type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <% end %>
+    </div>
+    <% if character_selected? %>
+      <div class="mb-2">
+        <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>
+        <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+      </div>
+    <% end %>
+    <table class="table table-striped table-sm shadow collection sortable">
+      <thead>
+        <tr>
+          <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('source') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+          <th scope="col" data-defaultsort="disabled" class="text-center"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @collectables.each do |collectable| %>
+            <tr class="<%= collectable_classes(collectable, generic: true) %>">
+              <td><%= collectable_image(collectable) %></td>
+              <td><%= collectable_name_link(collectable) %></td>
+              <td class="orchestrion-source hide-xs" data-value="<%= source_sort_value(collectable) %>">
+                <% if collectable.class == Achievement %>
+                  <div class="sources">
+                    <span class="source source-achievement"><%= collectable.description %></span>
+                  </div>
+                <% else %>
+                  <%= sources(collectable) %>
+                <% end %>
+              </td>
+              <td class="text-center" data-value="<%= price_sort_value(collectable) %>"><%= market_link(collectable) %></td>
+              <td class="text-center"><%= collectable.patch %></td>
+              <% if character_selected? %>
+                <%= td_owned(collectable) %>
+              <% end %>
+            </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

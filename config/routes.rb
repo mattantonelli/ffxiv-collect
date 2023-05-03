@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   post 'locale/set', to: 'locale#update'
 
+  resources :latest, only: [:index]
+
   resources :mounts, only: [:index, :show]
 
   resources :minions, only: [:index, :show] do

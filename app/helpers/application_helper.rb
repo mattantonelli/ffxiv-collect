@@ -109,6 +109,10 @@ module ApplicationHelper
     end
   end
 
+  def new_feature_badge
+    content_tag(:span, t('new'), class: 'badge badge-success')
+  end
+
   def teamcraft_url(type, id)
     "https://ffxivteamcraft.com/db/#{I18n.locale}/#{type}/#{id}"
   end

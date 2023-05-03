@@ -208,6 +208,8 @@ en:
   how_to_obtain: "How to obtain"
   item: "Item"
   journal: "Journal"
+  latest:
+    title: "Latest Patch"
   leaderboards:
     free_company: "Free Company"
     global: "Global"
@@ -230,6 +232,7 @@ en:
     seats_tooltip: "This mount seats %{number} people."
     title: "Mounts"
   name: "Name"
+  new: "New!"
   "no": "no"
   of: "of"
   only:

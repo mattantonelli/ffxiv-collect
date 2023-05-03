@@ -1,6 +1,7 @@
 <div class="sidebar-sticky">
   <div class="navbar-nav no-wrap mt-1">
     <%= link_to fa_icon('home', text: t('home')), root_path, class: 'nav-link d-block d-sm-none' %>
+    <%= nav_link("#{t('latest.title')} #{new_feature_badge}".html_safe, 'exclamation-circle', latest_index_path) %>
 
     <!-- Achievments -->
     <div class="nav-item dropdown<%= ' bold' if active_path?(achievements_path) %>">
