@@ -10,8 +10,8 @@
           <% unless %w(characters).include?(controller_name) %>
             <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
           <% end %>
-          <% unless %w(achievements titles tomestones spells armoires records survey_records characters tools)
-            .include?(controller_name) %>
+          <% if !%w(achievements titles tomestones spells armoires records survey_records characters tools)
+            .include?(controller_name) || %w(gemstones).include?(action_name) %>
             <%= select_tag :tradeable, tradeable_options(cookies[:tradeable]), class: 'form-control mb-2' %>
           <% end %>
           <% if %w(hairstyles armoires characters).include?(controller_name) %>
