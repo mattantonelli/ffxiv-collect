@@ -206,7 +206,7 @@ de:
   item: "Objekt"
   journal: "Journal"
   latest:
-    title: "Neu!"
+    title: "Neuester Patch"
   leaderboards:
     free_company: "Freie Gesellschaft"
     global: "Weltweit"
@@ -229,7 +229,7 @@ de:
     seats_tooltip: "Dieses Reittier hat %{number} Sitzplätze."
     title: "Reittiere"
   name: "Name"
-  new: "Neuester Patch"
+  new: "Neu!"
   "no": "nein"
   of: "von"
   only:
