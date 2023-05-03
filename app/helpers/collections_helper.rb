@@ -233,7 +233,8 @@ module CollectionsHelper
   end
 
   def source_sort_value(collectable)
-    collectable.sources&.first&.type&.name
+    source = collectable.sources&.first
+    "#{source&.type&.name} #{source&.text}"
   end
 
   def sources(collectable, list: false)
