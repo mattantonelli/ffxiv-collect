@@ -17,21 +17,15 @@
 #  description_de :string(255)
 #  description_fr :string(255)
 #  description_ja :string(255)
+#  item_id        :integer          not null
 #
 
 class Armoire < ApplicationRecord
   include Collectable
   translates :name, :description
   belongs_to :category, class_name: 'ArmoireCategory'
+  belongs_to :item
 
-  scope :include_related, -> { include_sources.includes(:category) }
+  scope :include_related, -> { include_sources.includes(:category, :item) }
   scope :ordered, -> { order(patch: :desc, order: :desc) }
-
-  def item
-    Item.find_by(name_en: name_en)
-  end
-
-  def item_id
-    item.id
-  end
 end
