@@ -1,6 +1,10 @@
 module CollectionsHelper
-  def collectable_classes(collectable)
-    "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if tradeable?(collectable)}"
+  def collectable_classes(collectable, generic: false)
+    if generic
+      "collectable#{' owned' if generic_collectable_owned?(collectable)}#{' tradeable' if tradeable?(collectable)}"
+    else
+      "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if tradeable?(collectable)}"
+    end
   end
 
   def collectable_name_link(collectable)
@@ -22,7 +26,7 @@ module CollectionsHelper
     end
   end
 
-  def collectable_owned?(collectable)
+  def generic_collectable_owned?(collectable)
     @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
   end
 
