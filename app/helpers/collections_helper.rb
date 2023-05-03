@@ -165,7 +165,7 @@ module CollectionsHelper
   end
 
   def tradeable?(collectable)
-    collectable[:item_id].present?
+    collectable[:item_id].present? && ![Achievement, Frame].include?(collectable.class)
   end
 
   def sort_value(collectable)
