@@ -36,6 +36,7 @@
 #  last_ranked_achievement_time :datetime
 #  survey_records_count         :integer          default(0)
 #  frames_count                 :integer          default(0)
+#  banned                       :boolean          default(FALSE)
 #
 
 class Character < ApplicationRecord
@@ -50,7 +51,7 @@ class Character < ApplicationRecord
 
   scope :recent,   -> { where('characters.updated_at > ?', Date.current - 3.months) }
   scope :verified, -> { where.not(verified_user: nil) }
-  scope :visible,  -> { where(public: true) }
+  scope :visible,  -> { where(public: true, banned: false) }
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records

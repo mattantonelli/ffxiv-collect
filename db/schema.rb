@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_03_160616) do
+ActiveRecord::Schema.define(version: 2023_05_04_200241) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -308,6 +308,7 @@ ActiveRecord::Schema.define(version: 2023_05_03_160616) do
     t.datetime "last_ranked_achievement_time"
     t.integer "survey_records_count", default: 0
     t.integer "frames_count", default: 0
+    t.boolean "banned", default: false
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
