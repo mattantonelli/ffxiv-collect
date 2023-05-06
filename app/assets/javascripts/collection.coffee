@@ -3,17 +3,24 @@ $(document).on 'turbolinks:load', ->
 
   # Collections
 
+  # Redo the table striping as some items may have shifted during the flight
   restripe = ->
+    # Skip restripe for Orchestrion Quick Select
     return if $('.quick-select').length > 0
 
     $('.collectable:not(.hidden)').show()
 
     if Cookies.get('owned') == 'owned'
+      # Only show owned collectables
       $('.collection').addClass('only-owned')
       $('.collectable:not(.owned)').hide()
     else if Cookies.get('owned') == 'missing'
+      # Only show missing collectables
       $('.collection').removeClass('only-owned')
       $('.collectable.owned').hide()
+    else
+      # Show all collectables
+      $('.collection').removeClass('only-owned')
 
     # Only show/hide tradeables if the filter is available
     if $('#tradeable').length > 0
@@ -39,6 +46,7 @@ $(document).on 'turbolinks:load', ->
 
   restripe()
 
+  # Add/remove a collectable from a player's collection
   updateCollection = (collectable) ->
     $.ajax({
       type: 'POST',
