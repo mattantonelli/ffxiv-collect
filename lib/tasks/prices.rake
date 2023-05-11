@@ -19,7 +19,7 @@ namespace :prices do
             last_updated = Time.at(item['lastUploadTime'] / 1000).to_date
             price, world = item['listings'].first&.values_at('pricePerUnit', 'worldName')
 
-            [id, { price: price || 'N/A', world: world || 'N/A', last_updated: last_updated }.to_json]
+            [id, { price: price, world: world, last_updated: last_updated }.to_json]
           end
 
           Redis.current.hmset(key, prices.flatten)

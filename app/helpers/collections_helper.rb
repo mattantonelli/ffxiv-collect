@@ -177,8 +177,8 @@ module CollectionsHelper
   end
 
   def price_sort_value(collectable)
-    if price = @prices[collectable.item_id]
-      price['price']
+    if collectable.item_id.present?
+      @prices.dig(collectable.item_id, 'price') || '9999999998'
     else
       '9999999999'
     end
@@ -291,10 +291,15 @@ module CollectionsHelper
   def price_tooltip(collectable, data = nil)
     begin
       if data.present?
+        # Use explicitly provided price data if available
         price = JSON.parse(data)
       else
+        # Otherwise, it should be available from a hash
         price = @prices[collectable.item_id]
       end
+
+      # Do not render tooltips for items without listings
+      return unless price['price'].present?
 
       "<b>#{t('prices.price')}:</b> #{number_with_delimiter(price['price'])} Gil<br>" \
         "<b>#{t('prices.world')}:</b> #{price['world']}<br>" \
