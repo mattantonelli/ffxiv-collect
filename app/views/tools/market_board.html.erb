@@ -39,14 +39,16 @@
               <%= sources(item.unlock) %>
             </td>
             <td data-value="<%= @prices.dig(item.id, :price) %>">
-              <%= link_to(number_with_delimiter(@prices.dig(item.id, :price)),
+              <%= link_to(number_with_delimiter(@prices.dig(item.id, :price)) || 'N/A',
                           universalis_url(item.id), class: 'name', target: '_blank') %>
             </td>
             <td class="hide-sm">
-              <%= link_to(@prices.dig(item.id, :world), universalis_url(item.id), class: 'name', target: '_blank') %>
+              <%= link_to(@prices.dig(item.id, :world) || 'N/A',
+                          universalis_url(item.id), class: 'name', target: '_blank') %>
             </td>
             <td class="hide-sm">
-              <%= link_to(@prices.dig(item.id, :last_updated), universalis_url(item.id), class: 'name', target: '_blank') %>
+              <%= link_to(@prices.dig(item.id, :last_updated) || 'N/A',
+                          universalis_url(item.id), class: 'name', target: '_blank') %>
             </td>
             <td class="text-center hide-sm"><%= item.unlock.patch %></td>
             <% if character_selected? %>
