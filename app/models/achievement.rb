@@ -67,7 +67,8 @@ class Achievement < ApplicationRecord
   end
 
   def self.time_limited_ids
-    ((310..312).to_a +   # Starting township quests
+    ((310..312).to_a + # Starting township quests
+     (954..963).to_a + # Borderland Ruins
      [1166] + # Retired quests
      (1757..1773).to_a + (3083..3088).to_a + # GARO
      (2110..2114).to_a + # Feast Championships
