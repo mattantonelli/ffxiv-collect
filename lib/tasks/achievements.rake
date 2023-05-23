@@ -58,7 +58,7 @@ namespace :achievements do
 
       data[:icon_id] = data[:icon_path].sub(/.*?0+(\d+)\.tex/, '\1')
 
-      if achievement['Item'].present?
+      if achievement['Item'].present? && achievement['Item'] != 'Diadochos Sword'
         data[:item_id] = Item.find_by(name_en: achievement['Item']).id.to_s
       end
 

@@ -36,7 +36,8 @@ namespace :armoires do
       item = Item.find_by(id: armoire['Item'])
       next unless item.present?
 
-      data = { id: (armoire['#'].to_i + 1).to_s, category_id: armoire['Category'], order: armoire['Order'], item_id: item.id }
+      data = { id: (armoire['#'].to_i + 1).to_s, category_id: armoire['Category'],
+               order: armoire['Order'], item_id: item.id.to_s }
 
       data[:gender] = case item.description_en
                       when /♂/ then 'male'
