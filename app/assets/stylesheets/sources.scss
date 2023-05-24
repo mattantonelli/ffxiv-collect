@@ -17,36 +17,37 @@
       min-width: 32px;
       width: 32px;
       height: 32px;
+      background: url(image_path('sources.png')) no-repeat;
       margin-right: 0.5rem;
     }
 
-    &.source-achievement:before { background: url(image_path('sources/achievement.png')) no-repeat; }
-    &.source-bozja:before { background: url(image_path('sources/bozja.png')) no-repeat; }
-    &.source-crafting:before { background: url(image_path('sources/crafting.png')) no-repeat; }
-    &.source-deep-dungeon:before { background: url(image_path('sources/deep_dungeon.png')) no-repeat; }
-    &.source-dungeon:before { background: url(image_path('sources/dungeon.png')) no-repeat; }
-    &.source-eureka:before { background: url(image_path('sources/eureka.png')) no-repeat; }
-    &.source-event:before { background: url(image_path('sources/event.png')) no-repeat; }
-    &.source-fate:before { background: url(image_path('sources/fate.png')) no-repeat; }
-    &.source-gathering:before { background: url(image_path('sources/gathering.png')) no-repeat; }
-    &.source-gold-saucer:before { background: url(image_path('sources/gold_saucer.png')) no-repeat; }
-    &.source-hunts:before { background: url(image_path('sources/hunts.png')) no-repeat; }
-    &.source-island-sanctuary:before { background: url(image_path('sources/island_sanctuary.png')) no-repeat; }
-    &.source-limited:before { background: url(image_path('sources/limited.png')) no-repeat; }
-    &.source-other:before { background: url(image_path('sources/other.png')) no-repeat; }
-    &.source-premium:before { background: url(image_path('sources/premium.png')) no-repeat; }
-    &.source-purchase:before { background: url(image_path('sources/purchase.png')) no-repeat; }
-    &.source-pvp:before { background: url(image_path('sources/pvp.png')) no-repeat; }
-    &.source-quest:before { background: url(image_path('sources/quest.png')) no-repeat; }
-    &.source-raid:before { background: url(image_path('sources/raid.png')) no-repeat; }
-    &.source-skybuilders:before { background: url(image_path('sources/skybuilders.png')) no-repeat; }
-    &.source-treasure-hunt:before { background: url(image_path('sources/treasure_hunt.png')) no-repeat; }
-    &.source-trial:before { background: url(image_path('sources/trial.png')) no-repeat; }
-    &.source-tribal:before { background: url(image_path('sources/tribal.png')) no-repeat; }
-    &.source-ultimate-raid:before { background: url(image_path('sources/ultimate_raid.png')) no-repeat; }
-    &.source-v-c-dungeon:before { background: url(image_path('sources/vc_dungeon.png')) no-repeat; }
-    &.source-venture:before { background: url(image_path('sources/venture.png')) no-repeat; }
-    &.source-voyages:before { background: url(image_path('sources/voyages.png')) no-repeat; }
-    &.source-wondrous-tails:before { background: url(image_path('sources/wondrous_tails.png')) no-repeat; }
+    &.source-achievement:before { background-position: 0px 0px; }
+    &.source-bozja:before { background-position: -32px 0px; }
+    &.source-crafting:before { background-position: -64px 0px; }
+    &.source-deep-dungeon:before { background-position: -96px 0px; }
+    &.source-dungeon:before { background-position: -128px 0px; }
+    &.source-eureka:before { background-position: -160px 0px; }
+    &.source-event:before { background-position: -192px 0px; }
+    &.source-fate:before { background-position: -224px 0px; }
+    &.source-gathering:before { background-position: -256px 0px; }
+    &.source-gold-saucer:before { background-position: -288px 0px; }
+    &.source-hunts:before { background-position: -320px 0px; }
+    &.source-island-sanctuary:before { background-position: -352px 0px; }
+    &.source-limited:before { background-position: -384px 0px; }
+    &.source-other:before { background-position: -416px 0px; }
+    &.source-premium:before { background-position: -448px 0px; }
+    &.source-purchase:before { background-position: -480px 0px; }
+    &.source-pvp:before { background-position: -512px 0px; }
+    &.source-quest:before { background-position: -544px 0px; }
+    &.source-raid:before { background-position: -576px 0px; }
+    &.source-skybuilders:before { background-position: -608px 0px; }
+    &.source-trial:before { background-position: -640px 0px; }
+    &.source-treasure-hunt:before { background-position: -672px 0px; }
+    &.source-tribal:before { background-position: -704px 0px; }
+    &.source-ultimate-raid:before { background-position: -736px 0px; }
+    &.source-v-c-dungeon:before { background-position: -768px 0px; }
+    &.source-venture:before { background-position: -800px 0px; }
+    &.source-voyages:before { background-position: -832px 0px; }
+    &.source-wondrous-tails:before { background-position: -864px 0px; }
   }
 }
