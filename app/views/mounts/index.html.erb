@@ -42,7 +42,11 @@
             </td>
             <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
             <td class="hide-xs" data-value="<%= source_sort_value(mount) %>"><%= sources(mount) %></td>
-            <td class="text-center no-wrap hide-xs"><%= seat_count(mount) %></td>
+            <td class="text-center no-wrap hide-xs">
+              <% if mount.multi_seated? %>
+                <%= seat_count(mount) %>
+              <% end %>
+            </td>
             <td class="text-center" data-value="<%= price_sort_value(mount) %>"><%= market_link(mount) %></td>
             <td class="text-center" data-value="<%= mount.bgm_sample.present? ? 1 : 0 %>"><%= custom_music_link(mount) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>

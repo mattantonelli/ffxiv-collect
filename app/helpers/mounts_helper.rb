@@ -7,9 +7,7 @@ module MountsHelper
   end
 
   def seat_count(mount, right: true)
-    if mount.multi_seated?
-      fa_icon('couch', text: mount.seats, right: right, title: I18n.t('mounts.seats_tooltip', number: mount.seats),
-              data: { toggle: 'tooltip' })
-    end
+    fa_icon('couch', text: mount.seats, right: right, title: I18n.t('mounts.seats_tooltip', number: mount.seats),
+            data: { toggle: 'tooltip' })
   end
 end
