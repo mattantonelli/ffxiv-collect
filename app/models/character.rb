@@ -303,8 +303,10 @@ class Character < ApplicationRecord
 
     if new_mounts.present?
       Character.bulk_insert(character.id, CharacterMount, :mount, new_mounts)
-      character.update(ranked_mounts_count: character.mounts.ranked.count)
     end
+
+    # Always re-check the ranked count since sources can change
+    character.update(ranked_mounts_count: character.mounts.ranked.count)
 
     # Minions
     current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
@@ -312,8 +314,10 @@ class Character < ApplicationRecord
 
     if new_minions.present?
       Character.bulk_insert(character.id, CharacterMinion, :minion, new_minions)
-      character.update(ranked_minions_count: character.minions.ranked.count)
     end
+
+    # Always re-check the ranked count since sources can change
+    character.update(ranked_minions_count: character.minions.ranked.count)
 
     Character.find(character.id)
   end
