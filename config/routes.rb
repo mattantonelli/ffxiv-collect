@@ -1,12 +1,22 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  # Authentication
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   devise_scope :user do
     get 'sign_in', to: 'devise/sessions#new', as: :new_user_session
     get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
+
+  # Memes
+  resources :battle_pass, only: :index
+  resources :p2w, only: :index
+  get 'fish', to: redirect('minions/396')
+  get 'minions/dark_helmet'
+  get 'mounts/pickorpokkur'
+  get 'orchestrions/fool', to: redirect('images/fool.png')
+  get 'parasols', to: redirect('images/parasols.png')
 
   post 'locale/set', to: 'locale#update'
 
@@ -163,15 +173,6 @@ Rails.application.routes.draw do
     resources :sources, only: :destroy
     get 'dashboard', action: :index
   end
-
-  # Memes
-  resources :battle_pass, only: :index
-  resources :p2w, only: :index
-  get 'fish', to: redirect('minions/396')
-  get 'minions/dark_helmet'
-  get 'mounts/pickorpokkur'
-  get 'orchestrions/fool', to: redirect('images/fool.png')
-  get 'parasols', to: redirect('images/parasols.png')
 
   get '404', to: 'static#not_found', as: :not_found
   match "api/*path", via: :all, to: -> (_) { [404, { 'Content-Type' => 'application/json' },
