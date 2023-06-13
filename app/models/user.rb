@@ -36,7 +36,7 @@ class User < ApplicationRecord
     username = auth.info.name.encode(Encoding.find('ASCII'), invalid: :replace, undef: :replace, replace: '')
 
     discord_user = User.find_by(provider: auth.provider, uid: auth.uid)
-    attributes = { username: username, discriminator: auth.extra.raw_info.discriminator, avatar_url: auth.info.image }
+    attributes = { username: username, avatar_url: auth.info.image }
 
     if discord_user.present?
       discord_user.update!(attributes)

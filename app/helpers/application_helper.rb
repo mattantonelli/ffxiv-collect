@@ -37,7 +37,7 @@ module ApplicationHelper
   end
 
   def username(user)
-    "#{user.username}##{user.discriminator.to_s.rjust(4, '0')}" if user.present?
+    fab_icon('discord', text: user.username) if user.present?
   end
 
   def format_text(text)
