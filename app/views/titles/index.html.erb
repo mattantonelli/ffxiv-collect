@@ -13,6 +13,7 @@
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
+    <%= render 'shared/active_filters' %>
     <%= render 'shared/collection_progress', ids: @titles.map(&:achievement_id) %>
     <table class="table table-striped shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
       <thead>

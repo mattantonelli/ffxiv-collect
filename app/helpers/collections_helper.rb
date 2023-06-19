@@ -287,9 +287,25 @@ module CollectionsHelper
     end
   end
 
+  def active_filters
+    available_filters.each_with_object({}) do |filter, h|
+      value = cookies[filter]
+
+      unless value.nil? || value == 'show' || value == 'all'
+        h[filter] = value
+      end
+    end
+  end
+
   def available_filters
-    # Filters for controllers without associated models are set here
+    # Non-standard filters are set here
     case controller_name
+    when 'achievements'
+      if action_name == 'index'
+        %i(limited)
+      else
+        %i(limited owned)
+      end
     when 'latest'
       %i(owned tradeable gender premium limited unknown)
     when 'tomestones'
@@ -302,9 +318,41 @@ module CollectionsHelper
         %i(owned)
       end
     else
-      # Otherwise, filters are provided by the model directly
+      # Otherwise, filters are provided by the model
       controller_name.classify.constantize.available_filters
     end
+  end
+
+  def filter_icon(filter, value)
+    icon = case filter
+           when :owned
+             case value
+             when 'owned' then 'check'
+             when 'missing' then 'times'
+             end
+           when :tradeable
+             'dollar-sign'
+           when :gender
+             if value == 'character'
+               case @character.gender
+               when 'male' then 'mars'
+               when 'female' then 'venus'
+               end
+             else
+               case value
+               when 'male' then 'venus'
+               when 'female' then 'mars'
+               end
+             end
+           when :premium
+             'money-bill-alt'
+           when :limited
+             'clock'
+           when :unknown
+             'question'
+           end
+
+    fa_icon(icon) if icon.present?
   end
 
   private

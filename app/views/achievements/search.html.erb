@@ -21,6 +21,7 @@
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
+    <%= render 'shared/active_filters' %>
     <%= render 'shared/collection_progress', ids: @achievements.map(&:id), skip_comparison: true %>
     <%= render 'shared/progress', value: @achievements.select { |a| @collection_ids.include?(a.id) }.map(&:points).sum,
       min: 0, max: @achievements.pluck(:points).sum, text: 'achievements.points', alt: true %>

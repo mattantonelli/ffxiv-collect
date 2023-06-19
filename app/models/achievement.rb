@@ -87,10 +87,6 @@ class Achievement < ApplicationRecord
     ].freeze
   end
 
-  def self.available_filters
-    %i(owned limited)
-  end
-
   private
   def touch_title
     title&.update_column(:updated_at, Time.now)

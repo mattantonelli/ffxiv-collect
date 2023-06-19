@@ -1,6 +1,6 @@
 <%= render 'shared/filters' %>
 
-<div class="d-flex flex-wrap justify-content-between align-items-center mx-2 mb-3">
+<div class="d-flex flex-wrap justify-content-between align-items-center mx-2">
   <h4 class="mr-2"><%= @profile.name %> (<%= @profile.server %>)</h4>
   <%= link_to fa_icon('user', text: t('characters.profile')), character_path(@profile),
     class: 'btn btn-primary btn-sm mr-auto' %>
@@ -10,5 +10,10 @@
     <% end %>
     <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
       type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+  </div>
+</div>
+<div class="mx-2 mb-3">
+  <div class="d-flex">
+    <%= render 'shared/active_filters' %>
   </div>
 </div>

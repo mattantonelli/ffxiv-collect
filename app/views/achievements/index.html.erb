@@ -3,9 +3,13 @@
 
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
-    <div class="d-flex align-items-end mr-3 mb-2">
-      <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-        type: 'button', class: 'btn btn-secondary btn-sm modal-toggle ml-auto' %>
+    <div class="d-flex justify-content-between align-items-end mx-3 mb-1">
+      <h2 class="mb-1"><%= t('achievements.title') %></h2>
+      <div class="d-flex flex-column">
+        <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
+          type: 'button', class: 'btn btn-secondary btn-sm modal-toggle mb-1' %>
+        <%= render 'shared/active_filters' %>
+      </div>
     </div>
     <%= render 'shared/filters' %>
     <div class="d-flex flex-wrap justify-content-around justify-content-md-start">

@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
-    <div class="d-flex flex-wrap align-items-center mb-2">
+    <div class="d-flex flex-wrap align-items-center">
       <h3 class="mr-auto"><%= @type.name %> <%= t('achievements.title') %></h3>
       <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
         type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
@@ -11,8 +11,11 @@
         <%= fa_icon('expand', text: t('expand')) %>
       </button>
     </div>
+    <div class="d-flex mr-1">
+      <%= render 'shared/active_filters' %>
+    </div>
     <%= render 'shared/filters' %>
-    <div class="collection<%= ' comparing' if @comparison.present? %>" id="achievementCategories">
+    <div class="collection<%= ' comparing' if @comparison.present? %> mt-2" id="achievementCategories">
       <% @categories.each do |category| %>
         <div class="card mb-3">
           <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>

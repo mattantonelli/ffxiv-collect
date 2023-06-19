@@ -15,6 +15,7 @@
         <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
       <% end %>
     </div>
+    <%= render 'shared/active_filters' %>
     <% if character_selected? %>
       <div class="mb-2">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>
