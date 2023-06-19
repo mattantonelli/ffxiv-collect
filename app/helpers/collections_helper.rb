@@ -287,6 +287,26 @@ module CollectionsHelper
     end
   end
 
+  def available_filters
+    # Filters for controllers without associated models are set here
+    case controller_name
+    when 'latest'
+      %i(owned tradeable gender premium limited unknown)
+    when 'tomestones'
+      %i(owned)
+    when 'tools'
+      case action_name
+      when 'gemstones'
+        %i(owned tradeable)
+      else
+        %i(owned)
+      end
+    else
+      # Otherwise, filters are provided by the model directly
+      controller_name.classify.constantize.available_filters
+    end
+  end
+
   private
   def price_tooltip(collectable, data = nil)
     begin

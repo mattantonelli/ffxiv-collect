@@ -33,4 +33,8 @@ class Spell < ApplicationRecord
 
   scope :include_related, -> { include_sources.includes(:type, :aspect) }
   scope :ordered, -> { order(order: :desc) }
+
+  def self.available_filters
+    %i(owned)
+  end
 end

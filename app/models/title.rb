@@ -23,4 +23,8 @@ class Title < ApplicationRecord
 
   scope :include_related, -> { includes(achievement: { category: :type }) }
   scope :ordered, -> { joins(:achievement).order('achievements.patch desc', order: :desc) }
+
+  def self.available_filters
+    %i(owned limited)
+  end
 end

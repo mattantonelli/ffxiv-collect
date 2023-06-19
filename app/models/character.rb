@@ -258,6 +258,10 @@ class Character < ApplicationRecord
     end
   end
 
+  def self.available_filters
+    %i(gender premium limited unknown)
+  end
+
   private
   def self.update_collectables!(character, data)
     # Achievements

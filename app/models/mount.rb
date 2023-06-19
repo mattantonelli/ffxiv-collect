@@ -41,4 +41,8 @@ class Mount < ApplicationRecord
   def multi_seated?
     seats > 1
   end
+
+  def self.available_filters
+    %i(owned tradeable premium limited unknown)
+  end
 end

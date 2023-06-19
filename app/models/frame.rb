@@ -27,4 +27,8 @@ class Frame < ApplicationRecord
   def portrait_only?
     item_id.present? && !item.description_en.downcase.match?('plate elements')
   end
+
+  def self.available_filters
+    %i(owned premium limited unknown)
+  end
 end

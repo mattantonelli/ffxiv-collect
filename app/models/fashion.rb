@@ -23,4 +23,8 @@ class Fashion < ApplicationRecord
 
   scope :include_related, -> { include_sources }
   scope :ordered, -> { order(patch: :desc, order: :desc) }
+
+  def self.available_filters
+    %i(owned tradeable premium limited unknown)
+  end
 end

@@ -93,4 +93,8 @@ class Minion < ApplicationRecord
   def self.unsummonable_ids
     [68, 69, 70, 72, 73, 74].freeze
   end
+
+  def self.available_filters
+    %i(owned tradeable premium limited unknown)
+  end
 end

@@ -26,4 +26,8 @@ class Record < ApplicationRecord
 
   scope :include_related, -> { include_sources }
   scope :ordered, -> { order(:id) }
+
+  def self.available_filters
+    %i(owned)
+  end
 end

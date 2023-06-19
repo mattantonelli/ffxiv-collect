@@ -27,4 +27,8 @@ class Hairstyle < ApplicationRecord
 
   scope :include_related, -> { include_sources }
   scope :ordered, -> { order(patch: :desc, id: :desc) }
+
+  def self.available_filters
+    %i(owned tradeable gender premium limited unknown)
+  end
 end
