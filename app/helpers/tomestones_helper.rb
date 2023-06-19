@@ -3,12 +3,14 @@ module TomestonesHelper
     name = tomestone["name_#{locale}"]
 
     case locale
+    when :en
+      name.sub(/.+ Of (.+)/, '\1')
+    when :de
+      name.sub(/.+ Der (.+)/, '\1')
     when :fr
-      name.split(' ')[-2]
+      name.sub(/.+Allagois (.+) Inhabituel(.*)/, '\1\2')
     when :ja
-      name.split(':').last
-    else
-      name.split(' ').last
+      name.sub(/.+:(.+)/, '\1')
     end
   end
 end

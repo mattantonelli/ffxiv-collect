@@ -17,7 +17,7 @@ class TomestonesController < ApplicationController
     if params[:action] == 'index'
       @tomestone = tomestone_name(@tomestones.last)
     else
-      @tomestone = params[:id].capitalize
+      @tomestone = params[:id].titleize
     end
 
     @title = "#{t('tomestones.title')}: #{@tomestone}"
