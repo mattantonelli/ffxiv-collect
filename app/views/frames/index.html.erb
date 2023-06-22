@@ -1,23 +1,22 @@
 <% title(t('frames.title')) %>
 <% description("Track your character's framer's kits and discover how to obtain new ones.") %>
 
-<div class="d-flex justify-content-center mb-2">
-  <%= search_form_for(@q, url: frames_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('frames.name'), size: 40,
-      class: 'form-control form-control-sm flex-grow-1' %>
-    <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: t('frames.item_name'), size: 40,
-      class: 'form-control form-control-sm flex-grow-1' %>
-    <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
-      { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-  <% end %>
-</div>
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <%= render 'shared/active_filters' %>
+    <div class="d-flex justify-content-between align-items-end mb-1">
+      <div></div>
+      <%= search_form_for(@q, url: frames_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('frames.name'), size: 40,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: t('frames.item_name'), size: 40,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+          { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <% end %>
+      <%= render 'shared/active_filters' %>
+    </div>
     <%= render 'shared/collection_progress', ids: @frames.map(&:id) %>
     <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
     <table class="table table-striped table-sm shadow collection sortable<%= ' comparing' if @comparison.present? %>">

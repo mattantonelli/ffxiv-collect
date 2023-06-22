@@ -4,18 +4,17 @@
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <div class="d-flex justify-content-center mb-2">
+    <div class="d-flex justify-content-between align-items-end mb-1">
+      <div></div>
       <%= form_with(class: 'form form-inline search-form d-flex', method: :get, local: true) do |f| %>
         <%= f.text_field "q[name_#{I18n.locale}_cont]", placeholder: t('name'), size: 40,
           value: @search["name_#{I18n.locale}_cont"], class: 'form-control form-control-sm flex-grow-1' %>
         <%= f.select "q[patch_eq]", patch_options_for_select(@patches, @search[:patch_eq], all: false), {},
           class: 'form-control form-control-sm' %>
-        <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-          type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
         <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
       <% end %>
+      <%= render 'shared/active_filters' %>
     </div>
-    <%= render 'shared/active_filters' %>
     <% if character_selected? %>
       <div class="mb-2">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>

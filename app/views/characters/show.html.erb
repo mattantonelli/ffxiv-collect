@@ -21,8 +21,6 @@
 
           <%= link_to far_icon('chart-bar', text: t('characters.statistics')), stats_rarity_character_path(@profile),
             class: 'btn btn-success btn-sm' unless @comparison == @profile %>
-          <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-            type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
         </div>
       </div>
       <div class="card-body">

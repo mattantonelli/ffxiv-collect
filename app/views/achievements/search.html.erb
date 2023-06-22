@@ -1,27 +1,26 @@
 <% title("#{t('achievements.title')} - #{t('search')}") %>
 <% description('Search for achievements.') %>
 
-<div class="d-flex justify-content-center mb-2">
-  <%= search_form_for(@q, url: achievement_search_path, enforce_utf8: false,
-                      class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40, minlength: 3,
-      class: 'form-control form-control-sm flex-grow-1' %>
-    <%= f.search_field "description_#{I18n.locale}_cont", placeholder: t('description'), size: 40, minlength: 3,
-      class: 'form-control form-control-sm flex-grow-1' %>
-    <%= f.collection_select :category_type_id_eq, @types, :id, "name_#{I18n.locale}", { include_blank: t('all.types') },
-      class: 'form-control form-control-sm' %>
-    <%= f.select :patch_eq,
-      patch_options_for_select(@patches, @search[:patch_eq] || @search[:patch_start], expansions: true),
-      {}, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-  <% end %>
-</div>
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <%= render 'shared/active_filters' %>
+    <div class="d-flex justify-content-between align-items-end mb-1">
+      <div></div>
+      <%= search_form_for(@q, url: achievement_search_path, enforce_utf8: false,
+                          class: 'form form-inline search-form d-flex') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40, minlength: 3,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.search_field "description_#{I18n.locale}_cont", placeholder: t('description'), size: 40, minlength: 3,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.collection_select :category_type_id_eq, @types, :id, "name_#{I18n.locale}", { include_blank: t('all.types') },
+          class: 'form-control form-control-sm' %>
+        <%= f.select :patch_eq,
+          patch_options_for_select(@patches, @search[:patch_eq] || @search[:patch_start], expansions: true),
+          {}, class: 'form-control form-control-sm' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <% end %>
+      <%= render 'shared/active_filters' %>
+    </div>
     <%= render 'shared/progress', value: (@achievements.map(&:id) & @collection_ids).size, min: 0, max: @collection_ids.size %>
     <%= render 'shared/progress', value: @achievements.select { |a| @collection_ids.include?(a.id) }.map(&:points).sum,
       min: 0, max: @achievements.pluck(:points).sum, text: 'achievements.points', alt: true %>

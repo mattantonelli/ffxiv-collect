@@ -6,21 +6,20 @@
     <%= render 'shared/category_buttons', categories: @categories, selected: @category %>
   </div>
 </div>
-<div class="d-flex justify-content-center my-2">
-  <%= search_form_for(@q, url: armoires_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-    <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
-      class: 'form-control form-control-sm flex-grow-1' %>
-    <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
-      { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
-    <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-      type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
-    <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-  <% end %>
-</div>
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <%= render 'shared/active_filters' %>
+    <div class="d-flex justify-content-between align-items-end mt-2 mb-1">
+      <div></div>
+      <%= search_form_for(@q, url: armoires_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+          { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <% end %>
+      <%= render 'shared/active_filters' %>
+    </div>
     <%= render 'shared/collection_progress', ids: @armoires.map(&:id) %>
     <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
     <table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">

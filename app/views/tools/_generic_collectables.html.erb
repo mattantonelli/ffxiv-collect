@@ -1,18 +1,17 @@
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <div class="d-flex justify-content-between align-items-center">
-      <h2><%= title %></h2>
-      <%= button_tag fa_icon('filter', text: t('filters')), data: { toggle: 'modal', target: '#filters'},
-        type: 'button', class: 'btn btn-secondary btn-sm modal-toggle' %>
+    <div class="d-flex justify-content-between align-items-end">
+      <h2 class="mb-0"><%= title %></h2>
+      <%= render 'shared/active_filters' %>
     </div>
     <% if character_selected? %>
-      <div class="mb-2">
+      <div class="mt-1">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.values.flatten.size %>
         <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
       </div>
     <% end %>
-    <table class="table table-striped table-sm shadow collection sortable">
+    <table class="table table-striped table-sm shadow collection sortable mt-2">
       <thead>
         <tr>
           <th scope="col">#</th> <!-- Image -->
