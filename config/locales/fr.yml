@@ -295,6 +295,7 @@ fr:
     tools: "Outils"
     weapons: "Armes"
   remove: "Retirer"
+  reset: "Réinitialiser"
   save: "Sauvegarder"
   search: "Rechercher"
   select: "Sélectionner"

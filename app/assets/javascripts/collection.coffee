@@ -182,6 +182,12 @@ $(document).on 'turbolinks:load', ->
     else
       restripe()
 
+  $('#filters-reset').click ->
+    $('#filters-form select option').prop('selected', false)
+    $('#filters-form input[type=checkbox]').prop('checked', false)
+    $(@).blur()
+    false
+
   # Remove focus from modal toggle button after showing
   $('.modal').on 'shown.bs.modal', ->
     $('.modal-toggle').one 'focus', ->

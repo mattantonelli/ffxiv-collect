@@ -294,6 +294,7 @@ de:
     tools: "Werkzeuge"
     weapons: "Waffen"
   remove: "Entfernen"
+  reset: "Zurücksetzen"
   save: "Speichern"
   search: "Suche"
   select: "Auswählen"
