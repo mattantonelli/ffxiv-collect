@@ -42,7 +42,14 @@
                     <span class="badge badge-danger"><%= t('characters.private') %></span>
                   <% end %>
                 </h5>
-                <%= server_leaderboards_link(@profile.server) %>
+                <div class="d-flex">
+                  <%= link_to(fa_icon('server', text: @profile.data_center),
+                              leaderboards_path(data_center: @profile.data_center),
+                              class: 'name mr-2') %>
+                  <%= link_to(fa_icon('globe', text: @profile.server),
+                              leaderboards_path(server: @profile.server),
+                              class: 'name') %>
+                </div>
                 <%= character_free_company_link(@profile) %>
               </div>
               <div class="align-self-start ml-auto">

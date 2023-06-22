@@ -6,10 +6,6 @@ module CharactersHelper
     end
   end
 
-  def server_leaderboards_link(world)
-    link_to(fa_icon('globe', text: world), leaderboards_path(q: { server_eq: world }), class: 'name')
-  end
-
   def verified(character, only_verified: false, compact: false)
     if character.verified_user?(current_user)
       if compact
