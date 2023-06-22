@@ -176,8 +176,11 @@ $(document).on 'turbolinks:load', ->
 
     $('#filters').modal('hide')
 
-    location.reload()
-    false
+    if refresh
+      location.reload()
+      false
+    else
+      restripe()
 
   # Remove focus from modal toggle button after showing
   $('.modal').on 'shown.bs.modal', ->

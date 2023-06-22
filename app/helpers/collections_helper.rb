@@ -298,8 +298,13 @@ module CollectionsHelper
   end
 
   def available_filters
+    # If the controller/action are passed in from the filter form submission, use those.
+    # Otherwise, use the current controller/action.
+    filter_controller = params['filter_controller'] || controller_name
+    filter_action = params['filter_action'] || action_name
+
     # Non-standard filters are set here
-    case controller_name
+    case filter_controller
     when 'achievements'
       if action_name == 'index'
         %i(limited)
@@ -311,7 +316,7 @@ module CollectionsHelper
     when 'tomestones'
       %i(owned)
     when 'tools'
-      case action_name
+      case filter_action
       when 'gemstones'
         %i(owned tradeable)
       else
@@ -319,7 +324,7 @@ module CollectionsHelper
       end
     else
       # Otherwise, filters are provided by the model
-      controller_name.classify.constantize.available_filters
+      filter_controller.classify.constantize.available_filters
     end
   end
 

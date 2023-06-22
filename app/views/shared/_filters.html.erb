@@ -6,29 +6,33 @@
         <%= link_to fa_icon('times'), nil, data: { dismiss: 'modal' } %>
       </div>
       <div class="modal-body no-wrap">
-        <%= form_tag(nil, class: 'form d-flex flex-column my-2', id: 'filters-form') do  %>
-          <% if available_filters.include?(:owned) %>
+        <%= form_tag(shared_filter_path, class: 'form d-flex flex-column my-2', id: 'filters-form', remote: true) do  %>
+          <%= hidden_field_tag :filter_controller, controller_name %>
+          <%= hidden_field_tag :filter_action, action_name %>
+          <% @available_filters = available_filters %>
+
+          <% if @available_filters.include?(:owned) %>
             <%= select_tag :owned, ownership_options(cookies[:owned]), class: 'form-control mb-2' %>
           <% end %>
-          <% if available_filters.include?(:tradeable) %>
+          <% if @available_filters.include?(:tradeable) %>
             <%= select_tag :tradeable, tradeable_options(cookies[:tradeable]), class: 'form-control mb-2' %>
           <% end %>
-          <% if available_filters.include?(:gender) %>
+          <% if @available_filters.include?(:gender) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% if available_filters.include?(:premium) %>
+          <% if @available_filters.include?(:premium) %>
             <div>
               <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
               <%= label_tag :premium, t('exclude.premium') %>
             </div>
           <% end %>
-          <% if available_filters.include?(:limited) %>
+          <% if @available_filters.include?(:limited) %>
             <div>
               <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
               <%= label_tag :limited, t('exclude.time_limited') %>
             </div>
           <% end %>
-          <% if available_filters.include?(:unknown) %>
+          <% if @available_filters.include?(:unknown) %>
             <div>
               <%= check_box_tag :unknown, nil, cookies[:unknown] == 'hide' %>
               <%= label_tag :unknown, t('exclude.unknown') %>

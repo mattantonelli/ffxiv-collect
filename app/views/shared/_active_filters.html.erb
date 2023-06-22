@@ -1,10 +1,13 @@
-<% unless active_filters.empty? %>
-  <%= button_tag data: { toggle: 'modal', target: '#filters' }, type: 'button',
-    class: 'active-filters badge badge-pill badge-secondary btn btn-secondary modal-toggle ml-auto mb-1' do %>
-    <%= fa_icon('filter', text: "#{t('filters')}:") %>
+<% @active_filters = active_filters %>
+<div class="active-filters ml-auto">
+  <% unless @active_filters.empty? %>
+    <%= button_tag data: { toggle: 'modal', target: '#filters' }, type: 'button',
+      class: 'badge badge-pill badge-secondary btn btn-secondary modal-toggle mb-1' do %>
+      <%= fa_icon('filter', text: "#{t('filters')}:") %>
 
-    <% active_filters.each do |filter, value| %>
-      <%= filter_icon(filter, value) %>
+      <% @active_filters.each do |filter, value| %>
+        <%= filter_icon(filter, value) %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>
