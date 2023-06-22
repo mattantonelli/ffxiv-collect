@@ -300,32 +300,36 @@ module CollectionsHelper
   def available_filters
     # If the controller/action are passed in from the filter form submission, use those.
     # Otherwise, use the current controller/action.
-    filter_controller = params['filter_controller'] || controller_name
-    filter_action = params['filter_action'] || action_name
+    filter_controller = params[:filter_controller] || controller_name
+    filter_action = params[:filter_action] || action_name
 
     # Non-standard filters are set here
-    case filter_controller
-    when 'achievements'
-      if action_name == 'index'
-        %i(limited)
-      else
-        %i(limited owned)
-      end
-    when 'latest'
-      %i(owned tradeable gender premium limited unknown)
-    when 'tomestones'
-      %i(owned)
-    when 'tools'
-      case filter_action
-      when 'gemstones'
-        %i(owned tradeable)
-      else
+    filters =
+      case filter_controller
+      when 'achievements'
+        if action_name == 'index'
+          %i(limited)
+        else
+          %i(limited owned)
+        end
+      when 'latest'
+        %i(owned tradeable gender premium limited unknown)
+      when 'tomestones'
         %i(owned)
+      when 'tools'
+        case filter_action
+        when 'gemstones'
+          %i(owned tradeable)
+        else
+          %i(owned)
+        end
+      else
+        # Otherwise, filters are provided by the model
+        filter_controller.classify.constantize.available_filters
       end
-    else
-      # Otherwise, filters are provided by the model
-      filter_controller.classify.constantize.available_filters
-    end
+
+    filters.delete(:owned) unless @character.present? || params[:character_id].present?
+    filters
   end
 
   def filter_icon(filter, value)

@@ -9,6 +9,7 @@
         <%= form_tag(shared_filter_path, class: 'form d-flex flex-column my-2', id: 'filters-form', remote: true) do  %>
           <%= hidden_field_tag :filter_controller, controller_name %>
           <%= hidden_field_tag :filter_action, action_name %>
+          <%= hidden_field_tag :character_id, @character&.id %>
           <% @available_filters = available_filters %>
 
           <% if @available_filters.include?(:owned) %>
