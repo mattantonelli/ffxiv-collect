@@ -31,9 +31,9 @@
           <tr class="<%= collectable_classes(achievement) %>">
             <td class="wide hide-xs">
               <div class="d-flex align-items-center">
-                <%= sprite(achievement.item, 'item') %>
+                <%= achievement_item_sprite(achievement) %>
                 <span class="ml-2 unstyled">
-                  <%= database_link('item', achievement.item.name, achievement.item.id) %>
+                  <%= achievement_item_link(achievement) %>
                 </span>
               </div>
             </td>

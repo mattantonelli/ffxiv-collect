@@ -53,7 +53,7 @@ class Achievement < ApplicationRecord
 
   scope :ordered, -> do
     joins(category: :type)
-      .includes(:item, :title, category: :type)
+      .includes(:title, category: :type, item: :unlock)
       .order('achievements.patch DESC, achievement_types.order, achievement_categories.order, ' \
              'achievements.order DESC, achievements.id DESC')
   end

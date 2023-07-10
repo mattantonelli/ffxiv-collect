@@ -13,6 +13,26 @@ module AchievementsHelper
             achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled')
   end
 
+  def achievement_item_sprite(achievement)
+    if achievement.item.unlock.present?
+      generic_sprite(achievement.item.unlock_type.downcase.pluralize, achievement.item.unlock)
+    else
+      sprite(achievement.item, 'item')
+    end
+  end
+
+  def achievement_item_link(achievement)
+    if achievement.item.unlock.present?
+      link_to(achievement.item.unlock.name, achievement.item.unlock)
+    else
+      if achievement.item.name_en.match?(/Card\z/)
+        triple_triad_card_link(achievement.item.name_en)
+      else
+        achievement.item.name
+      end
+    end
+  end
+
   def achievement_reward(achievement)
     if achievement.title.present?
       image_tag('title.png', data: { toggle: 'tooltip', title: title_name(achievement.title), html: true })

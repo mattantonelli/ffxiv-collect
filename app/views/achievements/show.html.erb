@@ -40,9 +40,9 @@
           <dt class="mb-2"><%= t('achievements.item_reward', count: 1) %></dt>
           <dd>
             <div class="d-flex align-items-center">
-              <%= sprite(@achievement.item, 'item') %>
+              <%= achievement_item_sprite(@achievement) %>
               <span class="ml-2">
-                <%= database_link('item', @achievement.item.name, @achievement.item.id) %>
+                <%= achievement_item_link(@achievement) %>
               </span>
             </div>
           </dd>

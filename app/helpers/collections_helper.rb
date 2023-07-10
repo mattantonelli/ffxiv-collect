@@ -238,6 +238,10 @@ module CollectionsHelper
     link_to(text, teamcraft_url(type, id), target: '_blank')
   end
 
+  def triple_triad_card_link(name)
+    link_to(name, "https://triad.raelys.com/cards/#{name.sub(/Card\z/, '')}", target: '_blank')
+  end
+
   def source_sort_value(collectable)
     if collectable.class == Achievement
       "Achievement #{collectable.description}"
