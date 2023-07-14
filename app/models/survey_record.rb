@@ -16,6 +16,7 @@
 #  series_id      :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  order          :integer
 #
 class SurveyRecord < ApplicationRecord
   include Collectable
@@ -23,9 +24,11 @@ class SurveyRecord < ApplicationRecord
   belongs_to :series, class_name: 'SurveyRecordSeries', required: false
   translates :name, :description
 
+  alias_attribute :category, :series
+  alias_attribute :category_id, :series_id
+
   scope :include_related, -> { includes(:series) }
-  scope :ordered, -> { order(:id) }
-  scope :hide_unknown, -> (hide) { all }
+  scope :ordered, -> { order({ series_id: :desc }, :order) }
 
   def self.available_filters
     %i(owned)

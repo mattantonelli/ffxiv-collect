@@ -4,6 +4,7 @@
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
+    <%= render 'shared/category_buttons', categories: @categories, selected: @category %>
     <div class="d-flex justify-content-end align-items-end mb-1">
       <%= render 'shared/active_filters' %>
     </div>
@@ -28,7 +29,7 @@
       </thead>
       <tbody>
         <% @records.each do |record| %>
-          <tr class="<%= collectable_classes(record) %>">
+          <tr class="<%= category_row_classes(record, @category) %>">
             <td>
               <div class="d-flex align-items-center">
                 <span class="mr-2"><%= format_record_number(record) %></span>

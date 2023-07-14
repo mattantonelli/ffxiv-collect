@@ -7,9 +7,13 @@ namespace :survey_records do
 
     SurveyRecordSeries.find_or_create_by!(id: 1, name_en: "The Sil'dihn Subterrane", name_de: "Unterstadt Von Sil'dih",
                                           name_fr: "Canalisations Sildiennes", name_ja: "シラディハ水道")
+    SurveyRecordSeries.find_or_create_by!(id: 2, name_en: 'Mount Rokkon', name_de: 'Der Rokkon',
+                                          name_fr: 'Le mont Rokkon', name_ja: '六根山')
 
-    series_records = XIVData.sheet('VVDNotebookSeries', raw: true).each_with_object({}) do |series, h|
-      h[series['#']] = record_ids = series.filter_map do |k, v|
+    series_record_ids = XIVData.sheet('VVDNotebookSeries', raw: true).each_with_object({}) do |series, h|
+      next unless series['Name'].present?
+
+      h[series['#']] = series.filter_map do |k, v|
         v if k =~ /Contents/
       end
     end
@@ -27,13 +31,15 @@ namespace :survey_records do
       end
     end
 
-    records.values.each do |record|
-      series_records.each do |series_id, record_ids|
-        if record_ids.include?(record[:id])
-          break record[:series_id] = series_id
-        end
+    # Assign the series ID and order to each record
+    series_record_ids.each do |series_id, record_ids|
+      record_ids.each.with_index(1) do |record_id, order|
+        records[record_id][:series_id] = series_id
+        records[record_id][:order] = order
       end
+    end
 
+    records.values.each do |record|
       create_image(record[:id], record.delete(:image), 'survey_records/large')
       create_image(record[:id], record.delete(:icon), 'survey_records/small')
 

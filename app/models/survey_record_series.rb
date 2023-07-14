@@ -13,4 +13,5 @@
 class SurveyRecordSeries < ApplicationRecord
   has_many :records, class_name: 'SurveyRecord', foreign_key: 'series_id'
   translates :name, :description
+  scope :ordered, -> { order(:id) }
 end

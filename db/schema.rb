@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_04_200241) do
+ActiveRecord::Schema.define(version: 2023_07_14_135434) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -838,6 +838,8 @@ ActiveRecord::Schema.define(version: 2023_05_04_200241) do
     t.integer "series_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "order"
+    t.index ["order"], name: "index_survey_records_on_order"
     t.index ["series_id"], name: "index_survey_records_on_series_id"
   end
 

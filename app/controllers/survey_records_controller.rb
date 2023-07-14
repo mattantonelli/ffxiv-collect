@@ -3,7 +3,10 @@ class SurveyRecordsController < ApplicationController
   skip_before_action :set_prices!
 
   def index
-    @records = SurveyRecord.order(:series_id, :id).includes(:series)
+    @category = params[:category].to_i
+    @category = nil if @category < 1
+    @categories = SurveyRecordSeries.ordered
+    @records = SurveyRecord.ordered.include_related
   end
 
   def show
