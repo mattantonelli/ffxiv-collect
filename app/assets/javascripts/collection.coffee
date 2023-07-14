@@ -140,7 +140,7 @@ $(document).on 'turbolinks:load', ->
     category = $(@).attr('id').match(/\d+$/)[0]
     buttons.removeClass('active')
     $(@).addClass('active')
-    history.replaceState({ category: category }, '', "?category=#{category}")
+    history.replaceState(history.state, '', "?category=#{category}")
 
     if category == '0'
       $('.collectable').removeClass('hidden')
