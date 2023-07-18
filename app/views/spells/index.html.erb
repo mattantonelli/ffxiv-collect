@@ -34,10 +34,8 @@
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('spells.enemy') %></th>
           <th scope="col" class="hide-xs"><%= t('spells.location') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('type') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('spells.aspect') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('spells.rank') %></th>
           <th scope="col" class="text-center hide-md"><%= t('own') %></th>
+          <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
           <% end %>
@@ -49,7 +47,9 @@
       <tbody>
         <% @spells.each do |spell| %>
           <tr class="<%= collectable_classes(spell) %>">
-            <td class="number"><%= t('spells.number') %> <%= spell.order %></td>
+            <td class="number">
+              <%= link_to("#{t('spells.number')} #{spell.order}", spell_path(spell), class: 'unstyled') %>
+            </td>
             <td class="spell-sprite">
               <%= link_to(spell_path(spell)) do %>
                 <%= sprite(spell, :spell) %>
@@ -59,10 +59,8 @@
             <% spell_sources(spell).each do |source| %>
               <td class="hide-xs"><%= source %></td>
             <% end %>
-            <td class="text-center hide-md"><%= spell.type.name %></td>
-            <td class="text-center hide-md"><%= spell.aspect.name %></td>
-            <td class="text-center no-wrap hide-md" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>
             <td class="text-center hide-md" data-value="<%= rarity(spell, numeric: true) %>"><%= rarity(spell) %></td>
+            <td class="text-center" data-value="<%= sort_value(spell) %>"><%= spell.patch %></td>
             <% if character_selected? %>
               <%= td_owned(spell) %>
             <% end %>
