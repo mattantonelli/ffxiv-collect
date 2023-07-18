@@ -30,6 +30,9 @@ class SurveyRecord < ApplicationRecord
   scope :include_related, -> { includes(:series) }
   scope :ordered, -> { order({ series_id: :desc }, :order) }
 
+  # Override the Unknown filter since Survey Records don't have sources
+  scope :hide_unknown, -> (hide) { all }
+
   def self.available_filters
     %i(owned)
   end
