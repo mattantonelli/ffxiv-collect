@@ -100,11 +100,13 @@ namespace :relics do
                                         order: 7, jobs: 19, expansion: 6)
 
     ids = (38400..38418).to_a + # Base
-      (39144..39162).to_a # Amazing
+      (39144..39162).to_a + # Amazing
+      (39920..39938).to_a # Majestic
 
-    # Base > Amazing
+    # Base > Amazing > Majestic
     achievement_ids = [3128, 3133, 3129, 3132, 3137, 3134, 3130, 3138, 3143, 3140, 3141, 3144, 3145, 3135, 3142, 3131, 3139, 3146, 3136] +
-      [3224, 3229, 3225, 3228, 3233, 3230, 3226, 3234, 3239, 3236, 3237, 3240, 3241, 3231, 3238, 3227, 3235, 3242, 3232]
+      [3224, 3229, 3225, 3228, 3233, 3230, 3226, 3234, 3239, 3236, 3237, 3240, 3241, 3231, 3238, 3227, 3235, 3242, 3232] +
+      [3285, 3290, 3286, 3289, 3294, 3291, 3287, 3295, 3300, 3297, 3298, 3301, 3302, 3292, 3299, 3288, 3296, 3303, 3293]
 
     create_relics(type, ids, achievement_ids)
 
@@ -256,9 +258,11 @@ namespace :relics do
                                         name_fr: "Outils des merveilles", name_ja: "モーエンツール",
                                         category: 'tools', order: 4, jobs: 11, expansion: 6)
 
-    ids = (38715..38747).to_a # Splendorous -> Crystalline
+    ids = (38715..38747).to_a + # Splendorous -> Crystalline
+      (39732..39753).to_a # Chora-Zoi -> Brilliant
 
-    achievement_ids = (3193..3203).to_a * 3
+    achievement_ids = (3193..3203).to_a * 3 +
+      (3305..3315).to_a * 2
 
     create_relics(type, ids, achievement_ids)
 
