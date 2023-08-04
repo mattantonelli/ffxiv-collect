@@ -5,19 +5,19 @@ module Collectable
     scope :tradeable, -> { where.not(item_id: nil) }
 
     scope :hide_premium, -> (hide) do
-      where('sources.premium = FALSE or sources.id IS NULL') if hide
+      where('sources.premium = FALSE or sources.id IS NULL') if hide && available_filters.include?(:premium)
     end
 
     scope :hide_limited, -> (hide) do
-      where('sources.limited = FALSE or sources.id IS NULL') if hide
+      where('sources.limited = FALSE or sources.id IS NULL') if hide && available_filters.include?(:limited)
     end
 
     scope :hide_unknown, -> (hide) do
-      where('sources.id IS NOT NULL') if hide
+      where('sources.id IS NOT NULL') if hide && available_filters.include?(:unknown)
     end
 
     scope :filter_gender, -> (option, character) do
-      if option.present? && model.column_names.include?('gender')
+      if option.present? && available_filters.include?(:gender)
         if option == 'character'
           # Show collectables usable by the character's gender
           where('gender is null or gender = ?', character.gender) if character.present?
