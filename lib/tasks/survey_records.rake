@@ -35,7 +35,7 @@ namespace :survey_records do
     series_record_ids.each do |series_id, record_ids|
       record_ids.each.with_index(1) do |record_id, order|
         records[record_id][:series_id] = series_id
-        records[record_id][:order] = order
+        records[record_id][:order] = order.to_s
       end
     end
 
