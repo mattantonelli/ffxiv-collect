@@ -61,7 +61,7 @@ namespace :tomestones do
       XIVData.sheet('SpecialShop', raw: true).each do |shop|
         next unless shop['Name'] == 'Newest Irregular Tomestone Exchange'
 
-        tomestone = Item.find(shop['Item{Cost}[0][0]']).name_en.split(' ').last
+        tomestone = Item.find(shop['Item{Cost}[0][0]']).tomestone_name
 
         60.times do |i|
           item_id = shop["Item{Receive}[#{i}][0]"]

@@ -5,8 +5,8 @@
 
 <div class="d-flex flex-wrap justify-content-center">
   <% @tomestones.each do |tomestone| %>
-    <%= link_to(tomestone_name(tomestone, I18n.locale), tomestone_path(tomestone_name(tomestone).downcase),
-                class: "btn btn-dark bold mr-2 mb-1#{' active' if @tomestone == tomestone_name(tomestone)}") %>
+    <%= link_to(tomestone.tomestone_name(locale: I18n.locale), tomestone_path(tomestone.tomestone_name.downcase),
+                class: "btn btn-dark bold mr-2 mb-1#{' active' if @tomestone == tomestone.tomestone_name }") %>
   <% end %>
 </div>
 

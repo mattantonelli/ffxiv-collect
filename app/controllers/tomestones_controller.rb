@@ -15,7 +15,7 @@ class TomestonesController < ApplicationController
     @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%').order(:id)
 
     if params[:action] == 'index'
-      @tomestone = tomestone_name(@tomestones.last)
+      @tomestone = @tomestones.last.tomestone_name
     else
       @tomestone = params[:id].titleize
     end
