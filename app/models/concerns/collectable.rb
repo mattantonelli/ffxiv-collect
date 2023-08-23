@@ -12,6 +12,10 @@ module Collectable
       where('sources.limited = FALSE or sources.id IS NULL') if hide && available_filters.include?(:limited)
     end
 
+    scope :hide_ranked_pvp, -> (hide) do
+      where('sources.text not like "%Season %" or sources.id IS NULL') if hide && available_filters.include?(:ranked_pvp)
+    end
+
     scope :hide_unknown, -> (hide) do
       where('sources.id IS NOT NULL') if hide && available_filters.include?(:unknown)
     end
@@ -32,6 +36,7 @@ module Collectable
       left_joins(:sources)
         .hide_premium(filters[:premium] == 'hide')
         .hide_limited(filters[:limited] == 'hide')
+        .hide_ranked_pvp(filters[:ranked_pvp] == 'hide')
         .hide_unknown(filters[:unknown] == 'hide')
         .filter_gender(filters[:gender], character)
         .distinct

@@ -314,7 +314,7 @@ module CollectionsHelper
         if action_name == 'index'
           %i(limited)
         else
-          %i(limited owned)
+          %i(owned limited ranked_pvp)
         end
       when 'latest'
         %i(owned tradeable gender premium limited unknown)
@@ -361,6 +361,8 @@ module CollectionsHelper
              'money-bill-alt'
            when :limited
              'clock'
+           when :ranked_pvp
+             'medal'
            when :unknown
              'question'
            end

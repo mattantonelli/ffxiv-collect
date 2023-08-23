@@ -155,8 +155,9 @@ de:
     command: "Befehl"
     title: "Emotes"
   exclude:
+    limited: "Zeitexklusive ausschließen"
     premium: "Premium ausschließen"
-    time_limited: "Zeitexklusive ausschließen"
+    ranked_pvp: "Ranglisten-PVP"
     unknown: "Unbekannte ausschließen"
   expand: "Alle aufklappen"
   expansions:

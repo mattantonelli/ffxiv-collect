@@ -43,6 +43,6 @@ class Mount < ApplicationRecord
   end
 
   def self.available_filters
-    %i(owned tradeable premium limited unknown)
+    %i(owned tradeable premium limited ranked_pvp unknown)
   end
 end

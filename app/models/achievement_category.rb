@@ -21,8 +21,16 @@ class AchievementCategory < ApplicationRecord
 
   scope :ordered, -> { order(:order) }
   scope :with_filters, -> (filters) do
+    results = all
+
     if filters[:limited] == 'hide'
-      where.not(name_en: ['Seasonal Events', 'Ranking'])
+      results = results.where.not(name_en: ['Seasonal Events', 'Ranking'])
     end
+
+    if filters[:ranked_pvp] == 'hide'
+      results = results.where.not(name_en: 'Ranking')
+    end
+
+    results
   end
 end

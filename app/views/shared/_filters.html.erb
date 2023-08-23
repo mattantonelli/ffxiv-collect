@@ -21,25 +21,14 @@
           <% if @available_filters.include?(:gender) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% if @available_filters.include?(:premium) %>
-            <div>
-              <%= check_box_tag :premium, nil, cookies[:premium] == 'hide' %>
-              <%= label_tag :premium, t('exclude.premium') %>
-            </div>
+          <% %i(premium limited ranked_pvp unknown).each do |filter| %>
+            <% if @available_filters.include?(filter) %>
+              <div>
+                <%= check_box_tag filter, nil, cookies[filter] == 'hide' %>
+                <%= label_tag filter, t("exclude.#{filter}") %>
+              </div>
+            <% end %>
           <% end %>
-          <% if @available_filters.include?(:limited) %>
-            <div>
-              <%= check_box_tag :limited, nil, cookies[:limited] == 'hide' %>
-              <%= label_tag :limited, t('exclude.time_limited') %>
-            </div>
-          <% end %>
-          <% if @available_filters.include?(:unknown) %>
-            <div>
-              <%= check_box_tag :unknown, nil, cookies[:unknown] == 'hide' %>
-              <%= label_tag :unknown, t('exclude.unknown') %>
-            </div>
-          <% end %>
-          <hr class="mt-2 mb-3">
           <div class="text-right">
             <%= button_tag t('reset'), class: 'btn btn-secondary', id: 'filters-reset' %>
             <%= submit_tag t('apply_filters'), class: 'btn btn-primary' %>

@@ -156,8 +156,9 @@ fr:
     command: "Commande"
     title: "Émotes"
   exclude:
+    limited: "Exclure les objets limités dans le temps"
     premium: "Exclure les objets premiums"
-    time_limited: "Exclure les objets limités dans le temps"
+    ranked_pvp: "JcJ classé"
     unknown: "Exclure les objets d'emplacements inconnus"
   expand: "Développer tout"
   expansions:

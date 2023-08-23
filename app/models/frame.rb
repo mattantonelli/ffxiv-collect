@@ -29,6 +29,6 @@ class Frame < ApplicationRecord
   end
 
   def self.available_filters
-    %i(owned premium limited unknown)
+    %i(owned premium limited ranked_pvp unknown)
   end
 end

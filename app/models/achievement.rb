@@ -42,13 +42,25 @@ class Achievement < ApplicationRecord
       .where.not('achievements.id in (?)', Achievement.time_limited_ids)
   end
 
+  scope :exclude_ranked_pvp, -> do
+    where.not('description_en regexp ?', 'feast season|conflict season|championship|pvp team')
+  end
+
   scope :include_related, -> { includes(:item, :title) }
   scope :include_sources, -> { all }
 
   scope :with_filters, -> (filters, character = nil) do
+    results = all
+
     if filters[:limited] == 'hide'
-      exclude_time_limited
+      results = results.exclude_time_limited
     end
+
+    if filters[:ranked_pvp] == 'hide'
+      results = results.exclude_ranked_pvp
+    end
+
+    results
   end
 
   scope :ordered, -> do

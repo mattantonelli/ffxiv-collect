@@ -158,8 +158,9 @@ en:
     command: "Command"
     title: "Emotes"
   exclude:
+    limited: "Exclude Time Limited"
     premium: "Exclude Premium"
-    time_limited: "Exclude Time Limited"
+    ranked_pvp: "Exclude Ranked PVP"
     unknown: "Exclude Unknown"
   expand: "Expand All"
   expansions:

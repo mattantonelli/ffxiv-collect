@@ -160,11 +160,13 @@ $(document).on 'turbolinks:load', ->
   $('#filters-form').submit ->
     premium = $(@).find('#premium')
     limited = $(@).find('#limited')
+    ranked_pvp = $(@).find('#ranked_pvp')
     unknown = $(@).find('#unknown')
-    gender  = $(@).find('#gender')
+    gender = $(@).find('#gender')
 
     refresh = (premium.length > 0 && Cookies.get('premium') != checkboxValue(premium)) ||
       (limited.length > 0 && Cookies.get('limited') != checkboxValue(limited)) ||
+      (limited.length > 0 && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
       (unknown.length > 0 && Cookies.get('unknown') != checkboxValue(unknown)) ||
       (gender.length > 0 && Cookies.get('gender') != gender.val())
 
