@@ -12,10 +12,13 @@ module CharacterGroup
 
   def collections
     @collection = params[:collection] || 'mounts'
+    @owned_ids = owned_ids(@collection.classify)
+
     @collectables = @collection.classify.constantize.joins(sources: :type).ordered.reverse_order.distinct
     @collectables = @collectables.where('source_types.id = ?', params[:source_type_id]) if params[:source_type_id].present?
 
-    @owned_ids = owned_ids(@collection.classify)
+    # Exclude collectables owned by everyone in the group if desired
+    @collectables = @collectables.where.not(id: @owned_ids.values.reduce(:&)) if params[:owned] == 'missing'
 
     render 'groups/collections'
   end

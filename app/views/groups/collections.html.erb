@@ -11,6 +11,7 @@
     <%= f.collection_select :source_type_id, SourceType.all.order("name_#{I18n.locale}"), :id, :name,
       { include_blank: t('all.sources'), selected: params[:source_type_id] },
       class: 'form-control form-control-sm' %>
+    <%= f.select :owned, group_ownership_options(params[:owned]), {}, class: 'form-control form-control-sm' %>
     <%= f.submit t('submit'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>

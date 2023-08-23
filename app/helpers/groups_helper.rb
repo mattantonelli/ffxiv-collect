@@ -15,6 +15,10 @@ module GroupsHelper
     options_for_select(options, selected)
   end
 
+  def group_ownership_options(selected = nil)
+    options_for_select([[t('show_all'), 'all'], [t('only.missing'), 'missing']], selected)
+  end
+
   def group_type(group)
     group.class.to_s.titleize
   end
