@@ -45,7 +45,7 @@ module CharactersHelper
       name = "#{name} #{star}".html_safe
     end
 
-    name
+    link_to(name, send("#{collection}_path"), class: 'unstyled')
   end
 
   def character_relics(character)
