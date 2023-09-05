@@ -25,7 +25,7 @@ fr:
     character_not_selected: "Vous n'avez pas sélectionné de personnage."
     character_refreshed: "Les informations de votre personnage ont été actualisées."
     character_set: "Votre personnage a été défini."
-    character_set_to_private: "Les informations de votre personnage sont désormais privées et ne seront doncs plus traquées."
+    character_set_to_private: "Les informations de votre personnage sont désormais privées et ne seront donc plus traquées."
     character_syncing: "Les informations de votre personnage sont en cours de synchronisation avec le Lodestone. Veuillez patienter."
     character_verification_error: "Nous n'arrivons pas à vérifier votre personnage. Vérifiez votre profil et réessayez."
     character_verified: "Votre personnage a été vérifié. Vous pouvez retirer le code de votre profil."
