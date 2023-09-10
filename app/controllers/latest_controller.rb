@@ -9,7 +9,9 @@ class LatestController < ApplicationController
     @search[:patch_eq] ||= Achievement.all.maximum(:patch)
 
     @collectables = models.flat_map do |model|
-      model.include_sources.with_filters(cookies).ransack(@search).result.ordered
+      collectables = model.include_sources.with_filters(cookies).ransack(@search).result.ordered
+      collectables = collectables.summonable if model == Minion # Exclude variant minions
+      collectables
     end
 
     if @character.present?
