@@ -78,6 +78,10 @@ class Achievement < ApplicationRecord
     Achievement.time_limited_ids.include?(id) || Achievement.time_limited_category_ids.include?(category_id)
   end
 
+  def tradeable?
+    false
+  end
+
   def self.time_limited_ids
     ((310..312).to_a + # Starting township quests
      (954..963).to_a + # Borderland Ruins

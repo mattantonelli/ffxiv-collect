@@ -1,9 +1,9 @@
 module CollectionsHelper
   def collectable_classes(collectable, generic: false)
     if generic
-      "collectable#{' owned' if generic_collectable_owned?(collectable)}#{' tradeable' if tradeable?(collectable)}"
+      "collectable#{' owned' if generic_collectable_owned?(collectable)}#{' tradeable' if collectable.tradeable?}"
     else
-      "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if tradeable?(collectable)}"
+      "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if collectable.tradeable?}"
     end
   end
 
@@ -151,23 +151,17 @@ module CollectionsHelper
   end
 
   def tradeable(collectable)
-    can_trade = tradeable?(collectable)
-
-    if can_trade
+    if collectable.tradeable?
       data_center = @character&.data_center&.downcase || 'primal'
       price = Redis.current.hget("prices-#{data_center}", collectable.item_id)
 
       link_to(universalis_url(collectable[:item_id]), class: 'name', target: '_blank',
               data: { toggle: 'tooltip', html: true }, title: price_tooltip(collectable, price)) do
-        fa_check(can_trade)
+        fa_check(true)
       end
     else
-      fa_check(can_trade)
+      fa_check(false)
     end
-  end
-
-  def tradeable?(collectable)
-    collectable[:item_id].present? && ![Achievement, Frame].include?(collectable.class)
   end
 
   def sort_value(collectable)
@@ -194,14 +188,14 @@ module CollectionsHelper
   end
 
   def market_link(collectable)
-    if tradeable?(collectable)
+    if collectable.tradeable?
       link_to(fa_icon('dollar-sign'), universalis_url(collectable.item_id), target: '_blank',
               data: { toggle: 'tooltip', html: true }, title: price_tooltip(collectable))
     end
   end
 
   def materiel_container(collectable)
-    return nil unless tradeable?(collectable)
+    return nil unless collectable.tradeable?
 
     case collectable.patch
     when /^[23]/ then '3.0'

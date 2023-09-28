@@ -29,6 +29,10 @@ class Armoire < ApplicationRecord
   scope :include_related, -> { include_sources.includes(:category, :item) }
   scope :ordered, -> { order(patch: :desc, order: :desc) }
 
+  def tradeable?
+    false
+  end
+
   def self.available_filters
     %i(owned gender premium limited unknown)
   end

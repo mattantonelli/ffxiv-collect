@@ -28,6 +28,10 @@ class Frame < ApplicationRecord
     item_id.present? && !item.description_en.downcase.match?('plate elements')
   end
 
+  def tradeable?
+    false
+  end
+
   def self.available_filters
     %i(owned premium limited ranked_pvp unknown)
   end

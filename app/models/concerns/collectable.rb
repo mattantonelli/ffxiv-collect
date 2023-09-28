@@ -59,6 +59,10 @@ module Collectable
     def expansion
       patch[0]
     end
+
+    def tradeable?
+      self[:item_id].present?
+    end
   end
 
   class_methods do
