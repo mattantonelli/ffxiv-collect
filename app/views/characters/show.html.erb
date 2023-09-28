@@ -57,7 +57,7 @@
             <hr class="mb-0">
             <div class="d-flex flex-wrap">
               <div class="profile-progress">
-                <h6 class="mb-0"><%= collection_name('achievements') %></h6>
+                <h6 class="mb-0"><%= collection_name('achievements', score: @scores['achievements']) %></h6>
                 <% if @profile.achievements_count == -1 %>
                   <span class="mt-2"><%= t('characters.set_to_private') %></span>
                 <% else %>
