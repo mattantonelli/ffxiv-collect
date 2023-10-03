@@ -29,6 +29,8 @@ namespace :armoires do
 
     count = Armoire.count
     ACHIEVEMENT_TYPE = SourceType.find_by(name_en: 'Achievement').freeze
+    PREMIUM_TYPE = SourceType.find_by(name_en: 'Premium').freeze
+    PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id)
 
     XIVData.sheet('Cabinet', raw: true, drop_zero: false).map do |armoire|
       next if armoire['Order'] == '0'
@@ -61,6 +63,8 @@ namespace :armoires do
         if achievement = Achievement.find_by(item_id: armoire['Item'])
           created.sources.create!(type: ACHIEVEMENT_TYPE, text: achievement.name_en,
                                   related_type: 'Achievement', related_id: achievement.id)
+        elsif PREMIUM_CATEGORIES.include?(armoire['Category'])
+          created.sources.create!(type: PREMIUM_TYPE, text: 'Online Store', premium: true)
         end
       end
     end
