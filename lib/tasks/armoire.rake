@@ -63,7 +63,7 @@ namespace :armoires do
         if achievement = Achievement.find_by(item_id: armoire['Item'])
           created.sources.create!(type: ACHIEVEMENT_TYPE, text: achievement.name_en,
                                   related_type: 'Achievement', related_id: achievement.id)
-        elsif PREMIUM_CATEGORIES.include?(armoire['Category'])
+        elsif PREMIUM_CATEGORIES.include?(armoire['Category'].to_i)
           created.sources.create!(type: PREMIUM_TYPE, text: 'Online Store', premium: true)
         end
       end
