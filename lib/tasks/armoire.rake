@@ -5,13 +5,13 @@ namespace :armoires do
 
     puts 'Creating armoire items'
 
-    categories = XIVData.sheet('CabinetCategory', raw: true).map do |category|
+    categories = XIVData.sheet('CabinetCategory', raw: true).filter_map do |category|
       next if category['MenuOrder'] == '0'
       { id: category['#'], name: category['Category'], order: category['MenuOrder'] }
     end
 
     # The names are actually IDs referencing addon, so we need to look them up
-    category_name_ids = categories.compact!.map { |category| category[:name] }
+    category_name_ids = categories.map { |category| category[:name] }
 
     category_names = %w(en de fr ja).each_with_object({}) do |locale, h|
       XIVData.sheet('Addon', locale: locale).each do |addon|
