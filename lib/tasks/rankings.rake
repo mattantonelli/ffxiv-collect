@@ -32,5 +32,10 @@ def cache_rankings(characters, metric, key)
     [ranking[:character].id, ranking[:rank]]
   end
 
-  Redis.current.hmset(key, rankings) unless rankings.empty?
+  return if rankings.empty?
+
+  # Save the data in reasonable chunks so Redis doesn't get mad and drop our connection
+  rankings.each_slice(10_000) do |slice|
+    Redis.current.hmset(key, slice)
+  end
 end
