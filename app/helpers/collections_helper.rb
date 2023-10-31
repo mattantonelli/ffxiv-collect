@@ -341,7 +341,7 @@ module CollectionsHelper
              'dollar-sign'
            when :gender
              if value == 'character'
-               case @character.gender
+               case @character&.gender
                when 'male' then 'mars'
                when 'female' then 'venus'
                end
