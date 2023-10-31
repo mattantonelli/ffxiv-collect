@@ -92,7 +92,8 @@ class Achievement < ApplicationRecord
      (3276..3280).to_a + # Crystalline Conflict Championships
      [2487, 2488, 2712, 2713, 2785, 2786] + # Ishgardian Reconstruction
      [1419, 1420, 1421, 1422, 1423, 1424, 1425, 1426, 1427, 1428, 1429, 1430, 1431, 1432,
-      1734, 1735, 1736, 1737, 1743, 1744, 1745, 1746]).freeze # Diadem
+      1734, 1735, 1736, 1737, 1743, 1744, 1745, 1746]).freeze + # Diadem
+     (3404..3407).freeze # Fall Guys
   end
 
   def self.time_limited_category_ids
