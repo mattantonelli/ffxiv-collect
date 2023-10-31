@@ -259,10 +259,12 @@ namespace :relics do
                                         category: 'tools', order: 4, jobs: 11, expansion: 6)
 
     ids = (38715..38747).to_a + # Splendorous -> Crystalline
-      (39732..39753).to_a # Chora-Zoi -> Brilliant
+      (39732..39753).to_a + # Chora-Zoi -> Brilliant
+      (41180..41201).to_a # Vrandtic -> Lodestar
 
     achievement_ids = (3193..3203).to_a * 3 +
-      (3305..3315).to_a * 2
+      (3305..3315).to_a * 2 +
+      (3362..3372).to_a * 2
 
     create_relics(type, ids, achievement_ids)
 
