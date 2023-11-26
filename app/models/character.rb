@@ -259,7 +259,7 @@ class Character < ApplicationRecord
   end
 
   def self.available_filters
-    %i(gender premium limited unknown)
+    %i(gender premium limited ranked_pvp unknown)
   end
 
   private
