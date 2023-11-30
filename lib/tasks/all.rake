@@ -56,7 +56,10 @@ def sanitize_text(text, preserve_space: false)
     .gsub(/<If.*?>(.*?)<Else\/>.*?<\/If>/m, '\1')
     .gsub(/<\/?Emphasis>/, '*')
     .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
+    .gsub(/<Highlight>(.*?)<\/Highlight>/, '**\1**')
+    .gsub(/<Split\((.*?),.*?>/, '\1')
     .gsub('<Indent/>', ' ')
+    .gsub('ObjectParameter(1)', 'Player')
     .gsub(/<.*?>(.*?)<\/.*?>/, '')
 
   unless preserve_space

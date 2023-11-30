@@ -28,7 +28,8 @@ namespace :survey_records do
 
         data = h[record['#']] || { id: record['#'], icon: record['Icon'], image: record['Image'] }
         data["name_#{locale}"] = sanitize_name(record['Name'])
-        data["description_#{locale}"] = sanitize_text(record['Description'].gsub("\n", "\n\n"), preserve_space: true)
+        data["description_#{locale}"] = sanitize_text(record['Description'].gsub(/(?<!\n)\n(?!\n)/, "\n\n"),
+                                                      preserve_space: true)
         h[data[:id]] = data
       end
     end
