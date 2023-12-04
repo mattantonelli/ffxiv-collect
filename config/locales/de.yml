@@ -146,6 +146,10 @@ de:
   compare: "Vergleichen"
   complete: "abgeschlossen"
   created_by: "Erstellt durch Raelys Skyborn von Behemoth"
+  currency:
+    tomestones:
+      many: "allagische Steine"
+      one: "allagischer Stein"
   date: "Datum"
   delete: "Löschen"
   description: "Beschreibung"

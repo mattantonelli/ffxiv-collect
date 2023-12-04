@@ -147,6 +147,10 @@ fr:
   compare: "Comparer"
   complete: "Achevé"
   created_by: "Créé par Raelys Skyborn de Behemoth"
+  currency:
+    tomestones:
+      many: "Mémoquartz"
+      one: "Mémoquartz"
   date: "Date"
   delete: "Supprimer"
   description: "Description"

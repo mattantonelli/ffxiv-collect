@@ -149,6 +149,10 @@ en:
   compare: "Compare"
   complete: "Complete"
   created_by: "Created by Raelys Skyborn of Behemoth"
+  currency:
+    tomestones:
+      many: "Tomestones"
+      one: "Tomestones"
   date: "Date"
   delete: "Delete"
   description: "Description"

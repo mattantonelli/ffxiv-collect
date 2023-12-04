@@ -20,7 +20,8 @@
     <% if character_selected? %>
       <div class="mb-2">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>
-        <%= render 'shared/progress', value: 0, min: 0, max: @collectables.map(&:cost).sum, alt: true %>
+        <%= render 'shared/progress', value: 0, min: 0, max: @collectables.map(&:cost).sum, alt: true,
+          text: 'currency.tomestones.many' %>
       </div>
     <% end %>
     <table class="table table-striped table-sm shadow p-3 collection sortable">
@@ -38,7 +39,7 @@
       </thead>
       <tbody>
         <% @collectables.each do |reward| %>
-          <tr class="<%= collectable_classes(reward.collectable, generic: true) %>">
+          <tr class="<%= collectable_classes(reward.collectable, generic: true) %>" data-value="<%= reward.cost %>">
             <td><%= collectable_image(reward.collectable) %></td>
             <td class="w-25"><%= collectable_name_link(reward.collectable) %></td>
             <td class="w-50 hide-xs" data-value="<%= source_sort_value(reward.collectable) %>">
