@@ -44,6 +44,27 @@ $(document).on 'turbolinks:load', ->
         progress.attr('style', "width: #{completion}%")
         progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
 
+    # Update the alternate progress bar based on the *values* of visible collectables
+    if $('tr.collectable').data('value')
+      progress = $($('.progress-bar')[1])
+      current = 0
+      max = 0
+
+      $('tr.collectable:not(.hidden)').each (_, collectable) ->
+        value = $(collectable).data('value')
+        current += value if $(collectable).hasClass('owned')
+        max += value
+
+      if max > 0
+        completion = (current / max) * 100
+        progress.attr('aria-valuenow', current)
+        progress.attr('style', "width: #{completion}%")
+
+        text = progress.find('b').text()
+        text = text.replace(/[\d\s,.]+\s/, "#{current.toLocaleString()} ")
+        text = text.replace(/(\D+) [\d\s,.]+/, "$1 #{max.toLocaleString()} ")
+        progress.find('b').text(text)
+
   restripe()
 
   # Add/remove a collectable from a player's collection

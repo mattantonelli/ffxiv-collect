@@ -8,6 +8,10 @@
     <% if character_selected? %>
       <div class="mt-1">
         <%= render 'shared/progress', value: 0, min: 0, max: @collectables.values.flatten.size %>
+        <% if @progress.present? %>
+          <%= render 'shared/progress', value: @progress[:value], min: 0, max: @progress[:max],
+            text: @progress[:text], alt: true %>
+        <% end %>
         <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
       </div>
     <% end %>
@@ -26,16 +30,17 @@
       </thead>
       <tbody>
         <% @collectables.values.flatten.sort_by(&:patch).reverse.each do |collectable| %>
-            <tr class="<%= collectable_classes(collectable, generic: true) %>">
-              <td><%= collectable_image(collectable) %></td>
-              <td><%= collectable_name_link(collectable) %></td>
-              <td class="hide-xs" data-value="<%= source_sort_value(collectable) %>"><%= sources(collectable) %></td>
-              <td class="text-center" data-value="<%= price_sort_value(collectable) %>"><%= market_link(collectable) %></td>
-              <td class="text-center"><%= collectable.patch %></td>
-              <% if character_selected? %>
-                <%= td_owned(collectable) %>
-              <% end %>
-            </tr>
+          <tr class="<%= collectable_classes(collectable, generic: true) %>"
+            data-value="<%= generic_collectable_value(collectable) %>">
+            <td><%= collectable_image(collectable) %></td>
+            <td><%= collectable_name_link(collectable) %></td>
+            <td class="hide-xs" data-value="<%= source_sort_value(collectable) %>"><%= sources(collectable) %></td>
+            <td class="text-center" data-value="<%= price_sort_value(collectable) %>"><%= market_link(collectable) %></td>
+            <td class="text-center"><%= collectable.patch %></td>
+            <% if character_selected? %>
+              <%= td_owned(collectable) %>
+            <% end %>
+          </tr>
         <% end %>
       </tbody>
     </table>

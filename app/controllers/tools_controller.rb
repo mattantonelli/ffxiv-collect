@@ -4,6 +4,24 @@ class ToolsController < ApplicationController
 
   def gemstones
     find_collectables_by_source!('Bicolor Gemstone')
+
+    @progress = { value: 0, max: 0, text: 'tools.gemstones.title' }
+    @values = Hash.new { |h, k| h[k] = [] }
+
+    # Collect the costs in gemstones
+    @collectables.each do |type, collectables|
+      collectables.each do |collectable|
+        source = collectable.sources.first.text
+        cost = source.match(/(\d+) bicolor/i)&.[](1)&.to_i || 0
+
+        # Vouchers are the equivalent of 100 gemstones
+        cost *= 100 if source.match?(/voucher/i)
+
+        @progress[:max] += cost
+        @progress[:value] += cost if @owned_ids[type].include?(collectable.id)
+        @values[type][collectable.id] = cost
+      end
+    end
   end
 
   def market_board
