@@ -35,8 +35,8 @@ $(document).on 'turbolinks:load', ->
     # Update the collection progress bar based on visible collectables, with the exception of special pages
     unless $('.materiel').length > 0
       progress = $('.progress-bar:first')
-      current = $('.owned:not(.hidden)').length
-      max = $('tr.collectable:not(.hidden)').length
+      current = $('.owned:visible').length
+      max = $('tr.collectable:visible').length
 
       if max > 0
         completion = (current / max) * 100
@@ -50,7 +50,7 @@ $(document).on 'turbolinks:load', ->
       current = 0
       max = 0
 
-      $('tr.collectable:not(.hidden)').each (_, collectable) ->
+      $('tr.collectable:visible').each (_, collectable) ->
         value = $(collectable).data('value')
         current += value if $(collectable).hasClass('owned')
         max += value
