@@ -35,22 +35,12 @@ class AchievementsController < ApplicationController
   end
 
   def search
-    @search = params[:q] || { patch_eq: Achievement.all.maximum(:patch) }
-
-    # Hack the ransack params for searches that span multiple patches
-    if @search[:patch_eq] == 'all'
-      # All achievements
-      @search.delete(:patch_eq)
-    elsif @search[:patch_eq].match?(/\A\d\z/)
-      # Expansion search
-      @search[:patch_start] = @search[:patch_eq]
-      @search.delete(:patch_eq)
-    end
+    @patches = searchable_patches(legacy: cookies[:limited] != 'hide')
+    @search = ransack_with_patch_search
 
     @q = Achievement.with_filters(cookies).ransack(@search)
     @achievements = @q.result.ordered
 
-    @patches = Achievement.pluck(:patch).compact.uniq
     @types = AchievementType.all.ordered
   end
 end

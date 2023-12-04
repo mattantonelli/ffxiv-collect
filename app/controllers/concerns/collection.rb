@@ -8,6 +8,28 @@ module Collection
     before_action :set_prices!, on: :index
   end
 
+  def ransack_with_patch_search
+    search = params[:q] || { patch_eq: @patches.sort.last }
+
+    # Hack the ransack params for searches that span multiple patches
+    if search[:patch_eq] == 'all'
+      # All achievements
+      search.delete(:patch_eq)
+    elsif search[:patch_eq].match?(/\A\d\z/)
+      # Expansion search
+      search[:patch_start] = search[:patch_eq]
+      search.delete(:patch_eq)
+    end
+
+    search
+  end
+
+  def searchable_patches(legacy: false)
+    patches = Achievement.pluck(:patch).compact.uniq
+    patches.delete('1.0') unless legacy
+    patches
+  end
+
   def source_types(model)
     SourceType.joins(:sources).where('sources.collectable_type = ?', model)
       .with_filters(cookies).order("name_#{I18n.locale}").distinct

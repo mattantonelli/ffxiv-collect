@@ -364,6 +364,30 @@ module CollectionsHelper
     fa_icon(icon) if icon.present?
   end
 
+  def patch_options_for_select(patches, selected, expansions: false, all: true)
+    # Collect all of the patch numbers and add the Patch text to the display values
+    options = patches.map do |patch|
+      ["#{t('patch')} #{patch}", patch]
+    end
+
+    # Add special options for searching by exansion
+    if expansions
+      t('expansions').each do |value, expansion|
+        options << [expansion, value]
+      end
+    end
+
+    # Sort the patches in reverse chronological order
+    options.sort_by! { |patch| -patch[1].to_f }
+
+    # Add an All Patches option to the start of the list
+    if all
+      options.unshift([t('all.patches'), 'all'])
+    end
+
+    options_for_select(options, selected)
+  end
+
   private
   def price_tooltip(collectable, data = nil)
     begin
