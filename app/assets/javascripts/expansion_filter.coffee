@@ -13,7 +13,7 @@ $(document).on 'turbolinks:load', ->
     $('.expansion-filter:not(:checked)').each ->
       hidden.push($(this).val())
 
-    Cookies.set('hide_expansions', hidden.join(','))
+    Cookies.set('hide_expansions', hidden.join(','), { expires: 7300, sameSite: 'Lax' })
 
   # Set the state of the checkboxes based on saved Cookie preferences
   if hidden = Cookies.get('hide_expansions')
