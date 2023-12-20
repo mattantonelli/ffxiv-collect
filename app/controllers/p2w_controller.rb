@@ -1,11 +1,19 @@
 class P2wController < ApplicationController
   def index
-    @data = JSON.parse(Redis.current.get('p2w-mounts'))
-    @mounts = Mount.where(id: @data.keys).ordered
-    @characters = Character.visible.recent.count
+    redirect_to p2w_path('mounts')
+  end
+
+  def show
+    @type = params[:id]
+    @types = %w(mounts minions)
+
+    @data = JSON.parse(Redis.current.get("p2w-#{@type.pluralize}"))
+    @collectables = @type.classify.constantize.where(id: @data.keys).ordered
+    @characters = Character.visible.count
+
     @owned = {
-      count: Redis.current.hgetall('mounts-count'),
-      percentage: Redis.current.hgetall('mounts')
+      count: Redis.current.hgetall("#{@type.pluralize}-count"),
+      percentage: Redis.current.hgetall(@type.pluralize)
     }
   end
 end

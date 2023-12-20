@@ -1,0 +1,56 @@
+<% title('Pay to Win') %>
+<% description('An analysis of Online Store exclusive purchases and how they make the critically acclaimed MMORPG Final Fantasy XIV a pay-to-win game.') %>
+
+<h2 class="text-center">Online Store Price Data (USD)</h2>
+<div class="d-flex flex-wrap justify-content-center my-2">
+  <% @types.each do |type| %>
+    <%= link_to(type.capitalize, p2w_path(type), class: "btn btn-dark bold mr-2 mb-1#{' active' if @type == type }") %>
+  <% end %>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <table class="table table-striped table-sm shadow sortable p2w">
+      <thead>
+        <tr>
+          <th scope="col">#</th> <!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col">Price</th>
+          <th scope="col">Characters</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @collectables.each do |collectable| %>
+          <tr>
+            <td><%= collectable_image_link(collectable) %></td>
+            <td><%= collectable_name_link(collectable) %></td>
+            <td data-value="<%= @data[collectable.id.to_s]['price'] %>">
+              <%= number_to_currency(@data[collectable.id.to_s]['price']) %></td>
+            <td data-value="<%= @data[collectable.id.to_s]['characters'] %>">
+              <%= number_with_delimiter(@data[collectable.id.to_s]['characters']) %> (<%= rarity(collectable) %>)
+            </td>
+            <td data-value="<%= @data[collectable.id.to_s]['total'] %>">
+              <%= number_to_currency(@data[collectable.id.to_s]['total']) %>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td data-value="<%= @data.values.sum { |collectable| collectable['price']} %>">
+            <b><%= number_to_currency(@data.values.sum { |collectable| collectable['price']}) %></b>
+          </td>
+          <td data-value="<%= @characters %>">
+            <b>(<%= number_with_delimiter(@characters) %>)</b>
+          </td>
+          <td data-value="<%= @data.values.sum { |collectable| collectable['total']} %>">
+            <b><%= number_to_currency(@data.values.sum { |collectable| collectable['total']}) %></b>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="text-center mt-2">
+  <em>Note: This data will be mildly skewed by alts with account-wide items.</em>
+</div>

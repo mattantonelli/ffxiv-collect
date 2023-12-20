@@ -1,21 +1,35 @@
 namespace :p2w do
   desc 'Cache pay-to-win data'
   task cache: :environment do
-    prices = {
-      42 => 24.0, 68 => 12.0, 69 => 12.0, 71 => 29.99, 74 => 24.0, 84 => 29.99, 97 => 24.0,
-      135 => 24.0, 138 => 24.0, 139 => 24.0, 143 => 24.0, 160 => 29.99, 171 => 24.0, 175 => 24.0,
-      195 => 12.0, 206 => 24.0, 214 => 24.0, 220 => 24.0, 222 => 35.99, 233 => 42.0, 237 => 20.0,
-      247 => 29.99, 269 => 24.0, 294 => 24.0, 279 => 24.0, 300 => 24.0, 301 => 24.0, 310 => 24.0,
-      323 => 24.0, 318 => 37.0
-    }
+    characters = Character.visible
 
-    characters = Character.visible.recent
-    counts = CharacterMount.where(mount_id: prices.keys, character: characters).group(:mount_id).count
+    %w(mount minion).each do |type|
+      # Fetch the latest prices from the Online Store
+      products = OnlineStore.send(type.pluralize)
 
-    data = prices.each_with_object({}) do |(id, price), h|
-      h[id] = { price: price, characters: counts[id] || 0, total: price * (counts[id] || 0) }
+      # Count the # of characters that own the given collactable
+      clazz = "Character#{type.capitalize}".constantize
+      id_column = "#{type}_id".to_sym
+
+      counts = clazz
+        .where(id_column => products.pluck(:id), character: characters)
+        .group(id_column)
+        .count
+
+      # Aggregate the data
+      data = products.each_with_object({}) do |product, h|
+        id, price = product.values_at(:id, :price)
+
+        h[id] =
+          {
+            price: price,
+            characters: counts[id] || 0,
+            total: price * (counts[id] || 0)
+          }
+      end
+
+      # Save the result to Redis
+      Redis.current.set("p2w-#{type.pluralize}", data.to_json)
     end
-
-    Redis.current.set('p2w-mounts', data.to_json)
   end
 end

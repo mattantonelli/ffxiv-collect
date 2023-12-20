@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   # Memes
   resources :battle_pass, only: :index
-  resources :p2w, only: :index
+  resources :p2w, only: [:index, :show]
   get 'fish', to: redirect('minions/396')
   get 'minions/dark_helmet'
   get 'mounts/pickorpokkur'
