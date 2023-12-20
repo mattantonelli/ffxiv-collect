@@ -40,8 +40,15 @@ module OnlineStore
 
   private
   def add_collectable_ids(products, model)
-    collectables = model.where(name_en: products.pluck(:name)).each_with_object({}) do |collectable, h|
-      h[collectable.name_en.downcase] = collectable.id
+    premium_collectable_ids = Source.where(text: 'Online Store')
+      .where(collectable_type: model.to_s)
+      .pluck(:collectable_id)
+
+    collectables = model.includes(sources: :type).where(id: premium_collectable_ids).each_with_object({}) do |collectable, h|
+      # Exclude collectables with non-premium sources (e.g. events)
+      if collectable.sources.map { |source| source.type.name }.all?('Premium')
+        h[collectable.name_en.downcase] = collectable.id
+      end
     end
 
     products.map do |product|
