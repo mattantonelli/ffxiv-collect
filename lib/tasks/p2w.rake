@@ -1,8 +1,6 @@
 namespace :p2w do
   desc 'Cache pay-to-win data'
   task cache: :environment do
-    characters = Character.visible
-
     %w(mount minion).each do |type|
       # Fetch the latest prices from the Online Store
       products = OnlineStore.send(type.pluralize)
@@ -11,8 +9,9 @@ namespace :p2w do
       clazz = "Character#{type.capitalize}".constantize
       id_column = "#{type}_id".to_sym
 
-      counts = clazz
-        .where(id_column => products.pluck(:id), character: characters)
+      counts = clazz.joins(:character)
+        .where('characters.public IS TRUE')
+        .where(id_column => products.pluck(:id))
         .group(id_column)
         .count
 
