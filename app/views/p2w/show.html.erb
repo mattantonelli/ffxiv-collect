@@ -27,7 +27,7 @@
             <td data-value="<%= @data[collectable.id.to_s]['price'] %>">
               <%= number_to_currency(@data[collectable.id.to_s]['price']) %></td>
             <td data-value="<%= @data[collectable.id.to_s]['characters'] %>">
-              <%= number_with_delimiter(@data[collectable.id.to_s]['characters']) %> (<%= rarity(collectable) %>)
+              <%= number_with_delimiter(@data[collectable.id.to_s]['characters']) %> (<%= @ownership[collectable.id] %>%)
             </td>
             <td data-value="<%= @data[collectable.id.to_s]['total'] %>">
               <%= number_to_currency(@data[collectable.id.to_s]['total']) %>

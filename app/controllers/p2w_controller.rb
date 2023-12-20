@@ -11,9 +11,9 @@ class P2wController < ApplicationController
     @collectables = @type.classify.constantize.where(id: @data.keys).ordered
     @characters = Redis.current.get('stats-characters')
 
-    @owned = {
-      count: Redis.current.hgetall("#{@type.pluralize}-count"),
-      percentage: Redis.current.hgetall(@type.pluralize)
-    }
+    @ownership = @collectables.each_with_object({}) do |collectable, h|
+      count = @data[collectable.id.to_s]['characters']
+      h[collectable.id] = ((count / @characters.to_f) * 100).to_s[0..2].sub(/\.\Z/, '').sub(/0\.0/, '0')
+    end
   end
 end
