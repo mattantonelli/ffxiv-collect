@@ -6,40 +6,18 @@ module OnlineStore
 
   def mounts
     products = fetch_products(MOUNTS_URL, 'Mount')
-    products = add_collectable_ids(products, Mount)
-
-    # Fix naming inconsistencies
-    products.map do |product|
-      case product[:name]
-      when 'Ceruleum Balloons'
-        product[:id] = 310
-      end
-
-      product
-    end
+    extras = { 'ceruleum balloons' => 310 }
+    add_collectable_ids(products, Mount, extras)
   end
 
   def minions
     products = fetch_products(MINIONS_URL, 'Minion')
-    products = add_collectable_ids(products, Minion)
-
-    # Fix naming inconsistencies
-    products.map do |product|
-      case product[:name]
-      when 'Edge'
-        product[:id] = 401
-      when 'Rydia'
-        product[:id] = 402
-      when 'Rosa'
-        product[:id] = 403
-      end
-
-      product
-    end
+    extras = { 'edge' => 401, 'rydia' => 402, 'rosa' => 403}
+    add_collectable_ids(products, Minion, extras)
   end
 
   private
-  def add_collectable_ids(products, model)
+  def add_collectable_ids(products, model, extras)
     premium_collectable_ids = Source.where(text: 'Online Store')
       .where(collectable_type: model.to_s)
       .pluck(:collectable_id)
@@ -51,11 +29,13 @@ module OnlineStore
       end
     end
 
-    products.map do |product|
-      {
-        id: collectables[product[:name].downcase],
-        **product
-      }
+    # Add custom mapping to fix naming inconsistencies
+    collectables.merge!(extras)
+
+    products.filter_map do |product|
+      if id = collectables[product[:name].downcase]
+        { id: id, **product }
+      end
     end
   end
 
