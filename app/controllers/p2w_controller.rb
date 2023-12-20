@@ -9,7 +9,7 @@ class P2wController < ApplicationController
 
     @data = JSON.parse(Redis.current.get("p2w-#{@type.pluralize}"))
     @collectables = @type.classify.constantize.where(id: @data.keys).ordered
-    @characters = Character.visible.count
+    @characters = Redis.current.get('stats-characters')
 
     @owned = {
       count: Redis.current.hgetall("#{@type.pluralize}-count"),
