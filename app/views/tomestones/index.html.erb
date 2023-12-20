@@ -40,7 +40,7 @@
       <tbody>
         <% @collectables.each do |reward| %>
           <tr class="<%= collectable_classes(reward.collectable, generic: true) %>" data-value="<%= reward.cost %>">
-            <td><%= collectable_image(reward.collectable) %></td>
+            <td><%= collectable_image_link(reward.collectable) %></td>
             <td class="w-25"><%= collectable_name_link(reward.collectable) %></td>
             <td class="w-50 hide-xs" data-value="<%= source_sort_value(reward.collectable) %>">
               <%= sources(reward.collectable) %>

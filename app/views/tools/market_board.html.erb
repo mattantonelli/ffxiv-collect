@@ -32,7 +32,7 @@
       <tbody>
         <% @items.each do |item| %>
           <tr class="<%= collectable_classes(item.unlock, generic: true) %>">
-            <td><%= collectable_image(item.unlock) %></td>
+            <td><%= collectable_image_link(item.unlock) %></td>
             <td class="orchestrion-name"><%= collectable_name_link(item.unlock) %></td>
             <td class="orchestrion-source hide-xs" data-value="<%= source_sort_value(item.unlock) %>">
               <%= sources(item.unlock) %>

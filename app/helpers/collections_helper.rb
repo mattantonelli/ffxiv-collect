@@ -28,6 +28,12 @@ module CollectionsHelper
     end
   end
 
+  def collectable_image_link(collectable)
+    link_to(polymorphic_path(collectable)) do
+      collectable_image(collectable)
+    end
+  end
+
   def generic_collectable_owned?(collectable)
     @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
   end

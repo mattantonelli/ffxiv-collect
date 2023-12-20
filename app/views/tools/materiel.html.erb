@@ -41,7 +41,7 @@
             <tbody>
               <% collectables.values.flatten.sort_by(&:patch).reverse.each do |collectable| %>
                 <tr class="<%= collectable_classes(collectable, generic: true) %>">
-                  <td><%= collectable_image(collectable) %></td>
+                  <td><%= collectable_image_link(collectable) %></td>
                   <td><%= collectable_name_link(collectable) %></td>
                   <td class="text-center" data-value="<%= price_sort_value(collectable) %>">
                     <%= market_link(collectable) %>
