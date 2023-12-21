@@ -40,7 +40,12 @@
         <% @collectables.each do |collectable| %>
             <tr class="<%= collectable_classes(collectable, generic: true) %>">
               <td><%= collectable_image_link(collectable) %></td>
-              <td><%= collectable_name_link(collectable) %></td>
+              <td>
+                <%= collectable_name_link(collectable) %>
+                <% if collectable.class == Achievement && collectable.time_limited? %>
+                  <%= far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited_achievement')) %>
+                <% end %>
+              </td>
               <td class="orchestrion-source hide-xs" data-value="<%= source_sort_value(collectable) %>">
                 <% if collectable.class == Achievement %>
                   <div class="sources">
