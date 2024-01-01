@@ -4,7 +4,7 @@ set :output, 'log/whenever.log'
 
 # Cache leaderboard rankings for character profiles and the API
 every '0 0,6,12,18 * * *' do
-  rake 'rankings:cache'
+  rake 'rankings:server:cache rankings:data_center:cache rankings:global:cache'
 end
 
 # Cache item prices and FAQ stats
