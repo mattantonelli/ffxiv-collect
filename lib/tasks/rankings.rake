@@ -2,7 +2,7 @@ namespace :rankings do
   namespace :server do
     desc 'Cache server rankings'
     task cache: :environment do
-      puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching server rankings"
+      log('Caching server rankings')
 
       Character.servers.each do |server|
         characters = Character.visible.where(server: server)
@@ -16,7 +16,7 @@ namespace :rankings do
   namespace :data_center do
     desc 'Cache data center rankings'
     task cache: :environment do
-      puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching data center rankings"
+      log('Caching data center rankings')
 
       Character.data_centers.each do |data_center|
         characters = Character.visible.where(data_center: data_center)
@@ -30,7 +30,7 @@ namespace :rankings do
   namespace :global do
     desc 'Cache global rankings'
     task cache: :environment do
-      puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching global rankings"
+      log('Caching global rankings')
 
       characters = Character.visible
 

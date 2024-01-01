@@ -2,7 +2,7 @@ namespace :p2w do
   desc 'Cache pay-to-win data'
   task cache: :environment do
     %w(mount minion).each do |type|
-      puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Caching P2W #{type} data"
+      log("Caching P2W #{type} data")
 
       # Fetch the latest prices from the Online Store
       products = OnlineStore.send(type.pluralize)

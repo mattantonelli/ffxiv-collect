@@ -7,7 +7,7 @@ namespace :prices do
     item_ids << 32830 # Add "Paint It X" which is missed due to multiple unlock IDs
 
     Character.data_centers.each do |dc|
-      puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] Updating prices for #{dc}"
+      log("Updating prices for #{dc}")
       key = "prices-#{dc.downcase}"
 
       item_ids.each_slice(100) do |ids|

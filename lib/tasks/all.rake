@@ -49,6 +49,10 @@ namespace :data do
   end
 end
 
+def log(message)
+  puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] #{message}"
+end
+
 # Replace various tags with the appropriate text
 def sanitize_text(text, preserve_space: false)
   text = text.gsub('<SoftHyphen/>', "\u00AD")
