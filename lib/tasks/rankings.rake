@@ -42,14 +42,14 @@ namespace :rankings do
 end
 
 def cache_rankings(characters, metric, key)
-  rankings = Character.leaderboards(characters: characters, metric: metric).flat_map do |ranking|
-    [ranking[:character].id, ranking[:rank]]
-  end
+  # Process the data in reasonable chunks for more efficient memory utilization
+  Character.leaderboards(characters: characters, metric: metric).each_slice(10_000) do |rankings|
+    return if rankings.empty?
 
-  return if rankings.empty?
+    values = rankings.flat_map do |ranking|
+      [ranking[:character].id, ranking[:rank]]
+    end
 
-  # Save the data in reasonable chunks so Redis doesn't get mad and drop our connection
-  rankings.each_slice(10_000) do |slice|
-    Redis.current.hmset(key, slice)
+    Redis.current.hmset(key, values)
   end
 end
