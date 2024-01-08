@@ -1,6 +1,7 @@
 <% title("#{@group.formatted_name} - #{t("#{@collection}.title")}") %>
 <% description("Track your #{group_type(@group).downcase}'s #{@collection}.") %>
 
+<%= render 'shared/filters' %>
 <h3 class="text-center">
   <%= link_to(@group.formatted_name, polymorphic_path(@group), class: 'name') %>
   <%= t("#{@collection.downcase.pluralize}.title") %>
@@ -15,13 +16,16 @@
     <%= f.submit t('submit'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
   <% end %>
 </div>
-<div class="d-flex flex-wrap justify-content-center mb-2">
+<div class="d-flex flex-wrap justify-content-center">
   <% t('expansions').each do |value, text| %>
     <div class="form-check-inline">
       <%= check_box_tag("expansion-#{value}", value, true, class: 'form-check-input expansion-filter') %>
       <%= label_tag("expansion-#{value}", text, class: 'form-check-label') %>
     </div>
   <% end %>
+</div>
+<div class="d-flex justify-content-end mb-2">
+  <%= render 'shared/active_filters' %>
 </div>
 <div class="d-flex">
   <table class="table table-bordered table-hover table-sm table-responsive table-clickable group-collection">
