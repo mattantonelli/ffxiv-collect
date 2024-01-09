@@ -27,6 +27,12 @@ module XIVData
     "ui/icon/#{directory}/#{number}#{'_hr1' if hd}.tex"
   end
 
+  def card_image_path(id)
+    number = id.to_s.rjust(6, '0')
+    directory = number.first(3).ljust(6, '0')
+    "#{IMAGE_PATH}/ui/icon/#{directory}/#{number}.png"
+  end
+
   def image_path(icon)
     "#{IMAGE_PATH}/#{icon.sub('tex', 'png')}"
   end

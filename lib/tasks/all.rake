@@ -10,6 +10,15 @@ namespace :data do
     Rake::Task['relics:create'].invoke
     Rake::Task['records:sources:create'].invoke
     Rake::Task['survey_records:solutions:set'].invoke
+
+    # Triple Triad
+    Rake::Task['triad:card_types:create'].invoke
+    Rake::Task['triad:cards:create'].invoke
+    Rake::Task['triad:rules:create'].invoke
+    Rake::Task['triad:npcs:create'].invoke
+    Rake::Task['triad:card_packs:create'].invoke
+    Rake::Task['triad:sources:update'].invoke
+    Rake::Task['triad:card_images:create'].invoke
   end
 
   desc 'Updates all data'
@@ -41,9 +50,21 @@ namespace :data do
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
     Rake::Task['frames:create'].invoke
+
+    # Triple Triad
+    Rake::Task['triad:card_types:create'].invoke
+    Rake::Task['triad:cards:create'].invoke
+    Rake::Task['triad:rules:create'].invoke
+    Rake::Task['triad:npcs:create'].invoke
+    Rake::Task['triad:card_images:create'].invoke
+
+    # Sources
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
+    Rake::Task['triad:sources:update'].invoke
     Rake::Task['sources:update'].invoke
+
+    # Events
     Rake::Task['tomestones:latest:create'].invoke
     Rake::Task['tomestones:images:create'].invoke
   end

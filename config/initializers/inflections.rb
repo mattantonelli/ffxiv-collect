@@ -16,7 +16,10 @@
 # end
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.plural 'Orchestrion', 'Orchestrion'
+  inflect.acronym 'NPC'
+  inflect.acronym 'NPCs'
+
   inflect.plural 'Armoire', 'Armoire'
   inflect.plural 'Fashion', 'Fashion'
+  inflect.plural 'Orchestrion', 'Orchestrion'
 end

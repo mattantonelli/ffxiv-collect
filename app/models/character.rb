@@ -37,6 +37,8 @@
 #  survey_records_count         :integer          default(0)
 #  frames_count                 :integer          default(0)
 #  banned                       :boolean          default(FALSE)
+#  cards_count                  :integer          default(0)
+#  npcs_count                   :integer          default(0)
 #
 
 class Character < ApplicationRecord

@@ -47,6 +47,11 @@ config/deploy/*
 /app/assets/images/survey_records-small.png
 /app/assets/images/frames/*
 
+/app/assets/images/cards/large*.png
+/app/assets/images/cards/small.png
+/public/images/cards/large/*
+/public/images/cards/small/*
+
 /app/assets/stylesheets/images/*
 
 /public/images/mounts/*
