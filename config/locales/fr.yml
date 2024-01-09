@@ -325,6 +325,7 @@ fr:
     title: "Magie bleue"
   submit: "Soumettre"
   survey_records:
+    hide_spoilers: "Masquer les spoilers"
     solution: "Solution"
     title: "Journaux d'exploration"
   titles:

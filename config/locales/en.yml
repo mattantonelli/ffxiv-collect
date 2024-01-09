@@ -327,6 +327,7 @@ en:
     title: "Blue Magic"
   submit: "Submit"
   survey_records:
+    hide_spoilers: "Hide Spoilers"
     solution: "Solution"
     title: "Survey Records"
   titles:

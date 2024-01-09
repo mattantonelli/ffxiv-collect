@@ -324,6 +324,7 @@ de:
     title: "Blaumagier"
   submit: "Senden"
   survey_records:
+    hide_spoilers: "Spoiler ausblenden"
     solution: "Lösung"
     title: "Erkundungsberichten"
   titles:
