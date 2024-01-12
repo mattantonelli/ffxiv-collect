@@ -316,7 +316,7 @@ module CollectionsHelper
         else
           %i(owned limited ranked_pvp)
         end
-      when 'groups'
+      when 'groups', 'free_companies'
         %i(premium limited ranked_pvp unknown)
       when 'latest'
         %i(owned tradeable gender premium limited unknown)
