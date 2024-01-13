@@ -5,7 +5,12 @@ namespace 'sources:shops' do
 
     include ActionView::Helpers::NumberHelper
 
+    fate_type = SourceType.find_by(name_en: 'FATE')
+    gold_saucer_type = SourceType.find_by(name_en: 'Gold Saucer')
+    hunts_type = SourceType.find_by(name_en: 'Hunts')
     purchase_type = SourceType.find_by(name_en: 'Purchase')
+    pvp_type = SourceType.find_by(name_en: 'PvP')
+    wondrous_tails_type = SourceType.find_by(name_en: 'Wondrous Tails')
 
     puts 'Creating GilShop sources'
     item_ids = XIVData.sheet('GilShopItem', raw: true).map do |entry|
@@ -31,13 +36,29 @@ namespace 'sources:shops' do
           price = shop["Count{Cost}[#{i}][#{j}]"]
           next if price == '0'
 
+          currency = shop["Item{Cost}[#{i}][#{j}]"]
+          case currency.to_i
+          when 25
+            type = pvp_type
+          when 27, 10307, 26533
+            type = hunts_type
+          when 29
+            type = gold_saucer_type
+          when 26807
+            type = fate_type
+          when 30341
+            type = wondrous_tails_type
+          else
+            type = purchase_type
+          end
+
           unlock = Item.find(item_id).unlock
           currency = Item.find(shop["Item{Cost}[#{i}][#{j}]"])
           text = "#{number_with_delimiter(price)} #{price == '1' ? currency.name_en : currency.plural_en}"
 
           # Do not create shop sources for Moogle Treasure Trove rewards
           unless text.match?('Irregular Tomestones')
-            create_shop_source(unlock, purchase_type, text)
+            create_shop_source(unlock, type, text)
           end
         end
       end
