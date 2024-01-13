@@ -54,10 +54,10 @@ namespace :triad do
       puts "Created #{Dir.entries(LARGE_CARDS_DIR).size - counts[:large]} large images"
       puts "Created #{Dir.entries(SMALL_CARDS_DIR).size - counts[:small]} small images"
 
-      create_sheet(SMALL_CARDS_DIR, IMAGES_DIR.join('small.png'), 40, 40)
-      create_sheet(LARGE_CARDS_DIR, IMAGES_DIR.join('large.png'), 104, 128)
-      create_sheet(LARGE_CARDS_DIR.join('red'), IMAGES_DIR.join('large_red.png'), 104, 128)
-      create_sheet(LARGE_CARDS_DIR.join('blue'), IMAGES_DIR.join('large_blue.png'), 104, 128)
+      create_spritesheet('cards/small')
+      create_spritesheet('cards/large')
+      create_spritesheet('cards/large/red')
+      create_spritesheet('cards/large/blue')
 
       puts 'Created spritesheets for the latest card images'
     end
@@ -98,17 +98,5 @@ namespace :triad do
     URI.open(SMALL_CARDS_DIR.join("#{card.id}.png").to_s, 'wb') do |file|
       file << URI.open(XIVData.card_image_path(SMALL_OFFSET + card.id)).read
     end
-  end
-
-  def create_sheet(source, destination, width, height)
-    ids = Card.order(:id).pluck(:id)
-    sheet = ChunkyPNG::Image.new(width * Card.pluck(:id).max, height)
-
-    ids.each do |id|
-      image = source.join("#{id}.png")
-      sheet.compose!(ChunkyPNG::Image.from_file(image), width * (id - 1), 0)
-    end
-
-    sheet.save(destination.to_s)
   end
 end

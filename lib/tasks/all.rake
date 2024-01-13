@@ -6,19 +6,10 @@ namespace :data do
   task initialize: :environment do
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
-    Rake::Task['sources:initialize'].invoke
     Rake::Task['relics:create'].invoke
     Rake::Task['records:sources:create'].invoke
     Rake::Task['survey_records:solutions:set'].invoke
-
-    # Triple Triad
-    Rake::Task['triad:card_types:create'].invoke
-    Rake::Task['triad:cards:create'].invoke
-    Rake::Task['triad:rules:create'].invoke
-    Rake::Task['triad:npcs:create'].invoke
     Rake::Task['triad:card_packs:create'].invoke
-    Rake::Task['triad:sources:update'].invoke
-    Rake::Task['triad:card_images:create'].invoke
   end
 
   desc 'Updates all data'
@@ -61,7 +52,6 @@ namespace :data do
     # Sources
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
-    Rake::Task['triad:sources:update'].invoke
     Rake::Task['sources:update'].invoke
 
     # Events
@@ -180,7 +170,7 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
 end
 
 def create_spritesheet(path)
-  output_image = path.sub('/', '-')
+  output_image = path.gsub('/', '-')
   class_name = output_image.singularize
   options = { style: :scss, layout: :packed, library: :chunkypng,
               nocomments: true, output_image: Rails.root.join('app/assets/images', "#{output_image}.png"),
