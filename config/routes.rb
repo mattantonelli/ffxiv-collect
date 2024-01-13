@@ -44,6 +44,40 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :triad, module: :triad do
+    resources :cards, only: [:index, :show] do
+      member do
+        post 'add'
+        post 'remove'
+      end
+
+      collection do
+        get 'select'
+        post 'set'
+      end
+    end
+
+    get 'cards/no/:id', to: 'cards#no'
+    get 'cards/ex/:id', to: 'cards#ex'
+
+    resources :npcs, only: [:index, :show] do
+      member do
+        post 'add'
+        post 'remove'
+      end
+
+      post 'defeated/update', on: :collection, to: 'npcs#update_defeated', as: :update_defeated
+    end
+
+    resources :decks do
+      get 'mine', as: :my, on: :collection
+      post 'upvote'
+      post 'downvote'
+    end
+
+    get 'packs', to: 'card_packs#index'
+  end
+
   namespace :relics, as: :relic do
     get :weapons
     get :armor

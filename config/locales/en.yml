@@ -358,8 +358,16 @@ en:
     ownership: "Active public characters who own this %{collectable}"
     time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
   tradeable: "Tradeable"
-  triple_triad:
+  triad:
     title: "Triple Triad"
+    cards:
+      title: "Cards"
+    npcs:
+      title: "NPCs"
+    decks:
+      title: "Decks"
+    packs:
+      title: "Packs"
   type: "Type"
   users:
     sign_in: "Sign in with Discord"

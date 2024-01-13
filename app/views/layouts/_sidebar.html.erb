@@ -33,10 +33,18 @@
     <%= nav_link(t('frames.title'), 'portrait', frames_path) %>
     <%= nav_link(t('records.title'), 'file-alt', records_path) %>
     <%= nav_link(t('survey_records.title'), 'book', survey_records_path) %>
-    <%= link_to "#{fa_icon('th', text: t('triple_triad.title'))} #{fa_icon('external-link-alt')}".html_safe,
-      'https://triad.raelys.com/', target: '_blank', class: 'nav-link' %>
-    <%= link_to "#{fa_icon('fish', text: t('fish.title'))} #{fa_icon('external-link-alt')}".html_safe,
-      'https://ff14fish.carbuncleplushy.com/', target: '_blank', class: 'nav-link' %>
+
+    <!-- Triple Triad -->
+    <div class="nav-item dropdown<%= ' bold' if active_path?(cards_path) %>">
+      <a class="nav-link dropdown-toggle" href="#" id="relicsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><%= fa_icon('th', text: t('triad.title')) %></a>
+      <div class="dropdown-menu" aria-labelledBy="triadDropdown">
+        <%= link_to fa_icon('id-badge', text: t('triad.cards.title')), cards_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('users', text: t('triad.npcs.title')), npcs_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('list-alt', text: t('triad.decks.title')), decks_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('boxes', text: t('triad.packs.title')), packs_path, class: 'dropdown-item' %>
+      </div>
+    </div>
 
     <!-- Relics -->
     <div class="nav-item dropdown<%= ' bold' if active_path?(relic_weapons_path) %>">
@@ -61,6 +69,9 @@
         <%= link_to fa_icon('map-marker-alt', text: t('tools.treasure.title')), treasure_tools_path, class: 'dropdown-item' %>
       </div>
     </div>
+
+    <%= link_to "#{fa_icon('fish', text: t('fish.title'))} #{fa_icon('external-link-alt')}".html_safe,
+      'https://ff14fish.carbuncleplushy.com/', target: '_blank', class: 'nav-link' %>
 
     <!-- Leaderboards -->
     <% if @character&.free_company_id.present? %>

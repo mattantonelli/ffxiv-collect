@@ -1,0 +1,43 @@
+<% title('Select Cards') %>
+
+<div class="card-buttons d-flex justify-content-between align-items-center mx-auto mb-1">
+  <button type="button" class="btn btn-secondary btn-sm" id="nav-prev"><%= fa_icon('arrow-left') %> Prev</button>
+  <span id="page">Page 1</span>
+  <button type="button" class="btn btn-secondary btn-sm" id="nav-next">Next <%= fa_icon('arrow-right') %></button>
+</div>
+<div class="card card-page mx-auto pl-2 pt-2">
+  <div class="d-flex flex-wrap align-items-start">
+    <% @cards.each do |card| %>
+      <div class="card-select<%= ' missing' unless @user_cards.include?(card.id) %><%= ' ex' if card.ex? %>"
+           data-id="<%= card.id %>" data-toggle="tooltip" data-placement="top" data-delay="<%= select_tooltip_delay %>"
+           title="<%= card.name %>">
+        <%= small_image(card) %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="card-buttons d-flex flex-column mx-auto mt-1 px-1">
+  <span class="font-weight-bold ml-auto mb-1" id="total">Total: <%= @user_cards.size %> / <%= Card.count %></span>
+  <div class="d-flex">
+    <button type="button" class="btn btn-success btn-sm w-50 mr-1" id="add-all">Add All</button>
+    <button type="button" class="btn btn-danger btn-sm w-50 ml-1" id="remove-all">Remove All</button>
+  </div>
+</div>
+<div class="card mt-4 mb-2">
+  <div class="card-header">
+    <h5>How To Use</h5>
+  </div>
+  <div class="card-body">
+    <ol class="my-2">
+      <li>If you own more than half the cards, click the <b>Add All</b> button.</li>
+      <li>For each page, add/remove cards until it matches your in-game <b>Card List</b>.</li>
+      <li>Confirm that your <b>Total</b> matches your in-game Card List.</li>
+      <li>Click <b>Save Cards</b>.</li>
+    </ol>
+  </div>
+</div>
+<%= form_tag(set_cards_path, class: 'text-right') do %>
+  <%= hidden_field_tag('cards', @user_cards.join(','), id: 'card-ids') %>
+  <%= link_to 'Reset', select_cards_path, class: 'btn btn-danger' %>
+  <%= submit_tag('Save Cards', class: 'btn btn-primary', id: 'submit') %>
+<% end %>

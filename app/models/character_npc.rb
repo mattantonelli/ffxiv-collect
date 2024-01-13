@@ -11,5 +11,5 @@
 
 class CharacterNPC < ApplicationRecord
   belongs_to :character, counter_cache: :npcs_count, touch: true
-  belongs_to :npc, class_name: 'Triad::NPC'
+  belongs_to :npc
 end

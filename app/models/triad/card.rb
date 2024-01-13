@@ -29,6 +29,10 @@
 #
 
 class Card < ApplicationRecord
+  include Collectable
+
+  translates :name, :description
+
   belongs_to :type, class_name: 'CardType', foreign_key: :card_type_id
   has_many :npc_cards
   has_many :npcs, through: :npc_cards
@@ -43,10 +47,8 @@ class Card < ApplicationRecord
 
   after_save :touch_related
 
-  accepts_nested_attributes_for :sources
-
-  translates :name, :description
-
+  scope :include_related, -> { include_sources.includes(:type) }
+  scope :ordered, -> { order(patch: :desc, order_group: :desc, order: :desc) }
   scope :standard, -> { where(order_group: 0) }
   scope :ex,       -> { where.not(order_group: 0) }
 
@@ -56,10 +58,6 @@ class Card < ApplicationRecord
 
   def formatted_number
     ex? ? "Ex. #{order}" : "No. #{order}"
-  end
-
-  def ownership
-    Redis.current.hget(:ownership, id.to_s) || '0%'
   end
 
   def stat(side)
@@ -81,6 +79,10 @@ class Card < ApplicationRecord
 
   def self.ex(number)
     Card.find_by(formatted_number: "Ex. #{number}")
+  end
+
+  def self.available_filters
+    %i(owned unknown)
   end
 
   private

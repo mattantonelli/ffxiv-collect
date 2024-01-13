@@ -1,0 +1,101 @@
+<% title('NPCs') %>
+
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<div class="row">
+  <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex flex-wrap justify-content-center justify-content-md-start">
+    <%= form_tag(npcs_path, method: :get, enforce_utf8: false,
+                 class: 'form form-inline search-form d-flex flex-wrap', id: 'npc-search') do %>
+      <%= select_tag :location, options_for_select(Location.order(:id).map(&:region).uniq, @location),
+        include_blank: 'All Locations', class: 'form-control form-control-sm mt-0' %>
+      <%= select_tag :rule, npc_rule_options(@rule), include_blank: 'All Rules', class: 'form-control form-control-sm' %>
+      <% if user_signed_in? %>
+        <%= link_to 'Update Defeated', update_defeated_npcs_path, method: :post,
+          class: 'btn btn-sm btn-secondary mt-2 mt-sm-0',
+          data: { confirm: 'All NPCs with exclusive cards you have obtained will be marked as defeated.' } %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
+    <% if user_signed_in? %>
+      <div class="">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="display" id="show-all" checked />
+          <label class="form-check-label" for="show-all">Show All</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="display" id="hide-completed" />
+          <label class="form-check-label" for="hide-completed">Missing Rewards</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="display" id="hide-defeated" />
+          <label class="form-check-label" for="hide-defeated">Undefeated</label>
+        </div>
+        <div class="form-check form-check-inline mr-0">
+          <input class="form-check-input" type="radio" name="display" id="hide-finished" />
+          <label class="form-check-label" for="hide-finished">Unfinished</label>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% if user_signed_in? %>
+  <div class="mt-2">
+    <%= render 'layouts/progress', value: @count, min: 0, max: @valid_npcs.size %>
+  </div>
+<% end %>
+<table class="table table-striped table-sm shadow p-3 mt-2 mb-5 sortable" id="npcs">
+  <thead>
+    <tr>
+      <th scope="col" class="npc-name">Name</th>
+      <th scope="col">Location</th>
+      <th scope="col" class="hide-xs">Rules</th>
+      <th scope="col" class="hide-xs">Difficulty</th>
+      <th scope="col" class="hide-sm quest-name">Quest</th>
+      <th scope="col">Rewards</th>
+      <th scope="col" class="hide-xs text-center">Patch</th>
+      <% if user_signed_in? %>
+        <th scope="col" class="text-center" data-defaultsort="disabled"></th> <!-- Won -->
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @npcs.each do |npc| %>
+      <tr class="npc-row<%= ' completed' if !@incomplete.include?(npc.id) %><%= ' defeated' if @defeated.include?(npc.id) %><%= ' excluded' if npc.excluded? %>">
+        <td class="npc-name"><%= link_to(format_npc_name(npc), npc_path(npc), class: 'name') %></td>
+        <td><%= location(npc) %></td>
+        <td class="hide-xs"><%= format_rules(npc) %></td>
+        <td class="hide-xs" data-value="<%= npc.difficulty %>"><%= difficulty(npc) %></td>
+        <td class="hide-sm quest-name"><%= quest(npc) %></td>
+        <td class="npc-rewards" data-value="<%= npc.rewards.size %>">
+          <div class="d-flex flex-wrap card-list">
+            <% npc.rewards.each do |card| %>
+              <% if user_signed_in? %>
+                <div class="card-toggle<%= ' owned' if @user_cards.include?(card.id) %>"
+                  data-path="<%= @user_cards.include?(card.id) ? card_remove_path(card) : card_add_path(card) %>"
+                  data-toggle="tooltip" data-placement="top" title="<%= card.name %>">
+                  <%= small_image(card) %>
+                </div>
+              <% else %>
+                <%= link_to card_path(card) do %>
+                  <div data-toggle="tooltip" data-placement="top" title="<%= card.name %>">
+                    <%= small_image(card) %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </td>
+        <td class="hide-xs text-center" data-value="<%= npc.patch %><%= npc.id %>"><%= npc.patch %></td>
+        <% if user_signed_in? %>
+          <td class="text-center">
+            <% if @defeated.include?(npc.id) %>
+              <input type="checkbox" class="npc-toggle" data-path="<%= npc_remove_path(npc) %>" checked>
+            <% else %>
+              <input type="checkbox" class="npc-toggle" data-path="<%= npc_add_path(npc) %>">
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

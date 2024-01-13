@@ -1,0 +1,19 @@
+<% title('Packs') %>
+
+<div class="row">
+  <% @packs.each do |pack| %>
+    <div class="col-12 col-md-10 col-lg-6 offset-0 offset-md-1 offset-lg-0">
+      <div class="card shadow mb-4" id="<%= pack.id %>">
+        <h5 class="card-header">
+          <%= pack.name %>
+          (<%= pack_cost(pack) %>)
+        </h5>
+        <div class="card-body card-table">
+          <table class="table table-striped table-sm">
+            <%= render 'cards/table_data', cards: pack.cards.order(:stars, "name_#{I18n.locale}"), skip_source: true, owned_cards: @owned_cards %>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

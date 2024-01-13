@@ -1,0 +1,7 @@
+<% if @user_cards.present? && !@user_cards.include?(card.id) %>
+  <div class="card-missing">
+    <%= yield %>
+  </div>
+<% else %>
+  <%= yield %>
+<% end %>

@@ -1,0 +1,87 @@
+<% title(@npc.name) %>
+<% description("Location: #{location(@npc, inline: true)} | " \
+               "#{'Rule'.pluralize(@npc.rules.size)}: #{format_rules(@npc, inline: true)}") %>
+
+<div class="row">
+  <div class="col-12 col-sm-5 col-md-4 offset-0 offset-md-1 mb-3 mb-sm-0">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><%= format_npc_name(@npc) %></h5>
+      </div>
+      <div class="card-body">
+        <dl>
+          <dt>Location</dt>
+          <dd><%= location(@npc, inline: true) %></dd>
+          <dt>Patch</dt>
+          <dd><%= @npc.patch %></dd>
+          <% if @npc.rules.present? %>
+            <dt><%= 'Rule'.pluralize(@npc.rules.size) %></dt>
+            <dd><%= format_rules(@npc, inline: true) %></dd>
+          <% end %>
+          <dt>Difficulty</dt>
+          <dd><%= difficulty(@npc) %></dd>
+          <% if user_signed_in? %>
+            <dt>Defeated</dt>
+            <dd>
+              <% if npc_defeated?(@npc) %>
+                <%= fa_icon('check', text: 'Yes') %>
+              <% else %>
+                <%= fa_icon('times', text: 'No') %>
+              <% end %>
+            </dd>
+          <% end %>
+          <% if @npc.quest.present? %>
+            <dt>Required Quest</dt>
+            <dd><%= quest(@npc) %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-7 col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h5><%= 'Reward'.pluralize(@rewards.length) %></h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap card-list-lg">
+          <%= render partial: 'cards/large', collection: @rewards, as: :card %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-12 col-md-10 offset-md-1">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Deck
+          <span data-toggle="tooltip" data-html="true"
+                                      title="Cards on the left are always used.<br>Cards on the right are chosen at random.">
+            <%= fa_icon('question-circle') if @npc.variable_cards.present? %>
+          </span>
+        </h5>
+        <div>
+          <%= link_to 'Submit Deck', new_deck_path(npc_id: @npc.id), class: 'btn btn-primary btn-sm',
+            data: { toggle: 'tooltip' }, title: 'Submit a deck to be used against this NPC' %>
+          <%= link_to 'User Decks', decks_path(q: { npc_id_eq: @npc.id }),
+            class: "btn btn-secondary btn-sm#{ ' disabled' unless Deck.exists?(npc_id: @npc.id) }",
+            data: { toggle: 'tooltip' }, title: 'User decks designed to be used against this NPC' %>
+        </div>
+      </div>
+      <div class="card-body pl-0">
+        <div class="d-flex">
+          <div class="d-flex <%= @npc.variable_cards.present? ? 'w-50' : 'w-100' %> flex-wrap
+            align-self-start card-list-lg pl-3">
+            <%= render partial: 'cards/large', collection: @npc.fixed_cards, as: :card, deck: true %>
+          </div>
+          <% if @npc.variable_cards.present? %>
+            <div class="d-flex w-50 flex-wrap align-self-start card-list-lg variable-cards pl-3">
+              <%= render partial: 'cards/large', collection: @npc.variable_cards, as: :card, deck: true %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

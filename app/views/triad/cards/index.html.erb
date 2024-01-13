@@ -1,0 +1,52 @@
+<% title('Cards') %>
+<% description("Track your character's Triple Triad cards and discover how to obtain new ones.") %>
+
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <div class="d-flex justify-content-center">
+      <%= search_form_for(@q, url: cards_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 25, class: 'form-control form-control-sm' %>
+        <%= f.search_field 'order_eq', placeholder: 'Number', size: 10, class: 'form-control form-control-sm' %>
+        <%= f.collection_select :card_type_id_eq, CardType.all, :id, :name,
+          { include_blank: 'All Types' }, class: 'form-control form-control-sm' %>
+        <%= f.select :stars_eq, rarity_options, { include_blank: 'All Rarities' }, class: 'form-control form-control-sm' %>
+        <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+          { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+        <%= f.submit 'Search', name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
+      <% end %>
+    </div>
+    <div class="d-flex justify-content-between align-items-end my-2">
+      <div class="no-wrap">
+        <% if user_signed_in? %>
+          <%= link_to 'Select Your Cards', select_cards_path,
+            class: "btn btn-secondary btn-sm#{' btn-attention' if @collection_ids.empty?}" %>
+        <% end %>
+      </div>
+      <%= render 'shared/active_filters' %>
+    </div>
+    <%= render 'shared/collection_progress', ids: @cards.map(&:id) %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <table class="table table-striped table-sm shadow collection sortable<%= ' comparing' if @comparison.present? %>">
+      <thead>
+        <tr>
+          <th scope="col" class="hide-xs">#</th>
+          <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+          <th scope="col" class="hide-xs">Name</th>
+          <th scope="col" class="pr-3">Type</th>
+          <th scope="col">Rarity</th>
+          <th scope="col" class="text-center">Stats</th>
+          <th scope="col" class="hide-xs">Source</th>
+          <th scope="col" class="text-center hide-xs">Owned</th>
+          <th scope="col" class="text-center">Patch</th>
+          <% if user_signed_in? %>
+            <th scope="col" class="text-center" data-defaultsort="disabled"></th> <!-- Checkbox -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render 'table_data', cards: @cards %>
+      </tbody>
+    </table>
+  </div>
+</div>

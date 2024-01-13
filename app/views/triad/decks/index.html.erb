@@ -1,0 +1,89 @@
+<% title('Decks') %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <% if user_signed_in? %>
+          <h4 class="mb-0"><%= 'My ' if params[:action] == 'mine' %>Decks</h4>
+          <div>
+            <% if params[:action] == 'mine' %>
+              <%= link_to 'All Decks', decks_path, class: 'btn btn-sm btn-primary' %>
+            <% else %>
+              <%= link_to 'My Decks', my_decks_path, class: 'btn btn-sm btn-primary' %>
+            <% end %>
+            <%= link_to 'New Deck', new_deck_path, class: 'btn btn-sm btn-success' %>
+          </div>
+        <% else %>
+          <h4 class="mb-0">Decks</h4>
+        <% end %>
+      </div>
+      <div class="card-body card-table">
+        <%= search_form_for(@q, enforce_utf8: false, url: request.path, class: 'form form-inline search-form d-flex justify-content-center mx-2 my-3') do |f| %>
+          <%= f.collection_select :rule_id_eq, Rule.all.sort_by(&:name), :id, :name, { include_blank: 'Filter by Rule' },
+            class: 'form-control form-control-sm'%>
+          <%= f.grouped_collection_select :npc_id_eq, Location.all.includes(:alphabetical_npcs), :alphabetical_npcs,
+            :name, :id, :name, { include_blank: 'Filter by NPC' }, class: 'form-control form-control-sm'  %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag :general, 1, params[:general], class: 'form-check-input checkbox' %>
+            <%= label_tag :general, 'General Use', class: 'form-check-label' %>
+            <%= check_box_tag :updated, 1, params[:updated], class: 'form-check-input checkbox' %>
+            <%= label_tag :updated, 'Only Updated', class: 'form-check-label' %>
+          </div>
+          <%= f.submit 'Search', name: nil, class: 'btn btn-secondary btn-sm' %>
+        <% end %>
+        <table class="table table-striped table-sm sortable">
+          <thead>
+            <tr>
+              <th scope="col">Purpose</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Created by</th>
+              <th scope="col" class="text-center hide-xs" data-defaultsort="disabled">Cards</th>
+              <% if user_signed_in? %>
+                <th scope="col" class="text-center">Usable</th>
+              <% end %>
+              <th scope="col" class="text-center">Updated</th>
+              <th data-defaultsort="disabled"></th> <!-- Buttons -->
+            </tr>
+          </thead>
+          <tbody>
+            <% @decks.each do |deck| %>
+              <tr>
+                <td><%= purpose(deck) %></td>
+                <td><%= deck.rating %></td>
+                <td><%= deck.user.username.truncate(20) %></td>
+                <td class="hide-xs">
+                  <div class="d-flex justify-content-center card-list">
+                    <% deck.cards.each do |card| %>
+                      <%= link_to(card_path(card), data: { toggle: 'tooltip', title: "#{card.name}" },
+                                  class: ('card-missing' if @user_cards.present? && !@user_cards.include?(card.id))) do %>
+                                  <%= small_image(card) %>
+                                <% end %>
+                              <% end %>
+                  </div>
+                </td>
+                <% if user_signed_in? %>
+                  <td class="text-center" data-value="<%= missing_cards(deck, @user_cards) == 0 %>">
+                    <%= usable?(deck, @user_cards) %>
+                  </td>
+                <% end %>
+                <td class="text-center"><%= deck_patch(deck) %></td>
+                <td class="text-right">
+                  <% if deck.user_id == current_user&.id %>
+                    <%= link_to fa_icon('pencil', class: 'btn btn-secondary btn-sm'), edit_deck_path(deck) %>
+                  <% end %>
+                  <%= link_to fa_icon('list', class: 'btn btn-secondary btn-sm'), deck_path(deck) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% if will_paginate(@decks) %>
+      <div class="card-footer d-flex justify-content-center">
+        <%= will_paginate(@decks) %>
+      </div>
+    <% end %>
+  </div>
+</div>

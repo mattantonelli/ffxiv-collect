@@ -1,0 +1,81 @@
+<% title('Decks') %>
+<% description("#{purpose(@deck)} deck by #{@deck.user.username}") %>
+
+<div class="row">
+  <div class="col-12 col-md-4 mb-3 mb-md-0">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <h5 class="card-title">Details</h5>
+        <div>
+          <% if current_user&.id == @deck.user_id %>
+            <%= link_to 'Edit', edit_deck_path(@deck), class: 'btn btn-secondary btn-sm' %>
+          <% end %>
+          <% if current_user&.id == @deck.user_id || current_user&.admin? %>
+            <%= link_to 'Delete', deck_path(@deck), method: :delete, class: 'btn btn-danger btn-sm',
+              data: { confirm: 'Are you sure you want to delete this deck?' } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-body">
+        <dl>
+          <dt>Purpose</dt>
+          <dd><%= purpose(@deck) %></dd>
+          <dt>Rating</dt>
+          <dd><%= @deck.rating %></dd>
+          <% if user_signed_in? %>
+            <dt>Usable</dt>
+            <dd><%= usable?(@deck, @user_cards) %></dd>
+          <% end %>
+          <dt>Updated</dt>
+          <dd>
+            <%= deck_patch(@deck) %>
+          </dd>
+          <dt>Created by</dt>
+          <dd><%= @deck.user.username %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <h5>Cards</h5>
+        <% if user_signed_in? %>
+          <% if voted?(@deck) %>
+            <%= link_to fa_icon('check-circle', text: 'Voted'), deck_downvote_path(@deck), method: :post,
+              class: 'btn btn-success btn-sm vote-down' %>
+          <% else %>
+            <%= link_to fa_icon('arrow-circle-up', text: 'Vote'), deck_upvote_path(@deck), method: :post,
+              class: 'btn btn-primary btn-sm vote-up' %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap card-list-lg">
+          <%= render partial: 'cards/large', layout: 'card', collection: @deck.cards, as: :card %>
+        </div>
+      </div>
+    </div>
+    <% if @deck.notes.present? %>
+      <div class="card mt-3">
+        <h5 class="card-header">Notes</h5>
+        <div class="card-body py-3">
+          <%= @deck.notes.gsub("\r\n", '<br>').html_safe %>
+        </div>
+      </div>
+    <% end %>
+    <% if user_signed_in? %>
+      <div class="card mt-3">
+        <h5 class="card-header">Card Finder</h5>
+        <div class="card-body">
+          <% @deck.cards.each_with_index do |card, i| %>
+            <p>
+              <b><%= link_to(card.name, card_path(card), class: 'unstyled') %>:</b>
+              <%= card_position(card, @user_card_ids) %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

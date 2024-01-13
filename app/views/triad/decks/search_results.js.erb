@@ -1,0 +1,2 @@
+$('tbody tr').remove()
+$('tbody').html("<%= j render 'cards/table_data', cards: @cards, skip_source: true, deck: @deck.cards.map(&:id) %>")

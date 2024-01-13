@@ -1,0 +1,30 @@
+.card-list {
+  img {
+    margin-top: 0.25rem;
+    margin-right: 0.5em;
+  }
+
+  .card-toggle {
+    cursor: pointer;
+  }
+}
+
+.variable-cards {
+  border-left: 1px solid #333;
+}
+
+.card-list-lg .card-large {
+  margin: 0 0.5em 0 0.5em;
+}
+
+.owned {
+  opacity: 0.3;
+}
+
+.npc-name, .quest-name {
+  max-width: 200px;
+}
+
+.npc-rewards {
+  min-width: 105px;
+}

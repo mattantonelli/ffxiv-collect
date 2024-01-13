@@ -11,5 +11,5 @@
 
 class CharacterCard < ApplicationRecord
   belongs_to :character, counter_cache: :cards_count, touch: true
-  belongs_to :card, class_name: 'Triad::Card'
+  belongs_to :card
 end

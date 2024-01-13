@@ -1,0 +1,65 @@
+<% title(@card.name) %>
+<% description(@card.description.truncate(150)) %>
+<% image(image_url("cards/large/#{@card.id}.png", skip_pipeline: true)) %>
+
+<div class="col-12 col-lg-8 offset-0 offset-lg-2">
+  <div class="card">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <h5 class="card-title"><%= @card.name %></h5>
+      <%= card_number_badge(@card) %>
+    </div>
+    <div class="card-body">
+      <div class="d-flex">
+        <%= render 'large', card: @card %>
+        <div class="d-flex flex-column ml-4">
+          <div class="d-flex flex-wrap card-info">
+            <% if @card.card_type_id > 0 %>
+              <div class="text-center">
+                <dt>Type</dt>
+                <dd><%= type_image(@card) %></dd>
+              </div>
+            <% end %>
+            <div>
+              <dt>Rarity</dt>
+              <dd><%= stars(@card) %></dd>
+            </div>
+            <div>
+              <dt>Stats</dt>
+              <dd><%= render 'stats', card: @card %></dd>
+            </div>
+            <div>
+              <dt>
+                <%= render 'owned' %>
+              </dt>
+              <dd>
+                <%= user_ownership(@card) %>
+                <%= @card.ownership %>
+              </dd>
+            </div>
+            <div>
+              <dt>Sale Price</dt>
+              <dd><%= format_price(@card.sell_price) %></dd>
+            </div>
+            <div>
+              <dt>Patch</dt>
+              <dd><%= @card.patch %></dd>
+            </div>
+          </div>
+          <div>
+            <dt>Source</dt>
+            <dd>
+              <ul class="list-unstyled">
+                <% sources(@card).each do |source| %>
+                  <li><%= source %></li>
+                <% end %>
+              </ul>
+            </dd>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <dt>Description</dt>
+      <dd><%= format_description(@card) %></dd>
+    </div>
+  </div>
+</div>
