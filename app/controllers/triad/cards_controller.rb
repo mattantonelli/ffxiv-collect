@@ -8,7 +8,7 @@ class Triad::CardsController < ApplicationController
   end
 
   def select
-    if user_signed_in?
+    if user_signed_in? && @character&.verified_user?(current_user)
       @cards = Card.all.order(:order_group, :order)
       @user_cards = current_user.cards.pluck(:id)
     else

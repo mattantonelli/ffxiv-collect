@@ -18,7 +18,7 @@
     </div>
     <div class="d-flex justify-content-between align-items-end my-2">
       <div class="no-wrap">
-        <% if user_signed_in? %>
+        <% if @character&.verified_user?(current_user) %>
           <%= link_to t('triad.cards.select'), select_cards_path,
             class: "btn btn-secondary btn-sm#{' btn-attention' if @collection_ids.empty?}" %>
         <% end %>
@@ -39,7 +39,7 @@
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('owned') %></th>
           <th scope="col" class="text-center"><%= t('patch') %></th>
-          <% if user_signed_in? %>
+          <% if character_selected? %>
             <th scope="col" class="text-center" data-defaultsort="disabled"></th> <!-- Checkbox -->
           <% end %>
         </tr>

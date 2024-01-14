@@ -75,10 +75,12 @@ en:
     aspects: "All Aspects"
     data_centers: "All Data Centers"
     genders: "All Genders"
+    locations: "All Locations"
     patches: "All Patches"
     race_types: "All Minion Types"
     ranks: "All Ranks"
     rarities: "All Rarities"
+    rules: "All Rules"
     servers: "All Servers"
     skill_types: "All Special Types"
     sources: "All Sources"
@@ -368,7 +370,18 @@ en:
       select: "Select Your Cards"
       stats: "Stats"
     npcs:
+      difficulty: "Difficulty"
+      filters:
+        show_all: "Show All"
+        missing_rewards: "Missing Rewards"
+        undefeated: "Undefeated"
+        unfinished: "Unfinished"
+      quest: "Quest"
+      rewards: "Rewards"
+      rules: "Rules"
       title: "NPCs"
+      update_defeated: "Update Defeated"
+      update_defeated_confirmation: "All NPCs with exclusive cards you have obtained will be marked as defeated."
     decks:
       title: "Decks"
     packs:

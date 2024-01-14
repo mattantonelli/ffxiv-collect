@@ -6,7 +6,7 @@ $(document).on 'turbolinks:load', ->
   # Redo the table striping as some items may have shifted during the flight
   restripe = ->
     # Skip restripe for Orchestrion Quick Select
-    return if $('.quick-select').length > 0
+    return if $('.quick-select').length > 0 || $('.npcs').length > 0
 
     $('.collectable:not(.hidden)').show()
 

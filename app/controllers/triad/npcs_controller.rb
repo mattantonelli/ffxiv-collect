@@ -19,16 +19,12 @@ class Triad::NPCsController < ApplicationController
     @valid_npcs = @npcs.valid
 
     if user_signed_in?
-      @user_cards = current_user.cards.pluck(:id)
-      @incomplete = @npcs.joins(:rewards).where('cards.id not in (?)', @user_cards).pluck(:id).uniq
-      @defeated = current_user.npcs.pluck(:id)
-      @total = @valid_npcs.present? ? @valid_npcs.count : NPC.count
-      @count = (@defeated & @valid_npcs.pluck(:id)).count
+      @card_ids = @character.card_ids
+      @incomplete = @npcs.joins(:rewards).where('cards.id not in (?)', @card_ids).pluck(:id).uniq
     else
       render_sign_in_flash
-      @user_cards = []
+      @card_ids = []
       @incomplete = []
-      @defeated = []
     end
   end
 
@@ -53,12 +49,10 @@ class Triad::NPCsController < ApplicationController
   end
 
   def update_defeated
-    current_user.add_defeated_npcs
-    redirect_to npcs_path
-  end
-
-  private
-  def set_params
-    params.permit(:npcs)
+    if @character&.verified_user?(current_user)
+      defeated_npcs = NPC.defeated_npcs(@character)
+      @character.npc_ids = defeated_npcs
+      redirect_to npcs_path
+    end
   end
 end

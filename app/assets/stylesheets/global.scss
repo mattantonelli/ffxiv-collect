@@ -480,6 +480,10 @@ pre {
     opacity: 0.4;
   }
 
+  .card-toggle.owned {
+    opacity: 0.4;
+  }
+
   &.only-owned {
     tr.owned > td {
       opacity: 1;

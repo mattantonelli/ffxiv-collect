@@ -20,6 +20,10 @@
 #
 
 class NPC < ApplicationRecord
+  include Collectable
+
+  translates :name
+
   has_many :npc_cards
   has_many :npc_rewards
   has_many :cards, through: :npc_cards
@@ -33,9 +37,29 @@ class NPC < ApplicationRecord
 
   after_save :touch_related
 
+  scope :include_related, -> { include_sources.includes(:rewards, :rules, :location, :quest) }
+  scope :ordered, -> { order(patch: :desc, id: :desc) }
   scope :valid, -> { where(excluded: false) }
 
-  translates :name
+  def self.available_filters
+    %i(owned)
+  end
+
+  def self.defeated_npcs(character)
+    # TODO: Fix this. NPC sources are now created, so this query will not work.
+    # Find the IDs for all NPCs from whom the character has obtained exclusive cards,
+    # those that are available from that NPC and nowhere else
+    ids = Card.joins(npc_rewards: :npc)
+      .left_joins(:sources).where('sources.id is null')
+      .left_joins(:packs).where('packs.id is null')
+      .where(buy_price: nil)
+      .group('npc_rewards.card_id').having('count(npc_rewards.npc_id) = 1')
+      .where(id: character.card_ids).distinct
+      .select('npcs.id as id').map { |card| card.id }
+
+    # Add the existing defeated NPC IDs
+    (ids + character.npc_ids).uniq
+  end
 
   private
   def touch_related
