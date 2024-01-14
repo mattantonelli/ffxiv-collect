@@ -256,7 +256,7 @@ module CollectionsHelper
       case type = source.type.name_en
       when 'Achievement'
         content = achievement_link(source)
-      when Instance.valid_types
+      when *Instance.valid_types
         content = database_link(:instance, source.related&.name || source.text, source.related_id)
       when 'Crafting', 'Gathering'
         content = database_link(:item, source.text, collectable.item_id)
