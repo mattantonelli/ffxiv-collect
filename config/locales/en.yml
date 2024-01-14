@@ -78,6 +78,7 @@ en:
     patches: "All Patches"
     race_types: "All Minion Types"
     ranks: "All Ranks"
+    rarities: "All Rarities"
     servers: "All Servers"
     skill_types: "All Special Types"
     sources: "All Sources"
@@ -361,7 +362,11 @@ en:
   triad:
     title: "Triple Triad"
     cards:
+      number: "Number"
       title: "Cards"
+      sale_price: "Sale Price"
+      select: "Select Your Cards"
+      stats: "Stats"
     npcs:
       title: "NPCs"
     decks:

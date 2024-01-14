@@ -1,5 +1,5 @@
 <%= link_to card_path(card) do %>
   <div data-toggle="tooltip" data-placement="bottom" title="<%= card.name %>" class="card-large">
-    <%= large_image(card) %>
+    <%= sprite(card, 'cards-large') %>
   </div>
 <% end %>
