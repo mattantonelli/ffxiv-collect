@@ -12,7 +12,8 @@ class Triad::CardsController < ApplicationController
       @cards = Card.all.order(:order_group, :order)
       @user_cards = current_user.cards.pluck(:id)
     else
-      flash[:alert] = 'You must sign in to manage your cards.'
+      link = view_context.link_to(t('alerts.signed_in'), user_discord_omniauth_authorize_path, method: :post)
+      flash[:alert] = t('alerts.sign_in_to_track', link: link)
       redirect_to cards_path
     end
   end
@@ -44,7 +45,7 @@ class Triad::CardsController < ApplicationController
     if card = Card.no(params[:id])
       redirect_to card_path(card)
     else
-      flash[:error] = 'That page could not be found.'
+      flash[:error] = t('alerts.not_found')
       redirect_to cards_path
     end
   end
@@ -53,36 +54,12 @@ class Triad::CardsController < ApplicationController
     if card = Card.ex(params[:id])
       redirect_to card_path(card)
     else
-      flash[:error] = 'That page could not be found.'
+      flash[:error] = t('alerts.not_found')
       redirect_to cards_path
     end
   end
 
   private
-  def set_cards
-    @type = params[:source_type]
-    query = params[:q] || {}
-
-    case @type
-    when 'NPC'
-      cards = Card.joins(:npc_sources)
-    when 'Pack'
-      cards = Card.joins(:packs)
-    when 'MGP'
-      cards = Card.where.not(buy_price: nil)
-    when 'Achievement'
-      cards = Card.joins(:achievement)
-    else
-      query[:sources_origin_eq] = @type if @type.present?
-      cards = Card.all
-    end
-
-    @q = cards.ransack(query)
-    @cards = @q.result.includes(:npc_sources, :sources, :packs, :achievement, :type)
-      .order(patch: :desc, order_group: :desc, order: :desc).uniq
-    @ownership = Redis.current.hgetall(:ownership)
-  end
-
   def set_params
     params.permit(:cards)
   end
