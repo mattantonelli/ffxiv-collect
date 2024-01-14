@@ -49,8 +49,9 @@ class Card < ApplicationRecord
 
   scope :include_related, -> { include_sources.includes(:type) }
   scope :ordered, -> { order(patch: :desc, order_group: :desc, order: :desc) }
+  scope :numeric_ordered, -> { order(:order) }
   scope :standard, -> { where(order_group: 0) }
-  scope :ex,       -> { where.not(order_group: 0) }
+  scope :ex, -> { where.not(order_group: 0) }
 
   def ex?
     order_group != 0

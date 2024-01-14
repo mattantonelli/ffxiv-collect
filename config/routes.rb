@@ -75,7 +75,7 @@ Rails.application.routes.draw do
       post 'downvote'
     end
 
-    get 'packs', to: 'card_packs#index'
+    resources :packs, only: [:index]
   end
 
   namespace :relics, as: :relic do

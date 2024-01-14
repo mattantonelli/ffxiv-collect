@@ -19,7 +19,7 @@ gem 'devise'
 gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 4.6.2'
 gem 'jquery-rails'
 gem 'font_awesome5_rails'
 gem 'will_paginate'
@@ -45,7 +45,6 @@ gem 'sidekiq-failures', '~> 1.0.0'
 gem 'activejob-uniqueness'
 gem 'nokogiri', '>= 1.13.6'
 gem 'friendly_id', '~> 5.4.0'
-gem 'chunky_png'
 
 # Discord interactions
 gem 'ed25519'
