@@ -34,21 +34,22 @@ $(document).on 'turbolinks:load', ->
 
     # Update the collection progress bar based on visible collectables, with the exception of special pages
     unless $('.materiel').length > 0
-      progress = $('.progress-bar:first')
+      progress_bar = $('.progress:first > .progress-bar')
+      progress_label = $('.progress:first > .progress-label')
       current = $('.owned:not(.hidden)').length
       max = $('tr.collectable:not(.hidden)').length
 
       if max > 0
         completion = (current / max) * 100
-        progress.attr('aria-valuenow', current)
-        progress.attr('style', "width: #{completion}%")
-        progress.find('b').text("#{current}/#{max} (#{parseInt(completion)}%)")
+        progress_bar.attr('aria-valuenow', current)
+        progress_bar.attr('style', "width: #{completion}%")
+        progress_label.text("#{current}/#{max} (#{parseInt(completion)}%)")
 
     # Update the alternate progress bar based on the *values* of visible collectables
     if $('tr.collectable').data('value')
-      progress = $($('.progress-bar')[1])
-      current = 0
-      max = 0
+      progress_bar = $('.progress:eq(1) > .progress-bar')
+      progress_label = $('.progress:eq(1) > .progress-label')
+      current = max = 0
 
       $('tr.collectable:not(.hidden)').each (_, collectable) ->
         value = $(collectable).data('value')
@@ -57,13 +58,13 @@ $(document).on 'turbolinks:load', ->
 
       if max > 0
         completion = (current / max) * 100
-        progress.attr('aria-valuenow', current)
-        progress.attr('style', "width: #{completion}%")
+        progress_bar.attr('aria-valuenow', current)
+        progress_bar.attr('style', "width: #{completion}%")
 
-        text = progress.find('b').text()
+        text = progress_label.text()
         text = text.replace(/[\d\s,.]+\s/, "#{current.toLocaleString()} ")
         text = text.replace(/(\D+) [\d\s,.]+/, "$1 #{max.toLocaleString()} ")
-        progress.find('b').text(text)
+        progress_label.text(text)
 
   restripe()
 
