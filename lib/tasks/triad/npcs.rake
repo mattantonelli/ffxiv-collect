@@ -75,14 +75,15 @@ namespace :triad do
 
       # Add their opponent data
       puts '  Fetching opponent data'
-      XIVData.sheet('TripleTriad').each do |opponent|
+      XIVData.sheet('TripleTriad', raw: true).each do |opponent|
         npc = npcs.values.find { |val| val[:id] == opponent['#'] }
         next unless npc.present?
 
+        # Collect the NPC's card rewards
         npc[:rewards] = opponent.each_with_object([]) do |(k, v), a|
-          if k.match?('Item{PossibleReward}') && v.present?
-            # TODO: Solve this with item IDs? This is very fragile for mixed caps card names
-            a << Card.where('BINARY name_en like ?', "%#{v.sub(/ Card$/, '')}%").first.id
+          if k.match?('Item{PossibleReward}') && v != '0'
+            # Find the Card unlock associated with the Item and add it to the list
+            a << Item.find(v).unlock_id
           end
         end
       end
@@ -125,16 +126,20 @@ namespace :triad do
           npc = NPC.create!(data)
         end
 
-        fixed_cards.each do |card|
-          NPCCard.find_or_create_by!(npc_id: npc.id, card_id: card, fixed: true)
+        fixed_cards.each do |card_id|
+          NPCCard.find_or_create_by!(npc_id: npc.id, card_id: card_id, fixed: true)
         end
 
-        variable_cards.each do |card|
-          NPCCard.find_or_create_by!(npc_id: npc.id, card_id: card, fixed: false)
+        variable_cards.each do |card_id|
+          NPCCard.find_or_create_by!(npc_id: npc.id, card_id: card_id, fixed: false)
         end
 
-        rewards.each do |card|
-          NPCReward.find_or_create_by!(npc_id: npc.id, card_id: card)
+        # Create the NPC rewards along with a Source for the Card
+        npc_type = SourceType.find_by(name_en: 'NPC')
+        rewards.each do |card_id|
+          NPCReward.find_or_create_by!(npc_id: npc.id, card_id: card_id)
+          Source.find_or_create_by!(collectable_id: card_id, collectable_type: 'Card', type: npc_type,
+                                    text: npc['name_en'], related_id: npc.id, related_type: 'NPC')
         end
 
         difficulty = weighted_average(npc.fixed_cards, npc.fixed_cards.length) +

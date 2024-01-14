@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_09_205431) do
+ActiveRecord::Schema.define(version: 2024_01_14_171647) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -945,9 +945,9 @@ ActiveRecord::Schema.define(version: 2024_01_09_205431) do
     t.string "name_en", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name_de", null: false
-    t.string "name_fr", null: false
-    t.string "name_ja", null: false
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
     t.index ["name_en"], name: "index_source_types_on_name_en", unique: true
   end
 
