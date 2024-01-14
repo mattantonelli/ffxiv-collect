@@ -1,5 +1,5 @@
 namespace :triad do
-  namespace :card_packs do
+  namespace :packs do
     BRONZE_CARDS   = ['Spriggan', 'Pudding', 'Coblyn', 'Goobbue', 'Scarface Bugaal Ja', 'Behemoth',
                       'Magitek Death Claw', 'Liquid Flame', 'Delivery Moogle'].freeze
 

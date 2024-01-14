@@ -9,7 +9,7 @@ namespace :data do
     Rake::Task['relics:create'].invoke
     Rake::Task['records:sources:create'].invoke
     Rake::Task['survey_records:solutions:set'].invoke
-    Rake::Task['triad:card_packs:create'].invoke
+    Rake::Task['triad:packs:create'].invoke
   end
 
   desc 'Updates all data'

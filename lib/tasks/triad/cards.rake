@@ -10,13 +10,13 @@ namespace :triad do
       # Load the base cards
       cards = XIVData.sheet('TripleTriadCard', locale: 'en').each_with_object({}) do |card, h|
         h[card['#']] = { id: card['#'], name_en: sanitize_card_name(card['Name']),
-                         description_en: sanitize_text(card['Description']) }
+                         description_en: sanitize_text(card['Description'], preserve_space: true) }
       end
 
       %w(fr de ja).each do |locale|
         XIVData.sheet('TripleTriadCard', locale: locale).each do |card|
           cards[card['#']].merge!("name_#{locale}" => sanitize_card_name(card['Name']),
-                                  "description_#{locale}" => sanitize_text(card['Description']))
+                                  "description_#{locale}" => sanitize_text(card['Description'], preserve_space: true))
         end
       end
 
