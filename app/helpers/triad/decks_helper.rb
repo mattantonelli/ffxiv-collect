@@ -5,30 +5,31 @@ module Triad::DecksHelper
     elsif deck.rule_id.present?
       deck.rule.name
     else
-      'General'
+      t('triad.decks.general_use')
     end
   end
 
-  def missing_cards(deck, user_cards)
-    (deck.cards.pluck(:id) - user_cards).size
+  def missing_cards(deck, owned_cards)
+    (deck.cards.pluck(:id) - owned_cards).size
   end
 
-  def usable?(deck, user_cards)
-    missing = missing_cards(deck, user_cards)
+  def usable?(deck, owned_cards)
+    missing = missing_cards(deck, owned_cards)
 
     if missing == 0
-      fa_icon('check', data: { toggle: 'tooltip', title: 'You have all of the cards in this deck.' })
+      fa_icon('check', data: { toggle: 'tooltip', title: t('triad.decks.have_all_cards') })
     else
+      card_count = t('triad.decks.card_count', count: missing)
       fa_icon('times', data: { toggle: 'tooltip',
-                               title: "You are missing #{missing} #{'card'.pluralize(missing)} from this deck." })
+                               title: t('triad.decks.missing_cards', card_count: card_count) })
     end
   end
 
   def deck_patch(deck)
     if deck.updated?
-      content_tag(:span, 'After 5.5', class: 'badge badge-primary')
+      content_tag(:span, t('triad.decks.after_5_5'), class: 'badge badge-primary')
     else
-      content_tag(:span, 'Before 5.5', class: 'badge badge-secondary')
+      content_tag(:span, t('triad.decks.before_5_5'), class: 'badge badge-secondary')
     end
   end
 
@@ -42,9 +43,9 @@ module Triad::DecksHelper
       row = (index % 30 / 5) + 1
       column = (index % 30 % 5) + 1
 
-      "Page #{page}, Row #{row}, Column #{column}"
+      t('triad.decks.card_position', page: page, row: row, column: column)
     else
-      'This card is missing from your collection.'
+      t('triad.decks.card_missing')
     end
   end
 end

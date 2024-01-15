@@ -1,23 +1,30 @@
 class Triad::DecksController < ApplicationController
   before_action :set_deck, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :set_user_cards, only: [:index, :mine, :show]
+  before_action :set_owned_cards, only: [:index, :mine, :show]
   before_action :signed_in?, except: [:index, :show]
   before_action :authenticated?, only: [:edit, :update, :destroy], unless: :admin?
   before_action :filter_query, only: [:index, :mine]
 
   def index
     @q = Deck.ransack(params[:q])
-    @decks = @q.result.includes(:user, :rule, :npc, :cards).order(rating: :desc, id: :desc).paginate(page: params[:page])
+    @decks = @q.result.includes(:user, :rule, :npc, :cards)
+      .order(rating: :desc, id: :desc)
+      .paginate(page: params[:page])
   end
 
   def mine
     @q = current_user.decks.ransack(params[:q])
-    @decks = @q.result.includes(:user, :rule, :npc, :cards).order(rating: :desc, id: :desc).paginate(page: params[:page])
+    @decks = @q.result.includes(:user, :rule, :npc, :cards)
+      .order(rating: :desc, id: :desc)
+      .paginate(page: params[:page])
+
     render :index
   end
 
   def show
-    @user_card_ids = Card.where(id: @user_cards).order(:deck_order, :id).pluck(:id) if user_signed_in?
+    if character_selected?
+      @owned_card_ids = Card.where(id: @owned_cards).order(:deck_order, :id).pluck(:id)
+    end
   end
 
   def new
@@ -52,7 +59,7 @@ class Triad::DecksController < ApplicationController
       end
 
       if @deck.update(deck_params)
-        flash[:success] = 'The deck has been updated successfully.'
+        flash[:success] = t('triad.decks.alerts.updated')
         redirect_to deck_path(@deck)
       else
         set_search_and_cards
@@ -65,9 +72,9 @@ class Triad::DecksController < ApplicationController
 
   def destroy
     if @deck.destroy
-      flash[:success] = 'The deck has been deleted successfully.'
+      flash[:success] = t('triad.decks.alerts.destroy_success')
     else
-      flash[:error] = 'The deck could not be deleted.'
+      flash[:error] = t('triad.decks.alerts.destroy_error')
     end
 
     redirect_to decks_path
@@ -75,9 +82,9 @@ class Triad::DecksController < ApplicationController
 
   def upvote
     if @deck.upvote(current_user)
-      flash[:success] = 'Your vote has been added.'
+      flash[:success] = t('triad.decks.alerts.vote_success')
     else
-      flash[:error] = 'There was a problem casting your vote.'
+      flash[:error] = t('triad.decks.alerts.vote_error')
     end
 
     redirect_to deck_path(@deck)
@@ -85,9 +92,9 @@ class Triad::DecksController < ApplicationController
 
   def downvote
     if @deck.downvote(current_user)
-      flash[:success] = 'Your vote has been removed.'
+      flash[:success] = t('triad.decks.alerts.vote_success')
     else
-      flash[:error] = 'There was a problem removing your vote.'
+      flash[:error] = t('triad.decks.alerts.vote_error')
     end
 
     redirect_to deck_path(@deck)
@@ -98,8 +105,8 @@ class Triad::DecksController < ApplicationController
     @deck = Deck.find(params[:id] || params[:deck_id])
   end
 
-  def set_user_cards
-    @user_cards = current_user.cards.pluck(:id) if user_signed_in?
+  def set_owned_cards
+    @owned_cards = @character&.card_ids
   end
 
   def authenticated?
@@ -108,7 +115,7 @@ class Triad::DecksController < ApplicationController
 
   def signed_in?
     unless user_signed_in?
-      flash[:alert] = 'You must sign in to manage your decks.'
+      flash[:alert] = t('triad.decks.alerts.sign_in')
       redirect_to decks_path
     end
   end
@@ -116,7 +123,6 @@ class Triad::DecksController < ApplicationController
   def admin?
     current_user&.admin?
   end
-
 
   def set_search_and_cards
     unless params[:source] == 'deck'

@@ -6,7 +6,7 @@ $(document).on 'turbolinks:load', ->
   # Ignore blank fields on search form submission
   $('.search-form').submit ->
     hasData = false
-    $(this).find('.form-control').filter ->
+    $(this).find('.form-control, .form-check-input').filter ->
       if @value == ''
         $(@).prop('disabled', true)
       else
