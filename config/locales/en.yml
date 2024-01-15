@@ -363,6 +363,19 @@ en:
   tradeable: "Tradeable"
   triad:
     title: "Triple Triad"
+    card_select:
+      add_all: "Add All"
+      help1: "If you own more than half the cards, click the <b>Add All</b> button."
+      help2: "For each page, add/remove cards until it matches your in-game <b>Card List</b>."
+      help3: "Confirm that your <b>Total</b> matches your in-game Card List."
+      help4: "Click <b>Save Cards</b>."
+      how_to_use: "How To Use"
+      next: "Next"
+      not_saved: "Your selection has not been saved! Are you sure you want to leave?"
+      page: "Page %{number}"
+      previous: "Prev"
+      remove_all: "Remove All"
+      total: "Total"
     cards:
       number: "Number"
       title: "Cards"

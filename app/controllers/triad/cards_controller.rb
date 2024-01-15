@@ -1,5 +1,6 @@
 class Triad::CardsController < ApplicationController
   include ManualCollection
+  before_action :verify_user!, only: [:select, :set]
 
   def index
     @q = Card.ransack(params[:q])
@@ -8,14 +9,8 @@ class Triad::CardsController < ApplicationController
   end
 
   def select
-    if user_signed_in? && @character&.verified_user?(current_user)
-      @cards = Card.all.order(:order_group, :order)
-      @user_cards = current_user.cards.pluck(:id)
-    else
-      link = view_context.link_to(t('alerts.signed_in'), user_discord_omniauth_authorize_path, method: :post)
-      flash[:alert] = t('alerts.sign_in_to_track', link: link)
-      redirect_to cards_path
-    end
+    @cards = Card.all.order(:order_group, :order)
+    @owned_cards = @character.card_ids
   end
 
   def show
@@ -37,7 +32,7 @@ class Triad::CardsController < ApplicationController
   end
 
   def set
-    current_user.set_cards(set_params[:cards].split(','))
+    @character.card_ids = set_params[:cards].split(',')
     redirect_to cards_path
   end
 
@@ -62,5 +57,13 @@ class Triad::CardsController < ApplicationController
   private
   def set_params
     params.permit(:cards)
+  end
+
+  def verify_user!
+    if !user_signed_in? || !@character&.verified_user?(current_user)
+      link = view_context.link_to(t('alerts.signed_in'), user_discord_omniauth_authorize_path, method: :post)
+      flash[:alert] = t('alerts.sign_in_to_track', link: link)
+      redirect_to cards_path
+    end
   end
 end
