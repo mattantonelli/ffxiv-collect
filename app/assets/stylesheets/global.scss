@@ -320,6 +320,10 @@ td.wide {
       tr:last-child td {
         border-bottom: none;
       }
+
+      &.collection.compact {
+        min-width: 100%;
+      }
     }
   }
 
