@@ -19,4 +19,9 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.plural 'Orchestrion', 'Orchestrion'
   inflect.plural 'Armoire', 'Armoire'
   inflect.plural 'Fashion', 'Fashion'
+
+  # Moogle Treasure Trove
+  inflect.acronym 'II'
+  inflect.acronym 'III'
+  inflect.acronym 'IV'
 end
