@@ -14,6 +14,13 @@ namespace :frames do
       h[id] = { id: id, order: bg['SortKey'], 'name_en' => sanitize_name(bg['Name']) }
     end
 
+    # Add Tataru's Bespoke kit which lacks a BannerBg
+    frames['573'] = { id: '573', order: '0',
+                    'name_en' => "Tataru's Bespoke",
+                    'name_de' => 'Tatarus Wohlstandsmanufaktur',
+                    'name_fr' => 'La Tarufacture de Tataru',
+                    'name_ja' => 'タタルの大繁盛商店' }
+
     # Act like the township frames don't exist because they don't have unique BannerCondition IDs
     frames.delete('299')
     frames.delete('346')
