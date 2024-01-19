@@ -5,7 +5,7 @@ namespace :sources do
       achievement_type = SourceType.find_by(name_en: 'Achievement').freeze
       gold_saucer_type = SourceType.find_by(name_en: 'Gold Saucer').freeze
 
-      puts 'Creating card Acqusition sources'
+      puts 'Creating Card acqusition sources'
       XIVData.sheet('TripleTriadCardResident').each do |card|
         type = card['AcquisitionType'].to_i
         acquisition = card['Acquisition']
