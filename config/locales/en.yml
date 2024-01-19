@@ -17,6 +17,20 @@ en:
         description: "Description"
         name: "Name"
         public: "Public"
+    errors:
+      models:
+        deck:
+          attributes:
+            base:
+              multiple_purposes: "You cannot select both a rule and an NPC."
+            cards:
+              invalid_size: "Your deck must contain exactly 5 cards."
+              too_many_fives: "Your deck can only contain one \u2605\u2605\u2605\u2605\u2605 card."
+              too_many_rares: "Your deck can only contain two cards that are \u2605\u2605\u2605\u2605 or higher."
+            npc:
+              blank: "Your deck has specified an invalid NPC."
+            rule:
+              blank: "Your deck has specified an invalid rule."
   add: "Add"
   alerts:
     already_refreshed: "Your character has already been refreshed in the past 30 minutes. Please try again later."
@@ -390,28 +404,42 @@ en:
         destroy_error: "The deck could not be deleted."
         updated: "The deck has been updated successfully."
         sign_in: "You must sign in to manage your decks."
-        vote_success: "Your vote has been cast."
         vote_error: "There was a problem casting your vote."
       before_5_5: "Before 5.5"
       card_count:
         one: "%{count} card"
         other: "%{count} cards"
+      card_finder: "Card Finder"
+      card_instructions: "Click cards to remove them from your deck. Drag to reorder."
       card_missing: "This card is missing from your collection."
       card_position: "Page %{page}, Row %{row}, Column %{column}"
+      create: "Create Deck"
       created_by: "Created By"
+      delete_confirm: "Are you sure you want to delete this deck?"
+      details: "Details"
       filter_by_npc: "Filter by NPC"
+      finalize: "Finalize Deck"
+      find_cards: "Find Cards"
       general_use: "General Use"
       have_all_cards: "You have all of the cards in this deck."
       mine: "My Decks"
       missing_cards: "You are missing %{card_count} from this deck."
       new: "New Deck"
+      notes: "Notes"
       one: "Deck"
       only_updated: "Only Updated"
+      organize: "Organize Decks"
+      publish: "Publish Deck"
       purpose: "Purpose"
       rating: "Rating"
+      select_general_purpose: "or just create a general purpose deck."
+      select_npc: "or an NPC"
+      select_rule: "Select a rule"
       title: "Decks"
       updated: "Updated"
       usable: "Usable"
+      vote: "Vote"
+      voted: "Voted"
     npcs:
       cards_tooltip: "Cards on the left are always used.<br>Cards on the right are chosen at random."
       defeated: "Defeated"

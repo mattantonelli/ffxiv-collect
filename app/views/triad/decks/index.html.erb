@@ -66,15 +66,15 @@
                   <div class="d-flex justify-content-center card-list">
                     <% deck.cards.each do |card| %>
                       <%= link_to(card_path(card), data: { toggle: 'tooltip', title: "#{card.name}" },
-                                  class: ('card-missing' if !@owned_cards&.include?(card.id))) do %>
+                                  class: ('card-missing' if !@collection_ids&.include?(card.id))) do %>
                         <%= sprite(card, 'cards-small') %>
                       <% end %>
                     <% end %>
                   </div>
                 </td>
                 <% if user_signed_in? %>
-                  <td class="text-center" data-value="<%= missing_cards(deck, @owned_cards) == 0 %>">
-                    <%= usable?(deck, @owned_cards) %>
+                  <td class="text-center" data-value="<%= missing_cards(deck, @collection_ids) == 0 %>">
+                    <%= usable?(deck, @collection_ids) %>
                   </td>
                 <% end %>
                 <td class="text-center"><%= deck_patch(deck) %></td>

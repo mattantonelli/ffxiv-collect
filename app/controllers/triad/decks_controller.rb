@@ -1,6 +1,6 @@
 class Triad::DecksController < ApplicationController
   before_action :set_deck, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :set_owned_cards, only: [:index, :mine, :show]
+  before_action :set_collection_ids, only: [:index, :mine, :show, :new, :edit]
   before_action :signed_in?, except: [:index, :show]
   before_action :authenticated?, only: [:edit, :update, :destroy], unless: :admin?
   before_action :filter_query, only: [:index, :mine]
@@ -22,9 +22,6 @@ class Triad::DecksController < ApplicationController
   end
 
   def show
-    if character_selected?
-      @owned_card_ids = Card.where(id: @owned_cards).order(:deck_order, :id).pluck(:id)
-    end
   end
 
   def new
@@ -62,8 +59,9 @@ class Triad::DecksController < ApplicationController
         flash[:success] = t('triad.decks.alerts.updated')
         redirect_to deck_path(@deck)
       else
-        set_search_and_cards
         flash_errors(@deck)
+        set_search_and_cards
+        set_collection_ids
         render :new
         raise ActiveRecord::Rollback
       end
@@ -81,9 +79,7 @@ class Triad::DecksController < ApplicationController
   end
 
   def upvote
-    if @deck.upvote(current_user)
-      flash[:success] = t('triad.decks.alerts.vote_success')
-    else
+    unless @deck.upvote(current_user)
       flash[:error] = t('triad.decks.alerts.vote_error')
     end
 
@@ -91,9 +87,7 @@ class Triad::DecksController < ApplicationController
   end
 
   def downvote
-    if @deck.downvote(current_user)
-      flash[:success] = t('triad.decks.alerts.vote_success')
-    else
+    unless @deck.downvote(current_user)
       flash[:error] = t('triad.decks.alerts.vote_error')
     end
 
@@ -105,8 +99,8 @@ class Triad::DecksController < ApplicationController
     @deck = Deck.find(params[:id] || params[:deck_id])
   end
 
-  def set_owned_cards
-    @owned_cards = @character&.card_ids
+  def set_collection_ids
+    @collection_ids = @character&.card_ids || []
   end
 
   def authenticated?
@@ -168,5 +162,11 @@ class Triad::DecksController < ApplicationController
     parms = params.require(:deck).permit(:card_ids, :rule_id, :npc_id, :notes)
     parms[:card_ids] = parms[:card_ids].split(',').map(&:to_i)
     parms
+  end
+
+  def flash_errors(record)
+    if record.errors.any?
+      flash.now[:error] = record.errors.messages.values.flatten.join('<br>').html_safe
+    end
   end
 end
