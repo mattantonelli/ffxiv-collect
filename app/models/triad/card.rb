@@ -74,6 +74,10 @@ class Card < ApplicationRecord
     top + right + bottom + left
   end
 
+  def item_id
+    nil
+  end
+
   def self.no(number)
     Card.find_by(formatted_number: "No. #{number}")
   end

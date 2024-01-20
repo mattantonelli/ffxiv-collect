@@ -15,6 +15,8 @@ module CollectionsHelper
     type = collectable.class.to_s
 
     case type
+    when 'Card'
+      image_tag('card.png')
     when 'Frame'
       image_tag('frame.png')
     when 'Orchestrion'
