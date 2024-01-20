@@ -78,6 +78,15 @@ Rails.application.routes.draw do
     resources :packs, only: [:index]
   end
 
+  namespace :triad do
+    resource :import, only: [] do
+      collection do
+        get :index
+        post :execute
+      end
+    end
+  end
+
   namespace :relics, as: :relic do
     get :weapons
     get :armor

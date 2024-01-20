@@ -14,8 +14,9 @@
              class: 'form-control form-control-sm' %>
            <% if @character&.verified_user?(current_user) %>
              <%= link_to t('triad.npcs.update_defeated'), update_defeated_npcs_path, method: :post,
-               class: 'btn btn-sm btn-secondary mt-2 mt-sm-0',
+               class: 'btn btn-sm btn-secondary mr-2',
                data: { confirm: t('triad.npcs.update_defeated_confirmation') } %>
+             <%= render 'triad/import_button' %>
            <% end %>
          <% end %>
       </div>

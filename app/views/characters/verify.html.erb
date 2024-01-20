@@ -4,21 +4,11 @@
 <div class="row">
   <div class="col-12 col-xl-6 offset-xl-3">
     <div class="card shadow">
-      <h5 class="card-header">Verify Character</h5>
+      <h5 class="card-header"><%= t('characters.verify') %></h5>
       <div class="card-body">
         <p><%= t('characters.discord_ownership') %></p>
         <hr>
-        <div class="d-flex my-3 align-items-center">
-          <%= image_tag(@profile.avatar, class: 'avatar mr-3') %>
-          <div>
-            <b><%= @profile.name %></b><br>
-            <%= @profile.server %>
-          </div>
-          <div class="mx-3">
-            <%= avatar(current_user) %>
-          </div>
-          <b><%= username(current_user) %></b>
-        </div>
+        <%= render 'verify_user_and_character', user: current_user, character: @profile %>
         <hr>
         <p>
           <%= t('characters.lodestone_verify', link: link_to(t('characters.lodestone'),

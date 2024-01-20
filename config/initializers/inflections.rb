@@ -22,4 +22,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.plural 'Armoire', 'Armoire'
   inflect.plural 'Fashion', 'Fashion'
   inflect.plural 'Orchestrion', 'Orchestrion'
+
+  inflect.irregular 'Import', 'Import'
 end

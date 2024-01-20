@@ -185,6 +185,13 @@ class Character < ApplicationRecord
     Character.fetch(id)
   end
 
+  def import_triple_triad_progress!(card_ids:, npc_ids:)
+    cards.delete_all
+    Character.bulk_insert(self.id, CharacterCard, :card, card_ids)
+    npcs.delete_all
+    Character.bulk_insert(self.id, CharacterNPC, :npc, npc_ids)
+  end
+
   def self.fetch(id)
     data = Lodestone.character(id)
     data[:achievements_count] = -1 if data[:achievements].empty?

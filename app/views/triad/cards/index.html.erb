@@ -6,11 +6,14 @@
   <div class="d-inline-flex flex-column">
     <div class="d-flex justify-content-center">
       <%= search_form_for(@q, url: cards_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 25, class: 'form-control form-control-sm' %>
-        <%= f.search_field 'order_eq', placeholder: t('triad.cards.number'), size: 10, class: 'form-control form-control-sm' %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 25,
+          class: 'form-control form-control-sm' %>
+        <%= f.search_field 'order_eq', placeholder: t('triad.cards.number'), size: 10,
+          class: 'form-control form-control-sm' %>
         <%= f.collection_select :card_type_id_eq, CardType.all, :id, :name,
           { include_blank: t('all.types') }, class: 'form-control form-control-sm' %>
-        <%= f.select :stars_eq, rarity_options, { include_blank: t('all.rarities') }, class: 'form-control form-control-sm' %>
+        <%= f.select :stars_eq, rarity_options, { include_blank: t('all.rarities') },
+          class: 'form-control form-control-sm' %>
         <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
           { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
         <%= f.submit 'Search', name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
@@ -20,7 +23,8 @@
       <div class="no-wrap">
         <% if @character&.verified_user?(current_user) %>
           <%= link_to t('triad.cards.select'), select_cards_path,
-            class: "btn btn-secondary btn-sm#{' btn-attention' if @collection_ids.empty?}" %>
+            class: "btn btn-secondary btn-sm#{' btn-attention' if @collection_ids.empty?} mr-1" %>
+          <%= render 'triad/import_button' %>
         <% end %>
       </div>
       <%= render 'shared/active_filters' %>

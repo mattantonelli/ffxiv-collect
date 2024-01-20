@@ -41,6 +41,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Verify that the user is signed in with a verified character selected
+  def verify_user!
+    unless user_signed_in?  && @character&.verified_user?(current_user)
+      redirect_to_previous
+    end
+  end
+
   def log_backtrace(exception)
     Rails.logger.error(exception.inspect)
     exception.backtrace.first(3).each { |line| Rails.logger.error(line) }

@@ -58,12 +58,4 @@ class Triad::CardsController < ApplicationController
   def set_params
     params.permit(:cards)
   end
-
-  def verify_user!
-    if !user_signed_in? || !@character&.verified_user?(current_user)
-      link = view_context.link_to(t('alerts.signed_in'), user_discord_omniauth_authorize_path, method: :post)
-      flash[:alert] = t('alerts.sign_in_to_track', link: link)
-      redirect_to cards_path
-    end
-  end
 end
