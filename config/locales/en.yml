@@ -389,6 +389,7 @@ en:
       page: "Page %{number}"
       previous: "Prev"
       remove_all: "Remove All"
+      save: "Save Cards"
       total: "Total"
     cards:
       number: "Number"
@@ -417,6 +418,7 @@ en:
       delete_confirm: "Are you sure you want to delete this deck?"
       details: "Details"
       filter_by_npc: "Filter by NPC"
+      filter_by_rule: "Filter by Rule"
       finalize: "Finalize Deck"
       find_cards: "Find Cards"
       general_use: "General Use"
@@ -442,7 +444,7 @@ en:
     import:
       attt: "Another Triple Triad Tracker"
       button: "Import Progress"
-      confirm_data: "If the above data is correct, then click <b>Verify</b>. This will <b>replace</b> your Card and NPC data on FFXIV Collect."
+      confirm_data: "If the above data is correct, then click <b>Import</b>. This will <b>replace</b> your Card and NPC data on FFXIV Collect."
       custom_user_explanation: "If you would like to import progress from a different user, please enter that user's numeric Discord ID below. You can find this ID in the URL for your profile on %{link}."
       discord_id: "Discord ID"
       error: "There was a problem importing your progress."
@@ -453,7 +455,7 @@ en:
       now_importing: "You are importing Triple Triad progress for the following character based on the following Discord user:"
       success: "Your progress has been imported successfully."
       title: "Import Triple Triad Progress"
-      user_forbidden_explanation: "Your profile on Another Triple Triad Tracker is currently set to <b>private</b>. You will need to make your profile public in order to import your progress."
+      user_forbidden_explanation: "Your profile on Another Triple Triad Tracker is currently set to <b>private</b>. You will need to make your profile <b>public</b> in order to import your progress."
       user_not_found_explanation: "Progress could not be located for your user. Please enter your user's numeric Discord ID below. You can find this ID in the URL for your profile on Another Triple Triad Tracker."
     npcs:
       cards_tooltip: "Cards on the left are always used.<br>Cards on the right are chosen at random."

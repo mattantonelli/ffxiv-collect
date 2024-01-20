@@ -49,7 +49,7 @@
   </div>
   <%= form_tag(set_cards_path, class: 'text-right') do %>
     <%= hidden_field_tag('cards', @owned_cards.join(','), id: 'card-ids') %>
-    <%= link_to 'Reset', select_cards_path, class: 'btn btn-danger' %>
-    <%= submit_tag('Save Cards', class: 'btn btn-primary', id: 'submit') %>
+    <%= link_to t('reset'), select_cards_path, class: 'btn btn-danger' %>
+    <%= submit_tag(t('triad.card_select.save'), class: 'btn btn-primary', id: 'submit') %>
   <% end %>
 </div>

@@ -51,9 +51,9 @@
                        disabled: deck.size >= 5 && !deck.include?(card.id),
                        data: { card_id: card.id, action: deck.include?(card.id) ? 'remove' : 'add' }) do %>
           <% if deck.include?(card.id) %>
-            <%= fa_icon('minus', text: 'Remove') %>
+            <%= fa_icon('minus', text: t('remove')) %>
           <% else %>
-            <%= fa_icon('plus', text: 'Add') %>
+            <%= fa_icon('plus', text: t('add')) %>
           <% end %>
         <% end %>
       </td>
