@@ -377,7 +377,6 @@ en:
     time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
   tradeable: "Tradeable"
   triad:
-    title: "Triple Triad"
     card_select:
       add_all: "Add All"
       help1: "If you own more than half the cards, click the <b>Add All</b> button."
@@ -393,17 +392,17 @@ en:
       total: "Total"
     cards:
       number: "Number"
-      title: "Cards"
       sale_price: "Sale Price"
       select: "Select Your Cards"
       stats: "Stats"
+      title: "Cards"
     decks:
       after_5_5: "After 5.5"
       alerts:
-        destroy_success: "The deck has been deleted successfully."
         destroy_error: "The deck could not be deleted."
-        updated: "The deck has been updated successfully."
+        destroy_success: "The deck has been deleted successfully."
         sign_in: "You must sign in to manage your decks."
+        updated: "The deck has been updated successfully."
         vote_error: "There was a problem casting your vote."
       before_5_5: "Before 5.5"
       card_count:
@@ -446,8 +445,8 @@ en:
       confirm_data: "If the above data is correct, then click <b>Verify</b>. This will <b>replace</b> your Card and NPC data on FFXIV Collect."
       custom_user_explanation: "If you would like to import progress from a different user, please enter that user's numeric Discord ID below. You can find this ID in the URL for your profile on %{link}."
       discord_id: "Discord ID"
-      explanation: "This tool allows you to import your progress from %{link}."
       error: "There was a problem importing your progress."
+      explanation: "This tool allows you to import your progress from %{link}."
       for_example: "For example:"
       import: "Import"
       import_custom_user: "Import Custom User"
@@ -461,8 +460,8 @@ en:
       defeated: "Defeated"
       difficulty: "Difficulty"
       filters:
-        show_all: "Show All"
         missing_rewards: "Missing Rewards"
+        show_all: "Show All"
         undefeated: "Undefeated"
         unfinished: "Unfinished"
       quest: "Quest"
@@ -478,6 +477,7 @@ en:
       user_decks_tooltip: "User decks designed to be used against this NPC"
     packs:
       title: "Packs"
+    title: "Triple Triad"
   type: "Type"
   users:
     sign_in: "Sign in with Discord"
