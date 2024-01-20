@@ -16,7 +16,7 @@ module CollectionsHelper
 
     case type
     when 'Card'
-      image_tag('card.png')
+      card_image(collectable)
     when 'Frame'
       image_tag('frame.png')
     when 'Orchestrion'
