@@ -35,7 +35,7 @@
     <%= nav_link(t('survey_records.title'), 'book', survey_records_path) %>
 
     <!-- Triple Triad -->
-    <div class="nav-item dropdown<%= ' bold' if active_path?(cards_path) %>">
+    <div class="nav-item dropdown<%= ' bold' if controller_path.match?('triad/') %>">
       <a class="nav-link dropdown-toggle" href="#" id="relicsDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('th', text: t('triad.title')) %></a>
       <div class="dropdown-menu" aria-labelledBy="triadDropdown">
