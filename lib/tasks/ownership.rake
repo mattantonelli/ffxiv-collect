@@ -5,7 +5,7 @@ namespace :ownership do
     mount_minion_characters = Character.visible.recent
     manual_collection_characters = Character.visible.recent.verified
 
-    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record, SurveyRecord, Frame].each do |model|
+    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record, SurveyRecord, Frame, Card].each do |model|
       cache_ownership(model, manual_collection_characters)
     end
 
@@ -31,6 +31,8 @@ namespace :ownership do
       percentage = ((owners / total.to_f) * 100).to_s[0..2].sub(/\.\Z/, '').sub(/0\.0/, '0')
       h[id] = { count: owners, percentage: "#{percentage}%" }
     end
+
+    return unless ownership.present?
 
     log('Collecting updated models')
     updated = ownership.filter_map do |id, data|
