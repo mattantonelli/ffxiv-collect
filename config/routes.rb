@@ -211,7 +211,7 @@ Rails.application.routes.draw do
   end
 
   namespace :mod do
-    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions frames records survey_records).each do |resource|
+    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions frames cards records survey_records).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 
