@@ -37,7 +37,7 @@ class NPC < ApplicationRecord
 
   after_save :touch_related
 
-  scope :include_related, -> { include_sources.includes(:rewards, :rules, :location, :quest) }
+  scope :include_related, -> { include_sources.includes(:rules, :location, :quest, rewards: :type) }
   scope :ordered, -> { order(patch: :desc, id: :desc) }
   scope :valid, -> { where(excluded: false) }
 

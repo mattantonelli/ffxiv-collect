@@ -24,6 +24,9 @@ class Deck < ApplicationRecord
   has_many :cards, through: :deck_cards
   has_many :votes, dependent: :delete_all
 
+  scope :include_related, -> { includes(:user, :rule, :npc, cards: :type) }
+  scope :ordered, -> { order(:id) }
+
   validates_with DeckValidator
   validates :rule, presence: true, unless: -> { rule_id.blank? }
   validates :npc,  presence: true, unless: -> { npc_id.blank? }

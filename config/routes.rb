@@ -188,6 +188,12 @@ Rails.application.routes.draw do
     records survey_records relics tomestones).each do |resource|
       resources resource, only: [:index, :show]
     end
+
+    namespace :triad do
+      %i(cards decks npcs packs).each do |resource|
+        resources resource, only: [:index, :show]
+      end
+    end
   end
 
   get 'api/docs', to: redirect('https://documenter.getpostman.com/view/1779678/TzXzDHM1')
