@@ -19,10 +19,6 @@ module Triad::CardsHelper
     content_tag(:span, card.formatted_number, class: 'badge badge-secondary')
   end
 
-  def stars(card)
-    (fa_icon('star') * card.stars).html_safe
-  end
-
   def rarity_options
     (1..5).to_a.reverse.map { |x| ["\u2605" * x, x] }
   end

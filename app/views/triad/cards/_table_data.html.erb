@@ -12,7 +12,7 @@
       <%= link_to(card.name, card_path(card), class: 'name') %>
     </td>
     <td data-value="<%= card.card_type_id %>"><%= type_image(card) %></td>
-    <td class="no-wrap" data-value="<%= card.stars %>"><%= stars(card) %></td>
+    <td class="no-wrap" data-value="<%= card.stars %>"><%= stars(card.stars) %></td>
     <td data-value="<%= card.total_stats %>">
       <div class="d-flex flex-column align-items-center stats">
         <div class="d-flex justify-content-center">
