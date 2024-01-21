@@ -4,6 +4,8 @@ namespace :triad do
   namespace :cards do
     desc 'Create the cards'
     task create: :environment do
+      PaperTrail.enabled = false
+
       puts 'Creating cards'
       count = Card.count
 

@@ -4,6 +4,8 @@ namespace :triad do
   namespace :npcs do
     desc 'Create the NPCs'
     task create: :environment do
+      PaperTrail.enabled = false
+
       puts 'Creating Triple Triad NPCs'
       counts = { npc: NPC.count, npc_card: NPCCard.count, npc_reward: NPCReward.count,
                  locations: Location.count }

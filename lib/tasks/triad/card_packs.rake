@@ -22,6 +22,8 @@ namespace :triad do
 
     desc 'Create the card packs'
     task create: :environment do
+      PaperTrail.enabled = false
+
       puts 'Creating card packs'
       count = Pack.count
 

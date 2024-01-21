@@ -4,6 +4,8 @@ namespace :triad do
   namespace :rules do
     desc 'Create the rules'
     task create: :environment do
+      PaperTrail.enabled = false
+
       puts 'Creating rules'
       count = Rule.count
 

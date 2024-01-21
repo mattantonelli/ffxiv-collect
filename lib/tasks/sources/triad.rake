@@ -2,6 +2,8 @@ namespace :sources do
   namespace :triad do
     desc 'Create card sources from in-game acquisition details'
     task update: :environment do
+      PaperTrail.enabled = false
+
       achievement_type = SourceType.find_by(name_en: 'Achievement').freeze
       gold_saucer_type = SourceType.find_by(name_en: 'Gold Saucer').freeze
 
