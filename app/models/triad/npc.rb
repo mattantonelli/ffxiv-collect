@@ -46,16 +46,16 @@ class NPC < ApplicationRecord
   end
 
   def self.defeated_npcs(character)
-    # TODO: Fix this. NPC sources are now created, so this query will not work.
-    # Find the IDs for all NPCs from whom the character has obtained exclusive cards,
-    # those that are available from that NPC and nowhere else
+    # Find the NPCs with at least one card reward that only has a single source.
+    # This single NPC source would have been automatically created with the NPC.
+    # Verify that each source is an NPC before adding it to the list.
     ids = Card.joins(npc_rewards: :npc)
-      .left_joins(:sources).where('sources.id is null')
-      .left_joins(:packs).where('packs.id is null')
-      .where(buy_price: nil)
-      .group('npc_rewards.card_id').having('count(npc_rewards.npc_id) = 1')
-      .where(id: character.card_ids).distinct
-      .select('npcs.id as id').map { |card| card.id }
+      .left_joins(:sources)
+      .group('sources.collectable_id')
+      .having('count(sources.id) = 1')
+      .select('sources.related_type as related_type, sources.related_id as related_id')
+      .filter_map { |card| card.related_id if card.related_type == 'NPC' }
+      .uniq
 
     # Add the existing defeated NPC IDs
     (ids + character.npc_ids).uniq
