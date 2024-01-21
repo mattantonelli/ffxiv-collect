@@ -112,6 +112,12 @@ en:
   back: "Back"
   bardings:
     title: "Bardings"
+  cards:
+    number: "Number"
+    sale_price: "Sale Price"
+    select: "Select Your Cards"
+    stats: "Stats"
+    title: "Cards"
   category: "Category"
   character:
     one: "character"
@@ -257,6 +263,26 @@ en:
   name: "Name"
   new: "New!"
   "no": "no"
+  npcs:
+    cards_tooltip: "Cards on the left are always used.<br>Cards on the right are chosen at random."
+    defeated: "Defeated"
+    difficulty: "Difficulty"
+    filters:
+      missing_rewards: "Missing Rewards"
+      show_all: "Show All"
+      undefeated: "Undefeated"
+      unfinished: "Unfinished"
+    quest: "Quest"
+    required_quest: "Required Quest"
+    rewards: "Rewards"
+    rules: "Rules"
+    submit_deck: "Submit Deck"
+    submit_deck_tooltip: "Submit a deck to be used against this NPC"
+    title: "NPCs"
+    update_defeated: "Update Defeated"
+    update_defeated_confirmation: "All NPCs with exclusive cards you have obtained will be marked as defeated."
+    user_decks: "User Decks"
+    user_decks_tooltip: "User decks designed to be used against this NPC"
   of: "of"
   only:
     female: "Female Only"
@@ -391,12 +417,6 @@ en:
       remove_all: "Remove All"
       save: "Save Cards"
       total: "Total"
-    cards:
-      number: "Number"
-      sale_price: "Sale Price"
-      select: "Select Your Cards"
-      stats: "Stats"
-      title: "Cards"
     decks:
       after_5_5: "After 5.5"
       alerts:
@@ -457,26 +477,6 @@ en:
       title: "Import Triple Triad Progress"
       user_forbidden_explanation: "Your profile on Another Triple Triad Tracker is currently set to <b>private</b>. You will need to make your profile <b>public</b> in order to import your progress."
       user_not_found_explanation: "Progress could not be located for your user. Please enter your user's numeric Discord ID below. You can find this ID in the URL for your profile on Another Triple Triad Tracker."
-    npcs:
-      cards_tooltip: "Cards on the left are always used.<br>Cards on the right are chosen at random."
-      defeated: "Defeated"
-      difficulty: "Difficulty"
-      filters:
-        missing_rewards: "Missing Rewards"
-        show_all: "Show All"
-        undefeated: "Undefeated"
-        unfinished: "Unfinished"
-      quest: "Quest"
-      required_quest: "Required Quest"
-      rewards: "Rewards"
-      rules: "Rules"
-      submit_deck: "Submit Deck"
-      submit_deck_tooltip: "Submit a deck to be used against this NPC"
-      title: "NPCs"
-      update_defeated: "Update Defeated"
-      update_defeated_confirmation: "All NPCs with exclusive cards you have obtained will be marked as defeated."
-      user_decks: "User Decks"
-      user_decks_tooltip: "User decks designed to be used against this NPC"
     packs:
       title: "Packs"
     title: "Triple Triad"

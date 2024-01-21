@@ -13,9 +13,9 @@
            <%= select_tag :rule, npc_rule_options(@rule), include_blank: t('all.rules'),
              class: 'form-control form-control-sm' %>
            <% if @character&.verified_user?(current_user) %>
-             <%= link_to t('triad.npcs.update_defeated'), update_defeated_npcs_path, method: :post,
+             <%= link_to t('npcs.update_defeated'), update_defeated_npcs_path, method: :post,
                class: 'btn btn-sm btn-secondary mr-2',
-               data: { confirm: t('triad.npcs.update_defeated_confirmation') } %>
+               data: { confirm: t('npcs.update_defeated_confirmation') } %>
              <%= render 'triad/import_button' %>
            <% end %>
          <% end %>
@@ -25,19 +25,19 @@
           <div class="">
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="display" id="show-all" checked />
-              <label class="form-check-label" for="show-all"><%= t('triad.npcs.filters.show_all') %></label>
+              <label class="form-check-label" for="show-all"><%= t('npcs.filters.show_all') %></label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="display" id="hide-completed" />
-              <label class="form-check-label" for="hide-completed"><%= t('triad.npcs.filters.missing_rewards') %></label>
+              <label class="form-check-label" for="hide-completed"><%= t('npcs.filters.missing_rewards') %></label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="display" id="hide-defeated" />
-              <label class="form-check-label" for="hide-defeated"><%= t('triad.npcs.filters.undefeated') %></label>
+              <label class="form-check-label" for="hide-defeated"><%= t('npcs.filters.undefeated') %></label>
             </div>
             <div class="form-check form-check-inline mr-0">
               <input class="form-check-input" type="radio" name="display" id="hide-finished" />
-              <label class="form-check-label" for="hide-finished"><%= t('triad.npcs.filters.unfinished') %></label>
+              <label class="form-check-label" for="hide-finished"><%= t('npcs.filters.unfinished') %></label>
             </div>
           </div>
         <% end %>
@@ -50,10 +50,10 @@
         <tr>
           <th scope="col" class="npc-name"><%= t('name') %></th>
           <th scope="col"><%= t('spells.location') %></th>
-          <th scope="col" class="hide-xs"><%= t('triad.npcs.rules') %></th>
-          <th scope="col" class="hide-sm"><%= t('triad.npcs.difficulty') %></th>
-          <th scope="col" class="hide-sm quest-name"><%= t('triad.npcs.quest') %></th>
-          <th scope="col"><%= t('triad.npcs.rewards') %></th>
+          <th scope="col" class="hide-xs"><%= t('npcs.rules') %></th>
+          <th scope="col" class="hide-sm"><%= t('npcs.difficulty') %></th>
+          <th scope="col" class="hide-sm quest-name"><%= t('npcs.quest') %></th>
+          <th scope="col"><%= t('npcs.rewards') %></th>
           <th scope="col" class="hide-xs text-center"><%= t('patch') %></th>
           <% if character_selected? %>
             <th scope="col" class="text-center" data-defaultsort="disabled"></th> <!-- Won -->

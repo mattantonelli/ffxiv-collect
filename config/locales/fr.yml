@@ -112,6 +112,12 @@ fr:
   back: "Retour"
   bardings:
     title: "Bardes"
+  cards:
+    number: "Numéro"
+    sale_price: "Prix de vente"
+    select: "Sélectionner Vos Cartes"
+    stats: "Stats"
+    title: "Cartes"
   category: "Categorie"
   character:
     one: "personnage"
@@ -255,6 +261,26 @@ fr:
   name: "Nom"
   new: "Nouveau !"
   "no": "non"
+  npcs:
+    cards_tooltip: "Les cartes sur la gauche sont toujours utilisées.<br>Les cartes sur la droite sont choisies de manière aléatoire."
+    defeated: "Battu"
+    difficulty: "Difficulté"
+    filters:
+      missing_rewards: "Récompenses Manquantes"
+      show_all: "Tout Afficher"
+      undefeated: "Non Battu"
+      unfinished: "Non Fini"
+    quest: "Quête"
+    required_quest: "Quête Requise"
+    rewards: "Récompenses"
+    rules: "Règles"
+    submit_deck: "Soumettre le Deck"
+    submit_deck_tooltip: "Soumettre un deck utilisable contre un PNJ"
+    title: "PNJs"
+    update_defeated: "Mettre à jour les Battu"
+    update_defeated_confirmation: "Les PNJs ayant des cartes exclusives que vous avez obtenues vont être marqués comme battu."
+    user_decks: "Decks Utilisateur"
+    user_decks_tooltip: "Les decks utilisateur conçus pour être utilisés contre ce PNJ"
   of: "de"
   only:
     female: "Réservé aux femmes"
@@ -389,12 +415,6 @@ fr:
       remove_all: "Supprimer Tout"
       save: "Sauvegarder Cartes"
       total: "Total"
-    cards:
-      number: "Numéro"
-      sale_price: "Prix de vente"
-      select: "Sélectionner Vos Cartes"
-      stats: "Stats"
-      title: "Cartes"
     decks:
       after_5_5: "Après la 5.5"
       alerts:
@@ -455,26 +475,6 @@ fr:
       title: "Importer la progression Triple Triade"
       user_forbidden_explanation: "Votre profil sur Another Triple Triad Tracker a une visibilité <b>privée</b>. Vous devez changer la visibilité en <b>publique</b> pour pouvoir importer votre progression."
       user_not_found_explanation: "La progression de l'utilisateur n'a pas pu être trouvée. Entrez l'ID Discord de l'utilisateur en dessous. Vous pouvez trouver cet ID dans l'URL de votre profil sur Another Triple Triad Tracker."
-    npcs:
-      cards_tooltip: "Les cartes sur la gauche sont toujours utilisées.<br>Les cartes sur la droite sont choisies de manière aléatoire."
-      defeated: "Battu"
-      difficulty: "Difficulté"
-      filters:
-        missing_rewards: "Récompenses Manquantes"
-        show_all: "Tout Afficher"
-        undefeated: "Non Battu"
-        unfinished: "Non Fini"
-      quest: "Quête"
-      required_quest: "Quête Requise"
-      rewards: "Récompenses"
-      rules: "Règles"
-      submit_deck: "Soumettre le Deck"
-      submit_deck_tooltip: "Soumettre un deck utilisable contre un PNJ"
-      title: "PNJs"
-      update_defeated: "Mettre à jour les Battu"
-      update_defeated_confirmation: "Les PNJs ayant des cartes exclusives que vous avez obtenues vont être marqués comme battu."
-      user_decks: "Decks Utilisateur"
-      user_decks_tooltip: "Les decks utilisateur conçus pour être utilisés contre ce PNJ"
     packs:
       title: "Pochettes"
   type: "Type"

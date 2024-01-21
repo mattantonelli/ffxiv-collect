@@ -65,7 +65,7 @@
         <%= search_form_for(@q, class: 'form form-inline search-form d-flex justify-content-center mx-2 my-3', url: new_deck_path, enforce_utf8: false) do |f| %>
           <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 30,
             class: 'form-control form-control-sm' %>
-          <%= f.search_field 'order_eq', placeholder: t('triad.cards.number'), size: 10,
+          <%= f.search_field 'order_eq', placeholder: t('cards.number'), size: 10,
             class: 'form-control form-control-sm' %>
           <%= f.collection_select :card_type_id_eq, CardType.all, :id, :name,
             { include_blank: t('all.types') }, class: 'form-control form-control-sm' %>
@@ -81,7 +81,7 @@
               <th scope="col" class="hide-xs"><%= t('name') %></th>
               <th scope="col"><%= t('type') %></th>
               <th scope="col"><%= t('records.rarity') %></th>
-              <th scope="col" class="text-center"><%= t('triad.cards.stats') %></th>
+              <th scope="col" class="text-center"><%= t('cards.stats') %></th>
               <th scope="col" data-defaultsort="disabled"></th> <!-- Add to deck -->
             </tr>
           </thead>

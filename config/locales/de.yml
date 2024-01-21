@@ -111,6 +111,12 @@ de:
   back: "Zurück"
   bardings:
     title: "Rossharnische"
+  cards:
+    number: "Nummer"
+    sale_price: "Verkaufspreis"
+    select: "Wähle deine Karten aus"
+    stats: "Attribute"
+    title: "Karten"
   category: "Kategorie"
   character:
     one: "charakter"
@@ -254,6 +260,26 @@ de:
   name: "Name"
   new: "Neu!"
   "no": "nein"
+  npcs:
+    cards_tooltip: "Die Karten auf der linken Seite werden immer benutzt.<br>Karten auf der rechten Seite werden zufällig ausgewählt."
+    defeated: "Besiegt"
+    difficulty: "Schwierigkeit"
+    filters:
+      missing_rewards: "Fehlende Belohnung"
+      show_all: "Zeige alle"
+      undefeated: "unbesiegt"
+      unfinished: "unvollständig"
+    quest: "Quest"
+    required_quest: "Benötigte Quest"
+    rewards: "Belohnungen"
+    rules: "Regeln"
+    submit_deck: "Deck einreichen"
+    submit_deck_tooltip: "Reiche ein Deck ein, das gegen diesen NPC genutzt werden kann"
+    title: "NPCs"
+    update_defeated: "aktualisiere besiegte Gegner"
+    update_defeated_confirmation: "Alle NPCs mit exklusiven Karten werden als besiegt markiert."
+    user_decks: "Benutzer Decks"
+    user_decks_tooltip: "Benutzer Decks, die zum Besiegen dieses NPCs erstellt wurden."
   of: "von"
   only:
     female: "Nur für Damen"
@@ -388,12 +414,6 @@ de:
       remove_all: "Entferne alle"
       save: "Speicher Karten"
       total: "Anzahl"
-    cards:
-      number: "Nummer"
-      sale_price: "Verkaufspreis"
-      select: "Wähle deine Karten aus"
-      stats: "Attribute"
-      title: "Karten"
     decks:
       after_5_5: "Nach Patch 5.5"
       alerts:
@@ -454,26 +474,6 @@ de:
       title: "Importiere Triple Triad Fortschritt."
       user_forbidden_explanation: "Dein Another Triple Triad Tracker Profil ist auf <b>private</b> gesetzt. Du musst dein Profil <b>öffentlich</b> machen, um deinen Fortschritt importieren zu können."
       user_not_found_explanation: "Es konnten keine Daten für deinen aktuellen Nutzer gefunden werden. Bitte gib deine Discord ID ein. Du kannst die benötigte ID in der URL deines Nutzerprofils auf Another Triple Triad Tracker finden."
-    npcs:
-      cards_tooltip: "Die Karten auf der linken Seite werden immer benutzt.<br>Karten auf der rechten Seite werden zufällig ausgewählt."
-      defeated: "Besiegt"
-      difficulty: "Schwierigkeit"
-      filters:
-        missing_rewards: "Fehlende Belohnung"
-        show_all: "Zeige alle"
-        undefeated: "unbesiegt"
-        unfinished: "unvollständig"
-      quest: "Quest"
-      required_quest: "Benötigte Quest"
-      rewards: "Belohnungen"
-      rules: "Regeln"
-      submit_deck: "Deck einreichen"
-      submit_deck_tooltip: "Reiche ein Deck ein, das gegen diesen NPC genutzt werden kann"
-      title: "NPCs"
-      update_defeated: "aktualisiere besiegte Gegner"
-      update_defeated_confirmation: "Alle NPCs mit exklusiven Karten werden als besiegt markiert."
-      user_decks: "Benutzer Decks"
-      user_decks_tooltip: "Benutzer Decks, die zum Besiegen dieses NPCs erstellt wurden."
     packs:
       title: "Boosterkarten"
   type: "Techniktyp"

@@ -25,7 +25,7 @@
                 <dd><%= stars(@card) %></dd>
               </div>
               <div>
-                <dt><%= t('triad.cards.stats') %></dt>
+                <dt><%= t('cards.stats') %></dt>
                 <dd>
                   <div class="d-flex flex-column stats">
                     <div class="d-flex justify-content-center">
@@ -45,7 +45,7 @@
                 <%= render 'shared/ownership', collectable: @card %>
               </div>
               <div>
-                <dt><%= t('triad.cards.sale_price') %></dt>
+                <dt><%= t('cards.sale_price') %></dt>
                 <dd><%= format_price(@card.sell_price) %></dd>
               </div>
               <div>

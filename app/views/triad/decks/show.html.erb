@@ -39,7 +39,7 @@
   <div class="col-12 col-lg-8 col-xl-6">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center py-2">
-        <h5><%= t('triad.cards.title') %></h5>
+        <h5><%= t('cards.title') %></h5>
         <% if user_signed_in? %>
           <% if voted?(@deck) %>
             <%= link_to fa_icon('check-circle', text: t('triad.decks.voted')),

@@ -18,8 +18,8 @@
           <%= render 'characters/verify_user_and_character', user: current_user, uid: params[:uid],
             character: @character %>
           <p>
-            <b><%= t('triad.cards.title') %>:</b> <%= @collection[:cards_count] %><br />
-            <b><%= t('triad.npcs.title') %>:</b> <%= @collection[:npc_count] %>
+            <b><%= t('cards.title') %>:</b> <%= @collection[:cards_count] %><br />
+            <b><%= t('npcs.title') %>:</b> <%= @collection[:npc_count] %>
           </p>
           <hr>
           <p>
