@@ -312,6 +312,7 @@ fr:
   ranked_mounts:
     title: "Montures permanentes"
   records:
+    dropdown: "Rapports"
     page: "Page"
     rarity: "Rareté"
     title: "Rapport du front bozjien"

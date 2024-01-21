@@ -311,6 +311,7 @@ de:
   ranked_mounts:
     title: "Gewertete Reittiere"
   records:
+    dropdown: "Berichte"
     page: "Seite"
     rarity: "Seltenheit"
     title: "Frontberichte"

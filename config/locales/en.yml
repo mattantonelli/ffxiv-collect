@@ -314,6 +314,7 @@ en:
   ranked_mounts:
     title: "Ranked Mounts"
   records:
+    dropdown: "Records"
     page: "Page"
     rarity: "Rarity"
     title: "Field Records"
