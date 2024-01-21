@@ -1,5 +1,5 @@
 <% title(t('triad.decks.title')) %>
-<% description("#{purpose(@deck)} deck by #{@deck.user.username}") %>
+<% description("#{purpose(@deck)} deck") %>
 
 <div class="row">
   <div class="col-12 col-lg-4 col-xl-3 offset-xl-1 mb-3 mb-lg-0">
@@ -31,7 +31,7 @@
             <%= deck_patch(@deck) %>
           </dd>
           <dt><%= t('triad.decks.created_by') %></dt>
-          <dd><%= @deck.user.username %></dd>
+          <dd><%= @deck.user&.username %></dd>
         </dl>
       </div>
     </div>

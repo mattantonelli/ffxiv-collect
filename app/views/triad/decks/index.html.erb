@@ -1,4 +1,5 @@
-<% title('Decks') %>
+<% title(t('triad.decks.title')) %>
+<% description("Triple Triad decks submitted by users.") %>
 
 <div class="row">
   <div class="col-12 col-xl-8 offset-0 offset-xl-2">
@@ -61,7 +62,7 @@
               <tr>
                 <td><%= purpose(deck) %></td>
                 <td><%= deck.rating %></td>
-                <td><%= deck.user.username.truncate(20) %></td>
+                <td><%= deck.user&.username&.truncate(20) %></td>
                 <td class="hide-xs">
                   <div class="d-flex justify-content-center card-list">
                     <% deck.cards.each do |card| %>
