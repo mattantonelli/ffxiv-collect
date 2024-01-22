@@ -4,7 +4,7 @@
     <b><%= character.name %></b><br>
     <%= character.server %>
   </div>
-  <% if uid.present? %>
+  <% if local_assigns[:uid].present? %>
     <b class="ml-3"><%= fab_icon('discord', text: uid) %></b>
   <% else %>
     <div class="mx-3">

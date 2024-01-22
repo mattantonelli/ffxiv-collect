@@ -22,7 +22,6 @@ class Triad::NPCsController < ApplicationController
       @card_ids = @character.card_ids
       @incomplete = @npcs.joins(:rewards).where('cards.id not in (?)', @card_ids).pluck(:id).uniq
     else
-      render_sign_in_flash
       @card_ids = []
       @incomplete = []
     end
