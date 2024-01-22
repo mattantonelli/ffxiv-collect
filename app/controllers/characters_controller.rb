@@ -28,12 +28,14 @@ class CharactersController < ApplicationController
     end
 
     # Add point data to Achievements
-    @scores['achievements'][:points] = Achievement.with_filters(cookies, @profile)
-      .joins(:character_achievements)
-      .where('character_achievements.character_id = ?', @profile.id)
-      .sum(:points)
+    if @scores['achievements'].present?
+      @scores['achievements'][:points] = Achievement.with_filters(cookies, @profile)
+        .joins(:character_achievements)
+        .where('character_achievements.character_id = ?', @profile.id)
+        .sum(:points)
 
-    @scores['achievements'][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
+      @scores['achievements'][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
+    end
 
     # Add NPC data to Cards
     if @scores['cards'].present?
