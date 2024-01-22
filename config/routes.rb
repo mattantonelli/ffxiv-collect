@@ -44,6 +44,49 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :triad, module: :triad do
+    resources :cards, only: [:index, :show] do
+      member do
+        post 'add'
+        post 'remove'
+      end
+
+      collection do
+        get 'select'
+        post 'set'
+      end
+    end
+
+    get 'cards/no/:id', to: 'cards#no'
+    get 'cards/ex/:id', to: 'cards#ex'
+
+    resources :npcs, only: [:index, :show] do
+      member do
+        post 'add'
+        post 'remove'
+      end
+
+      post 'defeated/update', on: :collection, to: 'npcs#update_defeated', as: :update_defeated
+    end
+
+    resources :decks do
+      get 'mine', as: :my, on: :collection
+      post 'upvote'
+      post 'downvote'
+    end
+
+    resources :packs, only: [:index]
+  end
+
+  namespace :triad do
+    resource :import, only: [] do
+      collection do
+        get :index
+        post :execute
+      end
+    end
+  end
+
   namespace :relics, as: :relic do
     get :weapons
     get :armor
@@ -145,6 +188,12 @@ Rails.application.routes.draw do
     records survey_records relics tomestones).each do |resource|
       resources resource, only: [:index, :show]
     end
+
+    namespace :triad do
+      %i(cards decks npcs packs).each do |resource|
+        resources resource, only: [:index, :show]
+      end
+    end
   end
 
   get 'api/docs', to: redirect('https://documenter.getpostman.com/view/1779678/TzXzDHM1')
@@ -168,7 +217,7 @@ Rails.application.routes.draw do
   end
 
   namespace :mod do
-    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions frames records survey_records).each do |resource|
+    %i(mounts minions orchestrions emotes bardings hairstyles armoires spells fashions frames cards records survey_records).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 

@@ -38,14 +38,27 @@ module CharactersHelper
   end
 
   def collection_name(collection, score: {})
-    name = t("#{collection}.title")
+    if collection == 'triad'
+      path = cards_path
 
-    if score.present? && score[:value] == score[:max]
-      star = fa_icon('star', class: 'complete')
-      name = "#{name} #{star}".html_safe
+      if score.present? && score[:value] == score[:max] && score[:npcs] == score[:npcs_max]
+        complete = true
+      end
+    else
+      path = send("#{collection}_path")
+
+      if score.present? && score[:value] == score[:max]
+        complete = true
+      end
     end
 
-    link_to(name, send("#{collection}_path"), class: 'unstyled')
+    name = t("#{collection}.title")
+
+    if complete
+      name = "#{name} #{fa_icon('star', class: 'complete')}".html_safe
+    end
+
+    link_to(name, path, class: 'unstyled')
   end
 
   def character_relics(character)

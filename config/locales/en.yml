@@ -17,6 +17,20 @@ en:
         description: "Description"
         name: "Name"
         public: "Public"
+    errors:
+      models:
+        deck:
+          attributes:
+            base:
+              multiple_purposes: "You cannot select both a rule and an NPC."
+            cards:
+              invalid_size: "Your deck must contain exactly 5 cards."
+              too_many_fives: "Your deck can only contain one \u2605\u2605\u2605\u2605\u2605 card."
+              too_many_rares: "Your deck can only contain two cards that are \u2605\u2605\u2605\u2605 or higher."
+            npc:
+              blank: "Your deck has specified an invalid NPC."
+            rule:
+              blank: "Your deck has specified an invalid rule."
   add: "Add"
   alerts:
     already_refreshed: "Your character has already been refreshed in the past 30 minutes. Please try again later."
@@ -74,10 +88,14 @@ en:
   all:
     aspects: "All Aspects"
     data_centers: "All Data Centers"
+    decks: "All Decks"
     genders: "All Genders"
+    locations: "All Locations"
     patches: "All Patches"
     race_types: "All Minion Types"
     ranks: "All Ranks"
+    rarities: "All Rarities"
+    rules: "All Rules"
     servers: "All Servers"
     skill_types: "All Special Types"
     sources: "All Sources"
@@ -94,6 +112,12 @@ en:
   back: "Back"
   bardings:
     title: "Bardings"
+  cards:
+    number: "Number"
+    sale_price: "Sale Price"
+    select: "Select Your Cards"
+    stats: "Stats"
+    title: "Cards"
   category: "Category"
   character:
     one: "character"
@@ -239,6 +263,26 @@ en:
   name: "Name"
   new: "New!"
   "no": "no"
+  npcs:
+    cards_tooltip: "Cards on the left are always used.<br>Cards on the right are chosen at random."
+    defeated: "Defeated"
+    difficulty: "Difficulty"
+    filters:
+      missing_rewards: "Missing Rewards"
+      show_all: "Show All"
+      undefeated: "Undefeated"
+      unfinished: "Unfinished"
+    quest: "Quest"
+    required_quest: "Required Quest"
+    rewards: "Rewards"
+    rules: "Rules"
+    submit_deck: "Submit Deck"
+    submit_deck_tooltip: "Submit a deck to be used against this NPC"
+    title: "NPCs"
+    update_defeated: "Update Defeated"
+    update_defeated_confirmation: "All NPCs with exclusive cards you have obtained will be marked as defeated."
+    user_decks: "User Decks"
+    user_decks_tooltip: "User decks designed to be used against this NPC"
   of: "of"
   only:
     female: "Female Only"
@@ -270,6 +314,7 @@ en:
   ranked_mounts:
     title: "Ranked Mounts"
   records:
+    dropdown: "Records"
     page: "Page"
     rarity: "Rarity"
     title: "Field Records"
@@ -358,7 +403,83 @@ en:
     ownership: "Active public characters who own this %{collectable}"
     time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
   tradeable: "Tradeable"
-  triple_triad:
+  triad:
+    card_select:
+      add_all: "Add All"
+      help1: "If you own more than half the cards, click the <b>Add All</b> button."
+      help2: "For each page, add/remove cards until it matches your in-game <b>Card List</b>."
+      help3: "Confirm that your <b>Total</b> matches your in-game Card List."
+      help4: "Click <b>Save Cards</b>."
+      how_to_use: "How To Use"
+      next: "Next"
+      not_saved: "Your selection has not been saved! Are you sure you want to leave?"
+      page: "Page %{number}"
+      previous: "Prev"
+      remove_all: "Remove All"
+      save: "Save Cards"
+      total: "Total"
+    decks:
+      after_5_5: "After 5.5"
+      alerts:
+        destroy_error: "The deck could not be deleted."
+        destroy_success: "The deck has been deleted successfully."
+        sign_in: "You must sign in to manage your decks."
+        updated: "The deck has been updated successfully."
+        vote_error: "There was a problem casting your vote."
+      before_5_5: "Before 5.5"
+      card_count:
+        one: "%{count} card"
+        other: "%{count} cards"
+      card_finder: "Card Finder"
+      card_instructions: "Click cards to remove them from your deck. Drag to reorder."
+      card_missing: "This card is missing from your collection."
+      card_position: "Page %{page}, Row %{row}, Column %{column}"
+      create: "Create Deck"
+      created_by: "Created By"
+      delete_confirm: "Are you sure you want to delete this deck?"
+      details: "Details"
+      filter_by_npc: "Filter by NPC"
+      filter_by_rule: "Filter by Rule"
+      finalize: "Finalize Deck"
+      find_cards: "Find Cards"
+      general_use: "General Use"
+      have_all_cards: "You have all of the cards in this deck."
+      mine: "My Decks"
+      missing_cards: "You are missing %{card_count} from this deck."
+      new: "New Deck"
+      notes: "Notes"
+      one: "Deck"
+      only_updated: "Only Updated"
+      organize: "Organize Decks"
+      publish: "Publish Deck"
+      purpose: "Purpose"
+      rating: "Rating"
+      select_general_purpose: "or just create a general purpose deck."
+      select_npc: "or an NPC"
+      select_rule: "Select a rule"
+      title: "Decks"
+      updated: "Updated"
+      usable: "Usable"
+      vote: "Vote"
+      voted: "Voted"
+    import:
+      attt: "Another Triple Triad Tracker"
+      button: "Import Progress"
+      confirm_data: "If the above data is correct, then click <b>Import</b>. This will <b>replace</b> your Card and NPC data on FFXIV Collect."
+      custom_user_explanation: "If you would like to import progress from a different user, please enter that user's numeric Discord ID below. You can find this ID in the URL for your profile on %{link}."
+      discord_id: "Discord ID"
+      error: "There was a problem importing your progress."
+      explanation: "This tool allows you to import your progress from %{link}."
+      for_example: "For example:"
+      import: "Import"
+      import_custom_user: "Import Custom User"
+      now_importing: "You are importing Triple Triad progress for the following character based on the following Discord user:"
+      success: "Your progress has been imported successfully."
+      title: "Import Triple Triad Progress"
+      user_forbidden_explanation: "Your profile on Another Triple Triad Tracker is currently set to <b>private</b>. You will need to make your profile <b>public</b> in order to import your progress."
+      user_not_found_explanation: "Progress could not be located for your user. Please enter your user's numeric Discord ID below. You can find this ID in the URL for your profile on Another Triple Triad Tracker."
+    packs:
+      title: "Packs"
     title: "Triple Triad"
   type: "Type"
   users:

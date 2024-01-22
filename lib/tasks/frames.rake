@@ -97,7 +97,7 @@ namespace :frames do
                                   related_type: 'Quest', related_id: frame[:unlock_id])
         elsif frame[:unlock_type] == 'Instance'
           instance = Instance.find(frame[:unlock_id])
-          instance_type = instance.content_type.singularize
+          instance_type = instance.content_type
           created.sources.create!(type: SourceType.find_by(name_en: instance_type), text: instance.name_en,
                                   related_type: instance_type, related_id: frame[:unlock_id])
         end

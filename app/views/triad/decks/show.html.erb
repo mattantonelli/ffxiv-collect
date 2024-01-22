@@ -1,0 +1,81 @@
+<% title(t('triad.decks.title')) %>
+<% description("#{purpose(@deck)} deck") %>
+
+<div class="row">
+  <div class="col-12 col-lg-4 col-xl-3 offset-xl-1 mb-3 mb-lg-0">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <h5 class="card-title"><%= t('triad.decks.details') %></h5>
+        <div>
+          <% if current_user&.id == @deck.user_id %>
+            <%= link_to t('edit'), edit_deck_path(@deck), class: 'btn btn-secondary btn-sm' %>
+          <% end %>
+          <% if current_user&.id == @deck.user_id || current_user&.admin? %>
+            <%= link_to t('delete'), deck_path(@deck), method: :delete, class: 'btn btn-danger btn-sm',
+              data: { confirm: t('triad.decks.delete_confirm') } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-body">
+        <dl>
+          <dt><%= t('triad.decks.purpose') %></dt>
+          <dd><%= purpose(@deck) %></dd>
+          <dt><%= t('triad.decks.rating') %></dt>
+          <dd><%= @deck.rating %></dd>
+          <% if user_signed_in? %>
+            <dt><%= t('triad.decks.usable') %></dt>
+            <dd><%= usable?(@deck, @collection_ids) %></dd>
+          <% end %>
+          <dt><%= t('triad.decks.updated') %></dt>
+          <dd>
+            <%= deck_patch(@deck) %>
+          </dd>
+          <dt><%= t('triad.decks.created_by') %></dt>
+          <dd><%= @deck.user&.username %></dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-8 col-xl-6">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <h5><%= t('cards.title') %></h5>
+        <% if user_signed_in? %>
+          <% if voted?(@deck) %>
+            <%= link_to fa_icon('check-circle', text: t('triad.decks.voted')),
+              deck_downvote_path(@deck), method: :post, class: 'btn btn-success btn-sm vote-down' %>
+          <% else %>
+            <%= link_to fa_icon('arrow-circle-up', text: t('triad.decks.vote')),
+              deck_upvote_path(@deck), method: :post, class: 'btn btn-primary btn-sm vote-up' %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap card-list-lg">
+          <%= render partial: 'triad/cards/large', layout: 'card', collection: @deck.cards, as: :card %>
+        </div>
+      </div>
+    </div>
+    <% if @deck.notes.present? %>
+      <div class="card mt-3">
+        <h5 class="card-header"><%= t('triad.decks.notes') %></h5>
+        <div class="card-body py-3">
+          <%= @deck.notes.gsub("\r\n", '<br>').html_safe %>
+        </div>
+      </div>
+    <% end %>
+    <% if character_selected? %>
+      <div class="card mt-3">
+        <h5 class="card-header"><%= t('triad.decks.card_finder') %></h5>
+        <div class="card-body">
+          <% @deck.cards.each_with_index do |card, i| %>
+            <p>
+              <b><%= link_to(card.name, card_path(card), class: 'unstyled') %>:</b>
+              <%= card_position(card, @collection_ids) %>
+            </p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

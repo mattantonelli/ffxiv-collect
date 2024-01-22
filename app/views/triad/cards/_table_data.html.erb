@@ -1,0 +1,61 @@
+<% cards.each do |card| %>
+  <tr class="<%= collectable_classes(card) %>">
+    <td class="hide-xs px-2">
+      <%= card_number_badge(card) %>
+    </td>
+    <td>
+      <%= link_to(card_path(card)) do %>
+        <%= sprite(card, 'cards-small') %>
+      <% end %>
+    </td>
+    <td class="hide-xs">
+      <%= link_to(card.name, card_path(card), class: 'name') %>
+    </td>
+    <td data-value="<%= card.card_type_id %>"><%= type_image(card) %></td>
+    <td class="no-wrap" data-value="<%= card.stars %>"><%= stars(card.stars) %></td>
+    <td data-value="<%= card.total_stats %>">
+      <div class="d-flex flex-column align-items-center stats">
+        <div class="d-flex justify-content-center">
+          <span><%= card.stat(:top) %></span>
+        </div>
+        <div class="d-flex justify-content-around">
+          <span><%= card.stat(:left) %></span>
+          <span><%= card.stat(:right) %></span>
+        </div>
+        <div class="d-flex justify-content-center">
+          <span><%= card.stat(:bottom) %></span>
+        </div>
+      </div>
+    </td>
+    <% unless local_assigns[:skip_source] %>
+      <td class="hide-xs" data-value="<%= source_sort_value(card) %>"><%= sources(card) %></td>
+    <% end %>
+    <% unless local_assigns[:skip_rarity] %>
+      <td class="text-center hide-xs" data-value="<%= rarity(card, numeric: true) %>"><%= rarity(card) %></td>
+    <% end %>
+    <% unless local_assigns[:skip_source] %>
+      <td class="text-center" data-value="<%= sort_value(card) %>"><%= card.patch %></td>
+    <% end %>
+    <% unless local_assigns[:skip_checkbox] %>
+      <% if character_selected? %>
+        <%= td_owned(card) %>
+      <% end %>
+      <% if @comparison.present? %>
+        <%= td_comparison(card) %>
+      <% end %>
+    <% end %>
+    <% if local_assigns[:deck] %>
+      <td class="text-center">
+        <%= button_tag(class: 'btn btn-secondary btn-sm deck-toggle',
+                       disabled: deck.size >= 5 && !deck.include?(card.id),
+                       data: { card_id: card.id, action: deck.include?(card.id) ? 'remove' : 'add' }) do %>
+          <% if deck.include?(card.id) %>
+            <%= fa_icon('minus', text: t('remove')) %>
+          <% else %>
+            <%= fa_icon('plus', text: t('add')) %>
+          <% end %>
+        <% end %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>

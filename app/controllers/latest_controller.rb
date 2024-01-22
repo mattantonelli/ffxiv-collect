@@ -3,7 +3,7 @@ class LatestController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index
-    models = [Achievement, Mount, Minion, Orchestrion, Hairstyle, Emote, Barding, Fashion, Frame, Armoire]
+    models = [Achievement, Mount, Minion, Orchestrion, Hairstyle, Emote, Barding, Fashion, Card, Frame, Armoire]
 
     @patches = searchable_patches
     @search = ransack_with_patch_search

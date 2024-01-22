@@ -8,7 +8,7 @@ class CharactersController < ApplicationController
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires fashions
-  records survey_records frames).freeze
+  cards records survey_records frames).freeze
   STATS_COLLECTIONS = COLLECTIONS.dup.insert(1, 'titles').freeze
 
   def show
@@ -25,12 +25,23 @@ class CharactersController < ApplicationController
       ids -= Minion.unsummonable_ids if collection == 'minions'
       owned_ids = @profile.send("#{collection.singularize}_ids")
       h[collection] = { value: (owned_ids & ids).size, max: ids.size }
+    end
 
-      if collection == 'achievements'
-        h[collection][:points] = Achievement.with_filters(cookies, @profile).joins(:character_achievements)
-          .where('character_achievements.character_id = ?', @profile).sum(:points)
-        h[collection][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
-      end
+    # Add point data to Achievements
+    @scores['achievements'][:points] = Achievement.with_filters(cookies, @profile)
+      .joins(:character_achievements)
+      .where('character_achievements.character_id = ?', @profile.id)
+      .sum(:points)
+
+    @scores['achievements'][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
+
+    # Add NPC data to Cards
+    if @scores['cards'].present?
+      @scores['cards'][:npcs] = NPC.valid.joins(:character_npcs)
+        .where('character_npcs.character_id = ?', @profile.id)
+        .count
+
+      @scores['cards'][:npcs_max] = NPC.valid.count
     end
   end
 

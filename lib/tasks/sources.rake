@@ -2,7 +2,7 @@ namespace :sources do
   desc 'Create the source types'
   task create_types: :environment do
     names = ['Achievement', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE', 'PvP', 'Gathering',
-             'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture', 'Premium', 'Limited']
+             'Other', 'Purchase', 'Quest', 'Raid', 'Treasure Hunt', 'Trial', 'Venture', 'Premium', 'Limited', 'NPC']
 
     names.each do |name|
       SourceType.find_or_create_by!(name_en: name)
@@ -50,5 +50,6 @@ namespace :sources do
     Rake::Task['sources:pvp:update'].invoke
     Rake::Task['sources:quests:update'].invoke
     Rake::Task['sources:shops:update'].invoke
+    Rake::Task['sources:triad:update'].invoke
   end
 end

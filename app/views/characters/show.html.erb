@@ -19,7 +19,8 @@
             <% end %>
           <% end %>
 
-          <%= link_to far_icon('chart-bar', text: t('characters.statistics')), stats_rarity_character_path(@profile),
+          <%= link_to far_icon('chart-bar', text: t('characters.statistics')),
+            stats_rarity_character_path(@profile),
             class: 'btn btn-success btn-sm' unless @comparison == @profile %>
         </div>
       </div>
@@ -73,7 +74,7 @@
               <div class="profile-progress d-none d-sm-block">
                 <% # Placeholder block for alignment %>
               </div>
-              <% @scores.except('achievements', 'relics').each do |collectable, score| %>
+              <% @scores.except('achievements', 'relics', 'cards').each do |collectable, score| %>
                 <% if %w(mounts minions).include?(collectable) || score[:value] > 0 %>
                   <div class="profile-progress">
                     <% if %w(mounts minions).include?(collectable) %>
@@ -87,6 +88,17 @@
                     </div>
                   </div>
                 <% end %>
+              <% end %>
+              <% if @scores['cards'].present? && (@scores['cards'][:value] > 0 || @scores['cards'][:npcs] > 0) %>
+                <div class="profile-progress">
+                  <h6 class="mb-0"><%= collection_name('triad', score: @scores['cards']) %></h6>
+                  <div class="d-flex flex-column">
+                    <%= render 'shared/progress', value: @scores['cards'][:value],
+                      min: 0, max: @scores['cards'][:max], text: 'cards.title' %>
+                    <%= render 'shared/progress', value: @scores['cards'][:npcs],
+                      min: 0, max: @scores['cards'][:npcs_max], text: 'npcs.title' %>
+                  </div>
+                </div>
               <% end %>
               <% if (@relics = character_relics(@profile)) && @relics.values.any? { |values| values[:count] > 0} %>
                 <div class="profile-progress">

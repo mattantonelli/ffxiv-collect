@@ -1,0 +1,15 @@
+<div class="d-flex my-3 align-items-center">
+  <%= image_tag(character.avatar, class: 'avatar mr-3') %>
+  <div>
+    <b><%= character.name %></b><br>
+    <%= character.server %>
+  </div>
+  <% if local_assigns[:uid].present? %>
+    <b class="ml-3"><%= fab_icon('discord', text: uid) %></b>
+  <% else %>
+    <div class="mx-3">
+      <%= avatar(user) %>
+    </div>
+    <b><%= username(user) %></b>
+  <% end %>
+</div>

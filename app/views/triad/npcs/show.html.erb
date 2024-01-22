@@ -1,0 +1,82 @@
+<% title(@npc.name) %>
+<% description("Location: #{location(@npc, inline: true)} | " \
+               "#{'Rule'.pluralize(@npc.rules.size)}: #{format_rules(@npc, inline: true)}") %>
+
+<div class="row">
+  <div class="col-12 col-sm-5 col-xl-3 offset-0 offset-xl-2 mb-3 mb-sm-0">
+    <div class="card shadow">
+      <div class="card-header">
+        <h5 class="card-title"><%= format_npc_name(@npc) %></h5>
+      </div>
+      <div class="card-body">
+        <dl>
+          <dt><%= t('spells.location') %></dt>
+          <dd><%= location(@npc, inline: true) %></dd>
+          <dt><%= t('patch') %></dt>
+          <dd><%= @npc.patch %></dd>
+          <% if @npc.rules.present? %>
+            <dt><%= t('npcs.rules') %></dt>
+            <dd><%= format_rules(@npc, inline: true) %></dd>
+          <% end %>
+          <dt><%= t('npcs.difficulty') %></dt>
+          <dd><%= difficulty(@npc) %></dd>
+          <% if character_selected? %>
+            <dt><%= t('npcs.defeated') %></dt>
+            <dd><%= fa_check(@collection_ids.include?(@npc.id)) %></dd>
+          <% end %>
+          <% if @npc.quest.present? %>
+            <dt><%= t('npcs.required_quest') %></dt>
+            <dd><%= database_link(:quest, @npc.quest.name, @npc.quest_id) %></dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-7 col-xl-5">
+    <div class="card shadow">
+      <div class="card-header">
+        <h5><%= t('npcs.rewards') %></h5>
+      </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap card-list-lg">
+          <%= render partial: 'triad/cards/large', collection: @rewards, as: :card %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-12 col-xl-8 offset-xl-2">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>
+          <%= t('triad.decks.one') %>
+          <span data-toggle="tooltip" data-html="true" title="<%= t('npcs.cards_tooltip') %>">
+            <%= fa_icon('question-circle') if @npc.variable_cards.present? %>
+          </span>
+        </h5>
+        <div>
+          <%= link_to t('npcs.submit_deck'), new_deck_path(npc_id: @npc.id),
+            class: 'btn btn-primary btn-sm', data: { toggle: 'tooltip' },
+            title: t('npcs.submit_deck_tooltip') %>
+          <%= link_to t('npcs.user_decks'), decks_path(q: { npc_id_eq: @npc.id }),
+            class: "btn btn-secondary btn-sm#{ ' disabled' unless Deck.exists?(npc_id: @npc.id) }",
+            data: { toggle: 'tooltip' }, title: t('npcs.user_decks_tooltip') %>
+        </div>
+      </div>
+      <div class="card-body pl-0">
+        <div class="d-flex">
+          <div class="d-flex <%= @npc.variable_cards.present? ? 'w-50' : 'w-100' %> flex-wrap
+            align-self-start card-list-lg pl-3">
+            <%= render partial: 'triad/cards/large', collection: @npc.fixed_cards, as: :card, deck: true %>
+          </div>
+          <% if @npc.variable_cards.present? %>
+            <div class="d-flex w-50 flex-wrap align-self-start card-list-lg variable-cards pl-3">
+              <%= render partial: 'triad/cards/large', collection: @npc.variable_cards, as: :card, deck: true %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

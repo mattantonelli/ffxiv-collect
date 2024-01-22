@@ -1,0 +1,12 @@
+<p>
+  <%= t(explanation, link: attt_link).html_safe %><br /><br />
+  <%= t('triad.import.for_example') %>
+  https://triad.raelys.com/users/<span class="font-weight-bold">123217741707476995</span>
+</p>
+<%= form_tag(triad_import_path, method: :get, enforce_utf8: false, class: 'form search-form') do %>
+  <%= text_field_tag :uid, params[:uid], pattern: '\d+', placeholder: t('triad.import.discord_id'),
+    required: true, class: 'form-control' %>
+  <div class="d-flex justify-content-end mt-3">
+    <%= submit_tag t('search'), name: nil, class: 'btn btn-primary mr-0' %>
+  </div>
+<% end %>

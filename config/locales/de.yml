@@ -17,6 +17,20 @@ de:
         description: "Beschreibung"
         name: "Name"
         public: "Öffentlich"
+    errors:
+      models:
+        deck:
+          attributes:
+            base:
+              multiple_purposes: "Du kannst nicht gleichzeitig eine Regel und einen NPC auswählen."
+            cards:
+              invalid_size: "Dein Deck muss genau 5 Karten enthalten."
+              too_many_fives: "Dein Deck kann nur eine \u2605\u2605\u2605\u2605\u2605 Karte enthalten."
+              too_many_rares: "Dein Deck kann nur zwei \u2605\u2605\u2605\u2605 Karten (oder höher) enthalten."
+            npc:
+              blank: "Dein Deck ist einem ungültigen NPC zugeordnet."
+            rule:
+              blank: "Dein Deck ist einer ungültigen Regel zugeordnet."
   add: "Hinzuzufügen"
   alerts:
     already_refreshed: "Dein Charakter wurde bereits in den letzten 30 Minuten aktualisiert. Bitte versuch es später noch einmal."
@@ -73,10 +87,14 @@ de:
   all:
     aspects: "Alle Elemente"
     data_centers: "Alle Datenzentren"
+    decks: "Alle Decks"
     genders: "Alle Geschlechter"
+    locations: "Alle Gebiete"
     patches: "Alle Patches"
     race_types: "Alle Begleiter Typen"
     ranks: "Alle Stufen"
+    rarities: "Alle Seltenheiten"
+    rules: "Alle Regeln"
     servers: "Alle Server"
     skill_types: "Alle Techniktypen"
     sources: "Alle Quellen"
@@ -93,6 +111,12 @@ de:
   back: "Zurück"
   bardings:
     title: "Rossharnische"
+  cards:
+    number: "Nummer"
+    sale_price: "Verkaufspreis"
+    select: "Wähle deine Karten aus"
+    stats: "Attribute"
+    title: "Karten"
   category: "Kategorie"
   character:
     one: "charakter"
@@ -236,6 +260,26 @@ de:
   name: "Name"
   new: "Neu!"
   "no": "nein"
+  npcs:
+    cards_tooltip: "Die Karten auf der linken Seite werden immer benutzt.<br>Karten auf der rechten Seite werden zufällig ausgewählt."
+    defeated: "Besiegt"
+    difficulty: "Schwierigkeit"
+    filters:
+      missing_rewards: "Fehlende Belohnung"
+      show_all: "Zeige alle"
+      undefeated: "unbesiegt"
+      unfinished: "unvollständig"
+    quest: "Quest"
+    required_quest: "Benötigte Quest"
+    rewards: "Belohnungen"
+    rules: "Regeln"
+    submit_deck: "Deck einreichen"
+    submit_deck_tooltip: "Reiche ein Deck ein, das gegen diesen NPC genutzt werden kann"
+    title: "NPCs"
+    update_defeated: "aktualisiere besiegte Gegner"
+    update_defeated_confirmation: "Alle NPCs mit exklusiven Karten werden als besiegt markiert."
+    user_decks: "Benutzer Decks"
+    user_decks_tooltip: "Benutzer Decks, die zum Besiegen dieses NPCs erstellt wurden."
   of: "von"
   only:
     female: "Nur für Damen"
@@ -267,6 +311,7 @@ de:
   ranked_mounts:
     title: "Gewertete Reittiere"
   records:
+    dropdown: "Berichte"
     page: "Seite"
     rarity: "Seltenheit"
     title: "Frontberichte"
@@ -355,7 +400,83 @@ de:
     ownership: "Aktive Charakter in Besitz des %{collectable}"
     time_limited_achievement: "Dies ist eine zeitlich begrenzte Errungenschaft und beeinflusst die Ranglisten nicht."
   tradeable: "Handelbar"
-  triple_triad:
+  triad:
+    card_select:
+      add_all: "Alle hinzufügen"
+      help1: "Wenn du mehr als die Hälfte aller Karten besitzt, klicke den <b>Add All</b> Knopf."
+      help2: "Vergleiche jede Seite und füge Karten hinzu bzw. entferne sie, bis deine Sammlung deiner <b>Card List</b> im Spiel entspricht."
+      help3: "Überprüfe, ob die <b>Total</b> deiner Karten der Anzahl im Spiel entspricht."
+      help4: "Klicke auf <b>Save Cards</b>."
+      how_to_use: "Anleitung"
+      next: "Nächste"
+      not_saved: "Deine Auswahl wurde nicht gespeichert! Bist du sicher, dass du die Seite verlassen möchtest?"
+      page: "Seite %{number}"
+      previous: "Vorherige"
+      remove_all: "Entferne alle"
+      save: "Speicher Karten"
+      total: "Anzahl"
+    decks:
+      after_5_5: "Nach Patch 5.5"
+      alerts:
+        destroy_error: "Das Deck konnte nicht gelöscht werden."
+        destroy_success: "Das Deck wurde erfoglreich gelöscht."
+        sign_in: "Du musst eingeloggt sein, um deine Decks zu bearbeiten."
+        updated: "Das Update deines Decks war erfolgreich."
+        vote_error: "Es gab ein Problem beim Upvoten."
+      before_5_5: "Vor Patch 5.5"
+      card_count:
+        one: "%{count} Karte"
+        other: "%{count} Karten"
+      card_finder: "Kartenfinder"
+      card_instructions: "Klick auf Karten um sie zu entfernen. Ziehe Karten, um die Reihenfolge zu ändern."
+      card_missing: "Du besitzt diese Karte noch nicht."
+      card_position: "Seite %{page}, Reihe %{row}, Spalte %{column}"
+      create: "Deck erstellen"
+      created_by: "Erstellt von"
+      delete_confirm: "Bist du sicher, dass du dieses Deck löschen möchtest?"
+      details: "Details"
+      filter_by_npc: "Filter nach NPC"
+      filter_by_rule: "Filter nach Regel"
+      finalize: "Deck Finalisieren"
+      find_cards: "Finde Karten"
+      general_use: "Allgemeines Deck"
+      have_all_cards: "Du besitzt alle Karten in diesem Deck."
+      mine: "Meine Decks"
+      missing_cards: "Dir fehlt/fehlen %{card_count} für dieses Deck."
+      new: "Neues Deck"
+      notes: "Notizen"
+      one: "Deck"
+      only_updated: "Nur aktuelle Decks"
+      organize: "Ordne das Deck"
+      publish: "Veröffentliche das Deck"
+      purpose: "Zweck"
+      rating: "Rating"
+      select_general_purpose: "oder erstelle eine allgmeines Deck"
+      select_npc: "oder einen NPC"
+      select_rule: "Wähle eine Regel"
+      title: "Decks"
+      updated: "aktuell"
+      usable: "verwendbar"
+      vote: "Upvote"
+      voted: "Voted"
+    import:
+      attt: "Another Triple Triad Tracker"
+      button: "Fortschritt-Import"
+      confirm_data: "Wenn die angegebenen Daten korrekt sind, klicke auf <b>Import</b>. Deine NPC- und Kartendaten werden dadurch auf FFXIV Collect <b>ersetzt</b>."
+      custom_user_explanation: "Falls du Daten von einem anderen Nutzer importieren möchtest, gib unten bitte Discord ID dieses Nutzers ein. Du kannst deine Discord ID in der URL deines Profils einsehen: %{link}."
+      discord_id: "Discord ID"
+      error: "Es gab ein Problem beim Importieren deines Fortschrittes."
+      explanation: "Dieses Tool erlaubt es dir, deinen Fortschritt von %{link} zu importieren."
+      for_example: "Zum Beispiel:"
+      import: "Import"
+      import_custom_user: "Importiere einen anderen Benutzer"
+      now_importing: "Du importierst den folgenden Character auf folgenden Discord Nutzer:"
+      success: "Dein Fortschritt wurde erfolgreich importiert."
+      title: "Importiere Triple Triad Fortschritt."
+      user_forbidden_explanation: "Dein Another Triple Triad Tracker Profil ist auf <b>private</b> gesetzt. Du musst dein Profil <b>öffentlich</b> machen, um deinen Fortschritt importieren zu können."
+      user_not_found_explanation: "Es konnten keine Daten für deinen aktuellen Nutzer gefunden werden. Bitte gib deine Discord ID ein. Du kannst die benötigte ID in der URL deines Nutzerprofils auf Another Triple Triad Tracker finden."
+    packs:
+      title: "Boosterkarten"
     title: "Triple Triad"
   type: "Techniktyp"
   users:

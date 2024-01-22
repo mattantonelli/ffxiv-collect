@@ -1,0 +1,21 @@
+<% title(t('triad.packs.title')) %>
+<% description("Track your character's Triple Triad card pack progress.") %>
+
+<%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<div class="row row-cols-1 row-cols-xl-2">
+  <% @packs.each do |pack| %>
+    <div class="col card-pack">
+      <div class="card shadow mb-4" id="<%= pack.id %>">
+        <h5 class="card-header">
+          <%= pack.name %>
+          (<%= pack_cost(pack) %>)
+        </h5>
+        <div class="card-body card-table">
+          <table class="table table-striped table-sm shadow collection compact">
+            <%= render 'triad/cards/table_data', cards: pack.cards.numeric_ordered, skip_source: true %>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

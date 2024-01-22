@@ -1,0 +1,56 @@
+<% title(t('triad.import.title')) %>
+<% description('Import your Triple Triad progress from Another Triple Triad Tracker.') %>
+
+<div class="row">
+  <div class="col-12 col-xl-6 offset-xl-3">
+    <div class="card shadow">
+      <h5 class="card-header"><%= t('triad.import.button') %></h5>
+      <div class="card-body">
+        <p>
+          <%= t('triad.import.explanation', link: attt_link).html_safe %>
+          <% if @collection.present? %>
+            <br /><br />
+            <%= t('triad.import.now_importing') %>
+          <% end %>
+        </p>
+        <% if @collection.present? %>
+          <hr>
+          <%= render 'characters/verify_user_and_character', user: current_user, uid: params[:uid],
+            character: @character %>
+          <p>
+            <b><%= t('cards.title') %>:</b> <%= @collection[:cards_count] %><br />
+            <b><%= t('npcs.title') %>:</b> <%= @collection[:npc_count] %>
+          </p>
+          <hr>
+          <p>
+            <%= t('triad.import.confirm_data').html_safe %>
+          </p>
+          <%= form_tag(execute_triad_import_path, enforce_utf8: false, remote: false) do %>
+            <div class="d-flex justify-content-end">
+              <%= hidden_field_tag :uid, @uid %>
+              <%= hidden_field_tag :card_ids, @collection[:card_ids] %>
+              <%= hidden_field_tag :npc_ids, @collection[:npc_ids] %>
+              <%= submit_tag t('triad.import.import'), class: 'btn btn-primary' %>
+            </div>
+          <% end %>
+        <% elsif @forbidden %>
+          <p>
+            <%= t('triad.import.user_forbidden_explanation').html_safe %>
+          </p>
+        <% else %>
+          <%= render 'custom_user_form', explanation: 'triad.import.user_not_found_explanation' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% if @collection.present? %>
+    <div class="col-12 col-xl-6 offset-xl-3 mt-3">
+      <div class="card shadow">
+        <h5 class="card-header"><%= t('triad.import.import_custom_user') %></h5>
+        <div class="card-body">
+          <%= render 'custom_user_form', explanation: 'triad.import.custom_user_explanation' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

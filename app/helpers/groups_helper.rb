@@ -8,7 +8,7 @@ module GroupsHelper
   end
 
   def group_collection_options(selected)
-    options = %w(mounts minions spells emotes bardings hairstyles fashions records).map do |option|
+    options = %w(mounts minions spells emotes bardings hairstyles fashions cards records).map do |option|
       [t("#{option}.title"), option]
     end
 

@@ -36,6 +36,10 @@ module FfxivCollect
 
     config.active_job.queue_adapter = :sidekiq
 
+    # Allows organization of models into subdirectories without requiring a clunky namespace
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'character')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'triad')]
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'

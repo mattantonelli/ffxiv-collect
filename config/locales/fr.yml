@@ -17,6 +17,20 @@ fr:
         description: "Description"
         name: "Nom"
         public: "Public"
+    errors:
+      models:
+        deck:
+          attributes:
+            base:
+              multiple_purposes: "Vous ne pouvez pas selectionner en même temps une règle et un PNJ."
+            cards:
+              invalid_size: "Votre deck doit contenir exactement 5 cartes."
+              too_many_fives: "Votre deck ne peut contenir qu'une carte \u2605\u2605\u2605\u2605\u2605."
+              too_many_rares: "Votre deck ne peut contenir que deux cartes \u2605\u2605\u2605\u2605 ou plus."
+            npc:
+              blank: "Votre deck a spécifié un PNJ invalide."
+            rule:
+              blank: "Votre deck a spécifié une règle invalide."
   add: "Ajouter"
   alerts:
     already_refreshed: "Les informations de votre personnage ont déjà été actualisées ces dernières 30 minutes. Veuillez réessayer plus tard."
@@ -74,10 +88,14 @@ fr:
   all:
     aspects: "Tous les éléments"
     data_centers: "Tous les centres de données"
+    decks: "Tout les Decks"
     genders: "Tous les genres"
+    locations: "Toutes les localisations"
     patches: "Tous les patches"
     race_types: "Tous les types de mascottes"
     ranks: "Tous les rangs"
+    rarities: "Toutes les raretés"
+    rules: "Toutes les règles"
     servers: "Tous les serveurs"
     skill_types: "Tous les types spéciaux"
     sources: "Toutes les sources"
@@ -94,6 +112,12 @@ fr:
   back: "Retour"
   bardings:
     title: "Bardes"
+  cards:
+    number: "Numéro"
+    sale_price: "Prix de vente"
+    select: "Sélectionner Vos Cartes"
+    stats: "Stats"
+    title: "Cartes"
   category: "Categorie"
   character:
     one: "personnage"
@@ -237,6 +261,26 @@ fr:
   name: "Nom"
   new: "Nouveau !"
   "no": "non"
+  npcs:
+    cards_tooltip: "Les cartes sur la gauche sont toujours utilisées.<br>Les cartes sur la droite sont choisies de manière aléatoire."
+    defeated: "Battu"
+    difficulty: "Difficulté"
+    filters:
+      missing_rewards: "Récompenses Manquantes"
+      show_all: "Tout Afficher"
+      undefeated: "Non Battu"
+      unfinished: "Non Fini"
+    quest: "Quête"
+    required_quest: "Quête Requise"
+    rewards: "Récompenses"
+    rules: "Règles"
+    submit_deck: "Soumettre le Deck"
+    submit_deck_tooltip: "Soumettre un deck utilisable contre un PNJ"
+    title: "PNJs"
+    update_defeated: "Mettre à jour les Battu"
+    update_defeated_confirmation: "Les PNJs ayant des cartes exclusives que vous avez obtenues vont être marqués comme battu."
+    user_decks: "Decks Utilisateur"
+    user_decks_tooltip: "Les decks utilisateur conçus pour être utilisés contre ce PNJ"
   of: "de"
   only:
     female: "Réservé aux femmes"
@@ -268,6 +312,7 @@ fr:
   ranked_mounts:
     title: "Montures permanentes"
   records:
+    dropdown: "Rapports"
     page: "Page"
     rarity: "Rareté"
     title: "Rapport du front bozjien"
@@ -356,7 +401,83 @@ fr:
     ownership: "Personnages actifs qui possèdent %{collectable}"
     time_limited_achievement: "Ce haut fait est limité dans le temps. Il n'est pas pris en compte dans les classements."
   tradeable: "Échangeable"
-  triple_triad:
+  triad:
+    card_select:
+      add_all: "Ajouter Tout"
+      help1: "Si vous possédez plus de la moitié des cartes; cliquez sur le bouton <b>Ajouter Tout</b>."
+      help2: "Pour chaque page, ajoutez ou supprimez des cartes jusqu'à ce que cela corresponde à votre <b>Liste de Cartes</b> in-game."
+      help3: "Confirmez que votre <b>Total</b> correspond à votre liste de cartes in-game."
+      help4: "Cliquez sur <b>Sauvegarder les Cartes</b>."
+      how_to_use: "Comment l'utiliser"
+      next: "Suivant"
+      not_saved: "Votre sélection n'a pas été enregistrée ! Voulez-vous vraiment quitter ?"
+      page: "Page %{number}"
+      previous: "Précédent"
+      remove_all: "Supprimer Tout"
+      save: "Sauvegarder Cartes"
+      total: "Total"
+    decks:
+      after_5_5: "Après la 5.5"
+      alerts:
+        destroy_error: "Le deck n'a pas pu être supprimé."
+        destroy_success: "Le deck a été supprimé."
+        sign_in: "Vous devez vous connecter pour mettre à jour vos decks."
+        updated: "Votre deck a été mis à jour."
+        vote_error: "Il y a eu un problème lors de l'enregistrement de votre vote."
+      before_5_5: "Avant la 5.5"
+      card_count:
+        one: "%{count} carte"
+        other: "%{count} cartes"
+      card_finder: "Recherche de Carte"
+      card_instructions: "Cliquez sur les cartes pour les retirer de votre deck. Faites les glisser pour les réorganiser."
+      card_missing: "Cette carte n'est pas dans votre collection."
+      card_position: "Page %{page}, Ligne %{row}, Colonne %{column}"
+      create: "Créer un deck"
+      created_by: "Créé par"
+      delete_confirm: "Êtes-vous sûr de vouloir supprimer ce deck ?"
+      details: "Détails"
+      filter_by_npc: "Filtrer par PNJ"
+      filter_by_rule: "Filtrer par règle"
+      finalize: "Finaliser le deck"
+      find_cards: "Rechercher des Cartes"
+      general_use: "Utilisation Générale"
+      have_all_cards: "Vous avez toutes les cartes de ce deck."
+      mine: "Mes Decks"
+      missing_cards: "Il vous manque %{card_count} cartes dans ce deck."
+      new: "Nouveau Deck"
+      notes: "Notes"
+      one: "Deck"
+      only_updated: "A jour"
+      organize: "Organisez les Decks"
+      publish: "Publier le Deck"
+      purpose: "Utilisation"
+      rating: "Votes"
+      select_general_purpose: "ou simplement créer un deck pour un usage général."
+      select_npc: "ou un PNJ"
+      select_rule: "Sélectionner une règle"
+      title: "Decks"
+      updated: "Mis à jour"
+      usable: "Utilisable"
+      vote: "Vote"
+      voted: "Voté"
+    import:
+      attt: "Another Triple Triad Tracker"
+      button: "Importer la progression"
+      confirm_data: "Si les données ci-dessus sont correctes, cliquez sur <b>Importer</b>. Cela va <b>remplacer</b> vos données de carte/PNJ sur FFXIV Collect."
+      custom_user_explanation: "Si vous voulez importer une progression d'un autre utilisateur, veuillez entrer l'ID Discord de cet utilisateur en dessous. Vous pouvez trouver cet ID dans l'url de son profil sur %{link}."
+      discord_id: "ID Discord"
+      error: "Une erreur est survenue lors de l'import de la progession."
+      explanation: "Cet outil permet l'import de votre progression depuis %{link}."
+      for_example: "Par exemple :"
+      import: "Importer"
+      import_custom_user: "Importer un Utilisateur différent"
+      now_importing: "Vous êtes en train d'importer la progression de Triple Triade pour le personnage suivant basé sur l'ID Discord de l'utilisateur:"
+      success: "Votre progression a bien été importée."
+      title: "Importer la progression Triple Triade"
+      user_forbidden_explanation: "Votre profil sur Another Triple Triad Tracker a une visibilité <b>privée</b>. Vous devez changer la visibilité en <b>publique</b> pour pouvoir importer votre progression."
+      user_not_found_explanation: "La progression de l'utilisateur n'a pas pu être trouvée. Entrez l'ID Discord de l'utilisateur en dessous. Vous pouvez trouver cet ID dans l'URL de votre profil sur Another Triple Triad Tracker."
+    packs:
+      title: "Pochettes"
     title: "Triple Triade"
   type: "Type"
   users:

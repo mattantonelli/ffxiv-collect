@@ -72,11 +72,9 @@ namespace :items do
       next unless data = items[action['#']]
 
       unlock_type = case action['Type']
-                    when '1322' then 'Mount'
                     when '853'  then 'Minion'
-                    #when '25183' then 'Orchestrion'
                     when '1013' then 'Barding'
-                    when '20086' then 'Fashion'
+                    when '1322' then 'Mount'
                     when '2633'
                       if data[:name_en].match?('Aesthetics')
                         'Hairstyle'
@@ -85,6 +83,9 @@ namespace :items do
                       else
                         next
                       end
+                    when '3357' then 'Card'
+                    when '20086' then 'Fashion'
+                    #when '25183' then 'Orchestrion'
                     else
                       next
                     end

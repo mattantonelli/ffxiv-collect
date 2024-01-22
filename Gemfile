@@ -19,7 +19,7 @@ gem 'devise'
 gem 'omniauth-discord'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
-gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap', '~> 4.6.2'
 gem 'jquery-rails'
 gem 'font_awesome5_rails'
 gem 'will_paginate'

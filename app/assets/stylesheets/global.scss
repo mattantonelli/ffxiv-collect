@@ -320,6 +320,10 @@ td.wide {
       tr:last-child td {
         border-bottom: none;
       }
+
+      &.collection.compact {
+        min-width: 100%;
+      }
     }
   }
 
@@ -337,7 +341,7 @@ td.wide {
     margin-right: 0.5rem;
   }
 
-  input.form-control, select.form-control {
+  input.form-control, select.form-control, textarea.form-control {
     background-color: rgba(0, 0, 0, 0.05);
     border-color: #555;
     color: #eee;
@@ -399,23 +403,34 @@ td.wide {
 }
 
 .progress {
+  position: relative;
   background-color: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.6);
   height: 1.25rem;
+
+  .progress-label {
+    position: absolute;
+    width: 100%;
+    line-height: normal;
+    text-align: center;
+    font-weight: bold;
+    z-index: 2;
+  }
 
   .progress-bar {
     background-color: #5C6E8E;
     color: #eee;
     border-right: 1px solid rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+
+  ~ .progress {
+    margin-top: 0.25rem;
   }
 }
 
 .d-flex.flex-column {
   .progress {
-    &:not(:first-of-type) {
-      margin-top: 0.5rem;
-    }
-
     &:nth-child(even) .progress-bar {
       background-color: #917D54;
     }
@@ -466,6 +481,10 @@ pre {
 
 .collection:not(.comparing) {
   tr.owned:not(.no-fade) > td {
+    opacity: 0.4;
+  }
+
+  .card-toggle.owned {
     opacity: 0.4;
   }
 

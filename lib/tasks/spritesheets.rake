@@ -1,6 +1,6 @@
 namespace :spritesheets do
-	desc 'Creates all spritesheets, used for generating production assets'
-	task create: :environment do
+  desc 'Creates all spritesheets, used for generating production assets'
+  task create: :environment do
     puts 'Creating mount spritesheets'
     create_spritesheet('mounts/small')
 
@@ -39,5 +39,9 @@ namespace :spritesheets do
 
     puts 'Creating survey record spritesheet'
     create_spritesheet('survey_records/small')
+
+    puts 'Creating triple triad spritesheets'
+    create_spritesheet('cards/small')
+    create_spritesheet('cards/large')
   end
 end

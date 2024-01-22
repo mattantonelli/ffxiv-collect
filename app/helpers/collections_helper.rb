@@ -15,6 +15,8 @@ module CollectionsHelper
     type = collectable.class.to_s
 
     case type
+    when 'Card'
+      card_image(collectable)
     when 'Frame'
       image_tag('frame.png')
     when 'Orchestrion'
@@ -253,19 +255,20 @@ module CollectionsHelper
 
   def sources(collectable, list: false)
     sources = collectable.sources.flat_map do |source|
-      type = source.type.name_en
-
-      if type == 'Achievement'
+      case type = source.type.name_en
+      when 'Achievement'
         content = achievement_link(source)
-      elsif Instance.valid_types.include?(type)
+      when *Instance.valid_types
         content = database_link(:instance, source.related&.name || source.text, source.related_id)
-      elsif type == 'Crafting' || type == 'Gathering'
+      when 'Crafting', 'Gathering'
         content = database_link(:item, source.text, collectable.item_id)
-      elsif type == 'Quest' || type == 'Event'
-        content = database_link(:quest, source.related&.name || source.text, source.related_id)
-      elsif type == 'Online Store'
+      when 'NPC'
+        content = link_to(source.text, npc_path(source.related_id))
+      when 'Online Store'
         content = 'Online Store'
-      elsif type == 'Voyages'
+      when 'Quest', 'Event'
+        content = database_link(:quest, source.related&.name || source.text, source.related_id)
+      when 'Voyages'
         if list
           voyage_type, texts = source.text.split(' - ')
           content = texts.split(', ').map { |text| "#{voyage_type} - #{text}"}.join('<br>').html_safe

@@ -86,6 +86,8 @@ module ApplicationHelper
       image_tag('orchestrion.png')
     when 'frames'
       image_tag('frame.png')
+    when 'cards'
+      card_image(collectable)
     else
       sprite(collectable, collection.singularize)
     end

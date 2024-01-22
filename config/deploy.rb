@@ -43,6 +43,16 @@ namespace :deploy do
         execute :ln, '-s', shared_path.join('public/images', model), release_path.join('public/images', model)
       end
 
+      # Triple Triad card images
+      execute :rm, '-rf', release_path.join('public/images/cards/large')
+      execute :ln, '-s', shared_path.join('public/images/cards/large'), release_path.join('public/images/cards/large')
+      execute :rm, '-rf', release_path.join('public/images/cards/small')
+      execute :ln, '-s', shared_path.join('public/images/cards/small'), release_path.join('public/images/cards/small')
+      execute :rm, '-rf', release_path.join('public/images/cards/blue')
+      execute :ln, '-s', shared_path.join('public/images/cards/blue'), release_path.join('public/images/cards/blue')
+      execute :rm, '-rf', release_path.join('public/images/cards/red')
+      execute :ln, '-s', shared_path.join('public/images/cards/red'), release_path.join('public/images/cards/red')
+
       # Music samples
       execute :rm, '-rf', release_path.join('public/music')
       execute :ln, '-s', shared_path.join('public/music'), release_path.join('public/music')
@@ -77,7 +87,15 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/fashions-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/records-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/survey_records-small.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/cards-large.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/cards-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/stylesheets/images/*.scss'), release_path.join('app/assets/stylesheets/images')
+
+        # Horizontal card spritesheets
+        execute :cp, current_path.join('public/images/cards-large.png'), release_path.join('public/images')
+        execute :cp, current_path.join('public/images/cards-red.png'), release_path.join('public/images')
+        execute :cp, current_path.join('public/images/cards-blue.png'), release_path.join('public/images')
+        execute :cp, current_path.join('public/images/cards-small.png'), release_path.join('public/images')
       else
         within release_path do
           with rails_env: fetch(:rails_env) do

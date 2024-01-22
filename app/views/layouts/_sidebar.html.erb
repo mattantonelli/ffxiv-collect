@@ -31,12 +31,32 @@
     <%= nav_link(t('armoires.title'), 'tshirt', armoires_path) %>
     <%= nav_link(t('fashions.title'), 'umbrella', fashions_path) %>
     <%= nav_link(t('frames.title'), 'portrait', frames_path) %>
-    <%= nav_link(t('records.title'), 'file-alt', records_path) %>
-    <%= nav_link(t('survey_records.title'), 'book', survey_records_path) %>
-    <%= link_to "#{fa_icon('th', text: t('triple_triad.title'))} #{fa_icon('external-link-alt')}".html_safe,
-      'https://triad.raelys.com/', target: '_blank', class: 'nav-link' %>
-    <%= link_to "#{fa_icon('fish', text: t('fish.title'))} #{fa_icon('external-link-alt')}".html_safe,
-      'https://ff14fish.carbuncleplushy.com/', target: '_blank', class: 'nav-link' %>
+
+    <!-- Triple Triad -->
+    <div class="nav-item dropdown<%= ' bold' if controller_path.match?('triad/') %>">
+      <a class="nav-link dropdown-toggle" href="#" id="triadDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <%= fa_icon('th', text: t('triad.title')) %>
+        <%= new_feature_badge %>
+      </a>
+      <div class="dropdown-menu" aria-labelledBy="triadDropdown">
+        <%= link_to fa_icon('id-badge', text: t('cards.title')), cards_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('users', text: t('npcs.title')), npcs_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('list-alt', text: t('triad.decks.title')), decks_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('boxes', text: t('triad.packs.title')), packs_path, class: 'dropdown-item' %>
+      </div>
+    </div>
+
+    <!-- Records -->
+    <div class="nav-item dropdown<%= ' bold' if controller_path.match?('records') %>">
+      <a class="nav-link dropdown-toggle" href="#" id="recordsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><%= fa_icon('book', text: t('records.dropdown')) %></a>
+      <div class="dropdown-menu" aria-labelledBy="recordsDropdown">
+        <%= link_to fa_icon('file-alt', text: t('records.title')), records_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('book-open', text: t('survey_records.title')), survey_records_path,
+          class: 'dropdown-item' %>
+      </div>
+    </div>
 
     <!-- Relics -->
     <div class="nav-item dropdown<%= ' bold' if active_path?(relic_weapons_path) %>">
@@ -61,6 +81,9 @@
         <%= link_to fa_icon('map-marker-alt', text: t('tools.treasure.title')), treasure_tools_path, class: 'dropdown-item' %>
       </div>
     </div>
+
+    <%= link_to "#{fa_icon('fish', text: t('fish.title'))} #{fa_icon('external-link-alt')}".html_safe,
+      'https://ff14fish.carbuncleplushy.com/', target: '_blank', class: 'nav-link' %>
 
     <!-- Leaderboards -->
     <% if @character&.free_company_id.present? %>

@@ -1,0 +1,2 @@
+$('.card-list-lg').children().remove()
+$('.card-list-lg').html("<%= j render partial: 'builder_card', collection: @deck.cards, as: :card %>")

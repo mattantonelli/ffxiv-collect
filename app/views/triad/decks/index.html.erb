@@ -1,0 +1,100 @@
+<% title(t('triad.decks.title')) %>
+<% description("Triple Triad decks submitted by users.") %>
+
+<div class="row">
+  <div class="col-12 col-xl-8 offset-0 offset-xl-2">
+    <div class="card shadow">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <% if user_signed_in? %>
+          <h4 class="mb-0">
+            <% if params[:action] == 'mine' %>
+              <%= t('triad.decks.mine') %>
+            <% else %>
+              <%= t('triad.decks.title') %>
+            <% end %>
+          </h4>
+          <div>
+            <% if params[:action] == 'mine' %>
+              <%= link_to t('all.decks'), decks_path, class: 'btn btn-sm btn-primary' %>
+            <% else %>
+              <%= link_to t('triad.decks.mine'), my_decks_path, class: 'btn btn-sm btn-primary' %>
+            <% end %>
+            <%= link_to t('triad.decks.new'), new_deck_path, class: 'btn btn-sm btn-success' %>
+          </div>
+        <% else %>
+          <h4 class="mb-0"><%= t('triad.decks.title') %></h4>
+        <% end %>
+      </div>
+      <div class="card-body card-table">
+        <%= search_form_for(@q, enforce_utf8: false, url: request.path, class: 'form form-inline search-form d-flex justify-content-center mx-2 my-3') do |f| %>
+          <%= f.collection_select :rule_id_eq, Rule.all.order("name_#{I18n.locale}"), :id, :name,
+            { include_blank: t('triad.decks.filter_by_rule') }, class: 'form-control form-control-sm'%>
+          <%= f.collection_select :npc_id_eq, NPC.all.order("name_#{I18n.locale}"), :id, :name,
+            { include_blank: t('triad.decks.filter_by_npc') }, class: 'form-control form-control-sm'  %>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag :general, 1, params[:general], class: 'form-check-input checkbox' %>
+            <%= label_tag :general, t('triad.decks.general_use'), class: 'form-check-label' %>
+          </div>
+          <div class="form-check form-check-inline">
+            <%= check_box_tag :updated, 1, params[:updated], class: 'form-check-input checkbox' %>
+            <%= label_tag :updated, t('triad.decks.only_updated'), class: 'form-check-label' %>
+          </div>
+          <%= f.submit t('search'), name: nil, class: 'btn btn-secondary btn-sm' %>
+        <% end %>
+        <table class="table table-striped table-sm sortable">
+          <thead>
+            <tr>
+              <th scope="col"><%= t('triad.decks.purpose') %></th>
+              <th scope="col"><%= t('triad.decks.rating') %></th>
+              <th scope="col"><%= t('triad.decks.created_by') %></th>
+              <th scope="col" class="text-center hide-xs" data-defaultsort="disabled">
+                <%= t('cards.title') %>
+              </th>
+              <% if user_signed_in? %>
+                <th scope="col" class="text-center"><%= t('triad.decks.usable') %></th>
+              <% end %>
+              <th scope="col" class="text-center"><%= t('triad.decks.updated') %></th>
+              <th data-defaultsort="disabled"></th> <!-- Buttons -->
+            </tr>
+          </thead>
+          <tbody>
+            <% @decks.each do |deck| %>
+              <tr>
+                <td><%= purpose(deck) %></td>
+                <td><%= deck.rating %></td>
+                <td><%= deck.user&.username&.truncate(20) %></td>
+                <td class="hide-xs">
+                  <div class="d-flex justify-content-center card-list">
+                    <% deck.cards.each do |card| %>
+                      <%= link_to(card_path(card), data: { toggle: 'tooltip', title: "#{card.name}" },
+                                  class: ('card-missing' if !@collection_ids&.include?(card.id))) do %>
+                        <%= sprite(card, 'cards-small') %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </td>
+                <% if user_signed_in? %>
+                  <td class="text-center" data-value="<%= missing_cards(deck, @collection_ids) == 0 %>">
+                    <%= usable?(deck, @collection_ids) %>
+                  </td>
+                <% end %>
+                <td class="text-center"><%= deck_patch(deck) %></td>
+                <td class="text-right">
+                  <% if deck.user_id == current_user&.id %>
+                    <%= link_to fa_icon('pen'), edit_deck_path(deck), class: 'btn btn-secondary btn-sm' %>
+                  <% end %>
+                  <%= link_to fa_icon('list-alt'), deck_path(deck), class: 'btn btn-secondary btn-sm' %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% if will_paginate(@decks) %>
+      <div class="card-footer d-flex justify-content-center">
+        <%= will_paginate(@decks) %>
+      </div>
+    <% end %>
+  </div>
+</div>

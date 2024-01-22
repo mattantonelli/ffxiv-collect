@@ -18,6 +18,7 @@
 //= require clipboard
 //= require moment
 //= require bootstrap-sortable
+//= require sortable-rails-jquery
 //= require js.cookie
 //= require i18n/translations
 //= require_tree .

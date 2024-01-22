@@ -1,0 +1,29 @@
+.card-missing img {
+  opacity: 0.5;
+}
+
+.btn-card {
+  font-size: 1.2em;
+
+  &:hover {
+    color: #ccc;
+    cursor: pointer;
+  }
+
+  &:active {
+    color: #aaa;
+    color: inherit;
+  }
+}
+
+.deck-card .card-large {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: inherit;
+  }
+}

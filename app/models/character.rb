@@ -37,6 +37,8 @@
 #  survey_records_count         :integer          default(0)
 #  frames_count                 :integer          default(0)
 #  banned                       :boolean          default(FALSE)
+#  cards_count                  :integer          default(0)
+#  npcs_count                   :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -55,7 +57,7 @@ class Character < ApplicationRecord
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records
-  survey_records frames).each do |model|
+  survey_records frames cards npcs).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end
@@ -181,6 +183,18 @@ class Character < ApplicationRecord
 
   def fetch!
     Character.fetch(id)
+  end
+
+  def import_triple_triad_progress!(card_ids:, npc_ids:)
+    if card_ids.present?
+      cards.delete_all
+      Character.bulk_insert(self.id, CharacterCard, :card, card_ids)
+    end
+
+    if npc_ids.present?
+      npcs.delete_all
+      Character.bulk_insert(self.id, CharacterNPC, :npc, npc_ids)
+    end
   end
 
   def self.fetch(id)
