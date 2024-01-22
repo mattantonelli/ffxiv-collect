@@ -33,6 +33,7 @@ class Triad::CardsController < ApplicationController
 
   def set
     @character.card_ids = set_params[:cards].split(',')
+    Character.reset_counters(@character.id, :cards_count)
     redirect_to cards_path
   end
 
