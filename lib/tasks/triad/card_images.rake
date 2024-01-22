@@ -35,14 +35,16 @@ namespace :triad do
 
       Card.all.each do |card|
         # Create the standard large cards displayed on the site
-        unless LARGE_CARDS_DIR.join("#{card.id}.png").exist?
-          create_large(card)
+        path = LARGE_CARDS_DIR.join("#{card.id}.png")
+        unless path.exist?
+          create_large(card, path)
         end
 
         # Also create red/blue variants provided by the API
         %i(red blue).each do |color|
-          unless LARGE_CARDS_DIR.join(color.to_s, "#{card.id}.png").exist?
-            create_large(card, color)
+          path = Rails.root.join('public/images/cards', color.to_s, "#{card.id}.png")
+          unless path.exist?
+            create_large(card, path, color)
           end
         end
 
@@ -56,14 +58,14 @@ namespace :triad do
 
       create_spritesheet('cards/small')
       create_spritesheet('cards/large')
-      create_spritesheet('cards/large/red')
-      create_spritesheet('cards/large/blue')
+      create_spritesheet('cards/blue')
+      create_spritesheet('cards/red')
 
       puts 'Created spritesheets for the latest card images'
     end
   end
 
-  def create_large(card, color = nil)
+  def create_large(card, path, color = nil)
     image = ChunkyPNG::Image.from_file(XIVData.card_image_path(LARGE_OFFSET + card.id))
 
     if color.present?
@@ -91,7 +93,7 @@ namespace :triad do
     image.compose!(NUMBERS[card.bottom - 1], 45, 103)
     image.compose!(NUMBERS[card.left - 1], 32, 97)
 
-    image.save(LARGE_CARDS_DIR.join(color.to_s, "#{card.id}.png").to_s)
+    image.save(path)
   end
 
   def create_small(card)
