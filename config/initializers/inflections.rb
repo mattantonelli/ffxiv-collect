@@ -19,9 +19,14 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'NPC'
   inflect.acronym 'NPCs'
 
+  inflect.irregular 'Import', 'Import'
+
   inflect.plural 'Armoire', 'Armoire'
   inflect.plural 'Fashion', 'Fashion'
   inflect.plural 'Orchestrion', 'Orchestrion'
 
-  inflect.irregular 'Import', 'Import'
+  # Moogle Treasure Trove
+  inflect.acronym 'II'
+  inflect.acronym 'III'
+  inflect.acronym 'IV'
 end

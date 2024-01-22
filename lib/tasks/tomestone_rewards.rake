@@ -61,7 +61,6 @@ namespace :tomestones do
       XIVData.sheet('SpecialShop', raw: true).each do |shop|
         next unless shop['Name'] == 'Newest Irregular Tomestone Exchange'
 
-        tomestone = Item.find(shop['Item{Cost}[0][0]']).tomestone_name
 
         60.times do |i|
           item_id = shop["Item{Receive}[#{i}][0]"]
@@ -70,6 +69,8 @@ namespace :tomestones do
           item = Item.find(item_id)
           collectable = item.unlock
           cost = shop["Count{Cost}[#{i}][0]"]
+
+          tomestone = Item.find(shop["Item{Cost}[#{i}][0]"]).tomestone_name
 
           TomestoneReward.find_or_create_by!(collectable: collectable || item, cost: cost, tomestone: tomestone)
 
