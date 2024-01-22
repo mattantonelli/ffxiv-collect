@@ -83,10 +83,10 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/fashions-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/records-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/survey_records-small.png'), release_path.join('app/assets/images')
-        execute :cp, current_path.join('app/assets/images/cards-large.png'), release_path.join('app/assets/images/cards')
-        execute :cp, current_path.join('app/assets/images/cards-large-red.png'), release_path.join('app/assets/images/cards')
-        execute :cp, current_path.join('app/assets/images/cards-large-blue.png'), release_path.join('app/assets/images/cards')
-        execute :cp, current_path.join('app/assets/images/cards-small.png'), release_path.join('app/assets/images/cards')
+        execute :cp, current_path.join('app/assets/images/cards-large.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/cards-large-red.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/cards-large-blue.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/cards-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/stylesheets/images/*.scss'), release_path.join('app/assets/stylesheets/images')
       else
         within release_path do
