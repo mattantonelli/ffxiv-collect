@@ -35,7 +35,10 @@
     <!-- Triple Triad -->
     <div class="nav-item dropdown<%= ' bold' if controller_path.match?('triad/') %>">
       <a class="nav-link dropdown-toggle" href="#" id="triadDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= fa_icon('th', text: t('triad.title')) %></a>
+        aria-haspopup="true" aria-expanded="false">
+        <%= fa_icon('th', text: t('triad.title')) %>
+        <%= new_feature_badge %>
+      </a>
       <div class="dropdown-menu" aria-labelledBy="triadDropdown">
         <%= link_to fa_icon('id-badge', text: t('cards.title')), cards_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('users', text: t('npcs.title')), npcs_path, class: 'dropdown-item' %>

@@ -478,6 +478,7 @@ fr:
       user_not_found_explanation: "La progression de l'utilisateur n'a pas pu être trouvée. Entrez l'ID Discord de l'utilisateur en dessous. Vous pouvez trouver cet ID dans l'URL de votre profil sur Another Triple Triad Tracker."
     packs:
       title: "Pochettes"
+    title: "Triple Triade"
   type: "Type"
   users:
     sign_in: "Se connecter avec Discord"

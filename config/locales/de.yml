@@ -477,6 +477,7 @@ de:
       user_not_found_explanation: "Es konnten keine Daten für deinen aktuellen Nutzer gefunden werden. Bitte gib deine Discord ID ein. Du kannst die benötigte ID in der URL deines Nutzerprofils auf Another Triple Triad Tracker finden."
     packs:
       title: "Boosterkarten"
+    title: "Triple Triad"
   type: "Techniktyp"
   users:
     sign_in: "Einloggen mit Discord"
