@@ -43,7 +43,5 @@ namespace :spritesheets do
     puts 'Creating triple triad spritesheets'
     create_spritesheet('cards/small')
     create_spritesheet('cards/large')
-    create_spritesheet('cards/large/red')
-    create_spritesheet('cards/large/blue')
   end
 end

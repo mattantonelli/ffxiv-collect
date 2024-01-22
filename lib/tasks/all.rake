@@ -180,9 +180,6 @@ def create_spritesheet(path)
               nocomments: true, output_image: Rails.root.join('app/assets/images', "#{output_image}.png"),
               output_style: Rails.root.join('app/assets/stylesheets/images', "#{output_image}.scss") }
 
-  # Create horizontal spritesheets for cards for backwards compatibility with ATTT
-  options[:layout] = :horizontal if path.match?('cards')
-
   SpriteFactory.run!(Rails.root.join('public/images', path), options) do |images|
     rules = []
     image = images.values.first

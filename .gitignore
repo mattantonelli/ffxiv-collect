@@ -48,10 +48,7 @@ config/deploy/*
 /app/assets/images/frames/*
 
 /app/assets/images/cards-*.png
-/public/images/cards/large/*
-/public/images/cards/blue/*
-/public/images/cards/red/*
-/public/images/cards/small/*
+/public/images/cards*
 
 /app/assets/stylesheets/images/*
 

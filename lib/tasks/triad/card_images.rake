@@ -56,10 +56,15 @@ namespace :triad do
       puts "Created #{Dir.entries(LARGE_CARDS_DIR).size - counts[:large]} large images"
       puts "Created #{Dir.entries(SMALL_CARDS_DIR).size - counts[:small]} small images"
 
+      # Create the spritesheets used by FFXIV Collect
       create_spritesheet('cards/small')
       create_spritesheet('cards/large')
-      create_spritesheet('cards/blue')
-      create_spritesheet('cards/red')
+
+      # Create the special horizontal sheets keyed by ID which are used externally
+      create_horizontal_spritesheet('cards/small', 'cards-small.png', 40, 40)
+      create_horizontal_spritesheet('cards/large', 'cards-large.png', 104, 128)
+      create_horizontal_spritesheet('cards/blue', 'cards-blue.png', 104, 128)
+      create_horizontal_spritesheet('cards/red', 'cards-red.png', 104, 128)
 
       puts 'Created spritesheets for the latest card images'
     end
@@ -100,5 +105,18 @@ namespace :triad do
     URI.open(SMALL_CARDS_DIR.join("#{card.id}.png").to_s, 'wb') do |file|
       file << URI.open(XIVData.card_image_path(SMALL_OFFSET + card.id)).read
     end
+  end
+
+  def create_horizontal_spritesheet(source, destination, width, height)
+    ids = Card.order(:id).pluck(:id)
+    sheet = ChunkyPNG::Image.new(width * Card.pluck(:id).max, height)
+
+    ids.each do |id|
+      image_path = Rails.root.join('public/images', source, "#{id}.png")
+      sheet.compose!(ChunkyPNG::Image.from_file(image_path), width * (id - 1), 0)
+    end
+
+    output_path = Rails.root.join('public/images', destination).to_s
+    sheet.save(output_path)
   end
 end
