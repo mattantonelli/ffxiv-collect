@@ -462,7 +462,7 @@ de:
     import:
       attt: "Another Triple Triad Tracker"
       button: "Fortschritt-Import"
-      confirm_data: "Wenn die angegebenen Daten korrekt sind, klicke auf <b>Import</b>. Deine NPC- und Kartendaten werden dadurch auf FFXIV Collect <b>replace</b>."
+      confirm_data: "Wenn die angegebenen Daten korrekt sind, klicke auf <b>Import</b>. Deine NPC- und Kartendaten werden dadurch auf FFXIV Collect <b>ersetzt</b>."
       custom_user_explanation: "Falls du Daten von einem anderen Nutzer importieren möchtest, gib unten bitte Discord ID dieses Nutzers ein. Du kannst deine Discord ID in der URL deines Profils einsehen: %{link}."
       discord_id: "Discord ID"
       error: "Es gab ein Problem beim Importieren deines Fortschrittes."
