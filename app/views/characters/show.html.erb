@@ -91,7 +91,7 @@
               <% end %>
               <% if @scores['cards'].present? && (@scores['cards'][:value] > 0 || @scores['cards'][:npcs] > 0) %>
                 <div class="profile-progress">
-                  <h6 class="mb-0"><%= collection_name('triad', score: @scores[:cards]) %></h6>
+                  <h6 class="mb-0"><%= collection_name('triad', score: @scores['cards']) %></h6>
                   <div class="d-flex flex-column">
                     <%= render 'shared/progress', value: @scores['cards'][:value],
                       min: 0, max: @scores['cards'][:max], text: 'cards.title' %>
