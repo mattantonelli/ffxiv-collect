@@ -89,7 +89,7 @@
                   </div>
                 <% end %>
               <% end %>
-              <% if @scores['cards'][:value] > 0 || @scores['cards'][:npcs] > 0 %>
+              <% if @scores['cards'].present? && (@scores['cards'][:value] > 0 || @scores['cards'][:npcs] > 0) %>
                 <div class="profile-progress">
                   <h6 class="mb-0"><%= collection_name('triad', score: @scores[:cards]) %></h6>
                   <div class="d-flex flex-column">

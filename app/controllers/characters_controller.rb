@@ -36,11 +36,13 @@ class CharactersController < ApplicationController
     @scores['achievements'][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
 
     # Add NPC data to Cards
-    @scores['cards'][:npcs] = NPC.valid.joins(:character_npcs)
-      .where('character_npcs.character_id = ?', @profile.id)
-      .count
+    if @scores['cards'].present?
+      @scores['cards'][:npcs] = NPC.valid.joins(:character_npcs)
+        .where('character_npcs.character_id = ?', @profile.id)
+        .count
 
-    @scores['cards'][:npcs_max] = NPC.valid.count
+      @scores['cards'][:npcs_max] = NPC.valid.count
+    end
   end
 
   def profile
