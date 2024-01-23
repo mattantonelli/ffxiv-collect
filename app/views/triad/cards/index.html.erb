@@ -16,7 +16,7 @@
           class: 'form-control form-control-sm' %>
         <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
           { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
-        <%= f.submit 'Search', name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
       <% end %>
     </div>
     <div class="d-flex justify-content-between align-items-end my-2">
