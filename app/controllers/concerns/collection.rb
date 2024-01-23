@@ -9,7 +9,8 @@ module Collection
   end
 
   def ransack_with_patch_search
-    search = params[:q] || { patch_eq: @patches.sort.last }
+    search = params[:q] || {}
+    search[:patch_eq] ||= @patches.sort.last
 
     # Hack the ransack params for searches that span multiple patches
     if search[:patch_eq] == 'all'
