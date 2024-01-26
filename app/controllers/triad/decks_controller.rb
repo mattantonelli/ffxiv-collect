@@ -1,6 +1,6 @@
 class Triad::DecksController < ApplicationController
   before_action :set_deck, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
-  before_action :set_collection_ids, only: [:index, :mine, :show, :new, :edit]
+  before_action :set_collection_ids, only: [:index, :mine, :new, :edit]
   before_action :signed_in?, except: [:index, :show]
   before_action :authenticated?, only: [:edit, :update, :destroy], unless: :admin?
   before_action :filter_query, only: [:index, :mine]
@@ -22,6 +22,9 @@ class Triad::DecksController < ApplicationController
   end
 
   def show
+    if @character.present?
+      @collection_ids = Card.where(id: @character.card_ids).order(:deck_order, :id).pluck(:id)
+    end
   end
 
   def new
