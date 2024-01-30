@@ -1,0 +1,6 @@
+<li>
+  <%= link_to character_path(character), class: 'unstyled' do %>
+    <%= image_tag(character.avatar, class: 'avatar') %>
+    <%= character.name %>
+  <% end %>
+</li>

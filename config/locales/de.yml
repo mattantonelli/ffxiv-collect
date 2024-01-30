@@ -170,6 +170,14 @@ de:
   compare: "Vergleichen"
   complete: "abgeschlossen"
   created_by: "Erstellt durch Raelys Skyborn von Behemoth"
+  credits:
+    contributors: "Mitwirkende"
+    development: "Entwicklung"
+    sources: "Quellen"
+    supporters: "Supporter"
+    title: "Credits"
+    translations: "Übersetzungen"
+    you: "Und du!"
   currency:
     tomestones:
       many: "allagische Steine"

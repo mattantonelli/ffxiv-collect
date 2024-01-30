@@ -171,6 +171,14 @@ fr:
   compare: "Comparer"
   complete: "Achevé"
   created_by: "Créé par Raelys Skyborn de Behemoth"
+  credits:
+    contributors: "Contributeurs"
+    development: "Développeurs"
+    sources: "Sources"
+    supporters: "Supporters"
+    title: "Credits"
+    translations: "Traductions"
+    you: "Et toi !"
   currency:
     tomestones:
       many: "Mémoquartz"

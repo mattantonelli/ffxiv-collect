@@ -162,6 +162,7 @@ Rails.application.routes.draw do
 
   get 'commands', to: 'static#commands'
   get 'faq', to: 'static#faq'
+  get 'credits', to: 'static#credits'
 
   get   'settings',           to: 'settings#edit'
   patch 'settings/user',      to: 'settings#update_user',      as: :user_settings

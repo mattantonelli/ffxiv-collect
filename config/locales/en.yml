@@ -173,6 +173,14 @@ en:
   compare: "Compare"
   complete: "Complete"
   created_by: "Created by Raelys Skyborn of Behemoth"
+  credits:
+    contributors: "Contributors"
+    development: "Development"
+    sources: "Sources"
+    supporters: "Supporters"
+    title: "Credits"
+    translations: "Translations"
+    you: "And you!"
   currency:
     tomestones:
       many: "Tomestones"
