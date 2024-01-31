@@ -7,7 +7,13 @@ module Discord
   extend self
 
   def embed_collectable(type, query)
-    url = "#{ROOT_URL}/api/#{type.pluralize}?#{query}"
+    if type == 'card' || type == 'npc'
+      # Add the /triad namespace for Cards and NPCs
+      url = "#{ROOT_URL}/api/triad/#{type.pluralize}?#{query}"
+    else
+      url = "#{ROOT_URL}/api/#{type.pluralize}?#{query}"
+    end
+
     response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
     results = JSON.parse(response, symbolize_names: true)[:results]
       .sort_by { |collectable| collectable[:name].size }
@@ -29,6 +35,8 @@ module Discord
       end
     elsif type == 'record'
       name = "#{collectable[:id].to_s.rjust(2, '0')}. #{collectable[:name]}"
+    elsif type == 'card'
+      name = "#{collectable[:name]} (#{collectable[:number]})"
     else
       name = collectable[:name]
     end
@@ -51,15 +59,39 @@ module Discord
       embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: additional_results(results))
     end
 
+    if type == 'card'
+      embed.add_field(name: 'Rarity', value: stars(collectable[:stars]), inline: true)
+    end
+
     if type == 'spell'
       embed.add_field(name: 'Type', value: collectable.dig(:type, :name), inline: true)
       embed.add_field(name: 'Aspect', value: collectable.dig(:aspect, :name), inline: true)
       embed.add_field(name: 'Rank', value: "\u2605" * collectable[:rank], inline: true)
+    elsif type == 'npc'
+      location = "#{collectable[:location][:name]} (#{collectable[:location].values_at(:x, :y).join(', ')})"
+      embed.add_field(name: 'Location', value: location)
+
+      if collectable[:rules].present?
+        embed.add_field(name: 'Rules', value: collectable[:rules].join("\n"), inline: true)
+      end
+
+      embed.add_field(name: 'Difficulty', value: stars(collectable[:difficulty].to_f.ceil), inline: true)
+      embed.add_field(name: 'Patch', value: collectable[:patch], inline: true)
+
+      if collectable[:quest].present?
+        embed.add_field(name: 'Required Quest',
+                        value: "[#{collectable.dig(:quest, :name)}](#{collectable.dig(:quest, :link)})")
+      end
+
+      rewards = collectable[:rewards].map { |card| link_card(card) }.join("\n")
+      embed.add_field(name: 'Rewards', value: rewards)
     else
       embed.add_field(name: 'Owned', value: collectable[:owned], inline: true)
     end
 
-    embed.add_field(name: 'Patch', value: collectable[:patch], inline: true)
+    if type != 'npc'
+      embed.add_field(name: 'Patch', value: collectable[:patch], inline: true)
+    end
 
     if collectable[:sources].present?
       embed.add_field(name: 'Source', value: format_sources(collectable))
@@ -157,7 +189,16 @@ module Discord
     end
   end
 
+  def link_card(card)
+    link = "[#{card[:name]}](#{card[:link]})"
+    "#{link} #{stars(card[:stars])}"
+  end
+
   def star(count, total)
     " \u2605" if count == total
+  end
+
+  def stars(count)
+    "\u2605" * count
   end
 end
