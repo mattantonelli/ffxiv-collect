@@ -9,7 +9,8 @@ module Discord
   def embed_collectable(type, query)
     url = "#{ROOT_URL}/api/#{type.pluralize}?#{query}"
     response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
-    results = JSON.parse(response, symbolize_names: true)[:results].sort_by { |collectable| collectable[:name].size }
+    results = JSON.parse(response, symbolize_names: true)[:results]
+      .sort_by { |collectable| collectable[:name].size }
     collectable = results.first
 
     if collectable.nil?
@@ -94,7 +95,8 @@ module Discord
 
       count, total = character[category].values_at(:count, :total)
       value = "#{count}/#{total} (#{((count / total.to_f) * 100).to_i}%)"
-      embed.add_field(name: "#{category_title(category.to_s)}#{star(count, total)}", value: value, inline: true)
+      embed.add_field(name: "#{category_title(category.to_s)}#{star(count, total)}",
+                      value: value, inline: true)
     end
 
     relics = character[:relics]
@@ -108,6 +110,21 @@ module Discord
       end
 
       embed.add_field(name: "Relics#{star(count, total)}", value: values.join("\n"), inline: true)
+    end
+
+    cards, npcs = character.values_at(:cards, :npcs)
+    triad_count = cards[:count] + npcs[:count]
+    triad_total = cards[:total] + npcs[:total]
+
+    if triad_count > 0
+      name = "Triple Triad#{star(triad_count, triad_total)}"
+
+      values = [
+        "#{cards[:count]} of #{cards[:total]} Cards",
+        "#{npcs[:count]} of #{npcs[:total]} NPCs"
+      ]
+
+      embed.add_field(name: name, value: values.join("\n"), inline: true)
     end
 
     { embeds: [embed.to_hash] }
