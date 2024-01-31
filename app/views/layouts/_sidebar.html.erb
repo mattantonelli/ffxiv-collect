@@ -101,9 +101,9 @@
     <% end %>
 
     <%= nav_link(t('tomestones.title'), 'clock', tomestones_path) %>
-    <%= nav_link(t('commands.title'), 'discord', commands_path, fab: true) %>
-    <%= nav_link('FAQ', 'question-circle', faq_path) %>
-    <%= nav_link(t('credits.title'), 'info-circle', credits_path) %>
+    <%= nav_link(t('commands.title'), 'discord', commands_path, fab: true, action: 'commands') %>
+    <%= nav_link('FAQ', 'question-circle', faq_path, action: 'faq') %>
+    <%= nav_link(t('credits.title'), 'info-circle', credits_path, action: 'credits') %>
 
     <!-- Limited Time -->
     <%# <%= nav_link(t('yokai.title'), 'exclamation-circle', yokai_path) %1> %>
