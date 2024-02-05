@@ -11,6 +11,7 @@
 #  rating     :integer
 #  notes      :string(1000)
 #  updated    :boolean          default(TRUE)
+#  user_uid   :string(255)
 #
 
 class Deck < ApplicationRecord
