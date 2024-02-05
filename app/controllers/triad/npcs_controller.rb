@@ -18,7 +18,7 @@ class Triad::NPCsController < ApplicationController
     @npcs = @q.result.includes(:rewards, :rules, :location, :quest).order(patch: :desc, id: :desc)
     @valid_npcs = @npcs.valid
 
-    if user_signed_in?
+    if @character.present?
       @card_ids = @character.card_ids
       @incomplete = @npcs.joins(:rewards).where('cards.id not in (?)', @card_ids).pluck(:id).uniq
     else

@@ -22,7 +22,7 @@
           <dd><%= purpose(@deck) %></dd>
           <dt><%= t('triad.decks.rating') %></dt>
           <dd><%= @deck.rating %></dd>
-          <% if user_signed_in? %>
+          <% if character_selected? %>
             <dt><%= t('triad.decks.usable') %></dt>
             <dd><%= usable?(@deck, @collection_ids) %></dd>
           <% end %>

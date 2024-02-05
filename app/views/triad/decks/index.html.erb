@@ -50,7 +50,7 @@
               <th scope="col" class="text-center hide-xs" data-defaultsort="disabled">
                 <%= t('cards.title') %>
               </th>
-              <% if user_signed_in? %>
+              <% if character_selected? %>
                 <th scope="col" class="text-center"><%= t('triad.decks.usable') %></th>
               <% end %>
               <th scope="col" class="text-center"><%= t('triad.decks.updated') %></th>
@@ -73,7 +73,7 @@
                     <% end %>
                   </div>
                 </td>
-                <% if user_signed_in? %>
+                <% if character_selected? %>
                   <td class="text-center" data-value="<%= missing_cards(deck, @collection_ids) == 0 %>">
                     <%= usable?(deck, @collection_ids) %>
                   </td>
