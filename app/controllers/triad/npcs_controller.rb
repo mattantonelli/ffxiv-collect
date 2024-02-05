@@ -49,8 +49,8 @@ class Triad::NPCsController < ApplicationController
 
   def update_defeated
     if @character&.verified_user?(current_user)
-      defeated_npcs = NPC.defeated_npcs(@character)
-      @character.npc_ids = defeated_npcs
+      npc_ids = NPC.defeated_npcs(@character)
+      @character.set_npcs(npc_ids)
       redirect_to npcs_path
     end
   end

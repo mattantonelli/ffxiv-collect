@@ -59,8 +59,8 @@ class NPC < ApplicationRecord
       .filter_map { |card| card.related_id if card.related_type == 'NPC' }
       .uniq
 
-    # Add the existing defeated NPC IDs
-    (ids + character.npc_ids).uniq
+    # Filter the existing defeated NPC IDs
+    (ids - character.npc_ids).uniq
   end
 
   private

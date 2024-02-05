@@ -32,8 +32,8 @@ class Triad::CardsController < ApplicationController
   end
 
   def set
-    @character.card_ids = set_params[:cards].split(',')
-    Character.reset_counters(@character.id, :cards_count)
+    card_ids = set_params[:cards].split(',').map(&:to_i)
+    @character.set_cards(card_ids)
     redirect_to cards_path
   end
 

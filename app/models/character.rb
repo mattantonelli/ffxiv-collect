@@ -197,6 +197,31 @@ class Character < ApplicationRecord
     end
   end
 
+  def set_cards(ids)
+    old_ids = self.card_ids
+
+    # Bulk insert the newly added cards
+    add_ids = ids - old_ids
+    if add_ids.present?
+      Character.bulk_insert(self.id, CharacterCard, :card, add_ids)
+    end
+
+    # Bulk delete the newly removed cards
+    remove_ids = old_ids - ids
+    if remove_ids.present?
+      CharacterCard.where(character_id: self.id, card_id: remove_ids).delete_all
+    end
+
+    # Update the counter cache
+    Character.reset_counters(self.id, :cards_count)
+  end
+
+  def set_npcs(ids)
+    if ids.present?
+      Character.bulk_insert(self.id, CharacterNPC, :npc, ids)
+    end
+  end
+
   def self.fetch(id)
     data = Lodestone.character(id)
     data[:achievements_count] = -1 if data[:achievements].empty?
