@@ -46,10 +46,12 @@ class NPC < ApplicationRecord
   end
 
   def self.defeated_npcs(character)
-    # Find the NPCs with at least one card reward that only has a single source.
+    # Find the NPCs with at least one card reward owned by the character that only has a single source.
     # This single NPC source would have been automatically created with the NPC.
     # Verify that each source is an NPC before adding it to the list.
     ids = Card.joins(npc_rewards: :npc)
+      .joins(character_cards: :character)
+      .where('characters.id = ?', character.id)
       .left_joins(:sources)
       .group('sources.collectable_id')
       .having('count(sources.id) = 1')
