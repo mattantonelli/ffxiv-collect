@@ -1,5 +1,5 @@
 <% title(@npc.name) %>
-<% description("Location: #{location(@npc, inline: true)} | " \
+<% description("Location: #{location(@npc.location, @npc.x, @npc.y, inline: true)} | " \
                "#{'Rule'.pluralize(@npc.rules.size)}: #{format_rules(@npc, inline: true)}") %>
 
 <div class="row">
@@ -11,7 +11,7 @@
       <div class="card-body">
         <dl>
           <dt><%= t('spells.location') %></dt>
-          <dd><%= location(@npc, inline: true) %></dd>
+          <dd><%= location(@npc.location, @npc.x, @npc.y, inline: true) %></dd>
           <dt><%= t('patch') %></dt>
           <dd><%= @npc.patch %></dd>
           <% if @npc.rules.present? %>

@@ -399,6 +399,10 @@ module CollectionsHelper
     options_for_select(options, selected)
   end
 
+  def location(location, x, y, inline: false)
+    "#{location.name}#{inline ? ' ' : '<br>'}(#{x}, #{y})".html_safe
+  end
+
   private
   def price_tooltip(collectable, data = nil)
     begin

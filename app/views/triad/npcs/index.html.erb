@@ -64,7 +64,7 @@
         <% @npcs.each do |npc| %>
           <tr class="npc-row no-fade <%= collectable_classes(npc) %><%= ' completed' if !@incomplete.include?(npc.id) %><%= ' defeated' if @collection_ids.include?(npc.id) %><%= ' excluded' if npc.excluded? %>">
             <td class="npc-name"><%= link_to(format_npc_name(npc), npc_path(npc), class: 'name') %></td>
-            <td><%= location(npc) %></td>
+            <td><%= location(npc.location, npc.x, npc.y) %></td>
             <td class="hide-xs"><%= format_rules(npc) %></td>
             <td class="hide-sm" data-value="<%= npc.difficulty %>"><%= difficulty(npc) %></td>
             <td class="hide-sm quest-name"><%= quest(npc) %></td>
