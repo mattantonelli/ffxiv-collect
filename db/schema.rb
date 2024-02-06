@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_01_21_222553) do
+ActiveRecord::Schema.define(version: 2024_02_05_174111) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -263,6 +263,16 @@ ActiveRecord::Schema.define(version: 2024_01_21_222553) do
     t.index ["hairstyle_id"], name: "index_character_hairstyles_on_hairstyle_id"
   end
 
+  create_table "character_leves", charset: "utf8", force: :cascade do |t|
+    t.integer "leve_id"
+    t.integer "character_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "leve_id"], name: "index_character_leves_on_character_id_and_leve_id", unique: true
+    t.index ["character_id"], name: "index_character_achievements_on_character_id"
+    t.index ["leve_id"], name: "index_character_leves_on_leve_id"
+  end
+
   create_table "character_minions", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "minion_id"
@@ -380,6 +390,7 @@ ActiveRecord::Schema.define(version: 2024_01_21_222553) do
     t.boolean "banned", default: false
     t.integer "cards_count", default: 0
     t.integer "npcs_count", default: 0
+    t.integer "leves_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -392,6 +403,7 @@ ActiveRecord::Schema.define(version: 2024_01_21_222553) do
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
     t.index ["last_ranked_achievement_time"], name: "index_characters_on_last_ranked_achievement_time"
+    t.index ["leves_count"], name: "index_characters_on_leves_count"
     t.index ["minions_count"], name: "index_characters_on_minions_count"
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["name"], name: "index_characters_on_name"
@@ -608,6 +620,37 @@ ActiveRecord::Schema.define(version: 2024_01_21_222553) do
     t.index ["name_en"], name: "index_items_on_name_en"
     t.index ["quest_id"], name: "index_items_on_quest_id"
     t.index ["unlock_type"], name: "index_items_on_unlock_type"
+  end
+
+  create_table "leves", charset: "utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "craft", null: false
+    t.string "category", null: false
+    t.integer "level", null: false
+    t.integer "location_id", null: false
+    t.string "issuer_name_en", null: false
+    t.string "issuer_name_de", null: false
+    t.string "issuer_name_fr", null: false
+    t.string "issuer_name_ja", null: false
+    t.decimal "issuer_x", precision: 3, scale: 1, null: false
+    t.decimal "issuer_y", precision: 3, scale: 1, null: false
+    t.integer "item_id"
+    t.integer "item_quantity"
+    t.string "patch"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category"], name: "index_leves_on_category"
+    t.index ["craft"], name: "index_leves_on_craft"
+    t.index ["item_id"], name: "index_leves_on_item_id"
+    t.index ["location_id"], name: "index_leves_on_location_id"
+    t.index ["name_de"], name: "index_leves_on_name_de"
+    t.index ["name_en"], name: "index_leves_on_name_en"
+    t.index ["name_fr"], name: "index_leves_on_name_fr"
+    t.index ["name_ja"], name: "index_leves_on_name_ja"
+    t.index ["patch"], name: "index_leves_on_patch"
   end
 
   create_table "locations", charset: "utf8", force: :cascade do |t|

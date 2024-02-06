@@ -39,6 +39,7 @@
 #  banned                       :boolean          default(FALSE)
 #  cards_count                  :integer          default(0)
 #  npcs_count                   :integer          default(0)
+#  leves_count                  :integer          default(0)
 #
 
 class Character < ApplicationRecord
