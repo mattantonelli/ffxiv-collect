@@ -40,15 +40,9 @@ namespace :triad do
       end
 
       map_ids = npcs.values.pluck(:map_id).uniq
+      maps = maps_with_locations(map_ids)
 
       # Look up the relevant maps and set the coordinate data
-      maps = XIVData.sheet('Map', raw: true).each_with_object({}) do |map, h|
-        if map_ids.include?(map['#'])
-          h[map['#']] = { region_id: map['PlaceName{Region}'], location_id: map['PlaceName'],
-                          x_offset: map['Offset{X}'].to_f, y_offset: map['Offset{Y}'].to_f, size_factor: map['SizeFactor'].to_f }
-        end
-      end
-
       npcs.each do |id, npc|
         if map = maps[npc.delete(:map_id)]
           npc[:location_id] = map[:location_id]
@@ -59,20 +53,6 @@ namespace :triad do
           npcs.delete(id)
           next
         end
-      end
-
-      # Create the NPC locations
-      puts '  Fetching location name data'
-      locations = %w(en fr de ja).each_with_object(Hash.new({})) do |locale, h|
-        places = XIVData.sheet('PlaceName', locale: locale, drop_zero: false).map { |place| place['Name']}
-        maps.values.each do |map|
-          h[map[:location_id]] = h[map[:location_id]].merge("name_#{locale}" => places[map[:location_id].to_i],
-                                                            "region_#{locale}" => places[map[:region_id].to_i])
-        end
-      end
-
-      locations.each do |id, data|
-        Location.find_or_create_by!(data.merge(id: id))
       end
 
       # Add their opponent data
@@ -156,12 +136,6 @@ namespace :triad do
         puts "Created #{class_name.constantize.send(:count) - count} new #{class_name}s"
       end
     end
-  end
-
-  def get_coordinate(value, map_offset, size_factor)
-    scale = size_factor / 100.0
-    offset = (value + map_offset) * scale
-    (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
   end
 
   def weighted_average(cards, count)

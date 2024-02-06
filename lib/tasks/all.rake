@@ -134,6 +134,39 @@ def updated?(model, data)
   updated
 end
 
+def maps_with_locations(ids)
+  # Look up the maps for the given IDs and set the coordinate data
+  maps = XIVData.sheet('Map', raw: true).each_with_object({}) do |map, h|
+    if ids.include?(map['#'])
+      h[map['#']] = { region_id: map['PlaceName{Region}'], location_id: map['PlaceName'],
+                      x_offset: map['Offset{X}'].to_f, y_offset: map['Offset{Y}'].to_f,
+                      size_factor: map['SizeFactor'].to_f }
+    end
+  end
+
+  # Look up the locations associated with each map
+  locations = %w(en fr de ja).each_with_object(Hash.new({})) do |locale, h|
+    places = XIVData.sheet('PlaceName', locale: locale, drop_zero: false).map { |place| place['Name']}
+    maps.values.each do |map|
+      h[map[:location_id]] = h[map[:location_id]].merge("name_#{locale}" => places[map[:location_id].to_i],
+                                                        "region_#{locale}" => places[map[:region_id].to_i])
+    end
+  end
+
+  # Create the locations
+  locations.each do |id, data|
+    Location.find_or_create_by!(data.merge(id: id))
+  end
+
+  maps
+end
+
+def get_coordinate(value, map_offset, size_factor)
+  scale = size_factor / 100.0
+  offset = (value + map_offset) * scale
+  (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
+end
+
 def link_music(path)
   return unless Dir.exist?(XIVData::MUSIC_PATH)
 
