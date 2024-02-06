@@ -28,7 +28,12 @@ class Leve < ApplicationRecord
   translates :name, :issuer_name
 
   belongs_to :item, optional: true
+  belongs_to :location
 
   scope :include_related, -> { includes(:location, :item) }
-  scope :ordered, -> { order(:type, :category, patch: :desc, id: :desc) }
+  scope :ordered, -> { order(:craft, :category, patch: :desc, id: :desc) }
+
+  def self.available_filters
+    %i(owned)
+  end
 end

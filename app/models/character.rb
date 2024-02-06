@@ -58,7 +58,7 @@ class Character < ApplicationRecord
   scope :with_public_achievements, -> { where('achievements_count > 0') }
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records
-  survey_records frames cards npcs).each do |model|
+  survey_records frames leves cards npcs).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end

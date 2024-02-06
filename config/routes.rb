@@ -44,6 +44,16 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :leves, only: [] do
+    collection do
+      get :battlecraft
+      get :tradecraft
+      get :fieldcraft
+    end
+
+    post :add, :remove, on: :member
+  end
+
   scope :triad, module: :triad do
     resources :cards, only: [:index, :show] do
       member do
@@ -78,6 +88,7 @@ Rails.application.routes.draw do
     resources :packs, only: [:index]
   end
 
+  # TODO: Delete these routes after shutting down ATTT
   namespace :triad do
     resource :import, only: [] do
       collection do
