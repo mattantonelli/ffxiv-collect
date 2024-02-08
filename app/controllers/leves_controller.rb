@@ -11,7 +11,8 @@ class LevesController < ApplicationController
     end
 
     @categories.unshift(nil) # Workaround for category buttons expecting the first category to be "All"
-    @category = 1 # Set the default category to the first one
+    @category = params[:category].to_i
+    @category = 1 if @category < 1
 
     render :index
   end

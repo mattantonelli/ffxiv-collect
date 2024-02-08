@@ -13,6 +13,7 @@
     <table class="table table-striped table-sm shadow sortable collection categorized">
       <thead>
         <tr>
+          <th scope="col" class="text-center"><%= t('leves.level') %></th>
           <th scope="col" class="name"><%= t('name') %></th>
           <th scope="col"><%= t('spells.location') %></th>
           <th scope="col"><%= t('leves.issuer') %></th>
@@ -28,6 +29,7 @@
       <tbody>
         <% @leves.each do |leve| %>
           <tr class="<%= category_row_classes(leve, @category, @categories) %>">
+            <td class="text-center"><%= leve.level %></td>
             <td><%= leve.name %></td>
             <td><%= location(leve.location, leve.issuer_x, leve.issuer_y) %></td>
             <td><%= leve.issuer_name %></td>

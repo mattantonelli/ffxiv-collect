@@ -523,6 +523,7 @@ en:
     weapon: "Weapon"
     zone: "Zone"
   leves:
+    level: "Level"
     title: "Levequests"
     crafts:
       battlecraft: "Battlecraft"
