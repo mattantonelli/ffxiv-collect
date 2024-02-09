@@ -38,7 +38,7 @@ namespace :deploy do
         end
       end
 
-      %w(achievements armoires bardings emotes relics hairstyles spells items frames).each do |model|
+      %w(achievements armoires bardings emotes relics hairstyles spells achievement_items leve_items frames).each do |model|
         execute :rm, '-rf', release_path.join('public/images', model)
         execute :ln, '-s', shared_path.join('public/images', model), release_path.join('public/images', model)
       end
@@ -76,7 +76,7 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/mounts-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/minions-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/achievements.png'), release_path.join('app/assets/images')
-        execute :cp, current_path.join('app/assets/images/items.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/achievement_items.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/emotes.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/bardings.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/armoires.png'), release_path.join('app/assets/images')
@@ -89,6 +89,7 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/survey_records-small.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/cards-large.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/cards-small.png'), release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/leve_items.png'), release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/stylesheets/images/*.scss'), release_path.join('app/assets/stylesheets/images')
 
         # Horizontal card spritesheets

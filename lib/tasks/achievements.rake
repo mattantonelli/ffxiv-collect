@@ -83,7 +83,7 @@ namespace :achievements do
     achievements.values.each do |achievement|
       item_id = achievement[:item_id]
       if item_id.present?
-        create_image(item_id, XIVData.icon_path(Item.find(item_id).icon_id), 'items')
+        create_image(item_id, XIVData.icon_path(Item.find(item_id).icon_id), 'achievement_items')
       end
 
       create_image(achievement[:icon_id], achievement.delete(:icon_path), 'achievements')
@@ -96,7 +96,7 @@ namespace :achievements do
     end
 
     create_spritesheet('achievements')
-    create_spritesheet('items')
+    create_spritesheet('achievement_items')
 
     puts "Created #{Achievement.count - count} new achievements"
   end

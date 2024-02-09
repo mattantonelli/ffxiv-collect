@@ -17,7 +17,7 @@ module AchievementsHelper
     if achievement.item.unlock.present?
       generic_sprite(achievement.item.unlock_type.downcase.pluralize, achievement.item.unlock)
     else
-      sprite(achievement.item, 'item')
+      sprite(achievement.item, 'achievement_item')
     end
   end
 

@@ -30,7 +30,7 @@
         <% @leves.each do |leve| %>
           <tr class="<%= category_row_classes(leve, @category, @categories) %>">
             <td class="text-center"><%= leve.level %></td>
-            <td><%= leve.name %></td>
+            <td><%= database_link('leve', leve.name, leve.id) %></td>
             <td><%= location(leve.location, leve.issuer_x, leve.issuer_y) %></td>
             <td><%= leve.issuer_name %></td>
             <% unless @craft == 'Battlecraft' %>

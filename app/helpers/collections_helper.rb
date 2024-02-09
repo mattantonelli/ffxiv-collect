@@ -224,22 +224,34 @@ module CollectionsHelper
     end
   end
 
-  def database_link(type, text, id = nil)
+  def database_link(type, text, id = nil, &block)
     return text unless id.present?
 
     if current_user&.database == 'teamcraft'
-      teamcraft_link(type, text, id)
+      teamcraft_link(type, text, id, &block)
     else
-      garland_tools_link(type, text, id)
+      garland_tools_link(type, text, id, &block)
     end
   end
 
-  def garland_tools_link(type, text, id)
-    link_to(text, garland_tools_url(type, id), target: '_blank')
+  def garland_tools_link(type, text, id, &block)
+    if block_given?
+      link_to(garland_tools_url(type, id), target: '_blank') do
+        block.call
+      end
+    else
+      link_to(text, garland_tools_url(type, id), target: '_blank')
+    end
   end
 
-  def teamcraft_link(type, text, id)
-    link_to(text, teamcraft_url(type, id), target: '_blank')
+  def teamcraft_link(type, text, id, &block)
+    if block_given?
+      link_to(teamcraft_url(type, id), target: '_blank') do
+        block.call
+      end
+    else
+      link_to(text, teamcraft_url(type, id), target: '_blank')
+    end
   end
 
   def triple_triad_card_link(name)

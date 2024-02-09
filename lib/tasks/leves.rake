@@ -149,12 +149,19 @@ namespace :leves do
     end
 
     leves.values.each do |leve|
+      # Create images for turn-in items
+      if item_id = leve[:item_id]
+        create_image(item_id, XIVData.icon_path(Item.find(item_id).icon_id), 'leve_items')
+      end
+
       if existing = Leve.find_by(id: leve[:id])
         existing.update!(leve) if updated?(existing, leve)
       else
         Leve.create!(leve)
       end
     end
+
+    create_spritesheet('leve_items')
 
     puts "Created #{Leve.count - count} new leves"
   end
