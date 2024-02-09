@@ -3,7 +3,8 @@ UNIVERSALIS_BASE_URL = 'https://universalis.app/api/v2'.freeze
 namespace :prices do
   desc 'Sets the latest known market board prices for items by data center'
   task cache: :environment do
-    item_ids = Item.where(tradeable: true).where.not(unlock_id: nil).pluck(:id)
+    item_ids = Item.where(tradeable: true).where.not(unlock_id: nil).pluck(:id) +
+      Leve.where.not(item_id: nil).distinct.order(:item_id).pluck(:item_id)
     item_ids << 32830 # Add "Paint It X" which is missed due to multiple unlock IDs
 
     Character.data_centers.each do |dc|
@@ -24,10 +25,10 @@ namespace :prices do
 
           Redis.current.hmset(key, prices.flatten)
         rescue RestClient::ExceptionWithResponse => e
-          puts "There was a problem fetching #{url}"
-          puts e.response
+          log("There was a problem fetching #{url} (#{e.http_code})")
+          log(e.response) if e.response.present?
         rescue
-          puts "There was an unexpected problem fetching #{url}"
+          log("There was an unexpected problem fetching #{url}")
         end
       end
     end

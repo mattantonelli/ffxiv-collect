@@ -547,3 +547,6 @@ en:
       weaver: "Weaver"
     issuer: "Issuer"
     create_crafting_list: "Create Crafting List"
+  copy:
+    isearch: "Copied /isearch command"
+    name: "Copied item name"

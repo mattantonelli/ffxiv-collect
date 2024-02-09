@@ -540,7 +540,7 @@ i.delete:hover {
   color: #dc3545;
 }
 
-.isearch {
+.isearch, .copy-name {
   &:hover {
     cursor: pointer;
     color: rgba(255, 255, 255, 0.7);

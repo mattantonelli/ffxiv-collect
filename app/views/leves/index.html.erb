@@ -21,6 +21,10 @@
           <th scope="col"><%= t('leves.issuer') %></th>
           <% unless @craft == 'Battlecraft' %>
             <th scope="col"><%= t('item') %></th>
+            <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+            <th scope="col" class="text-center hide-xs" data-defaultsort="disabled">
+              <%= fa_icon('clipboard') %>
+            </th>
           <% end %>
           <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
@@ -38,6 +42,16 @@
             <td><%= leve.issuer_name %></td>
             <% unless @craft == 'Battlecraft' %>
               <td><%= leve_item(leve) %></td>
+              <td class="text-center" data-value="<%= price_sort_value(leve) %>">
+                <%= market_link(leve) %>
+              </td>
+              <td class="text-center px-3 hide-xs">
+                <% if leve.item.present? %>
+                  <%= fa_icon('clipboard', class: 'copy-name',
+                              data: { toggle: 'tooltip', clipboard_action: 'copy',
+                                      clipboard_text: leve.item.name }) %>
+                <% end %>
+              </td>
             <% end %>
             <td class="text-center" data-value="<%= sort_value(leve) %>"><%= leve.patch %></td>
             <% if character_selected? %>
