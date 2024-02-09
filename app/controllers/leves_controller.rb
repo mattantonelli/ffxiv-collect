@@ -6,7 +6,7 @@ class LevesController < ApplicationController
   def index
     @leves = Leve.where(craft: @craft).include_related.ordered
 
-    @categories = @leves.pluck(:category).uniq.map do |category|
+    @categories.map! do |category|
       t("leves.categories.#{category.parameterize.underscore}")
     end
 
@@ -19,16 +19,20 @@ class LevesController < ApplicationController
 
   def battlecraft
     @craft = 'Battlecraft'
+    @categories = ['General', 'The Maelstrom', 'Order of the Twin Adder', 'Immortal Flames']
     index
   end
 
   def tradecraft
     @craft = 'Tradecraft'
+    @categories = ['Carpenter', 'Blacksmith', 'Armorer', 'Goldsmith',
+                   'Leatherworker',  'Weaver', 'Alchemist', 'Culinarian']
     index
   end
 
   def fieldcraft
     @craft = 'Fieldcraft'
+    @categories = ['Miner', 'Botanist', 'Fisher']
     index
   end
 
