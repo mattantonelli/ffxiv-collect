@@ -34,3 +34,12 @@ end
 
 json.rankings character.rankings
 json.relics character_relics(character)
+
+json.leves do
+  Leve.crafts.each do |craft|
+    json.set! craft do
+      json.count character.leves.where(craft: craft).count
+      json.total Leve.where(craft: craft).count
+    end
+  end
+end
