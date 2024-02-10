@@ -45,6 +45,15 @@ class CharactersController < ApplicationController
 
       @scores['cards'][:npcs_max] = NPC.valid.count
     end
+
+    # Add Levequests
+    if @profile.leves.any?
+      @crafts = Leve.crafts
+      @scores['leves'] = @crafts.each_with_object({}) do |craft, h|
+        h[craft] = @character.leves.where(craft: craft).count
+        h["#{craft}_max"] = Leve.where(craft: craft).count
+      end
+    end
   end
 
   def profile

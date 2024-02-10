@@ -74,7 +74,7 @@
               <div class="profile-progress d-none d-sm-block">
                 <% # Placeholder block for alignment %>
               </div>
-              <% @scores.except('achievements', 'relics', 'cards').each do |collectable, score| %>
+              <% @scores.except('achievements', 'relics', 'cards', 'leves').each do |collectable, score| %>
                 <% if %w(mounts minions).include?(collectable) || score[:value] > 0 %>
                   <div class="profile-progress">
                     <% if %w(mounts minions).include?(collectable) %>
@@ -109,6 +109,17 @@
                         <%= render 'shared/progress', value: values[:count], min: 0, max: values[:total],
                           text: "relics.#{category}" %>
                       <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+              <% if @scores['leves'].present? %>
+                <div class="profile-progress">
+                  <h6><%= collection_name('leves', score: @scores['leves']) %></h6>
+                  <div class="d-flex flex-column">
+                    <% @crafts.each do |craft| %>
+                      <%= render 'shared/progress', value: @scores['leves'][craft],
+                        min: 0, max: @scores['leves']["#{craft}_max"], text: "leves.crafts.#{craft}" %>
                     <% end %>
                   </div>
                 </div>

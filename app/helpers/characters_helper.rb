@@ -44,6 +44,14 @@ module CharactersHelper
       if score.present? && score[:value] == score[:max] && score[:npcs] == score[:npcs_max]
         complete = true
       end
+    elsif collection == 'leves'
+      path = tradecraft_leves_path
+
+      if score.present?
+        owned = @crafts.sum { |craft| score[craft] }
+        max = @crafts.sum { |craft| score["#{craft}_max"]}
+        complete = owned == max
+      end
     else
       path = send("#{collection}_path")
 

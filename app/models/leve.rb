@@ -37,4 +37,8 @@ class Leve < ApplicationRecord
   def self.available_filters
     %i(owned)
   end
+
+  def self.crafts
+    %w(battlecraft tradecraft fieldcraft)
+  end
 end
