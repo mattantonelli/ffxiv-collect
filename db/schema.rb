@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_10_140029) do
+ActiveRecord::Schema.define(version: 2024_02_10_154102) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -631,7 +631,7 @@ ActiveRecord::Schema.define(version: 2024_02_10_140029) do
     t.string "craft_de", null: false
     t.string "craft_fr", null: false
     t.string "craft_ja", null: false
-    t.string "order", null: false
+    t.integer "order", null: false
     t.boolean "items", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

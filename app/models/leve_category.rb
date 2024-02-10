@@ -11,7 +11,7 @@
 #  craft_de   :string(255)      not null
 #  craft_fr   :string(255)      not null
 #  craft_ja   :string(255)      not null
-#  order      :string(255)      not null
+#  order      :integer          not null
 #  items      :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
