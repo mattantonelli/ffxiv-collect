@@ -1,4 +1,6 @@
 class Api::TomestonesController < ApiController
+  skip_before_action :set_owned
+
   def index
     @rewards = TomestoneReward.all.ransack(@query).result.ordered
     tomestones = @rewards.pluck(:tomestone).uniq
