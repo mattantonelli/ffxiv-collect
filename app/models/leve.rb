@@ -32,8 +32,7 @@ class Leve < ApplicationRecord
   delegate :craft, to: :category
 
   scope :include_related, -> { includes(:category, :location, :item) }
-  scope :ordered, -> { order("leve_categories.craft_#{I18n.locale}", "leve_categories.order", :level,
-                             "locations.name_#{I18n.locale}", "leves.name_#{I18n.locale}") }
+  scope :ordered, -> { order("leve_categories.craft_#{I18n.locale}", "leve_categories.order", :level, :id) }
 
   def self.available_filters
     %i(owned)
