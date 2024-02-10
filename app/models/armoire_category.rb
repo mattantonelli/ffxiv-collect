@@ -14,5 +14,5 @@
 
 class ArmoireCategory < ApplicationRecord
   translates :name
-  has_many :armoires
+  has_many :armoires, foreign_key: 'category_id'
 end

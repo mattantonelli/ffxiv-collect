@@ -13,7 +13,7 @@
 #
 
 class OrchestrionCategory < ApplicationRecord
-  has_many :orchestrions
+  has_many :orchestrions, foreign_key: 'category_id'
   translates :name
 
   scope :hide_premium, -> (hide) do

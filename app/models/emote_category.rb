@@ -13,5 +13,5 @@
 
 class EmoteCategory < ApplicationRecord
   translates :name
-  has_many :emotes
+  has_many :emotes, foreign_key: 'category_id'
 end
