@@ -1,4 +1,4 @@
-json.(leve, :id, :name, :craft, :category, :level, :patch)
+json.(leve, :id, :name, :level, :patch)
 
 json.issuer leve.issuer_name
 
@@ -8,6 +8,9 @@ json.location do
   json.x leve.issuer_x
   json.y leve.issuer_y
 end
+
+json.craft leve.category.craft
+json.category leve.category.name
 
 json.item do
   json.id leve.item_id

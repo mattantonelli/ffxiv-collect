@@ -7,8 +7,7 @@
 #  name_de        :string(255)      not null
 #  name_fr        :string(255)      not null
 #  name_ja        :string(255)      not null
-#  craft          :string(255)      not null
-#  category       :string(255)      not null
+#  category_id    :integer          not null
 #  level          :integer          not null
 #  location_id    :integer          not null
 #  issuer_name_en :string(255)      not null
@@ -29,16 +28,14 @@ class Leve < ApplicationRecord
 
   belongs_to :item, optional: true
   belongs_to :location
+  belongs_to :category, class_name: 'LeveCategory'
+  delegate :craft, to: :category
 
-  scope :include_related, -> { includes(:location, :item) }
-  scope :ordered, -> { order(:craft, :category, :level, "locations.name_#{I18n.locale} ASC",
-                             "leves.name_#{I18n.locale} ASC") }
+  scope :include_related, -> { includes(:category, :location, :item) }
+  scope :ordered, -> { order("leve_categories.craft_#{I18n.locale}", "leve_categories.order", :level,
+                             "locations.name_#{I18n.locale}", "leves.name_#{I18n.locale}") }
 
   def self.available_filters
     %i(owned)
-  end
-
-  def self.crafts
-    %w(battlecraft tradecraft fieldcraft)
   end
 end

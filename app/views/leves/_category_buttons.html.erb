@@ -1,0 +1,7 @@
+<div class="d-flex flex-wrap justify-content-center category-buttons">
+  <% categories.drop(1).each do |category| %>
+    <button type="button" data-has-items="<%= category.items? %>"
+      class="btn btn-dark shadow-none mb-1<%= ' active' if category.id == selected %>"
+      id="category-<%= category.id %>"><%= category.name %></button>
+  <% end %>
+</div>

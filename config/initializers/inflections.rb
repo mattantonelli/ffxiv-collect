@@ -27,6 +27,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
 
   inflect.plural 'leve', 'leves'
   inflect.singular 'leves', 'leve'
+  inflect.irregular 'leve', 'leves'
 
   # Moogle Treasure Trove
   inflect.acronym 'II'

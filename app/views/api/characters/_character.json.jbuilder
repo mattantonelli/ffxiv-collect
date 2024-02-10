@@ -36,10 +36,10 @@ json.rankings character.rankings
 json.relics character_relics(character)
 
 json.leves do
-  Leve.crafts.each do |craft|
+  LeveCategory.crafts.each do |craft|
     json.set! craft do
-      json.count character.leves.where(craft: craft).count
-      json.total Leve.where(craft: craft).count
+      json.count @character.leves.joins(:category).where('leve_categories.craft_en = ?', craft).count
+      json.total Leve.joins(:category).where('leve_categories.craft_en = ?', craft).count
     end
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_05_174111) do
+ActiveRecord::Schema.define(version: 2024_02_10_140029) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -622,13 +622,36 @@ ActiveRecord::Schema.define(version: 2024_02_05_174111) do
     t.index ["unlock_type"], name: "index_items_on_unlock_type"
   end
 
+  create_table "leve_categories", charset: "utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.string "craft_en", null: false
+    t.string "craft_de", null: false
+    t.string "craft_fr", null: false
+    t.string "craft_ja", null: false
+    t.string "order", null: false
+    t.boolean "items", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["craft_de"], name: "index_leve_categories_on_craft_de"
+    t.index ["craft_en"], name: "index_leve_categories_on_craft_en"
+    t.index ["craft_fr"], name: "index_leve_categories_on_craft_fr"
+    t.index ["craft_ja"], name: "index_leve_categories_on_craft_ja"
+    t.index ["name_de"], name: "index_leve_categories_on_name_de"
+    t.index ["name_en"], name: "index_leve_categories_on_name_en"
+    t.index ["name_fr"], name: "index_leve_categories_on_name_fr"
+    t.index ["name_ja"], name: "index_leve_categories_on_name_ja"
+    t.index ["order"], name: "index_leve_categories_on_order"
+  end
+
   create_table "leves", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
-    t.string "craft", null: false
-    t.string "category", null: false
+    t.integer "category_id", null: false
     t.integer "level", null: false
     t.integer "location_id", null: false
     t.string "issuer_name_en", null: false
@@ -642,8 +665,7 @@ ActiveRecord::Schema.define(version: 2024_02_05_174111) do
     t.string "patch"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category"], name: "index_leves_on_category"
-    t.index ["craft"], name: "index_leves_on_craft"
+    t.index ["category_id"], name: "index_leves_on_category_id"
     t.index ["item_id"], name: "index_leves_on_item_id"
     t.index ["location_id"], name: "index_leves_on_location_id"
     t.index ["name_de"], name: "index_leves_on_name_de"

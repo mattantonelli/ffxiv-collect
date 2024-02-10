@@ -1,17 +1,11 @@
 <div class="d-flex flex-wrap justify-content-center category-buttons">
   <% unless local_assigns[:exclude_all] %>
-    <button type="button" id="0"
-      class="btn btn-dark bold shadow-none mb-1<%= ' active' unless selected.present? %>">
+    <button type="button" class="btn btn-dark bold shadow-none mb-1<%= ' active' unless selected.present? %>" id="0">
       <%= t('all.title') %>
     </button>
   <% end %>
   <% categories.each do |category| %>
-    <% id = category.try(:id) || @categories.index(category) %>
-    <% name = category.try(:name) || category %>
-    <% if name.present? %>
-      <button type="button"
-        class="btn btn-dark shadow-none mb-1<%= ' active' if id == selected %>"
-        id="category-<%= id %>"><%= name %></button>
-    <% end %>
+    <button type="button" class="btn btn-dark shadow-none mb-1<%= ' active' if category.id == selected %>"
+			id="category-<%= category.id %>"><%= category.name %></button>
   <% end %>
 </div>

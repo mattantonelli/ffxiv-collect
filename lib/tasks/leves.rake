@@ -5,8 +5,58 @@ namespace :leves do
   task create: :environment do
     PaperTrail.enabled = false
 
-    puts 'Creating Leves'
+    battle = { craft_en: 'Battlecraft', craft_de: 'Gefecht', craft_fr: 'Mercenariat', craft_ja: '傭兵稼業' }
+    trade =  { craft_en: 'Tradecraft', craft_de: 'Sammel', craft_fr: 'Récolte', craft_ja: '採集稼業' }
+    field =  { craft_en: 'Fieldcraft', craft_de: 'Fertigung', craft_fr: 'Artisanat', craft_ja: '製作稼業' }
+    item_categories = ['Carpenter', 'Blacksmith', 'Armorer', 'Goldsmith', 'Leatherworker',
+                       'Weaver', 'Alchemist', 'Culinarian', 'Fisher']
+
+    puts 'Creating leve categories'
+    categories = %w(en de fr ja).each_with_object({}) do |locale, h|
+      XIVData.sheet('LeveAssignmentType', locale: locale).each do |category|
+        next unless category['Name'].present?
+
+        unless data = h[category['#']]
+          data = { id: category['#'], order: category['#'] }
+
+          # Add craft
+          case category['Name']
+          when /Battlecraft|Maelstrom|Adder|Flames|Brotherhood|Azeyma|Horn/
+            data.merge!(battle)
+          when /Carpenter|Blacksmith|Armorer|Goldsmith|Leatherworker|Weaver|Alchemist|Culinarian/
+            data.merge!(trade)
+          when /Miner|Botanist|Fisher/
+            data.merge!(field)
+          end
+
+          # Flag categories with turn-in items
+          if item_categories.include?(category['Name'])
+            data[:items] = true
+          end
+        end
+
+        data["name_#{locale}"] = category ['Name']
+        h[data[:id]] = data
+      end
+    end
+
+    # Override the Battlecraft category name to General
+    categories['1'].merge!(name_en: 'General', name_de: 'Generell', name_fr: 'Général')
+
+    categories.values.each do |category|
+      if existing = LeveCategory.find_by(id: category[:id])
+        existing.update!(category) if updated?(existing, category)
+      else
+        LeveCategory.find_or_create_by!(category)
+      end
+    end
+
+    puts 'Creating leves'
     count = Leve.count
+
+    categories = LeveCategory.all.each_with_object({}) do |category, h|
+      h[category.name_en] = category
+    end
 
     leves = %w(en de fr ja).each_with_object({}) do |locale, h|
       # Initialize the leves
@@ -14,23 +64,13 @@ namespace :leves do
         next unless leve['Name'].present?
 
         unless data = h[leve['#']]
-          category = leve['LeveAssignmentType']
+          category_name = leve['LeveAssignmentType']
+          category_name = 'General' if category_name == 'Battlecraft'
+          category = categories[category_name]
 
-          category = 'General' if category == 'Battlecraft' # Override category name for non GC Battle leves
+          data = { id: leve['#'], category_id: category.id.to_s, level: leve['ClassJobLevel'] }
 
-          # Set the craft name based on the leve's category
-          craft = case category
-                 when /General|The Maelstrom|Order of the Twin Adder|Immortal Flames/
-                   'Battlecraft'
-                 when /Carpenter|Blacksmith|Armorer|Goldsmith|Leatherworker|Weaver|Alchemist|Culinarian/
-                   'Tradecraft'
-                 when /Miner|Botanist|Fisher/
-                   'Fieldcraft'
-                 end
-
-          data = { id: leve['#'], craft: craft, category: category, level: leve['ClassJobLevel'] }
-
-          if craft == 'Battlecraft'
+          if category.craft == 'Battlecraft'
             data[:location] = XIVData.related_id(leve['Level{Levemete}'])
           end
         end

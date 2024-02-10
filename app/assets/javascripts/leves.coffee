@@ -1,14 +1,10 @@
 $(document).on 'turbolinks:load', ->
   return unless $('.crafting-list').length > 0
 
-  item_categories = ['Carpenter', 'Blacksmith', 'Armorer', 'Goldsmith', 'Leatherworker',
-                     'Weaver', 'Alchemist', 'Culinarian', 'Fisher']
-
   # Toggles the visibility of item-related elements depending on the selected category
   toggleItemElements = ->
-    selected = $('.category-buttons .active').text()
-    is_item_category = item_categories.includes(selected)
-    $('.leve-item').toggleClass('hidden', !is_item_category)
+    selected = $('.category-buttons .active')
+    $('.leve-item').toggleClass('hidden', !selected.data('has-items'))
 
   # Check if we need to hide elements on the initial render
   toggleItemElements()

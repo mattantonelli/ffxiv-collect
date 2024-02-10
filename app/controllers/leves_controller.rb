@@ -5,35 +5,28 @@ class LevesController < ApplicationController
   before_action :set_prices!, only: [:tradecraft, :fieldcraft]
 
   def index
-    @leves = Leve.where(craft: @craft).include_related.ordered
+    @leves = Leve.include_related.where('leve_categories.craft_en = ?', @craft).ordered
+    @categories = LeveCategory.where(id: @leves.pluck(:category_id).uniq).ordered.to_a
 
-    @categories.map! do |category|
-      t("leves.categories.#{category.parameterize.underscore}")
-    end
-
-    @categories.unshift(nil) # Workaround for category buttons expecting the first category to be "All"
     @category = params[:category].to_i
-    @category = 1 if @category < 1
+    @category = @categories.first.id unless @categories.pluck(:id).include?(@category)
+    @categories.unshift(nil) # Workaround for category buttons expecting the first category to be "All"
 
     render :index
   end
 
   def battlecraft
     @craft = 'Battlecraft'
-    @categories = ['General', 'The Maelstrom', 'Order of the Twin Adder', 'Immortal Flames']
     index
   end
 
   def tradecraft
     @craft = 'Tradecraft'
-    @categories = ['Carpenter', 'Blacksmith', 'Armorer', 'Goldsmith',
-                   'Leatherworker',  'Weaver', 'Alchemist', 'Culinarian']
     index
   end
 
   def fieldcraft
     @craft = 'Fieldcraft'
-    @categories = ['Miner', 'Botanist', 'Fisher']
     index
   end
 

@@ -4,7 +4,7 @@
 <%= render 'shared/filters' %>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <%= render 'shared/category_buttons', categories: @categories, selected: @category, exclude_all: true %>
+    <%= render 'category_buttons', categories: @categories, selected: @category, exclude_all: true %>
     <div class="d-flex justify-content-between align-items-end my-2">
       <div>
         <%= button_tag fa_icon('list-ul', text: t('leves.create_crafting_list')),

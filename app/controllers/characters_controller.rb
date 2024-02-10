@@ -48,10 +48,10 @@ class CharactersController < ApplicationController
 
     # Add Levequests
     if @profile.leves.any?
-      @crafts = Leve.crafts
+      @crafts = LeveCategory.crafts
       @scores['leves'] = @crafts.each_with_object({}) do |craft, h|
-        h[craft] = @character.leves.where(craft: craft).count
-        h["#{craft}_max"] = Leve.where(craft: craft).count
+        h[craft] = @character.leves.joins(:category).where('leve_categories.craft_en = ?', craft).count
+        h["#{craft}_max"] = Leve.joins(:category).where('leve_categories.craft_en = ?', craft).count
       end
     end
   end
