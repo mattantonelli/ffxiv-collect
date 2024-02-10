@@ -5,7 +5,7 @@
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
     <%= render 'shared/category_buttons', categories: @categories, selected: @category, exclude_all: true %>
-    <div class="d-flex justify-content-between align-items-end mb-2">
+    <div class="d-flex justify-content-between align-items-end my-2">
       <div>
         <%= button_tag fa_icon('list-ul', text: t('leves.create_crafting_list')),
           data: { database: current_user&.database },
@@ -21,15 +21,15 @@
           <th scope="col" class="text-center"><%= t('leves.level') %></th>
           <th scope="col" class="name"><%= t('name') %></th>
           <th scope="col"><%= t('spells.location') %></th>
-          <th scope="col"><%= t('leves.issuer') %></th>
+          <th scope="col" class="hide-sm"><%= t('leves.issuer') %></th>
           <% unless @craft == 'Battlecraft' %>
             <th scope="col" class="leve-item"><%= t('item') %></th>
-            <th scope="col" class="text-center leve-item"><%= fa_icon('dollar-sign') %></th>
-            <th scope="col" class="text-center hide-xs leve-item" data-defaultsort="disabled">
+            <th scope="col" class="text-center hide-sm leve-item"><%= fa_icon('dollar-sign') %></th>
+            <th scope="col" class="text-center hide-sm leve-item" data-defaultsort="disabled">
               <%= fa_icon('clipboard') %>
             </th>
           <% end %>
-          <th scope="col" class="text-center"><%= t('patch') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
           <% end %>
@@ -42,13 +42,13 @@
             <td class="text-center"><%= leve.level %></td>
             <td><%= database_link('leve', leve.name, leve.id) %></td>
             <td><%= location(leve.location, leve.issuer_x, leve.issuer_y) %></td>
-            <td><%= leve.issuer_name %></td>
+            <td class="hide-sm"><%= leve.issuer_name %></td>
             <% unless @craft == 'Battlecraft' %>
               <td class="leve-item"><%= leve_item(leve) %></td>
-              <td class="text-center leve-item" data-value="<%= price_sort_value(leve) %>">
+              <td class="text-center hide-sm leve-item" data-value="<%= price_sort_value(leve) %>">
                 <%= market_link(leve) %>
               </td>
-              <td class="text-center px-3 hide-xs leve-item">
+              <td class="text-center px-3 hide-sm leve-item">
                 <% if leve.item.present? %>
                   <%= fa_icon('clipboard', class: 'copy-name',
                               data: { toggle: 'tooltip', clipboard_action: 'copy',
@@ -56,7 +56,7 @@
                 <% end %>
               </td>
             <% end %>
-            <td class="text-center" data-value="<%= sort_value(leve) %>"><%= leve.patch %></td>
+            <td class="text-center hide-xs" data-value="<%= sort_value(leve) %>"><%= leve.patch %></td>
             <% if character_selected? %>
               <%= td_owned(leve) %>
             <% end %>

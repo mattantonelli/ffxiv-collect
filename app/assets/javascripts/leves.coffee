@@ -8,7 +8,7 @@ $(document).on 'turbolinks:load', ->
   toggleItemElements = ->
     selected = $('.category-buttons .active').text()
     is_item_category = item_categories.includes(selected)
-    $('.leve-item').toggle(is_item_category)
+    $('.leve-item').toggleClass('hidden', !is_item_category)
 
   # Check if we need to hide elements on the initial render
   toggleItemElements()
