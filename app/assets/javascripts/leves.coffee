@@ -25,18 +25,24 @@ $(document).on 'turbolinks:load', ->
 
     # Collect data on the remaining items
     items = leves.map ->
-      item_id = $(this).data('item-id')
+      id = $(this).data('item-id')
       quantity = $(this).data('item-quantity') || 0
-      { item_id: item_id, quantity: quantity }
+      { id: id, quantity: quantity }
 
     # Generate the URL for the selected database service
     if $(@).data('database') == 'teamcraft'
+      items = items.get().map (item) ->
+        "#{item.id},null,#{item.quantity}"
+
+      # Create a base64 encoded string to generate the list
+      code = btoa(items.join(';'))
+      url = "https://ffxivteamcraft.com/import/#{code}"
     else
       items = items.get().map (item) ->
         if item.quantity > 1
-          "item/#{item.item_id}+#{item.quantity}"
+          "item/#{item.id}+#{item.quantity}"
         else
-          "item/#{item.item_id}"
+          "item/#{item.id}"
 
       url = "https://www.garlandtools.org/db/#group/#{name}{#{items.join('|')}}"
 
