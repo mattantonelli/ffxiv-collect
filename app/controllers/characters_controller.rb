@@ -50,8 +50,13 @@ class CharactersController < ApplicationController
     if @profile.leves.any?
       @crafts = LeveCategory.crafts
       @scores['leves'] = @crafts.each_with_object({}) do |craft, h|
-        h[craft] = @character.leves.joins(:category).where('leve_categories.craft_en = ?', craft).count
-        h["#{craft}_max"] = Leve.joins(:category).where('leve_categories.craft_en = ?', craft).count
+        h[craft] = @character.leves.joins(:category)
+          .where('leve_categories.craft_en = ?', craft)
+          .with_filters(cookies).count
+
+        h["#{craft}_max"] = Leve.joins(:category)
+          .where('leve_categories.craft_en = ?', craft)
+          .with_filters(cookies).count
       end
     end
   end
