@@ -83,11 +83,15 @@ namespace :leves do
 
     # Delete unobtainable leves
     [
-      546, 556, 566, # Introductory
       502, 519, 542, 544, # No longer available
       508, 514, 525, 531, 552, 554, 562, 564, 582, 597, 822, 827, 832 # Unimplemented
     ].each do |id|
       leves.delete(id.to_s)
+    end
+
+    # Mark introductory leves as time-limited
+    %w(546 556 566).each do |id|
+      leves[id][:limited] = true
     end
 
     # Add item ID and quantity for deliverable leves

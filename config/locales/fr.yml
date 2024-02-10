@@ -436,6 +436,7 @@ fr:
   tooltips:
     ownership: "Personnages actifs qui possèdent %{collectable}"
     time_limited_achievement: "Ce haut fait est limité dans le temps. Il n'est pas pris en compte dans les classements."
+    limited_leve: "Ceci est une introduction aux mandats. Elle peut uniquement être effectuée dans la ville de départ de votre personnage."
   tradeable: "Échangeable"
   triad:
     card_select:

@@ -40,8 +40,16 @@
           <tr class="<%= category_row_classes(leve, @category, @categories) %>"
             data-item-id="<%= leve.item_id %>" data-item-quantity="<%= leve.item_quantity %>">
             <td class="text-center"><%= leve.level %></td>
-            <td><%= database_link('leve', leve.name, leve.id) %></td>
-            <td><%= location(leve.location, leve.issuer_x, leve.issuer_y) %></td>
+            <td>
+              <%= database_link('leve', leve.name, leve.id) %>
+              <% if leve.limited? %>
+                <%= far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.limited_leve')) %>
+              <% end %>
+            </td>
+            </td>
+            <td data-value="<%= leve.location.id %>">
+              <%= location(leve.location, leve.issuer_x, leve.issuer_y) %>
+            </td>
             <td class="hide-sm"><%= leve.issuer_name %></td>
             <% unless @craft == 'Battlecraft' %>
               <td class="leve-item"><%= leve_item(leve) %></td>

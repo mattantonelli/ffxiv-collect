@@ -21,6 +21,7 @@
 #  patch          :string(255)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  limited        :boolean          default(FALSE)
 #
 class Leve < ApplicationRecord
   include Collectable
@@ -34,7 +35,11 @@ class Leve < ApplicationRecord
   scope :include_related, -> { includes(:category, :location, :item) }
   scope :ordered, -> { order("leve_categories.craft_#{I18n.locale}", "leve_categories.order", :level, :id) }
 
+  scope :hide_limited, -> (hide) do
+    where('leves.limited = FALSE') if hide
+  end
+
   def self.available_filters
-    %i(owned)
+    %i(owned limited)
   end
 end

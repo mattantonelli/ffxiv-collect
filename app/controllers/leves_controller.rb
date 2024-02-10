@@ -5,7 +5,7 @@ class LevesController < ApplicationController
   before_action :set_prices!, only: [:tradecraft, :fieldcraft]
 
   def index
-    @leves = Leve.include_related.where('leve_categories.craft_en = ?', @craft).ordered
+    @leves = Leve.include_related.where('leve_categories.craft_en = ?', @craft).with_filters(cookies).ordered
     @categories = LeveCategory.where(id: @leves.pluck(:category_id).uniq).ordered.to_a
 
     @category = params[:category].to_i

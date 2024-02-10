@@ -438,6 +438,7 @@ en:
   tooltips:
     ownership: "Active public characters who own this %{collectable}"
     time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
+    limited_leve: "This is an introductory levequest. It can only be completed if you created your character in this region."
   tradeable: "Tradeable"
   triad:
     card_select:
