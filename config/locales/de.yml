@@ -169,6 +169,9 @@ de:
   collapse: "Alles zuklappen"
   compare: "Vergleichen"
   complete: "abgeschlossen"
+  copy:
+    isearch: "/isearch Befehl kopiert"
+    name: "Name des Items kopiert"
   created_by: "Erstellt durch Raelys Skyborn von Behemoth"
   credits:
     contributors: "Mitwirkende"
@@ -251,6 +254,31 @@ de:
     score: "Punkte"
     title: "Rangliste"
     top: "Top"
+  leves:
+    categories:
+      alchemist: "Alchemist"
+      armorer: "Plattner"
+      blacksmith: "Grobschmied"
+      botanist: "Gärtner"
+      carpenter: "Zimmerer"
+      culinarian: "Gourmet"
+      fisher: "Fischer"
+      general: "Generell"
+      goldsmith: "Goldschmied"
+      immortal_flames: "Legion der Unsterblichen"
+      leatherworker: "Gerber"
+      miner: "Minenarbeiter"
+      order_of_the_twin_adder: "Bruderschaft der Morgenviper"
+      the_maelstrom: "Mahlstrom"
+      weaver: "Weber"
+    crafts:
+      battlecraft: "Gefecht"
+      fieldcraft: "Sammel"
+      tradecraft: "Fertigung"
+    create_crafting_list: "Liste zum craften erstellen"
+    issuer: "Ausgeber"
+    level: "Level"
+    title: "Freibriefe"
   materiel:
     3: "Möglicher Loot aus Sonderziehungstruhe (A Realm Reborn, Heavensward)"
     4: "Möglicher Loot aus Sonderziehungstruhe (Stormblood)"

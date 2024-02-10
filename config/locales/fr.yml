@@ -170,6 +170,9 @@ fr:
   collapse: "Tout réduire"
   compare: "Comparer"
   complete: "Achevé"
+  copy:
+    isearch: "Commande /isearch copiée"
+    name: "Nom d'objet copié"
   created_by: "Créé par Raelys Skyborn de Behemoth"
   credits:
     contributors: "Contributeurs"
@@ -252,6 +255,31 @@ fr:
     score: "Score"
     title: "Classements"
     top: "Top"
+  leves:
+    categories:
+      alchemist: "Alchimiste"
+      armorer: "Armurier"
+      blacksmith: "Forgeron"
+      botanist: "Botaniste"
+      carpenter: "Menuisier"
+      culinarian: "Cuisinier"
+      fisher: "Pêcheur"
+      general: "Général"
+      goldsmith: "Orfèvre"
+      immortal_flames: "Les Immortels"
+      leatherworker: "Tanneur"
+      miner: "Mineur"
+      order_of_the_twin_adder: "L'ordre des Deux Vipères"
+      the_maelstrom: "Le Maelstrom"
+      weaver: "Couturier"
+    crafts:
+      battlecraft: "Mercenariat"
+      fieldcraft: "Récolte"
+      tradecraft: "Artisanat"
+    create_crafting_list: "Créer une liste de craft"
+    issuer: "Mandant"
+    level: "Niveau"
+    title: "Mandats"
   materiel:
     3: "Récompense possible de la malle-surprise (ARR/Heavensward)"
     4: "Récompense possible de la malle-surprise (Stormblood)"
