@@ -1,4 +1,4 @@
-json.(leve, :id, :name, :level, :patch)
+json.(leve, :id, :name, :level, :cost, :patch)
 
 json.issuer leve.issuer_name
 

@@ -13,13 +13,21 @@
       </div>
       <%= render 'shared/active_filters' %>
     </div>
-    <%= render 'shared/collection_progress', ids: @leves.map(&:id), skip_comparison: true %>
+    <% if character_selected? %>
+      <div class="mb-2">
+        <%= render 'shared/progress', value: (@leves.map(&:id) & @collection_ids).size,
+          min: 0, max: @leves.size %>
+        <%= render 'shared/progress', value: 0, min: 0, max: @leves.map(&:cost).sum, alt: true,
+          text: 'leves.allowances' %>
+      </div>
+    <% end %>
     <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
     <table class="table table-striped table-sm shadow sortable collection categorized">
       <thead>
         <tr>
           <th scope="col" class="text-center"><%= t('leves.level') %></th>
           <th scope="col" class="name"><%= t('name') %></th>
+          <th scope="col" class="text-center hide-sm"><%= t('verminion.cost') %></th>
           <th scope="col"><%= t('spells.location') %></th>
           <th scope="col" class="hide-sm"><%= t('leves.issuer') %></th>
           <% unless @craft == 'Battlecraft' %>
@@ -37,7 +45,7 @@
       </thead>
       <tbody>
         <% @leves.each do |leve| %>
-          <tr class="<%= category_row_classes(leve, @category, @categories) %>"
+          <tr class="<%= category_row_classes(leve, @category, @categories) %>" data-value="<%= leve.cost %>"
             data-item-id="<%= leve.item_id %>" data-item-quantity="<%= leve.item_quantity %>">
             <td class="text-center"><%= leve.level %></td>
             <td>
@@ -46,7 +54,7 @@
                 <%= far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.limited_leve')) %>
               <% end %>
             </td>
-            </td>
+            <td class="text-center hide-sm"><%= leve.cost %></td>
             <td data-value="<%= leve.location.id %>">
               <%= location(leve.location, leve.issuer_x, leve.issuer_y) %>
             </td>

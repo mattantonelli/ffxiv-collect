@@ -68,7 +68,8 @@ namespace :leves do
           category_name = 'General' if category_name == 'Battlecraft'
           category = categories[category_name]
 
-          data = { id: leve['#'], category_id: category.id.to_s, level: leve['ClassJobLevel'] }
+          data = { id: leve['#'], category_id: category.id.to_s, level: leve['ClassJobLevel'],
+                   cost: leve['AllowanceCost'] }
 
           if category.craft == 'Battlecraft'
             data[:location] = XIVData.related_id(leve['Level{Levemete}'])
