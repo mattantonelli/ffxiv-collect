@@ -4,6 +4,11 @@ class Api::CharactersController < ApiController
   before_action :check_latest
 
   def show
+    if params[:times].present?
+      @times = CharacterAchievement.where(character_id: @character.id).map do |achievement|
+        { id: achievement.achievement_id, time: achievement.created_at }
+      end
+    end
   end
 
   def owned

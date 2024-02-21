@@ -11,6 +11,7 @@ json.achievements do
   json.ranked_time character.last_ranked_achievement_time
   json.public character.achievements_count != -1
   json.ids character.achievement_ids if params[:ids].present?
+  json.obtained @times if @times.present?
 end
 
 %w(mount minion orchestrion spell emote barding hairstyle armoire fashion record survey_record card npc).each do |collectable|
