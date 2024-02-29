@@ -11,7 +11,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.4.2', require: false
-gem 'rack-cors', '~> 1.1.0'
+gem 'rack-cors', '~> 2.0.1'
 gem 'rack', '>= 2.2.6.3'
 gem 'websocket-extensions', '>= 0.1.5'
 
@@ -33,7 +33,7 @@ gem 'i18n-js', '3.9.1'
 
 gem 'lograge'
 gem 'whenever'
-gem 'ransack'
+gem 'ransack', '~> 3.2.1'
 gem 'chunky_png'
 gem 'sprite-factory'
 gem 'redis-namespace'
