@@ -261,19 +261,34 @@ class Character < ApplicationRecord
     }.freeze
   end
 
-  def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil)
+  def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil, rankings: false)
     q = { data_center_eq: data_center, server_eq: server, "#{metric}_gt" => 0 }.compact
     ranked_characters = characters.ransack(q).result
 
+    # Order the results based on the metric
     if metric.match?('achievement')
-      ranked_characters = ranked_characters.order(metric => :desc, last_ranked_achievement_time: :asc, name: :asc).limit(limit)
+      ranked_characters = ranked_characters
+        .order(metric => :desc, last_ranked_achievement_time: :asc, name: :asc)
+        .limit(limit)
     else
-      ranked_characters = ranked_characters.order(metric => :desc, name: :asc).limit(limit)
+      ranked_characters = ranked_characters
+        .order(metric => :desc, name: :asc)
+        .limit(limit)
+    end
+
+    # Only select necessary columns when caching rankings
+    if rankings
+      if metric.match?('achievement')
+        ranked_characters = ranked_characters.select(:id, metric, :last_ranked_achievement_time)
+      else
+        ranked_characters = ranked_characters.select(:id, metric)
+      end
     end
 
     return [] if ranked_characters.empty?
 
-    current_score, current_date = ranked_characters[0].values_at(metric, :last_ranked_achievement_time)
+    current_score = ranked_characters[0][metric]
+    current_date = ranked_characters[0].last_ranked_achievement_time if metric.match?('achievement')
     rank = 1
 
     ranked_characters.map.with_index(1) do |character, i|

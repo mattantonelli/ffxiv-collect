@@ -10,6 +10,8 @@ namespace :rankings do
         cache_rankings(characters, 'ranked_mounts_count', "rankings-mounts-#{server.downcase}")
         cache_rankings(characters, 'ranked_minions_count', "rankings-minions-#{server.downcase}")
       end
+
+      log('Finished caching server rankings')
     end
   end
 
@@ -24,6 +26,8 @@ namespace :rankings do
         cache_rankings(characters, 'ranked_mounts_count', "rankings-mounts-#{data_center.downcase}")
         cache_rankings(characters, 'ranked_minions_count', "rankings-minions-#{data_center.downcase}")
       end
+
+      log('Finished caching data center rankings')
     end
   end
 
@@ -37,13 +41,15 @@ namespace :rankings do
       cache_rankings(characters, 'ranked_achievement_points', "rankings-achievements-global")
       cache_rankings(characters, 'ranked_mounts_count', "rankings-mounts-global")
       cache_rankings(characters, 'ranked_minions_count', "rankings-minions-global")
+
+      log('Finished caching global rankings')
     end
   end
 end
 
 def cache_rankings(characters, metric, key)
   # Process the data in reasonable chunks for more efficient memory utilization
-  Character.leaderboards(characters: characters, metric: metric).each_slice(10_000) do |rankings|
+  Character.leaderboards(characters: characters, metric: metric, rankings: true).each_slice(10_000) do |rankings|
     return if rankings.empty?
 
     values = rankings.flat_map do |ranking|
