@@ -1,0 +1,34 @@
+<% title('Endless Mode') %>
+<% description("Track your character's collections. Forever.") %>
+
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column w-75">
+    <%= render 'shared/progress', value: 0, max: @max_visible %>
+    <table class="table table-striped table-sm shadow mt-2">
+      <thead>
+        <tr>
+          <th scope="col">#</th> <!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col" class="hide-xs"><%= t('source') %></th>
+          <th scope="col" class="text-center"><%= t('patch') %></th>
+          <th scope="col"></th><!-- Owned -->
+        </tr>
+      </thead>
+      <tbody>
+        <% @collectables.each_with_index do |collectable, i| %>
+          <tr class="collectable <%= 'hidden' unless i < @max_visible %>">
+            <td><%= collectable_image_link(collectable) %></td>
+            <td><%= collectable_name_link(collectable) %></td>
+            <td class="hide-xs">
+              <%= sources(collectable) %>
+            </td>
+            <td class="text-center"><%= collectable.patch %></td>
+            <td class="endless-check">
+              <%= check_box_tag(nil, nil, false) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

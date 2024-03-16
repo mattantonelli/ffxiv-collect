@@ -1,6 +1,7 @@
 <div class="sidebar-sticky">
   <div class="navbar-nav no-wrap mt-1">
     <%= link_to fa_icon('home', text: t('home')), root_path, class: 'nav-link d-block d-sm-none' %>
+    <%= nav_link("Endless Mode #{new_feature_badge}".html_safe, 'hourglass', endless_index_path) %>
     <%= nav_link(t('latest.title'), 'exclamation-circle', latest_index_path) %>
 
     <!-- Achievments -->
@@ -72,7 +73,6 @@
       <a class="nav-link dropdown-toggle" href="#" id="levesDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <%= fa_icon('feather-alt', text: t('leves.title')) %>
-        <%= new_feature_badge %>
       </a>
       <div class="dropdown-menu" aria-labelledBy="levesDropdown">
         <%= link_to fa_icon('dragon', text: t('leves.crafts.battlecraft')),
