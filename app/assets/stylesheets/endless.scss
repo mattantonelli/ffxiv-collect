@@ -1,4 +1,22 @@
-.table td.endless-check {
-  vertical-align: top;
-  padding-top: 13px;
+.endless {
+  min-width: 100%;
+
+  @media (min-width: 992px) {
+    min-width: 75%;
+  }
+
+  .table {
+    td.endless-name {
+      width: 25%;
+    }
+
+    td.endless-sources {
+      width: 55%;
+    }
+
+    td.endless-check {
+      vertical-align: top;
+      padding-top: 13px;
+    }
+  }
 }
