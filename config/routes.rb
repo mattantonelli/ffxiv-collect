@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'mounts/pickorpokkur'
   get 'orchestrions/fool', to: redirect('images/fool.png')
   get 'parasols', to: redirect('images/parasols.png')
+  get 'peregrin', to: redirect('images/peregrin.png')
 
   post 'locale/set', to: 'locale#update'
 
