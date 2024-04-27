@@ -22,6 +22,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  limited        :boolean          default(FALSE)
+#  cost           :integer          default(1)
 #
 class Leve < ApplicationRecord
   include Collectable
