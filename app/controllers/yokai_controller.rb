@@ -6,10 +6,12 @@ class YokaiController < ApplicationController
   def index
     @minions = Achievement.where('name_en like ?', 'Watch Me If You Can%').order(:order)
     @weapons = Achievement.where('name_en like ?', 'Otherworldly%').order(:order)
-    @mounts = Mount.where(id: [87, 94, 228]).order(:order)
+
+    mount_achievement_ids = [1573, 1539, 2617]
+    @mounts = Achievement.where(id: mount_achievement_ids).includes(item: :unlock)
+      .sort_by { |achievement| mount_achievement_ids.index(achievement.id) }
 
     @achievement_ids = @character&.achievement_ids || []
-    @mount_ids = @character&.mount_ids || []
 
     @details = @weapons.each_with_index.map do |weapon, i|
       name = @minions[i].name_en.gsub(/Watch Me If You Can: /, '')
