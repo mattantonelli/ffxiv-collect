@@ -3,7 +3,7 @@ require 'csv'
 module XIVData
   extend self
 
-  BASE_URL = 'https://raw.githubusercontent.com/mattantonelli/xiv-data/master'.freeze
+  BASE_URL = Rails.root.join('vendor/xiv-data').freeze
   IMAGE_PATH = '/var/rails/images/ffxiv'.freeze
   MUSIC_PATH = '/var/rails/music/ffxiv'.freeze
 

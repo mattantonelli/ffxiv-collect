@@ -27,7 +27,10 @@
 /config/master.key
 
 # Capistrano
-config/deploy/*
+/config/deploy/*
+
+# Game data
+/vendor/xiv-data/*
 
 # Images
 /app/assets/images/mounts-small.png

@@ -1,0 +1,4 @@
+[submodule "xiv-data"]
+  path = vendor/xiv-data
+  url = https://github.com/mattantonelli/xiv-data
+  ignore = all

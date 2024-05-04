@@ -14,7 +14,7 @@ All of this application's data is made available through a RESTful JSON API. See
 ## Installation
 #### Clone and initialize the repository
 ```
-git clone https://github.com/mattantonelli/ffxiv-collect
+git clone --recurse-submodules https://github.com/mattantonelli/ffxiv-collect
 cd ffxiv-collect
 bundle install
 bundle exec rake app:update:bin
@@ -74,6 +74,7 @@ bundle exec sidekiq -C config/sidekiq_free_company.yml
 When new data becomes available on patch day, it can be loaded into the database by running the `data:update` rake task.
 
 ```
+git submodule update
 bundle exec rake data:update
 bundle exec rake assets:precompile
 # Restart the application
