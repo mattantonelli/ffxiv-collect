@@ -1,9 +1,9 @@
 namespace :ownership do
   desc 'Cache collectable ownership'
   task cache: :environment do
-    achievement_characters = Character.visible.recent.with_public_achievements
-    mount_minion_characters = Character.visible.recent
-    manual_collection_characters = Character.visible.recent.verified
+    achievement_characters = Character.visible.with_public_achievements
+    mount_minion_characters = Character.visible
+    manual_collection_characters = Character.visible.verified
 
     [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record, SurveyRecord, Frame, Card].each do |model|
       cache_ownership(model, manual_collection_characters)

@@ -435,7 +435,7 @@ de:
   tooltip: "Kurzinfo"
   tooltips:
     limited_leve: "Dies ist ein Tutorial-Freibrief. Er kann nur angenommen werden, wenn dein Charakter in dieser Region gestartet hat."
-    ownership: "Aktive Charakter in Besitz des %{collectable}"
+    ownership: "Öffentliche Charaktere in Besitz des %{collectable}"
     time_limited_achievement: "Dies ist eine zeitlich begrenzte Errungenschaft und beeinflusst die Ranglisten nicht."
   tradeable: "Handelbar"
   triad:

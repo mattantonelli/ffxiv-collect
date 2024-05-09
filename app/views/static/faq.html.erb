@@ -21,7 +21,7 @@
         <hr>
 
         <h5>How are your ownership percentages calculated?</h5>
-        <p>Ownership is calculated based on characters who have been updated on the site in the past 3 months and possess at least one collectable in a given category.</p>
+        <p>Ownership is calculated based on public characters who possess at least one collectable in a given category.</p>
         <p>These percentages are not a reflection of the entire playerbase, but rather a subset of players who are interested in collecting things. If you are looking to collect competitively, then this is probably the data you want.</p>
         <p>If you are looking for statistics for the entire playerbase, try <%= link_to 'Lucky Bancho', 'https://luckybancho.ldblog.jp/wsurvey.htm?world=Global', target: '_blank' %>.</p>
         <hr>
@@ -43,10 +43,6 @@
           <dd><%= number_with_delimiter(@characters) %></dd>
           <dt>Characters with Public Achievements</dt>
           <dd><%= number_with_delimiter(@achievement_characters) %></dd>
-          <dt>Active Characters</dt>
-          <dd><%= number_with_delimiter(@active_characters) %></dd>
-          <dt>Active Characters with Public Achievements</dt>
-          <dd><%= number_with_delimiter(@active_achievement_characters) %></dd>
         </dl>
       </div>
     </div>
