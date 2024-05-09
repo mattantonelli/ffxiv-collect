@@ -2,14 +2,14 @@ json.(character, :id, :name, :server, :data_center, :portrait, :avatar, :last_pa
 json.verified character.verified?
 
 json.achievements do
-  json.count character.achievements_count == -1 ? 0 : character.achievements_count
+  json.count character.public_achievements? ? character.achievements_count : 0
   json.total Achievement.count
-  json.points character.achievement_points
+  json.points character.public_achievements? ? character.achievement_points : 0
   json.points_total Achievement.sum(:points)
-  json.ranked_points character.ranked_achievement_points
+  json.ranked_points character.public_achievements? ? character.ranked_achievement_points : 0
   json.ranked_points_total Achievement.exclude_time_limited.sum(:points)
-  json.ranked_time character.last_ranked_achievement_time
-  json.public character.achievements_count != -1
+  json.ranked_time character.public_achievements? ? character.last_ranked_achievement_time : nil
+  json.public character.public_achievements?
   json.ids character.achievement_ids if params[:ids].present?
   json.obtained @times if @times.present?
 end

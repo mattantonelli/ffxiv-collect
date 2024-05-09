@@ -59,9 +59,7 @@
             <div class="d-flex flex-wrap">
               <div class="profile-progress">
                 <h6 class="mb-0"><%= collection_name('achievements', score: @scores['achievements']) %></h6>
-                <% if @profile.achievements_count == -1 %>
-                  <span class="mt-2"><%= t('characters.set_to_private') %></span>
-                <% else %>
+                <% if @profile.public_achievements? %>
                   <div class="d-flex flex-column">
                     <%= render 'rankings', category: :achievements %>
                     <%= render 'shared/progress', value: @scores['achievements'][:value],
@@ -69,6 +67,8 @@
                     <%= render 'shared/progress', value: @scores['achievements'][:points],
                       min: 0, max: @scores['achievements'][:points_max], text: 'achievements.points' %>
                   </div>
+                <% else %>
+                  <span class="mt-2"><%= t('characters.set_to_private') %></span>
                 <% end %>
               </div>
               <div class="profile-progress d-none d-sm-block">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_27_200103) do
+ActiveRecord::Schema.define(version: 2024_05_09_230614) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -391,6 +391,7 @@ ActiveRecord::Schema.define(version: 2024_04_27_200103) do
     t.integer "cards_count", default: 0
     t.integer "npcs_count", default: 0
     t.integer "leves_count", default: 0
+    t.boolean "public_achievements", default: false
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"

@@ -13,7 +13,7 @@ module Lodestone
     character[:minions] = minions(character_id)
 
     # Do not fetch achievements if they are set to private
-    character[:achievements] = character[:achievements_count] == -1 ? [] : achievements(character_id)
+    character[:achievements] = character[:public_achievements] ? achievements(character_id) : []
 
     character
   end
@@ -95,7 +95,7 @@ module Lodestone
     }
 
     # If the character's achievements are private, the link will be missing from the nav
-    character[:achievements_count] = -1 unless doc.css('.ldst-nav').text.match?('Achievements')
+    character[:public_achievements] = doc.css('.ldst-nav').text.match?('Achievements')
 
     # If the character has a free company, create/update it and add it to the profile
     free_company = doc.at_css('.entry__freecompany')

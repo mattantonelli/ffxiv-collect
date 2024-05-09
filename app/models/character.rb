@@ -55,7 +55,7 @@ class Character < ApplicationRecord
   scope :recent,   -> { where('characters.updated_at > ?', Date.current - 3.months) }
   scope :verified, -> { where.not(verified_user: nil) }
   scope :visible,  -> { where(public: true, banned: false) }
-  scope :with_public_achievements, -> { where('achievements_count > 0') }
+  scope :with_public_achievements, -> { where(public_achievements: true) }
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records
   survey_records frames leves cards npcs).each do |model|
@@ -225,7 +225,10 @@ class Character < ApplicationRecord
 
   def self.fetch(id)
     data = Lodestone.character(id)
-    data[:achievements_count] = -1 if data[:achievements].empty?
+
+    # Remove character from rankings when achievements have been set to private
+    data[:ranked_achievement_points] = -1 unless data[:public_achievments]
+
     profile_data = data.except(:achievements, :mounts, :minions)
 
     if character = Character.find_by(id: data[:id])
@@ -322,13 +325,20 @@ class Character < ApplicationRecord
     # Achievements
     character_achievements = CharacterAchievement.where(character_id: character.id)
 
-    unless data[:achievements].empty?
+    # Don't update achievements if the character has not earned any new ones
+    if data[:achievements].present?
       current_ids = character_achievements.pluck(:achievement_id)
       achievements = data[:achievements].reject { |achievement| current_ids.include?(achievement[:id]) }
 
       Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
       character.update(achievement_points: character.achievements.sum(:points))
+    end
 
+    is_now_public = character.public_achievements && character.ranked_achievement_points == -1
+
+    # Don't update rankings if the character has not earned any new achievements,
+    # unless the character has toggled their Lodestone privacy settings.
+    if data[:achievements].present? || is_now_public
       ranked_time = CharacterAchievement.where(character_id: character.id)
         .joins(:achievement).merge(Achievement.exclude_time_limited)
         .order(:created_at).last.created_at

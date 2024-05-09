@@ -73,8 +73,9 @@ module Collection
   def check_achievements!
     return unless @character.present?
 
-    if @character.achievements_count == -1
-      link = view_context.link_to(t('alerts.here'), 'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
+    unless @character.public_achievements?
+      link = view_context.link_to(t('alerts.here'),
+                                  'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
                                   target: '_blank')
       flash.now[:alert] = t('alerts.private_achievements', link: link)
     end
