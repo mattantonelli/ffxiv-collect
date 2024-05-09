@@ -21,6 +21,10 @@ namespace :deploy do
       execute :ln, '-s', shared_path.join("log/#{fetch(:rails_env)}.log"), release_path.join("log/#{fetch(:rails_env)}.log")
       execute :ln, '-s', shared_path.join('log/whenever.log'), release_path.join('log/whenever.log')
 
+      # Game data
+      execute :rmdir, release_path.join('vendor/xiv-data')
+      execute :ln, '-s', '/var/rails/xiv-data', release_path.join('vendor/xiv-data')
+
       # Individual collectable images
       %w(mounts minions).each do |model|
         %w(footprint large small).each do |type|
