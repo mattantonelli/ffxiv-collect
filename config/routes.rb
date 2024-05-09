@@ -24,7 +24,8 @@ Rails.application.routes.draw do
 
   post 'shared/filter', to: 'shared#filter'
 
-  resources :latest, only: [:index]
+  resources :search, only: [:index]
+  get 'latest', to: redirect('search')
 
   resources :mounts, only: [:index, :show]
 

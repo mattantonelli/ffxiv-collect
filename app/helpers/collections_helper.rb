@@ -335,7 +335,7 @@ module CollectionsHelper
         end
       when 'groups', 'free_companies'
         %i(premium limited ranked_pvp unknown)
-      when 'latest'
+      when 'search'
         %i(owned tradeable gender premium limited unknown)
       when 'tomestones'
         %i(owned)

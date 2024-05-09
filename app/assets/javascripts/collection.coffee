@@ -155,12 +155,12 @@ $(document).on 'turbolinks:load', ->
 
     collectable.data('path', path)
 
-  # Categories
+  # Category Buttons
 
-  buttons = $('.category-buttons button')
-  buttons.click ->
+  categories = $('.category-buttons button')
+  categories.click ->
     category = $(@).attr('id').match(/\d+$/)[0]
-    buttons.removeClass('active')
+    categories.removeClass('active')
     $(@).addClass('active')
     history.replaceState(history.state, '', "?category=#{category}")
 
@@ -172,6 +172,25 @@ $(document).on 'turbolinks:load', ->
       $(".collectable.category-#{category}").removeClass('hidden')
       $('.all-hide').removeClass('hidden')
 
+    restripe()
+
+  # Type Buttons
+
+  types = $('.type-buttons button:not("#reset")')
+  types.click ->
+    $(@).toggleClass('active')
+    type = $(@).data('value')
+    $(".collectable[data-type='#{type}']").toggleClass('hidden')
+
+    restripe()
+    hidden_types = $('.type-buttons button:not(".active")').map ->
+      $(@).data('value')
+    Cookies.set('hidden_types', hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
+
+  $('.type-buttons button#reset').click ->
+    $('.type-buttons button').addClass('active')
+    $('.collectable').removeClass('hidden')
+    Cookies.remove('hidden_types')
     restripe()
 
   # Filters

@@ -469,9 +469,15 @@ pre {
   }
 }
 
-.category-buttons {
-  button:not(:last-child) {
+.category-buttons, .type-buttons {
+  button {
+    box-shadow: none !important;
+    margin-bottom: 0.25rem;
     margin-right: 0.5rem;
+
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
   }
 }
 
