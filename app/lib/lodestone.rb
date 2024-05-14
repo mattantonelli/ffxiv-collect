@@ -25,7 +25,7 @@ module Lodestone
     {
       id: free_company_id,
       name: doc.at_css('.freecompany__text__name').text,
-      tag: doc.at_css('p.freecompany__text__tag').text[/\w+/]
+      tag: doc.at_css('p.freecompany__text__tag').text[/[\w\s]+/]
     }
   end
 
