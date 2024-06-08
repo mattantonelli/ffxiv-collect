@@ -11,18 +11,21 @@
 #  description_de :text(65535)
 #  description_fr :text(65535)
 #  description_ja :text(65535)
-#  solution       :string(1000)
+#  solution_en    :string(1000)
 #  patch          :string(255)
 #  series_id      :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  order          :integer
+#  solution_de    :string(1000)
+#  solution_fr    :string(1000)
+#  solution_ja    :string(1000)
 #
 class SurveyRecord < ApplicationRecord
   include Collectable
 
   belongs_to :series, class_name: 'SurveyRecordSeries', required: false
-  translates :name, :description
+  translates :name, :description, :solution
 
   alias_attribute :category, :series
   alias_attribute :category_id, :series_id

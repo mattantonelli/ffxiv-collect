@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_04_170350) do
+ActiveRecord::Schema.define(version: 2024_06_08_201212) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -1115,12 +1115,15 @@ ActiveRecord::Schema.define(version: 2024_06_04_170350) do
     t.text "description_de"
     t.text "description_fr"
     t.text "description_ja"
-    t.string "solution", limit: 1000
+    t.string "solution_en", limit: 1000
     t.string "patch"
     t.integer "series_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "order"
+    t.string "solution_de", limit: 1000
+    t.string "solution_fr", limit: 1000
+    t.string "solution_ja", limit: 1000
     t.index ["order"], name: "index_survey_records_on_order"
     t.index ["series_id"], name: "index_survey_records_on_series_id"
   end

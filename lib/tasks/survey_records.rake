@@ -67,7 +67,7 @@ namespace :survey_records do
 
       CSV.foreach(file) do |row|
         id, solution = row
-        SurveyRecord.find_by(id: id).update!(solution: solution)
+        SurveyRecord.find_by(id: id).update!(solution_en: solution)
       end
     end
   end

@@ -38,11 +38,12 @@
               </div>
             </div>
           <% end %>
-          <% if @collectable.has_attribute?(:solution) %>
+          <% if @collectable.has_attribute?(:solution_en) %>
             <div class="row">
               <div class="col-12 form-group">
-                <%= f.label :solution %>
-                <%= f.text_field :solution, class: 'form-control' %>
+                <%= f.label "solution_#{I18n.locale}" %>
+                <%= f.text_field "solution_#{I18n.locale}", placeholder: @collectable.solution_en,
+                  class: 'form-control' %>
               </div>
             </div>
           <% end %>
