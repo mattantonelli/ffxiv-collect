@@ -1,12 +1,6 @@
 module ModHelper
   def change_diff(change)
-    if change.event == 'create'
-      changes = JSON.parse(change.object_changes)
-      change.item_type == 'Source' ? changes['text_en'].last : changes['name_en'].last
-    elsif change.event == 'destroy'
-      object = JSON.parse(change.object)
-      change.item_type == 'Source' ? object['text_en'] : object['name_en']
-    elsif change.event == 'update'
+    if change.event == 'update'
       list = JSON.parse(change.object_changes).map do |column, diff|
         if column
           "#{column}: #{diff.first} → #{diff.last}"
@@ -14,6 +8,15 @@ module ModHelper
       end
 
       list.join('<br>').html_safe
+    else
+      list = JSON.parse(change.object_changes)
+
+      list.each do |k, v|
+        # Find a populated name/text field from the object to display in the log
+        if k.match?(/name|text/) && v.any?
+          return v[change.event == 'destroy' ? 0 : 1]
+        end
+      end
     end
   end
 
