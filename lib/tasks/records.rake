@@ -79,7 +79,7 @@ namespace :records do
           source_type = bozja
         end
 
-        Record.find_by(id: id).sources.find_or_create_by!(type: source_type, text: source)
+        Record.find_by(id: id).sources.find_or_create_by!(type: source_type, text_en: source)
       end
     end
   end

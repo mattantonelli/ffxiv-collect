@@ -9,12 +9,14 @@ namespace 'sources:quests' do
     quest_type = SourceType.find_by(name_en: 'Quest')
 
     Item.includes(:quest).where.not(unlock_id: nil).where.not(quest_id: nil).each do |item|
+      next if item.unlock.sources.any?
+
       source_type = item.quest.event? ? event_type : quest_type
 
-      if item.unlock.sources.none?
-        item.unlock.sources.find_or_create_by!(text: item.quest.name_en, type: source_type,
-                                               related_id: item.quest_id, limited: item.quest.event?)
-      end
+      item.unlock.sources.find_or_create_by!(text_en: item.quest.name_en, text_de: item.quest.name_de,
+                                             text_fr: item.quest.name_fr, text_ja: item.quest.name_ja,
+                                             type: source_type, limited: item.quest.event?,
+                                             related_type: 'Quest', related_id: item.quest_id)
     end
   end
 end

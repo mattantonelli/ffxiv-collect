@@ -82,8 +82,12 @@ namespace :triad do
     def create_card_sources(pack)
       gold_saucer_type = SourceType.find_by(name_en: 'Gold Saucer').freeze
 
+      texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+        h["text_#{locale}"] = pack["name_#{locale}"]
+      end
+
       pack.cards.each do |card|
-        card.sources.find_or_create_by!(text: pack.name_en, type: gold_saucer_type)
+        card.sources.find_or_create_by!(**texts, type: gold_saucer_type)
       end
     end
   end

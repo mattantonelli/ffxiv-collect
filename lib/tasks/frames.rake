@@ -91,14 +91,27 @@ namespace :frames do
         created = Frame.create!(data)
 
         if frame['name_en'].match?(/Conflict \d+/)
-          created.sources.create!(type: PVP_TYPE, text: 'Crystalline Conflict Season Reward', limited: true)
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = I18n.t('sources.crystalline_conflict', locale: locale)
+          end
+
+          created.sources.create!(**texts, type: PVP_TYPE, limited: true)
         elsif frame[:unlock_type] == 'Quest'
-          created.sources.create!(type: QUEST_TYPE, text: Quest.find(frame[:unlock_id]).name_en,
-                                  related_type: 'Quest', related_id: frame[:unlock_id])
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = Quest.find(frame[:unlock_id])["name_#{locale}"]
+          end
+
+          created.sources.create!(**texts, type: QUEST_TYPE, related_type: 'Quest',
+                                  related_id: frame[:unlock_id])
         elsif frame[:unlock_type] == 'Instance'
           instance = Instance.find(frame[:unlock_id])
           instance_type = instance.content_type
-          created.sources.create!(type: SourceType.find_by(name_en: instance_type), text: instance.name_en,
+
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = instance["name_#{locale}"]
+          end
+
+          created.sources.create!(**texts, type: SourceType.find_by(name_en: instance_type),
                                   related_type: instance_type, related_id: frame[:unlock_id])
         end
       end

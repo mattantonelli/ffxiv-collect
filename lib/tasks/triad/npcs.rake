@@ -118,10 +118,18 @@ namespace :triad do
 
         # Create the NPC rewards along with a Source for the Card
         npc_type = SourceType.find_by(name_en: 'NPC')
+
+        texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+          h["text_#{locale}"] = npc["name_#{locale}"]
+        end
+
         rewards.each do |card_id|
           NPCReward.find_or_create_by!(npc_id: npc.id, card_id: card_id)
-          Source.find_or_create_by!(collectable_id: card_id, collectable_type: 'Card', type: npc_type,
-                                    text: npc['name_en'], related_id: npc.id, related_type: 'NPC')
+
+          next if Source.exists?(collectable_id: card_id, collectable_type: 'Card', type: npc_type)
+
+          Source.find_or_create_by!(**texts, collectable_id: card_id, collectable_type: 'Card',
+                                    type: npc_type, related_id: npc.id, related_type: 'NPC')
         end
 
         difficulty = weighted_average(npc.fixed_cards, npc.fixed_cards.length) +

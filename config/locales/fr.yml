@@ -394,6 +394,14 @@ fr:
     user: "Paramètres utilisateur"
   show_all: "Afficher tout"
   source: "Emplacement"
+  sources:
+    crafted: "Recette de %{job}"
+    crystalline_conflict: "Récompense de saison de Crystalline Conflict"
+    gil: "%{amount} gils"
+    online_store: "Boutique"
+    pvp: "Série %{series} du JcJ - Jalon %{level}"
+    seals: "%{amount} sceaux de compagnie"
+    unreported: "Non identifié / %{location}"
   spells:
     aspect: "Élément"
     battle: "Combats"

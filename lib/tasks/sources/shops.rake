@@ -19,8 +19,13 @@ namespace 'sources:shops' do
 
     Item.where.not(unlock_id: nil).where.not(price: 0).where(id: item_ids).each do |item|
       unlock = item.unlock
-      text = "#{number_with_delimiter(item.price)} Gil"
-      create_shop_source(unlock, purchase_type, text)
+      amount = number_with_delimiter(item.price)
+
+      texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+        h["text_#{locale}"] = I18n.t('sources.gil', amount: amount, locale: locale)
+      end
+
+      create_shop_source(unlock, purchase_type, texts)
     end
 
     puts 'Creating SpecialShop sources'
@@ -54,11 +59,15 @@ namespace 'sources:shops' do
 
           unlock = Item.find(item_id).unlock
           currency = Item.find(shop["Item{Cost}[#{i}][#{j}]"])
-          text = "#{number_with_delimiter(price)} #{price == '1' ? currency.name_en : currency.plural_en}"
+
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = "#{number_with_delimiter(price)} " \
+              "#{price == '1' ? currency["name_#{locale}"] : currency["plural_#{locale}"]}"
+          end
 
           # Do not create shop sources for Moogle Treasure Trove rewards
-          unless text.match?('Irregular Tomestones')
-            create_shop_source(unlock, type, text)
+          unless texts['text_en'].match?('Irregular Tomestones')
+            create_shop_source(unlock, type, texts)
           end
         end
       end
@@ -69,9 +78,13 @@ namespace 'sources:shops' do
       next unless item_ids.include?(entry['Item'])
 
       unlock = Item.find(entry['Item']).unlock
-      price = entry['Cost{GCSeals}']
-      text = "#{number_with_delimiter(price)} Company Seals"
-      create_shop_source(unlock, purchase_type, text)
+      amount = number_with_delimiter(entry['Cost{GCSeals}'])
+
+      texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+        h["text_#{locale}"] = I18n.t('sources.seals', amount: amount, locale: locale)
+      end
+
+      create_shop_source(unlock, purchase_type, texts)
     end
   end
 end
@@ -79,8 +92,8 @@ end
 private
 # Create shop sources for collectables with no known sources.
 # In the event of Orchestrion rolls, set the details.
-def create_shop_source(unlock, type, text)
+def create_shop_source(unlock, type, texts)
   unless unlock.sources.any?
-    unlock.sources.create!(type: type, text: text)
+    unlock.sources.create!(**texts, type: type)
   end
 end

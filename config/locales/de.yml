@@ -393,6 +393,14 @@ de:
     user: "Benutzereinstellungen"
   show_all: "Zeige alle"
   source: "Quelle"
+  sources:
+    crafted: "%{job}-Rezept"
+    crystalline_conflict: "Crystalline Conflict Saison Belohnung"
+    gil: "%{amount} Gil"
+    online_store: "Online Store"
+    pvp: "PvP Serie %{series} - Level %{level}"
+    seals: "%{amount} Staatstaler"
+    unreported: "Noch nicht bekannt / %{location}"
   spells:
     aspect: "Element"
     battle: "Kampferfolge"

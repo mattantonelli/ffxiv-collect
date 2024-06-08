@@ -10,8 +10,13 @@ namespace 'sources:crafting' do
       # Don't create a Crafting source for a collectable if one already exists.
       # This allows us to modify the text without worrying about this task making a duplicate source.
       unless Source.exists?(collectable_id: item.unlock_id, collectable_type: item.unlock_type, type: crafting_type)
-        Source.find_or_create_by!(collectable_id: item.unlock_id, collectable_type: item.unlock_type,
-                                  text: "Crafted by #{item.crafter}", type: crafting_type, related_id: item.recipe_id)
+        texts = %w(en de fr).each_with_object({}) do |locale, h|
+          job = I18n.t("leves.categories.#{item.crafter.downcase}", locale: locale)
+          h["text_#{locale}"] = I18n.t("sources.crafted", job: job, locale: locale)
+        end
+
+        Source.create!(**texts, collectable_id: item.unlock_id, collectable_type: item.unlock_type,
+                       type: crafting_type, related_id: item.recipe_id)
       end
     end
   end

@@ -21,7 +21,7 @@ namespace :sources do
       file = Rails.root.join('vendor/sources', "#{type}.csv")
       model = type.classify.constantize
       CSV.foreach(file) do |row|
-        data = { type_id: sources[row[1]], text: row[2] }
+        data = { type_id: sources[row[1]], text_en: row[2] }
 
         if row[1] == 'Achievement'
           data.merge!(related_type: 'Achievement', related_id: Achievement.find_by(name_en: row[2]).id)

@@ -1,0 +1,10 @@
+ja:
+  # Fall back to the English translation when creating translated sources
+  sources:
+    crafted: "Crafted by %{job}"
+    crystalline_conflict: "Crystalline Conflict Season Reward"
+    gil: "%{amount} Gil"
+    online_store: "Online Store"
+    pvp: "PvP Series %{series} - Level %{level}"
+    seals: "%{amount} Company Seals"
+    unreported: "Unreported / %{location}"

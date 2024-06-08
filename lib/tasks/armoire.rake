@@ -61,10 +61,18 @@ namespace :armoires do
 
         # Automatically create Achievement sources for new Armoire items
         if achievement = Achievement.find_by(item_id: armoire['Item'])
-          created.sources.create!(type: ACHIEVEMENT_TYPE, text: achievement.name_en,
-                                  related_type: 'Achievement', related_id: achievement.id)
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = achievement["name_#{locale}"]
+          end
+
+          created.sources.create!(**texts, type: ACHIEVEMENT_TYPE, related_type: 'Achievement',
+                                  related_id: achievement.id)
         elsif PREMIUM_CATEGORIES.include?(armoire['Category'].to_i)
-          created.sources.create!(type: PREMIUM_TYPE, text: 'Online Store', premium: true)
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = I18n.t('sources.online_store', locale: locale)
+          end
+
+          created.sources.create!(**texts, type: PREMIUM_TYPE, premium: true)
         end
       end
     end

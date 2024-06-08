@@ -38,7 +38,7 @@ namespace :spells do
 
         data[:order] ||= spell['Number']
         data[:icon] ||= spell['Icon']
-        data[:location] ||= sanitize_name(spell['Location']) if spell['Location'].present?
+        data["location_#{locale}"] ||= sanitize_name(spell['Location']) if spell['Location'].present?
         data["tooltip_#{locale}"] = sanitize_text(spell['Description'])
 
         type, aspect, rank = spell['Stats'].scan(SPELL_STATS_REGEX).map(&:strip)
@@ -54,17 +54,24 @@ namespace :spells do
     spells.values.each do |spell|
       aspect = SpellAspect.find_or_create_by!(spell.delete(:aspects))
       spell[:aspect_id] = aspect.id.to_s
-      location = spell.delete(:location)
+      data = spell.except('location_en', 'location_de', 'location_fr', 'location_ja', :icon)
 
-      create_image(spell[:id], spell.delete(:icon), 'spells', nil, nil, 42, 42)
+      create_image(spell[:id], spell[:icon], 'spells', nil, nil, 42, 42)
 
       if existing = Spell.find_by(id: spell[:id])
-        existing.update!(spell) if updated?(existing, spell)
+        existing.update!(data) if updated?(existing, data)
       else
-        spell = Spell.create!(spell)
+        spell = Spell.create!(data)
 
         # Create a stub source based on the location provided by the spellbook for new spells
-        spell.sources.create!(type_id: other_type, text: "Unreported / #{location}") if location.present?
+        next unless spell['location_en'].present?
+
+        texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+          location = spell["location_#{locale}"]
+          h["text_#{locale}"] = I18n.t('sources.unreported', location: location, locale: locale)
+        end
+
+        spell.sources.create!(**texts, type_id: other_type)
       end
     end
 

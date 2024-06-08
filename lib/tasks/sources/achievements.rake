@@ -10,8 +10,16 @@ namespace 'sources:achievements' do
       .where('items.unlock_type is not null')
 
     achievements.each do |achievement|
-      Source.find_or_create_by!(collectable_id: achievement.item.unlock_id, collectable_type: achievement.item.unlock_type,
-                                text: achievement.name_en, type: achievement_type, related_id: achievement.id)
+      collectable_id = achievement.item.unlock_id
+      collectable_type = achievement.item.unlock_type
+
+      next if Source.exists?(collectable_id: collectable_id, collectable_type: collectable_type,
+                             type: achievement_type)
+
+      Source.create!(collectable_id: collectable_id, collectable_type: collectable_type,
+                     type: achievement_type, related_id: achievement.id,
+                     text_en: achievement.name_en, text_de: achievement.name_de,
+                     text_fr: achievement.name_fr, text_ja: achievement.name_ja)
     end
   end
 end
