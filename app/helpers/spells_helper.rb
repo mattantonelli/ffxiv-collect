@@ -5,7 +5,7 @@ module SpellsHelper
 
   def spell_sources(spell, limit: 3)
     count = spell.sources.size
-    sources = spell.sources.first(limit).pluck(:text).map do |source|
+    sources = spell.sources.first(limit).pluck("text_#{I18n.locale}").map do |source|
       if source.match?(' / ')
         source.split(' / ')
       else

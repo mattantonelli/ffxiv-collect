@@ -18,8 +18,8 @@
                           class: 'form form-inline search-form d-flex') do |f| %>
         <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
           value: @search["name_#{I18n.locale}_cont"], class: 'form-control form-control-sm flex-grow-1' %>
-        <%= f.search_field "sources_text_cont", placeholder: t('source'), size: 40,
-          value: @search['sources_text_cont'], class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.search_field "sources_text_#{I18n.locale}_cont", placeholder: t('source'), size: 40,
+          value: @search["sources_text_#{I18n.locale}_cont"], class: 'form-control form-control-sm flex-grow-1' %>
         <%= f.collection_select :sources_type_id_eq, @source_types, :id, :name,
           { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
         <%= f.select :patch_eq,

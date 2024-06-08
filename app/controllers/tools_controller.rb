@@ -12,7 +12,7 @@ class ToolsController < ApplicationController
       # Collect the costs in gemstones
       @collectables.each do |type, collectables|
         collectables.each do |collectable|
-          source = collectable.sources.first.text
+          source = collectable.sources.first.text_en
           cost = source.match(/(\d+) bicolor/i)&.[](1)&.to_i || 0
 
           # Vouchers are the equivalent of 100 gemstones
@@ -74,7 +74,7 @@ class ToolsController < ApplicationController
   def find_collectables_by_source!(sources)
     text = [*sources].join('|')
 
-    @collectables = Source.where('text regexp ?', text)
+    @collectables = Source.where('text_en regexp ?', text)
       .each_with_object(Hash.new { |h, k| h[k] = [] }) do |source, h|
         h[source.collectable_type.underscore.pluralize.to_sym] << source.collectable_id
       end

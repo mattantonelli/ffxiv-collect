@@ -5,7 +5,7 @@
 #  id               :bigint(8)        not null, primary key
 #  collectable_id   :integer          not null
 #  collectable_type :string(255)      not null
-#  text             :string(255)
+#  text_en          :string(255)
 #  type_id          :integer          not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -13,6 +13,9 @@
 #  related_type     :string(255)
 #  premium          :boolean          default(FALSE)
 #  limited          :boolean          default(FALSE)
+#  text_de          :string(255)
+#  text_fr          :string(255)
+#  text_ja          :string(255)
 #
 
 class Source < ApplicationRecord
@@ -23,6 +26,8 @@ class Source < ApplicationRecord
   before_save :assign_relations!
 
   has_paper_trail meta: { collectable_type: :collectable_type, collectable_id: :collectable_id }
+
+  translates :text
 
   scope :exclude_premium, -> { where(premium: false) }
   scope :exclude_limited, -> { where(limited: false) }

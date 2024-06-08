@@ -13,7 +13,7 @@ module Collectable
     end
 
     scope :hide_ranked_pvp, -> (hide) do
-      where('sources.text not like "%Season %" or sources.id IS NULL') if hide && available_filters.include?(:ranked_pvp)
+      where('sources.text_en not like "%Season %" or sources.id IS NULL') if hide && available_filters.include?(:ranked_pvp)
     end
 
     scope :hide_unknown, -> (hide) do

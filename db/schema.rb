@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_09_230614) do
+ActiveRecord::Schema.define(version: 2024_06_04_170350) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -1024,7 +1024,7 @@ ActiveRecord::Schema.define(version: 2024_05_09_230614) do
   create_table "sources", charset: "utf8", force: :cascade do |t|
     t.integer "collectable_id", null: false
     t.string "collectable_type", null: false
-    t.string "text"
+    t.string "text_en"
     t.integer "type_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -1032,6 +1032,9 @@ ActiveRecord::Schema.define(version: 2024_05_09_230614) do
     t.string "related_type"
     t.boolean "premium", default: false
     t.boolean "limited", default: false
+    t.string "text_de"
+    t.string "text_fr"
+    t.string "text_ja"
     t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
     t.index ["limited"], name: "index_sources_on_limited"
     t.index ["premium"], name: "index_sources_on_premium"

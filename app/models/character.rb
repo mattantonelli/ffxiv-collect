@@ -40,6 +40,7 @@
 #  cards_count                  :integer          default(0)
 #  npcs_count                   :integer          default(0)
 #  leves_count                  :integer          default(0)
+#  public_achievements          :boolean          default(FALSE)
 #
 
 class Character < ApplicationRecord
