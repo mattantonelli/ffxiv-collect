@@ -11,8 +11,12 @@
         <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 30,
           class: 'form-control form-control-sm' %>
         <div class="form-group form-check">
-          <%= check_box_tag :missing, 1, @missing %>
-          <%= label_tag :missing, 'Only Missing' %>
+          <%= check_box_tag :missing_source, 1, @missing_source %>
+          <%= label_tag :missing_source, 'Missing Source' %>
+        </div>
+        <div class="form-group form-check">
+          <%= check_box_tag :missing_translation, 1, @missing_translation %>
+          <%= label_tag :missing_translation, 'Missing Translation' %>
         </div>
         <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
       <% end %>

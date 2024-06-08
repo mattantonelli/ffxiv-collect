@@ -6,15 +6,26 @@ class Mod::CollectablesController < ModController
 
   def index
     @q = @model.all.ransack(params[:q])
-    @missing = params[:missing]
+    @missing_source = params[:missing_source]
+    @missing_translation = params[:missing_translation]
 
     @collectables = @q.result.ordered.paginate(page: params[:page])
     @collectables = @collectables.summonable if @model == Minion
     @collectables = @collectables.includes(sources: [:type, :related]) unless @skip_sources
-    @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id").having('count(sources.id) = 0') if @missing
+
+    if @missing_source
+      @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id")
+        .having('count(sources.id) = 0')
+    end
+
+    if @missing_translation
+      @collectables = @collectables.joins(:sources).group("#{controller_name}.id")
+        .where("sources.text_#{I18n.locale}" => nil)
+    end
   end
 
   def edit
+    @title = "Edit #{@model.to_s.titleize}#{ " (#{I18n.locale.to_s.upcase})" unless I18n.locale == :en}"
     build_sources
   end
 
@@ -60,7 +71,9 @@ class Mod::CollectablesController < ModController
   end
 
   def collectable_params
-    params.require(@model.name.underscore).permit(:name_en, :patch, :gender, :solution, sources_attributes:
-                                                  [:id, :type_id, :collectable_id, :collectable_type, :text, :limited, :premium])
+    params.require(@model.name.underscore)
+      .permit(:name_en, :name_de, :name_fr, :name_ja, :patch, :gender, :solution,
+              sources_attributes: [:id, :type_id, :collectable_id, :collectable_type, :limited, :premium,
+                                   :text_en, :text_de, :text_fr, :text_ja])
   end
 end

@@ -38,23 +38,40 @@ class Source < ApplicationRecord
 
   private
   def assign_relations!
+    locale = nil
+
+    %w(en de fr ja).each do |i18n|
+      break locale = i18n if send("text_#{i18n}_changed?")
+    end
+
+    return unless locale.present?
+
+    text = send("text_#{locale}")
     type = SourceType.find(type_id)
 
-    case type.name
+    case type.name_en
     when /(Achievement|Quest)/
-      relation = type.name.constantize.find_by(name_en: text)
-      self.related_id = relation&.id
-      self.related_type = type.name
+      if relation = type.name_en.constantize.find_by("name_#{locale}" => text)
+        set_text_for_relation!(relation)
+        self.related_id = relation.id
+        self.related_type = type.name_en
+      else
+        remove_relation!
+      end
     when /(Dungeon|V&C Dungeon|Trial|Raid|Treasure Hunt)/
-      if relation = Instance.find_by(name_en: text)
+      if relation = Instance.find_by("name_#{locale}" => text)
+        set_text_for_relation!(relation)
         self.related_id = relation.id
         self.related_type = 'Instance'
+      else
+        remove_relation!
       end
     when 'Event'
       self.limited = true
 
-      if quest = Quest.find_by(name_en: text)
-        self.related_id = quest.id
+      if relation = Quest.find_by("name_#{locale}" => text)
+        set_text_for_relation!(relation)
+        self.related_id = relation.id
         self.related_type = 'Quest'
       else
         remove_relation!
@@ -72,5 +89,11 @@ class Source < ApplicationRecord
   def remove_relation!
     self.related_id = nil
     self.related_type = nil
+  end
+
+  def set_text_for_relation!(relation)
+    %w(en de fr ja).each do |locale|
+      self["text_#{locale}"] = relation["name_#{locale}"]
+    end
   end
 end

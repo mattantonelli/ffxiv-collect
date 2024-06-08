@@ -1,18 +1,19 @@
-<% title("Edit #{@model.to_s.titleize}") %>
+<% title(@title) %>
 
 <div class="row">
   <div class="col-12 col-lg-10 col-xl-8 mx-auto">
     <div class="card shadow">
       <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
-        <h5 class="card-title">Edit <%= @model.to_s %></h5>
-        <%= link_to fa_icon('chevron-left', text: 'Back'), polymorphic_url([:mod, @model]), class: 'btn btn-secondary btn-sm' %>
+        <h5 class="card-title"><%= @title %></h5>
+        <%= link_to fa_icon('chevron-left', text: 'Back'), polymorphic_url([:mod, @model]),
+          class: 'btn btn-secondary btn-sm' %>
       </div>
       <div class="card-body py-3">
         <%= form_for(@collectable, url: polymorphic_url([:mod, @collectable]), html: { class: 'form' }) do |f| %>
           <div class="row">
             <div class="col-8 form-group">
-              <%= f.label :name_en, 'Name' %>
-              <%= f.text_field :name_en, class: 'form-control' %>
+              <%= f.label "name_#{I18n.locale}", 'Name' %>
+              <%= f.text_field "name_#{I18n.locale}", class: 'form-control' %>
             </div>
             <div class="col-4 form-group">
               <%= f.label :patch %>
@@ -23,8 +24,7 @@
             <div class="row">
               <div class="col-12">
                 <hr>
-                <%= @collectable.description_en %><br>
-                <%= @collectable.details %>
+                <%= @collectable.description %>
                 <hr>
               </div>
             </div>
@@ -33,7 +33,8 @@
             <div class="row">
               <div class="col-4 form-group pr-0">
                 <%= f.label :gender %>
-                <%= f.select :gender, gender_options(@collectable.gender), { include_blank: 'Any' }, { class: 'form-control' } %>
+                <%= f.select :gender, gender_options(@collectable.gender),
+                  { include_blank: 'Any' },{ class: 'form-control' } %>
               </div>
             </div>
           <% end %>
@@ -58,10 +59,11 @@
                     <%= sf.collection_select :type_id, @types, :id, :name,
                       { include_blank: 'Select type' }, class: 'form-control' %>
                   </div>
-                  <div class="col-5 pr-4">
-                    <%= sf.text_field :text, class: 'form-control mr-2' %>
+                  <div class="col pr-4">
+                    <%= sf.text_field "text_#{I18n.locale}", class: 'form-control mr-2',
+                      placeholder: sf.object.text_en  %>
                   </div>
-                  <div class="col-4 d-flex align-items-center">
+                  <div class="col-3 d-flex align-items-center">
                     <div class="d-flex flex-column">
                       <div class="d-flex align-items-center">
                         <%= sf.check_box :premium, class: 'form-check-input' %>
@@ -73,9 +75,12 @@
                       </div>
                     </div>
                     <% if sf.object.id.present? %>
-                      <%= link_to fa_icon('times', text: 'Delete', class: 'delete'), mod_source_path(sf.object.id),
-                        method: :delete, class: 'btn btn-sm btn-danger no-wrap ml-3',
-                        data: { confirm: 'Are you sure you want to delete this source?' } %>
+                      <div>
+                        <%= link_to fa_icon('times', text: 'Delete', class: 'delete'),
+                          mod_source_path(sf.object.id),
+                          method: :delete, class: 'btn btn-sm btn-danger no-wrap ml-3',
+                          data: { confirm: 'Are you sure you want to delete this source?' } %>
+                      </div>
                     <% end %>
                   </div>
                 </div>
