@@ -19,9 +19,9 @@ namespace 'sources:shops' do
 
     Item.where.not(unlock_id: nil).where.not(price: 0).where(id: item_ids).each do |item|
       unlock = item.unlock
-      amount = number_with_delimiter(item.price)
 
       texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+        amount = number_with_delimiter(item.price, locale: locale)
         h["text_#{locale}"] = I18n.t('sources.gil', amount: amount, locale: locale)
       end
 
@@ -61,7 +61,7 @@ namespace 'sources:shops' do
           currency = Item.find(shop["Item{Cost}[#{i}][#{j}]"])
 
           texts = %w(en de fr ja).each_with_object({}) do |locale, h|
-            h["text_#{locale}"] = "#{number_with_delimiter(price)} " \
+            h["text_#{locale}"] = "#{number_with_delimiter(price, locale: locale)} " \
               "#{price == '1' ? currency["name_#{locale}"] : currency["plural_#{locale}"]}"
           end
 
@@ -78,9 +78,9 @@ namespace 'sources:shops' do
       next unless item_ids.include?(entry['Item'])
 
       unlock = Item.find(entry['Item']).unlock
-      amount = number_with_delimiter(entry['Cost{GCSeals}'])
 
       texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+        amount = number_with_delimiter(entry['Cost{GCSeals}'], locale: locale)
         h["text_#{locale}"] = I18n.t('sources.seals', amount: amount, locale: locale)
       end
 
