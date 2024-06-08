@@ -155,10 +155,10 @@ namespace :frames do
       end
     end
 
-    IMAGES_DIR = Rails.root.join('public/images/frames').freeze
+    FRAME_IMAGES_DIR = Rails.root.join('public/images/frames').freeze
 
     frames.each do |id, images|
-      output_path = IMAGES_DIR.join("#{id}.png")
+      output_path = FRAME_IMAGES_DIR.join("#{id}.png")
 
       unless output_path.exist?
         begin

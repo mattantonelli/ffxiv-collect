@@ -4,22 +4,22 @@ namespace :triad do
   namespace :card_images do
     LARGE_CARDS_DIR = Rails.root.join('public/images/cards/large').freeze
     SMALL_CARDS_DIR = Rails.root.join('public/images/cards/small').freeze
-    IMAGES_DIR = Rails.root.join('app/assets/images/cards').freeze
+    CARD_IMAGES_DIR = Rails.root.join('app/assets/images/cards').freeze
 
-    BACKGROUND = ChunkyPNG::Image.from_file(IMAGES_DIR.join('background.png')).freeze
+    BACKGROUND = ChunkyPNG::Image.from_file(CARD_IMAGES_DIR.join('background.png')).freeze
     COLORED_BACKGROUNDS = {
-      red: ChunkyPNG::Image.from_file(IMAGES_DIR.join('background_red.png')),
-      blue: ChunkyPNG::Image.from_file(IMAGES_DIR.join('background_blue.png'))
+      red: ChunkyPNG::Image.from_file(CARD_IMAGES_DIR.join('background_red.png')),
+      blue: ChunkyPNG::Image.from_file(CARD_IMAGES_DIR.join('background_blue.png'))
     }.freeze
 
-    STAR = ChunkyPNG::Image.from_file(IMAGES_DIR.join('star.png')).freeze
+    STAR = ChunkyPNG::Image.from_file(CARD_IMAGES_DIR.join('star.png')).freeze
     LARGE_OFFSET = 87000.freeze
     SMALL_OFFSET = 88000.freeze
 
-    type_sheet = ChunkyPNG::Image.from_file(IMAGES_DIR.join('types.png'))
+    type_sheet = ChunkyPNG::Image.from_file(CARD_IMAGES_DIR.join('types.png'))
     TYPES = (1..4).map { |id| type_sheet.crop(20 * (id - 1), 0, 20, 20) }.freeze
 
-    number_sheet = ChunkyPNG::Image.from_file(IMAGES_DIR.join('numbers.png'))
+    number_sheet = ChunkyPNG::Image.from_file(CARD_IMAGES_DIR.join('numbers.png'))
     NUMBERS = (1..10).map { |num| number_sheet.crop(15 * (num - 1), 0, 15, 15) }.freeze
 
     desc 'Create the images for each card'
