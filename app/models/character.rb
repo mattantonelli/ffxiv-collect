@@ -254,7 +254,7 @@ class Character < ApplicationRecord
       "Aether" => %w(Adamantoise Cactuar Faerie Gilgamesh Jenova Midgardsormr Sargatanas Siren),
       "Chaos" => %w(Cerberus Louisoix Moogle Omega Phantom Ragnarok Sagittarius Spriggan),
       "Crystal" => %w(Balmung Brynhildr Coeurl Diabolos Goblin Malboro Mateus Zalera),
-      "Dynamis" => %w(Halicarnassus Maduin Marilith Seraph),
+      "Dynamis" => %w(Halicarnassus Maduin Marilith Seraph Cuchulainn Golem Kraken Rafflesia),
       "Elemental" => %w(Aegis Atomos Carbuncle Garuda Gungnir Kujata Tonberry Typhon),
       "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima),
       "Light" => %w(Alpha Lich Odin Phoenix Raiden Shiva Zodiark Twintania),
