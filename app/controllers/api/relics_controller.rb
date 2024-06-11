@@ -1,6 +1,4 @@
 class Api::RelicsController < ApiController
-  skip_before_action :set_owned
-
   def index
     query = Relic.all.ransack(@query)
     @relics = query.result.include_related.ordered.distinct.limit(params[:limit])
