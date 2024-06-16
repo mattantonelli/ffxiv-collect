@@ -2,8 +2,8 @@ json.(card, :id, :name, :description, :stars, :patch, :sell_price, :order_group,
 json.number card.formatted_number
 json.icon image_url("cards/small/#{card.id}.png", skip_pipeline: true)
 json.image image_url("cards/large/#{card.id}.png", skip_pipeline: true)
-json.image_red image_url("cards/large/red/#{card.id}.png", skip_pipeline: true)
-json.image_blue image_url("cards/large/blue/#{card.id}.png", skip_pipeline: true)
+json.image_red image_url("cards/red/#{card.id}.png", skip_pipeline: true)
+json.image_blue image_url("cards/blue/#{card.id}.png", skip_pipeline: true)
 json.link card_url(card)
 
 json.stats do
