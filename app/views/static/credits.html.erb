@@ -2,33 +2,41 @@
 <% description('Recognition of contributors.') %>
 
 <div class="row">
-  <div class="col-12 col-lg-8 mx-auto">
+  <div class="col-12 col-sm-10 col-xl-6 mx-auto">
     <div class="card shadow">
       <div class="card-header">
         <h5 class="card-title"><%= t('credits.contributors') %></h5>
       </div>
       <div class="card-body pt-3">
-        <h5><%= fa_icon('code', text: t('credits.development')) %></h5>
-        <ul class="contributor-list">
-          <%= render partial: 'contributor', collection: @developers, as: :character  %>
-        </ul>
+        <div class="d-flex flex-wrap justify-content-between">
+          <div class="contributors">
+            <h5><%= fa_icon('code', text: t('credits.development')) %></h5>
+            <ul>
+              <%= render partial: 'contributor', collection: @developers, as: :character  %>
+            </ul>
+          </div>
 
-        <h5><%= fa_icon('list', text: t('credits.sources')) %></h5>
-        <ul class="contributor-list">
-          <%= render partial: 'contributor', collection: @sourcers, as: :character  %>
-          <li>
-            <% if @character.present? %>
-              <%= image_tag(@character.avatar, class: 'avatar mr-2') %>
-            <% end %>
-            <%= link_to t('credits.you'), 'https://discord.gg/DkYqtWWpUr', target: '_blank',
-              class: ('and-you' unless @character.present?) %>
-          </li>
-        </ul>
+          <div class="contributors">
+            <h5><%= fa_icon('list', text: t('credits.sources')) %></h5>
+            <ul>
+              <%= render partial: 'contributor', collection: @sourcers, as: :character  %>
+              <li>
+                <% if @character.present? %>
+                  <%= image_tag(@character.avatar, class: 'avatar mr-2') %>
+                <% end %>
+                <%= link_to t('credits.you'), 'https://discord.gg/DkYqtWWpUr', target: '_blank',
+                  class: ('and-you' unless @character.present?) %>
+              </li>
+            </ul>
+          </div>
 
-        <h5><%= fa_icon('globe', text: t('credits.translations')) %></h5>
-        <ul class="contributor-list">
-          <%= render partial: 'contributor', collection: @translators, as: :character  %>
-        </ul>
+          <div class="contributors">
+            <h5><%= fa_icon('globe', text: t('credits.translations')) %></h5>
+            <ul>
+              <%= render partial: 'contributor', collection: @translators, as: :character  %>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
