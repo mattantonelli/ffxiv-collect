@@ -100,7 +100,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    unless @character.public_profile?
+    if @character && !@character.public_profile?
       flash[:error] = t('alerts.lodestone_private_profile')
     end
 
