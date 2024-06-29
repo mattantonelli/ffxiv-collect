@@ -112,6 +112,6 @@ class ApplicationController < ActionController::Base
   end
 
   def display_announcements
-    # flash.now[:success_fixed] = 'This is an announcement.'
+    flash.now[:alert_fixed] = 'Patch 7.0 data is live. Please be mindful of spoilers, and please do not share this data without proper spoiler tags. Enjoy your new journey!'
   end
 end
