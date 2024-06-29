@@ -239,8 +239,7 @@ class Character < ApplicationRecord
     # Remove character from rankings when achievements have been set to private
     data[:ranked_achievement_points] = -1 unless data[:public_achievments]
 
-    profile_data = data.except(:achievements, :mounts, :minions,
-                               :public_profile, :public_mounts, :public_minions)
+    profile_data = data.except(:achievements, :mounts, :minions, :public_mounts, :public_minions)
 
     if character = Character.find_by(id: data[:id])
       character.update!(profile_data)
