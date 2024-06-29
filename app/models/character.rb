@@ -41,6 +41,7 @@
 #  npcs_count                   :integer          default(0)
 #  leves_count                  :integer          default(0)
 #  public_achievements          :boolean          default(FALSE)
+#  public_profile               :boolean          default(TRUE)
 #
 
 class Character < ApplicationRecord
@@ -225,12 +226,21 @@ class Character < ApplicationRecord
   end
 
   def self.fetch(id)
-    data = Lodestone.character(id)
+    begin
+      data = Lodestone.character(id)
+    rescue Lodestone::PrivateProfileError
+      if character = Character.find_by(id: id)
+        character.update!(public_profile: false)
+      end
+
+      raise
+    end
 
     # Remove character from rankings when achievements have been set to private
     data[:ranked_achievement_points] = -1 unless data[:public_achievments]
 
-    profile_data = data.except(:achievements, :mounts, :minions)
+    profile_data = data.except(:achievements, :mounts, :minions,
+                               :public_profile, :public_mounts, :public_minions)
 
     if character = Character.find_by(id: data[:id])
       character.update!(profile_data)

@@ -100,6 +100,10 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    unless @character.public_profile?
+      flash[:error] = t('alerts.lodestone_private_profile')
+    end
+
     [@character, @comparison].each do |character|
       if character&.syncable?
         character.sync

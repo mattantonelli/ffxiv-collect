@@ -26,6 +26,8 @@ class FreeCompanySyncJob < ApplicationJob
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching free company #{free_company_id}")
       Rails.logger.error(e.response)
+    rescue Lodestone::PrivateProfileError
+      # Cannot fetch characters with private profiles
     rescue StandardError
       Rails.logger.error("There was a problem fetching free company #{free_company_id}")
       raise

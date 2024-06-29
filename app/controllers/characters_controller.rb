@@ -188,6 +188,8 @@ class CharactersController < ApplicationController
         else
           flash[:error] = t('alerts.lodestone_error')
         end
+      rescue Lodestone::PrivateProfileError
+        flash[:error] = t('alerts.lodestone_private_profile')
       rescue RestClient::BadGateway, RestClient::ServiceUnavailable
         flash[:error] = t('alerts.lodestone_maintenance')
       rescue
@@ -242,6 +244,9 @@ class CharactersController < ApplicationController
   def set_selected
     begin
       @selected = Character.find_by(id: params[:id]) || fetch_character(params[:id])
+    rescue Lodestone::PrivateProfileError
+      flash[:error] = t('alerts.lodestone_private_profile_add')
+      return redirect_back(fallback_location: root_path)
     rescue
       # The exception has been logged in the fetch. Now let the following logic alert the user.
     end

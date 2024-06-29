@@ -1,4 +1,6 @@
 module Lodestone
+  class PrivateProfileError < StandardError; end
+
   ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
   DESKTOP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
     'Chrome/104.0.0.0 Safari/537.36'
@@ -9,11 +11,13 @@ module Lodestone
 
   def character(character_id)
     character = profile(character_id)
-    character[:mounts] = mounts(character_id)
-    character[:minions] = minions(character_id)
 
-    # Do not fetch achievements if they are set to private
-    character[:achievements] = character[:public_achievements] ? achievements(character_id) : []
+    # Do not set collections for private characters. They must make their profile public first.
+    raise PrivateProfileError unless character[:public_profile]
+
+    set_achievements!(character)
+    set_mounts!(character)
+    set_minions!(character)
 
     character
   end
@@ -83,6 +87,11 @@ module Lodestone
     doc = character_document(character_id: character_id)
     doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/character/#{character_id}", user_agent: MOBILE_USER_AGENT))
 
+    # Return if the character's profile is set to private
+    unless doc.at_css('.character__profile').present?
+      return { public_profile: false }
+    end
+
     character = {
       id: character_id,
       name: doc.at_css('.frame__chara__name').text,
@@ -91,11 +100,9 @@ module Lodestone
       gender: doc.at_css('.character-block__name').text.match?('♂') ? 'male' : 'female',
       portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
       avatar: doc.at_css('.frame__chara__face > img').attributes['src'].value,
-      last_parsed: Time.now
+      last_parsed: Time.now,
+      public_profile: true,
     }
-
-    # If the character's achievements are private, the link will be missing from the nav
-    character[:public_achievements] = doc.css('.ldst-nav').text.match?('Achievements')
 
     # If the character has a free company, create/update it and add it to the profile
     free_company = doc.at_css('.entry__freecompany')
@@ -117,33 +124,64 @@ module Lodestone
     character
   end
 
-  def mounts(character_id)
-    doc = character_document(endpoint: 'mount', character_id: character_id)
-    return [] unless doc.present?
-    Mount.where(name_en: doc.css('.mount__name').map(&:text)).pluck(:id)
+  def set_mounts!(data)
+    doc = character_document(endpoint: 'mount', character_id: data[:id])
+    return unless doc.present?
+
+    mounts = doc.css('.mount__name')
+
+    if mounts.empty?
+      data[:mounts] = []
+      data[:public_mounts] = false
+    else
+      data[:mounts] = Mount.where(name_en: mounts.map(&:text)).pluck(:id)
+      data[:public_mounts] = true
+    end
   end
 
-  def minions(character_id)
-    doc = character_document(endpoint: 'minion', character_id: character_id)
-    return [] unless doc.present?
-    Minion.summonable.where(name_en: doc.css('.minion__name').map(&:text)).pluck(:id)
+  def set_minions!(data)
+    doc = character_document(endpoint: 'minion', character_id: data[:id])
+    return unless doc.present?
+
+    minions = doc.css('.minion__name')
+
+    if minions.empty?
+      data[:minions] = []
+      data[:public_minions] = false
+    else
+      data[:minions] = Minion.summonable.where(name_en: minions.map(&:text)).pluck(:id)
+      data[:public_minions] = true
+    end
   end
 
-  def achievements(character_id)
+  def set_achievements!(data)
+    begin
+      doc = character_document(endpoint: 'achievement', character_id: data[:id])
+    rescue RestClient::Forbidden
+      data[:achievements] = []
+      data[:public_achievements] = false
+    end
+
+    return unless doc.present?
+    data[:public_achievements] = true
+
     # If the character exists, grab their recent achievements from the overview page
-    # and return those achievements, unless they fill the whole page
-    if character = Character.find_by(id: character_id)
-      doc = character_document(endpoint: 'achievement', character_id: character_id)
-
+    if character = Character.find_by(id: data[:id])
       recent = doc.css('.entry__achievement').map { |achievement| parse_achievement(achievement) }
       owned = character.achievement_ids
       new_achievements = recent.reject { |achievement| owned.include?(achievement[:id]) }
-      return new_achievements if new_achievements.size < recent.size
+
+      # If the character's recent achievements do not fill the whole page, return them
+      if new_achievements.size < recent.size
+        data[:achievements] = new_achievements
+        return
+      end
     end
 
-    # Otherwise, grab the achievements from each page
-    AchievementType.pluck(:id).flat_map do |type|
-      doc = character_document(endpoint: "achievement/kind/#{type}", character_id: character_id)
+    # If the character does not exist, or their achievements filled the whole page,
+    # collect them from each of the achievement type pages
+    data[:achievements] = AchievementType.pluck(:id).flat_map do |type|
+      doc = character_document(endpoint: "achievement/kind/#{type}", character_id: data[:id])
       next [] unless doc.present?
       doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
     end

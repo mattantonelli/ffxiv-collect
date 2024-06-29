@@ -67,6 +67,8 @@ en:
     here: "here"
     lodestone_error: "There was a problem contacting the Lodestone."
     lodestone_maintenance: "The Lodestone is currently down for maintenance."
+    lodestone_private_profile: "Your Lodestone profile is set to Private. You must set your profile to Public for All Users to update your character."
+    lodestone_private_profile_add: "This character's profile is set to Private. If this is your character, you must set your profile privacy to Public for All Users."
     no_characters_found: "No characters found."
     no_longer_tracking: "You are no longer tracking a character."
     not_found: "That page could not be found."
