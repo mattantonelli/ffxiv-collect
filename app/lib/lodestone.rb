@@ -125,31 +125,38 @@ module Lodestone
   end
 
   def set_mounts!(data)
-    doc = character_document(endpoint: 'mount', character_id: data[:id])
-    return unless doc.present?
+    begin
+      doc = character_document(endpoint: 'mount', character_id: data[:id])
+      mounts = doc.css('.mount__name')
 
-    mounts = doc.css('.mount__name')
-
-    if mounts.empty?
+      if mounts.empty?
+        data[:mounts] = []
+        data[:public_mounts] = false
+      else
+        data[:mounts] = Mount.where(name_en: mounts.map(&:text)).pluck(:id)
+        data[:public_mounts] = true
+      end
+    rescue RestClient::NotFound
       data[:mounts] = []
-      data[:public_mounts] = false
-    else
-      data[:mounts] = Mount.where(name_en: mounts.map(&:text)).pluck(:id)
       data[:public_mounts] = true
     end
   end
 
   def set_minions!(data)
-    doc = character_document(endpoint: 'minion', character_id: data[:id])
-    return unless doc.present?
 
-    minions = doc.css('.minion__name')
+    begin
+      doc = character_document(endpoint: 'minion', character_id: data[:id])
+      minions = doc.css('.minion__name')
 
-    if minions.empty?
+      if minions.empty?
+        data[:minions] = []
+        data[:public_minions] = false
+      else
+        data[:minions] = Minion.summonable.where(name_en: minions.map(&:text)).pluck(:id)
+        data[:public_minions] = true
+      end
+    rescue RestClient::NotFound
       data[:minions] = []
-      data[:public_minions] = false
-    else
-      data[:minions] = Minion.summonable.where(name_en: minions.map(&:text)).pluck(:id)
       data[:public_minions] = true
     end
   end
@@ -181,9 +188,12 @@ module Lodestone
     # If the character does not exist, or their achievements filled the whole page,
     # collect them from each of the achievement type pages
     data[:achievements] = AchievementType.pluck(:id).flat_map do |type|
-      doc = character_document(endpoint: "achievement/kind/#{type}", character_id: data[:id])
-      next [] unless doc.present?
-      doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
+      begin
+        doc = character_document(endpoint: "achievement/kind/#{type}", character_id: data[:id])
+        doc.css('.entry__achievement--complete').map { |achievement| parse_achievement(achievement) }
+      rescue RestClient::NotFound
+        []
+      end
     end
   end
 
@@ -194,11 +204,7 @@ module Lodestone
   def character_document(endpoint: nil, character_id: nil, params: {})
     url = [ROOT_URL, 'character', character_id, endpoint].compact.join('/')
 
-    begin
-      Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
-    rescue RestClient::NotFound
-      # Ignore 404s on missing collections
-    end
+    Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
   end
 
   def element_id(element)
