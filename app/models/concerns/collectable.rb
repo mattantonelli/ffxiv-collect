@@ -24,7 +24,7 @@ module Collectable
       if option.present? && available_filters.include?(:gender)
         if option == 'character'
           # Show collectables usable by the character's gender
-          where('gender is null or gender = ?', character.gender) if character.present?
+          where('gender is null or gender = ?', character.gender) if character&.gender.present?
         elsif option != 'all'
           # Hide collectables for the given gender
           where('gender is null or gender <> ?', option)

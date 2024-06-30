@@ -28,7 +28,11 @@
         <div class="d-flex">
           <div class="portrait mr-4 d-none d-lg-block">
             <%= link_to(Lodestone.profile_link(@profile), target: '_blank') do %>
-              <%= image_tag(@profile.portrait) %>
+              <% if @profile.portrait.present? %>
+                <%= image_tag(@profile.portrait) %>
+              <% else %>
+                <%= image_tag(image_path('portrait_private.png')) %>
+              <% end %>
             <% end %>
           </div>
           <div class="d-flex flex-column w-100">

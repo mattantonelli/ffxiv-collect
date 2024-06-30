@@ -5,7 +5,7 @@
 #  id                           :bigint(8)        not null, primary key
 #  name                         :string(255)      not null
 #  server                       :string(255)      not null
-#  portrait                     :string(255)      not null
+#  portrait                     :string(255)
 #  avatar                       :string(255)      not null
 #  last_parsed                  :datetime
 #  verified_user_id             :integer
@@ -226,15 +226,7 @@ class Character < ApplicationRecord
   end
 
   def self.fetch(id)
-    begin
-      data = Lodestone.character(id)
-    rescue Lodestone::PrivateProfileError
-      if character = Character.find_by(id: id)
-        character.update!(public_profile: false)
-      end
-
-      raise
-    end
+    data = Lodestone.character(id)
 
     # Remove character from rankings when achievements have been set to private
     data[:ranked_achievement_points] = -1 unless data[:public_achievments]

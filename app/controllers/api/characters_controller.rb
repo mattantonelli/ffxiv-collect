@@ -22,11 +22,7 @@ class Api::CharactersController < ApiController
   private
   def check_latest
     if params[:latest] && @character&.stale?
-      begin
-        @character = Character.fetch(@character.id)
-      rescue Lodestone::PrivateProfileError
-        # Quietly skip updating the character if their profile is private
-      end
+      @character = Character.fetch(@character.id)
     end
   end
 

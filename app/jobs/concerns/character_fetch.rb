@@ -22,8 +22,6 @@ module CharacterFetch
         else
           Sidekiq.logger.error("Rate limited while fetching character #{id}")
         end
-      rescue Lodestone::PrivateProfileError
-        # Cannot fetch characters with private profiles
       end
     else
       Sidekiq.logger.info('Character is up to date.')

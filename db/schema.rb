@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_29_201428) do
+ActiveRecord::Schema.define(version: 2024_06_30_221633) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -356,7 +356,7 @@ ActiveRecord::Schema.define(version: 2024_06_29_201428) do
   create_table "characters", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "server", null: false
-    t.string "portrait", null: false
+    t.string "portrait"
     t.string "avatar", null: false
     t.datetime "last_parsed"
     t.integer "verified_user_id"

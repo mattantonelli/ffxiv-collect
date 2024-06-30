@@ -1,6 +1,4 @@
 module Lodestone
-  class PrivateProfileError < StandardError; end
-
   ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
   DESKTOP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
     'Chrome/104.0.0.0 Safari/537.36'
@@ -11,9 +9,6 @@ module Lodestone
 
   def character(character_id)
     character = profile(character_id)
-
-    # Do not set collections for private characters. They must make their profile public first.
-    raise PrivateProfileError unless character[:public_profile]
 
     set_achievements!(character)
     set_mounts!(character)
@@ -87,22 +82,29 @@ module Lodestone
     doc = character_document(character_id: character_id)
     doc = Nokogiri::HTML.parse(RestClient.get("#{ROOT_URL}/character/#{character_id}", user_agent: MOBILE_USER_AGENT))
 
-    # Return if the character's profile is set to private
-    unless doc.at_css('.character__profile').present?
-      return { public_profile: false }
-    end
-
     character = {
       id: character_id,
       name: doc.at_css('.frame__chara__name').text,
       server: doc.at_css('.frame__chara__world').text[/^\w+/],
       data_center: doc.at_css('.frame__chara__world').text.gsub(/.*\[(\w+)\]/, '\1'),
-      gender: doc.at_css('.character-block__name').text.match?('♂') ? 'male' : 'female',
-      portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
       avatar: doc.at_css('.frame__chara__face > img').attributes['src'].value,
       last_parsed: Time.now,
-      public_profile: true,
     }
+
+    # Assign remaining attributes based on whether the profile is public
+    if doc.at_css('.character__profile').present?
+      character.merge!(
+        gender: doc.at_css('.character-block__name').text.match?('♂') ? 'male' : 'female',
+        portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
+        public_profile: true,
+      )
+    else
+      character.merge!(
+        gender: nil,
+        portrait: nil,
+        public_profile: false,
+      )
+    end
 
     # If the character has a free company, create/update it and add it to the profile
     free_company = doc.at_css('.entry__freecompany')
@@ -143,7 +145,6 @@ module Lodestone
   end
 
   def set_minions!(data)
-
     begin
       doc = character_document(endpoint: 'minion', character_id: data[:id])
       minions = doc.css('.minion__name')
