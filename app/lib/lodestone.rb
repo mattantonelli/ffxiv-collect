@@ -60,7 +60,11 @@ module Lodestone
       worldname = "_dc_#{data_center}"
     end
 
-    doc = character_document(params: { q: name.strip.gsub(/[‘’]/, "'"), worldname: worldname }.compact)
+    doc = character_document(params: {
+      q: name.strip.gsub(/[‘’]/, "'"),
+      worldname: worldname,
+      order: 3
+    }.compact)
 
     doc.css('.entry__chara__link').map do |character|
       {
