@@ -277,7 +277,9 @@ module CollectionsHelper
       when 'Crafting', 'Gathering'
         content = database_link(:item, source.text, collectable.item_id)
       when 'NPC'
-        content = link_to(source.text, npc_path(source.related_id))
+        npc = source.related
+        link = link_to(source.text, npc_path(source.related_id))
+        content = "#{link}&nbsp;-&nbsp;#{location(npc.location, npc.x, npc.y, inline: true)}".html_safe
       when 'Online Store'
         content = 'Online Store'
       when 'Quest', 'Event'
