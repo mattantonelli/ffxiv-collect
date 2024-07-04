@@ -12,8 +12,8 @@ class ToolsController < ApplicationController
       # Collect the costs in gemstones
       @collectables.each do |type, collectables|
         collectables.each do |collectable|
-          source = collectable.sources.first.text_en
-          cost = source.match(/(\d+) bicolor/i)&.[](1)&.to_i || 0
+          source = collectable.sources.find { |source| source.text_en.match?(/bicolor/i) }.text_en
+          cost = source.match(/(\d+)[a-z\s]+bicolor/i)&.[](1)&.to_i || 0
 
           # Vouchers are the equivalent of 100 gemstones
           cost *= 100 if source.match?(/voucher/i)
