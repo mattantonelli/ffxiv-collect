@@ -1,5 +1,6 @@
 class MountsController < ApplicationController
-  include Collection
+  include PrivateCollection
+  before_action -> { check_privacy!(:mounts) }
   skip_before_action :set_dates!
 
   def index

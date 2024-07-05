@@ -73,8 +73,11 @@ en:
     not_signed_in: "You must be signed in to do that."
     not_verified: "You are not verified as this character. If you wish to track this character's manual collections,
       please %{link}."
-    private_achievements: "Achievements for this character are set to private. You can make your achievements public %{link}."
     private_character: "This character's verified user has set their collections to private. If you own this character and want to transfer it to your current account, click %{link}."
+    private_collection: "This collection is set to private on the Lodestone. You must make it Public for All Users %{link} in order for it to be updated."
+    private_collection_generic: "You have collections set to private on the Lodestone. You must make them Public for All Users %{link} in order for them to be updated."
+    private_collection_not_verified: "This collection is set to private on the Lodestone. It is only visible to that character's verified user."
+    private_collection_not_verified_generic: "This page contains collections that are set to private on the Lodestone. It is only visible to that character's verified user."
     problem_refreshing: "There was a problem refreshing your character."
     problem_selecting_character: "There was a problem selecting that character."
     problem_updating: "There was a problem updating your collection. Please try again."

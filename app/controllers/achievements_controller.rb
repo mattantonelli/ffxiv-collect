@@ -1,7 +1,7 @@
 class AchievementsController < ApplicationController
-  include Collection
+  include PrivateCollection
+  before_action -> { check_privacy!(:achievements) }
   before_action :verify_character!, only: :index
-  before_action :check_achievements!, except: :show
   before_action :set_owned!, on: :items
   before_action :set_ids!, :set_dates!, on: [:type, :items]
   skip_before_action :set_prices!

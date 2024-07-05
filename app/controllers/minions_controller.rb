@@ -1,5 +1,6 @@
 class MinionsController < ApplicationController
-  include Collection
+  include PrivateCollection
+  before_action -> { check_privacy!(:minions) }
   skip_before_action :set_dates!
   before_action :set_ids!, on: :verminion
 

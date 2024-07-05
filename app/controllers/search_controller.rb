@@ -1,5 +1,6 @@
 class SearchController < ApplicationController
-  include Collection
+  include PrivateCollection
+  before_action -> { check_privacy!(:mounts, :minions, :facewear) }
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index

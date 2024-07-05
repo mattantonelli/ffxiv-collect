@@ -42,6 +42,9 @@
 #  leves_count                  :integer          default(0)
 #  public_achievements          :boolean          default(FALSE)
 #  public_profile               :boolean          default(TRUE)
+#  public_mounts                :boolean          default(TRUE)
+#  public_minions               :boolean          default(TRUE)
+#  public_facewear              :boolean          default(TRUE)
 #
 
 class Character < ApplicationRecord
@@ -231,7 +234,7 @@ class Character < ApplicationRecord
     # Remove character from rankings when achievements have been set to private
     data[:ranked_achievement_points] = -1 unless data[:public_achievments]
 
-    profile_data = data.except(:achievements, :mounts, :minions, :public_mounts, :public_minions)
+    profile_data = data.except(:achievements, :mounts, :minions)
 
     if character = Character.find_by(id: data[:id])
       character.update!(profile_data)

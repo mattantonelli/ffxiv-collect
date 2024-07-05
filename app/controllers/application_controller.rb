@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   # Verify that the user is signed in with a verified character selected
   def verify_user!
-    unless user_signed_in?  && @character&.verified_user?(current_user)
+    unless user_signed_in? && @character&.verified_user?(current_user)
       redirect_to_previous
     end
   end
