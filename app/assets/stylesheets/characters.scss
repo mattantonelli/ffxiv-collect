@@ -91,13 +91,11 @@ div.portrait {
     margin-bottom: 1rem;
     width: 100% !important;
 
-    // md only
-    @media (min-width: 992px) and (max-width: 1199px) {
-      width: 45% !important;
+    @media (min-width: 1097px) and (max-width: 1525px) {
+      width: 48% !important;
     }
 
-    // lg+
-    @media (min-width: 1200px) {
+    @media (min-width: 1526px) {
       width: 32% !important;
     }
   }
