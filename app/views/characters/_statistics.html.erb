@@ -9,21 +9,25 @@
         <% end %>
         <div class="collapse show" id="collapse-<%= collection %>">
           <div class="card-body">
-            <ul class="list-unstyled">
-              <% collectables.each do |data| %>
-                <li class="mb-2">
-                  <%= link_to(polymorphic_path(data[:collectable]), class: 'unstyled d-flex align-items-center') do %>
-                    <%= generic_sprite(collection, data[:collectable]) %>
-                    <span class="ml-2">
-                      <%= collectable_name(collection, data[:collectable]) %>
-                      <% if data[:count].present? %>
-                        <br><%= statistic_data_rarity(data) %>
+            <% if public_collection?(@profile, collection) %>
+              <ul class="list-unstyled">
+                <% collectables.each do |data| %>
+                  <li class="mb-2">
+                    <%= link_to(polymorphic_path(data[:collectable]), class: 'unstyled d-flex align-items-center') do %>
+                      <%= generic_sprite(collection, data[:collectable]) %>
+                      <span class="ml-2">
+                        <%= collectable_name(collection, data[:collectable]) %>
+                        <% if data[:count].present? %>
+                          <br><%= statistic_data_rarity(data) %>
+                      <% end %>
+                      </span>
                     <% end %>
-                    </span>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <span><%= t('characters.set_to_private') %></span>
+            <% end %>
           </div>
         </div>
       </div>

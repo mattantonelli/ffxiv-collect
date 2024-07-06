@@ -125,4 +125,25 @@ module CharactersHelper
 
     link_to("##{rank} #{text}", leaderboards_path(query), class: 'unstyled')
   end
+
+  def public_collection?(character, collection)
+    collection = 'achievements' if collection == 'titles'
+    public_attribute = "public_#{collection}"
+
+    !character.has_attribute?(public_attribute) ||
+      character.send(public_attribute) ||
+      character.verified_user?(current_user)
+  end
+
+  def ranked_collection?(character, collection)
+    character.has_attribute?("ranked_#{collection}_count")
+  end
+
+  def triple_triad_visible?(scores)
+    scores['cards'].present? && (scores['cards'][:value] > 0 || scores['cards'][:npcs] > 0)
+  end
+
+  def relics_visible?(relics)
+    relics.values.any? { |values| values[:count] > 0}
+  end
 end
