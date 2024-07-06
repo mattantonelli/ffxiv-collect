@@ -28,6 +28,11 @@ class Api::CharactersController < ApiController
 
   def set_collection
     @collection = params[:collection]
+
+    unless view_context.public_collection?(@character, @collection)
+      return render json: { status: 403, error: 'Collection is set to private' }, status: :forbidden
+    end
+
     model = @collection.classify.constantize
 
     # Titles need special handling since ownership is based on achievement ID
