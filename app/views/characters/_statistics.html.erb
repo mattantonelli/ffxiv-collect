@@ -4,7 +4,7 @@
       <div class="card borderless">
         <%= link_to "#collapse-#{collection}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
           <div class="card-header">
-            <h5 class="card-title"><%= collection_name(collection.pluralize) %></h5>
+            <h5 class="card-title"><%= collection_name(collection.pluralize, link: false) %></h5>
           </div>
         <% end %>
         <div class="collapse show" id="collapse-<%= collection %>">

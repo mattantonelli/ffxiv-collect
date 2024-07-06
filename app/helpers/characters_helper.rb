@@ -37,7 +37,7 @@ module CharactersHelper
     end
   end
 
-  def collection_name(collection, score: {})
+  def collection_name(collection, score: {}, link: true)
     if collection == 'triad'
       path = cards_path
 
@@ -66,7 +66,7 @@ module CharactersHelper
       name = "#{name} #{fa_icon('star', class: 'complete')}".html_safe
     end
 
-    link_to(name, path, class: 'unstyled')
+    link ? link_to(name, path, class: 'unstyled') : name
   end
 
   def character_relics(character)
