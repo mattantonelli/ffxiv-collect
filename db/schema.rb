@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_04_194915) do
+ActiveRecord::Schema.define(version: 2024_07_08_010600) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -415,6 +415,9 @@ ActiveRecord::Schema.define(version: 2024_07_04_194915) do
     t.index ["npcs_count"], name: "index_characters_on_npcs_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
     t.index ["public"], name: "index_characters_on_public"
+    t.index ["public_facewear"], name: "index_characters_on_public_facewear"
+    t.index ["public_minions"], name: "index_characters_on_public_minions"
+    t.index ["public_mounts"], name: "index_characters_on_public_mounts"
     t.index ["ranked_achievement_points"], name: "index_characters_on_ranked_achievement_points"
     t.index ["ranked_minions_count"], name: "index_characters_on_ranked_minions_count"
     t.index ["ranked_mounts_count"], name: "index_characters_on_ranked_mounts_count"

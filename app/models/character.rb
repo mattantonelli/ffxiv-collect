@@ -233,6 +233,8 @@ class Character < ApplicationRecord
 
     # Remove character from rankings when achievements have been set to private
     data[:ranked_achievement_points] = -1 unless data[:public_achievments]
+    data[:ranked_mounts_count] = -1 unless data[:public_mounts]
+    data[:ranked_minions_count] = -1 unless data[:public_minions]
 
     profile_data = data.except(:achievements, :mounts, :minions)
 
@@ -272,6 +274,18 @@ class Character < ApplicationRecord
   def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil, rankings: false)
     q = { data_center_eq: data_center, server_eq: server, "#{metric}_gt" => 0 }.compact
     ranked_characters = characters.ransack(q).result
+
+    # Exclude characters with private collections
+    case metric
+    when /achievement/
+      ranked_characters = ranked_characters.where(public_achievements: true)
+    when /mount/
+      ranked_characters = ranked_characters.where(public_mounts: true)
+    when /minion/
+      ranked_characters = ranked_characters.where(public_minions: true)
+    when /facewear/
+      ranked_characters = ranked_characters.where(public_facewear: true)
+    end
 
     # Order the results based on the metric
     if metric.match?('achievement')
@@ -379,8 +393,10 @@ class Character < ApplicationRecord
       Character.bulk_insert(character.id, CharacterMount, :mount, new_mounts)
     end
 
-    # Always re-check the ranked count since sources can change
-    character.update(ranked_mounts_count: character.mounts.ranked.count)
+    # Re-check the ranked count since sources can change, unless the collection is private
+    if character.public_mounts?
+      character.update(ranked_mounts_count: character.mounts.ranked.count)
+    end
 
     # Minions
     current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
@@ -390,8 +406,10 @@ class Character < ApplicationRecord
       Character.bulk_insert(character.id, CharacterMinion, :minion, new_minions)
     end
 
-    # Always re-check the ranked count since sources can change
-    character.update(ranked_minions_count: character.minions.ranked.count)
+    # Re-check the ranked count since sources can change, unless the collection is private
+    if character.public_minions?
+      character.update(ranked_minions_count: character.minions.ranked.count)
+    end
 
     Character.find(character.id)
   end
