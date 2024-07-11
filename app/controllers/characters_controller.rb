@@ -5,6 +5,7 @@ class CharactersController < ApplicationController
   after_action  :save_selected, only: [:select, :compare]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity, :verify, :validate]
   before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
+  before_action :set_verification_code, only: [:verify, :validate]
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells emotes bardings hairstyles armoires fashions
@@ -200,24 +201,26 @@ class CharactersController < ApplicationController
 
   def verify
     session[:return_to] = request.referer
-    @code = @profile.verification_code(current_user)
   end
 
   def validate
     begin
       if @profile.verify!(current_user)
         flash[:success] = t('alerts.character_verified')
-        redirect_to_previous
+        return redirect_to_previous
       else
         flash[:error] = t('alerts.character_verification_error')
-        render :verify
+        @code = @profile.verification_code(current_user)
       end
+    rescue Lodestone::PrivateProfileError
+      flash[:error] = t('alerts.problem_verifying_private')
     rescue StandardError => e
       flash[:error] = t('alerts.problem_verifying')
       Rails.logger.error("There was a problem verifying character #{@profile.id}")
       log_backtrace(e)
-      render :verify
     end
+
+    render :verify
   end
 
   private
@@ -270,6 +273,10 @@ class CharactersController < ApplicationController
     if user_signed_in? && !current_user.characters.exists?(@selected.id)
       current_user.characters << @selected
     end
+  end
+
+  def set_verification_code
+    @code = @profile.verification_code(current_user)
   end
 
   def verify_privacy!

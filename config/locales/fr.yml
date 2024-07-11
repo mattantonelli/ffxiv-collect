@@ -82,6 +82,7 @@ fr:
     problem_selecting_character: "Une erreur est survenue lors de la sélection de votre personnage."
     problem_updating: "Une erreur est survenue lors de la synchronisation de votre collection. Veuillez réessayer."
     problem_verifying: "Une erreur est survenue lors de la vérification de votre personnage."
+    problem_verifying_private: "Vous devez rendre votre profil The Lodestone Publique pour Tous les utilisateurs afin de vérifier votre personnage."
     settings_error: "Une erreur est survenue lors de la mise à jour de vos paramètres."
     settings_not_verified: "Si vous voulez changer les paramètres de votre personnage, utilisez %{link}."
     settings_updated: "Vos paramètres ont été mis à jour."

@@ -81,6 +81,7 @@ de:
     problem_selecting_character: "Ein ist ein Problem bei der Auswahl des Charakters aufgetreten."
     problem_updating: "Es ist ein Problem beim Aktualisieren deiner Sammlung aufgetreten."
     problem_verifying: "Es ist ein Problem beim Verifizieren des Charakters aufgetreten."
+    problem_verifying_private: "Du musst dein Lodestone Profil auf Öffentlich für Alle stellen, um deinen Charakter zu verifizieren."
     settings_error: "Es ist ein Problem beim Aktualisieren deiner Einstellungen aufgetreten."
     settings_not_verified: "Wenn du deine Einstellungen für den Charakter ändern möchtest, bitte %{link}."
     settings_updated: "Deine Einstellungen wurden gespeichert."

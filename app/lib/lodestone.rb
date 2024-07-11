@@ -1,4 +1,6 @@
 module Lodestone
+  class PrivateProfileError < StandardError; end
+
   ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
   DESKTOP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
     'Chrome/104.0.0.0 Safari/537.36'
@@ -78,6 +80,10 @@ module Lodestone
 
   def verified?(character_id, code)
     doc = character_document(character_id: character_id)
+
+    # Profile must be public to verify the code
+    raise PrivateProfileError unless doc.at_css('.character__profile').present?
+
     doc.css('.character__character_profile').text.include?(code)
   end
 
