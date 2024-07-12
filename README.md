@@ -74,7 +74,7 @@ bundle exec sidekiq -C config/sidekiq_free_company.yml
 When new data becomes available on patch day, it can be loaded into the database by running the `data:update` rake task.
 
 ```
-git submodule update
+git submodule update --remote
 bundle exec rake data:update
 bundle exec rake assets:precompile
 # Restart the application
