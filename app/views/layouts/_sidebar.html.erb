@@ -30,7 +30,7 @@
     <%= nav_link(t('bardings.title'), 'chess-knight', bardings_path) %>
     <%= nav_link(t('armoires.title'), 'tshirt', armoires_path) %>
     <%= nav_link(t('fashions.title'), 'umbrella', fashions_path) %>
-    <%= nav_link(t('facewear.title'), 'glasses', facewear_index_path) %>
+    <%= nav_link("#{t('facewear.title')} #{new_feature_badge}".html_safe, 'glasses', facewear_index_path) %>
     <%= nav_link(t('frames.title'), 'portrait', frames_path) %>
 
     <!-- Triple Triad -->
