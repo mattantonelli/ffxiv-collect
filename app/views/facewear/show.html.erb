@@ -1,0 +1,33 @@
+<% title(@facewear.name) %>
+<% image(image_url("faacewear/#{@facewear.id}.png", skip_pipeline: true)) %>
+
+<div class="row">
+  <div class="col-12 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="card-title"><%= @facewear.name %></h5>
+      </div>
+      <div class="card-body d-flex flex-column flex-info">
+        <div class="d-flex flex-wrap">
+          <div>
+            <dt><%= t('tradeable') %></dt>
+            <dd><%= tradeable(@facewear) %></dd>
+          </div>
+          <%= render 'shared/ownership', collectable: @facewear %>
+          <div>
+            <dt><%= t('patch') %></dt>
+            <dd><%= @facewear.patch %></dd>
+          </div>
+        </div>
+        <dt><%= t('source') %></dt>
+        <dd><%= sources(@facewear) %></dd>
+        <hr>
+        <div class="d-flex flex-wrap facewear-list">
+          <% 12.times do |i| %>
+            <%= facewear_image(@facewear, i) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -213,6 +213,10 @@ en:
     5: "Shadowbringers"
     6: "Endwalker"
   experimental: "(Experimental)"
+  facewear:
+    reclaim_alert: "Some facewear were previously available as fashion accessories. You can speak with the Calamity Salvager to reclaim them free of charge."
+    reclaimable: "Originally available as a fashion accessory. You may be able to reclaim it by speaking with the Calamity Salvager."
+    title: "Facewear"
   fashions:
     title: "Fashion Accessories"
   filters: "Filters"

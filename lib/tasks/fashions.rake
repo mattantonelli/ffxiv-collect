@@ -9,6 +9,7 @@ namespace :fashions do
     fashions = %w(en de fr ja).each_with_object({}) do |locale, h|
       XIVData.sheet('Ornament', locale: locale).each do |fashion|
         next unless fashion['Singular'].present?
+        next if Fashion.facewear_ids.include?(fashion['#'].to_i)
 
         data = h[fashion['#']] || { id: fashion['#'], order: fashion['Order'],
                                     icon: fashion['Icon'], icon_large: fashion['Icon'].gsub('/008', '/067') }

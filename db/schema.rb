@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_08_010600) do
+ActiveRecord::Schema.define(version: 2024_07_15_000254) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -233,6 +233,16 @@ ActiveRecord::Schema.define(version: 2024_07_08_010600) do
     t.index ["emote_id"], name: "index_character_emotes_on_emote_id"
   end
 
+  create_table "character_facewear", charset: "utf8", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "facewear_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id", "facewear_id"], name: "character_id_and_facewear_id", unique: true
+    t.index ["character_id"], name: "index_character_facewear_on_character_id"
+    t.index ["facewear_id"], name: "index_character_facewear_on_facewear_id"
+  end
+
   create_table "character_fashions", charset: "utf8", force: :cascade do |t|
     t.integer "character_id"
     t.integer "fashion_id"
@@ -396,6 +406,7 @@ ActiveRecord::Schema.define(version: 2024_07_08_010600) do
     t.boolean "public_mounts", default: true
     t.boolean "public_minions", default: true
     t.boolean "public_facewear", default: true
+    t.integer "facewear_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -403,6 +414,7 @@ ActiveRecord::Schema.define(version: 2024_07_08_010600) do
     t.index ["cards_count"], name: "index_characters_on_cards_count"
     t.index ["data_center"], name: "index_characters_on_data_center"
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
+    t.index ["facewear_count"], name: "index_characters_on_facewear_count"
     t.index ["fashions_count"], name: "index_characters_on_fashions_count"
     t.index ["frames_count"], name: "index_characters_on_frames_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
@@ -491,6 +503,24 @@ ActiveRecord::Schema.define(version: 2024_07_08_010600) do
     t.index ["name_ja"], name: "index_emotes_on_name_ja"
     t.index ["order"], name: "index_emotes_on_order"
     t.index ["patch"], name: "index_emotes_on_patch"
+  end
+
+  create_table "facewear", charset: "utf8", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.integer "order", null: false
+    t.string "patch"
+    t.integer "item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name_de"], name: "index_facewear_on_name_de"
+    t.index ["name_en"], name: "index_facewear_on_name_en"
+    t.index ["name_fr"], name: "index_facewear_on_name_fr"
+    t.index ["name_ja"], name: "index_facewear_on_name_ja"
+    t.index ["order"], name: "index_facewear_on_order"
+    t.index ["patch"], name: "index_facewear_on_patch"
   end
 
   create_table "fashions", charset: "utf8", force: :cascade do |t|

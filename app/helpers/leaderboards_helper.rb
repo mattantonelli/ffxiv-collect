@@ -9,6 +9,7 @@ module LeaderboardsHelper
        [t('bardings.title'), 'bardings'], [t('hairstyles.title'), 'hairstyles'],
        [t('armoires.title'), 'armoires'],
        [t('fashions.title'), 'fashions'],
+       [t('facewear.title'), 'facewear'],
        [t('cards.title'), 'cards'],
        [t('records.title'), 'records'],
        [t('survey_records.title'), 'survey_records']

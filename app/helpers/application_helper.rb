@@ -89,6 +89,8 @@ module ApplicationHelper
       end
     when 'hairstyles'
       hairstyle_sample_image(collectable)
+    when 'facewear'
+      facewear_sample_image(collectable)
     when 'orchestrions'
       image_tag('orchestrion.png')
     when 'frames'

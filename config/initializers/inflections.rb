@@ -29,6 +29,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.singular 'leves', 'leve'
   inflect.irregular 'leve', 'leves'
 
+  inflect.irregular 'facewear', 'facewear'
+
   # Moogle Treasure Trove
   inflect.acronym 'II'
   inflect.acronym 'III'

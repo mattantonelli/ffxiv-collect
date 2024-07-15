@@ -45,6 +45,7 @@
 #  public_mounts                :boolean          default(TRUE)
 #  public_minions               :boolean          default(TRUE)
 #  public_facewear              :boolean          default(TRUE)
+#  facewear_count               :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -62,8 +63,8 @@ class Character < ApplicationRecord
   scope :visible,  -> { where(public: true, banned: false) }
   scope :with_public_achievements, -> { where(public_achievements: true) }
 
-  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics fashions records
-  survey_records frames leves cards npcs).each do |model|
+  %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires spells relics
+  fashions facewear records survey_records frames leves cards npcs).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end
@@ -236,7 +237,7 @@ class Character < ApplicationRecord
     data[:ranked_mounts_count] = -1 unless data[:public_mounts]
     data[:ranked_minions_count] = -1 unless data[:public_minions]
 
-    profile_data = data.except(:achievements, :mounts, :minions)
+    profile_data = data.except(:achievements, :mounts, :minions, :facewear)
 
     if character = Character.find_by(id: data[:id])
       character.update!(profile_data)
@@ -411,6 +412,14 @@ class Character < ApplicationRecord
       character.update(ranked_minions_count: character.minions.ranked.count)
     end
 
+    # Facewear
+    current_ids = CharacterFacewear.where(character_id: character.id).pluck(:facewear_id)
+    new_facewear = data[:facewear].reject { |id| current_ids.include?(id) }
+
+    if new_facewear.present?
+      Character.bulk_insert(character.id, CharacterFacewear, :facewear, new_facewear)
+    end
+
     Character.find(character.id)
   end
 
@@ -419,7 +428,7 @@ class Character < ApplicationRecord
     values = ids.map { |id| "(#{character_id}, #{id}, '#{date}', '#{date}')" }
     model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
                              " values #{values.join(',')}")
-    Character.reset_counters(character_id, "#{model_name}s_count")
+    Character.reset_counters(character_id, "#{model_name.to_s.pluralize}_count")
   end
 
   def self.bulk_insert_with_dates(character_id, model, model_name, collectables)
@@ -432,7 +441,7 @@ class Character < ApplicationRecord
     model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
                              " values #{values.join(',')}")
 
-    Character.reset_counters(character_id, "#{model_name}s_count")
+    Character.reset_counters(character_id, "#{model_name.to_s.pluralize}_count")
   end
 
   def clear_user_characters

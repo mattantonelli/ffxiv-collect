@@ -50,6 +50,7 @@
 /app/assets/images/survey_records-small.png
 /app/assets/images/frames/*
 /app/assets/images/leve_items.png
+/app/assets/images/facewear/*
 
 /app/assets/images/cards-*.png
 /public/images/cards*
@@ -71,4 +72,5 @@
 /public/images/survey_records/*
 /public/images/frames/*
 /public/images/leve_items/*
+/public/images/facewear/*
 /public/music/*

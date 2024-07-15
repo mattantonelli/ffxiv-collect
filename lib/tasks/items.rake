@@ -56,13 +56,25 @@ namespace :items do
 
       action_id = XIVData.related_id(item['ItemAction'])
 
-      if action_id == '2235'
+      case action_id
+      when '2235'
         # Orchestrion roll unlock links live in the item's AdditionalData
         the_item = Item.find(item['#'])
         orchestrion_id = XIVData.related_id(item['AdditionalData'])
 
         the_item.update!(unlock_type: 'Orchestrion', unlock_id: orchestrion_id)
         Orchestrion.find(orchestrion_id).update!(item_id: the_item.id) if the_item.tradeable?
+      when '2251'
+        # Match Facewear by the item name
+        the_item = Item.find(item['#'])
+        name = item['Name'].split(' - ').last
+
+        if facewear = Facewear.find_by(name_en: name)
+          the_item.update!(unlock_type: 'Facewear', unlock_id: facewear.id)
+          facewear.update!(item_id: the_item.id) if the_item.tradeable?
+        else
+          "Could not find matching facewear: #{name}"
+        end
       else
         h[action_id] = { id: item['#'], name_en: sanitize_name(item['Name']) }
       end
@@ -85,7 +97,8 @@ namespace :items do
                       end
                     when '3357' then 'Card'
                     when '20086' then 'Fashion'
-                    #when '25183' then 'Orchestrion'
+                    # when '25183' then 'Orchestrion'
+                    # when '37312' then 'Facewear'
                     else
                       next
                     end

@@ -13,6 +13,7 @@ class SearchController < ApplicationController
       { model: Barding, label: I18n.t('bardings.title'), value: 'Barding' },
       { model: Armoire, label: I18n.t('armoires.title'), value: 'Armoire' },
       { model: Fashion, label: I18n.t('fashions.title'), value: 'Fashion' },
+      { model: Facewear, label: I18n.t('facewear.title'), value: 'Facewear' },
       { model: Frame, label: I18n.t('frames.title'), value: 'Frame' },
       { model: Card, label: I18n.t('cards.title'), value: 'Card' },
     ]

@@ -5,7 +5,7 @@ namespace :ownership do
     mount_minion_characters = Character.visible
     manual_collection_characters = Character.visible.verified
 
-    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Record, SurveyRecord, Frame, Card].each do |model|
+    [Orchestrion, Emote, Barding, Hairstyle, Armoire, Spell, Relic, Fashion, Facewear, Record, SurveyRecord, Frame, Card].each do |model|
       cache_ownership(model, manual_collection_characters)
     end
 

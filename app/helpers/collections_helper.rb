@@ -23,6 +23,8 @@ module CollectionsHelper
       image_tag('orchestrion.png')
     when 'Hairstyle'
       hairstyle_sample_image(collectable)
+    when 'Facewear'
+      facewear_sample_image(collectable)
     when 'Mount', 'Minion', 'Fashion'
       sprite(collectable, "#{type.downcase.pluralize}-small")
     else
@@ -122,7 +124,7 @@ module CollectionsHelper
 
   def td_owned(collectable)
     date = @dates&.dig(collectable.id)
-    manual = ![Achievement, Mount, Minion].include?(collectable.class)
+    manual = ![Achievement, Mount, Minion, Facewear].include?(collectable.class)
     owned = @collection_ids&.include?(collectable.id) ||
       (@owned_ids.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id))
 

@@ -15,6 +15,7 @@ module Lodestone
     set_achievements!(character)
     set_mounts!(character)
     set_minions!(character)
+    set_facewear!(character)
 
     character
   end
@@ -169,6 +170,25 @@ module Lodestone
     rescue RestClient::NotFound
       data[:minions] = []
       data[:public_minions] = true
+    end
+  end
+
+  def set_facewear!(data)
+    begin
+      doc = character_document(endpoint: 'faceaccessory', character_id: data[:id])
+      facewear = doc.css('.faceaccessory__name')
+
+      if facewear.empty?
+        data[:facewear] = []
+        data[:public_facewear] = false
+      else
+        data[:facewear] = Facewear.where(name_en: facewear.map(&:text)).pluck(:id)
+        puts data[:facewear]
+        data[:public_facewear] = true
+      end
+    rescue RestClient::NotFound
+      data[:facewear] = []
+      data[:public_facewear] = true
     end
   end
 

@@ -24,6 +24,11 @@ class Fashion < ApplicationRecord
   scope :include_related, -> { include_sources }
   scope :ordered, -> { order(patch: :desc, order: :desc) }
 
+  # IDs of fashion accessories that were migrated to facewear
+  def self.facewear_ids
+    [22, 25, 26, 32]
+  end
+
   def self.available_filters
     %i(owned tradeable premium limited unknown)
   end

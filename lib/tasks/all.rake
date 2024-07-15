@@ -42,6 +42,7 @@ namespace :data do
     Rake::Task['armoires:create'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
+    Rake::Task['facewear:create'].invoke
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
     Rake::Task['frames:create'].invoke
@@ -238,5 +239,18 @@ def create_hair_spritesheets
     end
 
     sheet.save(Rails.root.join('app/assets/images/hairstyles', "#{hairstyle.id}.png").to_s)
+  end
+end
+
+def create_facewear_spritesheets
+  Facewear.all.each do |facewear|
+    images = Dir.glob(Rails.root.join('public/images/facewear', facewear.id.to_s, '*.png')).sort
+    sheet = ChunkyPNG::Image.new(80 * images.size, 80)
+
+    images.each_with_index do |image, i|
+      sheet.compose!(ChunkyPNG::Image.from_file(image), 80 * i, 0)
+    end
+
+    sheet.save(Rails.root.join('app/assets/images/facewear', "#{facewear.id}.png").to_s)
   end
 end
