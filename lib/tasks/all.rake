@@ -4,16 +4,15 @@ require 'xiv_data'
 namespace :data do
   desc 'Initialize all data'
   task initialize: :environment do
+    Rake::Task['triad:card_types:create'].invoke
+    Rake::Task['triad:packs:create'].invoke
+    Rake::Task['triad:rules:create'].invoke
+
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
     Rake::Task['relics:create'].invoke
     Rake::Task['records:sources:create'].invoke
     Rake::Task['survey_records:solutions:set'].invoke
-
-    # Triple Triad
-    Rake::Task['triad:card_types:create'].invoke
-    Rake::Task['triad:cards:create'].invoke
-    Rake::Task['triad:packs:create'].invoke
   end
 
   desc 'Updates all data'
@@ -46,18 +45,14 @@ namespace :data do
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
     Rake::Task['frames:create'].invoke
-    Rake::Task['triad:card_types:create'].invoke
     Rake::Task['triad:cards:create'].invoke
+    Rake::Task['triad:card_images:create'].invoke
+    Rake::Task['triad:npcs:create'].invoke
 
     # Sources
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
-
-    # Triple Triad
-    Rake::Task['triad:rules:create'].invoke
-    Rake::Task['triad:npcs:create'].invoke
-    Rake::Task['triad:card_images:create'].invoke
 
     # Events
     Rake::Task['tomestones:latest:create'].invoke
