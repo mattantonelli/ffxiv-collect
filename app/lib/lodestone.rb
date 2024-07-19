@@ -178,17 +178,14 @@ module Lodestone
       doc = character_document(endpoint: 'faceaccessory', character_id: data[:id])
       facewear = doc.css('.faceaccessory__name')
 
-      if facewear.empty?
-        data[:facewear] = []
-        data[:public_facewear] = false
-      else
-        data[:facewear] = Facewear.where(name_en: facewear.map(&:text)).pluck(:id)
-        puts data[:facewear]
-        data[:public_facewear] = true
-      end
+      data[:facewear] = Facewear.where(name_en: facewear.map(&:text)).pluck(:id)
+      data[:public_facewear] = true
     rescue RestClient::NotFound
       data[:facewear] = []
       data[:public_facewear] = true
+    rescue RestClient::Forbidden
+      data[:facewear] = []
+      data[:public_facewear] = false
     end
   end
 
