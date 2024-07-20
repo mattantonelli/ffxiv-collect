@@ -18,7 +18,7 @@ module OnlineStore
 
   private
   def add_collectable_ids(products, model, extras)
-    premium_collectable_ids = Source.where(text: 'Online Store')
+    premium_collectable_ids = Source.where(text_en: 'Online Store')
       .where(collectable_type: model.to_s)
       .pluck(:collectable_id)
 
