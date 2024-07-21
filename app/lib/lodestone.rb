@@ -90,7 +90,11 @@ module Lodestone
 
   private
   def profile(character_id)
-    doc = character_document(character_id: character_id)
+    begin
+      doc = character_document(character_id: character_id)
+    rescue RestClient::Forbidden
+      raise PrivateProfileError
+    end
 
     character = {
       id: character_id,

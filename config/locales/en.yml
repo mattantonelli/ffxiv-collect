@@ -78,6 +78,7 @@ en:
     private_collection_generic: "You have collections set to private on the Lodestone. You must make them Public for All Users %{link} in order for them to be updated."
     private_collection_not_verified: "This collection is set to private on the Lodestone. It is only visible to that character's verified user."
     private_collection_not_verified_generic: "This page contains collections that are set to private on the Lodestone. It is only visible to that character's verified user."
+    private_profile: "This character's Lodestone profile has been set to private."
     problem_refreshing: "There was a problem refreshing your character."
     problem_selecting_character: "There was a problem selecting that character."
     problem_updating: "There was a problem updating your collection. Please try again."
