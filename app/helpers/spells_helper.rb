@@ -5,12 +5,14 @@ module SpellsHelper
 
   def spell_sources(spell, limit: 3)
     count = spell.sources.size
-    sources = spell.sources.first(limit).pluck("text_#{I18n.locale}").map do |source|
-      if source.match?(' / ')
-        source.split(' / ')
+    sources = spell.sources.first(limit).map do |source|
+      text = source.text
+
+      if text.match?(' / ')
+        text.split(' / ')
       else
         # Handle splits for sources with no Enemy details
-        ["&nbsp;", source]
+        ["&nbsp;", text]
       end
     end
 
