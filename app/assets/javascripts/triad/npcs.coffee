@@ -91,10 +91,8 @@ $(document).on 'turbolinks:load', ->
     cardList = card.parent()
 
     if cardList.find('.owned').length == cardList.children().length
-      console.log('completed!')
       card.closest('tr').addClass('completed')
     else
-      console.log('incomplete')
       card.closest('tr').removeClass('completed')
 
     restripe()
