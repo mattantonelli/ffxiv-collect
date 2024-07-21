@@ -78,6 +78,7 @@ fr:
     private_collection_generic: "Vous avez certaines collections privées sur The Lodestone. Vous devez les rendre Publiques pour Tous les utilisateurs %{link} afin qu'elles soient mises à jour."
     private_collection_not_verified: "Cette collection est privée sur The Lodestone. Elle n'est visible que par l'utilisateur vérifié de ce personnage."
     private_collection_not_verified_generic: "Cette page contient des collections qui sont privées sur The Lodestone. Elle n'est visible que par l'utilisateur vérifié du personnage."
+    private_profile: "Le profil Lodestone de ce personnage a été défini comme privé."
     problem_refreshing: "Une erreur est survenue lors de la synchronisation de votre personnage."
     problem_selecting_character: "Une erreur est survenue lors de la sélection de votre personnage."
     problem_updating: "Une erreur est survenue lors de la synchronisation de votre collection. Veuillez réessayer."

@@ -77,6 +77,7 @@ de:
     private_collection_generic: "Du hast Sammlungen auf dem Lodestone auf Privat eingestellt. Du musst sie %{link} auf Öffentlich für Alle Nutzer stellen, damit sie aktualisiert werden kann."
     private_collection_not_verified: "Diese Sammlung ist auf dem Lodestone auf \"Privat\" eingestellt. Sie ist nur für den verifizierten Nutzer dieses Characters sichtbar."
     private_collection_not_verified_generic: "Diese Seite beinhaltet Sammlungen, die auf dem Lodestone auf Privat eingestellt sind. Diese sind nur für den verifizierten Nutzer des Charakters einsehbar."
+    private_profile: "Das Lodestone-Profil dieses Charakters ist auf privat eingestellt."
     problem_refreshing: "Es ist ein Problem beim Aktualisieren des Charakters aufgetreten."
     problem_selecting_character: "Ein ist ein Problem bei der Auswahl des Charakters aufgetreten."
     problem_updating: "Es ist ein Problem beim Aktualisieren deiner Sammlung aufgetreten."
