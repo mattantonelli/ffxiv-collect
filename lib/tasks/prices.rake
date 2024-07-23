@@ -31,7 +31,6 @@ namespace :prices do
           Redis.current.hmset(key, prices.flatten)
         rescue RestClient::ExceptionWithResponse => e
           log("There was a problem fetching #{url} (#{e.http_code})")
-          log(e.response) if e.response.present?
         rescue
           log("There was an unexpected problem fetching #{url}")
         end
