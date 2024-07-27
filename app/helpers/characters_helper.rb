@@ -53,7 +53,7 @@ module CharactersHelper
         complete = owned == max
       end
     else
-      path = send("#{collection}_path")
+      path = polymorphic_path(collection.classify.constantize)
 
       if score.present? && score[:value] == score[:max]
         complete = true
