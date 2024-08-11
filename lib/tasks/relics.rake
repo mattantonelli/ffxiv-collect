@@ -114,16 +114,17 @@ namespace :relics do
 
     ## Deep Dungeon
     type = RelicType.find_or_create_by!(name_en: "Deep Dungeon Weapons", name_de: "Tiefes Gewölbe - Waffen",
-                                        name_fr: "Armes Donjons sans fond", category: 'weapons', order: 2, jobs: 19)
+                                        name_fr: "Armes Donjons sans fond", category: 'weapons')
+    type.update(order: 2, jobs: 21)
 
-    ids = (15181..15193).to_a + [20456, 20457, 27347, 27348, 35756, 35774] + # Padjali
-      (16152..16164).to_a + [20458, 20459, 27349, 27350, 35757, 35775] + # Kinna
-      (22977..22991).to_a + [27379, 27380, 35759, 35777] + # Empyrean
-      (39184..39200).to_a + [39202, 39201] + # Orthos
-      (39204..39220).to_a + [39222, 39221] # Enaretos
+    ids = (15181..15193).to_a + [20456, 20457, 27347, 27348, 35756, 35774, 43633, 43654] + # Padjali
+      (16152..16164).to_a + [20458, 20459, 27349, 27350, 35757, 35775, 43634, 43655] + # Kinna
+      (22977..22991).to_a + [27379, 27380, 35759, 35777, 43635, 43656] + # Empyrean
+      (39184..39200).to_a + [39202, 39201, 43636, 43657] + # Orthos
+      (39204..39220).to_a + [39222, 39221, 43637, 43658] # Enaretos
 
     achievement_ids = [1581, 1582, 1583, 1584, 1585, 1588, 1591, 1592, 1587, 1586, 1589, 1590, 1593, 1962, 1963,
-                       2394, 2395, 3001, 3002]
+                       2394, 2395, 3001, 3002, 3538, 3539]
 
     create_relics(type, ids, achievement_ids)
 
