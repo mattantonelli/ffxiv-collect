@@ -213,6 +213,10 @@ fr:
     6: "Endwalker"
     7: "Dawntrail"
   experimental: "(Expérimental)"
+  facewear:
+    reclaim_alert: "Manche Gesichtsaccessoires waren vorher als Modeaccessoires verfügbar. Du kannst mit dem Fundsachenverwalter sprechen, um sie unentgeltlich zurückzubekommen."
+    reclaimable: "Ursprünglich als Modeaccessoire verfügbar. Du kannst es möglicherweise zurückbekommen, indem du mit dem Fundsachenverwalter sprichst."
+    title: "Gesichtsaccessoire"
   fashions:
     title: "Accessoires de mode"
   filters: "Filtres"

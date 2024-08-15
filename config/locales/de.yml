@@ -212,6 +212,10 @@ de:
     6: "Endwalker"
     7: "Dawntrail"
   experimental: "(Experimentell)"
+  facewear:
+    reclaim_alert: "Certains accessoires de visage étaient précédemment disponibles en tant qu'accessoires de mode. Vous pouvez vous adresser au Consigneur pour les récupérer gratuitement."
+    reclaimable: "Initialement disponible en tant qu'accessoires de mode. Vous devriez pouvoir le récupérer en parlant au Consigneur."
+    title: "Accessoires de visage"
   fashions:
     title: "Modeaccessoires"
   filters: "Filter"
