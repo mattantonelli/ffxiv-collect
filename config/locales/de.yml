@@ -254,7 +254,7 @@ de:
   home: "Start"
   home_page:
     api_description_html: "Sämtliche auf dieser Seite verwendeten Dateien stehen für versierte Entwickler über eine öffentliche RESTful JSON API zur Verfügung. Die vollständige Dokumentation findest du %{link}."
-    description1: "Deine Sammlungen werden basierend auf deinem Lodestone-Profil automatisch aktualisiert, um alle neuen Reittiere, Minions und Achievements widerzuspiegeln."
+    description1: "Deine Sammlungen werden automatisch aktualisiert und enthalten alle neu erhaltenen Errungenschaften, Reittiere, Begleiter und Gesichtsaccessoires basierend auf deinem Lodestone Profil."
     description2: "Jegliche Collectables, die nicht auf deinem Lodestone-Profil sichtbar sind, können manuell aktualisiert werden, sobald du sie erhältst."
     description3_html: "Ich bin auf die Community angewiesen, um meine Quellen auf dem neuesten Stand zu halten. Wenn du eine fehlende oder falsche Quelle entdeckst, lass es mich bitte auf %{link} wissen."
     description4_html: "Die Community ist es, die mich motiviert, solche Projekte zu erstellen, also wenn du Feedback hast, lass es mich bitte auf %{link} wissen."
