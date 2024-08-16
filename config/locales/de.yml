@@ -213,9 +213,9 @@ de:
     7: "Dawntrail"
   experimental: "(Experimentell)"
   facewear:
-    reclaim_alert: "Certains accessoires de visage étaient précédemment disponibles en tant qu'accessoires de mode. Vous pouvez vous adresser au Consigneur pour les récupérer gratuitement."
-    reclaimable: "Initialement disponible en tant qu'accessoires de mode. Vous devriez pouvoir le récupérer en parlant au Consigneur."
-    title: "Accessoires de visage"
+    reclaim_alert: "Manche Gesichtsaccessoires waren vorher als Modeaccessoires verfügbar. Du kannst mit dem Fundsachenverwalter sprechen, um sie unentgeltlich zurückzubekommen."
+    reclaimable: "Ursprünglich als Modeaccessoire verfügbar. Du kannst es möglicherweise zurückbekommen, indem du mit dem Fundsachenverwalter sprichst."
+    title: "Gesichtsaccessoire"
   fashions:
     title: "Modeaccessoires"
   filters: "Filter"
