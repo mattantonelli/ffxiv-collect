@@ -46,6 +46,9 @@
           <% if character_selected? %>
             <th scope="col"></th> <!-- Owned -->
           <% end %>
+          <% if @comparison.present? %>
+            <th scope="col"></th> <!-- Comparison -->
+          <% end %>
         </tr>
       </thead>
       <tbody>

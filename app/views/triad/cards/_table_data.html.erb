@@ -38,11 +38,10 @@
     <% end %>
     <% unless local_assigns[:skip_checkbox] %>
       <% if character_selected? %>
-        <% if @comparison.present? %>
-          <%= td_comparison(card) %>
-        <% else %>
-          <%= td_owned(card) %>
-        <% end %>
+        <%= td_owned(card) %>
+      <% end %>
+      <% if @comparison.present? %>
+        <%= td_comparison(card) %>
       <% end %>
     <% end %>
     <% if local_assigns[:deck] %>
