@@ -5,7 +5,7 @@ class ToolsController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def gemstones
-    find_collectables_by_source!('Bicolor Gemstone')
+    find_collectables_by_source!(text_en: 'Bicolor Gemstone')
 
     if @character.present?
       @progress = { value: 0, max: 0, text: 'tools.gemstones.title' }
@@ -69,17 +69,19 @@ class ToolsController < ApplicationController
   end
 
   def treasure
-    find_collectables_by_source!(Source.treasure_hunts)
+    sources = Source.where(type: SourceType.find_by(name_en: 'Treasure Hunt'))
+    find_collectables_by_source!(sources: sources)
   end
 
   private
-  def find_collectables_by_source!(sources)
-    text = [*sources].join('|')
+  def find_collectables_by_source!(text_en: nil, sources: [])
+    if text_en.present?
+      sources = Source.where('text_en regexp ?', text_en)
+    end
 
-    @collectables = Source.where('text_en regexp ?', text)
-      .each_with_object(Hash.new { |h, k| h[k] = [] }) do |source, h|
-        h[source.collectable_type.underscore.pluralize.to_sym] << source.collectable_id
-      end
+    @collectables = sources.each_with_object(Hash.new { |h, k| h[k] = [] }) do |source, h|
+      h[source.collectable_type.underscore.pluralize.to_sym] << source.collectable_id
+    end
 
     @collectables.each do |type, ids|
       model = type.to_s.classify.constantize
