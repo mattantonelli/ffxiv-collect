@@ -22,6 +22,9 @@ class RelicType < ApplicationRecord
     if category == 'armor' || name_en == 'GARO Armor'
       # Armor will be displayed from head to toe
       relics.includes(:achievement).order(:order).each_slice(5).to_a.transpose
+    elsif category == 'ultimate'
+      # Ultimate weapons are displayed naturally
+      relics.sort_by(&:order).to_a
     else
       # Other relics will be sliced by tier
       relics.includes(:achievement).order(:order).each_slice(jobs).to_a

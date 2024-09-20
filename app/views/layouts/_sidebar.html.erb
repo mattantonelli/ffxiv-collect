@@ -62,6 +62,7 @@
         aria-haspopup="true" aria-expanded="false"><%= fa_icon('shield-alt', text: t('relics.title')) %></a>
       <div class="dropdown-menu" aria-labelledBy="relicsDropdown">
         <%= link_to fa_icon('pen-nib', text: t('relics.weapons')), relic_weapons_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('dragon', text: t('relics.ultimate')), relic_ultimate_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('tshirt', text: t('relics.armor')), relic_armor_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('hammer', text: t('relics.tools')), relic_tools_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('clock', text: t('relics.garo')), relic_garo_path, class: 'dropdown-item' %>
@@ -75,7 +76,7 @@
         <%= fa_icon('feather-alt', text: t('leves.title')) %>
       </a>
       <div class="dropdown-menu" aria-labelledBy="levesDropdown">
-        <%= link_to fa_icon('dragon', text: t('leves.crafts.battlecraft')),
+        <%= link_to fa_icon('bug', text: t('leves.crafts.battlecraft')),
           battlecraft_leves_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('hammer', text: t('leves.crafts.tradecraft')),
           tradecraft_leves_path, class: 'dropdown-item' %>

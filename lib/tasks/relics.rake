@@ -3,6 +3,7 @@ namespace :relics do
     desc 'Create all relics'
     task create: :environment do
       Rake::Task['relics:weapons:create'].invoke
+      Rake::Task['relics:ultimate:create'].invoke
       Rake::Task['relics:armor:create'].invoke
       Rake::Task['relics:tools:create'].invoke
       Rake::Task['relics:garo:create'].invoke

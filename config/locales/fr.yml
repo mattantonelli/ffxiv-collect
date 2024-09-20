@@ -403,6 +403,8 @@ fr:
     skysteel_tools: "Outils de Cielacier"
     title: "Reliques"
     tools: "Outils"
+    ultimate: "Raid Fatal"
+    ultimate_weapons: "Armes de raid fatal"
     weapons: "Armes"
   remove: "Retirer"
   reset: "Réinitialiser"

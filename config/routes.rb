@@ -103,6 +103,7 @@ Rails.application.routes.draw do
 
   namespace :relics, as: :relic do
     get :weapons
+    get :ultimate
     get :armor
     get :tools
     get :garo

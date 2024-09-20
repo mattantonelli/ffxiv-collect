@@ -405,6 +405,8 @@ en:
     skysteel_tools: "Skysteel Tools"
     title: "Relics"
     tools: "Tools"
+    ultimate: "Ultimate"
+    ultimate_weapons: "Ultimate Weapons"
     weapons: "Weapons"
   remove: "Remove"
   reset: "Reset"

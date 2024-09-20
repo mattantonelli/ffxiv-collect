@@ -24,6 +24,6 @@ class Relic < ApplicationRecord
   scope :ordered, -> { joins(:type).order('relic_types.category desc', expansion: :desc, order: :desc) }
 
   def self.categories
-    %w(weapons armor tools).freeze
+    %w(weapons ultimate armor tools).freeze
   end
 end

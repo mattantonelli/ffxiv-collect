@@ -402,6 +402,8 @@ de:
     skysteel_tools: "Himmelsstahl-Werkzeuge"
     title: "Relikte"
     tools: "Werkzeuge"
+    ultimate: "Fatal"
+    ultimate_weapons: "Fatale Waffen"
     weapons: "Waffen"
   remove: "Entfernen"
   reset: "Zurücksetzen"
