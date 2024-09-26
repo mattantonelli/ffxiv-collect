@@ -12,7 +12,6 @@ module PrivateCollection
 
     collections.each do |collection|
       unless public_collection?(collection)
-        puts "Private collection: #{collection}"
         link = view_context.link_to(t('alerts.here'),
                                     'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
                                     target: '_blank')
