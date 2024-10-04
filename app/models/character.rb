@@ -371,7 +371,7 @@ class Character < ApplicationRecord
     if data[:achievements].present? || is_now_public
       ranked_time = CharacterAchievement.where(character_id: character.id)
         .joins(:achievement).merge(Achievement.exclude_time_limited)
-        .order(:created_at).last.created_at
+        .order(:created_at).last&.created_at
 
       character.update(ranked_achievement_points: character.achievements.exclude_time_limited.sum(:points),
                        last_ranked_achievement_time: ranked_time)
