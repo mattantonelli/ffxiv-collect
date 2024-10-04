@@ -10,14 +10,14 @@ module PrivateCollection
   def check_lodestone_privacy!(*collections)
     return unless @character.present?
 
+    unless @character.public_profile?
+      display_privacy_alert!
+      return
+    end
+
     collections.each do |collection|
       unless public_collection?(collection)
-        link = view_context.link_to(t('alerts.here'),
-                                    'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
-                                    target: '_blank')
-
-        alert = generic_page? ? 'alerts.private_collection_generic' : 'alerts.private_collection'
-        flash.now[:alert] = t(alert, link: link)
+        display_privacy_alert!
         return
       end
     end
@@ -46,5 +46,15 @@ module PrivateCollection
 
   def generic_page?
     !%w(achievements titles mounts minions facewear).include?(controller_name)
+  end
+
+  def display_privacy_alert!
+    alert = generic_page? ? 'alerts.private_collection_generic' : 'alerts.private_collection'
+
+    link = view_context.link_to(t('alerts.here'),
+                                'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
+                                target: '_blank')
+
+    flash.now[:alert] = t(alert, link: link)
   end
 end

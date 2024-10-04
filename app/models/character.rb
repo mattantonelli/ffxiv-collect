@@ -230,7 +230,17 @@ class Character < ApplicationRecord
   end
 
   def self.fetch(id)
-    data = Lodestone.character(id)
+    character = Character.find_by(id: id)
+
+    begin
+      data = Lodestone.character(id)
+    rescue Lodestone::PrivateProfileError => e
+      if character.present?
+        character.update!(public_profile: false, last_parsed: Time.now)
+      end
+
+      raise e
+    end
 
     # Remove character from rankings when achievements have been set to private
     data[:ranked_achievement_points] = -1 unless data[:public_achievments]
@@ -239,7 +249,7 @@ class Character < ApplicationRecord
 
     profile_data = data.except(:achievements, :mounts, :minions, :facewear)
 
-    if character = Character.find_by(id: data[:id])
+    if character.present?
       character.update!(profile_data)
     else
       character = Character.create!(profile_data)

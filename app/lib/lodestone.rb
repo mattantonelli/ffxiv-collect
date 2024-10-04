@@ -103,6 +103,7 @@ module Lodestone
       data_center: doc.at_css('.frame__chara__world').text.gsub(/.*\[(\w+)\]/, '\1'),
       avatar: doc.at_css('.frame__chara__face > img').attributes['src'].value,
       last_parsed: Time.now,
+      public_profile: true,
     }
 
     # Assign remaining attributes based on whether the profile is public
@@ -110,13 +111,11 @@ module Lodestone
       character.merge!(
         gender: doc.at_css('.character-block__name').text.match?('♂') ? 'male' : 'female',
         portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
-        public_profile: true,
       )
     else
       character.merge!(
         gender: nil,
         portrait: nil,
-        public_profile: false,
       )
     end
 
