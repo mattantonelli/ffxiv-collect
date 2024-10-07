@@ -16,6 +16,8 @@ class GroupSyncJob < ApplicationJob
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching group #{group_id}")
       Rails.logger.error(e.response)
+    rescue Lodestone::PrivateProfileError
+      # We cannot fetch characters with private profiles
     rescue StandardError
       Rails.logger.error("There was a problem fetching group #{group_id}")
       raise
