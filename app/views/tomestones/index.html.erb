@@ -66,6 +66,7 @@
           <tr>
             <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
             <th scope="col"><%= t('name') %></th>
+            <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
             <th scope="col" class="text-center"><%= t('verminion.cost') %></th>
           </tr>
         </thead>
@@ -74,6 +75,9 @@
             <tr>
               <td><%= image_tag("items/#{reward.collectable.icon_id}.png") %></td>
               <td><%= reward.collectable.name %></td>
+              <td class="text-center" data-value="<%= !reward.collectable.tradeable %>">
+                <%= reward_market_link(reward) %>
+              </td>
               <td class="text-center">
                 <b><%= reward.cost %></b>
               </td>
