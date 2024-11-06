@@ -11,7 +11,8 @@
         <%= form_for(@user, url: user_settings_path, html: { class: 'form' }) do |f| %>
           <div class="form-group">
             <%= f.label :database, t('settings.database') %>
-            <%= f.select :database, database_options(@user.database), {}, class: 'form-control form-control-sm' %>
+            <%= f.select :database, database_options(@user.database), {},
+              class: 'form-control' %>
           </div>
           <div class="text-right mt-3">
             <%= f.submit t('save'), class: 'btn btn-primary' %>
@@ -27,11 +28,16 @@
         </div>
         <div class="card-body py-3">
           <%= form_for(@character, url: character_settings_path, html: { class: 'form' }) do |f| %>
-            <div class="form-check">
+            <div class="form-check mb-3">
               <%= f.check_box :public, class: 'form-check-input' %>
               <%= f.label :public, t('settings.make_public'), class: 'form-check-label' %>
             </div>
-            <div class="text-right mt-2">
+            <div class="form-field">
+              <%= f.label :pricing_data_center, t('settings.pricing_data_center') %>
+              <%= f.select :pricing_data_center, data_center_options(@character),
+                { include_blank: t('characters.server') }, class: 'form-control' %>
+            </div>
+            <div class="text-right mt-3">
               <%= f.submit t('save'), class: 'btn btn-primary' %>
             </div>
           <% end %>

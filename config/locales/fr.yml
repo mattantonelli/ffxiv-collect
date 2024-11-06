@@ -415,6 +415,7 @@ fr:
     character: "Paramètres du personnage"
     database: "Liens de base de données"
     make_public: "Rendre les collections de ce personnage visible par tous"
+    pricing_data_center: "Centre de données pour les prix"
     title: "Paramètres"
     user: "Paramètres utilisateur"
   show_all: "Afficher tout"
