@@ -61,14 +61,18 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.fallbacks = true
+
   # Raises error for missing translations.
-  config.i18n.raise_on_missing_translations = true
+  config.i18n.raise_on_missing_translations = false
 
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
 
-  # Raise error when a before_action's only/except options reference missing actions.
-  config.action_controller.raise_on_missing_callback_actions = true
+  # Don't raise on "missing" callbacks that are included by concerns
+  config.action_controller.raise_on_missing_callback_actions = false
 
   config.web_console.permissions = '10.0.2.2'
 end
