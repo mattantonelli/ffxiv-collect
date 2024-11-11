@@ -173,6 +173,11 @@ fr:
     remove: "Cliquez pour supprimer"
   clipboard: "Copier dans le presse-papier"
   collapse: "Tout réduire"
+  commands:
+    add_to_server: "Ajouter à votre serveur"
+    description1: "Les commandes slash de FFXIV Collect sont maintenant disponibles pour votre serveur ! Vous pouvez utiliser ces commandes pour rechercher divers objets collectionnables et partager votre profil."
+    description2: "Cette intégration Discord n'est <b>pas</b> un bot traditionnel. Elle n'a aucun accès à votre serveur et peut uniquement répondre aux commandes des utilisateurs."
+    title: "Commandes Discord"
   compare: "Comparer"
   complete: "Achevé"
   copy:

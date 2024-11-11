@@ -8,10 +8,7 @@
         <h5 class="card-title"><%= t('commands.title') %></h5>
       </div>
       <div class="card-body py-3 text-center">
-        <p>
-          FFXIV Collect slash commands are now available for your Discord server! You can use these commands to search
-          for various collectables and share your profile.
-        </p>
+        <p><%= t('commands.description1') %></p>
 
         <div class="carousel slide carousel-fade my-3" id="carousel" data-ride="carousel">
           <div class="carousel-inner">
@@ -24,10 +21,7 @@
           </div>
         </div>
 
-        <p>
-          This Discord integration is <b>not</b> a traditional bot. It has no access to your server and is only
-          capable of responding to user commands.
-        </p>
+        <p><%= t('commands.description2').html_safe %></p>
 
         <div class="text-center mt-2">
           <%= link_to(t('commands.add_to_server'), @oauth_url, target: '_blank', class: 'btn btn-primary') %>
