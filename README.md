@@ -79,7 +79,7 @@ bundle exec rake data:update
 bundle exec rake assets:precompile
 # Restart the application
 bundle exec rails console
-[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Fashion, Frame, Card, NPC].each { |model| puts "#{model}: #{model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH')}" }
+[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Fashion, Facewear, Frame, Card, NPC].each { |model| puts "#{model}: #{model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH')}" }
 exit
 ```
 
