@@ -7,9 +7,9 @@ namespace :items do
     count = Item.count
 
     items = XIVData.sheet('Item', locale: 'en').each_with_object({}) do |item, h|
-      next unless item['Name'].present? && item['Icon'].present?
+      next unless item['Name'].present?
 
-      icon_id = item['Icon'].sub(/.*?(\d+)\.tex/, '\1')
+      icon_id = item['Icon']&.sub(/.*?(\d+)\.tex/, '\1')
       tradeable = item['ItemSearchCategory'].present?
 
       data = { id: item['#'], name_en: sanitize_name(item['Name']), plural_en: sanitize_name(item['Plural']),
@@ -21,7 +21,7 @@ namespace :items do
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('Item', locale: locale).each do |item|
-        next unless item['Name'].present? && item['Icon'].present?
+        next unless item['Name'].present?
 
         items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name']),
                                 "plural_#{locale}" => sanitize_name(item['Plural']),
@@ -75,11 +75,6 @@ namespace :items do
         else
           "Could not find matching facewear: #{name}"
         end
-      when '3357'
-        # Triple Triad card unlock links live in the item's AdditionalData
-        the_item = Item.find(item['#'])
-        card_id = XIVData.related_id(item['AdditionalData'])
-        the_item.update!(unlock_type: 'Card', unlock_id: card_id)
       else
         h[action_id] = { id: item['#'], name_en: sanitize_name(item['Name']) }
       end
@@ -100,6 +95,7 @@ namespace :items do
                       else
                         next
                       end
+                    when '3357' then 'Card'
                     when '20086' then 'Fashion'
                     # when '25183' then 'Orchestrion'
                     # when '37312' then 'Facewear'
