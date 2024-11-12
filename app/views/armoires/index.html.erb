@@ -43,7 +43,9 @@
       <tbody>
         <% @armoires.each do |armoire| %>
           <tr class="<%= category_row_classes(armoire, @category) %>">
-            <td data-value="<%= armoire.order %>"><%= sprite(armoire, 'armoire') %></td>
+            <td data-value="<%= armoire.order_group %><%= armoire.order.to_s.rjust(3, '0') %>">
+              <%= sprite(armoire, 'armoire') %>
+            </td>
             <td>
               <%= link_to(armoire_path(armoire), class: 'name') do %>
                 <%= armoire.name %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_05_232832) do
+ActiveRecord::Schema.define(version: 2024_11_12_135127) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2024_11_05_232832) do
     t.string "description_fr"
     t.string "description_ja"
     t.integer "item_id", null: false
+    t.integer "order_group"
     t.index ["category_id"], name: "index_armoires_on_category_id"
     t.index ["gender"], name: "index_armoires_on_gender"
     t.index ["item_id"], name: "index_armoires_on_item_id"
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 2024_11_05_232832) do
     t.index ["name_fr"], name: "index_armoires_on_name_fr"
     t.index ["name_ja"], name: "index_armoires_on_name_ja"
     t.index ["order"], name: "index_armoires_on_order"
+    t.index ["order_group"], name: "index_armoires_on_order_group"
     t.index ["patch"], name: "index_armoires_on_patch"
   end
 
