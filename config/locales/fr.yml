@@ -251,7 +251,6 @@ fr:
     stale: "Ce personnage n'est pas à jour."
     title: "Groupes personnalisés"
   hairstyles:
-    hrothgar: "Disponible pour Hrothgar"
     title: "Coiffures"
     viera: "Disponible pour Viera"
   hide:

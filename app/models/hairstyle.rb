@@ -19,6 +19,7 @@
 #  vierable       :boolean          default(FALSE)
 #  image_count    :integer          default(0)
 #  hrothable      :boolean          default(FALSE)
+#  femhrothable   :boolean          default(FALSE)
 #
 
 class Hairstyle < ApplicationRecord

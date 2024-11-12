@@ -250,7 +250,8 @@ en:
     stale: "This character is out of date."
     title: "Custom Groups"
   hairstyles:
-    hrothgar: "Available to Hrothgar"
+    female_hrothgar: "Available to female Hrothgar"
+    male_hrothgar: "Available to male Hrothgar"
     title: "Hairstyles"
     viera: "Available to Viera"
   hide:

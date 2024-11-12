@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_11_12_135127) do
+ActiveRecord::Schema.define(version: 2024_11_12_225906) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -615,6 +615,7 @@ ActiveRecord::Schema.define(version: 2024_11_12_135127) do
     t.boolean "vierable", default: false
     t.integer "image_count", default: 0
     t.boolean "hrothable", default: false
+    t.boolean "femhrothable", default: false
     t.index ["gender"], name: "index_hairstyles_on_gender"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"

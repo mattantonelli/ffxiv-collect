@@ -23,7 +23,8 @@
           <th scope="col">#</th><!-- Image -->
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
-          <th scope="col" class="text-center"><%= fa_icon('paw') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('paw') %> <%= fa_icon('mars') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('paw') %> <%= fa_icon('venus') %></th>
           <th scope="col" class="text-center"><%= fa_icon('carrot') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
@@ -52,6 +53,7 @@
             </td>
             <td class="hide-xs" data-value="<%= source_sort_value(hairstyle) %>"><%= sources(hairstyle) %></td>
             <td class="text-center" data-value="<%= hairstyle.hrothable? ? 1 : 0 %>"><%= hrothable(hairstyle) %></td>
+            <td class="text-center" data-value="<%= hairstyle.femhrothable? ? 1 : 0 %>"><%= femhrothable(hairstyle) %></td>
             <td class="text-center" data-value="<%= hairstyle.vierable? ? 1 : 0 %>"><%= vierable(hairstyle) %></td>
             <td class="text-center" data-value="<%= price_sort_value(hairstyle) %>"><%= market_link(hairstyle) %></td>
             <td class="text-center hide-xs" data-value="<%= rarity(hairstyle, numeric: true) %>"><%= rarity(hairstyle) %></td>
