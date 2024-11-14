@@ -47,7 +47,7 @@ namespace :hairstyles do
 
       # Use the first image as a sample of the hairstyle
       sample_path = Rails.root.join('public/images/hairstyles/samples', "#{data[:id]}.png")
-      FileUtils.cp(output_path, sample_path) unless File.exists?(sample_path)
+      FileUtils.cp(output_path, sample_path) unless File.exist?(sample_path)
     end
 
     # Create the Eternal Bonding hairstyle which lacks an item unlock

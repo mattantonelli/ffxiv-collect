@@ -1,3 +1,4 @@
+require 'open-uri'
 require 'sprite_factory'
 require 'xiv_data'
 
@@ -182,23 +183,19 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
   unless output_path.exist?
     image_path = XIVData.image_path(icon_path)
 
-    begin
-      if mask_from.present?
-        mask_to ||= mask_from
-        image = ChunkyPNG::Image.from_file(image_path)
-        image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
-                                  ChunkyPNG::Color::TRANSPARENT)
-      elsif width.present?
-        image = ChunkyPNG::Image.from_file(image_path)
-        image.resample_bilinear!(width, height)
-      else
-        image = URI.open(image_path).read
-      end
-
-      URI.open(output_path.to_s, 'wb') { |file| file << image }
-    rescue StandardError
-      puts "Could not create image: #{output_path}"
+    if mask_from.present?
+      mask_to ||= mask_from
+      image = ChunkyPNG::Image.from_file(image_path)
+      image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
+                                ChunkyPNG::Color::TRANSPARENT)
+    elsif width.present?
+      image = ChunkyPNG::Image.from_file(image_path)
+      image.resample_bilinear!(width, height)
+    else
+      image = URI.open(image_path).read
     end
+
+    URI.open(output_path.to_s, 'wb') { |file| file << image }
   end
 end
 

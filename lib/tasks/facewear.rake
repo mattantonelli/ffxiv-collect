@@ -49,7 +49,7 @@ namespace :facewear do
 
         # Use the first image as a sample of the facewear
         sample_path = Rails.root.join('public/images/facewear/samples', "#{facewear[:id]}.png")
-        FileUtils.cp(output_path, sample_path) unless File.exists?(sample_path)
+        FileUtils.cp(output_path, sample_path) unless File.exist?(sample_path)
       end
     end
 
