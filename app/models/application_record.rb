@@ -6,7 +6,7 @@ class ApplicationRecord < ActiveRecord::Base
   private
   def nilify_blanks
     attributes.each do |attribute, value|
-      if %w(gender patch).include?(attribute)
+      if %w(gender patch pricing_data_center).include?(attribute)
         self[attribute] = nil unless value.present?
       end
     end
