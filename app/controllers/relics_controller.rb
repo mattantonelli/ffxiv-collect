@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class RelicsController < ApplicationController
   include ManualCollection
   include PrivateCollection

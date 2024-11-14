@@ -27,7 +27,7 @@ class SurveyRecord < ApplicationRecord
   belongs_to :series, class_name: 'SurveyRecordSeries', required: false
   translates :name, :description, :solution
 
-  alias_attribute :category, :series
+  alias_method :category, :series
   alias_attribute :category_id, :series_id
 
   scope :include_related, -> { includes(:series) }
