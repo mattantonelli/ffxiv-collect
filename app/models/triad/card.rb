@@ -90,6 +90,14 @@ class Card < ApplicationRecord
     %i(owned unknown)
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(card_type_id stars top right bottom left buy_price sell_price deck_order)
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(race skill_type)
+  end
+
   private
   def touch_related
     npcs.touch_all

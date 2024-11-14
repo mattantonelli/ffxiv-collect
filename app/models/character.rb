@@ -350,6 +350,10 @@ class Character < ApplicationRecord
     %i(gender premium limited ranked_pvp unknown)
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(name server data_center)
+  end
+
   private
   def self.update_collectables!(character, data)
     # Achievements

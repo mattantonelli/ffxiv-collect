@@ -97,4 +97,12 @@ class Minion < ApplicationRecord
   def self.available_filters
     %i(owned tradeable premium limited unknown)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(speed arcana eye gate shield race_id skill_type_id)
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(race skill_type)
+  end
 end

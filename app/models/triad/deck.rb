@@ -40,6 +40,14 @@ class Deck < ApplicationRecord
     votes.find_by(user: user)&.destroy
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(rule_id npc_id rating notes)
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(rule npc)
+  end
+
   private
   def set_order
     deck_cards.each_with_index do |card, i|
