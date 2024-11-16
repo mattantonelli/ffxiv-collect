@@ -9,7 +9,7 @@ namespace :items do
     items = XIVData.sheet('Item', locale: 'en').each_with_object({}) do |item, h|
       next unless item['Name'].present?
 
-      icon_id = item['Icon'].sub(/.*?(\d+)\.tex/, '\1')
+      icon_id = item['Icon']&.sub(/.*?(\d+)\.tex/, '\1')
       tradeable = item['ItemSearchCategory'].present?
 
       data = { id: item['#'], name_en: sanitize_name(item['Name']), plural_en: sanitize_name(item['Plural']),

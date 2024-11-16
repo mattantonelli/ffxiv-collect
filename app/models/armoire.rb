@@ -18,6 +18,7 @@
 #  description_fr :string(255)
 #  description_ja :string(255)
 #  item_id        :integer          not null
+#  order_group    :integer
 #
 
 class Armoire < ApplicationRecord
@@ -27,7 +28,7 @@ class Armoire < ApplicationRecord
   belongs_to :item
 
   scope :include_related, -> { include_sources.includes(:category, :item) }
-  scope :ordered, -> { order(patch: :desc, order: :desc) }
+  scope :ordered, -> { order(patch: :desc, order_group: :desc, order: :desc) }
 
   def tradeable?
     false

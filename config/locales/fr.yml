@@ -173,6 +173,11 @@ fr:
     remove: "Cliquez pour supprimer"
   clipboard: "Copier dans le presse-papier"
   collapse: "Tout réduire"
+  commands:
+    add_to_server: "Ajouter à votre serveur"
+    description1: "Les commandes slash de FFXIV Collect sont maintenant disponibles pour votre serveur ! Vous pouvez utiliser ces commandes pour rechercher divers objets collectionnables et partager votre profil."
+    description2: "Cette intégration Discord n'est <b>pas</b> un bot traditionnel. Elle n'a aucun accès à votre serveur et peut uniquement répondre aux commandes des utilisateurs."
+    title: "Commandes Discord"
   compare: "Comparer"
   complete: "Achevé"
   copy:
@@ -246,7 +251,8 @@ fr:
     stale: "Ce personnage n'est pas à jour."
     title: "Groupes personnalisés"
   hairstyles:
-    hrothgar: "Disponible pour Hrothgar"
+    female_hrothgar: "Disponible pour les femmes Hrothgar"
+    male_hrothgar: "Disponible pour les hommes Hrothgar"
     title: "Coiffures"
     viera: "Disponible pour Viera"
   hide:
@@ -415,6 +421,7 @@ fr:
     character: "Paramètres du personnage"
     database: "Liens de base de données"
     make_public: "Rendre les collections de ce personnage visible par tous"
+    pricing_data_center: "Centre de données pour les prix"
     title: "Paramètres"
     user: "Paramètres utilisateur"
   show_all: "Afficher tout"

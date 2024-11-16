@@ -46,6 +46,7 @@
 #  public_minions               :boolean          default(TRUE)
 #  public_facewear              :boolean          default(TRUE)
 #  facewear_count               :integer          default(0)
+#  pricing_data_center          :string(255)
 #
 
 class Character < ApplicationRecord
@@ -185,6 +186,19 @@ class Character < ApplicationRecord
       'jp'
     else
       'na'
+    end
+  end
+
+  def available_data_centers
+    case data_center
+    when 'Aether', 'Crystal', 'Dynamis', 'Primal'
+      ['Aether', 'Crystal', 'Dynamis', 'Primal']
+    when 'Chaos', 'Light', 'Materia'
+      ['Chaos', 'Light', 'Materia']
+    when 'Elemental', 'Gaia', 'Mana', 'Meteor'
+      ['Elemental', 'Gaia', 'Mana', 'Meteor']
+    else
+      ['Aether', 'Crystal', 'Dynamis', 'Primal']
     end
   end
 

@@ -48,12 +48,14 @@ namespace :data do
     Rake::Task['frames:create'].invoke
     Rake::Task['triad:cards:create'].invoke
     Rake::Task['triad:card_images:create'].invoke
-    Rake::Task['triad:npcs:create'].invoke
 
     # Sources
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
     Rake::Task['sources:update'].invoke
+
+    # Create NPCs after cards are linked to their items
+    Rake::Task['triad:npcs:create'].invoke
 
     # Events
     Rake::Task['tomestones:latest:create'].invoke

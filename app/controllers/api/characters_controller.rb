@@ -78,7 +78,8 @@ class Api::CharactersController < ApiController
   end
 
   def set_prices
-    data_center = @character&.data_center&.downcase || 'primal'
+    data_center = @character&.pricing_data_center || @character&.data_center || 'primal'
+    data_center.downcase!
 
     begin
       @prices = Redis.current.hgetall("prices-#{data_center}").each_with_object({}) do |(k, v), h|

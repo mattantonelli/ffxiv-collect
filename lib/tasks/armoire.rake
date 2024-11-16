@@ -39,7 +39,7 @@ namespace :armoires do
       next unless item.present?
 
       data = { id: (armoire['#'].to_i + 1).to_s, category_id: armoire['Category'],
-               order: armoire['Order'], item_id: item.id.to_s }
+               order: armoire['Order'], order_group: armoire['SortKey'], item_id: item.id.to_s }
 
       data[:gender] = case item.description_en
                       when /♂/ then 'male'

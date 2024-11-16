@@ -172,6 +172,11 @@ de:
     remove: "Auswählen um zu entfernen"
   clipboard: "In die Zwischenablage kopieren"
   collapse: "Alles zuklappen"
+  commands:
+    add_to_server: "Zu deinem Server hinzufügen"
+    description1: "FFXIV Collect Slash-Befehle sind jetzt für deinen Discord Server verfügbar! Du kannst diese Befehle nutzen um nach verschiedenen Collectables zu suchen und dein Profil zu teilen."
+    description2: "Diese Discord Integration ist <b>kein</b> traditioneller Bot. Sie hat keinen Zugriff auf deinen Server und kann nur auf Benutzerbefehle antworten."
+    title: "Discord Befehle"
   compare: "Vergleichen"
   complete: "abgeschlossen"
   copy:
@@ -245,7 +250,8 @@ de:
     stale: "Dieser Charakter ist nicht aktuell."
     title: "Benutzerdefinierte Gruppen"
   hairstyles:
-    hrothgar: "Verfügbar für Hrothgar"
+    female_hrothgar: "Verfügbar für weibliche Hrothgar"
+    male_hrothgar: "Verfügbar für männliche Hrothgar"
     title: "Frisuren"
     viera: "Verfügbar für Viera"
   hide:
@@ -414,6 +420,7 @@ de:
     character: "Charakter Einstellung"
     database: "Datenbank Links"
     make_public: "Setze die Charakter Sammlung öffentlich"
+    pricing_data_center: "Datenzentrum für Preisvergleiche"
     title: "Einstellungen"
     user: "Benutzereinstellungen"
   show_all: "Zeige alle"

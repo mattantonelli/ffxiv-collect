@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_15_000254) do
+ActiveRecord::Schema.define(version: 2024_11_12_225906) do
 
   create_table "achievement_categories", charset: "utf8", force: :cascade do |t|
     t.string "name_en", null: false
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 2024_07_15_000254) do
     t.string "description_fr"
     t.string "description_ja"
     t.integer "item_id", null: false
+    t.integer "order_group"
     t.index ["category_id"], name: "index_armoires_on_category_id"
     t.index ["gender"], name: "index_armoires_on_gender"
     t.index ["item_id"], name: "index_armoires_on_item_id"
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 2024_07_15_000254) do
     t.index ["name_fr"], name: "index_armoires_on_name_fr"
     t.index ["name_ja"], name: "index_armoires_on_name_ja"
     t.index ["order"], name: "index_armoires_on_order"
+    t.index ["order_group"], name: "index_armoires_on_order_group"
     t.index ["patch"], name: "index_armoires_on_patch"
   end
 
@@ -407,6 +409,7 @@ ActiveRecord::Schema.define(version: 2024_07_15_000254) do
     t.boolean "public_minions", default: true
     t.boolean "public_facewear", default: true
     t.integer "facewear_count", default: 0
+    t.string "pricing_data_center"
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -612,6 +615,7 @@ ActiveRecord::Schema.define(version: 2024_07_15_000254) do
     t.boolean "vierable", default: false
     t.integer "image_count", default: 0
     t.boolean "hrothable", default: false
+    t.boolean "femhrothable", default: false
     t.index ["gender"], name: "index_hairstyles_on_gender"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"

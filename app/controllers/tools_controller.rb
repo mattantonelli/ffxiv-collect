@@ -30,7 +30,9 @@ class ToolsController < ApplicationController
 
   def market_board
     # Fetch all of the item prices from Redis
-    data_center = @character&.data_center&.downcase || 'primal'
+    data_center = @character&.pricing_data_center || @character&.data_center || 'primal'
+    data_center.downcase!
+
     @prices = Redis.current.hgetall("prices-#{data_center}").each_with_object({}) do |(id, price), h|
       h[id.to_i] = JSON.parse(price, symbolize_names: true)
     end
