@@ -29,6 +29,10 @@ class Title < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    super + %w(female_name_en female_name_de female_name_fr female_name_ja)
+    super + %w(female_name_en female_name_de female_name_fr female_name_ja achievement_id)
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(achievement)
   end
 end

@@ -45,4 +45,8 @@ class Mount < ApplicationRecord
   def self.available_filters
     %i(owned tradeable premium limited ranked_pvp unknown)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(movement seats)
+  end
 end

@@ -39,7 +39,7 @@ class Spell < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    super + %w(rank)
+    super + %w(rank aspect_id)
   end
 
   def self.ransackable_associations(auth_object = nil)

@@ -7,8 +7,10 @@ class ApplicationRecord < ActiveRecord::Base
     %w(
       name_en name_de name_fr name_ja
       description_en description_de description_fr description_ja
+      enhanced_description_en enhanced_description_de enhanced_description_fr enhanced_description_ja
       tooltip_en tooltip_de tooltip_fr tooltip_ja
-      type_id item_id order order_group patch
+      gender order order_group patch
+      type_id item_id icon_id
     )
   end
 

@@ -18,4 +18,8 @@ class Instance < ApplicationRecord
   def self.valid_types
     ['Dungeon', 'Trial', 'Raid', 'Ultimate Raid', 'Treasure Hunt', 'V&C Dungeon', 'V&C Dungeon Finder'].freeze
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(content_type)
+  end
 end

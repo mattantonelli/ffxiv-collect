@@ -49,4 +49,16 @@ class Item < ApplicationRecord
       name.sub(/.+:(.+)/, '\1')
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(
+      plural_en plural_de plura_fr plural_ja
+      tradeable crafter price unlock_type
+      unlock_id recipe_id quest_id
+    )
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w(unlock)
+  end
 end

@@ -32,4 +32,12 @@ class Record < ApplicationRecord
   def self.available_filters
     %i(owned)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(rarity location linked_record_id)
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(linked_record)
+  end
 end
