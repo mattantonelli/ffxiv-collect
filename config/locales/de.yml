@@ -250,6 +250,8 @@ de:
     stale: "Dieser Charakter ist nicht aktuell."
     title: "Benutzerdefinierte Gruppen"
   hairstyles:
+    female_hrothgar: "Verfügbar für weibliche Hrothgar"
+    male_hrothgar: "Verfügbar für männliche Hrothgar"
     title: "Frisuren"
     viera: "Verfügbar für Viera"
   hide:
