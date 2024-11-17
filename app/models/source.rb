@@ -72,6 +72,14 @@ class Source < ApplicationRecord
       else
         remove_relation!
       end
+    when 'NPC'
+      if relation = NPC.find_by("name_#{locale}" => text)
+        set_text_for_relation!(relation)
+        self.related_id = relation.id
+        self.related_type = 'NPC'
+      else
+        remove_relation!
+      end
     when 'Limited'
       self.limited = true
     when 'Premium'
