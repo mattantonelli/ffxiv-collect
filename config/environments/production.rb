@@ -61,6 +61,23 @@ Rails.application.configure do
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
+  config.lograge.enabled = true
+
+  config.lograge.ignore_custom = lambda do |event|
+    %w(add remove).include?(event.payload[:action]) || event.payload[:format] == :js
+  end
+
+  config.lograge.custom_options = lambda do |event|
+    params = event.payload[:params].except(*%i(controller action format id authenticity_token state code))
+    if params.present?
+      if event.payload.dig(:params, :controller) == 'discord'
+        { params: params['data'].except('resolved').merge(params.slice('type', 'version')) }
+      else
+        { params: params }
+      end
+    end
+  end
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
