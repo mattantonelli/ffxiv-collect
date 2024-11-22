@@ -1,4 +1,4 @@
-lock '~> 3.16.0'
+lock '~> 3.19.2'
 
 set :application, 'collect'
 set :repo_url,    'https://github.com/mattantonelli/ffxiv-collect'
@@ -8,7 +8,7 @@ set :default_env, { path: '$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH' }
 
 # rbenv
 set :rbenv_type, :user
-set :rbenv_ruby, '3.1.0'
+set :rbenv_ruby, '3.3.5'
 
 namespace :deploy do
   desc 'Create symlinks'

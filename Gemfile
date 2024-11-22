@@ -15,7 +15,6 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors', '~> 1.1.0'
 gem 'rack', '>= 2.2.6.3'
 gem 'websocket-extensions', '>= 0.1.5'
-gem 'base64', '0.1.1' # Passenger requirement
 
 gem 'devise'
 gem 'omniauth-discord'
@@ -48,6 +47,7 @@ gem 'activejob-uniqueness'
 gem 'nokogiri', '>= 1.13.6'
 gem 'friendly_id', '~> 5.4.0'
 gem 'csv'
+gem 'ostruct'
 
 # Discord interactions
 gem 'ed25519'
@@ -63,9 +63,10 @@ group :development do
   gem 'rack-mini-profiler'
   gem 'i18n_yaml_sorter'
 
-  gem 'capistrano', '3.16.0'
+  gem 'capistrano', '3.19.2'
   gem 'capistrano-bundler'
   gem 'capistrano-rbenv'
   gem 'capistrano-rails'
   gem 'capistrano-sidekiq'
+  gem 'bcrypt_pbkdf'
 end
