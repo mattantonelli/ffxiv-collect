@@ -26,10 +26,15 @@ namespace :spritesheets do
     puts 'Creating Blue Magic spell spritesheets'
     create_spritesheet('spells')
 
-    puts 'Creating item spritesheets'
+    puts 'Creating relic spritesheets'
     create_spritesheet('relics/weapons')
+    create_spritesheet('relics/ultimate')
     create_spritesheet('relics/armor')
     create_spritesheet('relics/tools')
+    create_spritesheet('relics/garo')
+
+    puts 'Creating levequest spritesheets'
+    create_spritesheet('leve_items')
 
     puts 'Creating fashion spritesheet'
     create_spritesheet('fashions/small')
