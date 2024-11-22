@@ -75,16 +75,6 @@ namespace :deploy do
     end
   end
 
-  before :updated, :update_bin do
-    on roles(:app) do
-      within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute :rake, 'app:update:bin'
-        end
-      end
-    end
-  end
-
   before :updated, :copy_images do
     on roles(:app) do
       # Copy the spritesheets from the previous deployment if they exist. Otherwise, generate them.
