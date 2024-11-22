@@ -6,10 +6,11 @@ This is another application for tracking your Final Fantasy XIV collections writ
 All of this application's data is made available through a RESTful JSON API. See the [documentation](https://ffxivcollect.com/api/docs) for details.
 
 ## Dependencies
-* Ruby (3.1)
-* Rails (6.1)
-* MySQL
+* Ruby (3.3.5)
+* Rails (7.2.2)
+* MariaDB / MySQL
 * Redis
+* pngcrush
 
 ## Installation
 #### Clone and initialize the repository
