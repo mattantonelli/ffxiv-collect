@@ -7,10 +7,10 @@
       <div class="card-header d-flex justify-content-between align-items-center py-2">
         <h5 class="card-title"><%= t('triad.decks.details') %></h5>
         <div>
-          <% if current_user&.id == @deck.user_id %>
+          <% if current_user&.uid == @deck.user_uid %>
             <%= link_to t('edit'), edit_deck_path(@deck), class: 'btn btn-secondary btn-sm' %>
           <% end %>
-          <% if current_user&.id == @deck.user_id || current_user&.admin? %>
+          <% if current_user&.uid == @deck.user_uid || current_user&.admin? %>
             <%= link_to t('delete'), deck_path(@deck), method: :delete, class: 'btn btn-danger btn-sm',
               data: { confirm: t('triad.decks.delete_confirm') } %>
           <% end %>

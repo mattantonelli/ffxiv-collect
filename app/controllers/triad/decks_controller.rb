@@ -107,7 +107,7 @@ class Triad::DecksController < ApplicationController
   end
 
   def authenticated?
-    redirect_to decks_path unless @deck.user_id == current_user.id
+    redirect_to decks_path unless @deck.user_uid == current_user.uid
   end
 
   def signed_in?

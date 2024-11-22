@@ -80,7 +80,7 @@
                 <% end %>
                 <td class="text-center"><%= deck_patch(deck) %></td>
                 <td class="text-right">
-                  <% if deck.user_id == current_user&.id %>
+                  <% if deck.user_uid == current_user&.uid %>
                     <%= link_to fa_icon('pen'), edit_deck_path(deck), class: 'btn btn-secondary btn-sm' %>
                   <% end %>
                   <%= link_to fa_icon('list-alt'), deck_path(deck), class: 'btn btn-secondary btn-sm' %>
