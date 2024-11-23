@@ -14,7 +14,7 @@ module Discord
       url = "#{ROOT_URL}/api/#{type.pluralize}?#{query}"
     end
 
-    response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
+    response = RestClient::Request.execute(url: url, method: :get)
     results = JSON.parse(response, symbolize_names: true)[:results]
       .sort_by { |collectable| collectable[:name].size }
     collectable = results.first
@@ -102,7 +102,7 @@ module Discord
 
   def embed_character(user)
     url = "#{ROOT_URL}/api/users/#{user}"
-    response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
+    response = RestClient::Request.execute(url: url, method: :get)
     character = JSON.parse(response, symbolize_names: true)
 
     embed = Discordrb::Webhooks::Embed.new(color: 0xdaa556)
