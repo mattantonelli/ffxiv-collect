@@ -58,6 +58,16 @@ namespace :relics do
         [43642, 43663]
       create_relics(type, ids)
 
+      # FRU
+      type = RelicType.find_or_create_by!(name_en: "Futures Rewritten",
+                                          name_de: "Eine zweite Zukunft",
+                                          name_fr: "Avenirs réécrits",
+                                          name_ja: "絶もうひとつの未来",
+                                          category: 'ultimate', order: 6, jobs: 21)
+
+      ids = (44721..44741).to_a
+      create_relics(type, ids)
+
       puts "Created #{Relic.count - count} new ultimate weapons"
     end
   end
