@@ -41,4 +41,8 @@ class FreeCompany < ApplicationRecord
 
     free_company
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(slug)
+  end
 end

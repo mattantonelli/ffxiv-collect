@@ -5,6 +5,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.ransackable_attributes(auth_object = nil)
     %w(
+      id name
       name_en name_de name_fr name_ja
       description_en description_de description_fr description_ja
       enhanced_description_en enhanced_description_de enhanced_description_fr enhanced_description_ja

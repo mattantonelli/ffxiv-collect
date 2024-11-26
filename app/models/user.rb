@@ -48,4 +48,12 @@ class User < ApplicationRecord
 
     discord_user
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    if auth_object == :admin
+      super + %w(username uid)
+    else
+      []
+    end
+  end
 end

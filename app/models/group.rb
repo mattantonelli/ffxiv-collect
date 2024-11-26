@@ -47,6 +47,10 @@ class Group < ApplicationRecord
       (character.present? && character.verified? && character_ids.include?(character.id))
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(slug)
+  end
+
   private
   def random_slug
     persisted? ? friendly_id : SecureRandom.hex(8)
