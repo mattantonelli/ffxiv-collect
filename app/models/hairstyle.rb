@@ -32,4 +32,8 @@ class Hairstyle < ApplicationRecord
   def self.available_filters
     %i(owned tradeable gender premium limited unknown)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(vierable hrothable femhrothable)
+  end
 end

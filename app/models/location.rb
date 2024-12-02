@@ -20,4 +20,8 @@ class Location < ApplicationRecord
   has_many :alphabetical_npcs, -> { order("name_#{I18n.locale}") }, class_name: 'NPC'
 
   translates :name, :region
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(region_en region_de region_fr region_ja)
+  end
 end

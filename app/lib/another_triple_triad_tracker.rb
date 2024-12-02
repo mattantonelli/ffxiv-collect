@@ -5,7 +5,7 @@ module AnotherTripleTriadTracker
 
   def user(uid)
     url = "#{ROOT_URL}/api/users/#{uid}"
-    response = RestClient::Request.execute(url: url, method: :get, verify_ssl: false)
+    response = RestClient::Request.execute(url: url, method: :get)
     results = JSON.parse(response, symbolize_names: true)
 
     {

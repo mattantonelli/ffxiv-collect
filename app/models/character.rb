@@ -364,6 +364,24 @@ class Character < ApplicationRecord
     %i(gender premium limited ranked_pvp unknown)
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    attributes = super + %w(server data_center)
+
+    if auth_object == :admin
+      attributes += %w(verified public)
+    end
+
+    attributes
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    if auth_object == :admin
+      super + %w(verified_user)
+    else
+      super
+    end
+  end
+
   private
   def self.update_collectables!(character, data)
     # Achievements

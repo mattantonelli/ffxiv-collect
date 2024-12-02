@@ -1,6 +1,6 @@
 class Admin::CharactersController < AdminController
   def index
-    @q = Character.all.ransack(params[:q])
+    @q = Character.all.ransack(params[:q], auth_object: :admin)
 
     @verified, @public = params.values_at(:verified, :public)
     result = @q.result.includes(:verified_user).order(:created_at)

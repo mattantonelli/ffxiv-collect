@@ -4,3 +4,8 @@ PaperTrail.config.has_paper_trail_defaults = {
 }
 
 PaperTrail.config.serializer = PaperTrail::Serializers::JSON
+
+# Adds a user association for easy reference
+PaperTrail::Version.class_eval do
+  belongs_to :user, foreign_key: :whodunnit, required: false
+end

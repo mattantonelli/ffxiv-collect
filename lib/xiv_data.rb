@@ -1,4 +1,5 @@
 require 'csv'
+require 'open-uri'
 
 module XIVData
   extend self

@@ -28,4 +28,8 @@ class LeveCategory < ApplicationRecord
   def self.crafts
     %w(battlecraft tradecraft fieldcraft)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(craft_en craft_de craft_fr craft_ja items)
+  end
 end

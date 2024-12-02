@@ -32,6 +32,18 @@ class Source < ApplicationRecord
   scope :exclude_premium, -> { where(premium: false) }
   scope :exclude_limited, -> { where(limited: false) }
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(
+      text_en text_de text_fr text_ja
+      premium limited
+      related_id type_id related_type collectable_id collectable_type
+    )
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(collectable related)
+  end
+
   private
   def assign_relations!
     locale = nil

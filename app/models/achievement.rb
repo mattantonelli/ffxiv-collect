@@ -104,6 +104,10 @@ class Achievement < ApplicationRecord
     ].freeze
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(points category_id)
+  end
+
   private
   def touch_title
     title&.update_column(:updated_at, Time.now)
