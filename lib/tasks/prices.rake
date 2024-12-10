@@ -22,7 +22,8 @@ namespace :prices do
           )
 
           prices = JSON.parse(response)['items'].map do |id, item|
-            last_updated = Time.at(item['lastUploadTime'] / 1000).to_date
+            time = item['lastUploadTime'].to_i
+            last_updated = time == 0 ? nil : Time.at(time / 1000).to_date
             price, world = item['listings'].first&.values_at('pricePerUnit', 'worldName')
 
             [id, { price: price, world: world, last_updated: last_updated }.to_json]
