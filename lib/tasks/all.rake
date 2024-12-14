@@ -28,6 +28,9 @@ namespace :data do
       puts 'Music samples will not be generated.'
     end
 
+    puts 'Retrieving the latest game data from xiv-data'
+    %x{git submodule update --remote}
+
     Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
     Rake::Task['quests:create'].invoke
