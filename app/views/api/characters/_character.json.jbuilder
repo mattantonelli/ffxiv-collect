@@ -14,13 +14,13 @@ json.achievements do
   json.obtained @times if @times.present?
 end
 
-%w(mount minion orchestrion spell emote barding hairstyle armoire fashion record survey_record card npc).each do |collection|
+%w(mount minion orchestrion spell hairstyle emote barding armoire fashion facewear frame record survey_record leve card npc).each do |collection|
   json.set! collection.pluralize do
-    json.count public_collection?(@character, "#{collection}s") ? character.send("#{collection}s_count") : 0
+    json.count public_collection?(@character, collection.pluralize) ? character.send("#{collection.pluralize}_count") : 0
     json.total collection == 'minion' ? Minion.summonable.count : collection.classify.constantize.count
 
     if collection.match?(/mount|minion/)
-      json.ranked_count character.send("ranked_#{collection}s_count")
+      json.ranked_count character.send("ranked_#{collection.pluralize}_count")
 
       if collection == 'minion'
         json.ranked_total Minion.ranked.summonable.count
@@ -31,8 +31,8 @@ end
 
     json.ids character.send("#{collection}_ids") if params[:ids].present?
 
-    if @character.has_attribute?("public_#{collection}s")
-      json.public @character.send("public_#{collection}s")
+    if @character.has_attribute?("public_#{collection.pluralize}")
+      json.public @character.send("public_#{collection.pluralize}")
     end
   end
 end
