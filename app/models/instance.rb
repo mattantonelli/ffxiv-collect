@@ -16,7 +16,16 @@ class Instance < ApplicationRecord
   translates :name
 
   def self.valid_types
-    ['Dungeon', 'Trial', 'Raid', 'Ultimate Raid', 'Treasure Hunt', 'V&C Dungeon', 'V&C Dungeon Finder'].freeze
+    # TODO: This list should just contain valid content types.
+    #       The short-hand source types should be maintained in Source.
+    [
+      'Dungeon', 'Trial', 'Raid', 'Ultimate Raid', 'Chaotic Raid', 'Chaotic Alliance Raid',
+      'Treasure Hunt', 'V&C Dungeon', 'V&C Dungeon Finder'
+    ].freeze
+  end
+
+  def self.valid_types_regex
+    Regexp.new(self.valid_types.join('|'))
   end
 
   def self.ransackable_attributes(auth_object = nil)
