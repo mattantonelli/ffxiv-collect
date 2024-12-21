@@ -160,14 +160,14 @@ module Discord
     end
 
     leves = character[:leves]
-    leves_count = leves.values.pluck(:count).sum
-    leves_total = leves.values.pluck(:total).sum
+    leves_count = leves[:count]
+    leves_total = leves[:total]
 
     if leves_count > 0
       name = "Levequests#{star(leves_count, leves_total)}"
 
-      values = leves.map do |craft, data|
-        "#{data[:count]} of #{data[:total]} #{craft.capitalize}"
+      values = %i(battlecraft tradecraft fieldcraft).map do |craft|
+        "#{leves[craft][:count]} of #{leves[craft][:total]} #{craft.to_s.capitalize}"
       end
 
       embed.add_field(name: name, value: values.join("\n"), inline: true)
