@@ -360,6 +360,10 @@ fr:
     sample: "Échantillon audio"
     title: "Orchestrion"
   other: "Autre"
+  outfits:
+    armoireable: "Cet ensemble contient des éléments pouvant être rangés dans le bahut personnel"
+    items: "Objets"
+    title: "Ensembles"
   own: "Posséder"
   owned: "Possédé"
   ownership: "Possédé par %{percent} des personnages"
@@ -427,7 +431,8 @@ fr:
   show_all: "Afficher tout"
   source: "Emplacement"
   sources:
-    crafted: "Recette de %{job}"
+    crafted: "Recette d'artisan"
+    crafted_by: "Recette de %{job}"
     crystalline_conflict: "Récompense de saison de Crystalline Conflict"
     gil: "%{amount} gils"
     online_store: "Boutique"

@@ -1,0 +1,7 @@
+<div class="d-flex flex-wrap outfit-items">
+  <% items.each do |item| %>
+    <div data-toggle="tooltip" data-title="<%= item.name %>">
+      <%= sprite(item, 'outfit_item') %>
+    </div>
+  <% end %>
+</div>

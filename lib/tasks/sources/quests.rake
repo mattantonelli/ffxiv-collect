@@ -5,18 +5,33 @@ namespace 'sources:quests' do
 
     puts 'Creating Quest sources'
 
-    event_type = SourceType.find_by(name_en: 'Event')
-    quest_type = SourceType.find_by(name_en: 'Quest')
-
+    # Create quest sources for items that have associated unlocks
     Item.includes(:quest).where.not(unlock_id: nil).where.not(quest_id: nil).each do |item|
       next if item.unlock.sources.any?
 
-      source_type = item.quest.event? ? event_type : quest_type
-
-      item.unlock.sources.find_or_create_by!(text_en: item.quest.name_en, text_de: item.quest.name_de,
-                                             text_fr: item.quest.name_fr, text_ja: item.quest.name_ja,
-                                             type: source_type, limited: item.quest.event?,
-                                             related_type: 'Quest', related_id: item.quest_id)
+      create_quest_source(item, item.unlock)
     end
+
+    # Create quest sources for outfits based on their associated items
+    Outfit.includes(items: :quest).all.each do |outfit|
+      next if outfit.sources.any?
+
+      outfit.items.each do |item|
+        if item.quest_id.present?
+          create_quest_source(item, outfit)
+          break
+        end
+      end
+    end
+  end
+
+  def create_quest_source(item, collectable)
+    quest = item.quest
+    source_type = SourceType.find_by(name_en: quest.event ? 'Event' : 'Quest')
+
+    collectable.sources.find_or_create_by!(text_en: quest.name_en, text_de: quest.name_de,
+                                           text_fr: quest.name_fr, text_ja: quest.name_ja,
+                                           type: source_type, limited: quest.event?,
+                                           related_type: 'Quest', related_id: quest.id)
   end
 end

@@ -32,7 +32,7 @@
 # Game data
 /vendor/xiv-data/*
 
-# Images
+# Compiled assets
 /app/assets/images/mounts-small.png
 /app/assets/images/minions-small.png
 /app/assets/images/achievements.png
@@ -51,12 +51,13 @@
 /app/assets/images/frames/*
 /app/assets/images/leve_items.png
 /app/assets/images/facewear/*
-
 /app/assets/images/cards-*.png
-/public/images/cards*
+/app/assets/images/outfits.png
+/app/assets/images/outfit_items.png
 
 /app/assets/stylesheets/images/*
 
+# Public assets
 /public/images/mounts/*
 /public/images/minions/*
 /public/images/achievements/*
@@ -73,4 +74,8 @@
 /public/images/frames/*
 /public/images/leve_items/*
 /public/images/facewear/*
+/public/images/cards*
+/public/images/outfits/*
+/public/images/outfit_items/*
+
 /public/music/*

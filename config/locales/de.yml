@@ -359,6 +359,10 @@ de:
     sample: "Musikvorschau"
     title: "Orchestrion"
   other: "Andere"
+  outfits:
+    armoireable: "Dieses Set enthält Gegenstände, die im Kostbarkeitenkabinett aufbewahrt werden können"
+    items: "Gegenstände"
+    title: "Outfits"
   own: "Besitz"
   owned: "In Besitz"
   ownership: "In Besitz von %{percent} der Charaktere"
@@ -426,7 +430,8 @@ de:
   show_all: "Zeige alle"
   source: "Quelle"
   sources:
-    crafted: "%{job}-Rezept"
+    crafted: "Hergestellt von Handwerkern"
+    crafted_by: "%{job}-Rezept"
     crystalline_conflict: "Crystalline Conflict Saison Belohnung"
     gil: "%{amount} Gil"
     online_store: "Online Store"

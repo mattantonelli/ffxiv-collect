@@ -24,7 +24,7 @@ namespace 'sources' do
 
         texts = %w(en de fr).each_with_object({}) do |locale, h|
           job = I18n.t("leves.categories.#{item.crafter.downcase}", locale: locale)
-          h["text_#{locale}"] = I18n.t("sources.crafted", job: job, locale: locale)
+          h["text_#{locale}"] = I18n.t("sources.crafted_by", job: job, locale: locale)
         end
 
         source.update!(**texts)

@@ -31,6 +31,8 @@ class Item < ApplicationRecord
 
   belongs_to :unlock, polymorphic: true, required: false
   belongs_to :quest, required: false
+  has_many :outfit_items
+  has_many :outfits, through: :outfit_items
 
   scope :collectable, -> { where.not(unlock_id: nil) }
   scope :tradeable, -> { where(tradeable: true) }

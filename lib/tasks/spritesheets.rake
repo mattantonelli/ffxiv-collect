@@ -20,6 +20,10 @@ namespace :spritesheets do
     puts 'Creating armoire spritesheet'
     create_spritesheet('armoires')
 
+    puts 'Creating outfit spritesheet'
+    create_spritesheet('outfits')
+    create_spritesheet('outfit_items')
+
     puts 'Creating hairstyle spritesheets'
     create_hair_spritesheets
 

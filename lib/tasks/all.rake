@@ -43,6 +43,7 @@ namespace :data do
     Rake::Task['bardings:create'].invoke
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
+    Rake::Task['outfits:create'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
     Rake::Task['facewear:create'].invoke
@@ -119,6 +120,14 @@ end
 def updated?(model, data)
   data.symbolize_keys!
   current = model.attributes.symbolize_keys.select { |k, _| data.keys.include?(k) }
+
+  # Add associated IDs which are not part of the model's attributes. Sort them for proper comparison.
+  data.each do |k, v|
+    if v.is_a?(Array)
+      current[k] = model.send(k).sort
+      v.sort!
+    end
+  end
 
   # The XIVData values are all strings, so convert integers to strings for comparison
   current.each do |k, v|

@@ -464,7 +464,7 @@ pre {
     margin-top: 0.5rem;
   }
 
-  .d-flex div:not(:last-child) {
+  > div.d-flex div:not(:last-child) {
     margin-right: 2rem;
   }
 }

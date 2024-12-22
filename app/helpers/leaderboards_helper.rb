@@ -8,6 +8,7 @@ module LeaderboardsHelper
        [t('orchestrions.title'), 'orchestrions'], [t('emotes.title'), 'emotes'],
        [t('bardings.title'), 'bardings'], [t('hairstyles.title'), 'hairstyles'],
        [t('armoires.title'), 'armoires'],
+       [t('outfits.title'), 'outfits'],
        [t('fashions.title'), 'fashions'],
        [t('facewear.title'), 'facewear'],
        [t('cards.title'), 'cards'],

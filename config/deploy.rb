@@ -46,7 +46,7 @@ namespace :deploy do
         end
       end
 
-      %w(achievements armoires bardings emotes relics hairstyles facewear spells achievement_items leve_items frames).each do |model|
+      %w(achievements armoires outfits outfit_items bardings emotes relics hairstyles facewear spells achievement_items leve_items frames).each do |model|
         execute :rm, '-rf', release_path.join('public/images', model)
         execute :ln, '-s', shared_path.join('public/images', model),
           release_path.join('public/images', model)
@@ -92,6 +92,10 @@ namespace :deploy do
         execute :cp, current_path.join('app/assets/images/bardings.png'),
           release_path.join('app/assets/images')
         execute :cp, current_path.join('app/assets/images/armoires.png'),
+          release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/outfits.png'),
+          release_path.join('app/assets/images')
+        execute :cp, current_path.join('app/assets/images/outfit_items.png'),
           release_path.join('app/assets/images')
         execute :cp, '-R', current_path.join('app/assets/images/hairstyles/*.png'),
           release_path.join('app/assets/images/hairstyles')

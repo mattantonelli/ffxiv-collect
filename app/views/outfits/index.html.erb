@@ -1,0 +1,78 @@
+<% title(t('outfits.title')) %>
+<% description("Track your character's outfits and discover how to obtain new ones.") %>
+
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <div class="d-flex justify-content-between align-items-end mb-1">
+      <div></div>
+      <%= search_form_for(@q, url: outfits_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+          { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <% end %>
+      <%= render 'shared/active_filters' %>
+    </div>
+    <%= render 'shared/collection_progress', ids: @outfits.map(&:id) %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <table class="table table-striped table-sm shadow collection sortable<%= ' comparing' if @comparison.present? %>">
+      <thead>
+        <tr>
+          <th scope="col">#</th><!-- Image -->
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col"><%= t('outfits.items') %></th>
+          <th scope="col" class="hide-xs"><%= t('source') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('tshirt') %></th>
+          <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+          <th scope="col" class="text-center"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
+          <% end %>
+          <% if @comparison.present? %>
+            <th scope="col"></th><!-- Comparison -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @outfits.each do |outfit| %>
+          <tr class="<%= collectable_classes(outfit) %>">
+            <td data-value="<%= outfit.id %>">
+              <%= sprite(outfit, 'outfit') %>
+            </td>
+            <td>
+              <%= link_to(outfit.name, outfit_path(outfit), class: 'name') %>
+              <%= gender_symbol(outfit.gender) %>
+            </td>
+            <td>
+              <%= outfit_items(outfit) %>
+            </td>
+            <td class="hide-xs" data-value="<%= source_sort_value(outfit) %>">
+              <%= sources(outfit) %>
+            </td>
+            <td class="text-center">
+              <%= armoireable(outfit) %>
+            </td>
+            <td class="text-center">
+              <%= fa_icon('dollar-sign') if outfit.tradeable? %>
+            </td>
+            <td class="text-center hide-xs" data-value="<%= rarity(outfit, numeric: true) %>">
+              <%= rarity(outfit) %>
+            </td>
+            <td class="text-center" data-value="<%= sort_value(outfit) %>">
+              <%= outfit.patch %>
+            </td>
+            <% if character_selected? %>
+              <%= td_owned(outfit) %>
+            <% end %>
+            <% if @comparison.present? %>
+              <%= td_comparison(outfit) %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

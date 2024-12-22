@@ -14,7 +14,7 @@ json.achievements do
   json.obtained @times if @times.present?
 end
 
-%w(mount minion orchestrion spell hairstyle emote barding armoire fashion facewear frame record survey_record leve card npc).each do |collection|
+%w(mount minion orchestrion spell hairstyle emote barding armoire outfit fashion facewear frame record survey_record leve card npc).each do |collection|
   json.set! collection.pluralize do
     json.count public_collection?(@character, collection.pluralize) ? character.send("#{collection.pluralize}_count") : 0
     json.total collection == 'minion' ? Minion.summonable.count : collection.classify.constantize.count

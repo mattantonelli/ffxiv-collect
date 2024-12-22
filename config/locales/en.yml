@@ -359,6 +359,10 @@ en:
     sample: "Audio sample"
     title: "Orchestrion"
   other: "Other"
+  outfits:
+    armoireable: "This outfit contains Armoire items"
+    items: "Items"
+    title: "Outfits"
   own: "Own"
   owned: "Owned"
   ownership: "Owned by %{percent} of characters"
@@ -426,7 +430,8 @@ en:
   show_all: "Show All"
   source: "Source"
   sources:
-    crafted: "Crafted by %{job}"
+    crafted: "Crafted"
+    crafted_by: "Crafted by %{job}"
     crystalline_conflict: "Crystalline Conflict Season Reward"
     gil: "%{amount} Gil"
     online_store: "Online Store"
