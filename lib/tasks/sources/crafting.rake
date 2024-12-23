@@ -33,7 +33,7 @@ namespace 'sources:crafting' do
       case collectable
       when Outfit
         # Outfits have multiple recipes, so skip identifying the crafter
-        h["text_#{locale}"] = I18n.t('sources.crafted')
+        h["text_#{locale}"] = I18n.t('sources.crafted', locale: locale)
       else
         job = I18n.t("leves.categories.#{item.crafter.downcase}", locale: locale)
         h["text_#{locale}"] = I18n.t('sources.crafted_by', job: job, locale: locale)
