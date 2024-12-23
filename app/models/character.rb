@@ -298,8 +298,8 @@ class Character < ApplicationRecord
   end
 
   def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil, rankings: false)
-    q = { data_center_eq: data_center, server_eq: server, "#{metric}_gt" => 0 }.compact
-    ranked_characters = characters.ransack(q).result
+    q = { data_center_eq: data_center, server_eq: server }.compact
+    ranked_characters = characters.where("#{metric} > 0").ransack(q).result
 
     # Exclude characters with private collections
     case metric
