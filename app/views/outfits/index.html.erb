@@ -22,7 +22,7 @@
         <tr>
           <th scope="col">#</th><!-- Image -->
           <th scope="col"><%= t('name') %></th>
-          <th scope="col"><%= t('outfits.items') %></th>
+          <th scope="col" data-defaultsort="disabled"><%= t('outfits.items') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center"><%= fa_icon('tshirt') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
@@ -52,10 +52,10 @@
             <td class="hide-xs" data-value="<%= source_sort_value(outfit) %>">
               <%= sources(outfit) %>
             </td>
-            <td class="text-center">
+            <td class="text-center" data-value="<%= outfit.armoireable? %>">
               <%= armoireable(outfit) %>
             </td>
-            <td class="text-center">
+            <td class="text-center" data-value="<%= outfit.tradeable? %>">
               <%= fa_icon('dollar-sign') if outfit.tradeable? %>
             </td>
             <td class="text-center hide-xs" data-value="<%= rarity(outfit, numeric: true) %>">
