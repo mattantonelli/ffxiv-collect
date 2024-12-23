@@ -63,6 +63,14 @@ class NPC < ApplicationRecord
     (ids - character.npc_ids).uniq
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + %w(difficulty x y)
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(location rules)
+  end
+
   private
   def touch_related
     decks.touch_all

@@ -41,7 +41,7 @@ class Deck < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    super + %w(rule_id npc_id rating notes)
+    super + %w(rule_id npc_id rating notes updated)
   end
 
   def self.ransackable_associations(auth_object = nil)
