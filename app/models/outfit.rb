@@ -26,6 +26,6 @@ class Outfit < ApplicationRecord
   has_many :items, through: :outfit_items
 
   def self.available_filters
-    %i(owned tradeable premium limited unknown)
+    %i(owned tradeable gender premium limited unknown)
   end
 end

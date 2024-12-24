@@ -109,7 +109,7 @@ module Lodestone
     # Assign remaining attributes based on whether the profile is public
     if doc.at_css('.character__profile').present?
       character.merge!(
-        gender: doc.at_css('.character-block__name').text.match?('♂') ? 'male' : 'female',
+        gender: doc.at_css('.character-block__profile').text.match?('♂') ? 'male' : 'female',
         portrait: doc.at_css('.character__detail__image > a > img').attributes['src'].value,
       )
     else
