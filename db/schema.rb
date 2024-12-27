@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_12_20_215631) do
+ActiveRecord::Schema[7.2].define(version: 2024_12_27_142954) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -670,7 +670,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_12_20_215631) do
     t.string "plural_fr"
     t.string "plural_ja"
     t.integer "quest_id"
+    t.index ["name_de"], name: "index_items_on_name_de"
     t.index ["name_en"], name: "index_items_on_name_en"
+    t.index ["name_fr"], name: "index_items_on_name_fr"
+    t.index ["name_ja"], name: "index_items_on_name_ja"
     t.index ["quest_id"], name: "index_items_on_quest_id"
     t.index ["unlock_type"], name: "index_items_on_unlock_type"
   end

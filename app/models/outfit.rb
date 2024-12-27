@@ -28,4 +28,8 @@ class Outfit < ApplicationRecord
   def self.available_filters
     %i(owned tradeable gender premium limited unknown)
   end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + %w(items)
+  end
 end
