@@ -124,8 +124,8 @@ de:
     title: "Karten"
   category: "Kategorie"
   character:
-    one: "charakter"
-    other: "charaktere"
+    one: "Charakter"
+    other: "Charaktere"
   characters:
     change: "Charakter ändern"
     character_profile: "Charakterprofil"
