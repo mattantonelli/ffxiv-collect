@@ -207,18 +207,6 @@ class Character < ApplicationRecord
     Character.fetch(id)
   end
 
-  def import_triple_triad_progress!(card_ids:, npc_ids:)
-    if card_ids.present?
-      cards.delete_all
-      Character.bulk_insert(self.id, CharacterCard, :card, card_ids)
-    end
-
-    if npc_ids.present?
-      npcs.delete_all
-      Character.bulk_insert(self.id, CharacterNPC, :npc, npc_ids)
-    end
-  end
-
   def set_cards(ids)
     old_ids = self.card_ids
 

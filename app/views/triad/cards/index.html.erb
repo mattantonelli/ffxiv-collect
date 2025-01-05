@@ -24,7 +24,6 @@
         <% if @character&.verified_user?(current_user) %>
           <%= link_to t('cards.select'), select_cards_path,
             class: "btn btn-secondary btn-sm#{' btn-attention' if @collection_ids.empty?} mr-1" %>
-          <%= render 'triad/import_button' %>
         <% end %>
       </div>
       <%= render 'shared/active_filters' %>
