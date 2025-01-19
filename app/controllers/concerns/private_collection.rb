@@ -51,9 +51,11 @@ module PrivateCollection
   def display_privacy_alert!
     alert = generic_page? ? 'alerts.private_collection_generic' : 'alerts.private_collection'
 
-    link = view_context.link_to(t('alerts.here'),
-                                'https://na.finalfantasyxiv.com/lodestone/my/setting/account/',
-                                target: '_blank')
+    link = view_context.link_to(
+      t('alerts.here'),
+      "https://#{view_context.region}.finalfantasyxiv.com/lodestone/my/setting/account/",
+      target: '_blank'
+    )
 
     flash.now[:alert] = t(alert, link: link)
   end
