@@ -204,6 +204,7 @@ en:
     command: "Command"
     title: "Emotes"
   exclude:
+    armoire: "Exclude Armoire Storable"
     limited: "Exclude Time Limited"
     premium: "Exclude Premium"
     ranked_pvp: "Exclude Ranked PVP"

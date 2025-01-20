@@ -350,7 +350,7 @@ class Character < ApplicationRecord
   end
 
   def self.available_filters
-    %i(gender premium limited ranked_pvp unknown)
+    %i(gender premium limited ranked_pvp armoire unknown)
   end
 
   def self.ransackable_attributes(auth_object = nil)

@@ -204,6 +204,7 @@ de:
     command: "Befehl"
     title: "Emotes"
   exclude:
+    armoire: "Im Kostbarkeitenkabinett lagerbare Gegenstände ausschließen"
     limited: "Zeitexklusive ausschließen"
     premium: "Premium ausschließen"
     ranked_pvp: "Ranglisten-PVP"

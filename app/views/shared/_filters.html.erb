@@ -21,7 +21,7 @@
           <% if @available_filters.include?(:gender) %>
             <%= select_tag :gender, gender_filter_options(cookies[:gender]), class: 'form-control mb-2'%>
           <% end %>
-          <% %i(premium limited ranked_pvp unknown).each do |filter| %>
+          <% %i(premium limited ranked_pvp armoire unknown).each do |filter| %>
             <% if @available_filters.include?(filter) %>
               <div>
                 <%= check_box_tag filter, nil, cookies[filter] == 'hide' %>

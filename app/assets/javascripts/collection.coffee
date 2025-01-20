@@ -202,12 +202,14 @@ $(document).on 'turbolinks:load', ->
     premium = $(@).find('#premium')
     limited = $(@).find('#limited')
     ranked_pvp = $(@).find('#ranked_pvp')
+    armoire = $(@).find('#armoire')
     unknown = $(@).find('#unknown')
     gender = $(@).find('#gender')
 
     refresh = (premium.length > 0 && Cookies.get('premium') != checkboxValue(premium)) ||
       (limited.length > 0 && Cookies.get('limited') != checkboxValue(limited)) ||
       (ranked_pvp.length > 0 && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
+      (armoire.length > 0 && Cookies.get('armoire') != checkboxValue(armoire)) ||
       (unknown.length > 0 && Cookies.get('unknown') != checkboxValue(unknown)) ||
       (gender.length > 0 && Cookies.get('gender') != gender.val())
 

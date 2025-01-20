@@ -205,6 +205,7 @@ fr:
     command: "Commande"
     title: "Émotes"
   exclude:
+    armoire: "Exclure les objets stockables dans le bahut personnel"
     limited: "Exclure les objets limités dans le temps"
     premium: "Exclure les objets premiums"
     ranked_pvp: "JcJ classé"

@@ -16,6 +16,10 @@ module Collectable
       where('sources.text_en not like "%Season %" or sources.id IS NULL') if hide && available_filters.include?(:ranked_pvp)
     end
 
+    scope :hide_armoire_storable, -> (hide) do
+      where(armoireable: false) if hide && available_filters.include?(:armoire)
+    end
+
     scope :hide_unknown, -> (hide) do
       where('sources.id IS NOT NULL') if hide && available_filters.include?(:unknown)
     end
@@ -37,6 +41,7 @@ module Collectable
         .hide_premium(filters[:premium] == 'hide')
         .hide_limited(filters[:limited] == 'hide')
         .hide_ranked_pvp(filters[:ranked_pvp] == 'hide')
+        .hide_armoire_storable(filters[:armoire] == 'hide')
         .hide_unknown(filters[:unknown] == 'hide')
         .filter_gender(filters[:gender], character)
         .distinct

@@ -389,6 +389,8 @@ module CollectionsHelper
              'clock'
            when :ranked_pvp
              'medal'
+           when :armoire
+             'tshirt'
            when :unknown
              'question'
            end
