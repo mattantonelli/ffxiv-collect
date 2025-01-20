@@ -39,7 +39,11 @@
       <tbody>
         <% @frames.each do |frame| %>
           <tr class="<%= collectable_classes(frame) %>">
-            <td data-value="<%= frame.order %>"><%= image_tag('frame.png') %></td>
+            <td data-value="<%= frame.order %>">
+              <%= link_to frame_path(frame) do %>
+                <%= image_tag('frame.png') %>
+              <% end %>
+            </td>
             <td><%= link_to(frame.name, frame_path(frame), class: 'name') %></td>
             <td class="hide-xs"><%= frame.item_name %></td>
             <td class="hide-xs" data-value="<%= source_sort_value(frame) %>"><%= sources(frame) %></td>

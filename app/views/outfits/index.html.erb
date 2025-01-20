@@ -40,7 +40,9 @@
         <% @outfits.each do |outfit| %>
           <tr class="<%= collectable_classes(outfit) %>">
             <td data-value="<%= outfit.id %>">
-              <%= sprite(outfit, 'outfit') %>
+              <%= link_to outfit_path(outfit) do %>
+                <%= sprite(outfit, 'outfit') %>
+              <% end %>
             </td>
             <td>
               <%= link_to(outfit.name, outfit_path(outfit), class: 'name') %>

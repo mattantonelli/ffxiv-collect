@@ -40,7 +40,11 @@
       <tbody>
         <% @emotes.each do |emote| %>
           <tr class="<%= category_row_classes(emote, @category) %>">
-            <td data-value="<%= emote.order %>"><%= sprite(emote, :emote) %></td>
+            <td data-value="<%= emote.order %>">
+              <%= link_to emote_path(emote) do %>
+                <%= sprite(emote, :emote) %>
+              <% end %>
+            </td>
             <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
             <td class="hide-xs" data-value="<%= source_sort_value(emote) %>"><%= sources(emote) %></td>
             <td class="hide-md"><%= emote.command.split(', ').first %></td>

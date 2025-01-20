@@ -37,7 +37,11 @@
       <tbody>
         <% @fashions.each do |fashion| %>
           <tr class="<%= collectable_classes(fashion) %>">
-            <td data-value="<%= fashion.order %>"><%= sprite(fashion, 'fashions-small') %></td>
+            <td data-value="<%= fashion.order %>">
+              <%= link_to fashion_path(fashion) do %>
+                <%= sprite(fashion, 'fashions-small') %>
+              <% end %>
+            </td>
             <td><%= link_to(fashion.name, fashion_path(fashion), class: 'name') %></td>
             <td class="hide-xs" data-value="<%= source_sort_value(fashion) %>"><%= sources(fashion) %></td>
             <td class="text-center" data-value="<%= price_sort_value(fashion) %>"><%= market_link(fashion) %></td>

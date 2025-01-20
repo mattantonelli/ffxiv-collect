@@ -45,7 +45,11 @@
       <tbody>
         <% @orchestrions.each do |orchestrion| %>
           <tr class="<%= category_row_classes(orchestrion, @category) %>">
-            <td><%= image_tag('orchestrion.png') %></td>
+            <td>
+              <%= link_to orchestrion_path(orchestrion) do %>
+                <%= image_tag('orchestrion.png') %>
+              <% end %>
+            </td>
             <td class="text-center all-hide<%= ' hidden' unless @category.present? %>">
               <%= orchestrion_number(orchestrion) %>
             </td>
