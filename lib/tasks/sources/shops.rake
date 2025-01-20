@@ -15,13 +15,8 @@ namespace 'sources:shops' do
     vc_dungeon_type = SourceType.find_by(name_en: 'V&C Dungeon')
     wondrous_tails_type = SourceType.find_by(name_en: 'Wondrous Tails')
 
-    # Set up Outfits to map item_id's to outfits and keep a running total
-    item_outfits = OutfitItem.all.each_with_object({}) do |outfit_item, h|
-      h[outfit_item.item_id.to_s] = outfit_item.outfit_id.to_s
-    end
-
-    outfit_item_ids = item_outfits.keys
-    outfits = Hash.new { |h, k| h[k] = { price: 0 } }
+    # Avoid creating outfit sources from limited time shops
+    restricted_outfit_shop_names = /seasonal event prizes/i
 
     puts 'Creating GilShop sources'
     item_ids = XIVData.sheet('GilShopItem', raw: true).map do |entry|
@@ -36,7 +31,11 @@ namespace 'sources:shops' do
     end
 
     puts 'Creating SpecialShop sources'
+
     item_ids = Item.where.not(unlock_id: nil).pluck(:id).map(&:to_s)
+
+    outfit_item_ids = OutfitItem.pluck(:item_id).uniq.map(&:to_s)
+    outfit_items = {}
 
     XIVData.sheet('SpecialShop', raw: true).each do |shop|
       2.times do |j|
@@ -65,7 +64,7 @@ namespace 'sources:shops' do
             type = wondrous_tails_type
           when 37549
             type = island_sanctuary_type
-          when 39884, 41078
+          when 38533, 39884, 41078
             type = vc_dungeon_type
           else
             type = purchase_type
@@ -83,21 +82,30 @@ namespace 'sources:shops' do
           end
 
           # Add outfit source data
-          if outfit_item_ids.include?(item_id)
-            outfit = outfits[item_outfits[item_id]]
-
-            outfit[:price] += price.to_i
-            outfit[:currency] ||= currency
-            outfit[:type] = type
+          if outfit_item_ids.include?(item_id) && shop['Name'].present? &&
+              !shop['Name'].match?(restricted_outfit_shop_names)
+            outfit_items[item_id] = { price: price.to_i, currency: currency, type: type }
           end
         end
       end
     end
 
     # Create outfit sources based on the final data
-    outfits.each do |id, outfit|
-      texts = currency_texts(outfit[:price], outfit[:currency])
-      create_shop_source(Outfit.find(id), outfit[:type], texts)
+    Outfit.all.each do |outfit|
+      prices = outfit.item_ids.map do |item_id|
+        outfit_items[item_id.to_s]&.dig(:price)
+      end
+
+      # Skip creating the source unless all items are priced
+      next unless prices.all?
+
+      price = prices.sum
+      next if price == 0
+
+      currency, type = outfit_items[outfit.item_ids.first.to_s].values_at(:currency, :type)
+      texts = currency_texts(price, currency)
+
+      create_shop_source(outfit, type, texts)
     end
 
     puts 'Creating Grand Company sources'
