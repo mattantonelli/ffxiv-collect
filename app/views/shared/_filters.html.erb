@@ -5,7 +5,7 @@
         <h5 class="modal-title"><%= t('filters') %></h5>
         <%= link_to fa_icon('times'), nil, data: { dismiss: 'modal' } %>
       </div>
-      <div class="modal-body no-wrap">
+      <div class="modal-body">
         <%= form_tag(shared_filter_path, class: 'form d-flex flex-column my-2', id: 'filters-form', remote: true) do  %>
           <%= hidden_field_tag :filter_controller, controller_name %>
           <%= hidden_field_tag :filter_action, action_name %>
@@ -23,13 +23,13 @@
           <% end %>
           <% %i(premium limited ranked_pvp armoire unknown).each do |filter| %>
             <% if @available_filters.include?(filter) %>
-              <div>
+              <div class="d-flex align-items-center my-1">
                 <%= check_box_tag filter, nil, cookies[filter] == 'hide' %>
-                <%= label_tag filter, t("exclude.#{filter}") %>
+                <%= label_tag filter, t("exclude.#{filter}"), class: 'ml-2 mb-0' %>
               </div>
             <% end %>
           <% end %>
-          <div class="text-right">
+          <div class="text-right mt-2">
             <%= button_tag t('reset'), class: 'btn btn-secondary', id: 'filters-reset' %>
             <%= submit_tag t('apply_filters'), class: 'btn btn-primary' %>
           </div>
