@@ -11,13 +11,13 @@
   </h5>
   <div class="card-body card-table d-flex flex-column character-select">
     <% @characters.each do |character| %>
-      <div class="d-flex align-items-center">
+      <div class="d-flex flex-wrap align-items-center">
         <%= image_tag(character[:avatar], class: 'avatar mr-3') %>
         <div class="d-flex flex-column character-name">
           <b><%= character[:name] %> <%= verified(character, only_verified: true, compact: true) unless @search %></b>
           <span><%= fa_icon('globe', text: character[:server]) %></span>
         </div>
-        <div class="select-options ml-auto">
+        <div class="select-options ml-auto mt-2 mt-sm-0">
           <% if @known_characters.include?(character[:id]) %>
             <%= link_to far_icon('eye', text: t('view')), character_path(character[:id]),
               class: 'btn btn-sm btn-secondary' %>
@@ -41,7 +41,7 @@
   </div>
   <% if @search && action_name == 'search' %>
     <div class="card-footer">
-      <div class="d-flex align-items-center">
+      <div class="d-flex flex-wrap align-items-center">
         <p class="mb-0 mr-3"><%= t('characters.search_lodestone_prompt') %></p>
         <%= link_to fa_icon('search', text: t('characters.search_lodestone')),
           search_lodestone_characters_path(params.permit(:name, :server, :data_center)),

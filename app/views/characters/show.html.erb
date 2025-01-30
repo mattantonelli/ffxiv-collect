@@ -45,7 +45,7 @@
                     <span class="badge badge-danger"><%= t('characters.private') %></span>
                   <% end %>
                 </h5>
-                <div class="d-flex">
+                <div class="d-flex flex-wrap">
                   <%= link_to(fa_icon('server', text: @profile.data_center),
                               leaderboards_path(data_center: @profile.data_center),
                               class: 'name mr-2') %>
