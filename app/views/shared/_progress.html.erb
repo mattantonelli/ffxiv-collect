@@ -1,12 +1,18 @@
 <div class="progress">
-  <div class="progress-label">
-    <% if local_assigns[:text] %>
-      <%= number_with_delimiter(value) %> <%= t('of') %> <%= number_with_delimiter(max) %> <%= t(text) %>
-    <% elsif max > 0 %>
-      <%= value %>/<%= max %> (<%= ((value / max.to_f) * 100).to_i %>%)
-    <% end %>
+  <div
+    class="progress-bar<%= ' alt' if local_assigns[:alt] %>"
+    style="width: <%= (value / max.to_f) * 100 %>%;"
+    aria-valuenow="<%= value %>"
+    aria-valuemin="0"
+    aria-valuemax="<%= max %>"
+    role="progressbar"
+  >
+    <div class="progress-label">
+      <% if local_assigns[:text] %>
+        <%= number_with_delimiter(value) %> <%= t('of') %> <%= number_with_delimiter(max) %> <%= t(text) %>
+      <% elsif max > 0 %>
+        <%= value %>/<%= max %> (<%= ((value / max.to_f) * 100).to_i %>%)
+      <% end %>
+    </div>
   </div>
-  <div class="progress-bar<%= ' alt' if local_assigns[:alt] %>" role="progressbar"
-    style="width: <%= (value / max.to_f) * 100 %>%;" aria-valuenow="<%= value %>"
-    aria-valuemin="0" aria-valuemax="<%= max %>"></div>
 </div>
