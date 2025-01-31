@@ -34,8 +34,8 @@ $(document).on 'turbolinks:load', ->
 
     # Update the collection progress bar based on visible collectables, with the exception of special pages
     unless $('.materiel').length > 0
-      progress_bar = $('.progress:first > .progress-bar')
-      progress_label = $('.progress:first > .progress-label')
+      progress_bar = $('.progress:first .progress-bar')
+      progress_label = $('.progress:first .progress-label')
       current = $('.owned:not(.hidden)').length
       max = $('tr.collectable:not(.hidden)').length
 
@@ -47,8 +47,8 @@ $(document).on 'turbolinks:load', ->
 
     # Update the alternate progress bar based on the *values* of visible collectables
     if $('tr.collectable').data('value')
-      progress_bar = $('.progress:eq(1) > .progress-bar')
-      progress_label = $('.progress:eq(1) > .progress-label')
+      progress_bar = $('.progress:eq(1) .progress-bar')
+      progress_label = $('.progress:eq(1) .progress-label')
       current = max = 0
 
       $('tr.collectable:not(.hidden)').each (_, collectable) ->
