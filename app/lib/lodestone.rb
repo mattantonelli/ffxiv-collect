@@ -67,7 +67,7 @@ module Lodestone
       q: name.strip.gsub(/[‘’]/, "'"),
       worldname: worldname,
       order: 3
-    }.compact)
+    })
 
     doc.css('.entry__chara__link').map do |character|
       {
