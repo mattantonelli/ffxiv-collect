@@ -343,7 +343,7 @@ module CollectionsHelper
       when 'groups', 'free_companies'
         %i(premium limited ranked_pvp unknown)
       when 'search'
-        %i(owned tradeable gender premium limited unknown)
+        %i(owned tradeable gender premium limited ranked_pvp armoire unknown)
       when 'tomestones'
         %i(owned)
       when 'tools'
