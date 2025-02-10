@@ -1,7 +1,11 @@
 <% title(t('triad.packs.title')) %>
 <% description("Track your character's Triple Triad card pack progress.") %>
 
+<%= render 'shared/filters' %>
 <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+<div class="d-flex justify-content-end mb-2">
+  <%= render 'shared/active_filters' %>
+</div>
 <div class="row row-cols-1 row-cols-xl-2">
   <% @packs.each do |pack| %>
     <div class="col card-pack">

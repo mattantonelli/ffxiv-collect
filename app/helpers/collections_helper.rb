@@ -353,6 +353,8 @@ module CollectionsHelper
         else
           %i(owned)
         end
+      when 'packs'
+        %i(owned)
       else
         # Otherwise, filters are provided by the model
         filter_controller.classify.constantize.available_filters
