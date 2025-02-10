@@ -14,7 +14,7 @@
 
 class Pack < ApplicationRecord
   has_many :pack_cards
-  has_many :cards, through: :pack_cards, dependent: :delete_all
+  has_many :cards, -> { numeric_ordered }, through: :pack_cards, dependent: :delete_all
 
   scope :include_related, -> { includes(cards: :type) }
   scope :ordered, -> { order(:id) }
