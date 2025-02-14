@@ -65,7 +65,8 @@ namespace :relics do
                                           name_ja: "絶もうひとつの未来",
                                           category: 'ultimate', order: 6, jobs: 21)
 
-      ids = (44721..44741).to_a
+      ids = [44721, 44722, 44723, 44724, 44725, 44730, 44731, 44732, 44726, 44727, 44728,
+             44729, 44733, 44734, 44735, 44736, 44737, 44739, 44738, 44740, 44741]
       create_relics(type, ids)
 
       puts "Created #{Relic.count - count} new ultimate weapons"
