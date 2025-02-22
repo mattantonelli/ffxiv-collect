@@ -86,12 +86,15 @@ module CollectionsHelper
     "#{collectable_classes(collectable)} category-row category-#{category_id}#{' hidden' if hidden }"
   end
 
-  def rarity(collectable, numeric: false)
+  def rarity(collectable, numeric: false, owned: nil)
+    # Ownership is provided by the Collection concern, but data provided directly will override this
+    ownership = owned || @owned
+
     # Set the count and percentage from the full ownership dataset if we have it,
     # otherwise fetch the values from Redis for the given collectable.
-    if @owned.present?
-      count = @owned.dig(:count, collectable.id.to_s).to_i
-      percentage = @owned.dig(:percentage, collectable.id.to_s) || '0%'
+    if ownership.present?
+      count = ownership.dig(:count, collectable.id.to_s).to_i
+      percentage = ownership.dig(:percentage, collectable.id.to_s) || '0%'
     else
       key = collectable.class.to_s.downcase.pluralize
       count = Redis.current.hget("#{key}-count", collectable.id).to_i

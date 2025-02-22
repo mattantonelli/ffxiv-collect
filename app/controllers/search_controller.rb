@@ -19,6 +19,15 @@ class SearchController < ApplicationController
       { model: Card, label: I18n.t('cards.title'), value: 'Card' },
     ]
 
+    @owned = @types.each_with_object({}) do |type, h|
+      key = type[:value].downcase.pluralize
+
+      h[type[:model]] = {
+        count: Redis.current.hgetall("#{key}-count"),
+        percentage: Redis.current.hgetall(key)
+      }
+    end
+
     @hidden_types = cookies[:hidden_types]&.split(',')&.map(&:constantize) || []
     @models = @types.pluck(:model)
     @source_types = SourceType.all.with_filters(cookies).ordered

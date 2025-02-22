@@ -42,6 +42,7 @@
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
           <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
@@ -72,6 +73,11 @@
             </td>
             <td class="text-center" data-value="<%= price_sort_value(collectable) %>">
               <%= market_link(collectable) %>
+            </td>
+            <td class="text-center hide-xs"
+              data-value="<%= rarity(collectable, numeric: true, owned: @owned[collectable.class]) %>"
+            >
+              <%= rarity(collectable, owned: @owned[collectable.class]) %>
             </td>
             <td class="text-center"><%= collectable.patch %></td>
             <% if character_selected? %>
