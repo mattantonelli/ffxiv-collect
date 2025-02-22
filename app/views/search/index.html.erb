@@ -51,9 +51,7 @@
       </thead>
       <tbody>
         <% @collectables.each do |collectable| %>
-          <tr class="<%= collectable_classes(collectable, generic: true) %>
-                     <%= 'hidden' if @hidden_types.include?(collectable.class) %>"
-            data-type="<%= collectable.class %>">
+          <tr class="<%= collectable_classes(collectable, generic: true) %><%= ' hidden' if @hidden_types.include?(collectable.class) %>" data-type="<%= collectable.class %>">
             <td><%= collectable_image_link(collectable) %></td>
             <td>
               <%= collectable_name_link(collectable) %>
@@ -75,7 +73,7 @@
               <%= market_link(collectable) %>
             </td>
             <td class="text-center hide-xs"
-              data-value="<%= rarity(collectable, numeric: true, owned: @owned[collectable.class]) %>"
+              data-value="<%= rarity(collectable, percent: true, owned: @owned[collectable.class]) %>"
             >
               <%= rarity(collectable, owned: @owned[collectable.class]) %>
             </td>

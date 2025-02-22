@@ -86,7 +86,7 @@ module CollectionsHelper
     "#{collectable_classes(collectable)} category-row category-#{category_id}#{' hidden' if hidden }"
   end
 
-  def rarity(collectable, numeric: false, owned: nil)
+  def rarity(collectable, numeric: false, percent: false, owned: nil)
     # Ownership is provided by the Collection concern, but data provided directly will override this
     ownership = owned || @owned
 
@@ -102,10 +102,10 @@ module CollectionsHelper
     end
 
     if numeric
-      # Numeric returns just the count for sorting
       count
+    elsif percent
+      percentage.delete('%')
     else
-      # Otherwise render a fancy tooltip with the percentage and the count
       content_tag(:span, percentage, data: { toggle: 'tooltip' },
                   title: "#{number_with_delimiter(count)} #{t('character', count: count)}")
     end
