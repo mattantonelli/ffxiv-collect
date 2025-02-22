@@ -44,9 +44,9 @@ class Item < ApplicationRecord
     when :en
       name.sub(/.+ Of (.+)/, '\1')
     when :de
-      name.sub(/.+ Der (.+)/, '\1')
+      name.sub(/.+ De[rs] (.+)/, '\1')
     when :fr
-      name.sub(/.+Allagois (.+) Inhabituel(.*)/, '\1\2')
+      name.sub(/.+ Inhabituel (.+)/, '\1\2')
     when :ja
       name.sub(/.+:(.+)/, '\1')
     end
