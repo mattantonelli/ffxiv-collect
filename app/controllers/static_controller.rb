@@ -22,6 +22,10 @@ class StaticController < ApplicationController
     @discord_link = view_context.link_to('Discord', 'https://discord.gg/bA9fYQjEYy', target: '_blank')
   end
 
+  def blank
+    render locals: { hide_footer: true }
+  end
+
   def not_found
     flash[:error] = t('alerts.not_found')
     redirect_to root_path

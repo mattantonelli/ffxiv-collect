@@ -166,6 +166,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'blank', to: 'static#blank'
   get 'commands', to: 'static#commands'
   get 'faq', to: 'static#faq'
   get 'credits', to: 'static#credits'
