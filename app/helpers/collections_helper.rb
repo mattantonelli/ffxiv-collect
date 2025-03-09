@@ -409,7 +409,7 @@ module CollectionsHelper
       ["#{t('patch')} #{patch}", patch]
     end
 
-    # Add special options for searching by exansion
+    # Add special options for searching by expansion
     if expansions
       t('expansions').each do |value, expansion|
         options << [expansion, value]
@@ -417,7 +417,7 @@ module CollectionsHelper
     end
 
     # Sort the patches in reverse chronological order
-    options.sort_by! { |patch| -patch[1].to_f }
+    options.sort_by! { |patch| [-patch[1].to_f, patch[1].is_a?(Integer) ? 1 : 0] }
 
     # Add an All Patches option to the start of the list
     if all
