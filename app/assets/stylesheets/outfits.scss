@@ -1,5 +1,11 @@
 .outfit-items {
-  div:not(:last-child) {
-    margin-right: 0.5rem;
+  max-width: 280px;
+
+  div {
+    margin: 0.1rem 0.25rem;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

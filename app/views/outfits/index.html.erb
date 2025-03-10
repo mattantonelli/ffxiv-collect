@@ -22,7 +22,7 @@
         <tr>
           <th scope="col">#</th><!-- Image -->
           <th scope="col"><%= t('name') %></th>
-          <th scope="col" data-defaultsort="disabled"><%= t('outfits.items') %></th>
+          <th scope="col" class="hide-sm" data-defaultsort="disabled"><%= t('outfits.items') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center"><%= fa_icon('tshirt') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
@@ -48,7 +48,7 @@
               <%= link_to(outfit.name, outfit_path(outfit), class: 'name') %>
               <%= gender_symbol(outfit.gender) %>
             </td>
-            <td>
+            <td class="hide-sm">
               <%= outfit_items(outfit) %>
             </td>
             <td class="hide-xs" data-value="<%= source_sort_value(outfit) %>">
