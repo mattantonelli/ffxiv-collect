@@ -6,4 +6,8 @@ module StaticHelper
       'refresh your character'
     end
   end
+
+  def faq_forum_link
+    link_to('Official Forum', 'https://forum.square-enix.com/ffxiv/forums/665', target: '_blank')
+  end
 end
