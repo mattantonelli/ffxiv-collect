@@ -1,0 +1,22 @@
+<div class="carousel slide" id="carousel" data-interval="false">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <%= link_to(image_url("frames/#{@frame.id}.png")) do %>
+        <%= safe_image_tag("frames/#{@frame.id}.png") %>
+      <% end %>
+    </div>
+    <div class="carousel-item">
+      <%= link_to(image_url("frames/#{@frame.id}_2.png")) do %>
+        <%= safe_image_tag("frames/#{@frame.id}_2.png") %>
+      <% end %>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

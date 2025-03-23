@@ -39,8 +39,12 @@
 </div>
 <div class="row mt-3">
   <div class="col-12">
-    <div class="text-center">
-      <%= safe_image_tag("frames/#{@frame.id}.png", class: 'frame-image') %>
+    <div class="framer-kit">
+      <% if @frame.portrait_only? %>
+        <%= safe_image_tag("frames/#{@frame.id}.png") %>
+      <% else %>
+        <%= render 'carousel' %>
+      <% end %>
     </div>
   </div>
 </div>

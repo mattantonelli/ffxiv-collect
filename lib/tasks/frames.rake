@@ -16,10 +16,10 @@ namespace :frames do
 
     # Add Tataru's Bespoke kit which lacks a BannerBg
     frames['573'] = { id: '573', order: '0',
-                    'name_en' => "Tataru's Bespoke",
-                    'name_de' => 'Tatarus Wohlstandsmanufaktur',
-                    'name_fr' => 'La Tarufacture de Tataru',
-                    'name_ja' => 'タタルの大繁盛商店' }
+                      'name_en' => "Tataru's Bespoke",
+                      'name_de' => 'Tatarus Wohlstandsmanufaktur',
+                      'name_fr' => 'La Tarufacture de Tataru',
+                      'name_ja' => 'タタルの大繁盛商店' }
 
     # Act like the township frames don't exist because they don't have unique BannerCondition IDs
     frames.delete('299')
@@ -169,39 +169,60 @@ namespace :frames do
     end
 
     FRAME_IMAGES_DIR = Rails.root.join('public/images/frames').freeze
+    FRAME_ELEMENTS = %i(base backing overlay plate_frame).freeze
 
     frames.each do |id, images|
-      output_path = FRAME_IMAGES_DIR.join("#{id}.png")
+      output_path = FRAME_IMAGES_DIR.join("#{id}.png").to_s
 
       unless output_path.exist?
+        frame = Frame.find(id)
+        frame.update!(portrait_only: !images.keys.intersect?(FRAME_ELEMENTS))
+
         begin
-          if Frame.find(id).portrait_only?
+          if frame.portrait_only?
             image = ChunkyPNG::Image.new(256, 420, ChunkyPNG::Color::TRANSPARENT)
 
             images.values.each do |layer|
               image.compose!(ChunkyPNG::Image.from_file(layer))
             end
-          else
-            image = ChunkyPNG::Image.new(1280, 806, ChunkyPNG::Color::TRANSPARENT)
-            image.compose!(ChunkyPNG::Image.from_file(images[:backing]), 0, 0) if images.key?(:backing)
-            image.compose!(ChunkyPNG::Image.from_file(images[:base]), 270, 150) if images.key?(:base)
-            image.compose!(ChunkyPNG::Image.from_file(images[:overlay]), 270, 150) if images.key?(:overlay)
-            image.compose!(ChunkyPNG::Image.from_file(images[:background]), 722, 150) if images.key?(:background)
-            image.compose!(ChunkyPNG::Image.from_file(images[:plate_frame]), 160, 86) if images.key?(:plate_frame)
-            image.compose!(ChunkyPNG::Image.from_file(images[:portrait_frame]), 722, 150) if images.key?(:portrait_frame)
-            image.compose!(ChunkyPNG::Image.from_file(images[:portrait_accent]), 722, 150) if images.key?(:portrait_accent)
-            image.compose!(ChunkyPNG::Image.from_file(images[:plate_portrait]), 630, 0) if images.key?(:plate_portrait)
-            image.compose!(ChunkyPNG::Image.from_file(images[:top_border]), 160, 86) if images.key?(:top_border)
-            image.compose!(ChunkyPNG::Image.from_file(images[:bottom_border]), 160, 478) if images.key?(:bottom_border)
-            image.compose!(ChunkyPNG::Image.from_file(images[:accent]), 850, 380) if images.key?(:accent)
-            image.trim!
-          end
 
-          image.save(output_path.to_s)
+            image.save(output_path)
+          else
+            # Create two frame versions to support standard and mirrored portraits
+            save_frame_image(images, output_path)
+            save_frame_image(images, output_path, mirrored: true)
+          end
         rescue StandardError
           puts "Could not create image: #{output_path}"
         end
       end
     end
+  end
+
+  def save_frame_image(images, output_path, mirrored: false)
+    if mirrored
+      portrait_x = 302
+      path = output_path.sub('.png', '_2.png')
+    else
+      portrait_x = 722
+      path = output_path
+    end
+
+    image = ChunkyPNG::Image.new(1280, 806, ChunkyPNG::Color::TRANSPARENT)
+
+    image.compose!(ChunkyPNG::Image.from_file(images[:backing]), 0, 0) if images.key?(:backing)
+    image.compose!(ChunkyPNG::Image.from_file(images[:base]), 270, 150) if images.key?(:base)
+    image.compose!(ChunkyPNG::Image.from_file(images[:overlay]), 270, 150) if images.key?(:overlay)
+    image.compose!(ChunkyPNG::Image.from_file(images[:background]), portrait_x, 150) if images.key?(:background)
+    image.compose!(ChunkyPNG::Image.from_file(images[:portrait_frame]), portrait_x, 150) if images.key?(:portrait_frame)
+    image.compose!(ChunkyPNG::Image.from_file(images[:portrait_accent]), portrait_x, 150) if images.key?(:portrait_accent)
+    image.compose!(ChunkyPNG::Image.from_file(images[:plate_portrait]), portrait_x - 96, 0) if images.key?(:plate_portrait)
+    image.compose!(ChunkyPNG::Image.from_file(images[:plate_frame]), 160, 86) if images.key?(:plate_frame)
+    image.compose!(ChunkyPNG::Image.from_file(images[:top_border]), 160, 86) if images.key?(:top_border)
+    image.compose!(ChunkyPNG::Image.from_file(images[:bottom_border]), 160, 478) if images.key?(:bottom_border)
+    image.compose!(ChunkyPNG::Image.from_file(images[:accent]), mirrored ? portrait_x - 128 : portrait_x + 131, 380) if images.key?(:accent)
+
+    image.trim!
+    image.save(path)
   end
 end

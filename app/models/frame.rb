@@ -2,16 +2,17 @@
 #
 # Table name: frames
 #
-#  id         :bigint(8)        not null, primary key
-#  name_en    :string(255)      not null
-#  name_de    :string(255)      not null
-#  name_fr    :string(255)      not null
-#  name_ja    :string(255)      not null
-#  patch      :string(255)
-#  item_id    :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  order      :integer
+#  id            :bigint(8)        not null, primary key
+#  name_en       :string(255)      not null
+#  name_de       :string(255)      not null
+#  name_fr       :string(255)      not null
+#  name_ja       :string(255)      not null
+#  patch         :string(255)
+#  item_id       :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  order         :integer
+#  portrait_only :boolean          default(FALSE)
 #
 class Frame < ApplicationRecord
   include Collectable
@@ -23,10 +24,6 @@ class Frame < ApplicationRecord
   belongs_to :item, required: false
   delegate :description, to: :item, allow_nil: true
   delegate :name, to: :item, prefix: :item, allow_nil: true
-
-  def portrait_only?
-    item_id.present? && !item.description_en.downcase.match?('plate elements')
-  end
 
   def tradeable?
     false
