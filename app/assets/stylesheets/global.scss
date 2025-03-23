@@ -3,6 +3,10 @@
   src: url(asset_path('noto_sans_cjk_jp.otf')) format('opentype');
 }
 
+:root {
+  color-scheme: dark;
+}
+
 html {
   position: relative;
   min-height: 100%;
