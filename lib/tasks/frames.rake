@@ -172,7 +172,7 @@ namespace :frames do
     FRAME_ELEMENTS = %i(base backing overlay plate_frame).freeze
 
     frames.each do |id, images|
-      output_path = FRAME_IMAGES_DIR.join("#{id}.png").to_s
+      output_path = FRAME_IMAGES_DIR.join("#{id}.png")
 
       unless output_path.exist?
         frame = Frame.find(id)
@@ -202,10 +202,10 @@ namespace :frames do
   def save_frame_image(images, output_path, mirrored: false)
     if mirrored
       portrait_x = 302
-      path = output_path.sub('.png', '_2.png')
+      path = output_path.to_s.sub('.png', '_2.png')
     else
       portrait_x = 722
-      path = output_path
+      path = output_path.to_s
     end
 
     image = ChunkyPNG::Image.new(1280, 806, ChunkyPNG::Color::TRANSPARENT)
