@@ -29,7 +29,7 @@ namespace :data do
     end
 
     puts 'Retrieving the latest game data from xiv-data'
-    %x{git submodule update --remote}
+    %x{cd #{Rails.root.join('vendor/xiv-data')} && git fetch && git checkout origin/master}
 
     Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
