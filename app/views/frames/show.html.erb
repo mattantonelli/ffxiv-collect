@@ -9,6 +9,9 @@
         <%= image_tag('frame.png') %>
         <h5 class="card-title ml-2">
           <%= @frame.name %>
+          <span class="ml-1">
+            <%= frame_contents_icon(@frame) %>
+          </span>
         </h5>
       </div>
       <div class="card-body">

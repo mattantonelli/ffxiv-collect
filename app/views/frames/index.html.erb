@@ -26,6 +26,7 @@
           <th scope="col"><%= t('frames.name') %></th>
           <th scope="col" class="hide-xs"><%= t('frames.item_name') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
+          <th scope="col"><%= fa_icon('image') %></th><!-- Contents -->
           <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
           <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
@@ -47,7 +48,12 @@
             <td><%= link_to(frame.name, frame_path(frame), class: 'name') %></td>
             <td class="hide-xs"><%= frame.item_name %></td>
             <td class="hide-xs" data-value="<%= source_sort_value(frame) %>"><%= sources(frame) %></td>
-            <td class="text-center hide-xs" data-value="<%= rarity(frame, numeric: true) %>"><%= rarity(frame) %></td>
+            <td class="text-center" data-value="<%= frame.portrait_only %>">
+              <%= frame_contents_icon(frame) %>
+            </td>
+            <td class="text-center hide-xs" data-value="<%= rarity(frame, numeric: true) %>">
+              <%= rarity(frame) %>
+            </td>
             <td class="text-center" data-value="<%= sort_value(frame) %>"><%= frame.patch %></td>
             <% if character_selected? %>
               <%= td_owned(frame) %>
