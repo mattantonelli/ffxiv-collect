@@ -1,0 +1,120 @@
+shared:
+  data_centers:
+    Aether:
+      region: na
+      servers:
+        - Adamantoise
+        - Cactuar
+        - Faerie
+        - Gilgamesh
+        - Jenova
+        - Midgardsormr
+        - Sargatanas
+        - Siren
+    Chaos:
+      region: eu
+      servers:
+        - Cerberus
+        - Louisoix
+        - Moogle
+        - Omega
+        - Phantom
+        - Ragnarok
+        - Sagittarius
+        - Spriggan
+    Crystal:
+      region: na
+      servers:
+        - Balmung
+        - Brynhildr
+        - Coeurl
+        - Diabolos
+        - Goblin
+        - Malboro
+        - Mateus
+        - Zalera
+    Dynamis:
+      region: na
+      servers:
+        - Halicarnassus
+        - Maduin
+        - Marilith
+        - Seraph
+        - Cuchulainn
+        - Golem
+        - Kraken
+        - Rafflesia
+    Elemental:
+      region: jp
+      servers:
+        - Aegis
+        - Atomos
+        - Carbuncle
+        - Garuda
+        - Gungnir
+        - Kujata
+        - Tonberry
+        - Typhon
+    Gaia:
+      region: jp
+      servers:
+        - Alexander
+        - Bahamut
+        - Durandal
+        - Fenrir
+        - Ifrit
+        - Ridill
+        - Tiamat
+        - Ultima
+    Light:
+      region: eu
+      servers:
+        - Alpha
+        - Lich
+        - Odin
+        - Phoenix
+        - Raiden
+        - Shiva
+        - Zodiark
+        - Twintania
+    Mana:
+      region: jp
+      servers:
+        - Anima
+        - Asura
+        - Chocobo
+        - Hades
+        - Ixion
+        - Masamune
+        - Pandaemonium
+        - Titan
+    Materia:
+      region: eu
+      servers:
+        - Bismarck
+        - Ravana
+        - Sephirot
+        - Sophia
+        - Zurvan
+    Meteor:
+      region: jp
+      servers:
+        - Belias
+        - Mandragora
+        - Ramuh
+        - Shinryu
+        - Unicorn
+        - Valefor
+        - Yojimbo
+        - Zeromus
+    Primal:
+      region: na
+      servers:
+        - Behemoth
+        - Excalibur
+        - Exodus
+        - Famfrit
+        - Hyperion
+        - Lamia
+        - Leviathan
+        - Ultros

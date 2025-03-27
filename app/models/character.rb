@@ -178,29 +178,11 @@ class Character < ApplicationRecord
   end
 
   def region
-    case data_center
-    when 'Aether', 'Crystal', 'Dynamis', 'Primal'
-      'na'
-    when 'Chaos', 'Light', 'Materia'
-      'eu'
-    when 'Elemental', 'Gaia', 'Mana', 'Meteor'
-      'jp'
-    else
-      'na'
-    end
+    Rails.application.config_for(:characters).data_centers[data_center.to_sym][:region]
   end
 
   def available_data_centers
-    case data_center
-    when 'Aether', 'Crystal', 'Dynamis', 'Primal'
-      ['Aether', 'Crystal', 'Dynamis', 'Primal']
-    when 'Chaos', 'Light', 'Materia'
-      ['Chaos', 'Light', 'Materia']
-    when 'Elemental', 'Gaia', 'Mana', 'Meteor'
-      ['Elemental', 'Gaia', 'Mana', 'Meteor']
-    else
-      ['Aether', 'Crystal', 'Dynamis', 'Primal']
-    end
+    Character.data_centers_by_region[region]
   end
 
   def fetch!
@@ -265,24 +247,22 @@ class Character < ApplicationRecord
     servers_by_data_center.keys.sort.freeze
   end
 
+  def self.data_centers_by_region
+    data_centers = { 'na' => [], 'eu' => [], 'jp' => [] }
+
+    Rails.application.config_for(:characters).data_centers
+      .each { |k, v| data_centers[v[:region]] << k.to_s }
+
+    data_centers.freeze
+  end
+
   def self.servers
     servers_by_data_center.values.flatten.sort.freeze
   end
 
   def self.servers_by_data_center
-    {
-      "Aether" => %w(Adamantoise Cactuar Faerie Gilgamesh Jenova Midgardsormr Sargatanas Siren),
-      "Chaos" => %w(Cerberus Louisoix Moogle Omega Phantom Ragnarok Sagittarius Spriggan),
-      "Crystal" => %w(Balmung Brynhildr Coeurl Diabolos Goblin Malboro Mateus Zalera),
-      "Dynamis" => %w(Halicarnassus Maduin Marilith Seraph Cuchulainn Golem Kraken Rafflesia),
-      "Elemental" => %w(Aegis Atomos Carbuncle Garuda Gungnir Kujata Tonberry Typhon),
-      "Gaia" => %w(Alexander Bahamut Durandal Fenrir Ifrit Ridill Tiamat Ultima),
-      "Light" => %w(Alpha Lich Odin Phoenix Raiden Shiva Zodiark Twintania),
-      "Mana" => %w(Anima Asura Chocobo Hades Ixion Masamune Pandaemonium Titan),
-      "Materia" => %w(Bismarck Ravana Sephirot Sophia Zurvan),
-      "Meteor" => %w(Belias Mandragora Ramuh Shinryu Unicorn Valefor Yojimbo Zeromus),
-      "Primal" => %w(Behemoth Excalibur Exodus Famfrit Hyperion Lamia Leviathan Ultros)
-    }.freeze
+    Rails.application.config_for(:characters).data_centers
+      .each_with_object({}) { |(k, v), h| h[k.to_s] = v[:servers] }.freeze
   end
 
   def self.leaderboards(characters:, metric:, data_center: nil, server: nil, limit: nil, rankings: false)

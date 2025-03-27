@@ -83,25 +83,11 @@ class Achievement < ApplicationRecord
   end
 
   def self.time_limited_ids
-    ((310..312).to_a + # Starting township quests
-     (954..963).to_a + # Borderland Ruins
-     [1166] + # Retired quests
-     (1757..1773).to_a + (3083..3088).to_a + # GARO
-     (2110..2114).to_a + # Feast Championships
-     (2007..2012).to_a + # The Feast
-     (3276..3280).to_a + # Crystalline Conflict Championships
-     [2487, 2488, 2712, 2713, 2785, 2786] + # Ishgardian Reconstruction
-     [1419, 1420, 1421, 1422, 1423, 1424, 1425, 1426, 1427, 1428, 1429, 1430, 1431, 1432,
-      1734, 1735, 1736, 1737, 1743, 1744, 1745, 1746] + # Diadem
-     (3404..3407).to_a).freeze # Fall Guys
+    Rails.application.config_for(:achievements).time_limited_ids.freeze
   end
 
   def self.time_limited_category_ids
-    [
-      8,  # PvP > Ranking
-      38, # Quests > Seasonal Events
-      54, 55, 56, 57, 58, 59, 60, 61 # Legacy
-    ].freeze
+    Rails.application.config_for(:achievements).time_limited_category_ids.freeze
   end
 
   def self.ransackable_attributes(auth_object = nil)

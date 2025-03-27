@@ -26,7 +26,7 @@ class Fashion < ApplicationRecord
 
   # IDs of fashion accessories that were migrated to facewear
   def self.facewear_ids
-    [22, 25, 26, 32]
+    Rails.application.config_for(:fashions).facewear_ids.freeze
   end
 
   def self.available_filters

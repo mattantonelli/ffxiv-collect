@@ -1,0 +1,16 @@
+shared:
+  angles:
+    - 0
+    - 30
+    - 120
+    - 360
+  variant_ids:
+    - 67
+    - 71
+  unsummonable_ids:
+    - 68
+    - 69
+    - 70
+    - 72
+    - 73
+    - 74

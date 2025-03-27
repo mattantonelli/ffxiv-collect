@@ -83,15 +83,15 @@ class Minion < ApplicationRecord
   end
 
   def self.angles
-    [0, 30, 120, 360].freeze
+    Rails.application.config_for(:minions).angles.freeze
   end
 
   def self.variant_ids
-    [67, 71].freeze
+    Rails.application.config_for(:minions).variant_ids.freeze
   end
 
   def self.unsummonable_ids
-    [68, 69, 70, 72, 73, 74].freeze
+    Rails.application.config_for(:minions).unsummonable_ids.freeze
   end
 
   def self.available_filters

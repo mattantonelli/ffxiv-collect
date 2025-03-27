@@ -18,10 +18,7 @@ class Instance < ApplicationRecord
   def self.valid_types
     # TODO: This list should just contain valid content types.
     #       The short-hand source types should be maintained in Source.
-    [
-      'Dungeon', 'Trial', 'Raid', 'Ultimate Raid', 'Chaotic Raid', 'Chaotic Alliance Raid',
-      'Treasure Hunt', 'V&C Dungeon', 'V&C Dungeon Finder'
-    ].freeze
+    Rails.application.config_for(:instances).valid_types.freeze
   end
 
   def self.valid_types_regex
