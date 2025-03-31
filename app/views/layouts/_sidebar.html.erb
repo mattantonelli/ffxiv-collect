@@ -98,6 +98,8 @@
       </div>
     </div>
 
+    <%= nav_link("#{t('random.title')} #{new_feature_badge}".html_safe, 'random', random_index_path) %>
+
     <%= link_to "#{fa_icon('fish', text: t('fish.title'))} #{fa_icon('external-link-alt')}".html_safe,
       'https://ff14fish.carbuncleplushy.com/', target: '_blank', class: 'nav-link' %>
 

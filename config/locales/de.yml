@@ -373,6 +373,8 @@ de:
     price: "Preis"
     updated: "Aktualisiert"
     world: "Welt"
+  random:
+    title: "Zufällig"
   ranked_achievement_points:
     title: "Gewertete Errungenschaften"
   ranked_achievements:

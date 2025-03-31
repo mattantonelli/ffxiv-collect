@@ -374,6 +374,8 @@ fr:
     price: "Prix"
     updated: "Mise à jour"
     world: "Monde"
+  random:
+    title: "Aléatoire"
   ranked_achievement_points:
     title: "Hauts faits permanents"
   ranked_achievements:

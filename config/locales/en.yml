@@ -373,6 +373,8 @@ en:
     price: "Price"
     updated: "Updated"
     world: "World"
+  random:
+    title: "Random"
   ranked_achievement_points:
     title: "Ranked Achievements"
   ranked_achievements:

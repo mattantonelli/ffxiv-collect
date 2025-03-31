@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :battle_pass, only: :index
   resources :p2w, only: [:index, :show]
   resources :endless, only: [:index]
+  resources :random, only: [:index]
   get 'fish', to: redirect('minions/396')
   get 'minions/dark_helmet'
   get 'mounts/pickorpokkur'
