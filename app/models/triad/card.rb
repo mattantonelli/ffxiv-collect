@@ -87,7 +87,7 @@ class Card < ApplicationRecord
   end
 
   def self.available_filters
-    %i(owned unknown)
+    %i(owned limited unknown)
   end
 
   def self.ransackable_attributes(auth_object = nil)
