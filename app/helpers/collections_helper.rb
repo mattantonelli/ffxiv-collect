@@ -96,7 +96,7 @@ module CollectionsHelper
       count = ownership.dig(:count, collectable.id.to_s).to_i
       percentage = ownership.dig(:percentage, collectable.id.to_s) || '0%'
     else
-      key = collectable.class.to_s.downcase.pluralize
+      key = collectable.class.name.underscore.pluralize
       count = Redis.current.hget("#{key}-count", collectable.id).to_i
       percentage = Redis.current.hget(key, collectable.id) || '0%'
     end

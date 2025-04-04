@@ -1,7 +1,10 @@
 <div>
   <dt>
     <%= t('owned') %>
-    <span data-toggle="tooltip" title="<%= t('tooltips.ownership', collectable: collectable.class.to_s.downcase) %>">
+    <span
+      data-toggle="tooltip"
+      title="<%= t('tooltips.ownership', collectable: collectable.class.to_s.downcase) %>"
+    >
       <%= fa_icon('question-circle') %>
     </span>
   </dt>
