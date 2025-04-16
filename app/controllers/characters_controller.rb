@@ -13,10 +13,6 @@ class CharactersController < ApplicationController
   STATS_COLLECTIONS = COLLECTIONS.dup.insert(1, 'titles').freeze
 
   def show
-    if @profile != @character && @profile.syncable?
-      @profile.sync
-    end
-
     @rankings = @profile.rankings
 
     @scores = COLLECTIONS.each_with_object({}) do |collection, h|
