@@ -178,8 +178,9 @@ Rails.application.routes.draw do
   get   'settings/user',      to: redirect('settings')
   get   'settings/character', to: redirect('settings')
 
-  post 'character/refresh',   to: 'characters#refresh',  as: :refresh_character
-  delete 'character/forget',  to: 'characters#forget',   as: :forget_character
+  post 'character/refresh/(:id)', to: 'characters#refresh', as: :refresh_character
+
+  delete 'character/forget', to: 'characters#forget', as: :forget_character
   delete 'character/comparison/forget', to: 'characters#forget_comparison', as: :forget_character_comparison
 
   namespace :api do

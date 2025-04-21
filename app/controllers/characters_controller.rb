@@ -171,17 +171,22 @@ class CharactersController < ApplicationController
   end
 
   def refresh
-    if !@character.refreshable?
-      flash[:alert] = t('alerts.already_refreshed')
-    elsif @character.in_queue?
-      flash[:alert] = t('alerts.character_syncing')
+    # Refresh the character profile if provided, otherwise refresh the currently selected character
+    is_profile = params[:id].present?
+    key = is_profile ? 'profile' : 'character'
+    character = is_profile ? Character.find(params[:id]) : @character
+
+    if !character.refreshable?
+      flash[:alert] = t("alerts.#{key}_already_refreshed")
+    elsif character.in_queue?
+      flash[:alert] = t("alerts.#{key}_syncing")
     else
       begin
-        character = fetch_character(@character.id)
+        fetched = fetch_character(character.id)
 
-        if character.present?
-          character.update(refreshed_at: Time.now)
-          flash[:success] = t('alerts.character_refreshed')
+        if fetched.present?
+          fetched.update(refreshed_at: Time.now)
+          flash[:success] = t("alerts.#{key}_refreshed")
         else
           flash[:error] = t('alerts.lodestone_error')
         end
@@ -190,7 +195,7 @@ class CharactersController < ApplicationController
       rescue Lodestone::PrivateProfileError
         flash[:error] = t('alerts.private_profile')
       rescue
-        flash[:error] = t('alerts.problem_refreshing')
+        flash[:error] = t("alerts.problem_refreshing_#{key}")
       end
     end
 
