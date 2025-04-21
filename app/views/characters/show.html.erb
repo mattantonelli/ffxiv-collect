@@ -18,7 +18,8 @@
                 method: :post, class: 'btn btn-secondary btn-sm' unless @comparison == @profile %>
             <% end %>
             <%= link_to fa_icon('sync', text: t('characters.refresh_profile')),
-              refresh_character_path(@profile.id), method: :post, class: 'btn btn-primary btn-sm' %>
+              refresh_character_path(@profile.id), method: :post,
+              class: 'sync-profile btn btn-primary btn-sm' %>
           <% end %>
 
           <%= link_to far_icon('chart-bar', text: t('characters.statistics')),
