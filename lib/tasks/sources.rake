@@ -4,7 +4,7 @@ namespace :sources do
     names = ['Achievement', 'Bozja', 'Crafting', 'Deep Dungeon', 'Dungeon', 'Eureka', 'Event', 'FATE',
              'Gathering', 'Gold Saucer', 'Hunts', 'Island Sanctuary', 'Limited', 'NPC', 'Other', 'Premium',
              'Purchase', 'PvP', 'Quest', 'Raid', 'Skybuilders', 'Treasure Hunt', 'Trial', 'Tribal',
-             'Ultimate Raid', 'V&C Dungeon', 'Venture', 'Voyages', 'Wondrous Tails']
+             'Ultimate Raid', 'V&C Dungeon', 'Venture', 'Voyages', 'Wondrous Tails', 'Cosmic Exploration']
 
     names.each do |name|
       SourceType.find_or_create_by!(name_en: name)
