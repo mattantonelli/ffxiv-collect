@@ -65,6 +65,17 @@ namespace :relics do
 
       create_relics(type, ids, achievement_ids)
 
+      ## Cosmic
+      type = RelicType.find_or_create_by!(name_en: "Cosmic Tools", name_de: "Kosmo-Werkzeuge",
+                                          name_fr: "Outils cosmiques", name_ja: "コスモツール",
+                                          category: 'tools', order: 5, jobs: 11, expansion: 7)
+
+      ids = (45679..45689).to_a # Cosmic
+
+      achievement_ids = (3691..3701).to_a
+
+      create_relics(type, ids, achievement_ids)
+
       puts "Created #{Relic.count - count} new relic tools"
     end
   end
