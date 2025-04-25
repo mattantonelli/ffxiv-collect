@@ -23,37 +23,42 @@
 
     <%= nav_link(t('mounts.title'), 'horse', mounts_path) %>
     <%= nav_link(t('minions.title'), 'paw', minions_path) %>
-    <%= nav_link(t('orchestrions.title'), 'music', orchestrions_path) %>
-    <%= nav_link(t('spells.title'), 'magic', spells_path) %>
     <%= nav_link(t('hairstyles.title'), 'cut', hairstyles_path) %>
     <%= nav_link(t('emotes.title'), 'smile', emotes_path) %>
-    <%= nav_link(t('bardings.title'), 'chess-knight', bardings_path) %>
-    <%= nav_link(t('armoires.title'), 'tshirt', armoires_path) %>
-    <%= nav_link(t('outfits.title'), 'socks', outfits_path) %>
-    <%= nav_link(t('fashions.title'), 'umbrella', fashions_path) %>
-    <%= nav_link(t('facewear.title'), 'glasses', facewear_index_path) %>
+    <%= nav_link(t('orchestrions.title'), 'music', orchestrions_path) %>
     <%= nav_link(t('frames.title'), 'portrait', frames_path) %>
+    <%= nav_link(t('spells.title'), 'magic', spells_path) %>
+    <%= nav_link(t('bardings.title'), 'chess-knight', bardings_path) %>
+
+    <!-- Fashion -->
+    <div class="nav-item dropdown<%= ' bold' if controller_path.match?(/armoire|outfit|fashion|facewear/) %>">
+      <a class="nav-link dropdown-toggle" href="#" id="fashionDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"
+      >
+        <%= fab_icon('pied-piper-hat', text: t('fashions.dropdown')) %>
+      </a>
+      <div class="dropdown-menu" aria-labelledBy="fashionDropdown">
+        <%= link_to fa_icon('umbrella', text: t('fashions.title_short')), fashions_path,
+          class: 'dropdown-item' %>
+        <%= link_to fa_icon('glasses', text: t('facewear.title')), facewear_index_path,
+          class: 'dropdown-item' %>
+        <%= link_to fa_icon('socks', text: t('outfits.title')), outfits_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('tshirt', text: t('armoires.title')), armoires_path, class: 'dropdown-item' %>
+      </div>
+    </div>
 
     <!-- Triple Triad -->
     <div class="nav-item dropdown<%= ' bold' if controller_path.match?('triad/') %>">
       <a class="nav-link dropdown-toggle" href="#" id="triadDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= fa_icon('th', text: t('triad.title')) %></a>
+        aria-haspopup="true" aria-expanded="false"
+      >
+        <%= fa_icon('th', text: t('triad.title')) %>
+      </a>
       <div class="dropdown-menu" aria-labelledBy="triadDropdown">
         <%= link_to fa_icon('id-badge', text: t('cards.title')), cards_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('users', text: t('npcs.title')), npcs_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('list-alt', text: t('triad.decks.title')), decks_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('boxes', text: t('triad.packs.title')), packs_path, class: 'dropdown-item' %>
-      </div>
-    </div>
-
-    <!-- Records -->
-    <div class="nav-item dropdown<%= ' bold' if controller_path.match?('records') %>">
-      <a class="nav-link dropdown-toggle" href="#" id="recordsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= fa_icon('book', text: t('records.dropdown')) %></a>
-      <div class="dropdown-menu" aria-labelledBy="recordsDropdown">
-        <%= link_to fa_icon('file-alt', text: t('records.title')), records_path, class: 'dropdown-item' %>
-        <%= link_to fa_icon('book-open', text: t('survey_records.title')), survey_records_path,
-          class: 'dropdown-item' %>
       </div>
     </div>
 
@@ -67,6 +72,17 @@
         <%= link_to fa_icon('tshirt', text: t('relics.armor')), relic_armor_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('hammer', text: t('relics.tools')), relic_tools_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('clock', text: t('relics.garo')), relic_garo_path, class: 'dropdown-item' %>
+      </div>
+    </div>
+
+    <!-- Records -->
+    <div class="nav-item dropdown<%= ' bold' if controller_path.match?('records') %>">
+      <a class="nav-link dropdown-toggle" href="#" id="recordsDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false"><%= fa_icon('book', text: t('records.dropdown')) %></a>
+      <div class="dropdown-menu" aria-labelledBy="recordsDropdown">
+        <%= link_to fa_icon('file-alt', text: t('records.title')), records_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('book-open', text: t('survey_records.title')), survey_records_path,
+          class: 'dropdown-item' %>
       </div>
     </div>
 

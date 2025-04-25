@@ -229,7 +229,9 @@ fr:
     reclaimable: "Initialement disponible en tant qu'accessoires de mode. Vous devriez pouvoir le récupérer en parlant au Consigneur."
     title: "Accessoires de visage"
   fashions:
+    dropdown: "Mode"
     title: "Accessoires de mode"
+    title_short: "Accessoires"
   filters: "Filtres"
   fish:
     title: "Poisson légendaire"

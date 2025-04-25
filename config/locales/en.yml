@@ -228,7 +228,9 @@ en:
     reclaimable: "Originally available as a fashion accessory. You may be able to reclaim it by speaking with the Calamity Salvager."
     title: "Facewear"
   fashions:
+    dropdown: "Fashion"
     title: "Fashion Accessories"
+    title_short: "Accessories"
   filters: "Filters"
   fish:
     title: "Big Fish"

@@ -228,7 +228,9 @@ de:
     reclaimable: "Ursprünglich als Modeaccessoire verfügbar. Du kannst es möglicherweise zurückbekommen, indem du mit dem Fundsachenverwalter sprichst."
     title: "Gesichtsaccessoire"
   fashions:
+    dropdown: "Mode"
     title: "Modeaccessoires"
+    title_short: "Accessoires"
   filters: "Filter"
   fish:
     title: "Kapitalfische"
