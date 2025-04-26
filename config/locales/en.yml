@@ -162,6 +162,7 @@ en:
     search_lodestone_prompt: "Don't see your character? Try searching the Lodestone:"
     search_results: "Search Results"
     select: "Select"
+    select_character: "Select Character"
     select_server: "Select a server"
     server: "Home World"
     set_to_private: "Set to private."

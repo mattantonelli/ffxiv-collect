@@ -162,6 +162,7 @@ fr:
     search_lodestone_prompt: "Vous ne trouvez pas votre personnage ? Recherchez-le sur le Lodestone :"
     search_results: "Résultats"
     select: "Sélectionner"
+    select_character: "Sélectionner un personnage"
     select_server: "Sélectionner un serveur"
     server: "Monde d'origine"
     server: "Serveur"

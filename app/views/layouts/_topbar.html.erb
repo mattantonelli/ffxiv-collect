@@ -20,7 +20,7 @@
   </div>
   <div class="d-flex flex-wrap align-items-center">
     <% unless @character.present? %>
-      <%= link_to t('characters.select'), search_characters_path, class: 'btn btn-primary my-2 my-md-0' %>
+      <%= link_to t('characters.select_character'), search_characters_path, class: 'btn btn-primary my-2 my-md-0' %>
     <% end %>
     <% if @character.present? || user_signed_in? %>
       <%= render 'layouts/user_dropdown' %>

@@ -161,6 +161,7 @@ de:
     search_lodestone_prompt: "Du findest deinen Charakter nicht? Versuche es im Lodestone:"
     search_results: "Suchergebnisse"
     select: "Auswählen"
+    select_character: "Charakterauswahl"
     select_server: "Wähle einen Server"
     server: "Server"
     server: "Stammwelt"
