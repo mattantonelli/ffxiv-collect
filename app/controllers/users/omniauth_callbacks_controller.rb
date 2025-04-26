@@ -8,6 +8,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       @user.characters << Character.find_by(id: cookies[:character]) unless @user.characters.exists?(cookies[:character])
     end
 
+    if @user.character.present?
+      return redirect_to character_path(@user.character)
+    end
+
     redirect_to root_path
   end
 
