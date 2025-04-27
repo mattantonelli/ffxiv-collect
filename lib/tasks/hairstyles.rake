@@ -7,7 +7,7 @@ namespace :hairstyles do
 
     count = Hairstyle.count
 
-    XIVData.sheet('CharaMakeCustomize', raw: true).each do |custom|
+    XIVData.sheet('CharaMakeCustomize', raw: true).each_with_object(Set.new) do |custom, created|
       next if custom['HintItem'] == '0'
       item = Item.find_by(id: custom['HintItem'])
       next unless item.present?
@@ -57,7 +57,13 @@ namespace :hairstyles do
 
       # Use the first image as a sample of the hairstyle
       sample_path = Rails.root.join('public/images/hairstyles/samples', "#{data[:id]}.png")
-      FileUtils.cp(output_path, sample_path) unless File.exist?(sample_path)
+
+      # Create one sample image the second time we see the style (cuteness guaranteed)
+      if !File.exist?(sample_path) && created.include?(item.id)
+        FileUtils.cp(output_path, sample_path) unless File.exist?(sample_path)
+      end
+
+      created.add(item.id)
     end
 
     # Create the Eternal Bonding hairstyle which lacks an item unlock
