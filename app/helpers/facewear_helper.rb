@@ -6,6 +6,10 @@ module FacewearHelper
   end
 
   def facewear_sample_image(facewear)
-    safe_image_tag("facewear/samples/#{facewear.id}.png", class: 'facewear-small')
+    safe_image_tag(facewear_sample_image_path(facewear), class: 'facewear-small')
+  end
+
+  def facewear_sample_image_path(facewear)
+    "facewear/samples/#{facewear.id}.png"
   end
 end

@@ -1,6 +1,6 @@
 <% title(@hairstyle.name) %>
 <% description(@hairstyle.description&.truncate(150)) %>
-<% image(image_url("hairstyles/#{@hairstyle.id}.png", skip_pipeline: true)) %>
+<% image(image_url("hairstyles/samples/#{@hairstyle.id}.png", skip_pipeline: true)) %>
 
 <div class="row">
   <div class="col-12 col-xl-7 mx-auto">

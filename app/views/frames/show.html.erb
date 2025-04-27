@@ -1,6 +1,6 @@
 <% title(@frame.name) %>
 <% description(@frame.description&.truncate(150)) %>
-<% image(image_url('frame.png', skip_pipeline: true)) %>
+<% image(image_url("frames/#{@frame.id}.png", skip_pipeline: true)) %>
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
