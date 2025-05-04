@@ -56,10 +56,10 @@
           </span>
         </h5>
         <div>
-          <%= link_to t('npcs.submit_deck'), new_deck_path(npc_id: @npc.id),
+          <%= link_to fa_icon('plus', text: t('npcs.submit_deck')), new_deck_path(npc_id: @npc.id),
             class: 'btn btn-primary btn-sm', data: { toggle: 'tooltip' },
             title: t('npcs.submit_deck_tooltip') %>
-          <%= link_to t('npcs.user_decks'), decks_path(q: { npc_id_eq: @npc.id }),
+          <%= link_to fa_icon('list-alt', text: t('npcs.user_decks')), decks_path(q: { npc_id_eq: @npc.id }),
             class: "btn btn-secondary btn-sm#{ ' disabled' unless Deck.exists?(npc_id: @npc.id) }",
             data: { toggle: 'tooltip' }, title: t('npcs.user_decks_tooltip') %>
         </div>
