@@ -17,7 +17,11 @@ class FreeCompanySyncJob < ApplicationJob
 
       # Fetch each member of the free company
       member_ids.each do |id|
-        fetch_character(id)
+        begin
+          fetch_character(id)
+        rescue Lodestone::PrivateProfileError
+          Sidekiq.logger.info("Skipping private profile #{id}")
+        end
       end
     rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Sidekiq.logger.info('Lodestone is down for maintenance.')
@@ -26,8 +30,6 @@ class FreeCompanySyncJob < ApplicationJob
     rescue RestClient::ExceptionWithResponse => e
       Rails.logger.error("There was a problem fetching free company #{free_company_id}")
       Rails.logger.error(e.response)
-    rescue Lodestone::PrivateProfileError
-      # We cannot fetch characters with private profiles
     rescue StandardError
       Rails.logger.error("There was a problem fetching free company #{free_company_id}")
       raise
