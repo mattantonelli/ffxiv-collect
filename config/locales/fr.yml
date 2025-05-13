@@ -117,7 +117,7 @@ fr:
   any_tradeable: "Tout type de transaction"
   apply_filters: "Appliquer les filtres"
   armoires:
-    title: "Armoire"
+    title: "Bahut personnel"
   back: "Retour"
   bardings:
     title: "Bardes"
@@ -235,7 +235,7 @@ fr:
     title_short: "Accessoires"
   filters: "Filtres"
   fish:
-    title: "Poisson légendaire"
+    title: "Poissons"
   forget: "Oublier"
   frames:
     item_name: "Nom de l'objet"
