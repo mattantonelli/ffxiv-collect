@@ -1,4 +1,5 @@
 UNIVERSALIS_BASE_URL = 'https://universalis.app/api/v2'.freeze
+USER_AGENT = 'FFXIVCollect'.freeze
 
 namespace :prices do
   desc 'Sets the latest known market board prices for items by data center'
@@ -14,12 +15,7 @@ namespace :prices do
       item_ids.each_slice(100) do |ids|
         begin
           url = "#{UNIVERSALIS_BASE_URL}/#{dc}/#{ids.join(',')}?listings=1&entries=0"
-          response = RestClient::Request.execute(
-            url: url,
-            method: :get,
-            headers: { user_agent: 'FFXIVCollect' },
-            verify_ssl: false
-          )
+          response = RestClient.get(url, { params: { listings: 1, entries: 0 }, user_agent: USER_AGENT })
 
           prices = JSON.parse(response)['items'].map do |id, item|
             time = item['lastUploadTime'].to_i
