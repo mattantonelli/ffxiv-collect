@@ -3,7 +3,7 @@ module XIVAPI
     include Enumerable
 
     def initialize(name, limit:, fields: [], transient: [])
-      @url = "#{BASE_URL}/#{name}"
+      @url = "#{BASE_URL}/sheet/#{name}"
       @limit = [limit, XIVAPI::LIMIT].min
       @total = 0
 
