@@ -87,11 +87,6 @@ def updated?(model, data)
     end
   end
 
-  # The XIVData values are all strings, so convert integers to strings for comparison
-  current.each do |k, v|
-    current[k] = v.to_s if v.is_a?(Integer)
-  end
-
   if updated = data != current
     puts "  Found new data for #{model.name_en} (#{model.id}):"
     diff = data.map do |k, v|
@@ -136,15 +131,7 @@ def get_coordinate(value, map_offset, size_factor)
   (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
 end
 
-def link_music(path)
-  return unless Dir.exist?(XIVData::MUSIC_PATH)
-
-  FileUtils.ln_s(path, Rails.root.join('public/music', path.sub(/.*\//, '')), force: true)
-end
-
-def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
-  return unless Dir.exist?(XIVData::IMAGE_PATH)
-
+def create_image(id, asset_path, path, hd: false, mask_from: nil, mask_to: nil, width: nil, height: nil)
   # Use the custom output pathname if provided, otherwise generate it
   if path.class == Pathname
     output_path = path
@@ -152,23 +139,26 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
     output_path = Rails.root.join('public/images', path, "#{id}.png")
   end
 
-  unless output_path.exist?
-    image_path = XIVData.image_path(icon_path)
+  return if output_path.exist?
 
-    if mask_from.present?
-      mask_to ||= mask_from
-      image = ChunkyPNG::Image.from_file(image_path)
-      image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
-                                ChunkyPNG::Color::TRANSPARENT)
-    elsif width.present?
-      image = ChunkyPNG::Image.from_file(image_path)
-      image.resample_bilinear!(width, height)
-    else
-      image = URI.open(image_path).read
-    end
+  asset = XIVAPI.asset(asset_path, hd: hd).body
 
-    URI.open(output_path.to_s, 'wb') { |file| file << image }
+  if mask_from.present?
+    mask_to ||= mask_from
+    image = ChunkyPNG::Image.from_blob(asset)
+    image.change_theme_color!(
+      ChunkyPNG::Color.from_hex(mask_from),
+      ChunkyPNG::Color.from_hex(mask_to),
+      ChunkyPNG::Color::TRANSPARENT
+    )
+  elsif width.present?
+    image = ChunkyPNG::Image.from_blob(asset)
+    image.resample_bilinear!(width, height)
+  else
+    image = asset
   end
+
+  URI.open(output_path, 'wb') { |file| file << image }
 end
 
 def create_spritesheet(path)

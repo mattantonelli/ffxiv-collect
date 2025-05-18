@@ -6,45 +6,44 @@ namespace :mounts do
     puts 'Creating mounts'
     count = Mount.count
 
-    mounts = %w(en de fr ja).each_with_object({}) do |locale, h|
-      XIVData.sheet('Mount', locale: locale).each do |mount|
-        next unless mount['Order'].to_i >= 0 && mount['Singular'].present?
+    fields = %w(
+      Singular@i18n Order UIPriority ExtraSeats Icon IsAirborne RideBGM
+    )
 
-        data = h[mount['#']] || { id: mount['#'], order: mount['Order'], order_group: mount['UIPriority'],
-                                  seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: mount['Icon'],
-                                  movement: mount['IsAirborne'] == 'True' ? 'Airborne' : 'Terrestrial'}
-        data["name_#{locale}"] = sanitize_name(mount['Singular'])
+    transient = %w(
+      Description@i18n DescriptionEnhanced@i18n Tooltip@i18n
+    )
 
-        # Set unique BGM samples on the first pass
-        unless h.has_key?(mount['#']) || mount['RideBGM'].match?(/(Ride_Chocobo|Common|FlyingMount)/)
-          data[:bgm_sample] = XIVData.music_filename(mount['RideBGM'])
-          link_music(XIVData.music_path(mount['RideBGM']))
-        end
+    mounts = XIVAPI.sheet('Mount', fields: fields, transient: transient).each_with_object({}) do |mount, h|
+      next unless mount['Order'] >= 0 && mount['Singular@lang(en)'].present?
 
-        h[data[:id]] = data
+      data = {
+        id: mount['#'], order: mount['Order'], order_group: mount['UIPriority'],
+        seats: mount['ExtraSeats'].to_i + 1, icon: mount.dig('Icon', 'path'),
+        movement: mount['IsAirborne'] ? 'Airborne' : 'Terrestrial'
+      }
+
+      data.merge!(XIVAPI.translate(mount, 'Singular', 'name'))
+      data.merge!(XIVAPI.translate(mount, 'Description', 'description', type: :text))
+      data.merge!(XIVAPI.translate(mount, 'DescriptionEnhanced', 'enhanced_description', type: :text))
+      data.merge!(XIVAPI.translate(mount, 'Tooltip', 'tooltip', type: :text))
+
+      bgm = mount['RideBGM'].dig('fields', 'File')
+      unless bgm&.match?(/(Ride_Chocobo|Common|FlyingMount)/)
+        data[:bgm_sample] = bgm
       end
-    end
 
-    # Add the remaining data from the transient sheet
-    %w(en de fr ja).each do |locale, h|
-      XIVData.sheet('MountTransient', locale: locale).each do |mount|
-        next unless mounts.has_key?(mount['#'])
-
-        data = mounts[mount['#']]
-        data.merge!("description_#{locale}" => sanitize_text(mount['Description']),
-                    "enhanced_description_#{locale}" => sanitize_text(mount['Description{Enhanced}']),
-                    "tooltip_#{locale}" => sanitize_text(mount['Tooltip']))
-      end
+      h[data[:id]] = data
     end
 
     mounts.values.each do |mount|
       large_icon = mount[:icon].gsub('/004', '/068')
-      icon_id = mount[:icon].sub(/.*?(\d+)\.tex/, '\1').to_i
-      footprint_icon = XIVData.icon_path(65000 + icon_id)
+      icon_id = mount[:icon].sub(/.+?(\d+)\.tex/, '\1').to_i
+      footprint_icon = XIVAPI.asset_path(65000 + icon_id)
 
       create_image(mount[:id], large_icon, 'mounts/large')
       create_image(mount[:id], mount.delete(:icon), 'mounts/small')
-      create_image(mount[:id], footprint_icon, 'mounts/footprint', '#151515ff')
+      create_image(mount[:id], footprint_icon, 'mounts/footprint', mask_from: '#151515ff')
 
       if existing = Mount.find_by(id: mount[:id])
         existing.update!(mount) if updated?(existing, mount)
