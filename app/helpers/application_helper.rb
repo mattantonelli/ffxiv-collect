@@ -120,8 +120,8 @@ module ApplicationHelper
     end
   end
 
-  def new_feature_badge
-    content_tag(:span, t('new'), class: 'badge badge-success')
+  def new_feature_badge(small: false)
+    content_tag(:span, small ? '!' : t('new'), class: "badge badge-success#{ ' badge-pill' if small}")
   end
 
   def teamcraft_url(type, id)

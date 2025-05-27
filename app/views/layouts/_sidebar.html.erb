@@ -83,11 +83,11 @@
         <%= fa_icon('book', text: t('records.dropdown')) %>
         <%= new_feature_badge %>
       </a>
-      <div class="dropdown-menu" aria-labelledBy="recordsDropdown">
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledBy="recordsDropdown">
         <%= link_to fa_icon('file-alt', text: t('records.title')), records_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('book-open', text: t('survey_records.title')), survey_records_path,
           class: 'dropdown-item' %>
-        <%= link_to fa_icon('moon', text: "#{t('occult_records.title')} #{new_feature_badge}".html_safe), occult_records_path,
+        <%= link_to fa_icon('moon', text: "#{t('occult_records.title')} #{new_feature_badge(small: true)}".html_safe), occult_records_path,
           class: 'dropdown-item' %>
       </div>
     </div>
