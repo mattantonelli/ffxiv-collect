@@ -78,12 +78,16 @@
     <!-- Records -->
     <div class="nav-item dropdown<%= ' bold' if controller_path.match?('records') %>">
       <a class="nav-link dropdown-toggle" href="#" id="recordsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= fa_icon('book', text: t('records.dropdown')) %></a>
+        aria-haspopup="true" aria-expanded="false"
+      >
+        <%= fa_icon('book', text: t('records.dropdown')) %>
+        <%= new_feature_badge %>
+      </a>
       <div class="dropdown-menu" aria-labelledBy="recordsDropdown">
         <%= link_to fa_icon('file-alt', text: t('records.title')), records_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('book-open', text: t('survey_records.title')), survey_records_path,
           class: 'dropdown-item' %>
-        <%= link_to fa_icon('moon', text: t('occult_records.title')), occult_records_path,
+        <%= link_to fa_icon('moon', text: "#{t('occult_records.title')} #{new_feature_badge}".html_safe), occult_records_path,
           class: 'dropdown-item' %>
       </div>
     </div>
