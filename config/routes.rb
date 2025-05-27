@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   end
 
   %i(orchestrions emotes bardings hairstyles armoires outfits spells fashions facewear frames
-  records survey_records).each do |resource|
+  records survey_records occult_records).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
     end
@@ -228,7 +228,7 @@ Rails.application.routes.draw do
 
   namespace :mod do
     %i(mounts minions orchestrions emotes bardings hairstyles armoires outfits spells fashions facewear
-    frames cards records survey_records).each do |resource|
+    frames cards records survey_records occult_records).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 

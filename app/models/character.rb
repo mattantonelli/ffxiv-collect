@@ -48,6 +48,7 @@
 #  facewear_count               :integer          default(0)
 #  pricing_data_center          :string(255)
 #  outfits_count                :integer          default(0)
+#  occult_records_count         :integer          default(0)
 #
 
 class Character < ApplicationRecord
@@ -66,7 +67,7 @@ class Character < ApplicationRecord
   scope :with_public_achievements, -> { where(public_achievements: true) }
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires outfits spells relics
-  fashions facewear records survey_records frames leves cards npcs).each do |model|
+  fashions facewear records survey_records occult_records frames leves cards npcs).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end

@@ -9,7 +9,7 @@ class CharactersController < ApplicationController
   before_action :verify_privacy!, only: [:show, :stats_recent, :stats_rarity]
 
   COLLECTIONS = %w(achievements mounts minions orchestrions spells hairstyles emotes bardings armoires
-  outfits fashions facewear frames cards records survey_records).freeze
+  outfits fashions facewear frames cards records survey_records occult_records).freeze
   STATS_COLLECTIONS = COLLECTIONS.dup.insert(1, 'titles').freeze
 
   def show

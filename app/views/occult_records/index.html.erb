@@ -1,0 +1,59 @@
+<% title(t('occult_records.title')) %>
+<% description("Track your character's occult records and discover how to obtain new ones.") %>
+
+<%= render 'shared/filters' %>
+<div class="d-flex justify-content-center">
+  <div class="d-inline-flex flex-column">
+    <div class="d-flex justify-content-between align-items-end mb-1">
+      <div></div>
+      <%= search_form_for(@q, url: occult_records_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+          class: 'form-control form-control-sm flex-grow-1' %>
+        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+      <% end %>
+      <%= render 'shared/active_filters' %>
+    </div>
+    <%= render 'shared/collection_progress', ids: @records.map(&:id) %>
+    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+    <table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col"><%= t('name') %></th>
+          <th scope="col"><%= t('source') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
+          <% if character_selected? %>
+            <th scope="col"></th><!-- Owned -->
+          <% end %>
+          <% if @comparison.present? %>
+            <th scope="col"></th><!-- Comparison -->
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @records.each do |record| %>
+          <tr class="<%= collectable_classes(record) %>">
+            <td>
+              <%= link_to(occult_record_path(record), class: 'unstyled') do %>
+                <%= format_record_number(record) %>
+              <% end %>
+            </td>
+            <td><%= link_to(record.name, occult_record_path(record), class: 'name') %></td>
+            <td data-value="<%= source_sort_value(record) %>"><%= sources(record) %></td>
+            <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>">
+              <%= rarity(record) %>
+            </td>
+            <td class="text-center hide-xs" data-value="<%= sort_value(record) %>"><%= record.patch %></td>
+            <% if character_selected? %>
+              <%= td_owned(record) %>
+            <% end %>
+            <% if @comparison.present? %>
+              <%= td_comparison(record) %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

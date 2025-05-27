@@ -49,6 +49,7 @@ namespace :data do
     Rake::Task['facewear:create'].invoke
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
+    Rake::Task['occult_records:create'].invoke
     Rake::Task['frames:create'].invoke
     Rake::Task['triad:cards:create'].invoke
     Rake::Task['triad:card_images:create'].invoke

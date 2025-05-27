@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_23_220148) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -314,6 +314,16 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_220148) do
     t.index ["npc_id"], name: "index_character_npcs_on_npc_id"
   end
 
+  create_table "character_occult_records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "occult_record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "occult_record_id"], name: "character_id_and_occult_record_id", unique: true
+    t.index ["character_id"], name: "index_character_occult_records_on_character_id"
+    t.index ["occult_record_id"], name: "index_character_occult_records_on_occult_record_id"
+  end
+
   create_table "character_orchestrions", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "character_id"
     t.integer "orchestrion_id"
@@ -420,6 +430,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_220148) do
     t.integer "facewear_count", default: 0
     t.string "pricing_data_center"
     t.integer "outfits_count", default: 0
+    t.integer "occult_records_count", default: 0
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"
@@ -438,6 +449,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_220148) do
     t.index ["mounts_count"], name: "index_characters_on_mounts_count"
     t.index ["name"], name: "index_characters_on_name"
     t.index ["npcs_count"], name: "index_characters_on_npcs_count"
+    t.index ["occult_records_count"], name: "index_characters_on_occult_records_count"
     t.index ["orchestrions_count"], name: "index_characters_on_orchestrions_count"
     t.index ["outfits_count"], name: "index_characters_on_outfits_count"
     t.index ["public"], name: "index_characters_on_public"
@@ -921,6 +933,25 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_220148) do
     t.index ["npc_id", "rule_id"], name: "index_npcs_rules_on_npc_id_and_rule_id", unique: true
     t.index ["npc_id"], name: "index_npcs_rules_on_npc_id"
     t.index ["rule_id"], name: "index_npcs_rules_on_rule_id"
+  end
+
+  create_table "occult_records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.string "name_en"
+    t.string "name_de"
+    t.string "name_fr"
+    t.string "name_ja"
+    t.text "description_en"
+    t.text "description_de"
+    t.text "description_fr"
+    t.text "description_ja"
+    t.string "patch"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_de"], name: "index_occult_records_on_name_de"
+    t.index ["name_en"], name: "index_occult_records_on_name_en"
+    t.index ["name_fr"], name: "index_occult_records_on_name_fr"
+    t.index ["name_ja"], name: "index_occult_records_on_name_ja"
+    t.index ["patch"], name: "index_occult_records_on_patch"
   end
 
   create_table "orchestrion_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|

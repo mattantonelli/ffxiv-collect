@@ -356,6 +356,8 @@ fr:
     update_defeated_confirmation: "Les PNJs ayant des cartes exclusives que vous avez obtenues vont être marqués comme battu."
     user_decks: "Decks Utilisateur"
     user_decks_tooltip: "Les decks utilisateur conçus pour être utilisés contre ce PNJ"
+  occult_records:
+    title: "Calepin du croissant"
   of: "de"
   only:
     female: "Réservé aux femmes"

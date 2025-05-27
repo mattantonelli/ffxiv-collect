@@ -6,7 +6,7 @@
   </h5>
   <div class="card-body">
     <div class="d-flex flex-wrap justify-content-center">
-      <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Outfit, Spell, Fashion, Facewear, Frame, Card, Record, SurveyRecord] .each do |model| %>
+      <% [Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Outfit, Spell, Fashion, Facewear, Frame, Card, Record, SurveyRecord, OccultRecord] .each do |model| %>
         <%= link_to model.to_s.pluralize.titleize, polymorphic_url([:mod, model]), class: 'btn btn-secondary mx-1 my-2' %>
       <% end %>
     </div>

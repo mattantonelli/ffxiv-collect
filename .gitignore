@@ -48,6 +48,7 @@
 /app/assets/images/records-small.png
 /app/assets/images/records/*
 /app/assets/images/survey_records-small.png
+/app/assets/images/occult_records/*
 /app/assets/images/frames/*
 /app/assets/images/leve_items.png
 /app/assets/images/facewear/*
@@ -71,6 +72,7 @@
 /public/images/relics/*
 /public/images/records/*
 /public/images/survey_records/*
+/public/images/occult_records/*
 /public/images/frames/*
 /public/images/leve_items/*
 /public/images/facewear/*

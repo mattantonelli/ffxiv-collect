@@ -7,7 +7,7 @@ namespace :ownership do
 
     [
       Orchestrion, Emote, Barding, Hairstyle, Armoire, Outfit, Spell, Relic, Fashion, Facewear,
-      Record, SurveyRecord, Frame, Card
+      Record, SurveyRecord, OccultRecord, Frame, Card
     ].each do |model|
       cache_ownership(model, manual_collection_characters)
     end

@@ -355,6 +355,8 @@ de:
     update_defeated_confirmation: "Alle NPCs mit exklusiven Karten werden als besiegt markiert."
     user_decks: "Benutzer Decks"
     user_decks_tooltip: "Benutzer Decks, die zum Besiegen dieses NPCs erstellt wurden."
+  occult_records:
+    title: "Kreszentia-Chronik"
   of: "von"
   only:
     female: "Nur für Damen"
