@@ -115,6 +115,18 @@ namespace :relics do
 
       create_relics(type, ids, achievement_ids)
 
+      ## Phantom
+
+      ids = [47869, 47870, 47871, 47872, 47873, 47878, 47879, 47880, 47874, 47875, 47876, 47877, 47881, 47882, 47883, 47884, 47885, 47887, 47886, 47888, 47889]
+
+      achievement_ids = [3638, 3643, 3639, 3642, 3648, 3644, 3640, 3649, 3655, 3651, 3652, 3656, 3657, 3646, 3653, 3641, 3650, 3658, 3647, 3645, 3654]
+
+      type = RelicType.find_or_create_by!(name_en: "Phantom Weapons", name_de: "Phantomwaffen",
+                                          name_fr: "Armes fantômes", category: 'weapons',
+                                          order: 8, jobs: 21, expansion: 7)
+
+      create_relics(type, ids, achievement_ids)
+
       ## Deep Dungeon
       type = RelicType.find_or_create_by!(name_en: "Deep Dungeon Weapons", name_de: "Tiefes Gewölbe - Waffen",
                                           name_fr: "Armes Donjons sans fond", category: 'weapons')
