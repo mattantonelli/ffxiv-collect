@@ -12,6 +12,10 @@ class TitlesController < ApplicationController
       @titles = @titles.joins(:achievement).merge(Achievement.exclude_time_limited)
     end
 
+    if cookies[:ranked_pvp] == 'hide'
+      @titles = @titles.joins(:achievement).merge(Achievement.exclude_ranked_pvp)
+    end
+
     @collection_ids = @character&.achievement_ids || []
     @comparison_ids = @comparison&.achievement_ids || []
     @dates = @character&.character_achievements&.pluck(:achievement_id, :created_at).to_h || {}

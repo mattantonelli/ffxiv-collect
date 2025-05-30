@@ -25,7 +25,7 @@ class Title < ApplicationRecord
   scope :ordered, -> { joins(:achievement).order('achievements.patch desc', order: :desc) }
 
   def self.available_filters
-    %i(owned limited)
+    %i(owned limited ranked_pvp)
   end
 
   def self.ransackable_attributes(auth_object = nil)
