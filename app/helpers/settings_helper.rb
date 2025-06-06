@@ -4,6 +4,6 @@ module SettingsHelper
   end
 
   def data_center_options(character)
-    options_for_select(character.available_data_centers, character.pricing_data_center)
+    options_for_select(Character.data_centers, character.pricing_data_center)
   end
 end

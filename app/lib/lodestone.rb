@@ -48,7 +48,7 @@ module Lodestone
   def profile_link(character)
     case locale = I18n.locale.to_s
     when 'en'
-      locale = character.region == 'eu' ? 'eu' : 'na'
+      locale = character.region == 'na' ? 'na' : 'eu'
     when 'ja'
       locale = 'jp'
     end

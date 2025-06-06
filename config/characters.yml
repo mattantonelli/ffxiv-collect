@@ -89,7 +89,7 @@ shared:
         - Pandaemonium
         - Titan
     Materia:
-      region: eu
+      region: oc
       servers:
         - Bismarck
         - Ravana

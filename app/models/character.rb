@@ -182,10 +182,6 @@ class Character < ApplicationRecord
     Rails.application.config_for(:characters).data_centers[data_center.to_sym][:region]
   end
 
-  def available_data_centers
-    Character.data_centers_by_region[region]
-  end
-
   def fetch!
     Character.fetch(id)
   end
@@ -249,7 +245,7 @@ class Character < ApplicationRecord
   end
 
   def self.data_centers_by_region
-    data_centers = { 'na' => [], 'eu' => [], 'jp' => [] }
+    data_centers = { 'na' => [], 'eu' => [], 'jp' => [], 'oc' => [] }
 
     Rails.application.config_for(:characters).data_centers
       .each { |k, v| data_centers[v[:region]] << k.to_s }
