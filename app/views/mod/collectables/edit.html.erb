@@ -55,7 +55,7 @@
                 <%= sf.hidden_field :collectable_id, value: @collectable.id %>
                 <%= sf.hidden_field :collectable_type, value: @model.to_s %>
 
-                <div class="row mb-2">
+                <div class="row flex align-items-center mb-2">
                   <div class="col-3">
                     <%= sf.collection_select :type_id, @types, :id, :name,
                       { include_blank: 'Select type' }, class: 'form-control' %>
