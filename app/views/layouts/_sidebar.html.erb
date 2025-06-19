@@ -65,7 +65,10 @@
     <!-- Relics -->
     <div class="nav-item dropdown<%= ' bold' if active_path?(relic_weapons_path) %>">
       <a class="nav-link dropdown-toggle" href="#" id="relicsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= fa_icon('shield-alt', text: t('relics.title')) %></a>
+        aria-haspopup="true" aria-expanded="false"
+      >
+        <%= fa_icon('shield-alt', text: t('relics.title')) %>
+      </a>
       <div class="dropdown-menu" aria-labelledBy="relicsDropdown">
         <%= link_to fa_icon('pen-nib', text: t('relics.weapons')), relic_weapons_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('dragon', text: t('relics.ultimate')), relic_ultimate_path, class: 'dropdown-item' %>
@@ -81,13 +84,12 @@
         aria-haspopup="true" aria-expanded="false"
       >
         <%= fa_icon('book', text: t('records.dropdown')) %>
-        <%= new_feature_badge %>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledBy="recordsDropdown">
         <%= link_to fa_icon('file-alt', text: t('records.title')), records_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('book-open', text: t('survey_records.title')), survey_records_path,
           class: 'dropdown-item' %>
-        <%= link_to fa_icon('moon', text: "#{t('occult_records.title')} #{new_feature_badge(small: true)}".html_safe), occult_records_path,
+        <%= link_to fa_icon('moon', text: t('occult_records.title')), occult_records_path,
           class: 'dropdown-item' %>
       </div>
     </div>
@@ -95,7 +97,8 @@
     <!-- Leves -->
     <div class="nav-item dropdown<%= ' bold' if active_path?(battlecraft_leves_path) %>">
       <a class="nav-link dropdown-toggle" href="#" id="levesDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
+        aria-haspopup="true" aria-expanded="false"
+      >
         <%= fa_icon('feather-alt', text: t('leves.title')) %>
       </a>
       <div class="dropdown-menu" aria-labelledBy="levesDropdown">
@@ -111,7 +114,10 @@
     <!-- Tools -->
     <div class="nav-item dropdown<%= ' bold' if active_path?(materiel_tools_path) %>">
       <a class="nav-link dropdown-toggle" href="#" id="toolsDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false"><%= fa_icon('toolbox', text: t('tools.title')) %></a>
+        aria-haspopup="true" aria-expanded="false"
+      >
+        <%= fa_icon('toolbox', text: t('tools.title')) %>
+      </a>
       <div class="dropdown-menu" aria-labelledBy="toolsDropdown">
         <%= link_to far_icon('gem', text: t('tools.gemstones.title')), gemstones_tools_path, class: 'dropdown-item' %>
         <%= link_to fa_icon('poll', text: t('tools.market_board.title')), market_board_tools_path, class: 'dropdown-item' %>
