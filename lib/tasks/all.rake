@@ -86,7 +86,9 @@ def sanitize_text(text, preserve_space: false)
     .gsub(/<.*?>(.*?)<\/.*?>/, '')
 
   unless preserve_space
-    text = text.gsub("\r", "\n").gsub("\n", ' ')
+    text = text.gsub("\r", "\n")
+      .gsub("-\n", '-')
+      .gsub("\n", ' ')
   end
 
   text.strip
