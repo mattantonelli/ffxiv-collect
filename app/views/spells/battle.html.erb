@@ -53,7 +53,7 @@
               <% end %>
             </td>
             <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>
-            <td class="spell-description hide-md"><%= format_skill_description(spell.description) %></td>
+            <td class="spell-description hide-md"><%= format_text_long(spell.description) %></td>
             <td class="text-center"><%= spell.type.name %></td>
             <td class="text-center"><%= spell.aspect.name %></td>
             <td class="text-center no-wrap" data-value="<%= spell.rank %>"><%= spell_rank(spell) %></td>

@@ -47,59 +47,8 @@ module ApplicationHelper
     fab_icon('discord', text: user.username) if user.present?
   end
 
-  def format_text(text)
-    text.gsub(/\s{2,}-/, "<br>&nbsp;&nbsp;&nbsp;-")
-      .gsub(/\*\*(.*?)\*\*/, '<b>\1</b>')
-      .gsub(/\*(.*?)\*/, '<i>\1</i>')
-      .html_safe
-  end
-
-  def format_text_long(text)
-    format_text(
-      text.gsub(/\u203B/, "<br>\u203B")
-      .gsub("\n", '<br>')
-    )
-  end
-
-  def format_tooltip(tooltip)
-    tooltip
-      .gsub(/(?<=\n)(.*?):/, '<b>\1:</b>')
-      .gsub("\n", '<br>')
-      .html_safe
-  end
-
-  def truncate_text(text, length)
-    data = { toggle: 'tooltip', title: text } if text.size > length
-    content_tag(:span, text.truncate(length), data: data)
-  end
-
   def fa_check(condition, text = true)
     condition ? fa_icon('check', text: ('Yes' if text)) : fa_icon('times', text: ('No' if text))
-  end
-
-  def generic_sprite(collection, collectable)
-    case collection
-    when 'titles'
-      sprite(collectable, 'achievement')
-    when /(mounts|minions|fashions|records)/
-      sprite(collectable, "#{collection}-small")
-    when 'spells'
-      content_tag :div, class: 'spell-sprite' do
-        sprite(collectable, :spell)
-      end
-    when 'hairstyles'
-      hairstyle_sample_image(collectable)
-    when 'facewear'
-      facewear_sample_image(collectable)
-    when 'orchestrions'
-      image_tag('orchestrion.png')
-    when 'frames'
-      image_tag('frame.png')
-    when 'cards'
-      card_image(collectable)
-    else
-      sprite(collectable, collection.singularize)
-    end
   end
 
   def gender_symbol(gender)

@@ -38,7 +38,7 @@
           <dt><u><%= t('tooltip') %></u></dt>
           <dd><%= format_tooltip(@spell.tooltip) %></dd>
           <dt><u><%= t('description') %></u></dt>
-          <dd><%= format_skill_description(@spell.description) %></dd>
+          <dd><%= format_text_long(@spell.description) %></dd>
           <dt><u><%= t('spells.how_to_learn') %></u></dt>
           <dd class="mb-0"><%= sources(@spell, list: true) %></dd>
         </div>

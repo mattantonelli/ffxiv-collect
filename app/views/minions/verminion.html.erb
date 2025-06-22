@@ -67,7 +67,7 @@
             <td class="hide-md"><%= auto_attack(minion) %></td>
             <td class="hide-xs" data-value="<%= strengths_count(minion) %>"><%= strengths(minion) %></td>
             <td class="hide-md" data-toggle="tooltip" data-html="true"
-              title="<%= format_skill_description(minion.skill_description) %>">
+              title="<%= format_text_long(minion.skill_description) %>">
               <%= minion.skill_type&.name %>
             </td>
             <td class="text-center hide-md"><%= minion.skill_cost %></td>

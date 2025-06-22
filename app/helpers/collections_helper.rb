@@ -11,6 +11,11 @@ module CollectionsHelper
     link_to(collectable.name, polymorphic_path(collectable), class: 'name')
   end
 
+  def sprite(collectable, model)
+    id = model == 'achievement' ? collectable.icon_id : collectable.id
+    image_tag('blank.png', class: "#{model} #{model}-#{id}")
+  end
+
   def collectable_image(collectable)
     type = collectable.class.to_s
 
@@ -38,6 +43,31 @@ module CollectionsHelper
     end
   end
 
+  def generic_sprite(collection, collectable)
+    case collection
+    when 'titles'
+      sprite(collectable, 'achievement')
+    when /(mounts|minions|fashions|records)/
+      sprite(collectable, "#{collection}-small")
+    when 'spells'
+      content_tag :div, class: 'spell-sprite' do
+        sprite(collectable, :spell)
+      end
+    when 'hairstyles'
+      hairstyle_sample_image(collectable)
+    when 'facewear'
+      facewear_sample_image(collectable)
+    when 'orchestrions'
+      image_tag('orchestrion.png')
+    when 'frames'
+      image_tag('frame.png')
+    when 'cards'
+      card_image(collectable)
+    else
+      sprite(collectable, collection.singularize)
+    end
+  end
+
   def generic_collectable_owned?(collectable)
     @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
   end
@@ -46,13 +76,29 @@ module CollectionsHelper
     collectable.class.to_s.downcase.pluralize.to_sym
   end
 
-  def format_skill_description(description)
-    format_text(description.gsub("\n", '<br>'))
+  def format_text(text)
+    text.gsub(/\s{2,}-/, "<br>&nbsp;&nbsp;&nbsp;-")
+      .gsub(/\*\*(.*?)\*\*/, '<b>\1</b>')
+      .gsub(/\*(.*?)\*/, '<i>\1</i>')
+      .html_safe
   end
 
-  def sprite(collectable, model)
-    id = model == 'achievement' ? collectable.icon_id : collectable.id
-    image_tag('blank.png', class: "#{model} #{model}-#{id}")
+  def format_text_long(text)
+    format_text(
+      text.gsub(/\u203B/, "<br>\u203B")
+      .gsub("\n", '<br>')
+    )
+  end
+
+  def format_tooltip(tooltip)
+    tooltip
+      .gsub(/(?<=\n)(.*?):/, '<b>\1:</b>')
+      .gsub("\n", '<br>')
+      .html_safe
+  end
+
+  def format_skill_description(description)
+    format_text(description.gsub("\n", '<br>'))
   end
 
   def character_selected?
