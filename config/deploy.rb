@@ -2,7 +2,7 @@ lock '~> 3.19.2'
 
 set :application, 'collect'
 set :repo_url,    'https://github.com/mattantonelli/ffxiv-collect'
-set :branch,      ENV['BRANCH_NAME'] || 'master'
+set :branch,      ENV['BRANCH_NAME'] || 'main'
 set :deploy_to,   '/var/rails/collect'
 set :default_env, { path: '$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH' }
 
