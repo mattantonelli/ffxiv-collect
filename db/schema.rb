@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_04_002310) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -876,7 +876,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.integer "item_id"
     t.string "video"
     t.integer "order_group"
-    t.string "bgm_sample"
+    t.boolean "custom_music", default: false
     t.index ["name_de"], name: "index_mounts_on_name_de"
     t.index ["name_en"], name: "index_mounts_on_name_en"
     t.index ["name_fr"], name: "index_mounts_on_name_fr"
@@ -985,7 +985,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
     t.string "details"
-    t.string "sample", null: false
     t.index ["category_id"], name: "index_orchestrions_on_category_id"
     t.index ["name_de"], name: "index_orchestrions_on_name_de"
     t.index ["name_en"], name: "index_orchestrions_on_name_en"
