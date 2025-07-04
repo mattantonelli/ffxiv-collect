@@ -63,7 +63,7 @@ namespace :triad do
 
         # Collect the NPC's card rewards
         npc[:rewards] = opponent.each_with_object([]) do |(k, v), a|
-          if k.match?('Item{PossibleReward}') && v != '0'
+          if k.match?('ItemPossibleReward') && v != '0'
             # Find the Card unlock associated with the Item and add it to the list
             a << Item.find(v).unlock_id
           end
@@ -81,9 +81,9 @@ namespace :triad do
         opponent.each do |k, v|
           if k.match?('PreviousQuest\[') && v != '0'
             npc[:quest_id] = v
-          elsif k.match?('TripleTriadCard{Fixed}') && v != '0'
+          elsif k.match?('TripleTriadCardFixed') && v != '0'
             npc[:fixed_cards] << v
-          elsif k.match?('TripleTriadCard{Variable}') && v != '0'
+          elsif k.match?('TripleTriadCardVariable') && v != '0'
             npc[:variable_cards] << v
           elsif k.match?('TripleTriadRule') && v != '0'
             npc[:rules] << Rule.find_by(id: v)

@@ -130,8 +130,8 @@ def maps_with_locations(ids)
   # Look up the maps for the given IDs and set the coordinate data
   maps = XIVData.sheet('Map').each_with_object({}) do |map, h|
     if ids.include?(map['#'])
-      h[map['#']] = { region_id: map['PlaceName{Region}'], location_id: map['PlaceName'],
-                      x_offset: map['Offset{X}'].to_f, y_offset: map['Offset{Y}'].to_f,
+      h[map['#']] = { region_id: map['PlaceNameRegion'], location_id: map['PlaceName'],
+                      x_offset: map['OffsetX'].to_f, y_offset: map['OffsetY'].to_f,
                       size_factor: map['SizeFactor'].to_f }
     end
   end

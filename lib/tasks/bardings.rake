@@ -12,7 +12,7 @@ namespace :bardings do
         next unless barding['Name'].present?
 
         data = h[barding['#']] || { id: barding['#'], order: barding['Order'],
-                                    icon: barding['Icon{Body}'].present? ? barding['Icon{Body}'] : barding['Icon{Head}'] }
+                                    icon: barding['IconBody'].present? ? barding['IconBody'] : barding['IconHead'] }
 
         data["name_#{locale}"] = sanitize_name(barding['Name'])
         h[data[:id]] = data

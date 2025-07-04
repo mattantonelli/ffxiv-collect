@@ -54,9 +54,8 @@ namespace :achievements do
 
       data = { id: achievement['#'], name_en: sanitize_name(achievement['Name']),
                description_en: sanitize_text(achievement['Description']), points: achievement['Points'],
-               order: achievement['Order'], icon_path: achievement['Icon'] }
-
-      data[:icon_id] = data[:icon_path].sub(/.*?0+(\d+)\.tex/, '\1')
+               order: achievement['Order'], icon_path: achievement['Icon'],
+               icon_id: XIVData.format_icon_id(achievement['Icon']) }
 
       if achievement['Item'].present?
         data[:item_id] = Item.find_by(name_en: achievement['Item']).id.to_s

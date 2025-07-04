@@ -65,8 +65,7 @@ namespace :armoires do
             h["text_#{locale}"] = achievement["name_#{locale}"]
           end
 
-          created.sources.create!(**texts, type: ACHIEVEMENT_TYPE, related_type: 'Achievement',
-                                  related_id: achievement.id)
+          created.sources.create!(**texts, type: ACHIEVEMENT_TYPE, related_type: 'Achievement', related_id: achievement.id)
         elsif PREMIUM_CATEGORIES.include?(armoire['Category'].to_i)
           texts = %w(en de fr ja).each_with_object({}) do |locale, h|
             h["text_#{locale}"] = I18n.t('sources.online_store', locale: locale)

@@ -72,7 +72,7 @@ namespace :leves do
                    cost: leve['AllowanceCost'] }
 
           if category.craft == 'Battlecraft'
-            data[:location] = XIVData.related_id(leve['Level{Levemete}'])
+            data[:location] = leve['LevelLevemete']
           end
         end
 

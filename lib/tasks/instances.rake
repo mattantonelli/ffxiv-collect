@@ -8,7 +8,7 @@ namespace :instances do
       next unless instance['Name'].present? && Instance.valid_types.include?(instance['ContentType'].singularize)
 
         # Use the Content ID as the Instance ID so we can sync with the ID used by the DB sites
-        h[instance['#']] = { id: XIVData.related_id(instance['Content']),
+        h[instance['#']] = { id: instance['Content'],
                              content_type: instance['ContentType'].singularize.sub(/ Finder$/, ''),
                              name_en: sanitize_name(instance['Name']) }
     end

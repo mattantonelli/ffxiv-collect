@@ -8,7 +8,7 @@ namespace :frames do
     # Create frames only when a BannerBg is present. This should include all Framer's Kits
     # and quest/instance unlocks. It will ignore clutter like minion accents.
     frames = XIVData.sheet('BannerBg', locale: 'en').each_with_object({}) do |bg, h|
-      id = XIVData.related_id(bg['UnlockCondition'])
+      id = bg['UnlockCondition']
       next if id == '0' || id == '1'
 
       h[id] = { id: id, order: bg['SortKey'], 'name_en' => sanitize_name(bg['Name']) }
@@ -27,7 +27,7 @@ namespace :frames do
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('BannerBg', locale: locale).each do |bg|
-        id = XIVData.related_id(bg['UnlockCondition'])
+        id = bg['UnlockCondition']
 
         if frames.key?(id)
           frames[id]["name_#{locale}"] = sanitize_name(bg['Name'])
@@ -126,7 +126,7 @@ namespace :frames do
     frames.each { |k, _| frames[k] = {} }
 
     XIVData.sheet('CharaCardBase', locale: 'en').each do |component|
-      id = XIVData.related_id(component['UnlockCondition'])
+      id = component['UnlockCondition']
 
       if frames.key?(id)
         frames[id][:base] = XIVData.image_path(component['Image'])
@@ -134,7 +134,7 @@ namespace :frames do
     end
 
     XIVData.sheet('CharaCardDecoration', locale: 'en').each do |component|
-      id = XIVData.related_id(component['UnlockCondition'])
+      id = component['UnlockCondition']
 
       if frames.key?(id)
         key = case component['Category']
@@ -151,7 +151,7 @@ namespace :frames do
 
     { background: 'BannerBg', portrait_frame: 'BannerFrame', portrait_accent: 'BannerDecoration' }.each do |key, sheet|
       XIVData.sheet(sheet, locale: 'en').each do |component|
-        id = XIVData.related_id(component['UnlockCondition'])
+        id = component['UnlockCondition']
 
         if frames.key?(id)
           frames[id][key] = XIVData.image_path(component['Image'])
@@ -160,7 +160,7 @@ namespace :frames do
     end
 
     XIVData.sheet('CharaCardHeader', locale: 'en').each do |component|
-      id = XIVData.related_id(component['UnlockCondition'])
+      id = component['UnlockCondition']
 
       if frames.key?(id)
         frames[id][:top_border] = XIVData.image_path(component['TopImage']) if component['TopImage'].present?
