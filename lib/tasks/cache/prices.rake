@@ -1,9 +1,9 @@
 UNIVERSALIS_BASE_URL = 'https://universalis.app/api/v2'.freeze
 USER_AGENT = 'FFXIVCollect'.freeze
 
-namespace :prices do
+namespace :cache do
   desc 'Sets the latest known market board prices for items by data center'
-  task cache: :environment do
+  task prices: :environment do
     item_ids = Item.where(tradeable: true).where.not(unlock_id: nil).pluck(:id) +
       Leve.where.not(item_id: nil).distinct.order(:item_id).pluck(:item_id)
     item_ids << 32830 # Add "Paint It X" which is missed due to multiple unlock IDs

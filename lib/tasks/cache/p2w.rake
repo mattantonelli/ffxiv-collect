@@ -1,6 +1,6 @@
-namespace :p2w do
+namespace :cache do
   desc 'Cache pay-to-win data'
-  task cache: :environment do
+  task p2w: :environment do
     %w(mount minion).each do |type|
       log("Caching P2W #{type} data")
 
