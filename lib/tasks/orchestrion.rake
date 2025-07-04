@@ -35,13 +35,13 @@ namespace :orchestrions do
       end
     end
 
-    XIVData.sheet('OrchestrionUiparam', raw: true).each do |orchestrion|
+    XIVData.sheet('OrchestrionUiparam').each do |orchestrion|
       next unless orchestrions.has_key?(orchestrion['#'])
       orchestrions[orchestrion['#']].merge!(order: orchestrion['Order'] == '65535' ? nil : orchestrion['Order'],
                                             category_id: orchestrion['OrchestrionCategory'])
     end
 
-    XIVData.sheet('OrchestrionPath', raw: true).each do |path|
+    XIVData.sheet('OrchestrionPath').each do |path|
       next unless path['File'].present?
       orchestrions[path['#']][:sample] = XIVData.music_filename(path['File'])
       link_music(XIVData.music_path(path['File']))

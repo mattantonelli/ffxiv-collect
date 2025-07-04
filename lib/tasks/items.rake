@@ -29,7 +29,7 @@ namespace :items do
       end
     end
 
-    XIVData.sheet('Recipe', raw: true).each do |recipe|
+    XIVData.sheet('Recipe').each do |recipe|
       next unless items.has_key?(recipe['Item{Result}'])
       item = items[recipe['Item{Result}']]
       item.merge!(crafter: CRAFTERS[recipe['CraftType'].to_i], recipe_id: recipe['#'])
@@ -80,7 +80,7 @@ namespace :items do
       end
     end
 
-    XIVData.sheet('ItemAction', raw: true).each do |action|
+    XIVData.sheet('ItemAction').each do |action|
       next unless data = items[action['#']]
 
       unlock_type = case action['Type']

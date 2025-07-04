@@ -12,7 +12,7 @@ namespace :survey_records do
     SurveyRecordSeries.find_or_create_by!(id: 3, name_en: 'Aloalo Island', name_de: 'Aloalo',
                                           name_fr: "L'île d'Aloalo", name_ja: 'アロアロ島')
 
-    series_record_ids = XIVData.sheet('VVDNotebookSeries', raw: true).each_with_object({}) do |series, h|
+    series_record_ids = XIVData.sheet('VVDNotebookSeries').each_with_object({}) do |series, h|
       next unless series['Name'].present?
 
       h[series['#']] = series.filter_map do |k, v|

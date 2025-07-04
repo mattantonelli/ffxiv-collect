@@ -7,7 +7,7 @@ namespace :hairstyles do
 
     count = Hairstyle.count
 
-    XIVData.sheet('CharaMakeCustomize', raw: true).each_with_object(Set.new) do |custom, created|
+    XIVData.sheet('CharaMakeCustomize').each_with_object(Set.new) do |custom, created|
       next if custom['HintItem'] == '0'
       item = Item.find_by(id: custom['HintItem'])
       next unless item.present?

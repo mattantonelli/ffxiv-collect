@@ -72,47 +72,25 @@ def log(message)
   puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] #{message}"
 end
 
-# Replace various tags with the appropriate text
 def sanitize_text(text, preserve_space: false)
-  text = text.gsub('<SoftHyphen/>', "\u00AD")
-    .gsub(/<Switch.*?><Case\(1\)>(.*?)<\/Case>.*?<\/Switch>/m, '\1')
-    .gsub(/<If.*?>(.*?)<Else\/>.*?<\/If>/m, '\1')
-    .gsub(/<\/?Emphasis>/, '*')
-    .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
-    .gsub(/<Highlight>(.*?)<\/Highlight>/, '**\1**')
-    .gsub(/<Split\((.*?),.*?>/, '\1')
-    .gsub('<Indent/>', ' ')
-    .gsub('ObjectParameter(1)', 'Player')
-    .gsub(/<.*?>(.*?)<\/.*?>/, '')
-
   unless preserve_space
-    text = text.gsub("\r", "\n")
-      .gsub("-\n", '-')
+    text = text.gsub("-\n", '-')
       .gsub("\n", ' ')
   end
 
   text.strip
 end
 
-def sanitize_skill_description(text)
-  text.gsub('<SoftHyphen/>', "\u00AD")
-    .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
-    .gsub('<Indent/>', ' ')
-    .gsub(/<.*?>(.*?)<\/.*?>/, '')
-    .strip
-end
-
 # Titleize names and translate various tags
 def sanitize_name(name)
+  # TODO: Do not capitalize short conjunctions/prepositions
   name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
+
   name.gsub('[t]', 'der')
     .gsub('[a]', 'e')
     .gsub('[A]', 'er')
     .gsub('[p]', '')
-    .gsub(/\uE0BE ?/, '')
-    .gsub('<SoftHyphen/>', "\u00AD")
-    .gsub('<Indent/>', ' ')
-    .gsub(/\<.*?\>/, '')
+    .gsub(/[\uE0BE\uE0BF]+ ?/, '') # Remove internal symbols
     .gsub(/\((.)/) { |match| match.upcase } # (extreme) → (Extreme)
 end
 
@@ -150,7 +128,7 @@ end
 
 def maps_with_locations(ids)
   # Look up the maps for the given IDs and set the coordinate data
-  maps = XIVData.sheet('Map', raw: true).each_with_object({}) do |map, h|
+  maps = XIVData.sheet('Map').each_with_object({}) do |map, h|
     if ids.include?(map['#'])
       h[map['#']] = { region_id: map['PlaceName{Region}'], location_id: map['PlaceName'],
                       x_offset: map['Offset{X}'].to_f, y_offset: map['Offset{Y}'].to_f,
@@ -160,7 +138,7 @@ def maps_with_locations(ids)
 
   # Look up the locations associated with each map
   locations = %w(en fr de ja).each_with_object(Hash.new({})) do |locale, h|
-    places = XIVData.sheet('PlaceName', locale: locale, drop_zero: false).map { |place| place['Name']}
+    places = XIVData.sheet('PlaceName', locale: locale).map { |place| place['Name']}
     maps.values.each do |map|
       h[map[:location_id]] = h[map[:location_id]].merge("name_#{locale}" => places[map[:location_id].to_i],
                                                         "region_#{locale}" => places[map[:region_id].to_i])
@@ -179,12 +157,6 @@ def get_coordinate(value, map_offset, size_factor)
   scale = size_factor / 100.0
   offset = (value + map_offset) * scale
   (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
-end
-
-def link_music(path)
-  return unless Dir.exist?(XIVData::MUSIC_PATH)
-
-  FileUtils.ln_s(path, Rails.root.join('public/music', path.sub(/.*\//, '')), force: true)
 end
 
 def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)

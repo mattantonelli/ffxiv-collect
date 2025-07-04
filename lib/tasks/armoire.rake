@@ -5,7 +5,7 @@ namespace :armoires do
 
     puts 'Creating armoire items'
 
-    categories = XIVData.sheet('CabinetCategory', raw: true).filter_map do |category|
+    categories = XIVData.sheet('CabinetCategory').filter_map do |category|
       next if category['MenuOrder'] == '0'
       { id: category['#'], name: category['Category'], order: category['MenuOrder'] }
     end
@@ -32,7 +32,7 @@ namespace :armoires do
     PREMIUM_TYPE = SourceType.find_by(name_en: 'Premium').freeze
     PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id)
 
-    XIVData.sheet('Cabinet', raw: true, drop_zero: false).map do |armoire|
+    XIVData.sheet('Cabinet').map do |armoire|
       next if armoire['Order'] == '0'
 
       item = Item.find_by(id: armoire['Item'])

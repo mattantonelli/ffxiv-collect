@@ -4,22 +4,19 @@ require 'open-uri'
 module XIVData
   extend self
 
-  BASE_URL = Rails.root.join('vendor/xiv-data').freeze
+  BASE_PATH = Rails.root.join('vendor/xiv-data/exd').freeze
   IMAGE_PATH = '/var/rails/images/ffxiv'.freeze
   MUSIC_PATH = '/var/rails/music/ffxiv'.freeze
 
-  def sheet(sheet, locale: nil, raw: false, drop_zero: true)
-    if raw
-      url = "#{BASE_URL}/rawexd/#{sheet}.csv"
-    elsif locale.present?
-      url = "#{BASE_URL}/exd-all/#{sheet}.#{locale}.csv"
+  def sheet(sheet, locale: nil)
+    if locale.present?
+      path = "#{BASE_PATH}/#{sheet}.#{locale}.csv"
     else
-      url = "#{BASE_URL}/exd-all/#{sheet}.csv"
+      path = "#{BASE_PATH}/#{sheet}.en.csv"
     end
 
-    data = URI.open(url).readlines
-    headers = data[1].chomp
-    CSV.new(data.drop(drop_zero ? 4 : 3).join, headers: headers.split(','))
+    data = File.read(path)
+    CSV.parse(data, headers: true)
   end
 
   def icon_path(icon_id, hd: false)

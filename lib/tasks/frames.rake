@@ -35,7 +35,7 @@ namespace :frames do
       end
     end
 
-    XIVData.sheet('BannerCondition', raw: true).each do |condition|
+    XIVData.sheet('BannerCondition').each do |condition|
       next unless frame = frames[condition['#']]
 
       case condition['UnlockType1']
@@ -69,7 +69,7 @@ namespace :frames do
       end
     end
 
-    XIVData.sheet('Item', raw: true).each do |item|
+    XIVData.sheet('Item').each do |item|
       if item['ItemAction'] == '2234'
         frame = frames[frame_links[item['AdditionalData']]]
 

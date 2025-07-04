@@ -58,7 +58,7 @@ namespace :tomestones do
       puts 'Creating tomestone rewards'
       count = TomestoneReward.count
 
-      XIVData.sheet('SpecialShop', raw: true).each do |shop|
+      XIVData.sheet('SpecialShop').each do |shop|
         next unless shop['Name'] == 'Newest Irregular Tomestone Exchange'
 
 

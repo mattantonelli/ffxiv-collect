@@ -19,7 +19,7 @@ namespace 'sources:shops' do
     restricted_outfit_shop_names = /seasonal event prizes/i
 
     puts 'Creating GilShop sources'
-    item_ids = XIVData.sheet('GilShopItem', raw: true).map do |entry|
+    item_ids = XIVData.sheet('GilShopItem').map do |entry|
       entry['Item']
     end
 
@@ -37,7 +37,7 @@ namespace 'sources:shops' do
     outfit_item_ids = OutfitItem.pluck(:item_id).uniq.map(&:to_s)
     outfit_items = {}
 
-    XIVData.sheet('SpecialShop', raw: true).each do |shop|
+    XIVData.sheet('SpecialShop').each do |shop|
       2.times do |j|
         60.times do |i|
           item_id = shop["Item{Receive}[#{i}][#{j}]"]
@@ -109,7 +109,7 @@ namespace 'sources:shops' do
     end
 
     puts 'Creating Grand Company sources'
-    XIVData.sheet('GCScripShopItem', raw: true).each do |entry|
+    XIVData.sheet('GCScripShopItem').each do |entry|
       next unless item_ids.include?(entry['Item'])
 
       unlock = Item.find(entry['Item']).unlock

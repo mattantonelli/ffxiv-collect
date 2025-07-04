@@ -7,7 +7,7 @@ namespace :outfits do
 
     count = Outfit.count
 
-    XIVData.sheet('MirageStoreSetItem', raw: true).each do |outfit|
+    XIVData.sheet('MirageStoreSetItem').each do |outfit|
       item_ids = (0..8).filter_map do |i|
         item_id = outfit["Item[#{i}]"].to_i
         item_id unless item_id == 0

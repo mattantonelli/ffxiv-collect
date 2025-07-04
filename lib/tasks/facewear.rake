@@ -5,7 +5,7 @@ namespace :facewear do
 
     puts 'Creating facewear'
 
-    facewears = XIVData.sheet('GlassesStyle', locale: 'en', drop_zero: false).each_with_object({}) do |facewear, h|
+    facewears = XIVData.sheet('GlassesStyle', locale: 'en').each_with_object({}) do |facewear, h|
       next unless facewear['Name'].present? && facewear['Icon'].present?
 
       id = (facewear['#'].to_i + 1).to_s
@@ -14,7 +14,7 @@ namespace :facewear do
     end
 
     %w(de fr ja).each do |locale|
-      XIVData.sheet('GlassesStyle', locale: locale, drop_zero: false).each do |facewear|
+      XIVData.sheet('GlassesStyle', locale: locale).each do |facewear|
         next unless facewear['Name'].present? && facewear['Icon'].present?
 
         id = (facewear['#'].to_i + 1).to_s
@@ -23,7 +23,7 @@ namespace :facewear do
       end
     end
 
-    XIVData.sheet('Glasses', raw: true).each do |facewear|
+    XIVData.sheet('Glasses').each do |facewear|
       id = (facewear['GlassesStyle'].to_i + 1).to_s
 
       next unless facewear['Name'].present?

@@ -75,7 +75,7 @@ namespace :achievements do
     end
 
     # We need to use the raw data to set the category ID since names are duplicated
-    XIVData.sheet('Achievement', raw: true).each do |achievement|
+    XIVData.sheet('Achievement').each do |achievement|
       next unless achievement['AchievementCategory'] != '0'
       achievements[achievement['#']][:category_id] = achievement['AchievementCategory']
     end

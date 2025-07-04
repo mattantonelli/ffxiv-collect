@@ -33,7 +33,7 @@ namespace :triad do
 
       # Find the associated Level data for each NPC Resident and add the location data
       puts '  Fetching location coordinate data'
-      XIVData.sheet('Level', raw: true).each do |level|
+      XIVData.sheet('Level').each do |level|
         if npcs.has_key?(level['Object'])
           npcs[level['Object']].merge!(x: level['X'].to_f, y: level['Z'].to_f, map_id: level['Map'])
         end
@@ -57,7 +57,7 @@ namespace :triad do
 
       # Add their opponent data
       puts '  Fetching opponent data'
-      XIVData.sheet('TripleTriad', raw: true).each do |opponent|
+      XIVData.sheet('TripleTriad').each do |opponent|
         npc = npcs.values.find { |val| val[:id] == opponent['#'] }
         next unless npc.present?
 
@@ -70,7 +70,7 @@ namespace :triad do
         end
       end
 
-      XIVData.sheet('TripleTriad', raw: true).each do |opponent|
+      XIVData.sheet('TripleTriad').each do |opponent|
         npc = npcs.values.find { |val| val[:id] == opponent['#'] }
         next unless npc.present?
 

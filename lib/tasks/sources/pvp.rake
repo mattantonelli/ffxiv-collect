@@ -6,7 +6,7 @@ namespace 'sources:pvp' do
 
     puts 'Creating PvP Series sources'
 
-    XIVData.sheet('PvPSeries', raw: true).each do |series|
+    XIVData.sheet('PvPSeries').each do |series|
       32.times do |level|
         item_id = series["LevelRewardItem[#{level}][0]"]
 
