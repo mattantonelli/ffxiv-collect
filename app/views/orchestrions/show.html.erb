@@ -12,7 +12,7 @@
           <%= @orchestrion.name %>
         </h5>
       </div>
-      <div class="card-body">
+      <div class="card-body py-3">
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
             <div>
@@ -34,11 +34,6 @@
           </div>
           <dt><%= t('source') %></dt>
           <dd class="mb-0"><%= sources(@orchestrion) %></dd>
-          <hr>
-          <h6><%= t('orchestrions.sample') %></h6>
-          <audio controls="" controlslist="nodownload" class="my-2">
-            <source src="/music/<%= @orchestrion.sample %>" type="audio/ogg">
-          </audio>
         </div>
       </div>
     </div>
