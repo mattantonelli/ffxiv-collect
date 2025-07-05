@@ -12,3 +12,5 @@ json.icon image_url("orchestrion.png", skip_pipeline: true)
 json.category do
   json.(orchestrion.category, :id, :name)
 end
+
+json.partial! 'api/shared/sources', collectable: orchestrion
