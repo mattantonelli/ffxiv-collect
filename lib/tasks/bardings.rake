@@ -9,7 +9,7 @@ namespace :bardings do
 
     bardings = %w(en de fr ja).each_with_object({}) do |locale, h|
       XIVData.sheet('BuddyEquip', locale: locale).each do |barding|
-        next unless barding['Name'].present?
+        next unless barding['Name'].present? && barding['Order'] != '0'
 
         data = h[barding['#']] || { id: barding['#'], order: barding['Order'],
                                     icon: barding['IconBody'].present? ? barding['IconBody'] : barding['IconHead'] }
@@ -20,7 +20,7 @@ namespace :bardings do
     end
 
     bardings.values.each do |barding|
-      create_image(barding[:id], barding.delete(:icon), 'bardings')
+      create_image(barding[:id], XIVData.image_path(barding.delete(:icon)), 'bardings')
 
       if existing = Barding.find_by(id: barding[:id])
         existing.update!(barding) if updated?(existing, barding)

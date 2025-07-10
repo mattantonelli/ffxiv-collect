@@ -54,24 +54,17 @@ namespace :leves do
     puts 'Creating leves'
     count = Leve.count
 
-    categories = LeveCategory.all.each_with_object({}) do |category, h|
-      h[category.name_en] = category
-    end
-
     leves = %w(en de fr ja).each_with_object({}) do |locale, h|
       # Initialize the leves
       XIVData.sheet('Leve', locale: locale).each do |leve|
         next unless leve['Name'].present?
 
         unless data = h[leve['#']]
-          category_name = leve['LeveAssignmentType']
-          category_name = 'General' if category_name == 'Battlecraft'
-          category = categories[category_name]
+          category_id = leve['LeveAssignmentType']
 
-          data = { id: leve['#'], category_id: category.id.to_s, level: leve['ClassJobLevel'],
-                   cost: leve['AllowanceCost'] }
+          data = { id: leve['#'], category_id: category_id, level: leve['ClassJobLevel'], cost: leve['AllowanceCost'] }
 
-          if category.craft == 'Battlecraft'
+          if category_id == '1' # Battlecraft
             data[:location] = leve['LevelLevemete']
           end
         end
@@ -196,7 +189,7 @@ namespace :leves do
     leves.values.each do |leve|
       # Create images for turn-in items
       if item_id = leve[:item_id]
-        create_image(item_id, XIVData.icon_path(Item.find(item_id).icon_id), 'leve_items')
+        create_image(item_id, XIVData.image_path(Item.find(item_id).icon_id), 'leve_items')
       end
 
       if existing = Leve.find_by(id: leve[:id])

@@ -39,7 +39,7 @@ namespace :armoires do
       next unless item.present?
 
       data = { id: (armoire['#'].to_i + 1).to_s, category_id: armoire['Category'],
-               order: armoire['Order'], order_group: armoire['SortKey'], item_id: item.id.to_s }
+               order: armoire['Order'], order_group: armoire['SubCategory'], item_id: item.id.to_s }
 
       data[:gender] = case item.description_en
                       when /♂/ then 'male'
@@ -52,7 +52,7 @@ namespace :armoires do
       # Update the Item to indicate that it unlocks this Armoire
       item.update!(unlock_type: 'Armoire', unlock_id: data[:id])
 
-      create_image(data[:id], XIVData.icon_path(item.icon_id), 'armoires')
+      create_image(data[:id], XIVData.image_path(item.icon_id), 'armoires')
 
       if existing = Armoire.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)

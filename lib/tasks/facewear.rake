@@ -6,7 +6,7 @@ namespace :facewear do
     puts 'Creating facewear'
 
     facewears = XIVData.sheet('GlassesStyle', locale: 'en').each_with_object({}) do |facewear, h|
-      next unless facewear['Name'].present? && facewear['Icon'].present?
+      next unless facewear['Name'].present? && facewear['Icon'] != '0'
 
       id = (facewear['#'].to_i + 1).to_s
 
@@ -15,7 +15,7 @@ namespace :facewear do
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('GlassesStyle', locale: locale).each do |facewear|
-        next unless facewear['Name'].present? && facewear['Icon'].present?
+        next unless facewear['Name'].present? && facewear['Icon'] != '0'
 
         id = (facewear['#'].to_i + 1).to_s
 
@@ -48,7 +48,7 @@ namespace :facewear do
         Dir.mkdir(path) unless Dir.exist?(path)
 
         output_path = path.join("#{icon}.png")
-        create_image(nil, XIVData.icon_path(icon, hd: true), output_path)
+        create_image(nil, XIVData.image_path(icon, hd: true), output_path)
 
         # Use the first image as a sample of the facewear
         sample_path = Rails.root.join('public/images/facewear/samples', "#{facewear[:id]}.png")
