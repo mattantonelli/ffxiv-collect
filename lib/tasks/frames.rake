@@ -105,14 +105,14 @@ namespace :frames do
                                   related_id: frame[:unlock_id])
         elsif frame[:unlock_type] == 'Instance'
           instance = Instance.find(frame[:unlock_id])
-          instance_type = instance.content_type
+          instance_type = instance.content_type.name_en
 
           texts = %w(en de fr ja).each_with_object({}) do |locale, h|
             h["text_#{locale}"] = instance["name_#{locale}"]
           end
 
           created.sources.create!(**texts, type: SourceType.find_by(name_en: instance_type),
-                                  related_type: instance_type, related_id: frame[:unlock_id])
+                                  related_type: 'Instance', related_id: frame[:unlock_id])
         end
       end
     end
@@ -163,8 +163,8 @@ namespace :frames do
       id = component['UnlockCondition']
 
       if frames.key?(id)
-        frames[id][:top_border] = XIVData.image_path(component['TopImage']) if component['TopImage'].present?
-        frames[id][:bottom_border] = XIVData.image_path(component['BottomImage']) if component['BottomImage'].present?
+        frames[id][:top_border] = XIVData.image_path(component['TopImage']) if component['TopImage'] != '0'
+        frames[id][:bottom_border] = XIVData.image_path(component['BottomImage']) if component['BottomImage'] != '0'
       end
     end
 

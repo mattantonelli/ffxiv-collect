@@ -4,12 +4,45 @@ namespace :instances do
     puts 'Creating instances'
 
     count = Instance.count
+
+    # Create the ContentTypes (Dungeon, Raid, etc.)
+    types = XIVData.sheet('ContentType', locale: 'en').each_with_object({}) do |type, h|
+      next unless type['Name'].present?
+
+      name = type['Name'].singularize.sub('Chaotic Alliance', 'Chaotic').sub(' Finder', '')
+
+      h[type['#']] = { id: type['#'], name_en: name }
+    end
+
+    %w(de fr ja).each do |locale|
+      XIVData.sheet('ContentType', locale: locale).each do |type|
+        next unless types.has_key?(type['#'])
+        types[type['#']]["name_#{locale}"] = type['Name']
+      end
+    end
+
+    types.values.each do |type|
+      if existing = ContentType.find_by(id: type[:id])
+        existing.update!(type) if updated?(existing, type)
+      else
+        ContentType.find_or_create_by!(type)
+      end
+    end
+
+    # Identify the content types for instances we use as source types
+    instance_types = ContentType.where(name_en: [
+      'Chaotic Raid', 'Dungeon', 'Raid', 'Treasure Hunt', 'Trial', 'Ultimate Raid', 'V&C Dungeon'
+    ])
+
+    instance_types.update_all(instance: true)
+    instance_type_ids = instance_types.pluck(:id).map(&:to_s)
+
+    # Create Instances
     instances = XIVData.sheet('ContentFinderCondition', locale: 'en').each_with_object({}) do |instance, h|
-      next unless instance['Name'].present? && Instance.valid_types.include?(instance['ContentType'].singularize)
+      next unless instance['Name'].present? && instance_type_ids.include?(instance['ContentType'])
 
         # Use the Content ID as the Instance ID so we can sync with the ID used by the DB sites
-        h[instance['#']] = { id: instance['Content'],
-                             content_type: instance['ContentType'].singularize.sub(/ Finder$/, ''),
+        h[instance['#']] = { id: instance['Content'], content_type_id: instance['ContentType'],
                              name_en: sanitize_name(instance['Name']) }
     end
 

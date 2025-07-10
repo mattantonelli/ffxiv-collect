@@ -66,7 +66,7 @@ class Source < ApplicationRecord
       else
         remove_relation!
       end
-    when Instance.valid_types_regex
+    when *ContentType.instance_type_names
       if relation = Instance.find_by("name_#{locale}" => text)
         set_text_for_relation!(relation)
         self.related_id = relation.id

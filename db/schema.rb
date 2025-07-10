@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_07_142206) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_10_125703) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -467,6 +467,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_07_142206) do
     t.index ["updated_at"], name: "index_characters_on_updated_at"
   end
 
+  create_table "content_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.boolean "instance", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instance"], name: "index_content_types_on_instance"
+  end
+
   create_table "deck_cards", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "deck_id"
     t.integer "card_id"
@@ -653,10 +664,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_07_142206) do
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
-    t.string "content_type", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["content_type"], name: "index_instances_on_content_type"
+    t.integer "content_type_id", null: false
     t.index ["name_en"], name: "index_instances_on_name_en"
   end
 
