@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_04_002310) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_07_142206) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_04_002310) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
-    t.integer "icon_id"
+    t.string "icon_id", limit: 6
     t.index ["category_id"], name: "index_achievements_on_category_id"
     t.index ["name_de"], name: "index_achievements_on_name_de"
     t.index ["name_en"], name: "index_achievements_on_name_en"
