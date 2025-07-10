@@ -22,17 +22,11 @@ module XIVData
     icon_id.to_s.rjust(6, '0')
   end
 
-  def icon_path(icon_id, hd: false)
+  def image_path(icon_id, hd: false)
     number = format_icon_id(icon_id)
     directory = number.first(3).ljust(6, '0')
-    "ui/icon/#{directory}/#{number}#{'_hr1' if hd}.png"
-  end
+    icon_path = "ui/icon/#{directory}/#{number}#{'_hr1' if hd}.png"
 
-  def card_image_path(id)
-    image_path(icon_path(id.to_s))
-  end
-
-  def image_path(icon_path)
     "#{IMAGE_PATH}/#{icon_path}"
   end
 end

@@ -73,6 +73,8 @@ def log(message)
 end
 
 def sanitize_text(text, preserve_space: false)
+  return '' if text.nil?
+
   unless preserve_space
     text = text.gsub("-\n", '-')
       .gsub("\n", ' ')
@@ -159,7 +161,7 @@ def get_coordinate(value, map_offset, size_factor)
   (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
 end
 
-def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
+def create_image(id, image_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
   return unless Dir.exist?(XIVData::IMAGE_PATH)
 
   # Use the custom output pathname if provided, otherwise generate it
@@ -170,8 +172,6 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
   end
 
   unless output_path.exist?
-    image_path = XIVData.image_path(icon_path)
-
     if mask_from.present?
       mask_to ||= mask_from
       image = ChunkyPNG::Image.from_file(image_path)
