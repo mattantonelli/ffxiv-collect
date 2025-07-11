@@ -1,4 +1,4 @@
-SPELL_STATS_REGEX = /[^>]+?(?:\n|$)/.freeze
+SPELL_STATS_REGEX = /.+\*([\w★]+)/.freeze
 
 namespace :spells do
   desc 'Create the Blue Magic spells'
@@ -41,7 +41,7 @@ namespace :spells do
         data["location_#{locale}"] ||= sanitize_name(spell['Location']) if spell['Location'].present?
         data["tooltip_#{locale}"] = sanitize_text(spell['Description'])
 
-        type, aspect, rank = spell['Stats'].scan(SPELL_STATS_REGEX).map(&:strip)
+        type, aspect, rank = spell['Stats'].gsub(/\*\*.+\*\*/, '').split
 
         data[:type_id] ||= SpellType.find_by(name_en: type).id.to_s
         data[:aspects]["name_#{locale}"] = aspect
