@@ -83,17 +83,20 @@ def sanitize_text(text, preserve_space: false)
   text.strip
 end
 
-# Titleize names and translate various tags
 def sanitize_name(name)
-  # TODO: Do not capitalize short conjunctions/prepositions
-  name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
+  # Titleize names starting with a lowercase letter
+  if name =~ /^[a-z]/
+    # TODO: Do not capitalize short conjunctions/prepositions
+    name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
+  end
 
+  # Clean up symbols, language tags, etc.
   name.gsub('[t]', 'der')
     .gsub('[a]', 'e')
     .gsub('[A]', 'er')
     .gsub('[p]', '')
     .gsub(/[\uE0BE\uE0BF]+ ?/, '') # Remove internal symbols
-    .gsub(/\((.)/) { |match| match.upcase } # (extreme) → (Extreme)
+    .gsub(/ \((.)/) { |match| match.upcase } # (extreme) → (Extreme)
 end
 
 def without_custom(data)
