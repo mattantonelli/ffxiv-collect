@@ -9,17 +9,25 @@ namespace :triad do
       puts 'Creating rules'
       count = Rule.count
 
-      rules = %w(en de fr ja).map do |locale|
-        XIVData.sheet('TripleTriadRule', locale: locale).flat_map do |rule|
-          rule.values_at('Name', 'Description')
+      rules = %w(en de fr ja).each_with_object({}) do |locale, h|
+        XIVData.sheet('TripleTriadRule', locale: locale).each do |rule|
+          next unless rule['Name'].present?
+
+          data = h[rule['#']] || { id: rule['#'] }
+
+          data["name_#{locale}"] = rule['Name']
+          data["description_#{locale}"] = rule['Description']
+
+          h[data[:id]] = data
         end
       end
 
-      rules.transpose.each_slice(2).each_with_index do |rule, i|
-        rule.flatten!
-        Rule.find_or_create_by!(id: i + 1, name_en: rule[0], name_de: rule[1], name_fr: rule[2], name_ja: rule[3],
-                                description_en: rule[4], description_de: rule[5],
-                                description_fr: rule[6], description_ja: rule[7])
+      rules.values.each do |rule|
+        if existing = Rule.find_by(id: rule[:id])
+          existing.update!(rule) if updated?(existing, rule)
+        else
+          Rule.create!(rule)
+        end
       end
 
       puts "Created #{Rule.count - count} new rules"
