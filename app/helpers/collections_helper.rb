@@ -324,7 +324,7 @@ module CollectionsHelper
       when 'Achievement'
         content = achievement_link(source)
       when *ContentType.instance_type_names
-        content = database_link(:instance, source.related&.name || source.text, source.related&.content_id)
+        content = database_link(:instance, format_text(source.related&.name || source.text), source.related&.content_id)
       when 'Crafting', 'Gathering'
         content = database_link(:item, source.text, collectable.item_id)
       when 'NPC'
