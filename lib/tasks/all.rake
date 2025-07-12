@@ -23,11 +23,6 @@ namespace :data do
       puts 'Images will not be generated.'
     end
 
-    unless Dir.exist?(XIVData::MUSIC_PATH)
-      puts "ERROR: Could not find music source directory: #{XIVData::MUSIC_PATH}"
-      puts 'Music samples will not be generated.'
-    end
-
     puts 'Retrieving the latest game data from xiv-data'
     %x{cd #{Rails.root.join('vendor/xiv-data')} && git fetch && git checkout origin/master}
 

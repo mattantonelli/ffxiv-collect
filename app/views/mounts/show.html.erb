@@ -27,6 +27,10 @@
                 <dt><%= t('mounts.seats') %></dt>
                 <dd><%= seat_count(@mount, right: false) %></dd>
               </div>
+              <div>
+                <dt><%= t('mounts.custom_music') %></dt>
+                <dd><%= fa_check(@mount.custom_music) %></dd>
+              </div>
               <%= render 'shared/ownership', collectable: @mount %>
               <div>
                 <dt><%= t('patch') %></dt>

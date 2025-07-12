@@ -326,7 +326,8 @@ fr:
     behavior: "Comportement"
     title: "Mascottes"
   mounts:
-    custom_music: "Cette monture dispose d'une musique spéciale"
+    custom_music: "Musique Spéciale"
+    custom_music_tooltip: "Cette monture dispose d'une musique spéciale"
     flying: "Volante"
     movement: "Mouvement"
     preview: "Aperçu vidéo"
