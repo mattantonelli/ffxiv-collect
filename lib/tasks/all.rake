@@ -72,23 +72,9 @@ def log(message)
   puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] #{message}"
 end
 
-def sanitize_text(text, preserve_space: false)
-  return '' if text.nil?
-
-  unless preserve_space
-    text = text.gsub("-\n", '-')
-      .gsub("\n", ' ')
-  end
-
-  text.strip
-end
-
 def sanitize_name(name)
-  # Titleize names starting with a lowercase letter
-  if name =~ /^[a-z]/
-    # TODO: Do not capitalize short conjunctions/prepositions
-    name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
-  end
+  # TODO: Do not capitalize short conjunctions/prepositions
+  name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
 
   # Clean up symbols, language tags, etc.
   name.gsub('[t]', 'der')
@@ -97,6 +83,17 @@ def sanitize_name(name)
     .gsub('[p]', '')
     .gsub(/[\uE0BE\uE0BF]+ ?/, '') # Remove internal symbols
     .gsub(/ \((.)/) { |match| match.upcase } # (extreme) → (Extreme)
+end
+
+def sanitize_text(text, preserve_space: false)
+  return '' if text.nil?
+
+  unless preserve_space
+    text = text.gsub("-\n", '-')
+      .gsub("\n", ' ')
+  end
+
+  text.gsub(/[\uE0BE\uE0BF]+ ?/, '').strip
 end
 
 def without_custom(data)
