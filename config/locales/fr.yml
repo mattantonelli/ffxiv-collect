@@ -380,7 +380,6 @@ fr:
   owned: "Possédé"
   ownership: "Possédé par %{percent} des personnages"
   patch: "Patch"
-  powered_by: "Powered by"
   prices:
     price: "Prix"
     updated: "Mise à jour"

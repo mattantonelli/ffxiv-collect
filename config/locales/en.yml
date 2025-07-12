@@ -379,7 +379,6 @@ en:
   owned: "Owned"
   ownership: "Owned by %{percent} of characters"
   patch: "Patch"
-  powered_by: "Powered by"
   prices:
     price: "Price"
     updated: "Updated"

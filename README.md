@@ -1,5 +1,5 @@
 # FFXIV Collect
-This is another application for tracking your Final Fantasy XIV collections written in [Ruby on Rails](https://rubyonrails.org/). Game data is powered by [Saint Coinach](https://github.com/ufx/SaintCoinach). This application strives to be as autonomous as possible by pulling as much data as possible from [Saint Coinach](https://github.com/ufx/SaintCoinach). The rest is maintained by myself and a small group of moderators using community-sourced data.
+This is a collection tracking companion website for Final Fantasy XIV collections written in [Ruby on Rails](https://rubyonrails.org/). Game data is powered by [XIVData Oxidizer](https://github.com/mattantonelli/xiv-data-oxidizer). This application strives to be as autonomous as possible by pulling most of its information directly from the game data. The rest is maintained by myself and a small group of moderators using community-sourced data.
 
 ## API
 
@@ -42,8 +42,8 @@ discord:
   client_secret: abc123
 ```
 
-#### Extract the images & music samples
-Extract images & music samples from the game data by following the instructions in the [data repository](https://github.com/mattantonelli/xiv-data).
+#### Extract the images
+Extract images from the game data by following the instructions in the [data repository](https://github.com/mattantonelli/xiv-data).
 
 #### Load the database
 ```
