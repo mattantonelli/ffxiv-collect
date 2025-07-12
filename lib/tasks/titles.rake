@@ -24,7 +24,7 @@ namespace :titles do
       end
     end
 
-    XIVData.sheet('Achievement', raw: true).each do |achievement|
+    XIVData.sheet('Achievement').each do |achievement|
       if title = titles[achievement['Title']]
         title[:achievement_id] = achievement['#']
       end

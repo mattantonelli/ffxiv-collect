@@ -1,6 +1,6 @@
-namespace :ownership do
+namespace :cache do
   desc 'Cache collectable ownership'
-  task cache: :environment do
+  task ownership: :environment do
     achievement_characters = Character.visible.with_public_achievements
     mount_minion_characters = Character.visible
     manual_collection_characters = Character.visible.verified

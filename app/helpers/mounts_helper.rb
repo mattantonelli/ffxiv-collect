@@ -1,8 +1,7 @@
 module MountsHelper
-  def custom_music_link(mount)
-    if mount.bgm_sample.present?
-      link_to(fa_icon('music'), mount_path(mount), title: I18n.t('mounts.custom_music'),
-              data: { toggle: 'tooltip', html: true } )
+  def custom_music(mount)
+    if mount.custom_music?
+      content_tag(:span, fa_icon('music'), title: I18n.t('mounts.custom_music_tooltip'), data: { toggle: 'tooltip', html: true })
     end
   end
 

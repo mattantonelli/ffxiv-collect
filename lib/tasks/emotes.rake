@@ -20,33 +20,29 @@ namespace :emotes do
     end
 
     commands = %w(en de fr ja).each_with_object({}) do |locale, h|
-      XIVData.sheet('TextCommand', locale: locale, drop_zero: false).each do |command|
+      XIVData.sheet('TextCommand', locale: locale).each do |command|
         next unless command['Command'].present?
 
         data = h[command['#']] || {}
         data["command_#{locale}"] = command.values_at('Command', 'Alias', 'ShortCommand', 'ShortAlias')
-          .reject(&:empty?).uniq.join(', ')
+          .compact.reject(&:empty?).uniq.join(', ')
         h[command['#']] = data
       end
     end
 
     emotes = %w(en de fr ja).each_with_object({}) do |locale, h|
       XIVData.sheet('Emote', locale: locale).each do |emote|
-        next if emote['TextCommand'].nil? || emote['UnlockLink'] == '0'
+        next unless emote['Name'].present? && emote['TextCommand'] != '0' && emote['UnlockLink'] != '0'
 
-        data = h[emote['#']] || { id: emote['#'], order: emote['Order'], icon: emote['Icon'] }
+        data = h[emote['#']] ||
+          {
+            id: emote['#'], order: emote['Order'], icon: XIVData.image_path(emote['Icon']),
+            category_id: emote['EmoteCategory']
+          }.merge(commands[emote['TextCommand']])
+
         data["name_#{locale}"] = sanitize_name(emote['Name'])
         h[data[:id]] = data
       end
-    end
-
-    XIVData.sheet('Emote', raw: true).each do |emote|
-      next if emote['TextCommand'] == '0' || emote['UnlockLink'] == '0'
-
-      data = emotes[emote['#']]
-      data[:category_id] = emote['EmoteCategory']
-      data.merge!(commands[emote['TextCommand']])
-      emotes[data[:id]] = data
     end
 
     count = Emote.count

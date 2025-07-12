@@ -323,8 +323,8 @@ module CollectionsHelper
       case type = source.type.name_en
       when 'Achievement'
         content = achievement_link(source)
-      when *Instance.valid_types
-        content = database_link(:instance, source.related&.name || source.text, source.related_id)
+      when *ContentType.instance_type_names
+        content = database_link(:instance, source.related&.name || source.text, source.related&.content_id)
       when 'Crafting', 'Gathering'
         content = database_link(:item, source.text, collectable.item_id)
       when 'NPC'
@@ -334,8 +334,6 @@ module CollectionsHelper
         else
           content = source.text
         end
-      when 'Online Store'
-        content = 'Online Store'
       when 'Quest', 'Event'
         content = database_link(:quest, source.related&.name || source.text, source.related_id)
       when 'Voyages'

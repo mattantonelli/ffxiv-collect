@@ -7,11 +7,13 @@ namespace :outfits do
 
     count = Outfit.count
 
-    XIVData.sheet('MirageStoreSetItem', raw: true).each do |outfit|
-      item_ids = (0..8).filter_map do |i|
-        item_id = outfit["Item[#{i}]"].to_i
-        item_id unless item_id == 0
-      end
+    XIVData.sheet('MirageStoreSetItem').each do |outfit|
+      next if outfit['#'] == '0'
+
+      item_ids = outfit
+        .values_at('MainHand', 'OffHand', 'Head', 'Body', 'Hands', 'Legs', 'Feet', 'Earrings', 'Necklace', 'Bracelets', 'Ring')
+        .reject { |id| id == '0' }
+        .map(&:to_i)
 
       next if item_ids.empty?
 
@@ -36,7 +38,7 @@ namespace :outfits do
         end
       end
 
-      create_image(outfit['#'], XIVData.icon_path(item.icon_id), 'outfits')
+      create_image(outfit['#'], XIVData.image_path(item.icon_id), 'outfits')
 
       if existing = Outfit.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)
@@ -54,7 +56,7 @@ namespace :outfits do
 
     # Create images for outfit items
     Item.joins(:outfit_items).distinct.each do |item|
-      create_image(item.id, XIVData.icon_path(item.icon_id), 'outfit_items')
+      create_image(item.id, XIVData.image_path(item.icon_id), 'outfit_items')
     end
 
     create_spritesheet('outfits')

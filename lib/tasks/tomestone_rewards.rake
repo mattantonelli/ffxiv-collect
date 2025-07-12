@@ -46,7 +46,7 @@ namespace :tomestones do
     task create: :environment do
       TomestoneReward.where(collectable_type: 'Item').each do |reward|
         item = reward.collectable
-        create_image(item.id, XIVData.icon_path(item.icon_id),
+        create_image(item.id, XIVData.image_path(item.icon_id),
                      Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
       end
     end
@@ -58,24 +58,24 @@ namespace :tomestones do
       puts 'Creating tomestone rewards'
       count = TomestoneReward.count
 
-      XIVData.sheet('SpecialShop', raw: true).each do |shop|
+      XIVData.sheet('SpecialShop').each do |shop|
         next unless shop['Name'] == 'Newest Irregular Tomestone Exchange'
 
 
         60.times do |i|
-          item_id = shop["Item{Receive}[#{i}][0]"]
+          item_id = shop["Item[#{i}].Item[0]"]
           break if item_id == '0'
 
           item = Item.find(item_id)
           collectable = item.unlock
-          cost = shop["Count{Cost}[#{i}][0]"]
+          cost = shop["Item[#{i}].CurrencyCost[0]"]
 
-          tomestone = Item.find(shop["Item{Cost}[#{i}][0]"]).tomestone_name
+          tomestone = Item.find(shop["Item[#{i}].ItemCost[0]"]).tomestone_name
 
           TomestoneReward.find_or_create_by!(collectable: collectable || item, cost: cost, tomestone: tomestone)
 
           unless collectable.present?
-            create_image(item.id, XIVData.icon_path(item.icon_id),
+            create_image(item.id, XIVData.image_path(item.icon_id),
                          Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
           end
         end
@@ -93,7 +93,7 @@ def create_rewards(tomestone)
 
     if row[:type] == 'Item'
       item = Item.find_by(name_en: row[:name])
-      create_image(item.id, XIVData.icon_path(item.icon_id),
+      create_image(item.id, XIVData.image_path(item.icon_id),
                    Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
     end
   end

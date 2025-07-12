@@ -1,4 +1,4 @@
-SPELL_STATS_REGEX = /[^>]+?(?:\n|$)/.freeze
+SPELL_STATS_REGEX = /.+\*([\w★]+)/.freeze
 
 namespace :spells do
   desc 'Create the Blue Magic spells'
@@ -12,7 +12,7 @@ namespace :spells do
     SpellType.find_or_create_by!(name_en: 'Physical', name_de: 'Physisch', name_fr: 'Physique', name_ja: '物理')
 
     count = Spell.count
-    spells = XIVData.sheet('AozAction', raw: true).each_with_object({}) do |spell, h|
+    spells = XIVData.sheet('AozAction').each_with_object({}) do |spell, h|
       next if spell['Action'] == '0'
       h[spell['Action']] = { id: spell['#'], aspects: {} }
     end
@@ -27,7 +27,7 @@ namespace :spells do
     %w(en de fr ja).each do |locale|
       XIVData.sheet('ActionTransient', locale: locale).each do |action|
         next unless spells.has_key?(action['#'])
-        spells[action['#']]["description_#{locale}"] = sanitize_skill_description(action['Description'])
+        spells[action['#']]["description_#{locale}"] = sanitize_text(action['Description'])
       end
     end
 
@@ -41,7 +41,7 @@ namespace :spells do
         data["location_#{locale}"] ||= sanitize_name(spell['Location']) if spell['Location'].present?
         data["tooltip_#{locale}"] = sanitize_text(spell['Description'])
 
-        type, aspect, rank = spell['Stats'].scan(SPELL_STATS_REGEX).map(&:strip)
+        type, aspect, rank = spell['Stats'].gsub(/\*\*.+\*\*/, '').split
 
         data[:type_id] ||= SpellType.find_by(name_en: type).id.to_s
         data[:aspects]["name_#{locale}"] = aspect

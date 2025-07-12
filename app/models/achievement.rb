@@ -18,7 +18,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
-#  icon_id        :integer
+#  icon_id        :string(6)
 #
 
 class Achievement < ApplicationRecord

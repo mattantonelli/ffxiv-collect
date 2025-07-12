@@ -7,21 +7,21 @@ namespace :items do
     count = Item.count
 
     items = XIVData.sheet('Item', locale: 'en').each_with_object({}) do |item, h|
-      next unless item['Name'].present?
+      next unless item['Name'].present? && item['Plural'].present?
 
-      icon_id = item['Icon']&.sub(/.*?(\d+)\.tex/, '\1')
-      tradeable = item['ItemSearchCategory'].present?
+      icon_id = XIVData.format_icon_id(item['Icon'])
+      tradeable = item['ItemSearchCategory'] != '0'
 
       data = { id: item['#'], name_en: sanitize_name(item['Name']), plural_en: sanitize_name(item['Plural']),
                description_en: sanitize_text(item['Description'], preserve_space: true), icon_id: icon_id,
-               tradeable: tradeable, price: item['Price{Mid}'] }
+               tradeable: tradeable, price: item['PriceMid'] }
 
       h[data[:id]] = data
     end
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('Item', locale: locale).each do |item|
-        next unless item['Name'].present?
+        next unless item['Name'].present? && item['Plural'].present?
 
         items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name']),
                                 "plural_#{locale}" => sanitize_name(item['Plural']),
@@ -29,9 +29,9 @@ namespace :items do
       end
     end
 
-    XIVData.sheet('Recipe', raw: true).each do |recipe|
-      next unless items.has_key?(recipe['Item{Result}'])
-      item = items[recipe['Item{Result}']]
+    XIVData.sheet('Recipe').each do |recipe|
+      next unless items.has_key?(recipe['ItemResult'])
+      item = items[recipe['ItemResult']]
       item.merge!(crafter: CRAFTERS[recipe['CraftType'].to_i], recipe_id: recipe['#'])
     end
 
@@ -52,15 +52,15 @@ namespace :items do
     puts 'Setting collectable unlocks for items'
 
     items = XIVData.sheet('Item', locale: 'en').each_with_object({}) do |item, h|
-      next unless item['Name'].present? && item['ItemAction'] != 'ItemAction#0'
+      next unless item['Name'].present? && item['ItemAction'] != '0'
 
-      action_id = XIVData.related_id(item['ItemAction'])
+      action_id = item['ItemAction']
 
       case action_id
       when '2235'
         # Orchestrion roll unlock links live in the item's AdditionalData
         the_item = Item.find(item['#'])
-        orchestrion_id = XIVData.related_id(item['AdditionalData'])
+        orchestrion_id = item['AdditionalData']
 
         the_item.update!(unlock_type: 'Orchestrion', unlock_id: orchestrion_id)
         Orchestrion.find(orchestrion_id).update!(item_id: the_item.id) if the_item.tradeable?
@@ -80,7 +80,7 @@ namespace :items do
       end
     end
 
-    XIVData.sheet('ItemAction', raw: true).each do |action|
+    XIVData.sheet('ItemAction').each do |action|
       next unless data = items[action['#']]
 
       unlock_type = case action['Type']

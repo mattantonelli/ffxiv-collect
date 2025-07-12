@@ -1,7 +1,7 @@
-namespace :rankings do
-  namespace :server do
+namespace :cache do
+  namespace :rankings do
     desc 'Cache server rankings'
-    task cache: :environment do
+    task server: :environment do
       log('Caching server rankings')
 
       Character.servers.each do |server|
@@ -13,11 +13,9 @@ namespace :rankings do
 
       log('Finished caching server rankings')
     end
-  end
 
-  namespace :data_center do
     desc 'Cache data center rankings'
-    task cache: :environment do
+    task data_center: :environment do
       log('Caching data center rankings')
 
       Character.data_centers.each do |data_center|
@@ -29,11 +27,9 @@ namespace :rankings do
 
       log('Finished caching data center rankings')
     end
-  end
 
-  namespace :global do
     desc 'Cache global rankings'
-    task cache: :environment do
+    task global: :environment do
       log('Caching global rankings')
 
       characters = Character.visible

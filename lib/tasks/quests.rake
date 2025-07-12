@@ -12,8 +12,9 @@ namespace :quests do
         if locale == 'en'
           data = { id: quest['#'], event: quest['FestivalEnd'] != '0' }
 
+          # Apparently this is only an item if the ItemRewardType is: 1, 3, 5
           7.times do |i|
-            reward = quest["Item{Reward}[#{i}]"]
+            reward = quest["Reward[#{i}]"]
             break if reward.nil?
             Item.find_by(name_en: reward)&.update!(quest_id: quest['#'])
           end
@@ -21,7 +22,7 @@ namespace :quests do
           data = h[quest['#']]
         end
 
-        data["name_#{locale}"] = sanitize_text(quest['Name'].gsub(/[\uE0BE\uE0BF] ?/, ''))
+        data["name_#{locale}"] = sanitize_text(quest['Name'])
         h[data[:id]] = data
       end
     end

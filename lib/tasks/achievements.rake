@@ -28,7 +28,7 @@ namespace :achievements do
     categories = XIVData.sheet('AchievementCategory', locale: 'en').each_with_object({}) do |category, h|
       next unless category['Order'] != '0'
       h[category['#']] = { id: category['#'], name_en: category['Name'], order: category['Order'],
-                           type_id: AchievementType.find_by(name_en: category['AchievementKind']).id.to_s }
+                           type_id: AchievementType.find(category['AchievementKind']).id.to_s }
     end
 
     %w(de fr ja).each do |locale|
@@ -50,16 +50,15 @@ namespace :achievements do
     count = Achievement.count
 
     achievements = XIVData.sheet('Achievement', locale: 'en').each_with_object({}) do |achievement, h|
-      next unless achievement['AchievementCategory'].present?
+      next unless achievement['Name'].present? && achievement['AchievementCategory'] != '0'
 
-      data = { id: achievement['#'], name_en: sanitize_name(achievement['Name']),
+      data = { id: achievement['#'], name_en: sanitize_text(achievement['Name']),
                description_en: sanitize_text(achievement['Description']), points: achievement['Points'],
-               order: achievement['Order'], icon_path: achievement['Icon'] }
+               category_id: achievement['AchievementCategory'], order: achievement['Order'],
+               image_path: XIVData.image_path(achievement['Icon']), icon_id: XIVData.format_icon_id(achievement['Icon']) }
 
-      data[:icon_id] = data[:icon_path].sub(/.*?0+(\d+)\.tex/, '\1')
-
-      if achievement['Item'].present?
-        data[:item_id] = Item.find_by(name_en: achievement['Item']).id.to_s
+      if achievement['Item'] != '0'
+        data[:item_id] = Item.find(achievement['Item']).id.to_s
       end
 
       h[achievement['#']] = data
@@ -67,26 +66,20 @@ namespace :achievements do
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('Achievement', locale: locale).each do |achievement|
-        next unless achievement['AchievementCategory'].present?
+        next unless achievement['Name'].present? && achievement['AchievementCategory'] != '0'
 
-        achievements[achievement['#']].merge!("name_#{locale}" => sanitize_name(achievement['Name']),
+        achievements[achievement['#']].merge!("name_#{locale}" => sanitize_text(achievement['Name']),
                                               "description_#{locale}" => sanitize_text(achievement['Description']))
       end
-    end
-
-    # We need to use the raw data to set the category ID since names are duplicated
-    XIVData.sheet('Achievement', raw: true).each do |achievement|
-      next unless achievement['AchievementCategory'] != '0'
-      achievements[achievement['#']][:category_id] = achievement['AchievementCategory']
     end
 
     achievements.values.each do |achievement|
       item_id = achievement[:item_id]
       if item_id.present?
-        create_image(item_id, XIVData.icon_path(Item.find(item_id).icon_id), 'achievement_items')
+        create_image(item_id, XIVData.image_path(Item.find(item_id).icon_id), 'achievement_items')
       end
 
-      create_image(achievement[:icon_id], achievement.delete(:icon_path), 'achievements')
+      create_image(achievement[:icon_id], achievement.delete(:image_path), 'achievements')
 
       if existing = Achievement.find_by(id: achievement[:id])
         existing.update!(achievement) if updated?(existing, achievement)

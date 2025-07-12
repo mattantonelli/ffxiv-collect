@@ -10,6 +10,7 @@
 #  name_de    :string(255)      not null
 #  name_fr    :string(255)      not null
 #  name_ja    :string(255)      not null
+#  item_id    :integer
 #
 
 class Pack < ApplicationRecord

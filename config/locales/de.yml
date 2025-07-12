@@ -325,7 +325,8 @@ de:
     behavior: "Verhalten"
     title: "Begleiter"
   mounts:
-    custom_music: "Dieses Reittier spielt spezielle Musik"
+    custom_music: "Spezielle Musik"
+    custom_music_tooltip: "Dieses Reittier spielt spezielle Musik"
     flying: "Fliegen"
     movement: "Bewegung"
     preview: "Video-Vorschau"

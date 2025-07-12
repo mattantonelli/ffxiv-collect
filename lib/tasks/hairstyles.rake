@@ -7,12 +7,12 @@ namespace :hairstyles do
 
     count = Hairstyle.count
 
-    XIVData.sheet('CharaMakeCustomize', raw: true).each_with_object(Set.new) do |custom, created|
+    XIVData.sheet('CharaMakeCustomize').each_with_object(Set.new) do |custom, created|
       next if custom['HintItem'] == '0'
       item = Item.find_by(id: custom['HintItem'])
       next unless item.present?
 
-      data = { id: custom['Data'] }
+      data = { id: custom['UnlockLink'] }
 
       # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
       %w(en de fr ja).each do |locale|
@@ -53,7 +53,7 @@ namespace :hairstyles do
       Dir.mkdir(path) unless Dir.exist?(path)
 
       output_path = path.join("#{custom['Icon']}.png")
-      create_image(nil, XIVData.icon_path(custom['Icon'], hd: true), output_path)
+      create_image(nil, XIVData.image_path(custom['Icon'], hd: true), output_path)
 
       # Use the first image as a sample of the hairstyle
       sample_path = Rails.root.join('public/images/hairstyles/samples', "#{data[:id]}.png")

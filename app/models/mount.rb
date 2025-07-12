@@ -28,7 +28,7 @@
 #  item_id                 :integer
 #  video                   :string(255)
 #  order_group             :integer
-#  bgm_sample              :string(255)
+#  custom_music            :boolean          default(FALSE)
 #
 
 class Mount < ApplicationRecord

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_12_125312) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
-    t.integer "icon_id"
+    t.string "icon_id", limit: 6
     t.index ["category_id"], name: "index_achievements_on_category_id"
     t.index ["name_de"], name: "index_achievements_on_name_de"
     t.index ["name_en"], name: "index_achievements_on_name_en"
@@ -467,6 +467,17 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.index ["updated_at"], name: "index_characters_on_updated_at"
   end
 
+  create_table "content_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.boolean "instance", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instance"], name: "index_content_types_on_instance"
+  end
+
   create_table "deck_cards", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "deck_id"
     t.integer "card_id"
@@ -653,10 +664,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
-    t.string "content_type", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["content_type"], name: "index_instances_on_content_type"
+    t.integer "content_type_id", null: false
+    t.integer "content_id"
     t.index ["name_en"], name: "index_instances_on_name_en"
   end
 
@@ -876,7 +887,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.integer "item_id"
     t.string "video"
     t.integer "order_group"
-    t.string "bgm_sample"
+    t.boolean "custom_music", default: false
     t.index ["name_de"], name: "index_mounts_on_name_de"
     t.index ["name_en"], name: "index_mounts_on_name_en"
     t.index ["name_fr"], name: "index_mounts_on_name_fr"
@@ -985,7 +996,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
     t.string "details"
-    t.string "sample", null: false
     t.index ["category_id"], name: "index_orchestrions_on_category_id"
     t.index ["name_de"], name: "index_orchestrions_on_name_de"
     t.index ["name_en"], name: "index_orchestrions_on_name_en"
@@ -1039,6 +1049,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_05_27_221640) do
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_packs_on_item_id"
     t.index ["name_de"], name: "index_packs_on_name_de", unique: true
     t.index ["name_en"], name: "index_packs_on_name_en", unique: true
     t.index ["name_fr"], name: "index_packs_on_name_fr", unique: true

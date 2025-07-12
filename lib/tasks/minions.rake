@@ -53,9 +53,9 @@ namespace :minions do
         next if minion['Order'] == '0'
 
         data = h[minion['#']] || { id: minion['#'], order: minion['Order'], hp: minion['HP'], cost: minion['Cost'],
-                                   skill_angle: minion['Skill{Angle}'], skill_cost: minion['Skill{Cost}'], icon: minion['Icon'],
-                                   behavior_id: MinionBehavior.find_by(name_en: minion['Behavior']).id.to_s,
-                                   race_id: MinionRace.find_by(name_en: minion['MinionRace']).id.to_s}
+                                   skill_angle: minion['SkillAngle'], skill_cost: minion['SkillCost'],
+                                   icon: XIVData.format_icon_id(minion['Icon']),
+                                   behavior_id: minion['Behavior'], race_id:  minion['MinionRace'] }
 
         data["name_#{locale}"] = sanitize_name(minion['Singular'])
         h[data[:id]] = data
@@ -69,25 +69,20 @@ namespace :minions do
 
         data = minions[minion['#']]
         data.merge!("description_#{locale}" => sanitize_text(minion['Description']),
-                    "enhanced_description_#{locale}" => sanitize_text(minion['Description{Enhanced}']),
+                    "enhanced_description_#{locale}" => sanitize_text(minion['DescriptionEnhanced']),
                     "tooltip_#{locale}" => sanitize_text(minion['Tooltip']),
-                    "skill_#{locale}" => sanitize_name(minion['SpecialAction{Name}']),
-                    "skill_description_#{locale}" => sanitize_skill_description(minion['SpecialAction{Description}']),
+                    "skill_#{locale}" => sanitize_name(minion['SpecialActionName']),
+                    "skill_description_#{locale}" => sanitize_text(minion['SpecialActionDescription'], preserve_space: true),
                     attack: minion['Attack'], defense: minion['Defense'], speed: minion['Speed'],
-                    area_attack: minion['HasAreaAttack'] == 'True', gate: minion['Strength{Gate}'] == 'True',
-                    eye: minion['Strength{Eye}'] == 'True', shield: minion['Strength{Shield}'] == 'True',
-                    arcana: minion['Strength{Arcana}'] == 'True')
-
-        if locale == 'en'
-          data[:skill_type_id] ||= MinionSkillType.find_by(name_en: minion['MinionSkillType'])&.id&.to_s
-        end
+                    area_attack: minion['HasAreaAttack'] == 'True', gate: minion['StrengthGate'] == 'True',
+                    eye: minion['StrengthEye'] == 'True', shield: minion['StrengthShield'] == 'True',
+                    arcana: minion['StrengthArcana'] == 'True', skill_type_id: minion['MinionSkillType'])
       end
     end
 
     minions.values.each do |minion|
       large_icon = minion[:icon].gsub('/004', '/068')
-      icon_id = minion[:icon].sub(/.*?(\d+)\.tex/, '\1').to_i
-      footprint_icon = XIVData.icon_path(65000 + icon_id)
+      footprint_icon = XIVData.image_path(65000 + minion[:icon].to_i)
 
       create_image(minion[:id], large_icon, 'minions/large')
       create_image(minion[:id], minion.delete(:icon), 'minions/small')

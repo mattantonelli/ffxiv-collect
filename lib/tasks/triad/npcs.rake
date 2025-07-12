@@ -13,9 +13,10 @@ namespace :triad do
       # Find all of the Triple Triad NPC Residents and create the base NPC object
       puts '  Fetching resident data'
       npcs = XIVData.sheet('ENpcBase').each_with_object({}) do |npc, h|
-        npc.each do |k, v|
-          if k&.match?('ENpcData') && v&.match(/TripleTriad#(\d+)/)
-            id = $1
+        32.times do |i|
+          id = npc["ENpcData[#{i}]"]
+
+          if id =~ /229\d{4}/
             h.delete_if { |_, npc| npc[:id] == id } # Delete duplicates to ensure we use the last NPC in the data
             h[npc['#']] = { id: id, resident_id: npc['#'] }
             break
@@ -33,7 +34,7 @@ namespace :triad do
 
       # Find the associated Level data for each NPC Resident and add the location data
       puts '  Fetching location coordinate data'
-      XIVData.sheet('Level', raw: true).each do |level|
+      XIVData.sheet('Level').each do |level|
         if npcs.has_key?(level['Object'])
           npcs[level['Object']].merge!(x: level['X'].to_f, y: level['Z'].to_f, map_id: level['Map'])
         end
@@ -57,41 +58,44 @@ namespace :triad do
 
       # Add their opponent data
       puts '  Fetching opponent data'
-      XIVData.sheet('TripleTriad', raw: true).each do |opponent|
+      XIVData.sheet('TripleTriad').each do |opponent|
         npc = npcs.values.find { |val| val[:id] == opponent['#'] }
         next unless npc.present?
 
-        # Collect the NPC's card rewards
-        npc[:rewards] = opponent.each_with_object([]) do |(k, v), a|
-          if k.match?('Item{PossibleReward}') && v != '0'
-            # Find the Card unlock associated with the Item and add it to the list
-            a << Item.find(v).unlock_id
-          end
+        # Card rewards
+        npc[:rewards] = 4.times.filter_map do |i|
+          item_id = opponent["ItemPossibleReward[#{i}]"]
+
+          # Find the Card unlock associated with the Item and add it to the list
+          Item.find(item_id).unlock_id if item_id != '0'
         end
-      end
 
-      XIVData.sheet('TripleTriad', raw: true).each do |opponent|
-        npc = npcs.values.find { |val| val[:id] == opponent['#'] }
-        next unless npc.present?
+        # Fixed cards in the NPC's deck
+        npc[:fixed_cards] = 5.times.filter_map do |i|
+          card_id = opponent["TripleTriadCardFixed[#{i}]"]
+          card_id if card_id != '0'
+        end
 
-        npc[:fixed_cards] = []
-        npc[:variable_cards] = []
-        npc[:rules] = []
+        # Variable cards in the NPC's deck
+        npc[:variable_cards] = 5.times.filter_map do |i|
+          card_id = opponent["TripleTriadCardVariable[#{i}]"]
+          card_id if card_id != '0'
+        end
 
-        opponent.each do |k, v|
-          if k.match?('PreviousQuest\[') && v != '0'
-            npc[:quest_id] = v
-          elsif k.match?('TripleTriadCard{Fixed}') && v != '0'
-            npc[:fixed_cards] << v
-          elsif k.match?('TripleTriadCard{Variable}') && v != '0'
-            npc[:variable_cards] << v
-          elsif k.match?('TripleTriadRule') && v != '0'
-            npc[:rules] << Rule.find_by(id: v)
-          end
+        # Rules
+        npc[:rule_ids] = 2.times.filter_map do |i|
+          rule_id = opponent["TripleTriadRule[#{i}]"]
+          rule_id if rule_id != '0'
         end
 
         # Remove duplicate rules (Looking at you, Rowena.)
-        npc[:rules].uniq!
+        npc[:rule_ids].uniq!
+
+        # Required quest
+        2.times do |i|
+          quest_id = opponent["PreviousQuest[#{i}]"]
+          npc[:quest_id] = quest_id if quest_id != '0'
+        end
       end
 
       # Create the NPCs and their cards
@@ -102,7 +106,7 @@ namespace :triad do
 
         # Create or update the NPC
         if npc = NPC.find_by(id: data[:id])
-          data.except!('name_en', 'name_de', 'name_fr', 'name_ja', :quest_id, :rules)
+          data.except!('name_en', 'name_de', 'name_fr', 'name_ja', :quest_id, :rule_ids)
           npc.update!(data) if updated?(npc, data)
         else
           npc = NPC.create!(data)

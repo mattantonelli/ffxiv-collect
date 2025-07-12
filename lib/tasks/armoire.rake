@@ -5,7 +5,7 @@ namespace :armoires do
 
     puts 'Creating armoire items'
 
-    categories = XIVData.sheet('CabinetCategory', raw: true).filter_map do |category|
+    categories = XIVData.sheet('CabinetCategory').filter_map do |category|
       next if category['MenuOrder'] == '0'
       { id: category['#'], name: category['Category'], order: category['MenuOrder'] }
     end
@@ -32,14 +32,14 @@ namespace :armoires do
     PREMIUM_TYPE = SourceType.find_by(name_en: 'Premium').freeze
     PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id)
 
-    XIVData.sheet('Cabinet', raw: true, drop_zero: false).map do |armoire|
+    XIVData.sheet('Cabinet').map do |armoire|
       next if armoire['Order'] == '0'
 
       item = Item.find_by(id: armoire['Item'])
       next unless item.present?
 
       data = { id: (armoire['#'].to_i + 1).to_s, category_id: armoire['Category'],
-               order: armoire['Order'], order_group: armoire['SortKey'], item_id: item.id.to_s }
+               order: armoire['Order'], order_group: armoire['SubCategory'], item_id: item.id.to_s }
 
       data[:gender] = case item.description_en
                       when /♂/ then 'male'
@@ -52,7 +52,7 @@ namespace :armoires do
       # Update the Item to indicate that it unlocks this Armoire
       item.update!(unlock_type: 'Armoire', unlock_id: data[:id])
 
-      create_image(data[:id], XIVData.icon_path(item.icon_id), 'armoires')
+      create_image(data[:id], XIVData.image_path(item.icon_id), 'armoires')
 
       if existing = Armoire.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)
@@ -65,8 +65,7 @@ namespace :armoires do
             h["text_#{locale}"] = achievement["name_#{locale}"]
           end
 
-          created.sources.create!(**texts, type: ACHIEVEMENT_TYPE, related_type: 'Achievement',
-                                  related_id: achievement.id)
+          created.sources.create!(**texts, type: ACHIEVEMENT_TYPE, related_type: 'Achievement', related_id: achievement.id)
         elsif PREMIUM_CATEGORIES.include?(armoire['Category'].to_i)
           texts = %w(en de fr ja).each_with_object({}) do |locale, h|
             h["text_#{locale}"] = I18n.t('sources.online_store', locale: locale)

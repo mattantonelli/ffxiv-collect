@@ -54,25 +54,18 @@ namespace :leves do
     puts 'Creating leves'
     count = Leve.count
 
-    categories = LeveCategory.all.each_with_object({}) do |category, h|
-      h[category.name_en] = category
-    end
-
     leves = %w(en de fr ja).each_with_object({}) do |locale, h|
       # Initialize the leves
       XIVData.sheet('Leve', locale: locale).each do |leve|
         next unless leve['Name'].present?
 
         unless data = h[leve['#']]
-          category_name = leve['LeveAssignmentType']
-          category_name = 'General' if category_name == 'Battlecraft'
-          category = categories[category_name]
+          category_id = leve['LeveAssignmentType']
 
-          data = { id: leve['#'], category_id: category.id.to_s, level: leve['ClassJobLevel'],
-                   cost: leve['AllowanceCost'] }
+          data = { id: leve['#'], category_id: category_id, level: leve['ClassJobLevel'], cost: leve['AllowanceCost'] }
 
-          if category.craft == 'Battlecraft'
-            data[:location] = XIVData.related_id(leve['Level{Levemete}'])
+          if category_id == '1' # Battlecraft
+            data[:location] = leve['LevelLevemete']
           end
         end
 
@@ -96,7 +89,7 @@ namespace :leves do
     end
 
     # Add item ID and quantity for deliverable leves
-    XIVData.sheet('CraftLeve', raw: true).each do |leve|
+    XIVData.sheet('CraftLeve').each do |leve|
       next if leve['Leve'] == '0'
 
       quantity = (0..2).sum { |i| leve["ItemCount[#{i}]"].to_i }
@@ -105,7 +98,7 @@ namespace :leves do
 
     # Add location data for Battlecraft leves
     level_ids = leves.values.pluck(:location).compact.uniq
-    XIVData.sheet('Level', raw: true).each do |level|
+    XIVData.sheet('Level').each do |level|
       if level_ids.include?(level['#'])
         # Compile the level data
         data = { issuer_x: level['X'].to_f, issuer_y: level['Z'].to_f,
@@ -166,7 +159,7 @@ namespace :leves do
 
     # Link the NPCs to their locations
     npc_id_regex = /#{npc_ids.join('|')}/
-    XIVData.sheet('Level', raw: true).each do |level|
+    XIVData.sheet('Level').each do |level|
       if level['Object'].match?(npc_id_regex)
         data = { issuer_x: level['X'].to_f, issuer_y: level['Z'].to_f, map_id: level['Map'] }
         issuers[level['Object']].merge!(data)
@@ -196,7 +189,7 @@ namespace :leves do
     leves.values.each do |leve|
       # Create images for turn-in items
       if item_id = leve[:item_id]
-        create_image(item_id, XIVData.icon_path(Item.find(item_id).icon_id), 'leve_items')
+        create_image(item_id, XIVData.image_path(Item.find(item_id).icon_id), 'leve_items')
       end
 
       if existing = Leve.find_by(id: leve[:id])

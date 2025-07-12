@@ -72,7 +72,7 @@ namespace :triad do
   end
 
   def create_large(card, path, color = nil)
-    image = ChunkyPNG::Image.from_file(XIVData.card_image_path(LARGE_OFFSET + card.id))
+    image = ChunkyPNG::Image.from_file(XIVData.image_path(LARGE_OFFSET + card.id))
 
     if color.present?
       image = COLORED_BACKGROUNDS[color].compose(image)
@@ -104,7 +104,7 @@ namespace :triad do
 
   def create_small(card)
     URI.open(SMALL_CARDS_DIR.join("#{card.id}.png").to_s, 'wb') do |file|
-      file << URI.open(XIVData.card_image_path(SMALL_OFFSET + card.id)).read
+      file << URI.open(XIVData.image_path(SMALL_OFFSET + card.id)).read
     end
   end
 

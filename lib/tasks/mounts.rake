@@ -1,3 +1,5 @@
+COMMON_MUSIC_IDS = [62, 107, 113, 121, 319, 895].freeze
+
 namespace :mounts do
   desc 'Create the mounts'
   task create: :environment do
@@ -11,15 +13,10 @@ namespace :mounts do
         next unless mount['Order'].to_i >= 0 && mount['Singular'].present?
 
         data = h[mount['#']] || { id: mount['#'], order: mount['Order'], order_group: mount['UIPriority'],
-                                  seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: mount['Icon'],
-                                  movement: mount['IsAirborne'] == 'True' ? 'Airborne' : 'Terrestrial'}
+                                  seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: XIVData.format_icon_id(mount['Icon']),
+                                  movement: mount['IsAirborne'] == 'True' ? 'Airborne' : 'Terrestrial',
+                                  custom_music: !COMMON_MUSIC_IDS.include?(mount['RideBGM'].to_i) }
         data["name_#{locale}"] = sanitize_name(mount['Singular'])
-
-        # Set unique BGM samples on the first pass
-        unless h.has_key?(mount['#']) || mount['RideBGM'].match?(/(Ride_Chocobo|Common|FlyingMount)/)
-          data[:bgm_sample] = XIVData.music_filename(mount['RideBGM'])
-          link_music(XIVData.music_path(mount['RideBGM']))
-        end
 
         h[data[:id]] = data
       end
@@ -32,15 +29,14 @@ namespace :mounts do
 
         data = mounts[mount['#']]
         data.merge!("description_#{locale}" => sanitize_text(mount['Description']),
-                    "enhanced_description_#{locale}" => sanitize_text(mount['Description{Enhanced}']),
+                    "enhanced_description_#{locale}" => sanitize_text(mount['DescriptionEnhanced']),
                     "tooltip_#{locale}" => sanitize_text(mount['Tooltip']))
       end
     end
 
     mounts.values.each do |mount|
       large_icon = mount[:icon].gsub('/004', '/068')
-      icon_id = mount[:icon].sub(/.*?(\d+)\.tex/, '\1').to_i
-      footprint_icon = XIVData.icon_path(65000 + icon_id)
+      footprint_icon = XIVData.image_path(65000 + mount[:icon].to_i)
 
       create_image(mount[:id], large_icon, 'mounts/large')
       create_image(mount[:id], mount.delete(:icon), 'mounts/small')

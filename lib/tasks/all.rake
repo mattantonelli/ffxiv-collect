@@ -23,11 +23,6 @@ namespace :data do
       puts 'Images will not be generated.'
     end
 
-    unless Dir.exist?(XIVData::MUSIC_PATH)
-      puts "ERROR: Could not find music source directory: #{XIVData::MUSIC_PATH}"
-      puts 'Music samples will not be generated.'
-    end
-
     puts 'Retrieving the latest game data from xiv-data'
     %x{cd #{Rails.root.join('vendor/xiv-data')} && git fetch && git checkout origin/master}
 
@@ -72,48 +67,28 @@ def log(message)
   puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] #{message}"
 end
 
-# Replace various tags with the appropriate text
-def sanitize_text(text, preserve_space: false)
-  text = text.gsub('<SoftHyphen/>', "\u00AD")
-    .gsub(/<Switch.*?><Case\(1\)>(.*?)<\/Case>.*?<\/Switch>/m, '\1')
-    .gsub(/<If.*?>(.*?)<Else\/>.*?<\/If>/m, '\1')
-    .gsub(/<\/?Emphasis>/, '*')
-    .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
-    .gsub(/<Highlight>(.*?)<\/Highlight>/, '**\1**')
-    .gsub(/<Split\((.*?),.*?>/, '\1')
-    .gsub('<Indent/>', ' ')
-    .gsub('ObjectParameter(1)', 'Player')
-    .gsub(/<.*?>(.*?)<\/.*?>/, '')
-
-  unless preserve_space
-    text = text.gsub("\r", "\n")
-      .gsub("-\n", '-')
-      .gsub("\n", ' ')
-  end
-
-  text.strip
-end
-
-def sanitize_skill_description(text)
-  text.gsub('<SoftHyphen/>', "\u00AD")
-    .gsub(/<UIForeground>.*?<\/UIGlow>(.*?)<UIGlow>.*?<\/UIForeground>/, '**\1**')
-    .gsub('<Indent/>', ' ')
-    .gsub(/<.*?>(.*?)<\/.*?>/, '')
-    .strip
-end
-
-# Titleize names and translate various tags
 def sanitize_name(name)
+  # TODO: Do not capitalize short conjunctions/prepositions
   name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
+
+  # Clean up symbols, language tags, etc.
   name.gsub('[t]', 'der')
     .gsub('[a]', 'e')
     .gsub('[A]', 'er')
     .gsub('[p]', '')
-    .gsub(/\uE0BE ?/, '')
-    .gsub('<SoftHyphen/>', "\u00AD")
-    .gsub('<Indent/>', ' ')
-    .gsub(/\<.*?\>/, '')
-    .gsub(/\((.)/) { |match| match.upcase } # (extreme) → (Extreme)
+    .gsub(/[\uE0BE\uE0BF]+ ?/, '') # Remove internal symbols
+    .gsub(/ \((.)/) { |match| match.upcase } # (extreme) → (Extreme)
+end
+
+def sanitize_text(text, preserve_space: false)
+  return '' if text.nil?
+
+  unless preserve_space
+    text = text.gsub("-\n", '-')
+      .gsub("\n", ' ')
+  end
+
+  text.gsub(/[\uE0BE\uE0BF]+ ?/, '').strip
 end
 
 def without_custom(data)
@@ -150,17 +125,17 @@ end
 
 def maps_with_locations(ids)
   # Look up the maps for the given IDs and set the coordinate data
-  maps = XIVData.sheet('Map', raw: true).each_with_object({}) do |map, h|
+  maps = XIVData.sheet('Map').each_with_object({}) do |map, h|
     if ids.include?(map['#'])
-      h[map['#']] = { region_id: map['PlaceName{Region}'], location_id: map['PlaceName'],
-                      x_offset: map['Offset{X}'].to_f, y_offset: map['Offset{Y}'].to_f,
+      h[map['#']] = { region_id: map['PlaceNameRegion'], location_id: map['PlaceName'],
+                      x_offset: map['OffsetX'].to_f, y_offset: map['OffsetY'].to_f,
                       size_factor: map['SizeFactor'].to_f }
     end
   end
 
   # Look up the locations associated with each map
   locations = %w(en fr de ja).each_with_object(Hash.new({})) do |locale, h|
-    places = XIVData.sheet('PlaceName', locale: locale, drop_zero: false).map { |place| place['Name']}
+    places = XIVData.sheet('PlaceName', locale: locale).map { |place| place['Name']}
     maps.values.each do |map|
       h[map[:location_id]] = h[map[:location_id]].merge("name_#{locale}" => places[map[:location_id].to_i],
                                                         "region_#{locale}" => places[map[:region_id].to_i])
@@ -181,13 +156,7 @@ def get_coordinate(value, map_offset, size_factor)
   (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
 end
 
-def link_music(path)
-  return unless Dir.exist?(XIVData::MUSIC_PATH)
-
-  FileUtils.ln_s(path, Rails.root.join('public/music', path.sub(/.*\//, '')), force: true)
-end
-
-def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
+def create_image(id, image_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
   return unless Dir.exist?(XIVData::IMAGE_PATH)
 
   # Use the custom output pathname if provided, otherwise generate it
@@ -198,8 +167,6 @@ def create_image(id, icon_path, path, mask_from = nil, mask_to = nil, width = ni
   end
 
   unless output_path.exist?
-    image_path = XIVData.image_path(icon_path)
-
     if mask_from.present?
       mask_to ||= mask_from
       image = ChunkyPNG::Image.from_file(image_path)

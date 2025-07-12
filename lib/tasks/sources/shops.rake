@@ -19,7 +19,7 @@ namespace 'sources:shops' do
     restricted_outfit_shop_names = /seasonal event prizes/i
 
     puts 'Creating GilShop sources'
-    item_ids = XIVData.sheet('GilShopItem', raw: true).map do |entry|
+    item_ids = XIVData.sheet('GilShopItem').map do |entry|
       entry['Item']
     end
 
@@ -37,19 +37,19 @@ namespace 'sources:shops' do
     outfit_item_ids = OutfitItem.pluck(:item_id).uniq.map(&:to_s)
     outfit_items = {}
 
-    XIVData.sheet('SpecialShop', raw: true).each do |shop|
+    XIVData.sheet('SpecialShop').each do |shop|
       2.times do |j|
         60.times do |i|
-          item_id = shop["Item{Receive}[#{i}][#{j}]"]
+          item_id = shop["Item[#{i}].Item[#{j}]"]
           break if item_id == '0'
 
           next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
 
-          price = shop["Count{Cost}[#{i}][#{j}]"]
+          price = shop["Item[#{i}].CurrencyCost[#{j}]"]
           next if price == '0'
 
-          currency = shop["Item{Cost}[#{i}][#{j}]"]
-          case currency.to_i
+          currency_item_id = shop["Item[#{i}].ItemCost[#{j}]"].to_i
+          case currency_item_id
           when 25, 36656
             type = pvp_type
           when 27, 10307, 26533
@@ -70,7 +70,7 @@ namespace 'sources:shops' do
             type = purchase_type
           end
 
-          currency = Item.find(shop["Item{Cost}[#{i}][#{j}]"])
+          currency = Item.find(currency_item_id)
 
           # Do not create shop sources for Moogle Treasure Trove rewards
           next if currency['name_en'].match?('Irregular Tomestone')
@@ -109,13 +109,13 @@ namespace 'sources:shops' do
     end
 
     puts 'Creating Grand Company sources'
-    XIVData.sheet('GCScripShopItem', raw: true).each do |entry|
+    XIVData.sheet('GCScripShopItem').each do |entry|
       next unless item_ids.include?(entry['Item'])
 
       unlock = Item.find(entry['Item']).unlock
 
       texts = %w(en de fr ja).each_with_object({}) do |locale, h|
-        amount = number_with_delimiter(entry['Cost{GCSeals}'], locale: locale)
+        amount = number_with_delimiter(entry['CostGCSeals'], locale: locale)
         h["text_#{locale}"] = I18n.t('sources.seals', amount: amount, locale: locale)
       end
 
