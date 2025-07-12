@@ -9,36 +9,40 @@ namespace :sources do
 
       puts 'Creating Card acqusition sources'
       XIVData.sheet('TripleTriadCardResident').each do |card|
-        type = card['AcquisitionType'].to_i
-        acquisition = card['Acquisition']
-        texts = { "text_en" => acquisition }
+        acqusition_type = card['AcquisitionType'].to_i
+        acquisition_id = card['Acquisition']
 
-        case type
+        case acqusition_type
         when 2, 3
-          if instance = Instance.find_by(name_en: acquisition)
-            source_type = SourceType.find_by(name_en: instance.content_type)
-            %w(en de fr ja).each_with_object({}) do |locale, h|
-              texts["text_#{locale}"] = instance["name_#{locale}"]
+          if instance = Instance.find(acquisition_id)
+            source_type = SourceType.find_by(name_en: instance.content_type.name_en)
+            texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+              h["text_#{locale}"] = instance["name_#{locale}"]
             end
           end
         # when 4, 5
-        #   origin = 'FATE'
-        #   acquisition = "FATE: #{acquisition}"
-        when 8, 9
-          next unless acquisition =~ /Triad Card/
+        #   Eureka/FATE
+        # when 6
+        #   NPC Opponent
+        when 8
+          # Pack item id
           source_type = gold_saucer_type
-          pack = Pack.find_by(name_en: acquisition)
+          pack = Pack.find_by(item_id: acquisition_id)
           PackCard.find_or_create_by!(pack_id: pack.id, card_id: card['#'])
 
-          %w(en de fr ja).each_with_object({}) do |locale, h|
-            texts["text_#{locale}"] = pack["name_#{locale}"]
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = pack["name_#{locale}"]
           end
+        # when 9
+        #   Deep Dungeon Sack
+        # when 10
+        #   Shop
         when 11
           source_type = achievement_type
-          achievement = Achievement.find_by(name_en: acquisition)
+          achievement = Achievement.find(acquisition_id)
 
-          %w(en de fr ja).each_with_object({}) do |locale, h|
-            texts["text_#{locale}"] = achievement["name_#{locale}"]
+          texts = %w(en de fr ja).each_with_object({}) do |locale, h|
+            h["text_#{locale}"] = achievement["name_#{locale}"]
           end
         end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_10_125703) do
+ActiveRecord::Schema[7.2].define(version: 2025_07_12_125312) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -667,6 +667,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_10_125703) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "content_type_id", null: false
+    t.integer "content_id"
     t.index ["name_en"], name: "index_instances_on_name_en"
   end
 
@@ -1048,6 +1049,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_10_125703) do
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_packs_on_item_id"
     t.index ["name_de"], name: "index_packs_on_name_de", unique: true
     t.index ["name_en"], name: "index_packs_on_name_en", unique: true
     t.index ["name_fr"], name: "index_packs_on_name_fr", unique: true

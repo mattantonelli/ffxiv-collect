@@ -40,9 +40,8 @@ namespace :instances do
     # Create Instances
     instances = XIVData.sheet('ContentFinderCondition', locale: 'en').each_with_object({}) do |instance, h|
       next unless instance['Name'].present? && instance_type_ids.include?(instance['ContentType'])
-
-        # Use the Content ID as the Instance ID so we can sync with the ID used by the DB sites
-        h[instance['#']] = { id: instance['Content'], content_type_id: instance['ContentType'],
+        # Content ID is used to sync with the ID used by the DB sites
+        h[instance['#']] = { id: instance['#'], content_id: instance['Content'], content_type_id: instance['ContentType'],
                              name_en: sanitize_name(instance['Name']) }
     end
 

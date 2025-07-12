@@ -29,28 +29,28 @@ namespace :triad do
 
       bronze = Pack.find_or_create_by!(id: 1, name_en: 'Bronze Triad Card', name_de: 'Boosterkarte (Bronze)',
                                        name_fr: 'Pochette Triple Triade Bronze', name_ja: 'トライアドパック・ブロンズ',
-                                       cost: 520)
+                                       cost: 520, item_id: 10128)
       bronze.cards = Card.where(name_en: BRONZE_CARDS)
       bronze.save
       create_card_sources(bronze)
 
       silver = Pack.find_or_create_by!(id: 2, name_en: 'Silver Triad Card', name_de: 'Boosterkarte (Silber)',
                                        name_fr: 'Pochette Triple Triade Argent', name_ja: 'トライアドパック・シルバー',
-                                       cost: 1150)
+                                       cost: 1150, item_id: 10129)
       silver.cards = Card.where(name_en: SILVER_CARDS)
       silver.save
       create_card_sources(silver)
 
       gold = Pack.find_or_create_by!(id: 3, name_en: 'Gold Triad Card', name_de: 'Boosterkarte (Gold)',
                                      name_fr: 'Pochette Triple Triade Or', name_ja: 'トライアドパック・ゴールド',
-                                     cost: 2160)
+                                     cost: 2160, item_id: 10130)
       gold.cards = Card.where(name_en: GOLD_CARDS)
       gold.save
       create_card_sources(gold)
 
       mythril = Pack.find_or_create_by!(id: 4, name_en: 'Mythril Triad Card', name_de: 'Boosterkarte (Mithril)',
                                         name_fr: 'Pochette Triple Triade Mithrite', name_ja: 'トライアドパック・ミスライト',
-                                        cost: 8000)
+                                        cost: 8000, item_id: 13380)
       mythril.cards = Card.where(name_en: MYTHRIL_CARDS)
       mythril.save
       create_card_sources(mythril)
@@ -58,20 +58,20 @@ namespace :triad do
       platinum = Pack.find_or_create_by!(id: 5, name_en: 'Platinum Triad Card', name_de: 'Boosterkarte (Platin)',
                                          name_fr: 'Pochette Triple Triade Platine', name_ja: 'トライアドパック・プラチナ',
                                          cost: 0)
-      platinum.cards = Card.where(name_en: PLATINUM_CARDS)
+      platinum.cards = Card.where(name_en: PLATINUM_CARDS, item_id: 10077)
       platinum.save
       create_card_sources(platinum)
 
       imperial = Pack.find_or_create_by!(id: 6, name_en: 'Imperial Triad Card', name_de: 'Garleische Triple Triad-Karte',
                                          name_fr: 'Pochette Triple Triade Impériale', name_ja: 'インペリアルトライアドパック',
-                                         cost: 2160)
+                                         cost: 2160, item_id: 17702)
       imperial.cards = Card.where(name_en: IMPERIAL_CARDS)
       imperial.save
       create_card_sources(imperial)
 
       dream = Pack.find_or_create_by!(id: 7, name_en: 'Dream Triad Card', name_de: 'Boosterkarte (Traum)',
                                       name_fr: 'Pochette Triple Triade Onirique', name_ja: 'トライアドパック・ドリーム',
-                                      cost: 3240)
+                                      cost: 3240, item_id: 28652)
       dream.cards = Card.where(name_en: DREAM_CARDS)
       dream.save
       create_card_sources(dream)

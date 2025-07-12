@@ -40,16 +40,16 @@ namespace 'sources:shops' do
     XIVData.sheet('SpecialShop').each do |shop|
       2.times do |j|
         60.times do |i|
-          item_id = shop["Item{Receive}[#{i}][#{j}]"]
+          item_id = shop["Item[#{i}].Item[#{j}]"]
           break if item_id == '0'
 
           next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
 
-          price = shop["Count{Cost}[#{i}][#{j}]"]
+          price = shop["Item[#{i}].CurrencyCost[#{j}]"]
           next if price == '0'
 
-          currency = shop["Item{Cost}[#{i}][#{j}]"]
-          case currency.to_i
+          currency_item_id = shop["Item[#{i}].ItemCost[#{j}]"].to_i
+          case currency_item_id
           when 25, 36656
             type = pvp_type
           when 27, 10307, 26533
@@ -70,7 +70,7 @@ namespace 'sources:shops' do
             type = purchase_type
           end
 
-          currency = Item.find(shop["Item{Cost}[#{i}][#{j}]"])
+          currency = Item.find(currency_item_id)
 
           # Do not create shop sources for Moogle Treasure Trove rewards
           next if currency['name_en'].match?('Irregular Tomestone')

@@ -8,7 +8,7 @@ namespace 'sources:pvp' do
 
     XIVData.sheet('PvPSeries').each do |series|
       32.times do |level|
-        item_id = series["LevelRewardItem[#{level}][0]"]
+        item_id = series["LevelRewards[#{level}].LevelRewardItem[0]"]
 
         if item_id != '0' && unlock = Item.find(item_id).unlock
           next if unlock.sources.any?

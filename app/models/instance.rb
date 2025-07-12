@@ -10,6 +10,7 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  content_type_id :integer          not null
+#  content_id      :integer
 #
 
 class Instance < ApplicationRecord
