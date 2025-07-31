@@ -153,7 +153,7 @@ end
 def get_coordinate(value, map_offset, size_factor)
   scale = size_factor / 100.0
   offset = (value + map_offset) * scale
-  (((41.0 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
+  (((40.9 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
 end
 
 def create_image(id, image_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
