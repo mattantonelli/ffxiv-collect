@@ -49,8 +49,8 @@ namespace :frames do
         # For type 9, the criterion links to an item
         frame[:item_link] = condition['UnlockCriteria1[0]']
       # when '11'
-        # Crystalline Conflict Rewards
-        # These don't properly link to items any more. We'll just assign them a generic source later.
+        # Crystalline Conflict Seasonal Rewards
+        # These don't properly link to items any more
       end
     end
 
@@ -79,6 +79,9 @@ namespace :frames do
 
     frames.values.each do |frame|
       data = frame.except(:unlock_type, :unlock_id)
+
+      # Remove item linkages for Crystalline Conflict seasonal rewards since they got messed up
+      data[:item_id] = nil if frame['name_en'].match?(/.+ Conflict \d+/)
 
       if existing = Frame.find_by(id: frame[:id])
         existing.update!(data) if updated?(existing, data)
@@ -182,7 +185,7 @@ namespace :frames do
           if frame.portrait_only?
             image = ChunkyPNG::Image.new(256, 420, ChunkyPNG::Color::TRANSPARENT)
 
-            layers.each do |layer|
+            layers.values.each do |layer|
               image.compose!(ChunkyPNG::Image.from_blob(layer))
             end
 
