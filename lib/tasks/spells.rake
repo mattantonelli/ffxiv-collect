@@ -56,7 +56,7 @@ namespace :spells do
       spell[:aspect_id] = aspect.id.to_s
       data = spell.except('location_en', 'location_de', 'location_fr', 'location_ja', :icon)
 
-      create_image(spell[:id], spell[:icon], 'spells', nil, nil, 42, 42)
+      create_image(spell[:id], spell[:icon], 'spells', width: 42, height: 42)
 
       if existing = Spell.find_by(id: spell[:id])
         existing.update!(data) if updated?(existing, data)

@@ -12,15 +12,15 @@ namespace :fashions do
         next if Fashion.facewear_ids.include?(fashion['#'].to_i)
 
         data = h[fashion['#']] || { id: fashion['#'], order: fashion['Order'],
-                                    icon: fashion['Icon'], icon_large: fashion['Icon'].gsub('/008', '/067') }
+                                    icon: fashion['Icon'], icon_large: fashion['Icon'].sub(/^008/, '067') }
         data["name_#{locale}"] = sanitize_name(fashion['Singular'])
         h[data[:id]] = data
       end
     end
 
     fashions.values.each do |fashion|
-      create_image(fashion[:id], fashion.delete(:icon), 'fashions/small')
-      create_image(fashion[:id], fashion.delete(:icon_large), 'fashions/large')
+      create_image(fashion[:id], XIVData.image_path(fashion.delete(:icon)), 'fashions/small')
+      create_image(fashion[:id], XIVData.image_path(fashion.delete(:icon_large)), 'fashions/large')
 
       if existing = Fashion.find_by(id: fashion[:id])
         existing.update!(fashion) if updated?(existing, fashion)

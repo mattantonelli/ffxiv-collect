@@ -81,12 +81,12 @@ namespace :minions do
     end
 
     minions.values.each do |minion|
-      large_icon = minion[:icon].gsub('/004', '/068')
-      footprint_icon = XIVData.image_path(65000 + minion[:icon].to_i)
+      large_icon = minion[:icon].sub(/^004/, '068')
+      footprint_icon = 65000 + minion[:icon].to_i
 
-      create_image(minion[:id], large_icon, 'minions/large')
-      create_image(minion[:id], minion.delete(:icon), 'minions/small')
-      create_image(minion[:id], footprint_icon, 'minions/footprint', '#151515ff')
+      create_image(minion[:id], XIVData.image_path(large_icon), 'minions/large')
+      create_image(minion[:id], XIVData.image_path(minion.delete(:icon)), 'minions/small')
+      create_image(minion[:id], XIVData.image_path(footprint_icon), 'minions/footprint', mask_from: '#151515ff')
 
       if existing = Minion.find_by(id: minion[:id])
         existing.update!(minion) if updated?(existing, minion)

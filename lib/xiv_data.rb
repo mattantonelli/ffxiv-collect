@@ -22,11 +22,22 @@ module XIVData
     icon_id.to_s.rjust(6, '0')
   end
 
-  def image_path(icon_id, hd: false)
+  def image_path(icon_id)
     number = format_icon_id(icon_id)
     directory = number.first(3).ljust(6, '0')
-    icon_path = "ui/icon/#{directory}/#{number}#{'_hr1' if hd}.png"
+    "ui/icon/#{directory}/#{number}.tex"
+  end
 
-    "#{IMAGE_PATH}/#{icon_path}"
+  def download_image(path, format: 'png', hd: false)
+    url = "https://v2.xivapi.com/api/asset"
+    params = { path: path, format: format }
+    params[:path].sub!('.tex', '_hr1.tex') if hd
+
+    RestClient::Request.execute(
+      method: :get,
+      url: url,
+      headers: { params: params },
+      raw_response: true
+    )
   end
 end

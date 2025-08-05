@@ -35,12 +35,12 @@ namespace :mounts do
     end
 
     mounts.values.each do |mount|
-      large_icon = mount[:icon].gsub('/004', '/068')
-      footprint_icon = XIVData.image_path(65000 + mount[:icon].to_i)
+      large_icon = mount[:icon].sub(/^004/, '068')
+      footprint_icon = 65000 + mount[:icon].to_i
 
-      create_image(mount[:id], large_icon, 'mounts/large')
-      create_image(mount[:id], mount.delete(:icon), 'mounts/small')
-      create_image(mount[:id], footprint_icon, 'mounts/footprint', '#151515ff')
+      create_image(mount[:id], XIVData.image_path(large_icon), 'mounts/large')
+      create_image(mount[:id], XIVData.image_path(mount.delete(:icon)), 'mounts/small')
+      create_image(mount[:id], XIVData.image_path(footprint_icon), 'mounts/footprint', mask_from: '#151515ff')
 
       if existing = Mount.find_by(id: mount[:id])
         existing.update!(mount) if updated?(existing, mount)

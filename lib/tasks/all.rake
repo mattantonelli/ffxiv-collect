@@ -45,9 +45,9 @@ namespace :data do
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
     Rake::Task['occult_records:create'].invoke
-    Rake::Task['frames:create'].invoke
+    # Rake::Task['frames:create'].invoke
     Rake::Task['triad:cards:create'].invoke
-    Rake::Task['triad:card_images:create'].invoke
+    # Rake::Task['triad:card_images:create'].invoke
 
     # Sources
     Rake::Task['items:set_unlocks'].invoke
@@ -156,7 +156,7 @@ def get_coordinate(value, map_offset, size_factor)
   (((40.9 / scale) * ((offset + 1024.0) / 2048.0)) + 1).round(1)
 end
 
-def create_image(id, image_path, path, mask_from = nil, mask_to = nil, width = nil, height = nil)
+def create_image(id, image_path, path, hd: false, mask_from: nil, mask_to: nil, width: nil, height: nil)
   return unless Dir.exist?(XIVData::IMAGE_PATH)
 
   # Use the custom output pathname if provided, otherwise generate it
@@ -166,21 +166,26 @@ def create_image(id, image_path, path, mask_from = nil, mask_to = nil, width = n
     output_path = Rails.root.join('public/images', path, "#{id}.png")
   end
 
-  unless output_path.exist?
-    if mask_from.present?
-      mask_to ||= mask_from
-      image = ChunkyPNG::Image.from_file(image_path)
-      image.change_theme_color!(ChunkyPNG::Color.from_hex(mask_from), ChunkyPNG::Color.from_hex(mask_to),
-                                ChunkyPNG::Color::TRANSPARENT)
-    elsif width.present?
-      image = ChunkyPNG::Image.from_file(image_path)
-      image.resample_bilinear!(width, height)
-    else
-      image = URI.open(image_path).read
-    end
+  return if output_path.exist?
 
-    URI.open(output_path.to_s, 'wb') { |file| file << image }
+  asset = XIVData.download_image(image_path, hd: hd).body
+
+  if mask_from.present?
+    mask_to ||= mask_from
+    image = ChunkyPNG::Image.from_blob(asset)
+    image.change_theme_color!(
+      ChunkyPNG::Color.from_hex(mask_from),
+      ChunkyPNG::Color.from_hex(mask_to),
+      ChunkyPNG::Color::TRANSPARENT
+    )
+  elsif width.present?
+    image = ChunkyPNG::Image.from_blob(asset)
+    image.resample_bilinear!(width, height)
+  else
+    image = asset
   end
+
+  URI.open(output_path, 'wb') { |file| file << image }
 end
 
 def create_spritesheet(path)

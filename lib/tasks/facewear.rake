@@ -48,7 +48,7 @@ namespace :facewear do
         Dir.mkdir(path) unless Dir.exist?(path)
 
         output_path = path.join("#{icon}.png")
-        create_image(nil, XIVData.image_path(icon, hd: true), output_path)
+        create_image(nil, XIVData.image_path(icon), output_path, hd: true)
 
         # Use the first image as a sample of the facewear
         sample_path = Rails.root.join('public/images/facewear/samples', "#{facewear[:id]}.png")

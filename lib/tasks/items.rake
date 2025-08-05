@@ -7,12 +7,13 @@ namespace :items do
     count = Item.count
 
     items = XIVData.sheet('Item', locale: 'en').each_with_object({}) do |item, h|
-      next unless item['Name'].present? && item['Plural'].present?
+      next unless item['Name'].present?
 
       icon_id = XIVData.format_icon_id(item['Icon'])
       tradeable = item['ItemSearchCategory'] != '0'
 
-      data = { id: item['#'], name_en: sanitize_name(item['Name']), plural_en: sanitize_name(item['Plural']),
+      data = { id: item['#'], name_en: sanitize_name(item['Name']),
+               plural_en: item['Plural'].present? ? sanitize_name(item['Plural']) : nil,
                description_en: sanitize_text(item['Description'], preserve_space: true), icon_id: icon_id,
                tradeable: tradeable, price: item['PriceMid'] }
 
@@ -21,10 +22,10 @@ namespace :items do
 
     %w(de fr ja).each do |locale|
       XIVData.sheet('Item', locale: locale).each do |item|
-        next unless item['Name'].present? && item['Plural'].present?
+        next unless item['Name'].present?
 
         items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name']),
-                                "plural_#{locale}" => sanitize_name(item['Plural']),
+                                "plural_#{locale}" => item['Plural'].present? ? sanitize_name(item['Plural']) : nil,
                                 "description_#{locale}" => sanitize_text(item['Description'], preserve_space: true))
       end
     end

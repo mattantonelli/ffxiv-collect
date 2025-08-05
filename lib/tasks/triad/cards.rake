@@ -11,7 +11,7 @@ namespace :triad do
 
       # Load the base cards
       cards = XIVData.sheet('TripleTriadCard', locale: 'en').each_with_object({}) do |card, h|
-        next if card['#'] == '0'
+        next unless card['#'] != '0' && card['Name'].present?
 
         h[card['#']] = { id: card['#'], name_en: sanitize_name(card['Name']),
                          description_en: sanitize_text(card['Description'], preserve_space: true) }
@@ -19,7 +19,7 @@ namespace :triad do
 
       %w(fr de ja).each do |locale|
         XIVData.sheet('TripleTriadCard', locale: locale).each do |card|
-          next if card['#'] == '0'
+          next unless card['#'] != '0' && card['Name'].present?
 
           cards[card['#']].merge!("name_#{locale}" => sanitize_name(card['Name']),
                                   "description_#{locale}" => sanitize_text(card['Description'], preserve_space: true))
@@ -28,7 +28,7 @@ namespace :triad do
 
       # Add their various stats
       XIVData.sheet('TripleTriadCardResident').each do |card|
-        next if card['#'] == '0'
+        next unless cards[card['#']].present?
 
         stars = card['TripleTriadCardRarity'].scan(/\d$/).first
         formatted_number = card['UIPriority'] == '0' ? "No. #{card['Order']}" : "Ex. #{card['Order']}"
