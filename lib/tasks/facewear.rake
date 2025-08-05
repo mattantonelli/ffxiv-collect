@@ -24,7 +24,7 @@ namespace :facewear do
     end
 
     XIVData.sheet('Glasses').each do |facewear|
-      id = (facewear['GlassesStyle'].to_i + 1).to_s
+      id = (facewear['Style'].to_i + 1).to_s
 
       next unless facewear['Name'].present?
 
@@ -34,6 +34,9 @@ namespace :facewear do
     count = Facewear.count
 
     facewears.values.each do |facewear|
+      # Skip incomplete facewear
+      next if facewear[:icons].empty?
+
       data = facewear.except(:icons)
 
       if existing = Facewear.find_by(id: facewear[:id])

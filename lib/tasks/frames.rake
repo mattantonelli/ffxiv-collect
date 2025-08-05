@@ -48,17 +48,9 @@ namespace :frames do
       when '9'
         # For type 9, the criterion links to an item
         frame[:item_link] = condition['UnlockCriteria1[0]']
-      when '11'
-        # For type 11, the are multiple item links (e.g. Bronze-Crystal Framer's Kit)
-        # and we need the last non-zero value to link to the primary item
-        6.times do |i|
-          item_link = condition["UnlockCriteria1[#{5 - i}]"]
-
-          if item_link != '0'
-            frame[:item_link] = item_link
-            break
-          end
-        end
+      # when '11'
+        # Crystalline Conflict Rewards
+        # These don't properly link to items any more. We'll just assign them a generic source later.
       end
     end
 
@@ -72,6 +64,9 @@ namespace :frames do
     XIVData.sheet('Item').each do |item|
       if item['ItemAction'] == '2234'
         frame = frames[frame_links[item['AdditionalData']]]
+
+        # Skip items that can't be linked back to a frame (should just be for type 11 above)
+        next if frame.nil?
 
         frame[:item_id] = item['#']
         Item.find(item['#']).update!(unlock_type: 'Frame', unlock_id: frame[:id])
@@ -179,18 +174,23 @@ namespace :frames do
         frame.update!(portrait_only: !images.keys.intersect?(FRAME_ELEMENTS))
 
         begin
+          # Download BLOBs for each image layer
+          layers = images.each_with_object({}) do |(k, image), h|
+            h[k] = XIVData.download_image(image).body
+          end
+
           if frame.portrait_only?
             image = ChunkyPNG::Image.new(256, 420, ChunkyPNG::Color::TRANSPARENT)
 
-            images.values.each do |layer|
-              image.compose!(ChunkyPNG::Image.from_file(layer))
+            layers.each do |layer|
+              image.compose!(ChunkyPNG::Image.from_blob(layer))
             end
 
             image.save(output_path)
           else
             # Create two frame versions to support standard and mirrored portraits
-            save_frame_image(images, output_path)
-            save_frame_image(images, output_path, mirrored: true)
+            save_frame_image(layers, output_path)
+            save_frame_image(layers, output_path, mirrored: true)
           end
         rescue StandardError
           puts "Could not create image: #{output_path}"
@@ -199,7 +199,7 @@ namespace :frames do
     end
   end
 
-  def save_frame_image(images, output_path, mirrored: false)
+  def save_frame_image(layers, output_path, mirrored: false)
     if mirrored
       portrait_x = 302
       path = output_path.to_s.sub('.png', '_2.png')
@@ -210,17 +210,17 @@ namespace :frames do
 
     image = ChunkyPNG::Image.new(1280, 806, ChunkyPNG::Color::TRANSPARENT)
 
-    image.compose!(ChunkyPNG::Image.from_file(images[:backing]), 0, 0) if images.key?(:backing)
-    image.compose!(ChunkyPNG::Image.from_file(images[:base]), 270, 150) if images.key?(:base)
-    image.compose!(ChunkyPNG::Image.from_file(images[:overlay]), 270, 150) if images.key?(:overlay)
-    image.compose!(ChunkyPNG::Image.from_file(images[:background]), portrait_x, 150) if images.key?(:background)
-    image.compose!(ChunkyPNG::Image.from_file(images[:portrait_frame]), portrait_x, 150) if images.key?(:portrait_frame)
-    image.compose!(ChunkyPNG::Image.from_file(images[:portrait_accent]), portrait_x, 150) if images.key?(:portrait_accent)
-    image.compose!(ChunkyPNG::Image.from_file(images[:plate_portrait]), portrait_x - 96, 0) if images.key?(:plate_portrait)
-    image.compose!(ChunkyPNG::Image.from_file(images[:plate_frame]), 160, 86) if images.key?(:plate_frame)
-    image.compose!(ChunkyPNG::Image.from_file(images[:top_border]), 160, 86) if images.key?(:top_border)
-    image.compose!(ChunkyPNG::Image.from_file(images[:bottom_border]), 160, 478) if images.key?(:bottom_border)
-    image.compose!(ChunkyPNG::Image.from_file(images[:accent]), mirrored ? portrait_x - 128 : portrait_x + 131, 380) if images.key?(:accent)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:backing]), 0, 0) if layers.key?(:backing)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:base]), 270, 150) if layers.key?(:base)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:overlay]), 270, 150) if layers.key?(:overlay)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:background]), portrait_x, 150) if layers.key?(:background)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:portrait_frame]), portrait_x, 150) if layers.key?(:portrait_frame)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:portrait_accent]), portrait_x, 150) if layers.key?(:portrait_accent)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:plate_portrait]), portrait_x - 96, 0) if layers.key?(:plate_portrait)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:plate_frame]), 160, 86) if layers.key?(:plate_frame)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:top_border]), 160, 86) if layers.key?(:top_border)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:bottom_border]), 160, 478) if layers.key?(:bottom_border)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:accent]), mirrored ? portrait_x - 128 : portrait_x + 131, 380) if layers.key?(:accent)
 
     image.trim!
     image.save(path)

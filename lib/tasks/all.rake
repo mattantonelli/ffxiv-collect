@@ -45,9 +45,9 @@ namespace :data do
     Rake::Task['records:create'].invoke
     Rake::Task['survey_records:create'].invoke
     Rake::Task['occult_records:create'].invoke
-    # Rake::Task['frames:create'].invoke
+    Rake::Task['frames:create'].invoke
     Rake::Task['triad:cards:create'].invoke
-    # Rake::Task['triad:card_images:create'].invoke
+    Rake::Task['triad:card_images:create'].invoke
 
     # Sources
     Rake::Task['items:set_unlocks'].invoke

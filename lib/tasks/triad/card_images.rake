@@ -49,8 +49,9 @@ namespace :triad do
           end
         end
 
-        unless SMALL_CARDS_DIR.join("#{card.id}.png").exist?
-          create_small(card)
+        path = SMALL_CARDS_DIR.join("#{card.id}.png")
+        unless path.exist?
+          create_image(nil, XIVData.image_path(SMALL_OFFSET + card.id), path)
         end
       end
 
@@ -72,7 +73,8 @@ namespace :triad do
   end
 
   def create_large(card, path, color = nil)
-    image = ChunkyPNG::Image.from_file(XIVData.image_path(LARGE_OFFSET + card.id))
+    blob = XIVData.download_image(XIVData.image_path(LARGE_OFFSET + card.id)).body
+    image = ChunkyPNG::Image.from_blob(blob)
 
     if color.present?
       image = COLORED_BACKGROUNDS[color].compose(image)
@@ -100,12 +102,6 @@ namespace :triad do
     image.compose!(NUMBERS[card.left - 1], 32, 97)
 
     image.save(path)
-  end
-
-  def create_small(card)
-    URI.open(SMALL_CARDS_DIR.join("#{card.id}.png").to_s, 'wb') do |file|
-      file << URI.open(XIVData.image_path(SMALL_OFFSET + card.id)).read
-    end
   end
 
   def create_horizontal_spritesheet(source, destination, width, height)
