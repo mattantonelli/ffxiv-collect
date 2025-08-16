@@ -18,11 +18,6 @@ namespace :data do
 
   desc 'Updates all data'
   task update: :environment do
-    unless Dir.exist?(XIVData::IMAGE_PATH)
-      puts "ERROR: Could not find image source directory: #{XIVData::IMAGE_PATH}"
-      puts 'Images will not be generated.'
-    end
-
     puts 'Retrieving the latest game data from xiv-data'
     %x{cd #{Rails.root.join('vendor/xiv-data')} && git fetch && git checkout origin/main}
 
@@ -157,8 +152,6 @@ def get_coordinate(value, map_offset, size_factor)
 end
 
 def create_image(id, image_path, path, hd: false, mask_from: nil, mask_to: nil, width: nil, height: nil)
-  return unless Dir.exist?(XIVData::IMAGE_PATH)
-
   # Use the custom output pathname if provided, otherwise generate it
   if path.class == Pathname
     output_path = path
@@ -166,6 +159,7 @@ def create_image(id, image_path, path, hd: false, mask_from: nil, mask_to: nil, 
     output_path = Rails.root.join('public/images', path, "#{id}.png")
   end
 
+  # Do not re-download existing images. These can be deleted manually if new versions are needed.
   return if output_path.exist?
 
   asset = XIVData.download_image(image_path, hd: hd).body

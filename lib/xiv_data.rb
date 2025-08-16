@@ -5,7 +5,6 @@ module XIVData
   extend self
 
   BASE_PATH = Rails.root.join('vendor/xiv-data/exd').freeze
-  IMAGE_PATH = '/var/rails/images/ffxiv'.freeze
 
   def sheet(sheet, locale: nil)
     if locale.present?

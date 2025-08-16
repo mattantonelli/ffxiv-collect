@@ -25,11 +25,6 @@ namespace :triad do
 
     desc 'Create the images for each card'
     task create: :environment do
-      unless Dir.exist?(XIVData::IMAGE_PATH)
-        puts "ERROR: Could not find image source directory: #{XIVData::IMAGE_PATH}"
-        next
-      end
-
       puts 'Creating card images'
 
       counts = { large: Dir.entries(LARGE_CARDS_DIR).size, small: Dir.entries(SMALL_CARDS_DIR).size }

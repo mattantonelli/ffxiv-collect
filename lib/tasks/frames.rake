@@ -117,8 +117,6 @@ namespace :frames do
 
     puts "Created #{Frame.count - count} new framer's kits"
 
-    return unless Dir.exist?(XIVData::IMAGE_PATH)
-
     puts "Creating framer's kit images"
 
     frames.each { |k, _| frames[k] = {} }
