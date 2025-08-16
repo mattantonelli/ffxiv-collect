@@ -30,7 +30,7 @@ namespace :sources do
 
         if row[1] == 'Achievement'
           data.merge!(related_type: 'Achievement', related_id: Achievement.find_by(name_en: row[2]).id)
-        elsif ContentType.instance_type_names.include?(row[1])
+        elsif ContentType.valid_type_names.include?(row[1])
           if related_id = Instance.find_by(name_en: row[2])&.id
             data.merge!(related_type: 'Instance', related_id: related_id)
           end

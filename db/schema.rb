@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_07_12_125312) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_16_191721) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -472,10 +472,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_07_12_125312) do
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
-    t.boolean "instance", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["instance"], name: "index_content_types_on_instance"
   end
 
   create_table "deck_cards", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|

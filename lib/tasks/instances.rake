@@ -30,16 +30,11 @@ namespace :instances do
     end
 
     # Identify the content types for instances we use as source types
-    instance_types = ContentType.where(name_en: [
-      'Chaotic Raid', 'Dungeon', 'Raid', 'Treasure Hunt', 'Trial', 'Ultimate Raid', 'V&C Dungeon'
-    ])
-
-    instance_types.update_all(instance: true)
-    instance_type_ids = instance_types.pluck(:id).map(&:to_s)
+    content_type_ids = ContentType.instance_types.pluck(:id).map(&:to_s)
 
     # Create Instances
     instances = XIVData.sheet('ContentFinderCondition', locale: 'en').each_with_object({}) do |instance, h|
-      next unless instance['Name'].present? && instance_type_ids.include?(instance['ContentType'])
+      next unless instance['Name'].present? && content_type_ids.include?(instance['ContentType'])
         # Content ID is used to sync with the ID used by the DB sites
         h[instance['#']] = { id: instance['#'], content_id: instance['Content'], content_type_id: instance['ContentType'],
                              name_en: sanitize_name(instance['Name']) }
