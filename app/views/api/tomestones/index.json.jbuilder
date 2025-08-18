@@ -5,7 +5,7 @@ json.results do
     json.(reward.collectable, :id, :name)
     json.type reward.collectable_type
     json.partial! 'api/shared/sources', collectable: reward.collectable
-    json.tradeable reward.collectable.item_id.present?
+    json.tradeable reward.collectable.tradeable?
     json.(reward, :tomestone, :cost)
   end
 

@@ -1,6 +1,6 @@
 json.(barding, :id, :name, :order, :patch, :item_id)
 
-json.tradeable barding.item_id.present?
+json.tradeable barding.tradeable?
 if @prices.present?
   json.market @prices[barding.item_id]
 end

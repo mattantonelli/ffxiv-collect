@@ -1,6 +1,6 @@
 json.(hairstyle, :id, :name, :description, :patch, :item_id)
 
-json.tradeable hairstyle.item_id.present?
+json.tradeable hairstyle.tradeable?
 if @prices.present?
   json.market @prices[hairstyle.item_id]
 end

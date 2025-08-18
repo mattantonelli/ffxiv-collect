@@ -47,7 +47,7 @@ class Card < ApplicationRecord
 
   after_save :touch_related
 
-  scope :include_related, -> { includes(:type, sources: [:type, related: :location]) }
+  scope :include_related, -> { includes(:type, :item, sources: [:type, related: :location]) }
   scope :ordered, -> { order(patch: :desc, order_group: :desc, order: :desc) }
   scope :numeric_ordered, -> { order(:order) }
   scope :standard, -> { where(order_group: 0) }

@@ -2,7 +2,7 @@ module Collectable
   extend ActiveSupport::Concern
 
   included do
-    scope :tradeable, -> { where.not(item_id: nil) }
+    scope :tradeable, -> { joins(:item).where('items.tradeable IS TRUE') }
 
     scope :hide_premium, -> (hide) do
       where('sources.premium = FALSE or sources.id IS NULL') if hide && available_filters.include?(:premium)
@@ -53,20 +53,21 @@ module Collectable
         .distinct
     end
 
-    scope :include_sources, -> { includes(sources: [:type, :related] )}
+    scope :include_sources, -> { includes(:item, sources: [:type, :related] )}
 
     has_many "character_#{name.pluralize.underscore}".to_sym
     has_many :characters, through: "character_#{name.pluralize.underscore}".to_sym
     has_many :sources, as: :collectable, dependent: :delete_all
+    belongs_to :item
+
+    delegate :tradeable?, to: :item, allow_nil: true
+
     accepts_nested_attributes_for :sources
+
     has_paper_trail
 
     def expansion
       patch[0]
-    end
-
-    def tradeable?
-      self[:item_id].present?
     end
   end
 

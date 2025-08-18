@@ -1,6 +1,6 @@
 json.(emote, :id, :name, :command, :order, :patch, :item_id)
 
-json.tradeable emote.item_id.present?
+json.tradeable emote.tradeable?
 if @prices.present?
   json.market @prices[emote.item_id]
 end

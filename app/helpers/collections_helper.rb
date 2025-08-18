@@ -232,7 +232,7 @@ module CollectionsHelper
   end
 
   def price_sort_value(collectable)
-    if collectable.item_id.present?
+    if collectable.tradeable?
       @prices.dig(collectable.item_id, 'price') || '9999999998'
     else
       '9999999999'

@@ -57,8 +57,8 @@ class ToolsController < ApplicationController
   def materiel
     @containers = (3..4).each_with_object({}) do |number, h|
       h[number] = {
-        mounts: Mount.materiel_container(number).ordered,
-        minions: Minion.materiel_container(number).ordered
+        mounts: Mount.materiel_container(number).includes(:item).ordered,
+        minions: Minion.materiel_container(number).includes(:item).ordered
       }
     end
 

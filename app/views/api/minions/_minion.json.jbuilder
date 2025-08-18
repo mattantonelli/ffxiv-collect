@@ -1,6 +1,6 @@
 json.(minion, :id, :name, :description, :enhanced_description, :tooltip, :patch, :item_id)
 
-json.tradeable minion.item_id.present?
+json.tradeable minion.tradeable?
 if @prices.present?
   json.market @prices[minion.item_id]
 end

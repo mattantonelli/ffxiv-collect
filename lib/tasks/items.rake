@@ -64,7 +64,7 @@ namespace :items do
         orchestrion_id = item['AdditionalData']
 
         the_item.update!(unlock_type: 'Orchestrion', unlock_id: orchestrion_id)
-        Orchestrion.find(orchestrion_id).update!(item_id: the_item.id) if the_item.tradeable?
+        Orchestrion.find(orchestrion_id).update!(item_id: the_item.id)
       when '2251'
         # Match Facewear by the item name
         the_item = Item.find(item['#'])
@@ -72,7 +72,7 @@ namespace :items do
 
         if facewear = Facewear.find_by(name_en: name)
           the_item.update!(unlock_type: 'Facewear', unlock_id: facewear.id)
-          facewear.update!(item_id: the_item.id) if the_item.tradeable?
+          facewear.update!(item_id: the_item.id)
         else
           "Could not find matching facewear: #{name}"
         end
@@ -114,8 +114,7 @@ namespace :items do
           # Set the item unlock data
           item.update!(unlock_type: unlock_type, unlock_id: data)
 
-          # Set the collectable's item ID if the item is tradeable
-          collectable.update!(item_id: item.id) if item.tradeable?
+          collectable.update!(item_id: item.id)
           break
         end
       end

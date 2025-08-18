@@ -1,6 +1,6 @@
 json.(orchestrion, :id, :name, :description, :patch, :item_id)
 
-json.tradeable orchestrion.item_id.present?
+json.tradeable orchestrion.tradeable?
 if @prices.present?
   json.market @prices[orchestrion.item_id]
 end

@@ -1,7 +1,7 @@
 json.(mount, :id, :name, :description, :enhanced_description, :tooltip, :movement,
       :seats, :custom_music, :order, :order_group, :patch, :item_id)
 
-json.tradeable mount.item_id.present?
+json.tradeable mount.tradeable?
 if @prices.present?
   json.market @prices[mount.item_id]
 end

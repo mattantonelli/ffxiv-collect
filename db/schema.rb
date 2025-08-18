@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_16_191721) do
+ActiveRecord::Schema[7.2].define(version: 2025_08_18_003916) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -172,8 +172,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_16_191721) do
     t.integer "order_group"
     t.integer "deck_order"
     t.string "formatted_number", null: false
+    t.integer "item_id"
     t.index ["card_type_id"], name: "index_cards_on_card_type_id"
     t.index ["deck_order"], name: "index_cards_on_deck_order"
+    t.index ["item_id"], name: "index_cards_on_item_id"
     t.index ["name_de"], name: "index_cards_on_name_de"
     t.index ["name_en"], name: "index_cards_on_name_en"
     t.index ["name_fr"], name: "index_cards_on_name_fr"
