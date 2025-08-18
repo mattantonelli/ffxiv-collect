@@ -13,6 +13,7 @@
 #  item_id     :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  tradeable   :boolean          default(FALSE)
 #
 class Outfit < ApplicationRecord
   include Collectable
@@ -24,6 +25,13 @@ class Outfit < ApplicationRecord
   # The items that comprise the outfit
   has_many :outfit_items, dependent: :delete_all
   has_many :items, through: :outfit_items
+
+  # Override tradeable logic since outfits cannot be linked to a single item
+  delegate :tradeable?, to: self
+
+  def tradeable?
+    self.tradeable
+  end
 
   def self.available_filters
     %i(owned tradeable gender premium limited ranked_pvp armoire unknown)

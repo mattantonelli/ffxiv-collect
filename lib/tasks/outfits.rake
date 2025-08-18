@@ -25,7 +25,8 @@ namespace :outfits do
 
       # Check the associated items for tradeability and gender restrictions
       Item.where(id: item_ids).each do |item|
-        data[:item_id] = outfit['#'] if item.tradeable?
+        data[:item_id] = outfit['#']
+        data[:tradeable] ||= true if item.tradeable? # Consider the outfit tradeable if any item is tradeable
 
         gender = case item.description_en
                  when /♂/ then 'male'
