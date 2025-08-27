@@ -23,24 +23,16 @@ namespace :hairstyles do
 
       data.merge!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
 
-      data[:item_id] = item.id.to_s if item.tradeable?
-
-      unless item.description_en.match(/viera/i)
-        data[:vierable] = true
-      end
-
-      unless item.description_en.match(/hrothgar/i)
-        data[:femhrothable] = true
-      end
-
-      unless item.description_en.match(/(?<!female )hrothgar/i)
-        data[:hrothable] = true
-      end
+      data[:item_id] = item.id.to_s
 
       case item.description_en
       when /♂/ then data[:gender] = 'male'
       when /♀/ then data[:gender] = 'female'
       end
+
+      data[:vierable] = !item.description_en.match(/viera/i)
+      data[:femhrothable] = !item.description_en.match(/hrothgar/i) && data[:gender] != 'male'
+      data[:hrothable] = !item.description_en.match(/(?<!female )hrothgar/i) && data[:gender] != 'female'
 
       if existing = Hairstyle.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)
