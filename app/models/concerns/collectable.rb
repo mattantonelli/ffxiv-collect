@@ -58,7 +58,7 @@ module Collectable
     has_many "character_#{name.pluralize.underscore}".to_sym
     has_many :characters, through: "character_#{name.pluralize.underscore}".to_sym
     has_many :sources, as: :collectable, dependent: :delete_all
-    belongs_to :item
+    belongs_to :item, required: false
 
     delegate :tradeable?, to: :item, allow_nil: true
 
