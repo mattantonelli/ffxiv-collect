@@ -70,9 +70,11 @@ namespace :relics do
                                           name_fr: "Outils cosmiques", name_ja: "コスモツール",
                                           category: 'tools', order: 5, jobs: 11, expansion: 7)
 
-      ids = (45679..45689).to_a # Cosmic
+      ids = (45679..45689).to_a + # Cosmic
+        (49053..49063).to_a # Stellar
 
-      achievement_ids = (3691..3701).to_a
+      achievement_ids = (3691..3701).to_a +
+        (3792..3802).to_a
 
       create_relics(type, ids, achievement_ids)
 
