@@ -73,7 +73,7 @@
         <tbody>
           <% @items.each do |reward| %>
             <tr>
-              <td><%= image_tag("items/#{reward.collectable.id}.png") %></td>
+              <td><%= image_tag("items/#{reward.collectable.icon_id}.png") %></td>
               <td><%= reward.collectable.name %></td>
               <td class="text-center" data-value="<%= !reward.collectable.tradeable %>">
                 <%= reward_market_link(reward) %>

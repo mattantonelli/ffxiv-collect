@@ -75,7 +75,7 @@ namespace :tomestones do
           TomestoneReward.find_or_create_by!(collectable: collectable || item, cost: cost, tomestone: tomestone)
 
           unless collectable.present?
-            create_image(item.id, XIVData.image_path(item.icon_id), 'items')
+            create_image(item.icon_id, XIVData.image_path(item.icon_id), 'items')
           end
         end
       end
