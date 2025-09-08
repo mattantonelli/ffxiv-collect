@@ -75,8 +75,7 @@ namespace :tomestones do
           TomestoneReward.find_or_create_by!(collectable: collectable || item, cost: cost, tomestone: tomestone)
 
           unless collectable.present?
-            create_image(item.id, XIVData.image_path(item.icon_id),
-                         Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
+            create_image(item.id, XIVData.image_path(item.icon_id), 'items')
           end
         end
       end

@@ -79,5 +79,6 @@
 /public/images/cards*
 /public/images/outfits/*
 /public/images/outfit_items/*
+/public/images/items/*
 
 /public/music/*
