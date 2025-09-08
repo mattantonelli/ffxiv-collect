@@ -5,6 +5,8 @@ module XIVData
   extend self
 
   BASE_PATH = Rails.root.join('vendor/xiv-data/exd').freeze
+  BASE_URL = 'https://v2.xivapi.com/api/asset'.freeze
+  USER_AGENT = "FFXIVCollect".freeze
 
   def sheet(sheet, locale: nil)
     if locale.present?
@@ -28,14 +30,13 @@ module XIVData
   end
 
   def download_image(path, format: 'png', hd: false)
-    url = "https://v2.xivapi.com/api/asset"
     params = { path: path, format: format }
     params[:path].sub!('.tex', '_hr1.tex') if hd
 
     RestClient::Request.execute(
       method: :get,
-      url: url,
-      headers: { params: params },
+      url: BASE_URL,
+      headers: { params: params, user_agent: USER_AGENT },
       raw_response: true
     )
   end
