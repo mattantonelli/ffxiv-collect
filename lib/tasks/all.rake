@@ -43,6 +43,7 @@ namespace :data do
     Rake::Task['frames:create'].invoke
     Rake::Task['triad:cards:create'].invoke
     Rake::Task['triad:card_images:create'].invoke
+    Rake::Task['items:create_images'].invoke
 
     # Sources
     Rake::Task['items:set_unlocks'].invoke

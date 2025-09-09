@@ -29,6 +29,7 @@
             <dd class="mb-0"><%= format_text(@fashion.description) %></dd>
             <dt><%= t('source') %></dt>
             <dd class="mb-0"><%= sources(@fashion, list: true) %></dd>
+            <%= render('shared/item', collectable: @fashion) %>
             <div class="d-block d-sm-none">
               <%= safe_image_tag("fashions/large/#{@fashion.id}.png", class: 'image-large') %>
             </div>

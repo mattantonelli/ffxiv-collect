@@ -30,6 +30,7 @@
         </div>
         <dt><%= t('source') %></dt>
         <dd><%= sources(@hairstyle) %></dd>
+        <%= render('shared/item', collectable: @hairstyle) %>
         <% if @hairstyle.description.present? %>
           <dt><%= t('description') %></dt>
           <dd class="mb-0"><%= format_text(@hairstyle.description) %></dd>

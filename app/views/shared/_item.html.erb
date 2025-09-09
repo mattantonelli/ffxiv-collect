@@ -1,0 +1,11 @@
+<% if collectable.item_id.present? %>
+  <dt><%= t('item') %></dt>
+  <dd class="inline">
+    <%= database_link("item", nil, collectable.item_id) do %>
+      <div class="d-flex align-items-center">
+        <%= safe_image_tag("items/#{collectable.item.icon_id}") %>
+        <span class="ml-2"><%= collectable.item.name %></span>
+      </div>
+    <% end %>
+  </dd>
+<% end %>

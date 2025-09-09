@@ -34,6 +34,9 @@
           <% end %>
           <dt><%= t('source') %></dt>
           <dd class="mb-0"><%= sources(collectable, list: true) %></dd>
+          <% if collectable.class == Barding %>
+            <%= render('shared/item', collectable: collectable) %>
+          <% end %>
         </div>
       </div>
     </div>

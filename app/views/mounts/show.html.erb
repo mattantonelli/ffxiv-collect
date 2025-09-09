@@ -39,6 +39,7 @@
             </div>
             <dt><%= t('source') %></dt>
             <dd><%= sources(@mount, list: true) %></dd>
+            <%= render('shared/item', collectable: @mount) %>
             <dt><%= t('description') %></dt>
             <dd><%= format_text(@mount.description) %></dd>
             <dt><%= t('journal') %></dt>

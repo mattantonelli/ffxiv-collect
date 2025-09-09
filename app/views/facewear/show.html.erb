@@ -21,6 +21,7 @@
         </div>
         <dt><%= t('source') %></dt>
         <dd><%= sources(@facewear) %></dd>
+        <%= render('shared/item', collectable: @facewear) %>
         <hr>
         <div class="d-flex flex-wrap facewear-list">
           <% 12.times do |i| %>

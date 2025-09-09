@@ -36,6 +36,7 @@
           </div>
           <dt><%= t('source') %></dt>
           <dd class="mb-0"><%= sources(@emote, list: true) %></dd>
+          <%= render('shared/item', collectable: @emote) %>
         </div>
       </div>
     </div>

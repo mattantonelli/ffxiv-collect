@@ -134,4 +134,18 @@ namespace :items do
       Fashion.find_by(id: item.unlock_id)&.update!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
     end
   end
+
+  desc 'Create images for items that unlock collectables'
+  task create_images: :environment do
+    puts 'Creating item images'
+    icon_ids = [Mount, Minion, Hairstyle, Emote, Orchestrion, Barding, Fashion, Facewear].flat_map do |model|
+      model.includes(:item).all.map do |collectable|
+        collectable.item&.icon_id
+      end
+    end
+
+    icon_ids.compact.uniq.each do |icon_id|
+      create_image(icon_id, XIVData.image_path(icon_id), 'items')
+    end
+  end
 end

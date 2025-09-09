@@ -25,6 +25,7 @@
         </div>
         <dt><%= t('source') %></dt>
         <dd><%= sources(minion, list: true) %></dd>
+        <%= render('shared/item', collectable: @minion) %>
         <dt><%= t('description') %></dt>
         <dd><%= format_text(minion.description) %></dd>
         <dt><%= t('journal') %></dt>
