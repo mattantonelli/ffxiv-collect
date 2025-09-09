@@ -3,7 +3,7 @@
   <dd class="inline">
     <%= database_link("item", nil, collectable.item_id) do %>
       <div class="d-flex align-items-center">
-        <%= safe_image_tag("items/#{collectable.item.icon_id}") %>
+        <%= safe_image_tag("items/#{collectable.item.icon_id}.png") %>
         <span class="ml-2"><%= collectable.item.name %></span>
       </div>
     <% end %>
