@@ -115,6 +115,15 @@ namespace :relics do
 
       create_relics(type, ids, achievement_ids)
 
+      ## Exquisite
+      type = RelicType.find_or_create_by!(name_en: "Exquisite Weapons", name_de: "Exquisite Waffen",
+                                        name_fr: "Armes magnifiées", category: 'weapons',
+                                        order: 8, jobs: 21, expansion: 7)
+
+      ids = (41679..41697).to_a + [44243, 44244]
+
+      create_relics(type, ids)
+
       ## Phantom
 
       # Penumbrae > Umbrae
@@ -126,7 +135,7 @@ namespace :relics do
 
       type = RelicType.find_or_create_by!(name_en: "Phantom Weapons", name_de: "Phantomwaffen",
                                           name_fr: "Armes fantômes", category: 'weapons',
-                                          order: 8, jobs: 21, expansion: 7)
+                                          order: 9, jobs: 21, expansion: 7)
 
       create_relics(type, ids, achievement_ids)
 
