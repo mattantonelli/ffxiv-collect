@@ -11,8 +11,11 @@ namespace :fashions do
         next unless fashion['Singular'].present?
         next if Fashion.facewear_ids.include?(fashion['#'].to_i)
 
+        icon = XIVData.format_icon_id(fashion['Icon'])
+
         data = h[fashion['#']] || { id: fashion['#'], order: fashion['Order'],
-                                    icon: fashion['Icon'], icon_large: fashion['Icon'].sub(/^008/, '067') }
+                                    icon: icon, icon_large: icon.sub(/^008/, '067') }
+
         data["name_#{locale}"] = sanitize_name(fashion['Singular'])
         h[data[:id]] = data
       end
