@@ -13,7 +13,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors', '~> 1.1.0'
-gem 'rack', '2.2.19'
+gem 'rack', '2.2.20'
 gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
