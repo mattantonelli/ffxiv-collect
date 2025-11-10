@@ -8,8 +8,8 @@ class StaticController < ApplicationController
   def credits
     @developers = Character.where(id: [7660136]).order(:name)
     @sourcers = Character.where(id: [17928665, 4763007]).order(:name)
-    @translators = Character.where(id: [17928665, 7547066, 8011032, 7944237, 5602002, 30220792, 3937654])
-      .order(:name)
+    @translators = Character.where(id: [17928665, 7547066, 8011032, 7944237, 5602002, 30220792, 3937654]).order(:name)
+    @supporters = Character.where(supporter: true).order(:name)
   end
 
   def faq

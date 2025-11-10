@@ -214,7 +214,10 @@ Rails.application.routes.draw do
     resources :users, :groups, only: :index
 
     resources :characters, only: :index do
-      delete :unverify, on: :member
+      member do
+        post :support
+        delete :unverify
+      end
     end
 
     resources :versions, only: [] do

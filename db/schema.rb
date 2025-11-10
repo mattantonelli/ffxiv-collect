@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_08_18_212914) do
+ActiveRecord::Schema[7.2].define(version: 2025_11_09_231558) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -433,6 +433,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_08_18_212914) do
     t.string "pricing_data_center"
     t.integer "outfits_count", default: 0
     t.integer "occult_records_count", default: 0
+    t.boolean "supporter", default: false
     t.index ["achievement_points"], name: "index_characters_on_achievement_points"
     t.index ["achievements_count"], name: "index_characters_on_achievements_count"
     t.index ["armoires_count"], name: "index_characters_on_armoires_count"

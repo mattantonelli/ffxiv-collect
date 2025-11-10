@@ -9,6 +9,8 @@
         <%= label_tag :verified %>
         <%= check_box_tag :public, 1, @public, class: 'form-control' %>
         <%= label_tag :public %>
+        <%= check_box_tag :supporter, 1, @supporter, class: 'form-control' %>
+        <%= label_tag :supporter %>
         <%= f.select :server_eq, Character.servers, { include_blank: 'All Servers' }, class: 'form-control form-control-sm' %>
         <%= f.search_field :name_cont, placeholder: 'Name', size: 30, class: 'form-control form-control-sm' %>
         <%= f.search_field :id_eq, placeholder: 'ID', size: 15, class: 'form-control form-control-sm' %>
@@ -28,8 +30,9 @@
         <th>Last Parsed</th>
         <th>Verified User</th>
         <th>Verified User Discord ID</th>
-        <th class="text-center mr-4">Public</th>
-        <th></th> <!-- Buttons -->
+        <th class="text-center">Public</th>
+        <th class="text-center">Supporter</th>
+        <th class="ml-4"></th> <!-- Buttons -->
       </tr>
       <% @characters.each do |character| %>
         <tr>
@@ -41,8 +44,10 @@
           <td><%= username(character.verified_user) %></td>
           <td><%= character.verified_user&.uid %></td>
           <td class="text-center"><%= fa_check(character.public?, false) %></td>
+          <td class="text-center"><%= fa_check(character.supporter?, false) %></td>
           <td class="pr-0">
             <%= link_to fa_icon('info-circle'), character_path(character), class: 'btn btn-secondary btn-sm' %>
+            <%= link_to fab_icon('patreon'), support_admin_character_path(character), method: :post, class: 'btn btn-secondary btn-sm' %>
             <% if character.verified? %>
               <%= link_to fa_icon('times'), unverify_admin_character_path(character), method: :delete,
                 data: { confirm: 'Are you sure you want to unverify this character?' }, class: 'btn btn-secondary btn-sm' %>

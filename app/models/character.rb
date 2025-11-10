@@ -334,7 +334,7 @@ class Character < ApplicationRecord
     attributes = super + %w(server data_center)
 
     if auth_object == :admin
-      attributes += %w(verified public)
+      attributes += %w(verified public supporter)
     end
 
     attributes
