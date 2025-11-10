@@ -57,6 +57,14 @@
                               class: 'name') %>
                 </div>
                 <%= character_free_company_link(@profile) %>
+                <div class="d-flex flex-wrap mt-1">
+                  <% if @profile.early_user? %>
+                    <span class="badge badge-early-user mr-2"><%= far_icon('star', text: t('badges.early_user')) %></span>
+                  <% end %>
+                  <% if @profile.supporter? %>
+                    <span class="badge badge-patreon mr-2"><%= fab_icon('patreon', text: t('badges.supporter')) %></span>
+                  <% end %>
+                </div>
               </div>
               <div class="align-self-start ml-auto">
                 <%= render 'shared/active_filters' %>

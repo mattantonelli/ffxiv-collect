@@ -121,6 +121,10 @@ class Character < ApplicationRecord
     stale? && !in_queue?
   end
 
+  def early_user?
+    verified_user.created_at <= '2020-06-20'
+  end
+
   def most_recent(collection, filters: nil, limit: 10)
     if collection == 'titles'
       collectables = achievements.joins(:title).includes(:title).order('character_achievements.created_at desc')

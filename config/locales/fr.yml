@@ -119,6 +119,9 @@ fr:
   armoires:
     title: "Bahut personnel"
   back: "Retour"
+  badges:
+    early_user: "Vétéran"
+    supporter: "Mécène"
   bardings:
     title: "Bardes"
   cards:

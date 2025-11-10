@@ -118,6 +118,9 @@ de:
   armoires:
     title: "Ausrüstung"
   back: "Zurück"
+  badges:
+    early_user: "Early User"
+    supporter: "Supporter"
   bardings:
     title: "Rossharnische"
   cards:

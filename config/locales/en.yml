@@ -119,6 +119,9 @@ en:
   armoires:
     title: "Armoire"
   back: "Back"
+  badges:
+    early_user: "Early User"
+    supporter: "Supporter"
   bardings:
     title: "Bardings"
   cards:
