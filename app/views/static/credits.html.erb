@@ -42,7 +42,7 @@
       <div class="card shadow">
         <div class="card-header d-flex justify-content-between align-items-center">
           <h5 class="card-title"><%= t('credits.supporters') %></h5>
-          <% if !@character.supporter? %>
+          <% if !@character&.supporter? %>
             <%= link_to t('home_page.patreon_button'), 'https://www.patreon.com/raelys', class: 'btn btn-sm patreon', target: '_blank' %>
           <% end %>
         </div>
