@@ -13,7 +13,7 @@ class TomestonesController < ApplicationController
       end
     end
 
-    @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%').order(:id)
+    @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%').order(:created_at)
 
     if params[:action] == 'index'
       @tomestone = @tomestones.last.tomestone_name
