@@ -122,7 +122,7 @@ class Character < ApplicationRecord
   end
 
   def early_user?
-    verified_user.created_at <= '2020-06-20'
+    verified? && verified_user.created_at <= '2020-06-20'
   end
 
   def most_recent(collection, filters: nil, limit: 10)
