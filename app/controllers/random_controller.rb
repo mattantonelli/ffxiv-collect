@@ -5,9 +5,27 @@ class RandomController < ApplicationController
   ].freeze
 
   def index
-    model = COLLECTIONS.sample
-    id = model.ids.sample
+    # Try up to 10 times in case a character has every item in a collection
+    retries = 10
 
-    redirect_to polymorphic_path(model.find(id))
+    while retries > 0
+      model = COLLECTIONS.sample
+      ids = model == Minion ? Minion.summonable.ids : model.ids
+
+      if !@character.present?
+        return redirect_to polymorphic_path(model.find(ids.sample))
+      end
+
+      character_ids = @character.send("#{model.to_s.underscore}_ids")
+      unowned_ids = ids - character_ids
+
+      if unowned_ids.length > 0
+        return redirect_to polymorphic_path(model.find(unowned_ids.sample))
+      end
+
+      retries -= 1
+    end
+
+    redirect_to root_path
   end
 end
