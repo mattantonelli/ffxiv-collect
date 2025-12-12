@@ -16,17 +16,17 @@ class LevesController < ApplicationController
   end
 
   def battlecraft
-    @craft = 'Battlecraft'
+    @craft = 'battlecraft'
     index
   end
 
   def tradecraft
-    @craft = 'Tradecraft'
+    @craft = 'tradecraft'
     index
   end
 
   def fieldcraft
-    @craft = 'Fieldcraft'
+    @craft = 'fieldcraft'
     index
   end
 

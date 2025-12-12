@@ -1,4 +1,4 @@
-<% title("#{t('leves.title')} - #{@craft}") %>
+<% title("#{t('leves.title')} - #{t("leves.crafts.#{@craft}")}") %>
 <% description("Track your character's #{@craft} levequests.") %>
 
 <%= render 'shared/filters' %>
@@ -30,7 +30,7 @@
           <th scope="col" class="text-center hide-sm"><%= t('verminion.cost') %></th>
           <th scope="col"><%= t('spells.location') %></th>
           <th scope="col" class="hide-sm"><%= t('leves.issuer') %></th>
-          <% unless @craft == 'Battlecraft' %>
+          <% unless @craft == 'battlecraft' %>
             <th scope="col" class="leve-item"><%= t('item') %></th>
             <th scope="col" class="text-center hide-sm leve-item"><%= fa_icon('dollar-sign') %></th>
             <th scope="col" class="text-center hide-sm leve-item" data-defaultsort="disabled">
@@ -59,7 +59,7 @@
               <%= location(leve.location, leve.issuer_x, leve.issuer_y) %>
             </td>
             <td class="hide-sm"><%= leve.issuer_name %></td>
-            <% unless @craft == 'Battlecraft' %>
+            <% unless @craft == 'battlecraft' %>
               <td class="leve-item"><%= leve_item(leve) %></td>
               <td class="text-center hide-sm leve-item" data-value="<%= price_sort_value(leve) %>">
                 <%= market_link(leve) %>
