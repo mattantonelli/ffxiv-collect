@@ -119,8 +119,12 @@ de:
     title: "Ausrüstung"
   back: "Zurück"
   badges:
-    early_user: "Early User"
-    supporter: "Supporter"
+    text:
+      early_user: "Early User"
+      supporter: "Supporter"
+    tooltip:
+      early_user: "Der verifizierte Account dieses Charakters wurde vor dem 20. Juni 2020 erstellt"
+      supporter: "Der Accountinhaber dieses Charakters hat die Webseite auf Patreon oder Ko-Fi unterstützt"
   bardings:
     title: "Rossharnische"
   cards:

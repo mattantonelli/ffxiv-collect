@@ -120,8 +120,12 @@ fr:
     title: "Bahut personnel"
   back: "Retour"
   badges:
-    early_user: "Vétéran"
-    supporter: "Mécène"
+    text:
+      early_user: "Vétéran"
+      supporter: "Mécène"
+    tooltip:
+      early_user: "L'utilisateur vérifié associé à ce personnage a été créé avant le 20 juin 2020"
+      supporter: "L'utilisateur associé à ce personnage a apporté son soutien au site via Patreon ou Ko-fi"
   bardings:
     title: "Bardes"
   cards:

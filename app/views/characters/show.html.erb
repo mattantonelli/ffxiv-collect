@@ -59,10 +59,14 @@
                 <%= character_free_company_link(@profile) %>
                 <div class="d-flex flex-wrap mt-1">
                   <% if @profile.early_user? %>
-                    <span class="badge badge-early-user mr-2"><%= far_icon('star', text: t('badges.early_user')) %></span>
+                    <span class="badge badge-early-user mr-2" title="<%= t('badges.tooltip.early_user') %>" data-toggle="tooltip">
+                      <%= far_icon('star', text: t('badges.text.early_user')) %>
+                    </span>
                   <% end %>
                   <% if @profile.supporter? %>
-                    <span class="badge badge-patreon mr-2"><%= fab_icon('patreon', text: t('badges.supporter')) %></span>
+                    <span class="badge badge-patreon mr-2" title="<%= t('badges.tooltip.supporter') %>" data-toggle="tooltip">
+                      <%= fab_icon('patreon', text: t('badges.text.supporter')) %>
+                    </span>
                   <% end %>
                 </div>
               </div>

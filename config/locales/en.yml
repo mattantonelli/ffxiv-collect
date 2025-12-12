@@ -120,8 +120,12 @@ en:
     title: "Armoire"
   back: "Back"
   badges:
-    early_user: "Early User"
-    supporter: "Supporter"
+    text:
+      early_user: "Early User"
+      supporter: "Supporter"
+    tooltip:
+      early_user: "Character's verified user was created before Jun 20, 2020"
+      supporter: "Character's user has supported the site on Patreon or Ko-fi"
   bardings:
     title: "Bardings"
   cards:
