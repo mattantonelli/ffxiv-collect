@@ -72,6 +72,19 @@ namespace 'sources:shops' do
 
           currency = Item.find(currency_item_id)
 
+          currency = case currency.name_en
+          when "Water Shard"
+            Item.find_by(name_en: "Orange Gatherers' Scrip")
+          when "Lightning Shard"
+            Item.find_by(name_en: "Orange Crafters' Scrip")
+          when "Wind Shard"
+            Item.find_by(name_en: "Purple Gatherers' Scrip")
+          when "Fire Shard"
+            Item.find_by(name_en: "Purple Crafters' Scrip")
+          else
+            currency
+          end
+
           # Do not create shop sources for Moogle Treasure Trove rewards
           next if currency['name_en'].match?('Irregular Tomestone')
 
