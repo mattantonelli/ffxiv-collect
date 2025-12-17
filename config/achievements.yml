@@ -85,6 +85,8 @@ shared:
     - 3405
     - 3406
     - 3407
+    # Contests
+    - 3900
   time_limited_category_ids:
     # PvP > Ranking
     - 8
