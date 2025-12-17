@@ -5,23 +5,33 @@ module Collectable
     scope :tradeable, -> { joins(:item).where('items.tradeable IS TRUE') }
 
     scope :hide_premium, -> (hide) do
-      where('sources.premium = FALSE or sources.id IS NULL') if hide && available_filters.include?(:premium)
+      if hide && available_filters.include?(:premium)
+        where('sources.premium = FALSE or sources.id IS NULL')
+      end
     end
 
     scope :hide_limited, -> (hide) do
-      where('sources.limited = FALSE or sources.id IS NULL') if hide && available_filters.include?(:limited)
+      if hide && available_filters.include?(:limited)
+        where('sources.limited = FALSE or sources.id IS NULL')
+      end
     end
 
     scope :hide_ranked_pvp, -> (hide) do
-      where('sources.text_en not like "%Season %" or sources.id IS NULL') if hide && available_filters.include?(:ranked_pvp)
+      if hide && available_filters.include?(:ranked_pvp)
+        where('(sources.text_en not like "%Season %" and sources.text_en not like "%Commendation Crystals") or sources.id IS NULL')
+      end
     end
 
     scope :hide_armoire_storable, -> (hide) do
-      where(armoireable: false) if hide && available_filters.include?(:armoire)
+      if hide && available_filters.include?(:armoire)
+        where(armoireable: false)
+      end
     end
 
     scope :hide_unknown, -> (hide) do
-      where('sources.id IS NOT NULL') if hide && available_filters.include?(:unknown)
+      if hide && available_filters.include?(:unknown)
+        where('sources.id IS NOT NULL')
+      end
     end
 
     scope :filter_gender, -> (option, character) do
