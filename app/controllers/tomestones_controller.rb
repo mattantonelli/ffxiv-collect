@@ -16,9 +16,10 @@ class TomestonesController < ApplicationController
     @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%').order(:created_at)
 
     if params[:action] == 'index'
-      @tomestone = @tomestones.last.tomestone_name
+      @tomestone = @tomestones.last.tomestone_name(locale: I18n.locale)
     else
-      @tomestone = params[:id].titleize
+      item = Item.find_by(name_en: "Irregular Tomestone Of #{params[:id]}")
+      @tomestone = item&.tomestone_name(locale: I18n.locale) || params[:id].titleize
     end
 
     @title = "#{t('tomestones.title')}: #{@tomestone}"
