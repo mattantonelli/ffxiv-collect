@@ -121,19 +121,19 @@ namespace :frames do
 
     frames.each { |k, _| frames[k] = {} }
 
-    XIVData.sheet('CharaCardBase', locale: 'en').each do |component|
-      id = component['UnlockCondition']
+    XIVData.sheet('CharaCardBase', locale: 'en').each do |base|
+      id = base['UnlockCondition']
 
       if frames.key?(id)
-        frames[id][:base] = XIVData.image_path(component['Image'])
+        frames[id][:base] = XIVData.image_path(base['Image'])
       end
     end
 
-    XIVData.sheet('CharaCardDecoration', locale: 'en').each do |component|
-      id = component['UnlockCondition']
+    XIVData.sheet('CharaCardDecoration', locale: 'en').each do |decoration|
+      id = decoration['UnlockCondition']
 
       if frames.key?(id)
-        key = case component['Category']
+        key = case decoration['Component']
               when '1' then :backing
               when '2' then :overlay
               when '3' then :plate_portrait
@@ -141,26 +141,26 @@ namespace :frames do
               when '5' then :accent
               end
 
-        frames[id][key] = XIVData.image_path(component['Image'])
+        frames[id][key] = XIVData.image_path(decoration['Image'])
       end
     end
 
     { background: 'BannerBg', portrait_frame: 'BannerFrame', portrait_accent: 'BannerDecoration' }.each do |key, sheet|
-      XIVData.sheet(sheet, locale: 'en').each do |component|
-        id = component['UnlockCondition']
+      XIVData.sheet(sheet, locale: 'en').each do |banner|
+        id = banner['UnlockCondition']
 
         if frames.key?(id)
-          frames[id][key] = XIVData.image_path(component['Image'])
+          frames[id][key] = XIVData.image_path(banner['Image'])
         end
       end
     end
 
-    XIVData.sheet('CharaCardHeader', locale: 'en').each do |component|
-      id = component['UnlockCondition']
+    XIVData.sheet('CharaCardHeader', locale: 'en').each do |header|
+      id = header['UnlockCondition']
 
       if frames.key?(id)
-        frames[id][:top_border] = XIVData.image_path(component['TopImage']) if component['TopImage'] != '0'
-        frames[id][:bottom_border] = XIVData.image_path(component['BottomImage']) if component['BottomImage'] != '0'
+        frames[id][:top_border] = XIVData.image_path(header['TopImage']) if header['TopImage'] != '0'
+        frames[id][:bottom_border] = XIVData.image_path(header['BottomImage']) if header['BottomImage'] != '0'
       end
     end
 
