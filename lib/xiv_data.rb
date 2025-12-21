@@ -10,9 +10,9 @@ module XIVData
 
   def sheet(sheet, locale: nil)
     if locale.present?
-      path = "#{BASE_PATH}/#{sheet}.#{locale}.csv"
+      path = "#{BASE_PATH}/#{locale}/#{sheet}.csv"
     else
-      path = "#{BASE_PATH}/#{sheet}.en.csv"
+      path = "#{BASE_PATH}/en/#{sheet}.csv"
     end
 
     data = File.read(path)
