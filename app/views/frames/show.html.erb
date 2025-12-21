@@ -32,6 +32,7 @@
           <dt><%= t('source') %></dt>
           <dd><%= sources(@frame) %></dd>
           <% if @item.present? %>
+            <%= render('shared/item', collectable: @frame) %>
             <dt><%= t('description') %></dt>
             <dd><%= format_text_long(@item.description) %></dd>
           <% end %>
