@@ -17,12 +17,6 @@
       <div class="card-body">
         <div class="d-flex flex-column flex-info">
           <div class="d-flex flex-wrap">
-            <% if @item.present? %>
-              <div>
-                <dt><%= t('frames.item_name') %></dt>
-                <dd><%= @item.name %></dd>
-              </div>
-            <% end %>
             <%= render 'shared/ownership', collectable: @frame %>
             <div>
               <dt><%= t('patch') %></dt>
