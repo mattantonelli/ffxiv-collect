@@ -84,7 +84,7 @@ namespace :items do
     XIVData.sheet('ItemAction').each do |action|
       next unless data = items[action['#']]
 
-      unlock_type = case action['Type']
+      unlock_type = case action['Action']
                     when '853'  then 'Minion'
                     when '1013' then 'Barding'
                     when '1322' then 'Mount'
