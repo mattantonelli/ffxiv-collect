@@ -330,7 +330,7 @@ module CollectionsHelper
       when 'NPC'
         if npc = source.related
           link = link_to(source.text, npc_path(source.related_id))
-          content = "#{link}&nbsp;-&nbsp;#{location(npc.location, npc.x, npc.y, inline: true)}".html_safe
+          content = "#{link}&nbsp;-&nbsp;#{location(npc.location, npc.x, npc.y, inline: true)}"
         else
           content = source.text
         end
@@ -339,7 +339,7 @@ module CollectionsHelper
       when 'Voyages'
         if list
           voyage_type, texts = source.text.split(' - ')
-          content = texts.split(', ').map { |text| "#{voyage_type} - #{text}"}.join('<br>').html_safe
+          content = texts.split(', ').map { |text| "#{voyage_type} - #{text}"}.join('<br>')
         else
           texts = source.text.split(', ')
           if texts.size > 3
@@ -352,7 +352,11 @@ module CollectionsHelper
         content = source.text
       end
 
-      { type: type, content: content }
+      if source.limited?
+        content = "#{content}&nbsp;#{far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited'))}"
+      end
+
+      { type: type, content: content.html_safe }
     end
 
     content_tag(:div, class: 'sources') do

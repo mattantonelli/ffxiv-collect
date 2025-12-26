@@ -502,6 +502,7 @@ fr:
   tooltips:
     limited_leve: "Ceci est une introduction aux mandats. Elle peut uniquement être effectuée dans la ville de départ de votre personnage."
     ownership: "Personnages publics qui possèdent %{collectable}"
+    time_limited: "Cette méthode d'obtention est à durée limitée"
     time_limited_achievement: "Ce haut fait est limité dans le temps. Il n'est pas pris en compte dans les classements."
   tradeable: "Échangeable"
   triad:
