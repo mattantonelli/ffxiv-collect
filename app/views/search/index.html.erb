@@ -2,18 +2,18 @@
 <% description('Search for collectables.') %>
 
 <%= render 'shared/filters' %>
+<div class="d-flex flex-wrap justify-content-center type-buttons collection mb-2">
+  <% @types.each do |type| %>
+    <button type="button" class="btn btn-dark<%= ' active' unless @hidden_types.include?(type[:model]) %>" data-value="<%= type[:value] %>">
+      <%= collectable_icon(type[:value]) %>
+      <%= type[:label] %>
+    </button>
+  <% end %>
+  <button type="button" class="btn btn-sm btn-secondary" id="reset"><%= fa_icon('undo') %></button>
+</div>
 <div class="d-flex justify-content-center">
   <div class="d-inline-flex flex-column">
-    <div class="d-flex flex-wrap justify-content-center type-buttons mb-2">
-      <% @types.each do |type| %>
-        <button type="button" class="btn btn-dark<%= ' active' unless @hidden_types.include?(type[:model]) %>" data-value="<%= type[:value] %>">
-          <%= type[:label] %>
-        </button>
-      <% end %>
-      <button type="button" class="btn btn-sm btn-secondary" id="reset"><%= fa_icon('undo') %></button>
-    </div>
-    <div class="d-flex justify-content-between align-items-end mb-1">
-      <div></div>
+    <div class="d-flex flex-wrap justify-content-center">
       <%= search_form_for(@q, url: search_index_path, enforce_utf8: false,
                           class: 'form form-inline search-form d-flex') do |f| %>
         <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
@@ -27,6 +27,8 @@
           {}, class: 'form-control form-control-sm' %>
         <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
       <% end %>
+    </div>
+    <div class="d-flex justify-content-end mb-1">
       <%= render 'shared/active_filters' %>
     </div>
     <% if character_selected? %>
@@ -39,6 +41,7 @@
       <thead>
         <tr>
           <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->
+          <th scope="col" data-defaultsort="disabled"></th> <!-- Icon -->
           <th scope="col"><%= t('name') %></th>
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
@@ -53,6 +56,7 @@
         <% @collectables.each do |collectable| %>
           <tr class="<%= collectable_classes(collectable, generic: true) %><%= ' hidden' if @hidden_types.include?(collectable.class) %>" data-type="<%= collectable.class %>">
             <td><%= collectable_image_link(collectable) %></td>
+            <td><%= collectable_icon(collectable) %></td>
             <td>
               <%= collectable_name_link(collectable) %>
               <% if collectable.class == Achievement && collectable.time_limited? %>

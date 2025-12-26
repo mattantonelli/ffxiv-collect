@@ -43,6 +43,36 @@ module CollectionsHelper
     end
   end
 
+  def collectable_icon(collectable)
+    # Handle as both a string and an instance of a model
+    case (collectable.is_a?(String) ? collectable : collectable.class.to_s)
+    when 'Mount'
+      fa_icon('horse')
+    when 'Minion'
+      fa_icon('paw')
+    when 'Orchestrion'
+      fa_icon('music')
+    when 'Hairstyle'
+      fa_icon('cut')
+    when 'Emote'
+      fa_icon('smile')
+    when 'Barding'
+      fa_icon('chess-knight')
+    when 'Armoire'
+      fa_icon('tshirt')
+    when 'Outfit'
+      fa_icon('socks')
+    when 'Fashion'
+      fa_icon('umbrella')
+    when 'Facewear'
+      fa_icon('glasses')
+    when 'Frame'
+      fa_icon('portrait')
+    when 'Card'
+      fa_icon('id-badge')
+    end
+  end
+
   def generic_sprite(collection, collectable)
     case collection
     when 'titles'
