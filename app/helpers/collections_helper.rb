@@ -349,7 +349,7 @@ module CollectionsHelper
   end
 
   def sources(collectable, list: false)
-    sources = collectable.sources.flat_map do |source|
+    sources = collectable.sources.flat_map.filter_map do |source|
       case type = source.type.name_en
       when 'Achievement'
         content = achievement_link(source)
@@ -381,6 +381,8 @@ module CollectionsHelper
       else
         content = source.text
       end
+
+      next if content.nil?
 
       if source.limited?
         content = "#{content}&nbsp;#{far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited'))}"
