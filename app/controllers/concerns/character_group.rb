@@ -14,8 +14,17 @@ module CharacterGroup
     @collection = params[:collection] || 'mounts'
     @owned_ids = owned_ids(@collection.classify)
 
-    @collectables = @collection.classify.constantize.joins(sources: :type).with_filters(cookies).ordered.reverse_order.distinct
-    @collectables = @collectables.where('source_types.id = ?', params[:source_type_id]) if params[:source_type_id].present?
+    @collectables = @collection.classify.constantize
+      .where.not(patch: nil)
+      .joins(sources: :type)
+      .with_filters(cookies)
+      .ordered
+      .reverse_order
+      .distinct
+
+    if params[:source_type_id].present?
+      @collectables = @collectables.where('source_types.id = ?', params[:source_type_id])
+    end
 
     # Exclude collectables owned by everyone in the group if desired
     @collectables = @collectables.where.not(id: @owned_ids.values.reduce(:&)) if params[:owned] == 'missing'
