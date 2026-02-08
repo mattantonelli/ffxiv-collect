@@ -33,6 +33,7 @@
       <tr>
         <th></th>
         <% @collectables.each do |collectable| %>
+          <%= next if collectable.expansion.nil? %>
           <th class="expansion-<%= collectable.expansion %>" title="<%= collectable.name %>"
             data-toggle="tooltip" data-placement="top" data-boundary="window">
             <%= link_to(polymorphic_path(collectable), target: '_blank') do %>
@@ -66,6 +67,7 @@
             <% end %>
           </th>
           <% @collectables.each do |collectable| %>
+            <%= next if collectable.expansion.nil? %>
             <%= group_collectable_td(character, collectable) %>
           <% end %>
         </tr>
