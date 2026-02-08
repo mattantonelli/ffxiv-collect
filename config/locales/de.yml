@@ -523,7 +523,7 @@ de:
       previous: "Vorherige"
       remove_all: "Entferne alle"
       save: "Speicher Karten"
-      total: "Anzahl"
+      total: "Anzahl: %{owned} / %{total}"
     currency: "MGP"
     decks:
       after_5_5: "Nach Patch 5.5"

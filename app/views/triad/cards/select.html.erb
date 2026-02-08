@@ -23,7 +23,7 @@
 </div>
 <div class="card-buttons d-flex flex-column mx-auto mt-1 px-1">
   <span class="font-weight-bold ml-auto mb-1" id="total">
-    <%= t('triad.card_select.total') %>: <%= @owned_cards.size %> / <%= Card.count %>
+    <%= t('triad.card_select.total', owned: @owned_cards.size, total: Card.count) %>
   </span>
   <div class="d-flex">
     <button type="button" class="btn btn-success btn-sm w-50 mr-1" id="add-all">

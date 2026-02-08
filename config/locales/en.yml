@@ -522,7 +522,7 @@ en:
       previous: "Prev"
       remove_all: "Remove All"
       save: "Save Cards"
-      total: "Total"
+      total: "Total: %{owned} / %{total}"
     currency: "MGP"
     decks:
       after_5_5: "After 5.5"
