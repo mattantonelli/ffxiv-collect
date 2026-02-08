@@ -77,7 +77,7 @@ module Collectable
     has_paper_trail
 
     def expansion
-      patch[0]
+      patch&.first
     end
   end
 
