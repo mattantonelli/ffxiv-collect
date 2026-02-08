@@ -17,7 +17,7 @@
             <div class="d-flex flex-wrap">
               <div>
                 <dt><%= t('mounts.movement') %></dt>
-                <dd><%= @mount.movement %></dd>
+                <dd><%= t("mounts.#{@mount.movement.downcase}") %></dd>
               </div>
               <div>
                 <dt><%= t('tradeable') %></dt>

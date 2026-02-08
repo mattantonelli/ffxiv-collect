@@ -333,9 +333,9 @@ fr:
     behavior: "Comportement"
     title: "Mascottes"
   mounts:
-    custom_music: "Musique Spéciale"
+    airborne: "Volante"
+    custom_music: "Musique spéciale"
     custom_music_tooltip: "Cette monture dispose d'une musique spéciale"
-    flying: "Volante"
     movement: "Mouvement"
     person_count:
       one: "%{count} personne"
@@ -343,6 +343,7 @@ fr:
     preview: "Aperçu vidéo"
     seats: "Places"
     seats_tooltip: "Cette monture peut transporter %{person_count}"
+    terrestrial: "Terrestre"
     title: "Montures"
   name: "Nom"
   new: "Nouveau !"

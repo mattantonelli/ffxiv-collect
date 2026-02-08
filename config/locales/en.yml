@@ -332,9 +332,9 @@ en:
     behavior: "Behavior"
     title: "Minions"
   mounts:
+    airborne: "Airborne"
     custom_music: "Custom Music"
     custom_music_tooltip: "This mount plays custom music"
-    flying: "Flying"
     movement: "Movement"
     person_count:
       one: "%{count} person"
@@ -342,6 +342,7 @@ en:
     preview: "Video Preview"
     seats: "Seats"
     seats_tooltip: "This mount seats %{person_count}"
+    terrestrial: "Terrestrial"
     title: "Mounts"
   name: "Name"
   new: "New!"
