@@ -487,8 +487,9 @@ fr:
     description: "Cet objet peut être obtenu en récompense de l'évènement %{link}."
     original_source: "Autres méthodes d'obtention"
     other_items: "Autres récompenses"
+    page_title: "Collection MogMog : %{name}"
     source: "Emplacement d'origine"
-    title: "Collection MogMog : %{name}"
+    title: "Collection MogMog"
   tools:
     gemstones:
       title: "Gemmes bicolores"

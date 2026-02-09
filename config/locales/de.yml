@@ -486,8 +486,9 @@ de:
     description: "Die folgenden Sammelobjekte können als Belohnung durch das das Event %{link} erhalten werden."
     original_source: "Ursprüngliche Quelle"
     other_items: "Andere Gegenstände"
+    page_title: "MogMog Kollektion: %{name}"
     source: "Ursprüngliche Quelle"
-    title: "MogMog Kollektion: %{name}"
+    title: "MogMog Kollektion"
   tools:
     gemstones:
       title: "Zweifarbiger Edelsteine"

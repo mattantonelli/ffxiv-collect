@@ -485,8 +485,9 @@ en:
     description: "The following collectables are available as rewards from the %{link} event."
     original_source: "Original Source"
     other_items: "Other Items"
+    page_title: "Moogle Treasure Trove: %{name}"
     source: "Original Source"
-    title: "Moogle Treasure Trove: %{name}"
+    title: "Moogle Treasure Trove"
   tools:
     gemstones:
       title: "Bicolor Gemstones"
