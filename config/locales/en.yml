@@ -486,7 +486,7 @@ en:
     original_source: "Original Source"
     other_items: "Other Items"
     source: "Original Source"
-    title: "Moogle Treasure Trove"
+    title: "Moogle Treasure Trove: %{name}"
   tools:
     gemstones:
       title: "Bicolor Gemstones"

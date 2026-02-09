@@ -488,7 +488,7 @@ fr:
     original_source: "Autres méthodes d'obtention"
     other_items: "Autres récompenses"
     source: "Emplacement d'origine"
-    title: "Collection MogMog"
+    title: "Collection MogMog : %{name}"
   tools:
     gemstones:
       title: "Gemmes bicolores"

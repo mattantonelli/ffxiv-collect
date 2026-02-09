@@ -23,7 +23,7 @@ class TomestonesController < ApplicationController
       @tomestone = Item.find_by(name_en: "Irregular Tomestone Of #{params[:id]}")
     end
 
-    @title = "#{t('tomestones.title')}: #{@tomestone.tomestone_name(locale: I18n.locale)}"
+    @title = "#{t('tomestones.title', name: @tomestone.tomestone_name(locale: I18n.locale).upcase_first)}"
     @collectables = collectables(@tomestone.tomestone_name)
     @items = items(@tomestone.tomestone_name)
   end
