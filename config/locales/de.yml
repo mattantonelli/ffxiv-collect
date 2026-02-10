@@ -512,10 +512,10 @@ de:
   triad:
     card_select:
       add_all: "Alle hinzufügen"
-      help1: "Wenn du mehr als die Hälfte aller Karten besitzt, klicke den <b>Add All</b> Knopf."
-      help2: "Vergleiche jede Seite und füge Karten hinzu bzw. entferne sie, bis deine Sammlung deiner <b>Card List</b> im Spiel entspricht."
-      help3: "Überprüfe, ob die <b>Total</b> deiner Karten der Anzahl im Spiel entspricht."
-      help4: "Klicke auf <b>Save Cards</b>."
+      help1: "Wenn du mehr als die Hälfte aller Karten besitzt, klicke den <b>Alle hinzufügen</b> Knopf."
+      help2: "Vergleiche jede Seite und füge Karten hinzu bzw. entferne sie, bis deine Sammlung deiner <b>Kartenliste</b> im Spiel entspricht."
+      help3: "Überprüfe, ob die <b>Anzahl</b> deiner Karten der Anzahl im Spiel entspricht."
+      help4: "Klicke auf <b>Speicher Karten</b>."
       how_to_use: "Anleitung"
       next: "Nächste"
       not_saved: "Deine Auswahl wurde nicht gespeichert! Bist du sicher, dass du die Seite verlassen möchtest?"
