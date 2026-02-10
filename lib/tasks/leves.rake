@@ -6,8 +6,8 @@ namespace :leves do
     PaperTrail.enabled = false
 
     battle = { craft_en: 'Battlecraft', craft_de: 'Gefecht', craft_fr: 'Mercenariat', craft_ja: '傭兵稼業' }
-    trade =  { craft_en: 'Tradecraft', craft_de: 'Sammel', craft_fr: 'Récolte', craft_ja: '採集稼業' }
-    field =  { craft_en: 'Fieldcraft', craft_de: 'Fertigung', craft_fr: 'Artisanat', craft_ja: '製作稼業' }
+    trade =  { craft_en: 'Tradecraft', craft_de: 'Fertigung', craft_fr: 'Artisanat', craft_ja: '製作稼業' }
+    field =  { craft_en: 'Fieldcraft', craft_de: 'Sammel', craft_fr: 'Récolte', craft_ja: '採集稼業' }
     item_categories = ['Carpenter', 'Blacksmith', 'Armorer', 'Goldsmith', 'Leatherworker',
                        'Weaver', 'Alchemist', 'Culinarian', 'Fisher']
 
