@@ -172,7 +172,6 @@ fr:
     select_character: "Sélectionner un personnage"
     select_server: "Sélectionner un serveur"
     server: "Monde d'origine"
-    server: "Serveur"
     set_to_private: "Défini en accès privé"
     statistics: "Statistiques"
     stats: "Statistiques du personnage"

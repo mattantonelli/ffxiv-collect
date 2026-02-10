@@ -13,7 +13,7 @@
           <%= select_tag :category, leaderboards_categories(@category), class: 'form-control form-control-sm' %>
           <%= select_tag :data_center, options_for_select(Character.data_centers, params[:data_center]),
             include_blank: t('all.data_centers'), class: 'form-control form-control-sm' %>
-          <%= select_tag :server, servers_for_select(params[:server]), include_blank: t('all.servers'),
+          <%= select_tag :server, servers_for_select(params[:server]), include_blank: t('all.worlds'),
             class: 'form-control form-control-sm' %>
           <%= select_tag :limit, limit_options(@limit), class: 'form-control form-control-sm' %>
           <%= submit_tag t('search'), name: nil, class: 'btn btn-primary btn-sm' %>
