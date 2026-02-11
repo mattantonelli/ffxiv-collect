@@ -261,7 +261,7 @@ fr:
     profile: "Profil du groupe"
     refresh:
       button: "Actualiser les membres"
-      in_progress: "Actualiser maintenant"
+      in_progress: "En cours d'actualisation"
       up_to_date: "À jour"
     stale: "Ce personnage n'est pas à jour."
     title: "Groupes personnalisés"
@@ -487,7 +487,7 @@ fr:
     original_source: "Autres provenances"
     other_items: "Autres récompenses"
     page_title: "Collection MogMog : %{name}"
-    source: "Provenance d'origine"
+    source: "Provenance"
     title: "Collection MogMog"
   tools:
     gemstones:
