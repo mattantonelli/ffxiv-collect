@@ -28,9 +28,9 @@ fr:
               too_many_fives: "Votre deck ne peut contenir qu'une carte \u2605\u2605\u2605\u2605\u2605."
               too_many_rares: "Votre deck ne peut contenir que deux cartes \u2605\u2605\u2605\u2605 ou plus."
             npc:
-              blank: "Votre deck a spécifié un PNJ invalide."
+              blank: "Vous avez spécifié un PNJ invalide pour votre deck."
             rule:
-              blank: "Votre deck a spécifié une règle invalide."
+              blank: "Vous avez spécifié une règle invalide pour votre deck."
   add: "Ajouter"
   alerts:
     character_already_refreshed: "Les informations de votre personnage ont déjà été actualisées ces dernières 30 minutes. Veuillez réessayer plus tard."
@@ -53,7 +53,7 @@ fr:
       already_refreshed: "Tous les personnages sont à jour."
       character_limit: "Désolé, il est impossible d'ajouter plus de 100 personnages dans un groupe."
       create_failure: "Un problème a eu lieu pendant la création de votre groupe."
-      create_success: "Votre groupe a été créé. Utilisez la fontion de recherche ci-dessous pour y ajouter des membres."
+      create_success: "Votre groupe a été créé. Utilisez la fonction de recherche ci-dessous pour y ajouter des membres."
       delete_confirm: "Voulez-vous vraiment supprimer ce groupe ?"
       delete_failure: "Un problème a eu lieu pendant la suppression du groupe."
       delete_success: "Le groupe a été supprimé."
@@ -66,12 +66,12 @@ fr:
       update_failure: "Un problème a eu lieu pendant la mise à jour de votre groupe."
       update_success: "Votre groupe a été mis à jour."
     here: "ici"
-    lodestone_error: "Une erreur est survenue lors de l'accès à Lodestone."
+    lodestone_error: "Une erreur est survenue lors de la tentative d'accès au Lodestone."
     lodestone_maintenance: "Le Lodestone est actuellement en maintenance."
     no_characters_found: "Aucun personnage trouvé."
     no_longer_tracking: "Vous ne suivez plus les collections de ce personnage."
     not_found: "Cette page n'a pas pu être trouvée."
-    not_signed_in: "Vous devez être authentifié pour effectuer cette action."
+    not_signed_in: "Vous devez être connecté pour effectuer cette action."
     not_verified: "Ce personnage n'est pas vérifié. Si vous souhaitez mettre à jour manuellement ses collections, utilisez %{link}."
     private_character: "Les collections de ce personnage sont privées. Si vous possédez ce personnage et voulez le transférer à votre compte actuel, cliquez %{link}."
     private_collection: "Cette collection est privée sur le Lodestone. Vous devez la rendre publique pour tous les utilisateurs %{link} afin qu'elle soit mise à jour."
@@ -172,7 +172,7 @@ fr:
     select_character: "Sélectionner un personnage"
     select_server: "Sélectionner un serveur"
     server: "Monde d'origine"
-    set_to_private: "Défini en accès privé"
+    set_to_private: "Accès privé"
     statistics: "Statistiques"
     stats: "Statistiques du personnage"
     title: "Personnage"
@@ -250,7 +250,7 @@ fr:
   free_companies:
     title: "Profil de la compagnie libre"
   groups:
-    character_not_found: "Aucun personnage trouvé.<br>Merci d'ajouter ce personnage depuis la %{link} et ré-essayez."
+    character_not_found: "Aucun personnage trouvé.<br>Merci d'ajouter ce personnage via la %{link} et ré-essayez."
     collections: "Collections"
     edit: "Modifier le groupe"
     manage_members: "Gérer les membres"
