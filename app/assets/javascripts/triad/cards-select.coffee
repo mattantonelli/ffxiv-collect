@@ -36,7 +36,7 @@ $(document).on 'turbolinks:load', ->
     $('#page').text(I18n.t('triad.card_select.page', number: page))
 
   update_cards = ->
-    $('#total').text('Total: ' + owned_cards().length + ' / ' + all_cards().length)
+    $('#total').text(I18n.t('triad.card_select.total', owned: owned_cards().length, total: all_cards().length))
     ids = $.map owned_cards(), (card) -> $(card).data('id')
     $('#card-ids').val(ids.toString())
     dirty = true
