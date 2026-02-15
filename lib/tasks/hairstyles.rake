@@ -17,8 +17,9 @@ namespace :hairstyles do
       # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
       %w(en de fr ja).each do |locale|
         data["name_#{locale}"] = sanitize_name(item["name_#{locale}"])
-          .gsub(/.*(?:- |:|“(?=\w))(.*)/, '\1')
+          .gsub(/.*(?:[-,]\s|:\s*|[„“](?=\S))(.*)/, '\1')
           .delete('“”')
+          .upcase_first
       end
 
       data.merge!(item.slice(:description_en, :description_de, :description_fr, :description_ja))
@@ -59,8 +60,8 @@ namespace :hairstyles do
     end
 
     # Create the Eternal Bonding hairstyle which lacks an item unlock
-    Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Eternal Bonding',
-                                 name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding', vierable: true,
+    Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Ewige Bund',
+                                 name_fr: 'Lien Éternel', name_ja: 'Eternal Bonding', vierable: true,
                                  hrothable: true, femhrothable: true)
 
     # Cache hairstyle image counts in the database
