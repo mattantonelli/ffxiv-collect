@@ -13,7 +13,7 @@ namespace :facewear do
       h[id] = {
         id: id,
         name_en: sanitize_name(facewear['Name']),
-        lodestone_name: sanitize_name(facewear['Singular']),
+        lodestone_name: sanitize_name(facewear['Singular'], capitalize: true),
         order: facewear['Order'],
         icons: [],
       }
@@ -25,7 +25,7 @@ namespace :facewear do
 
         id = (facewear['#'].to_i + 1).to_s
 
-        facewears[id]["name_#{locale}"] = sanitize_name(facewear['Name'])
+        facewears[id]["name_#{locale}"] = sanitize_name(facewear['Name'], locale: locale)
       end
     end
 

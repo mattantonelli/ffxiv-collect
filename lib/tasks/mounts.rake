@@ -16,7 +16,7 @@ namespace :mounts do
                                   seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: XIVData.format_icon_id(mount['Icon']),
                                   movement: mount['IsAirborne'] == 'True' ? 'Airborne' : 'Terrestrial',
                                   custom_music: !COMMON_MUSIC_IDS.include?(mount['RideBGM'].to_i) }
-        data["name_#{locale}"] = sanitize_name(mount['Singular'])
+        data["name_#{locale}"] = sanitize_name(mount['Singular'], locale: locale, capitalize: true)
 
         h[data[:id]] = data
       end

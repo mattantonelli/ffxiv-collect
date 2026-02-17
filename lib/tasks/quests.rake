@@ -22,7 +22,7 @@ namespace :quests do
           data = h[quest['#']]
         end
 
-        data["name_#{locale}"] = sanitize_text(quest['Name'])
+        data["name_#{locale}"] = sanitize_name(quest['Name'], locale: locale)
         h[data[:id]] = data
       end
     end

@@ -52,7 +52,7 @@ namespace :achievements do
     achievements = XIVData.sheet('Achievement', locale: 'en').each_with_object({}) do |achievement, h|
       next unless achievement['Name'].present? && achievement['AchievementCategory'] != '0'
 
-      data = { id: achievement['#'], name_en: sanitize_text(achievement['Name']),
+      data = { id: achievement['#'], name_en: sanitize_name(achievement['Name']),
                description_en: sanitize_text(achievement['Description']), points: achievement['Points'],
                category_id: achievement['AchievementCategory'], order: achievement['Order'],
                image_path: XIVData.image_path(achievement['Icon']), icon_id: XIVData.format_icon_id(achievement['Icon']) }
@@ -68,7 +68,7 @@ namespace :achievements do
       XIVData.sheet('Achievement', locale: locale).each do |achievement|
         next unless achievement['Name'].present? && achievement['AchievementCategory'] != '0'
 
-        achievements[achievement['#']].merge!("name_#{locale}" => sanitize_text(achievement['Name']),
+        achievements[achievement['#']].merge!("name_#{locale}" => sanitize_name(achievement['Name'], locale: locale),
                                               "description_#{locale}" => sanitize_text(achievement['Description']))
       end
     end

@@ -20,7 +20,7 @@ namespace :spells do
     %w(en de fr ja).each do |locale|
       XIVData.sheet('Action', locale: locale).each do |action|
         next unless spells.has_key?(action['#'])
-        spells[action['#']]["name_#{locale}"] = sanitize_name(action['Name'])
+        spells[action['#']]["name_#{locale}"] = sanitize_name(action['Name'], locale: locale, upcase_first_only: true)
       end
     end
 
@@ -38,7 +38,7 @@ namespace :spells do
 
         data[:order] ||= spell['Number']
         data[:icon] ||= spell['Icon']
-        data["location_#{locale}"] ||= sanitize_name(spell['Location']) if spell['Location'].present?
+        data["location_#{locale}"] ||= sanitize_name(spell['Location'], locale: locale) if spell['Location'].present?
         data["tooltip_#{locale}"] = sanitize_text(spell['Description'])
 
         type, aspect, rank = spell['Stats'].gsub(/\*\*.+\*\*/, '').split

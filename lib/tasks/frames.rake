@@ -30,7 +30,7 @@ namespace :frames do
         id = bg['UnlockCondition']
 
         if frames.key?(id)
-          frames[id]["name_#{locale}"] = sanitize_name(bg['Name'])
+          frames[id]["name_#{locale}"] = sanitize_name(bg['Name'], locale: locale)
         end
       end
     end

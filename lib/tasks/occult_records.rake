@@ -13,7 +13,7 @@ namespace :occult_records do
 
         data = h[record['#']] || { id: record['#'], image: record['Image'] }
 
-        data["name_#{locale}"] = sanitize_name(record['Name'])
+        data["name_#{locale}"] = sanitize_name(record['Name'], locale: locale)
         data["description_#{locale}"] = sanitize_text(record['Description'], preserve_space: true)
         h[data[:id]] = data
       end

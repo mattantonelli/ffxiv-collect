@@ -27,7 +27,9 @@ namespace :triad do
       %w(en fr de ja).each do |locale|
         XIVData.sheet('ENpcResident', locale: locale).each do |npc|
           if npcs.has_key?(npc['#'])
-            npcs[npc['#']]["name_#{locale}"] = sanitize_name(npc['Singular'])
+            npcs[npc['#']]["name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale,
+                                                             capitalize: locale == 'en',
+                                                             upcase_first_only: locale == 'fr')
           end
         end
       end
@@ -106,7 +108,8 @@ namespace :triad do
 
         # Create or update the NPC
         if npc = NPC.find_by(id: data[:id])
-          data.except!('name_en', 'name_de', 'name_fr', 'name_ja', :quest_id, :rule_ids)
+          # data.except!('name_en', 'name_de', 'name_fr', 'name_ja', :quest_id, :rule_ids)
+          data.except!(:quest_id, :rule_ids)
           npc.update!(data) if updated?(npc, data)
         else
           npc = NPC.create!(data)

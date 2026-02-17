@@ -27,7 +27,7 @@ namespace :survey_records do
         next unless record['Name'].present?
 
         data = h[record['#']] || { id: record['#'], icon: record['Icon'], image: record['Image'] }
-        data["name_#{locale}"] = sanitize_name(record['Name'])
+        data["name_#{locale}"] = sanitize_name(record['Name'], locale: locale)
         data["description_#{locale}"] = sanitize_text(record['Description'].gsub(/(?<!\n)\n(?!\n)/, "\n\n"),
                                                       preserve_space: true)
         h[data[:id]] = data

@@ -14,7 +14,7 @@ namespace :bardings do
         data = h[barding['#']] || { id: barding['#'], order: barding['Order'],
                                     icon: barding['IconBody'].present? ? barding['IconBody'] : barding['IconHead'] }
 
-        data["name_#{locale}"] = sanitize_name(barding['Name'])
+        data["name_#{locale}"] = sanitize_name(barding['Name'], locale: locale)
         h[data[:id]] = data
       end
     end

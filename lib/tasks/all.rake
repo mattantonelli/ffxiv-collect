@@ -64,17 +64,31 @@ def log(message)
   puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] #{message}"
 end
 
-def sanitize_name(name)
-  # TODO: Do not capitalize short conjunctions/prepositions
-  name = name.split(' ').each { |s| s[0] = s[0].upcase }.join(' ')
+# Conjunctions/prepositions + Garlean ranks + Gabriel alpha mount
+WORDS_TO_IGNORE = %w(a an and as at by de for from in into la of on or over the to up with
+	aan goe mal oen pyr quo rem sas tol van yae
+  α).freeze
 
+def sanitize_name(name, locale: 'en', capitalize: false, upcase_first_only: false)
   # Clean up symbols, language tags, etc.
-  name.gsub('[t]', 'der')
+  name = name.gsub('[t]', 'der')
     .gsub('[a]', 'e')
     .gsub('[A]', 'er')
     .gsub('[p]', '')
     .gsub(/[\uE0BE\uE0BF]+ ?/, '') # Remove internal symbols
-    .gsub(/ \((.)/) { |match| match.upcase } # (extreme) → (Extreme)
+
+  return name.upcase_first if upcase_first_only
+
+  return name unless capitalize
+
+  # Capitalize for 'en' and 'ja' only ('ja' uses English names sometimes)
+  if locale == 'en' || locale == 'ja'
+    name = name.split(' ')
+      .map { |word| WORDS_TO_IGNORE.include?(word) ? word : word.upcase_first }
+      .join(' ')
+  end
+
+  name.upcase_first # In case name starts with an ignored word
 end
 
 def sanitize_text(text, preserve_space: false)

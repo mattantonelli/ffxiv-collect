@@ -70,7 +70,7 @@ namespace :leves do
           end
         end
 
-        data["name_#{locale}"] = sanitize_name(leve['Name'])
+        data["name_#{locale}"] = sanitize_name(leve['Name'], locale: locale)
 
         h[data[:id]] = data
       end
@@ -130,7 +130,7 @@ namespace :leves do
     npcs = %w(en fr de ja).each_with_object(Hash.new { |h, k| h[k] = {} }) do |locale, h|
       XIVData.sheet('ENpcResident', locale: locale).each do |npc|
         if npc_ids.include?(npc['#'])
-          h[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'])
+          h[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale)
         end
       end
     end
@@ -153,7 +153,7 @@ namespace :leves do
     %w(en fr de ja).each do |locale|
       XIVData.sheet('ENpcResident', locale: locale).each do |npc|
         if npc_ids.include?(npc['#'])
-          issuers[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'])
+          issuers[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale)
         end
       end
     end

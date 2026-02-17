@@ -13,7 +13,7 @@ namespace :items do
       tradeable = item['ItemSearchCategory'] != '0'
 
       data = { id: item['#'], name_en: sanitize_name(item['Name']),
-               plural_en: item['Plural'].present? ? sanitize_name(item['Plural']) : nil,
+               plural_en: item['Plural'].present? ? sanitize_name(item['Plural'], capitalize: true) : nil,
                description_en: sanitize_text(item['Description'], preserve_space: true), icon_id: icon_id,
                tradeable: tradeable, price: item['PriceMid'] }
 
@@ -24,8 +24,8 @@ namespace :items do
       XIVData.sheet('Item', locale: locale).each do |item|
         next unless item['Name'].present?
 
-        items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name']),
-                                "plural_#{locale}" => item['Plural'].present? ? sanitize_name(item['Plural']) : nil,
+        items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name'], locale: locale),
+                                "plural_#{locale}" => item['Plural'].present? ? sanitize_name(item['Plural'], locale: locale) : nil,
                                 "description_#{locale}" => sanitize_text(item['Description'], preserve_space: true))
       end
     end

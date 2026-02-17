@@ -42,11 +42,11 @@ class Item < ApplicationRecord
 
     case locale
     when :en
-      name.sub(/.+ Of (.+)/, '\1')
+      name.sub(/.+ Of (.+)/i, '\1')
     when :de
-      name.sub(/.+ De[rs] (.+)/, '\1')
+      name.sub(/.+ De[rs] (.+)/i, '\1')
     when :fr
-      name.sub(/.+ Inhabituel (.+)/, '\1\2')
+      name.sub(/.+ Inhabituel (.+)/i, '\1\2').upcase_first
     when :ja
       name.sub(/.+:(.+)/, '\1')
     end

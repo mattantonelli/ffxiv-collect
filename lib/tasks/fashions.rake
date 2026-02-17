@@ -16,7 +16,7 @@ namespace :fashions do
         data = h[fashion['#']] || { id: fashion['#'], order: fashion['Order'],
                                     icon: icon, icon_large: icon.sub(/^008/, '067') }
 
-        data["name_#{locale}"] = sanitize_name(fashion['Singular'])
+        data["name_#{locale}"] = sanitize_name(fashion['Singular'], locale: locale)
         h[data[:id]] = data
       end
     end

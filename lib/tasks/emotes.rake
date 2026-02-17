@@ -10,7 +10,7 @@ namespace :emotes do
         next unless category['Name'].present?
 
         data = h[category['#']] || { id: category['#'] }
-        data["name_#{locale}"] = sanitize_name(category['Name'])
+        data["name_#{locale}"] = sanitize_name(category['Name'], locale: locale)
         h[category['#']] = data
       end
     end
@@ -40,7 +40,7 @@ namespace :emotes do
             category_id: emote['EmoteCategory']
           }.merge(commands[emote['TextCommand']])
 
-        data["name_#{locale}"] = sanitize_name(emote['Name'])
+        data["name_#{locale}"] = sanitize_name(emote['Name'], locale: locale)
         h[data[:id]] = data
       end
     end

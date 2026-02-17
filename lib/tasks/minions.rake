@@ -57,7 +57,7 @@ namespace :minions do
                                    icon: XIVData.format_icon_id(minion['Icon']),
                                    behavior_id: minion['Behavior'], race_id:  minion['MinionRace'] }
 
-        data["name_#{locale}"] = sanitize_name(minion['Singular'])
+        data["name_#{locale}"] = sanitize_name(minion['Singular'], locale: locale, capitalize: true)
         h[data[:id]] = data
       end
     end
@@ -71,7 +71,7 @@ namespace :minions do
         data.merge!("description_#{locale}" => sanitize_text(minion['Description']),
                     "enhanced_description_#{locale}" => sanitize_text(minion['DescriptionEnhanced']),
                     "tooltip_#{locale}" => sanitize_text(minion['Tooltip']),
-                    "skill_#{locale}" => sanitize_name(minion['SpecialActionName']),
+                    "skill_#{locale}" => sanitize_name(minion['SpecialActionName'], locale: locale),
                     "skill_description_#{locale}" => sanitize_text(minion['SpecialActionDescription'], preserve_space: true),
                     attack: minion['Attack'], defense: minion['Defense'], speed: minion['Speed'],
                     area_attack: minion['HasAreaAttack'] == 'True', gate: minion['StrengthGate'] == 'True',

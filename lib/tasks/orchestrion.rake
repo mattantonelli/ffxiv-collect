@@ -29,7 +29,7 @@ namespace :orchestrions do
         next unless orchestrion['Name'].present?
 
         data = h[orchestrion['#']] || { id: orchestrion['#'] }
-        data.merge!("name_#{locale}" => sanitize_name(orchestrion['Name']),
+        data.merge!("name_#{locale}" => sanitize_name(orchestrion['Name'], locale: locale),
                     "description_#{locale}" => sanitize_text(orchestrion['Description']))
         h[data[:id]] = data
       end
