@@ -66,7 +66,7 @@ end
 
 # Conjunctions/prepositions + Garlean ranks + Gabriel alpha mount
 WORDS_TO_IGNORE = %w(a an and as at by de for from in into la of on or over the to up with
-	aan goe mal oen pyr quo rem sas tol van yae
+  aan goe mal oen pyr quo rem sas tol van yae
   α).freeze
 
 def sanitize_name(name, locale: 'en', capitalize: false, upcase_first_only: false)
