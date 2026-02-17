@@ -169,11 +169,7 @@ namespace :frames do
 
     frames.each do |id, images|
       frame = Frame.find(id)
-      portrait_only = !images.keys.intersect?(FRAME_ELEMENTS)
-
-      if frame.portrait_only != portrait_only
-        frame.update!(portrait_only: portrait_only)
-      end
+      frame.update!(portrait_only: !images.keys.intersect?(FRAME_ELEMENTS))
 
       output_path = FRAME_IMAGES_DIR.join("#{id}.png")
 
