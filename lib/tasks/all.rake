@@ -64,10 +64,10 @@ def log(message)
   puts "[#{Time.now.strftime('%Y-%m-%d %H:%M:%S %Z')}] #{message}"
 end
 
-# Conjunctions/prepositions + Garlean ranks + Gabriel alpha mount
+# Conjunctions/prepositions + Garlean ranks + special characters
 WORDS_TO_IGNORE = %w(a an and as at by de for from in into la of on or over the to up with
   aan goe mal oen pyr quo rem sas tol van yae
-  α).freeze
+  α β γ δ).freeze
 
 def sanitize_name(name, locale: 'en', capitalize: false, upcase_first_only: false)
   # Clean up symbols, language tags, etc.
