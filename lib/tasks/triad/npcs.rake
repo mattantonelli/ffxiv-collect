@@ -108,7 +108,6 @@ namespace :triad do
 
         # Create or update the NPC
         if npc = NPC.find_by(id: data[:id])
-          # data.except!('name_en', 'name_de', 'name_fr', 'name_ja', :quest_id, :rule_ids)
           data.except!(:quest_id, :rule_ids)
           npc.update!(data) if updated?(npc, data)
         else
