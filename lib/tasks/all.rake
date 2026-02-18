@@ -76,6 +76,7 @@ def sanitize_name(name, locale: 'en', capitalize: false, upcase_first_only: fals
     .gsub('[A]', 'er')
     .gsub('[p]', '')
     .gsub(/[\uE0BE\uE0BF]+ ?/, '') # Remove internal symbols
+    .strip # Many achievements, items and quests have trailing spaces
 
   return name.upcase_first if upcase_first_only
 
