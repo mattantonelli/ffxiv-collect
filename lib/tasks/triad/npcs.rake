@@ -29,7 +29,7 @@ namespace :triad do
           if npcs.has_key?(npc['#'])
             npcs[npc['#']]["name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale,
                                                              capitalize: locale == 'en',
-                                                             upcase_first_only: %w(de fr).include?(locale))
+                                                             upcase_first_only: locale == 'de' || locale == 'fr')
           end
         end
       end
