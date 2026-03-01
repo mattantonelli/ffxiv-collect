@@ -149,6 +149,6 @@ end
 def currency_texts(price, currency)
   %w(en de fr ja).each_with_object({}) do |locale, h|
     h["text_#{locale}"] = "#{number_with_delimiter(price, locale: locale)} " \
-      "#{price != '1' && currency["plural_#{locale}"].present? ? currency["plural_#{locale}"] : currency["name_#{locale}"]}"
+      "#{price == '1' || locale == 'ja' ? currency["name_#{locale}"] : currency["plural_#{locale}"]}"
   end
 end
