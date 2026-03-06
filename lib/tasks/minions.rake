@@ -77,23 +77,18 @@ namespace :minions do
     # Add the remaining data from the transient sheet
     %w(en de fr ja tc).each do |locale, h|
       XIVData.sheet('CompanionTransient', locale: locale).each do |minion|
-        next unless minions.has_key?(minion['#'])
+        next unless minions.has_key?(minion['#']) && minion['Description'].present?
 
         data = minions[minion['#']]
         data.merge!("description_#{locale}" => sanitize_text(minion['Description']),
                     "enhanced_description_#{locale}" => sanitize_text(minion['DescriptionEnhanced']),
                     "tooltip_#{locale}" => sanitize_text(minion['Tooltip']),
                     "skill_#{locale}" => sanitize_name(minion['SpecialActionName'], locale: locale),
-                    "skill_description_#{locale}" => sanitize_text(minion['SpecialActionDescription'], preserve_space: true))
-
-        # Use *only* the EN locale as a reference for Verminion characteristics
-        # Otherwise, other clients not as up-to-date as the global client may override it
-        if locale == 'en'
-          data.merge!(attack: minion['Attack'], defense: minion['Defense'], speed: minion['Speed'],
-                      area_attack: minion['HasAreaAttack'] == 'True', gate: minion['StrengthGate'] == 'True',
-                      eye: minion['StrengthEye'] == 'True', shield: minion['StrengthShield'] == 'True',
-                      arcana: minion['StrengthArcana'] == 'True', skill_type_id: minion['MinionSkillType'])
-        end
+                    "skill_description_#{locale}" => sanitize_text(minion['SpecialActionDescription'], preserve_space: true),
+                    attack: minion['Attack'], defense: minion['Defense'], speed: minion['Speed'],
+                    area_attack: minion['HasAreaAttack'] == 'True', gate: minion['StrengthGate'] == 'True',
+                    eye: minion['StrengthEye'] == 'True', shield: minion['StrengthShield'] == 'True',
+                    arcana: minion['StrengthArcana'] == 'True', skill_type_id: minion['MinionSkillType'])
       end
     end
 
