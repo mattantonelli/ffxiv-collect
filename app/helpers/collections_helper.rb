@@ -374,17 +374,7 @@ module CollectionsHelper
       when 'Quest', 'Event'
         content = database_link(:quest, source.related&.name || source.text, source.related_id)
       when 'Voyages'
-        if list
-          voyage_type, texts = source.text.split(' - ')
-          content = texts.split(', ').map { |text| "#{voyage_type} - #{text}"}.join('<br>')
-        else
-          texts = source.text.split(', ')
-          if texts.size > 3
-            content = "#{source.text.split(', ').first(3).join(', ')}..."
-          else
-            content = source.text
-          end
-        end
+        content = voyage_source(source.text, list: list)
       else
         content = source.text
       end
@@ -401,6 +391,24 @@ module CollectionsHelper
     content_tag(:div, class: 'sources') do
       sources.each do |source|
         concat(content_tag(:span, source[:content], class: "source source-#{source[:type].parameterize(separator: '-')}"))
+      end
+    end
+  end
+
+  def voyage_source(text, list: false)
+    return text unless text.match?(' - ')
+
+    voyage_type, sites_list = text.split(' - ')
+    sites = sites_list.split(', ')
+
+    if list
+      sites.map { |site| "#{voyage_type} - #{site}"}.join('<br>')
+    else
+      if sites.size > 3
+        "#{voyage_type} - #{sites.first(3).join(', ')}...&nbsp;" \
+          "#{fa_icon('question-circle', data: { toggle: 'tooltip', html: true }, title: sites.join('<br>'))}"
+      else
+        text
       end
     end
   end
