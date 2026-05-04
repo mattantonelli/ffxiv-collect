@@ -2,8 +2,7 @@ namespace 'sources' do
   namespace 'csv' do
     desc 'Update voyage sources based on CSV data'
     task voyages: :environment do
-      PaperTrail.enabled = false
-      Source.skip_callback(:save, :before, :assign_relations!)
+      Source.skip_callback(:save, :before, :assign_relations!, :fill_translations!)
 
       puts 'Updating voyage sources with CSV data'
 
@@ -15,7 +14,7 @@ namespace 'sources' do
         if sources.size == 0
           puts "Could not find matching source for text: #{row[0]}"
         else
-          sources.update_all(text_en: row[1], text_fr: nil, text_de: nil, text_ja: nil, text_tc: nil)
+          sources.update!(text_en: row[1], text_fr: nil, text_de: nil, text_ja: nil, text_tc: nil)
         end
       end
     end
