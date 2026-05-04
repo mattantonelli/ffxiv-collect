@@ -402,7 +402,7 @@ module CollectionsHelper
     sites = sites_list.split(', ')
 
     if list
-      sites.map { |site| "#{voyage_type} - #{site}"}.join('<br>')
+      sites.map { |site| "#{voyage_type} - #{site}" }.join('<br>')
     else
       if sites.size > 3
         "#{voyage_type} - #{sites.first(3).join(', ')}...&nbsp;" \

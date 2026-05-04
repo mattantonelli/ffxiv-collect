@@ -1,7 +1,7 @@
 namespace 'sources' do
   namespace 'csv' do
     desc 'Update voyage sources based on CSV data'
-    task voyages: :environment do
+    task voyages_update: :environment do
       Source.skip_callback(:save, :before, :assign_relations!, :fill_translations!)
 
       puts 'Updating voyage sources with CSV data'
