@@ -405,7 +405,7 @@ module CollectionsHelper
       sites.map { |site| "#{voyage_type} - #{site}" }.join('<br>')
     else
       if sites.size > 3
-        "#{voyage_type} - #{sites.first(3).join(', ')}...&nbsp;" \
+        "#{voyage_type} - #{sites.first(3).join(', ')}...&nbsp;" +
           fa_icon('question-circle', data: { toggle: 'tooltip', html: true }, title: sites.join('<br>'))
       else
         text
