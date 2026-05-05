@@ -406,7 +406,7 @@ module CollectionsHelper
     else
       if sites.size > 3
         "#{voyage_type} - #{sites.first(3).join(', ')}...&nbsp;" \
-          "#{fa_icon('question-circle', data: { toggle: 'tooltip', html: true }, title: sites.join('<br>'))}"
+          fa_icon('question-circle', data: { toggle: 'tooltip', html: true }, title: sites.join('<br>'))
       else
         text
       end
