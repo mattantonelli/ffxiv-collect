@@ -33,7 +33,7 @@
             </div>
           </div>
           <dt><%= t('source') %></dt>
-          <dd class="mb-0"><%= sources(@orchestrion) %></dd>
+          <dd class="mb-0"><%= sources(@orchestrion, list: true) %></dd>
           <%= render('shared/item', collectable: @orchestrion) %>
         </div>
       </div>

@@ -20,7 +20,7 @@
           </div>
         </div>
         <dt><%= t('source') %></dt>
-        <dd><%= sources(@facewear) %></dd>
+        <dd><%= sources(@facewear, list: true) %></dd>
         <%= render('shared/item', collectable: @facewear) %>
         <hr>
         <div class="d-flex flex-wrap facewear-list">
