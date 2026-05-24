@@ -1,0 +1,125 @@
+# Development stack.
+#
+# Run from the deploy folder (which holds the runtime .env):
+#   cd C:\Daten\Docker\ffxivcollect
+#   docker compose --env-file .env -f <repo>\docker-compose.yml build
+#   docker compose --env-file .env -f <repo>\docker-compose.yml up
+#
+# --env-file is required: Compose v2 reads .env from the compose file's directory
+# by default (the repo), not from cwd, when -f is used. Build context and bind-mount
+# paths stay relative to this file (the repo root).
+#
+# Service flow:
+#   data-updater runs first (clones xiv-data if missing, loads schema if missing,
+#   runs data:initialize OR data:update OR detects "nothing to do" and exits).
+#   web + sidekiq wait for data-updater to exit 0 before starting.
+
+x-base-depends: &base-depends
+  mariadb:
+    condition: service_healthy
+  redis:
+    condition: service_started
+
+x-app-depends: &app-depends
+  mariadb:
+    condition: service_healthy
+  redis:
+    condition: service_started
+  data-updater:
+    condition: service_completed_successfully
+
+x-app-base: &app-base
+  build:
+    context: .
+    target: dev
+  environment:
+    DATABASE_HOST: mariadb
+    DATABASE_PORT: "3306"
+    DATABASE_USERNAME: ${DATABASE_USERNAME}
+    DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    DATABASE_NAME: ${DATABASE_NAME:-ffxiv_collect_development}
+    REDIS_URL: redis://redis:6379/0
+    RAILS_ENV: development
+    RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
+  volumes:
+    - .:/app
+    # Encrypted credentials (Discord OAuth etc.) — generated outside the image,
+    # decrypted at runtime with RAILS_MASTER_KEY from .env. Mounted read-only.
+    # CONFIG_DIR is set in .env (default: parent of ASSETS_DIR).
+    - ${CONFIG_DIR}/credentials.yml.enc:/app/config/credentials.yml.enc:ro
+    # Runtime data lives outside the repo so the repo stays mostly code-only.
+    # ASSETS_DIR is set in .env (default: C:/Daten/Docker/ffxivcollect/assets).
+    #
+    # Only paths whose ONLY tracked files are .keep are bind-mounted — that way
+    # the container's view is the external dir without losing committed assets.
+    # Mixed dirs (e.g. public/images/mounts/ has pickorpokkur.png tracked, or
+    # public/images/hairstyles/ has 228/*.png tracked) stay in-repo.
+    # Whole-dir mounts. Repo-tracked files get cp -n'd from /image-assets/
+    # (baked into the image by the Dockerfile) into these dirs on first run,
+    # so the container sees the union of tracked (preserved) + downloaded
+    # (rake outputs).
+    - ${ASSETS_DIR}/xiv-data:/app/vendor/xiv-data
+    - ${ASSETS_DIR}/log:/app/log
+    - ${ASSETS_DIR}/tmp:/app/tmp
+    - ${ASSETS_DIR}/public-music:/app/public/music
+    - ${ASSETS_DIR}/public-images:/app/public/images
+    - ${ASSETS_DIR}/app-assets-images:/app/app/assets/images
+    - ${ASSETS_DIR}/app-assets-stylesheets-images:/app/app/assets/stylesheets/images
+    - bundle-cache:/usr/local/bundle
+
+services:
+  mariadb:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DATABASE_NAME:-ffxiv_collect_development}
+      MARIADB_USER: ${DATABASE_USERNAME}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./docker/mariadb-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
+  # One-shot. Auto-runs every `compose up`:
+  #   - fresh volume:   clones xiv-data, db:schema:load, data:initialize
+  #   - existing data:  data:update if xiv-data has new commits, else exits 0 fast
+  # Exits when done. App services depend on this exiting successfully.
+  data-updater:
+    <<: *app-base
+    command: ["/app/docker/updater.sh"]
+    restart: "no"
+    depends_on: *base-depends
+
+  web:
+    <<: *app-base
+    command: ["bundle", "exec", "rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    ports:
+      - "3000:3000"
+    depends_on: *app-depends
+
+  sidekiq-character:
+    <<: *app-base
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq_character.yml"]
+    depends_on: *app-depends
+
+  sidekiq-fc:
+    <<: *app-base
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq_free_company.yml"]
+    depends_on: *app-depends
+
+volumes:
+  mariadb-data:
+  redis-data:
+  bundle-cache:

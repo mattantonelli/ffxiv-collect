@@ -1,0 +1,116 @@
+# Production stack — same architecture as docker-compose.yml but with the
+# prod Dockerfile target (eager-loaded Rails + precompiled assets) and
+# RAILS_ENV=production. Run from the deploy folder:
+#
+#   cd C:\Daten\Docker\ffxivcollect
+#   docker compose --env-file .env -f <repo>\docker-compose.prod.yml build
+#   docker compose --env-file .env -f <repo>\docker-compose.prod.yml up -d
+#
+# Re-uses the same ASSETS_DIR/CONFIG_DIR mounts as dev — DB, downloaded
+# images, logs, credentials are all shared between the two modes.
+
+x-base-depends: &base-depends
+  mariadb:
+    condition: service_healthy
+  redis:
+    condition: service_started
+
+x-app-depends: &app-depends
+  mariadb:
+    condition: service_healthy
+  redis:
+    condition: service_started
+  data-updater:
+    condition: service_completed_successfully
+
+x-app-base: &app-base
+  build:
+    context: .
+    target: prod
+  environment:
+    DATABASE_HOST: mariadb
+    DATABASE_PORT: "3306"
+    DATABASE_USERNAME: ${DATABASE_USERNAME}
+    DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    DATABASE_NAME: ${DATABASE_NAME:-ffxiv_collect_development}
+    REDIS_URL: redis://redis:6379/0
+    RAILS_ENV: production
+    RAILS_MASTER_KEY: ${RAILS_MASTER_KEY:-}
+    SECRET_KEY_BASE: ${SECRET_KEY_BASE:-}
+    RAILS_FORCE_SSL: ${RAILS_FORCE_SSL:-true}
+    RAILS_ASSUME_SSL: ${RAILS_ASSUME_SSL:-}
+    RAILS_LOG_TO_STDOUT: "1"
+    RAILS_SERVE_STATIC_FILES: "1"
+    # Fall back to Sprockets compilation for assets generated at runtime by the
+    # updater (spritesheets) that aren't in the build-time precompiled manifest.
+    RAILS_ASSETS_COMPILE: "true"
+  volumes:
+    # No source bind-mount in prod — image is the source of truth.
+    - ${CONFIG_DIR}/credentials.yml.enc:/app/config/credentials.yml.enc:ro
+    # Runtime data still goes external (same as dev) so DB syncs survive
+    # rebuilds and asset downloads aren't lost when the image rotates.
+    - ${ASSETS_DIR}/xiv-data:/app/vendor/xiv-data
+    - ${ASSETS_DIR}/log:/app/log
+    - ${ASSETS_DIR}/tmp:/app/tmp
+    - ${ASSETS_DIR}/public-music:/app/public/music
+    - ${ASSETS_DIR}/public-images:/app/public/images
+    - ${ASSETS_DIR}/app-assets-images:/app/app/assets/images
+    - ${ASSETS_DIR}/app-assets-stylesheets-images:/app/app/assets/stylesheets/images
+    # Precompiled assets — updater runs assets:precompile after generating
+    # spritesheets so application.css picks up the runtime-generated SCSS.
+    - ${ASSETS_DIR}/public-assets:/app/public/assets
+
+services:
+  mariadb:
+    image: mariadb:11
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DATABASE_NAME:-ffxiv_collect_development}
+      MARIADB_USER: ${DATABASE_USERNAME}
+      MARIADB_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+      - ./docker/mariadb-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  data-updater:
+    <<: *app-base
+    command: ["/app/docker/updater.sh"]
+    restart: "no"
+    depends_on: *base-depends
+
+  web:
+    <<: *app-base
+    command: ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+    ports:
+      - "3000:3000"
+    depends_on: *app-depends
+    restart: unless-stopped
+
+  sidekiq-character:
+    <<: *app-base
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq_character.yml"]
+    depends_on: *app-depends
+    restart: unless-stopped
+
+  sidekiq-fc:
+    <<: *app-base
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq_free_company.yml"]
+    depends_on: *app-depends
+    restart: unless-stopped
+
+volumes:
+  mariadb-data:
+  redis-data:

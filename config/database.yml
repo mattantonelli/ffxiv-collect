@@ -1,14 +1,19 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  pool: 5
-  username: <%= Rails.application.credentials.dig(:mysql, :development, :username) %>
-  password: <%= Rails.application.credentials.dig(:mysql, :development, :password) %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  username: <%= ENV["DATABASE_USERNAME"] || Rails.application.credentials.dig(:mysql, Rails.env.to_sym, :username) %>
+  password: <%= ENV["DATABASE_PASSWORD"] || Rails.application.credentials.dig(:mysql, Rails.env.to_sym, :password) %>
+<% if ENV["DATABASE_HOST"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV.fetch("DATABASE_PORT", 3306) %>
+<% else %>
   socket: /var/lib/mysql/mysql.sock
+<% end %>
 
 development:
   <<: *default
-  database: ffxiv_collect_development
+  database: <%= ENV.fetch("DATABASE_NAME", "ffxiv_collect_development") %>
 
 test:
   <<: *default
@@ -16,6 +21,4 @@ test:
 
 production:
   <<: *default
-  database: ffxiv_collect_production
-  username: <%= Rails.application.credentials.dig(:mysql, :production, :username) %>
-  password: <%= Rails.application.credentials.dig(:mysql, :production, :password) %>
+  database: <%= ENV.fetch("DATABASE_NAME", "ffxiv_collect_production") %>

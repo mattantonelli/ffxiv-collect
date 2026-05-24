@@ -14,6 +14,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors', '~> 1.1.0'
 gem 'rack', '~> 2.2.23'
 gem 'websocket-extensions', '>= 0.1.5'
+gem 'puma'
 
 gem 'devise'
 gem 'omniauth-discord'
@@ -57,7 +58,6 @@ group :development do
   gem 'web-console'
   gem 'listen'
   gem 'spring'
-  gem 'puma'
   gem 'annotate'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rack-mini-profiler'

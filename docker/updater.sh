@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+XIV_DATA_REF="${XIV_DATA_REF:-main}"
+LAST_APPLIED_FILE=/app/vendor/xiv-data/.last-applied
+
+# Ensure xiv-data is present in the shared volume. First run after a fresh
+# volume clones it; subsequent runs let the up-to-date check + data:update
+# handle git fetch + checkout.
+# Bind-mounted asset dirs are empty on first volume creation; image-baked
+# repo-tracked files (under /image-assets) are masked behind the mount. Sync
+# them in with cp -n so the bind-mounted dir holds the union of repo files
+# (preserved from the image) + updater-downloaded files (added by rake).
+if [ -d /image-assets ]; then
+  echo "Merging repo-tracked image content into bind-mounted asset dirs (cp -n)..."
+  cp -rn /image-assets/public-images/. /app/public/images/ 2>/dev/null || true
+  cp -rn /image-assets/app-assets-images/. /app/app/assets/images/ 2>/dev/null || true
+fi
+
+if [ ! -d /app/vendor/xiv-data/.git ]; then
+  echo "xiv-data volume is empty — cloning ${XIV_DATA_REF}..."
+  # The volume mount point cannot be removed; clone to /tmp then copy contents.
+  rm -rf /tmp/xiv-data-clone
+  git clone --depth 1 --branch "${XIV_DATA_REF}" \
+    https://github.com/skyborn-industries/xiv-data.git /tmp/xiv-data-clone
+  cp -a /tmp/xiv-data-clone/. /app/vendor/xiv-data/
+  rm -rf /tmp/xiv-data-clone
+fi
+
+# What's the latest on the remote? (best-effort; offline is OK)
+cd /app/vendor/xiv-data
+git fetch --depth 1 origin "${XIV_DATA_REF}" 2>/dev/null || echo "Note: could not fetch from remote, working with local state."
+REMOTE_HEAD=$(git rev-parse "origin/${XIV_DATA_REF}" 2>/dev/null || git rev-parse HEAD)
+LAST_APPLIED_HEAD=$(awk '{print $2}' "$LAST_APPLIED_FILE" 2>/dev/null || echo "")
+LAST_APPLIED_SHORT="${LAST_APPLIED_HEAD:0:7}"
+echo "xiv-data remote @ ${REMOTE_HEAD:0:7}, last fully applied @ ${LAST_APPLIED_SHORT:-never}."
+
+# Patch xiv-data CSVs in-place to fill upstream data gaps the rake tasks
+# can't tolerate (NOT NULL columns vs empty CSV fields).
+ruby /app/docker/patch-xiv-data.rb
+
+echo "Waiting for MariaDB at ${DATABASE_HOST}:${DATABASE_PORT:-3306}..."
+until mysqladmin ping \
+  -h "${DATABASE_HOST}" \
+  -P "${DATABASE_PORT:-3306}" \
+  -u "${DATABASE_USERNAME}" \
+  -p"${DATABASE_PASSWORD}" \
+  --silent; do
+  sleep 2
+done
+echo "MariaDB ready."
+
+mysql_q() {
+  mysql \
+    -h "${DATABASE_HOST}" \
+    -P "${DATABASE_PORT:-3306}" \
+    -u "${DATABASE_USERNAME}" \
+    -p"${DATABASE_PASSWORD}" \
+    -N -B "${DATABASE_NAME}" \
+    -e "$1" 2>/dev/null || echo 0
+}
+
+# Start a DB-progress poller in the background; killed when this script exits.
+# Tunable via PROGRESS_INTERVAL env var (seconds, default 30).
+bash /app/docker/progress.sh &
+PROGRESS_PID=$!
+trap "kill ${PROGRESS_PID} 2>/dev/null || true" EXIT
+
+# Schema present?
+HAS_SCHEMA=$(mysql_q "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DATABASE_NAME}' AND table_name='achievements'")
+if [ "${HAS_SCHEMA:-0}" -eq 0 ]; then
+  echo "Schema not present — running db:schema:load..."
+  bundle exec rake db:schema:load
+fi
+
+# Data present?
+ACHIEVEMENTS=$(mysql_q "SELECT COUNT(*) FROM achievements")
+
+# Skip when there is nothing to do
+if [ "${ACHIEVEMENTS:-0}" -gt 0 ] && [ -n "${LAST_APPLIED_HEAD}" ] && [ "${LAST_APPLIED_HEAD}" = "${REMOTE_HEAD}" ]; then
+  echo "Up to date: xiv-data @ ${REMOTE_HEAD:0:7}, achievements=${ACHIEVEMENTS}. Nothing to do."
+  exit 0
+fi
+
+PARTIAL=""
+if [ "${ACHIEVEMENTS:-0}" -gt 0 ]; then
+  echo "Existing data (${ACHIEVEMENTS} achievements), xiv-data drift detected — running data:update."
+  bundle exec rake data:update || PARTIAL=1
+else
+  echo "Empty database — running data:initialize (one-time bootstrap, expect 15-30 minutes)."
+  bundle exec rake data:initialize || PARTIAL=1
+fi
+
+if [ -n "${PARTIAL}" ]; then
+  cat >&2 <<'EOF'
+
+===============================================================
+WARNING: rake task completed with errors. Some collections may be
+incomplete. Web app will still start with whatever data was loaded.
+See the log lines above for which task failed.
+===============================================================
+
+EOF
+fi
+
+# Production needs precompiled assets for new spritesheets; dev mode lets
+# Sprockets handle it lazily.
+if [ "${RAILS_ENV:-development}" = "production" ]; then
+  echo "Precompiling assets..."
+  bundle exec rake assets:precompile
+fi
+
+# Mark as applied so subsequent runs short-circuit at the up-to-date check.
+# Even on PARTIAL we mark, because the known-failing triad:npcs:create is
+# non-critical (web app works without those rows). To force a retry, delete
+# ${ASSETS_DIR}/xiv-data/.last-applied on the host.
+APPLIED_HEAD=$(git -C /app/vendor/xiv-data rev-parse HEAD)
+echo "$(date -u -Iseconds) ${APPLIED_HEAD}" > "$LAST_APPLIED_FILE"
+if [ -n "${PARTIAL}" ]; then
+  echo "Marked ${APPLIED_HEAD:0:7} as applied (with known partial failures — see warnings above)."
+else
+  echo "Marked ${APPLIED_HEAD:0:7} as applied."
+fi
+
+cat <<'EOF'
+
+===============================================================
+Update complete.
+
+If this run covered a new game patch, tag the newly created rows
+with the patch number (do this once per patch, replacing X.Y):
+
+  docker compose --env-file .env -f <repo>\docker-compose.yml \
+    exec web bin/rails runner \
+    "[Achievement, Mount, Minion, Orchestrion, Emote, Barding, \
+      Hairstyle, Armoire, Outfit, Fashion, Facewear, Frame, Card, \
+      NPC].each { |m| n = m.where('created_at > ?', \
+        Date.current.beginning_of_day).update_all(patch: 'X.Y'); \
+        puts \"#{m}: #{n}\" if n != 0 }"
+===============================================================
+EOF

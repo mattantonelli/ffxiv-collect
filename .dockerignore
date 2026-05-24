@@ -1,0 +1,48 @@
+.git
+.github
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose*.yml
+
+# xiv-data is git-cloned inside the Dockerfile, do not ship the host copy
+vendor/xiv-data
+
+.bundle
+.byebug_history
+.ruby-version
+
+log/*
+!log/.keep
+tmp/*
+!tmp/.keep
+storage/*
+!storage/.keep
+
+node_modules
+yarn-error.log
+
+# Encrypted credentials master key — provide via RAILS_MASTER_KEY env var instead
+config/master.key
+# Encrypted credentials live outside the image; mount via compose if needed.
+# Without this, Rails would try to decrypt at boot and fail without the master key.
+config/credentials.yml.enc
+
+# Local env files (use .env.example as the template)
+.env
+.env.*
+!.env.example
+
+# Compiled production assets
+public/assets
+
+# NOTE: do NOT exclude public/images/* or app/assets/images/* here.
+# Those paths must be in the image so /image-assets/ gets the repo-tracked
+# files (e.g. mounts/pickorpokkur.png, hairstyles/228/*) baked in. The
+# updater syncs them into the bind-mounted external dirs at runtime.
+
+# Editor / OS noise
+.idea
+.vscode
+.DS_Store
+Thumbs.db
