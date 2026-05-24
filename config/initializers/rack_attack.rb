@@ -1,5 +1,5 @@
 class Rack::Attack
-  ### Throttle the plugin write API per bearer token ###
+  ### Throttle the write API per bearer token ###
   throttle('api_owned_writes/token', limit: 60, period: 1.minute) do |req|
     if req.post? && req.path =~ %r{\A/api/characters/\d+/[^/]+/owned\z}
       token = req.env['HTTP_AUTHORIZATION'].to_s[/\ABearer\s+(.+)\z/, 1]

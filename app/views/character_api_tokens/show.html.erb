@@ -20,7 +20,7 @@
         <% if @plaintext_token.present? %>
           <div class="alert alert-warning">
             <strong>This is the only time the token will be shown.</strong>
-            Copy it now and paste it into the plugin. If you lose it, generate a new
+            Copy it now and paste it into your client. If you lose it, generate a new
             one — the old one will stop working.
           </div>
           <pre id="api-token" class="p-3 bg-light"><%= @plaintext_token %></pre>
@@ -63,7 +63,7 @@
 
         <hr>
 
-        <h6>Plugin endpoint</h6>
+        <h6>Endpoint</h6>
         <pre class="p-2 bg-light"><code>POST /api/characters/<%= @character.id %>/&lt;collection&gt;/owned
 Authorization: Bearer &lt;your token&gt;
 Content-Type: application/json

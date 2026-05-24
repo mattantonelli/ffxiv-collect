@@ -1,8 +1,7 @@
 # FFXIV Collect Write API
 
-This document describes the **plugin write API** that lets an external
-client (such as a Dalamud plugin) push the in-game contents of a
-character to FFXIV Collect.
+This document describes the **write API** that lets an external client
+push the in-game contents of a character to FFXIV Collect.
 
 It complements the existing public read API at `/api` — the read API
 stays unchanged, this is a narrow, opt-in write surface bound to a single
@@ -81,12 +80,12 @@ verification flow. Unverified characters cannot generate tokens at all.
 ### Recommended client behaviour
 
 - Send a descriptive `User-Agent` header on every request, e.g.
-  `MyAwesomePlugin/1.2.3 (+https://example.org/plugin)`. The server logs
-  the last UA per token, useful for the user to identify which client
-  last used a token. UA is **not enforced** — a missing UA is not a
-  4xx — but it helps debugging and incident response.
+  `MyClient/1.2.3 (+https://example.org/myclient)`. The server logs the
+  last UA per token, useful for the user to identify which client last
+  used a token. UA is **not enforced** — a missing UA is not a 4xx — but
+  it helps debugging and incident response.
 - Treat the token like a password: keep it in the OS keychain or an
-  encrypted plugin config; never log it.
+  encrypted client configuration; never log it.
 
 ---
 
@@ -272,14 +271,14 @@ Threat assumptions and mitigations:
 
 | Threat                                                                       | Mitigation                                                                                              |
 | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Token leak from the user's plugin config                                     | Token only writes to **one specific character**, only to non-Lodestone collections, and is revocable.   |
+| Token leak from the user's client configuration                              | Token only writes to **one specific character**, only to non-Lodestone collections, and is revocable.   |
 | Server compromise leaks the token DB                                         | Only SHA-256 hashes are stored — the raw tokens can't be recovered.                                     |
 | Replay across characters                                                     | The URL `:character_id` must equal the token's bound character (`403` otherwise).                       |
 | Replay after the user re-verifies their character to a different account     | Every write call re-checks `character.verified_user_id == token.user_id` (`403` if mismatched).         |
 | Brute-forcing the token UI                                                   | Per-IP throttle of 10/hour on token generation.                                                         |
 | Brute-forcing tokens via the API                                             | 256-bit entropy plus per-token rate limit — exhausting the space is infeasible.                         |
 | Man-in-the-middle                                                            | Production runs TLS only. Don't use this API over plain HTTP outside local dev.                         |
-| Plugin pushing items the user never owned                                    | This is a trust decision — the user opted in by installing the plugin. The owned set can only grow, so the user can audit it via the read API and revoke if surprised. |
+| Client pushing items the user never owned                                    | This is a trust decision — the user opted in by installing the client. The owned set can only grow, so the user can audit it via the read API and revoke if surprised. |
 
 What the API **cannot** do:
 
@@ -298,15 +297,15 @@ What the API **cannot** do:
 curl -X POST 'https://ffxivcollect.com/api/characters/5659713/hairstyles/owned' \
      -H 'Authorization: Bearer pAsVcRORRRYBXl_IeS2aZdlEhuJC3zocXKpPYvxoO_A' \
      -H 'Content-Type: application/json' \
-     -H 'User-Agent: MyPlugin/1.0.0' \
+     -H 'User-Agent: MyClient/1.0.0' \
      -d '{"ids":[573]}'
 ```
 
-### C# (Dalamud-style)
+### C# (HttpClient)
 
 ```csharp
 using var http = new HttpClient();
-http.DefaultRequestHeaders.UserAgent.ParseAdd("MyPlugin/1.0.0");
+http.DefaultRequestHeaders.UserAgent.ParseAdd("MyClient/1.0.0");
 http.DefaultRequestHeaders.Authorization =
     new AuthenticationHeaderValue("Bearer", token);
 
@@ -357,22 +356,22 @@ A: Use the existing public read endpoint
 owned set and is unaffected by this API. The write API only **adds**;
 the read API is your source of truth.
 
-**Q: What if my plugin pushes an item that's later removed from the
+**Q: What if my client pushes an item that's later removed from the
 game?**
 A: The server filters against the current collectable table. If the ID
 no longer exists, it ends up in `invalid_ids` and is not added. The
 existing owned rows aren't pruned by this endpoint.
 
-**Q: Can two plugins share one token?**
+**Q: Can two clients share one token?**
 A: Technically yes — the server doesn't care. But the rate limit is
 **per token**, so they will compete for the same quota. Practically,
-one token per plugin per character keeps audit and rate-limit blame
-clean. Generating a new token in one plugin will invalidate the
+one token per client per character keeps audit and rate-limit blame
+clean. Generating a new token in one client will invalidate the
 shared token, breaking the other.
 
 **Q: Can the user generate one token that covers all their characters?**
 A: No. Each character has its own token. This is a security feature —
-a plugin can only ever affect the character the user explicitly opted
+a client can only ever affect the character the user explicitly opted
 in for.
 
 **Q: Is there a way to delete an ID from the owned set via the API?**
