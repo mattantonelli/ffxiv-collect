@@ -185,10 +185,14 @@ Rails.application.routes.draw do
   delete 'character/forget', to: 'characters#forget', as: :forget_character
   delete 'character/unpeek', to: 'characters#unpeek', as: :unpeek_character
 
+  resource :character_api_token, path: 'character/:character_id/api_token',
+                                 only: [:show, :create, :destroy]
+
   namespace :api do
     resources :characters, only: :show do
       get ':collection/owned', action: :owned, as: :owned
       get ':collection/missing', action: :missing, as: :missing
+      post ':collection/owned', to: 'owned#create'
     end
 
     resources :users, only: :show do

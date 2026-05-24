@@ -50,10 +50,12 @@ module FfxivCollect
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '/api/*', headers: :any, methods: [:get, :options]
+        resource '/api/*', headers: :any, methods: [:get, :post, :options]
         resource '/discord/interactions', headers: :any, methods: [:post]
       end
     end
+
+    config.middleware.use Rack::Attack
 
     # Don't generate system test files.
     config.generators.system_tests = nil

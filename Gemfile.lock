@@ -317,6 +317,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (2.2.23)
+    rack-attack (6.8.0)
+      rack (>= 1.0, < 4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
     rack-mini-profiler (4.0.1)
@@ -516,6 +518,7 @@ DEPENDENCIES
   paper_trail (~> 16.0.0)
   puma
   rack (~> 2.2.23)
+  rack-attack
   rack-cors (~> 1.1.0)
   rack-mini-profiler
   rails (~> 7.2.3.1)

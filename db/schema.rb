@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_29_015627) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_24_000001) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -215,6 +215,19 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_29_015627) do
     t.index ["achievement_id"], name: "index_character_achievements_on_achievement_id"
     t.index ["character_id", "achievement_id"], name: "index_character_achievements_on_character_id_and_achievement_id", unique: true
     t.index ["character_id"], name: "index_character_achievements_on_character_id"
+  end
+
+  create_table "character_api_tokens", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.integer "character_id", null: false
+    t.integer "user_id", null: false
+    t.string "token_hash", limit: 64, null: false
+    t.datetime "last_used_at"
+    t.string "last_user_agent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_api_tokens_on_character_id", unique: true
+    t.index ["token_hash"], name: "index_character_api_tokens_on_token_hash", unique: true
+    t.index ["user_id"], name: "index_character_api_tokens_on_user_id"
   end
 
   create_table "character_armoires", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|

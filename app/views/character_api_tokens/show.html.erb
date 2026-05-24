@@ -1,0 +1,75 @@
+<% title("#{@character.name} (#{@character.server}) — API Token") %>
+
+<div class="row">
+  <div class="col-12 col-xl-8 offset-xl-2">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center py-2">
+        <h5 class="card-title mr-2">API Token — <%= @character.name %></h5>
+        <%= link_to fa_icon('arrow-left', text: 'Back to profile'),
+          character_path(@character), class: 'btn btn-secondary btn-sm' %>
+      </div>
+      <div class="card-body">
+        <p>
+          API tokens let an external client push owned collection IDs to FFXIV
+          Collect on behalf of this character. The token
+          authorises writes to <strong>this character only</strong> and only for the
+          collections that aren't synced from Lodestone (emotes, bardings, hairstyles,
+          fashions, facewear, orchestrions, frames, armoires, outfits, cards).
+        </p>
+
+        <% if @plaintext_token.present? %>
+          <div class="alert alert-warning">
+            <strong>This is the only time the token will be shown.</strong>
+            Copy it now and paste it into the plugin. If you lose it, generate a new
+            one — the old one will stop working.
+          </div>
+          <pre id="api-token" class="p-3 bg-light"><%= @plaintext_token %></pre>
+          <div class="d-flex justify-content-end mb-3">
+            <%= button_tag fa_icon('copy', text: t('clipboard')), class: 'btn btn-secondary btn-sm clipboard mt-0',
+              data: { clipboard_action: 'copy', clipboard_target: '#api-token' } %>
+          </div>
+        <% end %>
+
+        <hr>
+
+        <% if @api_token.present? && @plaintext_token.blank? %>
+          <p>
+            <strong>Token status:</strong> active.<br>
+            Created: <%= @api_token.created_at.strftime('%Y-%m-%d %H:%M') %><br>
+            Last used: <%= @api_token.last_used_at ? @api_token.last_used_at.strftime('%Y-%m-%d %H:%M') : 'never' %><br>
+            <% if @api_token.last_user_agent.present? %>
+              Last client: <code><%= @api_token.last_user_agent %></code>
+            <% end %>
+          </p>
+        <% elsif @plaintext_token.blank? %>
+          <p>No active API token for this character.</p>
+        <% end %>
+
+        <div class="d-flex justify-content-between">
+          <%= button_to fa_icon('key', text: @api_token.present? && @plaintext_token.blank? ? 'Regenerate token' : 'Generate token'),
+            character_api_token_path(character_id: @character.id),
+            method: :post,
+            class: 'btn btn-primary',
+            data: { confirm: @api_token.present? && @plaintext_token.blank? ? 'Regenerating will invalidate your current token. Continue?' : nil } %>
+
+          <% if @api_token.present? %>
+            <%= button_to fa_icon('times', text: 'Revoke token'),
+              character_api_token_path(character_id: @character.id),
+              method: :delete,
+              class: 'btn btn-danger',
+              data: { confirm: 'This will invalidate the current token. Continue?' } %>
+          <% end %>
+        </div>
+
+        <hr>
+
+        <h6>Plugin endpoint</h6>
+        <pre class="p-2 bg-light"><code>POST /api/characters/<%= @character.id %>/&lt;collection&gt;/owned
+Authorization: Bearer &lt;your token&gt;
+Content-Type: application/json
+
+{ "ids": [1, 2, 3] }</code></pre>
+      </div>
+    </div>
+  </div>
+</div>

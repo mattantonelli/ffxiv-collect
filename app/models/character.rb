@@ -60,6 +60,8 @@ class Character < ApplicationRecord
   belongs_to :verified_user, class_name: 'User', required: false
   belongs_to :free_company, required: false
 
+  has_one :api_token, class_name: 'CharacterApiToken', dependent: :destroy
+
   has_many :group_memberships
   has_many :groups, through: :group_memberships
 

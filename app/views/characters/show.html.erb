@@ -22,6 +22,12 @@
 
           <%= link_to far_icon('chart-bar', text: t('characters.statistics')),
             stats_rarity_character_path(@profile), class: 'btn btn-success btn-sm' %>
+
+          <% if @profile.verified_user?(current_user) %>
+            <%= link_to fa_icon('key', text: 'API Token'),
+              character_api_token_path(character_id: @profile.id),
+              class: 'btn btn-info btn-sm' %>
+          <% end %>
         </div>
       </div>
       <div class="card-body">
