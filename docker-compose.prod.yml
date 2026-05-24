@@ -2,9 +2,9 @@
 # prod Dockerfile target (eager-loaded Rails + precompiled assets) and
 # RAILS_ENV=production. Run from the deploy folder:
 #
-#   cd C:\Daten\Docker\ffxivcollect
-#   docker compose --env-file .env -f <repo>\docker-compose.prod.yml build
-#   docker compose --env-file .env -f <repo>\docker-compose.prod.yml up -d
+#   cd <deploy>
+#   docker compose --env-file .env -f <repo>/docker-compose.prod.yml build
+#   docker compose --env-file .env -f <repo>/docker-compose.prod.yml up -d
 #
 # Re-uses the same ASSETS_DIR/CONFIG_DIR mounts as dev — DB, downloaded
 # images, logs, credentials are all shared between the two modes.

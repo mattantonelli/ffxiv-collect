@@ -1,9 +1,9 @@
 # Development stack.
 #
 # Run from the deploy folder (which holds the runtime .env):
-#   cd C:\Daten\Docker\ffxivcollect
-#   docker compose --env-file .env -f <repo>\docker-compose.yml build
-#   docker compose --env-file .env -f <repo>\docker-compose.yml up
+#   cd <deploy>
+#   docker compose --env-file .env -f <repo>/docker-compose.yml build
+#   docker compose --env-file .env -f <repo>/docker-compose.yml up
 #
 # --env-file is required: Compose v2 reads .env from the compose file's directory
 # by default (the repo), not from cwd, when -f is used. Build context and bind-mount
@@ -45,10 +45,10 @@ x-app-base: &app-base
     - .:/app
     # Encrypted credentials (Discord OAuth etc.) — generated outside the image,
     # decrypted at runtime with RAILS_MASTER_KEY from .env. Mounted read-only.
-    # CONFIG_DIR is set in .env (default: parent of ASSETS_DIR).
+    # CONFIG_DIR must be set in .env (see .env.example).
     - ${CONFIG_DIR}/credentials.yml.enc:/app/config/credentials.yml.enc:ro
     # Runtime data lives outside the repo so the repo stays mostly code-only.
-    # ASSETS_DIR is set in .env (default: C:/Daten/Docker/ffxivcollect/assets).
+    # ASSETS_DIR must be set in .env (see .env.example).
     #
     # Only paths whose ONLY tracked files are .keep are bind-mounted — that way
     # the container's view is the external dir without losing committed assets.

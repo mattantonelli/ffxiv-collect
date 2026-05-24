@@ -77,27 +77,25 @@ A containerized stack is provided as an alternative to the manual installation a
 * `.env.example` — template for the runtime configuration.
 
 #### Deploy folder convention
-Compose is **not** invoked from inside the repo. Runtime config (`.env`, encrypted credentials) lives in a separate deploy folder, e.g. `C:\Daten\Docker\ffxivcollect\`. The repo only holds the compose files.
+Compose is **not** invoked from inside the repo. Runtime config (`.env`, encrypted credentials) lives in a separate deploy folder outside the repo. The repo only holds the compose files.
 
 Every compose command follows this shape (the `--env-file` flag is required — under Compose v2, `.env` is read from the compose file's directory by default, not cwd, when `-f` is used):
 
 ```
-cd C:\Daten\Docker\ffxivcollect
+cd <deploy>
 docker compose --env-file .env -f <repo>\docker-compose.yml <subcommand>
 ```
 
 #### One-time setup
-1. Initialize the `xiv-data` submodule (CSVs are baked into the image at build time):
-   ```
-   git submodule update --init --recursive
-   ```
-2. Create the Discord OAuth app and set up `config/credentials.yml.enc` as described in the [manual install](#create-the-necessary-3rd-party-applications). Move `config/credentials.yml.enc` and `config/master.key` into the deploy folder — the compose files mount `credentials.yml.enc` from there read-only, and `master.key` is exposed to the container as the `RAILS_MASTER_KEY` env var.
-3. In the deploy folder, copy `.env.example` to `.env` and fill in `RAILS_MASTER_KEY`, the MariaDB credentials, and (for prod) `SECRET_KEY_BASE`.
-4. Create the `ASSETS_DIR` / `CONFIG_DIR` paths referenced in `.env` (defaults are documented in `.env.example`). These hold the database, downloaded images, logs, and the encrypted credentials so they survive image rebuilds.
+1. Create the Discord OAuth app and set up `config/credentials.yml.enc` as described in the [manual install](#create-the-necessary-3rd-party-applications). Move `config/credentials.yml.enc` and `config/master.key` into the deploy folder — the compose files mount `credentials.yml.enc` from there read-only, and `master.key` is exposed to the container as the `RAILS_MASTER_KEY` env var.
+2. In the deploy folder, copy `.env.example` to `.env` and fill in `RAILS_MASTER_KEY`, the MariaDB credentials, and (for prod) `SECRET_KEY_BASE`.
+3. Create the `ASSETS_DIR` / `CONFIG_DIR` paths referenced in `.env` (defaults are documented in `.env.example`). These hold the database, downloaded images, logs, and the encrypted credentials so they survive image rebuilds.
+
+You do **not** need to initialize the `vendor/xiv-data` submodule manually. The `data-updater` service clones the `xiv-data` repo into `${ASSETS_DIR}/xiv-data` on first `up` and pulls new commits on every subsequent `up`. The Dockerfile deliberately does not bake the game data into the image.
 
 #### Build and run (development)
 ```
-cd C:\Daten\Docker\ffxivcollect
+cd <deploy>
 docker compose --env-file .env -f <repo>\docker-compose.yml build
 docker compose --env-file .env -f <repo>\docker-compose.yml up
 ```
@@ -105,7 +103,7 @@ The app is then available on `http://localhost:3000`. The first start loads the 
 
 #### Build and run (production)
 ```
-cd C:\Daten\Docker\ffxivcollect
+cd <deploy>
 docker compose --env-file .env -f <repo>\docker-compose.prod.yml build
 docker compose --env-file .env -f <repo>\docker-compose.prod.yml up -d
 ```
