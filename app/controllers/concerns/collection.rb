@@ -9,11 +9,11 @@ module Collection
 
   def ransack_with_patch_search(patches)
     search = params[:q] || {}
-    search[:patch_eq] ||= patches.sort.last
+    search[:patch_eq] ||= patches.compact.sort.last
 
     # Hack the ransack params for searches that span multiple patches
-    if search[:patch_eq] == 'all'
-      # All achievements
+    if search[:patch_eq].nil? || search[:patch_eq] == 'all'
+      # No patch data in the DB, or explicit "all" — don't filter by patch
       search.delete(:patch_eq)
     elsif search[:patch_eq].match?(/\A\d\z/)
       # Expansion search
