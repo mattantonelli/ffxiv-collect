@@ -308,6 +308,9 @@ GEM
     omniauth-rails_csrf_protection (1.0.2)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    omniauth-xivauth (0.1.0)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.8)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     paper_trail (16.0.0)
@@ -518,9 +521,10 @@ DEPENDENCIES
   momentjs-rails
   mysql2 (~> 0.5.6)
   nokogiri (~> 1.18)
-  omniauth-discord
-  omniauth-google-oauth2
+  omniauth-discord (~> 1.2.0)
+  omniauth-google-oauth2 (~> 1.2.2)
   omniauth-rails_csrf_protection (~> 1.0)
+  omniauth-xivauth (~> 0.1.0)
   ostruct
   paper_trail (~> 16.0.0)
   puma

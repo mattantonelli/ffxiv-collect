@@ -1,5 +1,3 @@
-require Rails.root.join('app/lib/omniauth/strategies/xivauth')
-
 # frozen_string_literal: true
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -280,7 +278,7 @@ Devise.setup do |config|
     Rails.application.credentials.dig(:xivauth, :client_id),
     Rails.application.credentials.dig(:xivauth, :client_secret),
     scope: 'user character:all',
-    strategy_class: OmniAuth::Strategies::XIVAuth
+    strategy_class: OmniAuth::Strategies::Xivauth
   )
 
   # ==> Warden configuration

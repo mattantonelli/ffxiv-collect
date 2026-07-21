@@ -1,4 +1,4 @@
-class XIVAuthCharactersSyncJob < ApplicationJob
+class XivauthCharactersSyncJob < ApplicationJob
   include CharacterFetch
   queue_as :character
   unique :until_and_while_executing, on_conflict: :log

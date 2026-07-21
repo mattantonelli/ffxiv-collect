@@ -16,8 +16,9 @@ gem 'rack', '~> 2.2.23'
 gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
-gem 'omniauth-discord'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-discord', '~> 1.2.0'
+gem 'omniauth-google-oauth2', '~> 1.2.2'
+gem 'omniauth-xivauth', '~> 0.1.0'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'faraday', '>= 2.14.2'
 
