@@ -29,7 +29,11 @@ class XivauthCharactersSyncJob < ApplicationJob
         end
 
         # Add the character to the user's list of characters
-        user.characters << character unless user.characters.exists?(character.id)
+        begin
+          user.characters << character
+        rescue ActiveRecord::RecordNotUnique
+          # Character is already on the list
+        end
 
         # Set their currently selected character if it is not already set
         unless user.character_id.present?
