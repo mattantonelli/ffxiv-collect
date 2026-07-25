@@ -1,7 +1,7 @@
 class FreeCompanySyncJob < ApplicationJob
   include CharacterFetch
   queue_as :free_company
-  unique :until_and_while_executing, on_conflict: :log
+  # unique :until_and_while_executing, on_conflict: :log
 
   def perform(*args)
     begin

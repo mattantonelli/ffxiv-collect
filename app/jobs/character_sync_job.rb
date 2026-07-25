@@ -1,6 +1,6 @@
 class CharacterSyncJob < ApplicationJob
   queue_as :character
-  unique :until_and_while_executing, on_conflict: :log
+  # unique :until_and_while_executing, on_conflict: :log
 
   def perform(*args)
     id = args[0]

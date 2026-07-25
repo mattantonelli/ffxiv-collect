@@ -20,7 +20,7 @@ Bundler.require(*Rails.groups)
 
 module FfxivCollect
   class Application < Rails::Application
-    config.load_defaults 7.2
+    config.load_defaults 8.1
 
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.

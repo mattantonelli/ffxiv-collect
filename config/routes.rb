@@ -54,7 +54,10 @@ Rails.application.routes.draw do
   %i(orchestrions emotes bardings hairstyles armoires outfits spells fashions facewear frames
   field_records survey_records occult_records).each do |resource|
     resources resource, only: [:index, :show] do
-      post :add, :remove, on: :member
+      member do
+        post :add
+        post :remove
+      end
     end
   end
 
@@ -69,7 +72,10 @@ Rails.application.routes.draw do
       get :fieldcraft
     end
 
-    post :add, :remove, on: :member
+    member do
+      post :add
+      post :remove
+    end
   end
 
   scope :triad, module: :triad do
@@ -115,14 +121,20 @@ Rails.application.routes.draw do
   end
 
   resources :relics, as: :relic, only: [] do
-    post :add, :remove, on: :member
+    member do
+      post :add
+      post :remove
+    end
   end
 
   resources :search, only: [:index]
 
   resources :tools, only: [] do
     collection do
-      get :gemstones, :market_board, :materiel, :treasure
+      get :gemstones
+      get :market_board
+      get :materiel
+      get :treasure
     end
   end
 
@@ -146,23 +158,31 @@ Rails.application.routes.draw do
       get 'stats/recent', to: 'characters#stats_recent', as: :stats_recent
       get 'stats/rarity', to: 'characters#stats_rarity', as: :stats_rarity
       get :verify
-      post :view, :select, :peek, :validate
+      post :view
+      post :select
+      post :peek
+      post :validate
     end
 
     collection do
-      get :search, :profile
+      get :search
+      get :profile
       get 'search/lodestone', to: 'characters#search_lodestone'
       post 'search/lodestone_id', to: 'characters#search_lodestone_id', as: :search_lodestone_id
     end
   end
 
   resources :free_companies, only: [:show], path: :fc do
-    get :collections, :mounts, :spells
+    get :collections
+    get :mounts
+    get :spells
     post :refresh, on: :member
   end
 
   resources :groups do
-    get :collections, :mounts, :spells
+    get :collections
+    get :mounts
+    get :spells
 
     member do
       get :manage

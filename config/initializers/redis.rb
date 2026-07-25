@@ -1,6 +1,6 @@
 class Redis
   def self.current
-    @current ||= Redis::Namespace.new(:collect, redis: Redis.new)
+    @current ||= Redis.new(db: 1)
   end
 
   def self.unlock_jobs!
