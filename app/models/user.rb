@@ -72,7 +72,7 @@ class User < ApplicationRecord
       character_ids = auth.extra.characters&.pluck(:lodestone_id)
 
       if character_ids.present?
-        XivauthCharactersSyncJob.perform_later(user.id, character_ids)
+        XivauthCharactersSyncJob.perform_async(user.id, character_ids)
       end
     end
 

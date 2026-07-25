@@ -26,7 +26,7 @@ class FreeCompany < ApplicationRecord
 
   def refresh
     update(queued_at: Time.now)
-    FreeCompanySyncJob.perform_later(id)
+    FreeCompanySyncJob.perform_async(id)
   end
 
   def self.fetch(id)

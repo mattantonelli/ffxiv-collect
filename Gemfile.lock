@@ -418,6 +418,10 @@ GEM
       redis-client (>= 0.23.0, < 1)
     sidekiq-failures (1.0.4)
       sidekiq (>= 4.0.0)
+    sidekiq-unique-jobs (8.1.0)
+      concurrent-ruby (~> 1.0, >= 1.0.5)
+      sidekiq (>= 7.0.0, < 9.0.0)
+      thor (>= 1.0, < 3.0)
     snaky_hash (2.0.7)
       hashie (>= 0.1.0, < 6)
       version_gem (~> 1.1, >= 1.1.14)
@@ -533,6 +537,7 @@ DEPENDENCIES
   sassc-rails
   sidekiq (~> 7.3.10)
   sidekiq-failures (~> 1.0.0)
+  sidekiq-unique-jobs (~> 8.1.0)
   sortable-rails
   spring
   sprite-factory!

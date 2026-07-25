@@ -185,8 +185,6 @@ class CharactersController < ApplicationController
 
     if !character.refreshable?
       flash[:alert] = t("alerts.#{key}_already_refreshed")
-    elsif character.in_queue?
-      flash[:alert] = t("alerts.#{key}_syncing")
     else
       begin
         fetched = fetch_character(character.id)

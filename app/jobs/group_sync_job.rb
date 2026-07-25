@@ -1,7 +1,9 @@
-class GroupSyncJob < ApplicationJob
+class GroupSyncJob < SidekiqJob
   include CharacterFetch
-  queue_as :free_company
-  # unique :until_and_while_executing, on_conflict: :log
+
+  sidekiq_options(
+    queue: :free_company
+  )
 
   def perform(*args)
     begin
@@ -10,11 +12,7 @@ class GroupSyncJob < ApplicationJob
       group_id = args[0]
 
       Group.friendly.find(group_id).character_ids.each do |id|
-        begin
-          CharacterSyncJob.perform_now(id)
-        rescue StandardError
-          # Logged in child job - continue execution
-        end
+        fetch_character(id)
       end
     rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Sidekiq.logger.info('Lodestone is down for maintenance.')

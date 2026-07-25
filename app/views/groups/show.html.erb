@@ -11,7 +11,7 @@
             <span class="mr-2">
               <%= @members.size %> <%= t('groups.member', count: @members.size) %>
             </span>
-            <% if @group.recently_queued? || @group.in_queue? %>
+            <% if @group.syncing? %>
               <span class="badge badge-secondary">
                 <%= fa_icon('sync', text: t('groups.refresh.in_progress')) %>
               </span>

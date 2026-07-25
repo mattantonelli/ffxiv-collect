@@ -1,7 +1,7 @@
-class XivauthCharactersSyncJob < ApplicationJob
-  include CharacterFetch
-  queue_as :character
-  # unique :until_and_while_executing, on_conflict: :log
+class XivauthCharactersSyncJob < SidekiqJob
+  sidekiq_options(
+    queue: :character
+  )
 
   def perform(*args)
     begin
@@ -17,7 +17,7 @@ class XivauthCharactersSyncJob < ApplicationJob
         # Fetch character from the Lodestone if needed
         unless character.present?
           begin
-            character = CharacterSyncJob.perform_now(id)
+            character = CharacterSyncJob.new.perform(id)
           rescue StandardError
             # Logged in child job - continue execution
           end

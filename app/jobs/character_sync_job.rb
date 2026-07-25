@@ -1,6 +1,7 @@
-class CharacterSyncJob < ApplicationJob
-  queue_as :character
-  # unique :until_and_while_executing, on_conflict: :log
+class CharacterSyncJob < SidekiqJob
+  sidekiq_options(
+    queue: :character
+  )
 
   def perform(*args)
     id = args[0]

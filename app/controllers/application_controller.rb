@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if @character&.syncable?
+    if @character&.stale?
       @character.sync
     end
   end

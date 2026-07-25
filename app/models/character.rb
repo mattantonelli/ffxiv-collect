@@ -54,8 +54,6 @@
 #
 
 class Character < ApplicationRecord
-  include Queueable
-
   after_destroy :clear_user_characters
   belongs_to :verified_user, class_name: 'User', required: false
   belongs_to :free_company, required: false
@@ -76,7 +74,7 @@ class Character < ApplicationRecord
 
   def sync
     update(queued_at: Time.now)
-    CharacterSyncJob.perform_later(id)
+    CharacterSyncJob.perform_async(id)
   end
 
   def verify!(user)
@@ -117,10 +115,6 @@ class Character < ApplicationRecord
 
   def refreshable?
     refreshed_at < Time.now - 30.minutes
-  end
-
-  def syncable?
-    stale? && !in_queue?
   end
 
   def early_user?

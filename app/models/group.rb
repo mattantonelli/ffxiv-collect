@@ -39,7 +39,7 @@ class Group < ApplicationRecord
 
   def refresh
     update(queued_at: Time.now)
-    GroupSyncJob.perform_later(id)
+    GroupSyncJob.perform_async(id)
   end
 
   def valid_member?(user: nil, character: nil)

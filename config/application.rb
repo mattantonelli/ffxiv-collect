@@ -3,7 +3,7 @@ require_relative "boot"
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
-require "active_job/railtie"
+# require "active_job/railtie"
 require "active_record/railtie"
 # require "active_storage/engine"
 require "action_controller/railtie"
@@ -41,7 +41,7 @@ module FfxivCollect
 
     config.session_store :cookie_store, key: '_ffxiv_collect_session', expire_after: 1.month, same_site: :lax
 
-    config.active_job.queue_adapter = :sidekiq
+    # config.active_job.queue_adapter = :sidekiq
 
     # Allows organization of models into subdirectories without requiring a clunky namespace
     config.autoload_paths += Dir[Rails.root.join('app/models/character')]

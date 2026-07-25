@@ -3,7 +3,11 @@ class Redis
     @current ||= Redis.new(db: 1)
   end
 
+  def self.clear_queues!
+    Sidekiq::Queue.all.each(&:clear)
+  end
+
   def self.unlock_jobs!
-    ActiveJob::Uniqueness.unlock!
+    SidekiqUniqueJobs::Orphans::Reaper.call
   end
 end

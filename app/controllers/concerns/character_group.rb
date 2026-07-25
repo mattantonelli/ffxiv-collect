@@ -33,7 +33,7 @@ module CharacterGroup
   end
 
   def refresh
-    if @group.in_queue?
+    if @group.syncing?
       flash[:alert] = t('alerts.groups.syncing')
     elsif !@group.syncable?
       flash[:alert] = t('alerts.groups.already_refreshed')

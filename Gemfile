@@ -45,7 +45,7 @@ gem 'paper_trail', '~> 17.0.0'
 gem 'redis', '~> 4.8.1'
 gem 'sidekiq', '~> 7.3.10'
 gem 'sidekiq-failures', '~> 1.0.0'
-# gem 'sidekiq-unique-jobs' # requires sidekiq 8
+gem 'sidekiq-unique-jobs', '~> 8.1.0'
 gem 'nokogiri', '~> 1.18'
 gem 'friendly_id', '~> 5.4.0'
 gem 'csv'
