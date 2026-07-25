@@ -2,11 +2,11 @@
 #
 # Table name: character_cards
 #
-#  id           :bigint(8)        not null, primary key
-#  card_id      :integer
-#  character_id :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  card_id      :integer
+#  character_id :integer
 #
 
 class CharacterCard < ApplicationRecord

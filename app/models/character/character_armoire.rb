@@ -2,11 +2,11 @@
 #
 # Table name: character_armoires
 #
-#  id           :bigint(8)        not null, primary key
-#  character_id :integer
-#  armoire_id   :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  armoire_id   :integer
+#  character_id :integer
 #
 
 class CharacterArmoire < ApplicationRecord

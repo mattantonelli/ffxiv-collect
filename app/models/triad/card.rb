@@ -2,35 +2,35 @@
 #
 # Table name: cards
 #
-#  id               :bigint(8)        not null, primary key
-#  patch            :string(255)
-#  card_type_id     :integer          not null
-#  stars            :integer          not null
-#  top              :integer          not null
-#  right            :integer          not null
+#  id               :bigint           not null, primary key
 #  bottom           :integer          not null
-#  left             :integer          not null
 #  buy_price        :integer
-#  sell_price       :integer          not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  order            :integer
-#  name_en          :string(255)      not null
-#  name_de          :string(255)      not null
-#  name_fr          :string(255)      not null
-#  name_ja          :string(255)      not null
-#  description_en   :text(65535)      not null
+#  deck_order       :integer
 #  description_de   :text(65535)      not null
+#  description_en   :text(65535)      not null
 #  description_fr   :text(65535)      not null
 #  description_ja   :text(65535)      not null
-#  order_group      :integer
-#  deck_order       :integer
-#  formatted_number :string(255)      not null
-#  item_id          :integer
-#  name_tc          :string(255)
 #  description_tc   :text(65535)
+#  formatted_number :string(255)      not null
 #  image_url        :string(255)
 #  large_image_url  :string(255)
+#  left             :integer          not null
+#  name_de          :string(255)      not null
+#  name_en          :string(255)      not null
+#  name_fr          :string(255)      not null
+#  name_ja          :string(255)      not null
+#  name_tc          :string(255)
+#  order            :integer
+#  order_group      :integer
+#  patch            :string(255)
+#  right            :integer          not null
+#  sell_price       :integer          not null
+#  stars            :integer          not null
+#  top              :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  card_type_id     :integer          not null
+#  item_id          :integer
 #
 
 class Card < ApplicationRecord

@@ -2,32 +2,32 @@
 #
 # Table name: items
 #
-#  id             :bigint(8)        not null, primary key
-#  name_en        :string(255)      not null
-#  name_de        :string(255)      not null
-#  name_fr        :string(255)      not null
-#  name_ja        :string(255)      not null
-#  description_en :string(1000)     not null
+#  id             :bigint           not null, primary key
+#  crafter        :string(255)
 #  description_de :string(1000)     not null
+#  description_en :string(1000)     not null
 #  description_fr :string(1000)     not null
 #  description_ja :string(1000)     not null
-#  tradeable      :boolean
-#  unlock_type    :string(255)
-#  unlock_id      :integer
-#  crafter        :string(255)
-#  recipe_id      :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  price          :integer
-#  plural_en      :string(255)
+#  description_tc :string(1000)
+#  image_url      :string(255)
+#  name_de        :string(255)      not null
+#  name_en        :string(255)      not null
+#  name_fr        :string(255)      not null
+#  name_ja        :string(255)      not null
+#  name_tc        :string(255)
 #  plural_de      :string(255)
+#  plural_en      :string(255)
 #  plural_fr      :string(255)
 #  plural_ja      :string(255)
-#  quest_id       :integer
-#  name_tc        :string(255)
-#  description_tc :string(1000)
 #  plural_tc      :string(255)
-#  image_url      :string(255)
+#  price          :integer
+#  tradeable      :boolean
+#  unlock_type    :string(255)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  quest_id       :integer
+#  recipe_id      :integer
+#  unlock_id      :integer
 #
 class Item < ApplicationRecord
   translates :name, :description, :plural

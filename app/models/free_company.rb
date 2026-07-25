@@ -4,10 +4,10 @@
 #
 #  id         :string(255)      not null, primary key
 #  name       :string(255)
+#  queued_at  :datetime         default(1970-01-01 00:00:00.000000000 UTC +00:00)
 #  tag        :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  queued_at  :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
 #
 
 class FreeCompany < ApplicationRecord

@@ -2,22 +2,22 @@
 #
 # Table name: npcs
 #
-#  id          :bigint(8)        not null, primary key
-#  x           :decimal(3, 1)
-#  y           :decimal(3, 1)
-#  resident_id :integer          not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  quest_id    :integer
-#  patch       :string(255)
-#  name_en     :string(255)      not null
-#  name_de     :string(255)      not null
-#  name_fr     :string(255)      not null
-#  name_ja     :string(255)      not null
-#  location_id :integer          not null
+#  id          :bigint           not null, primary key
 #  difficulty  :decimal(3, 2)
 #  excluded    :boolean          default(FALSE)
+#  name_de     :string(255)      not null
+#  name_en     :string(255)      not null
+#  name_fr     :string(255)      not null
+#  name_ja     :string(255)      not null
 #  name_tc     :string(255)
+#  patch       :string(255)
+#  x           :decimal(3, 1)
+#  y           :decimal(3, 1)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  location_id :integer          not null
+#  quest_id    :integer
+#  resident_id :integer          not null
 #
 
 class NPC < ApplicationRecord

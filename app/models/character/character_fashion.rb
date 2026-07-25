@@ -2,11 +2,11 @@
 #
 # Table name: character_fashions
 #
-#  id           :bigint(8)        not null, primary key
-#  character_id :integer
-#  fashion_id   :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  character_id :integer
+#  fashion_id   :integer
 #
 class CharacterFashion < ApplicationRecord
   belongs_to :character, counter_cache: :fashions_count, touch: true

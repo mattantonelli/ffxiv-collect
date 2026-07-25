@@ -2,18 +2,18 @@
 #
 # Table name: relic_types
 #
-#  id         :bigint(8)        not null, primary key
-#  name_en    :string(255)
+#  id         :bigint           not null, primary key
+#  category   :string(255)
+#  expansion  :integer
+#  jobs       :integer
 #  name_de    :string(255)
+#  name_en    :string(255)
 #  name_fr    :string(255)
 #  name_ja    :string(255)
-#  category   :string(255)
-#  jobs       :integer
+#  name_tc    :string(255)
 #  order      :integer
-#  expansion  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  name_tc    :string(255)
 #
 class RelicType < ApplicationRecord
   has_many :relics, foreign_key: 'type_id', dependent: :delete_all

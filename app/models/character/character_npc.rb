@@ -2,11 +2,11 @@
 #
 # Table name: character_npcs
 #
-#  id           :bigint(8)        not null, primary key
-#  character_id :integer
-#  npc_id       :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  character_id :integer
+#  npc_id       :integer
 #
 
 class CharacterNPC < ApplicationRecord

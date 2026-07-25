@@ -2,55 +2,55 @@
 #
 # Table name: characters
 #
-#  id                           :bigint(8)        not null, primary key
-#  name                         :string(255)      not null
-#  server                       :string(255)      not null
-#  portrait                     :string(255)
-#  avatar                       :string(255)      not null
-#  last_parsed                  :datetime
-#  verified_user_id             :integer
-#  achievements_count           :integer          default(0)
-#  mounts_count                 :integer          default(0)
-#  minions_count                :integer          default(0)
-#  orchestrions_count           :integer          default(0)
-#  emotes_count                 :integer          default(0)
-#  bardings_count               :integer          default(0)
-#  hairstyles_count             :integer          default(0)
-#  armoires_count               :integer          default(0)
-#  created_at                   :datetime         not null
-#  updated_at                   :datetime         not null
-#  public                       :boolean          default(TRUE)
+#  id                           :bigint           not null, primary key
 #  achievement_points           :integer          default(0)
-#  free_company_id              :string(255)
-#  refreshed_at                 :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
-#  gender                       :string(255)
-#  spells_count                 :integer          default(0)
-#  relics_count                 :integer          default(0)
-#  queued_at                    :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
+#  achievements_count           :integer          default(0)
+#  armoires_count               :integer          default(0)
+#  avatar                       :string(255)      not null
+#  banned                       :boolean          default(FALSE)
+#  bardings_count               :integer          default(0)
+#  cards_count                  :integer          default(0)
+#  data_center                  :string(255)
+#  emotes_count                 :integer          default(0)
+#  facewear_count               :integer          default(0)
 #  fashions_count               :integer          default(0)
 #  field_records_count          :integer          default(0)
-#  data_center                  :string(255)
-#  ranked_achievement_points    :integer          default(0)
-#  ranked_mounts_count          :integer          default(0)
-#  ranked_minions_count         :integer          default(0)
-#  last_ranked_achievement_time :datetime
-#  survey_records_count         :integer          default(0)
 #  frames_count                 :integer          default(0)
-#  banned                       :boolean          default(FALSE)
-#  cards_count                  :integer          default(0)
-#  npcs_count                   :integer          default(0)
+#  gender                       :string(255)
+#  hairstyles_count             :integer          default(0)
+#  last_parsed                  :datetime
+#  last_ranked_achievement_time :datetime
 #  leves_count                  :integer          default(0)
-#  public_achievements          :boolean          default(FALSE)
-#  public_profile               :boolean          default(TRUE)
-#  public_mounts                :boolean          default(TRUE)
-#  public_minions               :boolean          default(TRUE)
-#  public_facewear              :boolean          default(TRUE)
-#  facewear_count               :integer          default(0)
-#  pricing_data_center          :string(255)
-#  outfits_count                :integer          default(0)
+#  minions_count                :integer          default(0)
+#  mounts_count                 :integer          default(0)
+#  name                         :string(255)      not null
+#  npcs_count                   :integer          default(0)
 #  occult_records_count         :integer          default(0)
-#  supporter                    :boolean          default(FALSE)
+#  orchestrions_count           :integer          default(0)
+#  outfits_count                :integer          default(0)
+#  portrait                     :string(255)
+#  pricing_data_center          :string(255)
+#  public                       :boolean          default(TRUE)
+#  public_achievements          :boolean          default(FALSE)
 #  public_emotes                :boolean          default(FALSE)
+#  public_facewear              :boolean          default(TRUE)
+#  public_minions               :boolean          default(TRUE)
+#  public_mounts                :boolean          default(TRUE)
+#  public_profile               :boolean          default(TRUE)
+#  queued_at                    :datetime         default(1970-01-01 00:00:00.000000000 UTC +00:00)
+#  ranked_achievement_points    :integer          default(0)
+#  ranked_minions_count         :integer          default(0)
+#  ranked_mounts_count          :integer          default(0)
+#  refreshed_at                 :datetime         default(1970-01-01 00:00:00.000000000 UTC +00:00)
+#  relics_count                 :integer          default(0)
+#  server                       :string(255)      not null
+#  spells_count                 :integer          default(0)
+#  supporter                    :boolean          default(FALSE)
+#  survey_records_count         :integer          default(0)
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  free_company_id              :string(255)
+#  verified_user_id             :integer
 #
 
 class Character < ApplicationRecord

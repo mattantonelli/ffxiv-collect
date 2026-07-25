@@ -2,11 +2,11 @@
 #
 # Table name: character_bardings
 #
-#  id           :bigint(8)        not null, primary key
-#  character_id :integer
-#  barding_id   :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  barding_id   :integer
+#  character_id :integer
 #
 
 class CharacterBarding < ApplicationRecord

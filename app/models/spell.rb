@@ -2,30 +2,30 @@
 #
 # Table name: spells
 #
-#  id             :bigint(8)        not null, primary key
-#  name_en        :string(255)      not null
-#  name_de        :string(255)      not null
-#  name_fr        :string(255)      not null
-#  name_ja        :string(255)      not null
-#  description_en :string(1000)     not null
+#  id             :bigint           not null, primary key
 #  description_de :string(1000)     not null
+#  description_en :string(1000)     not null
 #  description_fr :string(1000)     not null
 #  description_ja :string(1000)     not null
-#  tooltip_en     :string(1000)     not null
+#  description_tc :string(1000)
+#  image_url      :string(255)
+#  name_de        :string(255)      not null
+#  name_en        :string(255)      not null
+#  name_fr        :string(255)      not null
+#  name_ja        :string(255)      not null
+#  name_tc        :string(255)
+#  order          :integer
+#  patch          :string(255)
+#  rank           :integer          not null
 #  tooltip_de     :string(1000)     not null
+#  tooltip_en     :string(1000)     not null
 #  tooltip_fr     :string(1000)     not null
 #  tooltip_ja     :string(1000)     not null
-#  order          :integer
-#  rank           :integer          not null
-#  patch          :string(255)
-#  type_id        :integer          not null
-#  aspect_id      :integer          not null
+#  tooltip_tc     :string(1000)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  name_tc        :string(255)
-#  description_tc :string(1000)
-#  tooltip_tc     :string(1000)
-#  image_url      :string(255)
+#  aspect_id      :integer          not null
+#  type_id        :integer          not null
 #
 
 class Spell < ApplicationRecord

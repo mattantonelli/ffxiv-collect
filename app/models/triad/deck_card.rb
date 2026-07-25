@@ -2,12 +2,12 @@
 #
 # Table name: deck_cards
 #
-#  id         :bigint(8)        not null, primary key
-#  deck_id    :integer
-#  card_id    :integer
+#  id         :bigint           not null, primary key
 #  position   :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  card_id    :integer
+#  deck_id    :integer
 #
 
 class DeckCard < ApplicationRecord

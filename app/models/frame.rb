@@ -2,18 +2,18 @@
 #
 # Table name: frames
 #
-#  id            :bigint(8)        not null, primary key
-#  name_en       :string(255)      not null
+#  id            :bigint           not null, primary key
 #  name_de       :string(255)      not null
+#  name_en       :string(255)      not null
 #  name_fr       :string(255)      not null
 #  name_ja       :string(255)      not null
+#  name_tc       :string(255)
+#  order         :integer
 #  patch         :string(255)
-#  item_id       :integer
+#  portrait_only :boolean          default(FALSE)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  order         :integer
-#  portrait_only :boolean          default(FALSE)
-#  name_tc       :string(255)
+#  item_id       :integer
 #
 class Frame < ApplicationRecord
   include Collectable

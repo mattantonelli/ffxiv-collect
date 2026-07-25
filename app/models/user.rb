@@ -2,18 +2,18 @@
 #
 # Table name: users
 #
-#  id                 :bigint(8)        not null, primary key
-#  username           :string(255)
-#  discriminator      :integer
-#  avatar_url         :string(255)
-#  provider           :string(255)
-#  uid                :string(255)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  character_id       :integer
-#  admin              :boolean          default(FALSE)
-#  mod                :boolean          default(FALSE)
-#  database           :string(255)      default("garland"), not null
+#  id                  :bigint           not null, primary key
+#  admin               :boolean          default(FALSE)
+#  avatar_url          :string(255)
+#  database            :string(255)      default("garland"), not null
+#  discriminator       :integer
+#  mod                 :boolean          default(FALSE)
+#  provider            :string(255)
+#  uid                 :string(255)
+#  username            :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  character_id        :integer
 #  current_identity_id :integer
 #
 

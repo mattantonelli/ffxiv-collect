@@ -2,20 +2,20 @@
 #
 # Table name: facewear
 #
-#  id             :bigint(8)        not null, primary key
-#  name_en        :string(255)      not null
-#  name_de        :string(255)      not null
-#  name_fr        :string(255)      not null
-#  name_ja        :string(255)      not null
-#  order          :integer          not null
-#  patch          :string(255)
-#  item_id        :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  lodestone_name :string(255)
-#  name_tc        :string(255)
+#  id             :bigint           not null, primary key
 #  image_url      :string(255)
 #  image_urls     :text(65535)
+#  lodestone_name :string(255)
+#  name_de        :string(255)      not null
+#  name_en        :string(255)      not null
+#  name_fr        :string(255)      not null
+#  name_ja        :string(255)      not null
+#  name_tc        :string(255)
+#  order          :integer          not null
+#  patch          :string(255)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  item_id        :integer
 #
 class Facewear < ApplicationRecord
   include Collectable

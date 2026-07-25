@@ -2,11 +2,11 @@
 #
 # Table name: character_field_records
 #
-#  id              :bigint(8)        not null, primary key
-#  character_id    :integer
-#  field_record_id :integer
+#  id              :bigint           not null, primary key
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  character_id    :integer
+#  field_record_id :integer
 #
 class CharacterFieldRecord < ApplicationRecord
   belongs_to :character, counter_cache: :field_records_count, touch: true

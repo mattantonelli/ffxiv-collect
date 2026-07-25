@@ -2,27 +2,27 @@
 #
 # Table name: hairstyles
 #
-#  id             :bigint(8)        not null, primary key
-#  name_en        :string(255)      not null
-#  name_de        :string(255)      not null
-#  name_fr        :string(255)      not null
-#  name_ja        :string(255)      not null
-#  description_en :string(1000)
+#  id             :bigint           not null, primary key
 #  description_de :string(1000)
+#  description_en :string(1000)
 #  description_fr :string(1000)
 #  description_ja :string(1000)
+#  description_tc :string(1000)
+#  femhrothable   :boolean          default(FALSE)
+#  gender         :string(255)
+#  hrothable      :boolean          default(FALSE)
+#  image_url      :string(255)
+#  image_urls     :text(65535)
+#  name_de        :string(255)      not null
+#  name_en        :string(255)      not null
+#  name_fr        :string(255)      not null
+#  name_ja        :string(255)      not null
+#  name_tc        :string(255)
 #  patch          :string(255)
+#  vierable       :boolean          default(FALSE)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
-#  gender         :string(255)
-#  vierable       :boolean          default(FALSE)
-#  hrothable      :boolean          default(FALSE)
-#  femhrothable   :boolean          default(FALSE)
-#  name_tc        :string(255)
-#  description_tc :string(1000)
-#  image_url      :string(255)
-#  image_urls     :text(65535)
 #
 
 class Hairstyle < ApplicationRecord

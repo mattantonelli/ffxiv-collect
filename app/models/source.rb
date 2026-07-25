@@ -2,21 +2,21 @@
 #
 # Table name: sources
 #
-#  id               :bigint(8)        not null, primary key
-#  collectable_id   :integer          not null
+#  id               :bigint           not null, primary key
 #  collectable_type :string(255)      not null
-#  text_en          :string(255)
-#  type_id          :integer          not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  related_id       :integer
-#  related_type     :string(255)
-#  premium          :boolean          default(FALSE)
 #  limited          :boolean          default(FALSE)
+#  premium          :boolean          default(FALSE)
+#  related_type     :string(255)
 #  text_de          :string(255)
+#  text_en          :string(255)
 #  text_fr          :string(255)
 #  text_ja          :string(255)
 #  text_tc          :string(255)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  collectable_id   :integer          not null
+#  related_id       :integer
+#  type_id          :integer          not null
 #
 
 class Source < ApplicationRecord

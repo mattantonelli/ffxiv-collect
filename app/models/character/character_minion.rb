@@ -2,11 +2,11 @@
 #
 # Table name: character_minions
 #
-#  id           :bigint(8)        not null, primary key
-#  character_id :integer
-#  minion_id    :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  character_id :integer
+#  minion_id    :integer
 #
 
 class CharacterMinion < ApplicationRecord

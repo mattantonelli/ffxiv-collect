@@ -60,7 +60,7 @@ group :development do
   gem 'listen'
   gem 'spring'
   gem 'puma'
-  gem 'annotate'
+  gem 'annotaterb'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rack-mini-profiler'
   gem 'i18n_yaml_sorter'

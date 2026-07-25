@@ -2,16 +2,16 @@
 #
 # Table name: decks
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :integer
-#  rule_id    :integer
-#  npc_id     :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  rating     :integer
+#  id         :bigint           not null, primary key
 #  notes      :string(1000)
+#  rating     :integer
 #  updated    :boolean          default(TRUE)
 #  user_uid   :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  npc_id     :integer
+#  rule_id    :integer
+#  user_id    :integer
 #
 
 class Deck < ApplicationRecord

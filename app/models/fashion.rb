@@ -2,24 +2,24 @@
 #
 # Table name: fashions
 #
-#  id              :bigint(8)        not null, primary key
-#  name_en         :string(255)      not null
-#  name_de         :string(255)      not null
-#  name_fr         :string(255)      not null
-#  name_ja         :string(255)      not null
-#  description_en  :string(1000)
+#  id              :bigint           not null, primary key
 #  description_de  :string(1000)
+#  description_en  :string(1000)
 #  description_fr  :string(1000)
 #  description_ja  :string(1000)
-#  order           :integer          not null
-#  patch           :string(255)
-#  item_id         :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  name_tc         :string(255)
 #  description_tc  :string(1000)
 #  image_url       :string(255)
 #  large_image_url :string(255)
+#  name_de         :string(255)      not null
+#  name_en         :string(255)      not null
+#  name_fr         :string(255)      not null
+#  name_ja         :string(255)      not null
+#  name_tc         :string(255)
+#  order           :integer          not null
+#  patch           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  item_id         :integer
 #
 class Fashion < ApplicationRecord
   include Collectable

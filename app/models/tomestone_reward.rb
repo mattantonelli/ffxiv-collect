@@ -2,13 +2,13 @@
 #
 # Table name: tomestone_rewards
 #
-#  id               :bigint(8)        not null, primary key
-#  cost             :integer
-#  collectable_id   :integer
+#  id               :bigint           not null, primary key
 #  collectable_type :string(255)
+#  cost             :integer
+#  tomestone        :string(255)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  tomestone        :string(255)
+#  collectable_id   :integer
 #
 
 class TomestoneReward < ApplicationRecord

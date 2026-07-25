@@ -2,11 +2,11 @@
 #
 # Table name: user_characters
 #
-#  id           :bigint(8)        not null, primary key
-#  user_id      :integer
-#  character_id :integer
+#  id           :bigint           not null, primary key
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  character_id :integer
+#  user_id      :integer
 #
 
 class UserCharacter < ApplicationRecord

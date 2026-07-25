@@ -2,25 +2,25 @@
 #
 # Table name: field_records
 #
-#  id               :bigint(8)        not null, primary key
-#  name_en          :string(255)      not null
-#  name_de          :string(255)      not null
-#  name_fr          :string(255)      not null
-#  name_ja          :string(255)      not null
-#  description_en   :text(65535)      not null
+#  id               :bigint           not null, primary key
 #  description_de   :text(65535)      not null
+#  description_en   :text(65535)      not null
 #  description_fr   :text(65535)      not null
 #  description_ja   :text(65535)      not null
-#  rarity           :integer          not null
-#  patch            :string(255)
-#  linked_record_id :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  location         :string(255)
-#  name_tc          :string(255)
 #  description_tc   :text(65535)
 #  image_url        :string(255)
 #  large_image_url  :string(255)
+#  location         :string(255)
+#  name_de          :string(255)      not null
+#  name_en          :string(255)      not null
+#  name_fr          :string(255)      not null
+#  name_ja          :string(255)      not null
+#  name_tc          :string(255)
+#  patch            :string(255)
+#  rarity           :integer          not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  linked_record_id :integer
 #
 class FieldRecord < ApplicationRecord
   include Collectable

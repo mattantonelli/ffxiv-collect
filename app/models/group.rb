@@ -2,15 +2,15 @@
 #
 # Table name: groups
 #
-#  id          :bigint(8)        not null, primary key
-#  slug        :string(255)      not null
-#  name        :string(255)      not null
+#  id          :bigint           not null, primary key
 #  description :string(255)
+#  name        :string(255)      not null
 #  public      :boolean          default(TRUE)
-#  owner_id    :integer          not null
-#  queued_at   :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
+#  queued_at   :datetime         default(1970-01-01 00:00:00.000000000 UTC +00:00)
+#  slug        :string(255)      not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  owner_id    :integer          not null
 #
 class Group < ApplicationRecord
   include Syncable
