@@ -12,7 +12,11 @@ class GroupSyncJob < SidekiqJob
       group_id = args[0]
 
       Group.friendly.find(group_id).character_ids.each do |id|
-        fetch_character(id)
+        begin
+          fetch_character(id)
+        rescue StandardError
+          # Error has already been logged. Continue fetching the remaining characters.
+        end
       end
     rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Sidekiq.logger.info('Lodestone is down for maintenance.')

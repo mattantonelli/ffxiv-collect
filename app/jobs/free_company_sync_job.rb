@@ -19,7 +19,11 @@ class FreeCompanySyncJob < SidekiqJob
 
       # Fetch each member of the free company
       member_ids.each do |id|
-        fetch_character(id)
+        begin
+          fetch_character(id)
+        rescue StandardError
+          # Error has already been logged. Continue fetching the remaining characters.
+        end
       end
     rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Sidekiq.logger.info('Lodestone is down for maintenance.')

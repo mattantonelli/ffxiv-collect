@@ -16,11 +16,9 @@ class XivauthCharactersSyncJob < SidekiqJob
 
         # Fetch character from the Lodestone if needed
         unless character.present?
-          begin
-            character = CharacterSyncJob.new.perform(id)
-          rescue StandardError
-            # Logged in child job - continue execution
-          end
+          character = fetch_character(id)
+
+          next unless character.present?
         end
 
         # For extra security, only verify characters that have not already been claimed
