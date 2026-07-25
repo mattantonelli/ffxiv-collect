@@ -83,7 +83,7 @@ Rails.application.configure do
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
-  config.action_mailer.perform_caching = false
+  # config.action_mailer.perform_caching = false
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
