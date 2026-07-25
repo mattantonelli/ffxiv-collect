@@ -8,6 +8,7 @@
 #  public      :boolean          default(TRUE)
 #  queued_at   :datetime         default(1970-01-01 00:00:00.000000000 UTC +00:00)
 #  slug        :string(255)      not null
+#  syncing     :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  owner_id    :integer          not null
@@ -38,7 +39,7 @@ class Group < ApplicationRecord
   end
 
   def refresh
-    update(queued_at: Time.now)
+    update!(queued_at: Time.now, syncing: true)
     GroupSyncJob.perform_async(id)
   end
 

@@ -8,10 +8,9 @@ class GroupSyncJob < SidekiqJob
   def perform(*args)
     begin
       Sidekiq.logger.info('Refreshing group members.')
+      group = Group.friendly.find(args[0])
 
-      group_id = args[0]
-
-      Group.friendly.find(group_id).character_ids.each do |id|
+      group.character_ids.each do |id|
         begin
           fetch_character(id)
         rescue StandardError
@@ -21,11 +20,13 @@ class GroupSyncJob < SidekiqJob
     rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Sidekiq.logger.info('Lodestone is down for maintenance.')
     rescue RestClient::ExceptionWithResponse => e
-      Sidekiq.logger.error("There was a problem fetching group #{group_id}")
+      Sidekiq.logger.error("There was a problem fetching group #{group.id}")
       Sidekiq.logger.error(e.response)
     rescue StandardError
-      Sidekiq.logger.error("There was a problem fetching group #{group_id}")
+      Sidekiq.logger.error("There was a problem fetching group #{group.id}")
       raise
+    ensure
+      group.update!(syncing: false)
     end
   end
 end

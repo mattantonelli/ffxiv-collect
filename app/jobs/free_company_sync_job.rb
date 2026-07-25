@@ -9,9 +9,8 @@ class FreeCompanySyncJob < SidekiqJob
     begin
       Sidekiq.logger.info('Looking up free company.')
 
-      free_company_id = args[0]
-      free_company = FreeCompany.fetch(free_company_id)
-      member_ids = Lodestone.free_company_members(free_company_id)
+      free_company = FreeCompany.fetch(args[0])
+      member_ids = Lodestone.free_company_members(free_company.id)
 
       # Purge members who are no longer part of the free company
       Sidekiq.logger.info('Purging old members.')
@@ -28,13 +27,15 @@ class FreeCompanySyncJob < SidekiqJob
     rescue RestClient::BadGateway, RestClient::ServiceUnavailable
       Sidekiq.logger.info('Lodestone is down for maintenance.')
     rescue RestClient::NotFound
-      Sidekiq.logger.info("Free company #{free_company_id} is no longer available.")
+      Sidekiq.logger.info("Free company #{free_company.id} is no longer available.")
     rescue RestClient::ExceptionWithResponse => e
-      Sidekiq.logger.error("There was a problem fetching free company #{free_company_id}")
+      Sidekiq.logger.error("There was a problem fetching free company #{free_company.id}")
       Sidekiq.logger.error(e.response)
     rescue StandardError
-      Sidekiq.logger.error("There was a problem fetching free company #{free_company_id}")
+      Sidekiq.logger.error("There was a problem fetching free company #{free_company.id}")
       raise
+    ensure
+      free_company.update!(syncing: false)
     end
   end
 end

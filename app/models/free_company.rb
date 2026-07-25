@@ -5,6 +5,7 @@
 #  id         :string(255)      not null, primary key
 #  name       :string(255)
 #  queued_at  :datetime         default(1970-01-01 00:00:00.000000000 UTC +00:00)
+#  syncing    :boolean          default(FALSE)
 #  tag        :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -25,7 +26,7 @@ class FreeCompany < ApplicationRecord
   end
 
   def refresh
-    update(queued_at: Time.now)
+    update!(queued_at: Time.now, syncing: true)
     FreeCompanySyncJob.perform_async(id)
   end
 

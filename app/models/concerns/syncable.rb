@@ -13,8 +13,10 @@ module Syncable
     !syncing? && (!up_to_date? || queued_at < Time.now - 6.hours)
   end
 
-  # TODO: add fields to character groups and free companies. update them when jobs are queued/finished. set all to false on Redis.clear_queues!
-  def syncing?
-    false
+  class_methods do
+    # Resets the syncing status for all records - useful if sync jobs need to be aborted
+    def reset_syncing!
+      update_all(syncing: false)
+    end
   end
 end

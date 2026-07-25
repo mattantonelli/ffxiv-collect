@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_03_161204) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_25_171028) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name_de", null: false
@@ -678,6 +678,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_03_161204) do
     t.datetime "created_at", precision: nil, null: false
     t.string "name"
     t.datetime "queued_at", precision: nil, default: "1970-01-01 00:00:00"
+    t.boolean "syncing", default: false
     t.string "tag"
     t.datetime "updated_at", precision: nil, null: false
   end
@@ -700,6 +701,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_03_161204) do
     t.boolean "public", default: true
     t.datetime "queued_at", precision: nil, default: "1970-01-01 00:00:00"
     t.string "slug", null: false
+    t.boolean "syncing", default: false
     t.datetime "updated_at", null: false
     t.index ["owner_id"], name: "index_groups_on_owner_id"
     t.index ["slug"], name: "index_groups_on_slug", unique: true
