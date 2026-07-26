@@ -1,4 +1,6 @@
 class XivauthCharactersSyncJob < SidekiqJob
+  include CharacterFetch
+
   sidekiq_options(
     queue: :character
   )
