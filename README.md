@@ -53,6 +53,8 @@ bin/rake db:schema:load
 bin/rake data:initialize
 ```
 
+Please note that collection records without patch data are not rendered. You can set a placeholder patch to make them visible using the console command in **Updating**.
+
 #### Schedule jobs
 Run `whenever` to schedule the application's cronjobs.
 
