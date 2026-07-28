@@ -9,6 +9,7 @@
 #  description_ja :text(65535)
 #  description_tc :text(65535)
 #  image_url      :string(255)
+#  location       :string(255)
 #  name_de        :string(255)
 #  name_en        :string(255)
 #  name_fr        :string(255)

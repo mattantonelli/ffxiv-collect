@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_25_171028) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_28_110317) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name_de", null: false
@@ -1083,6 +1083,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_25_171028) do
     t.text "description_ja"
     t.text "description_tc"
     t.string "image_url"
+    t.string "location"
     t.string "name_de"
     t.string "name_en"
     t.string "name_fr"

@@ -27,6 +27,9 @@ namespace :occult_records do
       end
     end
 
+    OccultRecord.where(id: 1..30).update_all(location: 'South Horn', patch: '7.25')
+    OccultRecord.where(id: 31..60).update_all(location: 'North Horn', patch: '7.55')
+
     puts "Created #{OccultRecord.count - count} new occult records"
   end
 end
