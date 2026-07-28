@@ -7,6 +7,8 @@ namespace :relics do
       puts 'Creating relic armor'
       count = Relic.count
 
+      # Display order: Fending, Maiming, Striking, Aiming, Scouting, Healing, Casting
+
       # Stormblood - Eureka Armor
       ## Eureka
       type = RelicType.find_or_create_by!(name_en: "Eureka Job Armor", name_de: "Eureka Job Rüstung",
@@ -130,6 +132,43 @@ namespace :relics do
 
       ids = (47768..47772).to_a + (47783..47787).to_a + (47798..47802).to_a + (47813..47817).to_a +
         (47828..47832).to_a + (47843..47847).to_a + (47858..47862).to_a
+      create_relics(type, ids)
+
+      ## Phantom Vision
+      type = RelicType.find_or_create_by!(name_en: "Phantom Vision", name_de: "Phantomtraum",
+                                          name_fr: "Armure de vision fantomatique",
+                                          category: 'armor', order: 4, jobs: 7, expansion: 7)
+
+      ids = (51811..51815).to_a + (51831..51835).to_a + (51851..51855).to_a + (51871..51875).to_a +
+        (51891..51895).to_a + (51911..51915).to_a + (51931..51935).to_a
+
+      create_relics(type, ids)
+
+      ## Phantom Vision +1
+      type = RelicType.find_or_create_by!(name_en: "Phantom Vision +1", name_de: "Phantomtraum +1",
+                                          name_fr: "Armure de vision fantomatique +1",
+                                          category: 'armor', order: 5, jobs: 7, expansion: 7)
+
+      ids = (51816..51820).to_a + (51836..51840).to_a + (51856..51860).to_a + (51876..51880).to_a +
+        (51896..51900).to_a + (51916..51920).to_a + (51936..51940).to_a
+      create_relics(type, ids)
+
+      ## Phantom Vision +2
+      type = RelicType.find_or_create_by!(name_en: "Phantom Vision +2", name_de: "Phantomtraum +2",
+                                          name_fr: "Armure de vision fantomatique +2",
+                                          category: 'armor', order: 6, jobs: 7, expansion: 7)
+
+      ids = (51821..51825).to_a + (51841..51845).to_a + (51861..51865).to_a + (51881..51885).to_a +
+        (51901..51905).to_a + (51921..51925).to_a + (51941..51945).to_a
+      create_relics(type, ids)
+
+      ## Phantom Vision +3
+      type = RelicType.find_or_create_by!(name_en: "Phantom Vision +3", name_de: "Phantomtraum +3",
+                                          name_fr: "Armure de vision fantomatique +3",
+                                          category: 'armor', order: 7, jobs: 7, expansion: 7)
+
+      ids = (51826..51830).to_a + (51846..51850).to_a + (51866..51870).to_a + (51886..51890).to_a +
+        (51906..51910).to_a + (51926..51930).to_a + (51946..51950).to_a
       create_relics(type, ids)
 
       puts "Created #{Relic.count - count} new relic armor"
