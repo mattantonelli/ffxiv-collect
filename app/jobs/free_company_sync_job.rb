@@ -35,7 +35,7 @@ class FreeCompanySyncJob < SidekiqJob
       Sidekiq.logger.error("There was a problem fetching free company #{free_company.id}")
       raise
     ensure
-      free_company.update!(syncing: false)
+      free_company&.update!(syncing: false)
     end
   end
 end
