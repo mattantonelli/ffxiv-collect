@@ -10,7 +10,11 @@
 #  description_tc   :text(65535)
 #  image_url        :string(255)
 #  large_image_url  :string(255)
-#  location         :string(255)
+#  location_de      :string(255)
+#  location_en      :string(255)
+#  location_fr      :string(255)
+#  location_ja      :string(255)
+#  location_tc      :string(255)
 #  name_de          :string(255)      not null
 #  name_en          :string(255)      not null
 #  name_fr          :string(255)      not null
@@ -26,7 +30,7 @@ class FieldRecord < ApplicationRecord
   include Collectable
 
   belongs_to :linked_record, class_name: 'FieldRecord', optional: true
-  translates :name, :description
+  translates :name, :description, :location
 
   alias_attribute :order, :id
 

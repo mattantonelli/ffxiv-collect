@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_28_110317) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_09_194708) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name_de", null: false
@@ -635,7 +635,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_110317) do
     t.string "image_url"
     t.string "large_image_url"
     t.integer "linked_record_id"
-    t.string "location"
+    t.string "location_de"
+    t.string "location_en"
+    t.string "location_fr"
+    t.string "location_ja"
+    t.string "location_tc"
     t.string "name_de", null: false
     t.string "name_en", null: false
     t.string "name_fr", null: false
@@ -1083,7 +1087,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_28_110317) do
     t.text "description_ja"
     t.text "description_tc"
     t.string "image_url"
-    t.string "location"
+    t.string "location_de"
+    t.string "location_en"
+    t.string "location_fr"
+    t.string "location_ja"
+    t.string "location_tc"
     t.string "name_de"
     t.string "name_en"
     t.string "name_fr"
