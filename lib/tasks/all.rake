@@ -147,14 +147,19 @@ def maps_with_locations(ids)
   # Look up the locations associated with each map
   locations = %w(en fr de ja tc).each_with_object(Hash.new({})) do |locale, h|
     places = XIVData.sheet('PlaceName', locale: locale).map { |place| place['Name']}
+
     maps.values.each do |map|
-      h[map[:location_id]] = h[map[:location_id]].merge("name_#{locale}" => places[map[:location_id].to_i],
-                                                        "region_#{locale}" => places[map[:region_id].to_i])
+      h[map[:location_id]] = h[map[:location_id]].merge(
+        "name_#{locale}" => places[map[:location_id].to_i],
+        "region_#{locale}" => places[map[:region_id].to_i],
+      )
     end
   end
 
   # Create the locations
   locations.each do |id, data|
+    data[:id] = id
+
     if existing = Location.find_by(id: id)
       existing.update!(data) if updated?(existing, data)
     else
