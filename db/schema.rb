@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_09_194708) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_11_173507) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.string "name_de", null: false
@@ -926,15 +926,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_194708) do
     t.integer "cost", null: false
     t.datetime "created_at", precision: nil, null: false
     t.integer "defense", null: false
-    t.string "description_de", limit: 1000, null: false
-    t.string "description_en", limit: 1000, null: false
-    t.string "description_fr", limit: 1000, null: false
-    t.string "description_ja", limit: 1000, null: false
+    t.string "description_de", limit: 1000
+    t.string "description_en", limit: 1000
+    t.string "description_fr", limit: 1000
+    t.string "description_ja", limit: 1000
     t.string "description_tc", limit: 1000
-    t.string "enhanced_description_de", limit: 1000, null: false
-    t.string "enhanced_description_en", limit: 1000, null: false
-    t.string "enhanced_description_fr", limit: 1000, null: false
-    t.string "enhanced_description_ja", limit: 1000, null: false
+    t.string "enhanced_description_de", limit: 1000
+    t.string "enhanced_description_en", limit: 1000
+    t.string "enhanced_description_fr", limit: 1000
+    t.string "enhanced_description_ja", limit: 1000
     t.string "enhanced_description_tc", limit: 1000
     t.boolean "eye", null: false
     t.string "footprint_image_url"
@@ -954,22 +954,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_194708) do
     t.boolean "shield", null: false
     t.integer "skill_angle", null: false
     t.integer "skill_cost", null: false
-    t.string "skill_de", null: false
-    t.string "skill_description_de", null: false
-    t.string "skill_description_en", null: false
-    t.string "skill_description_fr", null: false
-    t.string "skill_description_ja", null: false
+    t.string "skill_de"
+    t.string "skill_description_de"
+    t.string "skill_description_en"
+    t.string "skill_description_fr"
+    t.string "skill_description_ja"
     t.string "skill_description_tc"
-    t.string "skill_en", null: false
-    t.string "skill_fr", null: false
-    t.string "skill_ja", null: false
+    t.string "skill_en"
+    t.string "skill_fr"
+    t.string "skill_ja"
     t.string "skill_tc"
     t.integer "skill_type_id"
     t.integer "speed", null: false
-    t.string "tooltip_de", null: false
-    t.string "tooltip_en", null: false
-    t.string "tooltip_fr", null: false
-    t.string "tooltip_ja", null: false
+    t.string "tooltip_de"
+    t.string "tooltip_en"
+    t.string "tooltip_fr"
+    t.string "tooltip_ja"
     t.string "tooltip_tc"
     t.datetime "updated_at", precision: nil, null: false
     t.index ["behavior_id"], name: "index_minions_on_behavior_id"

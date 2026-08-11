@@ -8,15 +8,15 @@
 #  attack                  :integer          not null
 #  cost                    :integer          not null
 #  defense                 :integer          not null
-#  description_de          :string(1000)     not null
-#  description_en          :string(1000)     not null
-#  description_fr          :string(1000)     not null
-#  description_ja          :string(1000)     not null
+#  description_de          :string(1000)
+#  description_en          :string(1000)
+#  description_fr          :string(1000)
+#  description_ja          :string(1000)
 #  description_tc          :string(1000)
-#  enhanced_description_de :string(1000)     not null
-#  enhanced_description_en :string(1000)     not null
-#  enhanced_description_fr :string(1000)     not null
-#  enhanced_description_ja :string(1000)     not null
+#  enhanced_description_de :string(1000)
+#  enhanced_description_en :string(1000)
+#  enhanced_description_fr :string(1000)
+#  enhanced_description_ja :string(1000)
 #  enhanced_description_tc :string(1000)
 #  eye                     :boolean          not null
 #  footprint_image_url     :string(255)
@@ -34,21 +34,21 @@
 #  shield                  :boolean          not null
 #  skill_angle             :integer          not null
 #  skill_cost              :integer          not null
-#  skill_de                :string(255)      not null
-#  skill_description_de    :string(255)      not null
-#  skill_description_en    :string(255)      not null
-#  skill_description_fr    :string(255)      not null
-#  skill_description_ja    :string(255)      not null
+#  skill_de                :string(255)
+#  skill_description_de    :string(255)
+#  skill_description_en    :string(255)
+#  skill_description_fr    :string(255)
+#  skill_description_ja    :string(255)
 #  skill_description_tc    :string(255)
-#  skill_en                :string(255)      not null
-#  skill_fr                :string(255)      not null
-#  skill_ja                :string(255)      not null
+#  skill_en                :string(255)
+#  skill_fr                :string(255)
+#  skill_ja                :string(255)
 #  skill_tc                :string(255)
 #  speed                   :integer          not null
-#  tooltip_de              :string(255)      not null
-#  tooltip_en              :string(255)      not null
-#  tooltip_fr              :string(255)      not null
-#  tooltip_ja              :string(255)      not null
+#  tooltip_de              :string(255)
+#  tooltip_en              :string(255)
+#  tooltip_fr              :string(255)
+#  tooltip_ja              :string(255)
 #  tooltip_tc              :string(255)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
