@@ -48,9 +48,26 @@ namespace :field_records do
       end
     end
 
-    FieldRecord.where(id: 1..20).update_all(location: 'Southern Front', patch: '5.35')
-    FieldRecord.where(id: 21..30).update_all(location: 'Delubrium Reginae', patch: '5.45')
-    FieldRecord.where(id: 31..50).update_all(location: 'Zadnor', patch: '5.55')
+    FieldRecord.where(id: 1..20).update_all(
+      location_en: 'Southern Front',
+      location_de: 'Südfront',
+      location_fr: 'Front sud de Bozja',
+      patch: '5.35'
+    )
+
+    FieldRecord.where(id: 21..30).update_all(
+      location_en: 'Delubrium Reginae',
+      location_de: 'Delubrium Reginae',
+      location_fr: 'Delubrium Reginae',
+      patch: '5.45'
+    )
+
+    FieldRecord.where(id: 31..50).update_all(
+      location_en: 'Zadnor',
+      location_de: 'Zadnor-Hochebene',
+      location_fr: 'Hauts plateaux de Zadnor',
+      patch: '5.55'
+    )
 
     puts "Created #{FieldRecord.count - count} new field records"
   end
