@@ -47,10 +47,13 @@ xivauth:
   client_secret: ghi789
 ```
 
-#### Load the database
+#### Load the data
+
+It is recommended to skip image generation. This is only required for Triple Triad and Framer's Kit images, and it can take a long time to complete.
+
 ```
 bin/rake db:schema:load
-bin/rake data:initialize
+SKIP_IMAGES=1 bin/rake data:initialize
 ```
 
 Please note that collection records without patch data are not rendered. You can set a placeholder patch to make them visible using the console command in **Updating**.

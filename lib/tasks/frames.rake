@@ -125,6 +125,8 @@ namespace :frames do
 
     puts "Created #{Frame.count - count} new framer's kits"
 
+    next if ENV['SKIP_IMAGES']
+
     puts "Creating framer's kit images"
 
     frames.each { |k, _| frames[k] = {} }

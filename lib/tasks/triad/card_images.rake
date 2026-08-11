@@ -19,6 +19,8 @@ namespace :triad do
 
     desc 'Create the images for each card'
     task create: :environment do
+      next if ENV['SKIP_IMAGES']
+
       puts 'Creating card images'
 
       count = Dir.entries(LARGE_CARDS_DIR).size
