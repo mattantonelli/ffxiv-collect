@@ -22,10 +22,10 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col"><%= t('dungeon') %></th>
+            <th scope="col" class="hide-xs"><%= t('dungeon') %></th>
             <th scope="col"><%= t('name') %></th>
             <th scope="col" data-defaultsort="disabled" class="hide-xs"><%= t('survey_records.solution') %></th>
-            <th scope="col" class="text-center"><%= t('own') %></th>
+            <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
             <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
             <th scope="col" class="check-ownership"></th><!-- Owned -->
           </tr>
@@ -41,7 +41,7 @@
                   <% end %>
                 </div>
               </td>
-              <td><%= record.series&.name %></td>
+              <td class="hide-xs"><%= record.series&.name %></td>
               <td><%= link_to(record.name, survey_record_path(record), class: 'name') %></td>
               <td class="solution hide-xs"><span class="spoiler"><%= record.solution %></span></td>
               <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>"><%= rarity(record) %></td>

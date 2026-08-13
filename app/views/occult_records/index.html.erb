@@ -24,7 +24,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col"><%= t('name') %></th>
-            <th scope="col"><%= t('spells.location') %></th>
+            <th scope="col" class="hide-xs"><%= t('spells.location') %></th>
             <th scope="col"><%= t('source') %></th>
             <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
             <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
@@ -41,7 +41,7 @@
                   <% end %>
                 </td>
                 <td><%= link_to(record.name, occult_record_path(record), class: 'name') %></td>
-                <td><%= record.location %></td>
+                <td class="hide-xs"><%= record.location %></td>
                 <td data-value="<%= source_sort_value(record) %>"><%= sources(record) %></td>
                 <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>">
                   <%= rarity(record) %>
