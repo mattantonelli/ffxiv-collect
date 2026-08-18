@@ -36,7 +36,6 @@ end
   end
 end
 
-json.rankings character.rankings
 json.relics character_relics(character)
 
 json.leves do
@@ -50,3 +49,5 @@ json.leves do
     end
   end
 end
+
+json.rankings character.rankings
