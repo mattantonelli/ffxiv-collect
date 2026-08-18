@@ -15,6 +15,7 @@ class CharactersController < ApplicationController
   def show
     @rankings = @profile.rankings
 
+    # TODO: Make the shape of this object more consistent
     @scores = COLLECTIONS.each_with_object({}) do |collection, h|
       next unless @profile.send("#{collection}_count") > 0
 

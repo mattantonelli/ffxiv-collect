@@ -121,11 +121,11 @@
                   </div>
                 </div>
               <% end %>
-              <% if (@relics = character_relics(@profile)) && relics_visible?(@relics) %>
+              <% if (@relics = character_relics(@profile)) && @relics[:count] > 0 %>
                 <div class="profile-progress">
-                  <h6><%= t('relics.title') %></h6>
+                  <h6><%= collection_name('relics', score: @relics) %></h6>
                   <div class="d-flex flex-column">
-                    <% @relics.each do |category, values| %>
+                    <% @relics.except(:count, :total).each do |category, values| %>
                       <% if values[:count] > 0 %>
                         <%= render 'shared/progress', value: values[:count], min: 0, max: values[:total],
                           text: "relics.#{category}" %>

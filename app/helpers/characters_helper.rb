@@ -62,7 +62,7 @@ module CharactersHelper
     else
       path = polymorphic_path(collection.classify.constantize)
 
-      if score.present? && score[:value] == score[:max]
+      if score.present? && (score[:value] || score[:count]) == (score[:max] || score[:total])
         complete = true
       end
     end
@@ -85,7 +85,7 @@ module CharactersHelper
       count = owned_relic_ids.size
       total = ids.size
 
-      h[category] = { count: owned_relic_ids.size, total: ids.size }
+      h[category] = { count: count, total: total }
       h[category][:ids] = owned_relic_ids if params[:ids].present?
       h[:count] += count
       h[:total] += total
@@ -153,9 +153,5 @@ module CharactersHelper
 
   def triple_triad_visible?(scores)
     scores['cards'].present? && (scores['cards'][:value] > 0 || scores['cards'][:npcs] > 0)
-  end
-
-  def relics_visible?(relics)
-    relics.values.any? { |values| values[:count] > 0}
   end
 end
