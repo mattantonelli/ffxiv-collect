@@ -79,11 +79,16 @@ module CharactersHelper
   def character_relics(character)
     relic_ids = character.relic_ids
 
-    Relic.categories.each_with_object({}) do |category, h|
+    Relic.categories.each_with_object({ count: 0, total: 0 }) do |category, h|
       ids = Relic.joins(:type).where('relic_types.category = ?', category).pluck(:id)
       owned_relic_ids = (ids & relic_ids)
+      count = owned_relic_ids.size
+      total = ids.size
+
       h[category] = { count: owned_relic_ids.size, total: ids.size }
       h[category][:ids] = owned_relic_ids if params[:ids].present?
+      h[:count] += count
+      h[:total] += total
     end
   end
 
