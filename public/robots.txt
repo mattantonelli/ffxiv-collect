@@ -1,4 +1,8 @@
 User-agent: *
 Disallow: /characters/
 Disallow: /fc/
+Disallow: /groups/
+Disallow: /leaderboards
 Disallow: /users/auth/discord
+Disallow: /users/auth/google_oauth2
+Disallow: /users/auth/xivauth
