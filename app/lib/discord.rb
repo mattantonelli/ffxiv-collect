@@ -131,47 +131,14 @@ module Discord
                       value: value, inline: true)
     end
 
-    relics = character[:relics]
-    if relics.values.any? { |category| category[:count] > 0 }
-      count = relics.values.sum { |category| category[:count] }
-      total = relics.values.sum { |category| category[:count] > 0 ? category[:total] : 0 }
-      values = relics.filter_map do |category, values|
-        if values[:count] > 0
-          "#{values[:count]} of #{values[:total]} #{category.capitalize}"
-        end
-      end
+    relics = category_counts(character[:relics].slice(:weapons, :ultimate, :armor, :tools), 'Relics')
+    embed.add_field(**relics) if relics.present?
 
-      embed.add_field(name: "Relics#{star(count, total)}", value: values.join("\n"), inline: true)
-    end
+    triple_triad = category_counts(character.slice(:cards, :npcs), 'Triple Triad')
+    embed.add_field(**triple_triad) if triple_triad.present?
 
-    cards, npcs = character.values_at(:cards, :npcs)
-    triad_count = cards[:count] + npcs[:count]
-    triad_total = cards[:total] + npcs[:total]
-
-    if triad_count > 0
-      name = "Triple Triad#{star(triad_count, triad_total)}"
-
-      values = [
-        "#{cards[:count]} of #{cards[:total]} Cards",
-        "#{npcs[:count]} of #{npcs[:total]} NPCs"
-      ]
-
-      embed.add_field(name: name, value: values.join("\n"), inline: true)
-    end
-
-    leves = character[:leves]
-    leves_count = leves[:count]
-    leves_total = leves[:total]
-
-    if leves_count > 0
-      name = "Levequests#{star(leves_count, leves_total)}"
-
-      values = %i(battlecraft tradecraft fieldcraft).map do |craft|
-        "#{leves[craft][:count]} of #{leves[craft][:total]} #{craft.to_s.capitalize}"
-      end
-
-      embed.add_field(name: name, value: values.join("\n"), inline: true)
-    end
+    leves = category_counts(character[:leves].slice(:battlecraft, :tradecraft, :fieldcraft), 'Levequests')
+    embed.add_field(**leves) if leves.present?
 
     { embeds: [embed.to_hash] }
   end
@@ -193,6 +160,20 @@ module Discord
     names = results[1..10].map { |collectable| collectable[:name] }
     names << '...' if results.size > 11
     "Also available: #{names.join(', ')}"
+  end
+
+  def category_counts(data, title)
+    return nil unless data.values.any? { |category| category[:count] > 0 }
+
+    count = data.values.sum { |category| category[:count] }
+    total = data.values.sum { |category| category[:count] > 0 ? category[:total] : 0 }
+    values = data.filter_map do |category, values|
+      if values[:count] > 0
+        "#{values[:count]} of #{values[:total]} #{category.to_s.titleize}"
+      end
+    end
+
+    { name: "#{title}#{star(count, total)}", value: values.join("\n"), inline: true }
   end
 
   def category_title(category)
