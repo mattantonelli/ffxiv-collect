@@ -122,7 +122,7 @@ module Discord
       embed.add_field(name: 'Achievements', inline: true, value: 'Set to private.')
     end
 
-    %i(mounts minions orchestrions spells emotes bardings hairstyles armoires fashions field_records survey_records).each do |category|
+    %i(mounts minions orchestrions spells emotes bardings hairstyles armoires fashions facewear frames field_records survey_records occult_records).each do |category|
       next unless character[category].present? && character[category][:count] > 0
 
       count, total = character[category].values_at(:count, :total)
@@ -199,6 +199,7 @@ module Discord
     case category
     when 'orchestrions' then 'Orchestrion'
     when 'spells' then 'Blue Magic'
+    when 'frames' then "Framer's Kits"
     else category.titleize
     end
   end
