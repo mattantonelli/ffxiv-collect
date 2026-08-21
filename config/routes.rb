@@ -234,7 +234,7 @@ Rails.application.routes.draw do
     end
 
     %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires outfits spells
-    fashions facewear frames field_records survey_records relics leves tomestones).each do |resource|
+    fashions facewear frames field_records survey_records occult_records relics leves tomestones).each do |resource|
       resources resource, only: [:index, :show]
     end
 
