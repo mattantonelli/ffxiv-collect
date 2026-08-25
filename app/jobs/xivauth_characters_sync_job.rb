@@ -23,10 +23,7 @@ class XivauthCharactersSyncJob < SidekiqJob
           next unless character.present?
         end
 
-        # For extra security, only verify characters that have not already been claimed
-        unless character.verified_user_id.present?
-          character.update!(verified_user_id: user.id)
-        end
+        character.update!(verified_user_id: user.id)
 
         # Add the character to the user's list of characters
         begin
