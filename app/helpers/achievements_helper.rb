@@ -27,11 +27,7 @@ module AchievementsHelper
     if achievement.item.unlock.present?
       link_to(achievement.item.unlock.name, achievement.item.unlock)
     else
-      if achievement.item.name_en.match?(/Card\z/)
-        triple_triad_card_link(achievement.item.name_en)
-      else
-        achievement.item.name
-      end
+      achievement.item.name
     end
   end
 
