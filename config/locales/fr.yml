@@ -204,7 +204,7 @@ fr:
   copy:
     isearch: "Commande /isearch copiée"
     name: "Nom d'objet copié"
-  created_by: "Créé par Raelys Skyborn de Behemoth"
+  created_by: "Créé par Sera Fae de Behemoth"
   credits:
     contributors: "Contributeurs"
     development: "Développeurs"
@@ -595,7 +595,6 @@ fr:
       card_missing: "Cette carte n'est pas dans votre collection."
       card_position: "Page %{page}, Ligne %{row}, Colonne %{column}"
       create: "Créer un deck"
-      created_by: "Créé par"
       delete_confirm: "Êtes-vous sûr de vouloir supprimer ce deck ?"
       details: "Détails"
       filter_by_npc: "Filtrer par PNJ"

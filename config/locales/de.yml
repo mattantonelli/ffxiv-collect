@@ -204,7 +204,7 @@ de:
   copy:
     isearch: "/isearch Befehl kopiert"
     name: "Name des Items kopiert"
-  created_by: "Erstellt durch Raelys Skyborn von Behemoth"
+  created_by: "Erstellt durch Sera Fae von Behemoth"
   credits:
     contributors: "Mitwirkende"
     development: "Entwicklung"
@@ -594,7 +594,6 @@ de:
       card_missing: "Du besitzt diese Karte noch nicht."
       card_position: "Seite %{page}, Reihe %{row}, Spalte %{column}"
       create: "Deck erstellen"
-      created_by: "Erstellt von"
       delete_confirm: "Bist du sicher, dass du dieses Deck löschen möchtest?"
       details: "Details"
       filter_by_npc: "Filter nach NPC"

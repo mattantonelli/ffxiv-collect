@@ -194,7 +194,7 @@ tc:
   copy:
     isearch: "已複製 /isearch 指令"
     name: "已複製道具名稱"
-  created_by: "由 Behemoth 的 Raelys Skyborn 建立"
+  created_by: "由 Behemoth 的 Sera Fae 建立"
   credits:
     contributors: "貢獻者"
     development: "開發"
@@ -539,7 +539,6 @@ tc:
       card_missing: "你的收藏中缺少此卡牌。"
       card_position: "第 %{page} 頁，第 %{row} 行，第 %{column} 列"
       create: "建立牌組"
-      created_by: "建立者"
       delete_confirm: "確定要刪除此牌組嗎？"
       details: "詳細"
       filter_by_npc: "依 NPC 篩選"

@@ -204,7 +204,7 @@ en:
   copy:
     isearch: "Copied /isearch command"
     name: "Copied item name"
-  created_by: "Created by Raelys Skyborn of Behemoth"
+  created_by: "Created by Sera Fae of Behemoth"
   credits:
     contributors: "Contributors"
     development: "Development"
@@ -594,7 +594,6 @@ en:
       card_missing: "This card is missing from your collection."
       card_position: "Page %{page}, Row %{row}, Column %{column}"
       create: "Create Deck"
-      created_by: "Created By"
       delete_confirm: "Are you sure you want to delete this deck?"
       details: "Details"
       filter_by_npc: "Filter by NPC"
