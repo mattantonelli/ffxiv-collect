@@ -1,6 +1,8 @@
 class FacewearController < ApplicationController
   include PrivateCollection
-  before_action -> { check_privacy!(:facewear) }
+  include Tooltipable
+
+  before_action -> { check_privacy!(:facewear) }, except: :tooltip
 
   def index
     @q = Facewear.ransack(params[:q])

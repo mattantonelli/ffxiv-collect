@@ -1,5 +1,7 @@
 class ApiController < ApplicationController
-  skip_before_action :set_locale, :set_characters
+  # Skip irrelevant application controller hooks
+  skip_before_action :set_locale, :set_characters, :display_announcements
+
   before_action :set_defaults, :set_language, :set_owned
 
   SUPPORTED_LOCALES = %w(en de fr ja tc).freeze

@@ -1,6 +1,8 @@
 class MinionsController < ApplicationController
   include PrivateCollection
-  before_action -> { check_privacy!(:minions) }
+  include Tooltipable
+
+  before_action -> { check_privacy!(:minions) }, except: :tooltip
   before_action :set_ids!, on: :verminion
 
   def index

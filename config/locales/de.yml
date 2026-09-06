@@ -133,9 +133,11 @@ de:
       early_user: "Der verifizierte Account dieses Charakters wurde vor dem 20. Juni 2020 erstellt"
       supporter: "Der Accountinhaber dieses Charakters hat die Webseite auf Patreon oder Ko-Fi unterstützt"
   bardings:
+    one: "Rossharnische"
     title: "Rossharnische"
   cards:
     number: "Nummer"
+    one: "Triple Triad Karte"
     sale_price: "Verkaufspreis"
     select: "Wähle deine Karten aus"
     stats: "Attribute"
@@ -224,6 +226,7 @@ de:
   edit: "Bearbeiten"
   emotes:
     command: "Befehl"
+    one: "Emote"
     title: "Emotes"
   exclude:
     armoire: "Im Kostbarkeitenkabinett lagerbare Gegenstände ausschließen"
@@ -242,14 +245,17 @@ de:
     7: "Dawntrail"
   experimental: "(Experimentell)"
   facewear:
+    one: "Gesichtsaccessoire"
     reclaim_alert: "Manche Gesichtsaccessoires waren vorher als Modeaccessoires verfügbar. Du kannst mit dem Fundsachenverwalter sprechen, um sie unentgeltlich zurückzubekommen."
     reclaimable: "Ursprünglich als Modeaccessoire verfügbar. Du kannst es möglicherweise zurückbekommen, indem du mit dem Fundsachenverwalter sprichst."
     title: "Gesichtsaccessoire"
   fashions:
     dropdown: "Mode"
+    one: "Accessoire"
     title: "Modeaccessoires"
     title_short: "Accessoires"
   field_records:
+    one: "Frontbericht"
     page: "Seite"
     title: "Frontberichte"
   filters: "Filter"
@@ -259,6 +265,7 @@ de:
   frames:
     item_name: "Itemname"
     name: "Portrait Hintergrund"
+    one: "Portraitmaterial"
     title: "Portraitmaterial"
     wiki: "Bilder sind im Wiki einsehbar"
   free_companies:
@@ -283,6 +290,7 @@ de:
   hairstyles:
     female_hrothgar: "Verfügbar für weibliche Hrothgar"
     male_hrothgar: "Verfügbar für männliche Hrothgar"
+    one: "Frisur"
     title: "Frisuren"
     viera: "Verfügbar für Viera"
   hide:
@@ -363,6 +371,7 @@ de:
     4: "Möglicher Loot aus Sonderziehungstruhe (Stormblood)"
   minions:
     behavior: "Verhalten"
+    one: "Begleiter"
     title: "Begleiter"
   mod:
     action: "Aktion"
@@ -385,6 +394,7 @@ de:
     custom_music: "Spezielle Musik"
     custom_music_tooltip: "Dieses Reittier spielt spezielle Musik"
     movement: "Fortbewegung"
+    one: "Reittier"
     person_count:
       one: "%{count} Sitzplatz"
       other: "%{count} Sitzplätze"
@@ -427,6 +437,7 @@ de:
     tradeable: "Nur Handelbar"
     untradeable: "Nur Nicht Handelbar"
   orchestrions:
+    one: "Orchestrion-Rolle"
     quick_select: "Schnellauswahl"
     sample: "Musikvorschau"
     title: "Orchestrion"
@@ -521,12 +532,14 @@ de:
     learn: "Lernen"
     location: "Ort"
     number: "Nr."
+    one: "Blaumagier-Zauber"
     rank: "Stufe"
     title: "Blaumagier"
     type: "Typus"
   submit: "Senden"
   survey_records:
     hide_spoilers: "Spoiler ausblenden"
+    one: "Erkundungsbericht"
     solution: "Lösung"
     title: "Erkundungsberichte"
   time_limited: "Zeitlich begrenzt"
@@ -675,6 +688,7 @@ de:
     strengths: "Stärke"
     title: "Trabanten"
   view: "Ansehen"
+  view_details: "Details anzeigen"
   "yes": "Ja"
   yokai:
     locations: "Orte der Legendären Medaillen"

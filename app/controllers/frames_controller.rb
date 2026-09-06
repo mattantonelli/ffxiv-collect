@@ -1,5 +1,6 @@
 class FramesController < ApplicationController
   include ManualCollection
+  include Tooltipable
 
   def index
     @q = Frame.ransack(params[:q])

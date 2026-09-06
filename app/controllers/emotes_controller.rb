@@ -1,6 +1,8 @@
 class EmotesController < ApplicationController
   include PrivateCollection
-  before_action -> { check_privacy!(:emotes) }
+  include Tooltipable
+
+  before_action -> { check_privacy!(:emotes) }, except: :tooltip
 
   def index
     @q = Emote.ransack(params[:q])

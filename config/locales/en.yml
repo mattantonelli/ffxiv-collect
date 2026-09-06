@@ -133,9 +133,11 @@ en:
       early_user: "Character's verified user was created before Jun 20, 2020"
       supporter: "Character's user has supported the site on Patreon or Ko-fi"
   bardings:
+    one: "Barding"
     title: "Bardings"
   cards:
     number: "Number"
+    one: "Triple Triad Card"
     sale_price: "Sale Price"
     select: "Select Your Cards"
     stats: "Stats"
@@ -224,6 +226,7 @@ en:
   edit: "Edit"
   emotes:
     command: "Command"
+    one: "Emote"
     title: "Emotes"
   exclude:
     armoire: "Exclude Armoire Storable"
@@ -242,14 +245,17 @@ en:
     7: "Dawntrail"
   experimental: "(Experimental)"
   facewear:
+    one: "Facewear"
     reclaim_alert: "Some facewear were previously available as fashion accessories. You can speak with the Calamity Salvager to reclaim them free of charge."
     reclaimable: "Originally available as a fashion accessory. You may be able to reclaim it by speaking with the Calamity Salvager."
     title: "Facewear"
   fashions:
     dropdown: "Fashion"
+    one: "Fashion Accessory"
     title: "Fashion Accessories"
     title_short: "Accessories"
   field_records:
+    one: "Field Record"
     page: "Page"
     title: "Field Records"
   filters: "Filters"
@@ -259,6 +265,7 @@ en:
   frames:
     item_name: "Item Name"
     name: "Portrait Background"
+    one: "Framer's Kit"
     title: "Framer's Kits"
     wiki: "Images available on wiki"
   free_companies:
@@ -283,6 +290,7 @@ en:
   hairstyles:
     female_hrothgar: "Available to female Hrothgar"
     male_hrothgar: "Available to male Hrothgar"
+    one: "Hairstyle"
     title: "Hairstyles"
     viera: "Available to Viera"
   hide:
@@ -363,6 +371,7 @@ en:
     4: "Possible loot from Materiel Container 4.0"
   minions:
     behavior: "Behavior"
+    one: "Minion"
     title: "Minions"
   mod:
     action: "Action"
@@ -385,6 +394,7 @@ en:
     custom_music: "Custom Music"
     custom_music_tooltip: "This mount plays custom music"
     movement: "Movement"
+    one: "Mount"
     person_count:
       one: "%{count} person"
       other: "%{count} people"
@@ -427,6 +437,7 @@ en:
     tradeable: "Only Tradeable"
     untradeable: "Only Untradeable"
   orchestrions:
+    one: "Orchestrion Roll"
     quick_select: "Quick Select"
     sample: "Audio sample"
     title: "Orchestrion"
@@ -521,12 +532,14 @@ en:
     learn: "Learn"
     location: "Location"
     number: "No."
+    one: "Blue Magic Spell"
     rank: "Rank"
     title: "Blue Magic"
     type: "Type"
   submit: "Submit"
   survey_records:
     hide_spoilers: "Hide Spoilers"
+    one: "Survey Record"
     solution: "Solution"
     title: "Survey Records"
   time_limited: "Time Limited"
@@ -659,6 +672,7 @@ en:
     strengths: "Strengths"
     title: "Verminion"
   view: "View"
+  view_details: "View Details"
   "yes": "Yes"
   yokai:
     locations: "Legendary Medal Locations"

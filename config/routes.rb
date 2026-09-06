@@ -61,6 +61,13 @@ Rails.application.routes.draw do
     end
   end
 
+  %i(mounts minions hairstyles emotes orchestrions frames spells bardings fashions facewear
+  field_records survey_records).each do |resource|
+    resources resource, only: [] do
+      get :tooltip
+    end
+  end
+
   # Backwards compatibility for old field records URLs
   get 'records', to: redirect('field_records')
   get 'records/:id', to: redirect('field_records/%{id}')
@@ -80,14 +87,16 @@ Rails.application.routes.draw do
 
   scope :triad, module: :triad do
     resources :cards, only: [:index, :show] do
+      get :tooltip
+
       member do
-        post 'add'
-        post 'remove'
+        post :add
+        post :remove
       end
 
       collection do
-        get 'select'
-        post 'set'
+        get :select
+        post :set
       end
     end
 

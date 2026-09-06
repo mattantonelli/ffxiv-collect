@@ -2,6 +2,9 @@
 <% description("Track your #{group_type(@group).downcase}'s #{@collection}.") %>
 
 <%= render 'shared/filters' %>
+
+<div id="collectable-tooltip" popover="manual"></div>
+
 <h3 class="text-center">
   <%= link_to(@group.formatted_name, polymorphic_path(@group), class: 'name') %>
   <%= t("#{@collection.downcase.pluralize}.title") %>
@@ -33,14 +36,16 @@
       <tr>
         <th></th>
         <% @collectables.each do |collectable| %>
-          <th class="expansion-<%= collectable.expansion %>" title="<%= collectable.name %>"
-            data-toggle="tooltip" data-placement="top" data-boundary="window">
-            <%= link_to(polymorphic_path(collectable), target: '_blank') do %>
+          <th class="expansion-<%= collectable.expansion %> collectable-tooltip font-weight-normal"
+            data-tooltip-url="<%= tooltip_path(collectable) %>"
+            style="anchor-name: --tooltip-<%= collectable.id %>"
+          >
+            <%= link_to polymorphic_path(collectable) do %>
               <%= small_image(collectable) %>
             <% end %>
           </th>
         <% end %>
-        <% if @collection == 'spells' %>
+        <% if @collection.match?(/spell|record/) %>
           <tr>
             <th></th>
             <% @collectables.each do |spell| %>
