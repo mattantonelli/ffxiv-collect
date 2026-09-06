@@ -1,6 +1,8 @@
 class MountsController < ApplicationController
   include PrivateCollection
-  before_action -> { check_privacy!(:mounts) }
+  include Tooltipable
+
+  before_action -> { check_privacy!(:mounts) }, except: :tooltip
 
   def index
     @q = Mount.ransack(params[:q])

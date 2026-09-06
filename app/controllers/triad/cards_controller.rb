@@ -1,5 +1,7 @@
 class Triad::CardsController < ApplicationController
   include ManualCollection
+  include Tooltipable
+
   before_action :verify_user!, only: [:select, :set]
 
   def index

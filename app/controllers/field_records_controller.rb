@@ -1,5 +1,7 @@
 class FieldRecordsController < ApplicationController
   include ManualCollection
+  include Tooltipable
+
   skip_before_action :set_prices!
 
   def index

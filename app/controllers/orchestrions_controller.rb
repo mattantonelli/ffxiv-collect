@@ -1,5 +1,7 @@
 class OrchestrionsController < ApplicationController
   include ManualCollection
+  include Tooltipable
+
   before_action :set_categories!, only: [:index, :select]
   before_action :validate_user!, only: :select
   before_action :set_ids!, on: :select

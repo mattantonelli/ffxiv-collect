@@ -33,14 +33,13 @@
       <tr>
         <th></th>
         <% @collectables.each do |collectable| %>
-          <th class="expansion-<%= collectable.expansion %>" title="<%= collectable.name %>"
-            data-toggle="tooltip" data-placement="top" data-boundary="window">
-            <%= link_to(polymorphic_path(collectable), target: '_blank') do %>
-              <%= small_image(collectable) %>
-            <% end %>
+          <th class="expansion-<%= collectable.expansion %> collectable-tooltip font-weight-normal"
+            data-tooltip-url="<%= tooltip_path(collectable) %>"
+          >
+            <%= small_image(collectable) %>
           </th>
         <% end %>
-        <% if @collection == 'spells' %>
+        <% if @collection.match?(/spell|record/) %>
           <tr>
             <th></th>
             <% @collectables.each do |spell| %>

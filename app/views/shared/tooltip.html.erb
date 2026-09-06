@@ -1,0 +1,39 @@
+<% cache [@collectable, I18n.locale] do %>
+  <div class="card card-tooltip shadow">
+    <div class="card-header">
+      <div class="d-flex align-items-center">
+        <%= small_image(@collectable) %>
+        <div class="d-flex flex-column ml-2">
+            <strong><%= @collectable.name %></strong>
+            <span><%= t("#{@collectable.class.to_s.underscore.pluralize}.one") %></span>
+        </div>
+        <div class="ml-auto">
+          <%= t('patch') %> <%= @collectable.patch %>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="d-flex flex-column">
+        <% if @collectable.is_a?(SurveyRecord) %>
+          <span class="mb-2"><%= @collectable.solution %></span>
+        <% else %>
+          <%= sources(@collectable, list: true, limit: 2) %>
+          <ul class="list-inline mt-2">
+            <% if @collectable.tradeable? %>
+              <li class="list-inline-item"><%= t('tradeable') %></li>
+            <% end %>
+            <% if @collectable.sources.any?(&:premium) %>
+              <li class="list-inline-item"><%= t('premium') %></li>
+            <% end %>
+            <% if @collectable.sources.any?(&:limited) %>
+              <li class="list-inline-item"><%= t('time_limited') %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <%= link_to(fa_icon('book', text: t('view_details')), polymorphic_path(@collectable),
+            class: 'btn btn-sm btn-secondary w-100', target: '_blank') %>
+      </div>
+    </div>
+  </div>
+<% end %>

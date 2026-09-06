@@ -1,0 +1,31 @@
+.card-tooltip {
+  position: absolute;
+  top: 50px;
+  width: 500px;
+  z-index: 300;
+  border-radius: 0.5rem;
+
+  ul {
+    margin: 0;
+    font-weight: bold;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      &::before {
+        content: "●";
+        margin-right: 0.25rem;
+      }
+    }
+  }
+
+  .card-header {
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 0.5rem 1rem;
+  }
+
+  .card-body {
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+}

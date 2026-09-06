@@ -264,7 +264,7 @@ module CollectionsHelper
     end
   end
 
-  def sources(collectable, list: false)
+  def sources(collectable, list: false, limit: nil)
     sources = collectable.sources.flat_map.filter_map do |source|
       case type = source.type.name_en
       when 'Achievement'
@@ -298,7 +298,10 @@ module CollectionsHelper
     end
 
     content_tag(:div, class: 'sources') do
-      sources.each do |source|
+      # Apply the limit after collecting the sources since a SQL limit doesn't work with eager loading
+      amount = limit || sources.size
+
+      sources.first(amount).each do |source|
         concat(content_tag(:span, source[:content], class: "source source-#{source[:type].parameterize(separator: '-')}"))
       end
     end
@@ -435,6 +438,10 @@ module CollectionsHelper
 
   def location(location, x, y, inline: false)
     "#{location.name}#{inline ? ' ' : '<br>'}(#{x}, #{y})".html_safe
+  end
+
+  def tooltip_path(collectable)
+    polymorphic_path([collectable, :tooltip])
   end
 
   private
