@@ -36,7 +36,7 @@ class SurveyRecord < ApplicationRecord
   alias_attribute :category_id, :series_id
 
   scope :include_related, -> { includes(:series) }
-  scope :ordered, -> { order({ series_id: :desc }, :order) }
+  scope :ordered, -> { order(:series_id, :order) }
 
   def self.available_filters
     %i(owned)

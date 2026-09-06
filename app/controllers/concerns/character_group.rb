@@ -16,11 +16,14 @@ module CharacterGroup
 
     @collectables = @collection.classify.constantize
       .where.not(patch: nil)
-      .joins(sources: :type)
+      .left_joins(sources: :type)
       .with_filters(cookies)
       .ordered
-      .reverse_order
       .distinct
+
+    unless @collection.match('record')
+      @collectables = @collectables.reverse_order
+    end
 
     if params[:source_type_id].present?
       @collectables = @collectables.where('source_types.id = ?', params[:source_type_id])
