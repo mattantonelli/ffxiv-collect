@@ -7,8 +7,6 @@
     font-weight: bold;
 
     li {
-      margin-bottom: 0.5rem;
-
       &::before {
         content: "●";
         margin-right: 0.25rem;

@@ -40,7 +40,9 @@
             data-tooltip-url="<%= tooltip_path(collectable) %>"
             style="anchor-name: --tooltip-<%= collectable.id %>"
           >
-            <%= small_image(collectable) %>
+            <%= link_to polymorphic_path(collectable) do %>
+              <%= small_image(collectable) %>
+            <% end %>
           </th>
         <% end %>
         <% if @collection.match?(/spell|record/) %>
