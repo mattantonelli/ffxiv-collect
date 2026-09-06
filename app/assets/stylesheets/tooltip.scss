@@ -1,8 +1,5 @@
 .card-tooltip {
-  position: absolute;
-  top: 50px;
   width: 500px;
-  z-index: 300;
   border-radius: 0.5rem;
 
   ul {
@@ -28,4 +25,25 @@
     border-radius: 0 0 0.5rem 0.5rem;
     padding: 0.5rem 1rem;
   }
+}
+
+#collectable-tooltip {
+  position: fixed;
+  position-anchor: --tooltip; // Set dynamically by JS before rendering
+  top: anchor(bottom);
+  left: anchor(left);
+
+  // Flip tooltip when reaching the edge of the screen
+  position-try-fallbacks: --tooltip-left;
+
+  // Clear native popover styles
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+@position-try --tooltip-left {
+  left: auto;
+  right: anchor(right);
 }

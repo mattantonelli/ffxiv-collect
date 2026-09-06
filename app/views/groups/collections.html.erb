@@ -2,6 +2,9 @@
 <% description("Track your #{group_type(@group).downcase}'s #{@collection}.") %>
 
 <%= render 'shared/filters' %>
+
+<div id="collectable-tooltip" popover="manual"></div>
+
 <h3 class="text-center">
   <%= link_to(@group.formatted_name, polymorphic_path(@group), class: 'name') %>
   <%= t("#{@collection.downcase.pluralize}.title") %>
@@ -35,6 +38,7 @@
         <% @collectables.each do |collectable| %>
           <th class="expansion-<%= collectable.expansion %> collectable-tooltip font-weight-normal"
             data-tooltip-url="<%= tooltip_path(collectable) %>"
+            style="anchor-name: --tooltip-<%= collectable.id %>"
           >
             <%= small_image(collectable) %>
           </th>
