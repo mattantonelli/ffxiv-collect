@@ -3,7 +3,7 @@ module Tooltipable
 
   included do
     # Skip irrelevant application controller hooks
-    skip_before_action :set_locale, :set_characters, :display_announcements, on: :tooltip
+    skip_before_action :set_characters, :display_announcements, on: :tooltip
   end
 
   def tooltip

@@ -133,9 +133,11 @@ fr:
       early_user: "L'utilisateur vérifié associé à ce personnage a été créé avant le 20 juin 2020"
       supporter: "L'utilisateur associé à ce personnage a apporté son soutien au site via Patreon ou Ko-fi"
   bardings:
+    one: "Barde"
     title: "Bardes"
   cards:
     number: "Numéro"
+    one: "Carte de Triple Triade"
     sale_price: "Prix de vente"
     select: "Sélection rapide"
     stats: "Stats"
@@ -224,6 +226,7 @@ fr:
   edit: "Modifier"
   emotes:
     command: "Commande"
+    one: "Émote"
     title: "Émotes"
   exclude:
     armoire: "Exclure les objets stockables dans le bahut personnel"
@@ -242,14 +245,17 @@ fr:
     7: "Dawntrail"
   experimental: "(Expérimental)"
   facewear:
+    one: "Accessoire de visage"
     reclaim_alert: "Certains accessoires de visage étaient précédemment disponibles en tant qu'accessoires de mode. Vous pouvez vous adresser au Consigneur pour les récupérer gratuitement."
     reclaimable: "Initialement disponible en tant qu'accessoire de mode. Vous devriez pouvoir le récupérer en parlant au Consigneur."
     title: "Accessoires de visage"
   fashions:
     dropdown: "Mode"
+    one: "Accessoire de mode"
     title: "Accessoires de mode"
     title_short: "Accessoires"
   field_records:
+    one: "Rapport du front bozjien"
     page: "Page"
     title: "Rapport du front bozjien"
   filters: "Filtres"
@@ -259,6 +265,7 @@ fr:
   frames:
     item_name: "Nom de l'objet"
     name: "Arrière-plan de portrait"
+    one: "L'art du portrait"
     title: "L'art du portrait"
     wiki: "Images disponibles sur le wiki"
   free_companies:
@@ -283,6 +290,7 @@ fr:
   hairstyles:
     female_hrothgar: "Disponible pour les femmes Hrothgar"
     male_hrothgar: "Disponible pour les hommes Hrothgar"
+    one: "Coiffure"
     title: "Coiffures"
     viera: "Disponible pour Viera"
   hide:
@@ -363,6 +371,7 @@ fr:
     4: "Récompense possible de la malle-surprise (Stormblood)"
   minions:
     behavior: "Comportement"
+    one: "Mascotte"
     title: "Mascottes"
   mod:
     action: "Action"
@@ -385,6 +394,7 @@ fr:
     custom_music: "Musique spéciale"
     custom_music_tooltip: "Cette monture dispose d'une musique spéciale"
     movement: "Mouvement"
+    one: "Monture"
     person_count:
       one: "%{count} personne"
       other: "%{count} personnes"
@@ -427,6 +437,7 @@ fr:
     tradeable: "Échangeable"
     untradeable: "Non échangeable"
   orchestrions:
+    one: "Rouleau d'orchestrion"
     quick_select: "Sélection rapide"
     sample: "Échantillon audio"
     title: "Orchestrion"
@@ -522,12 +533,14 @@ fr:
     learn: "Apprendre"
     location: "Zone"
     number: "N°"
+    one: "Sort de magie bleue"
     rank: "Rang"
     title: "Magie bleue"
     type: "Type"
   submit: "Appliquer"
   survey_records:
     hide_spoilers: "Masquer les spoilers"
+    one: "Rapport d'exploration"
     solution: "Solution"
     title: "Journaux d'exploration"
   time_limited: "Limité dans le temps"
@@ -677,6 +690,7 @@ fr:
     strengths: "Forces"
     title: "Choc des mascottes"
   view: "Voir"
+  view_details: "Voir les détails"
   "yes": "Oui"
   yokai:
     locations: "Emplacements des médailles légendaires"
