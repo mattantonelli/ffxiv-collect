@@ -11,6 +11,7 @@ namespace 'sources:shops' do
     island_sanctuary_type = SourceType.find_by(name_en: 'Island Sanctuary')
     purchase_type = SourceType.find_by(name_en: 'Purchase')
     pvp_type = SourceType.find_by(name_en: 'PvP')
+    quest_type = SourceType.find_by(name_en: 'Quest')
     skybuilders_type = SourceType.find_by(name_en: 'Skybuilders')
     vc_dungeon_type = SourceType.find_by(name_en: 'V&C Dungeon')
     wondrous_tails_type = SourceType.find_by(name_en: 'Wondrous Tails')
@@ -109,8 +110,17 @@ namespace 'sources:shops' do
 
           # Create collectable source
           if item_ids.include?(item_id)
-            texts = currency_texts(price, currency)
-            create_shop_source(Item.find(item_id).unlock, type, texts)
+            collectable = Item.find(item_id).unlock
+            create_shop_source(collectable, type, currency_texts(price, currency))
+
+            # Create sources for prerequisite quests for Gold Saucer items
+            if type == gold_saucer_type
+              quest = shop["Item[#{i}].Quest"]
+
+              if quest != '0'
+                create_shop_source(collectable, quest_type, quest_texts(Quest.find(quest)), unique_type: true)
+              end
+            end
           end
 
           # Add outfit source data
@@ -157,10 +167,8 @@ namespace 'sources:shops' do
 end
 
 private
-# Create shop sources for collectables with no known sources.
-# In the event of Orchestrion rolls, set the details.
-def create_shop_source(unlock, type, texts)
-  unless unlock.sources.any?
+def create_shop_source(unlock, type, texts, unique_type: false)
+  if (unique_type && !unlock.sources.exists?(type_id: type.id)) || !unlock.sources.any?
     unlock.sources.create!(**texts, type: type)
   end
 end
@@ -177,5 +185,11 @@ def currency_texts(price, currency)
 
     formatted_price = number_with_delimiter(price, locale: locale)
     h["text_#{locale}"] = "#{formatted_price} #{formatted_currency}"
+  end
+end
+
+def quest_texts(quest)
+  ALL_LOCALES.each_with_object({}) do |locale, h|
+    h["text_#{locale}"] = quest["name_#{locale}"]
   end
 end
