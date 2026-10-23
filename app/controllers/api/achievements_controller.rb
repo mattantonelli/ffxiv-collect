@@ -5,7 +5,6 @@ class Api::AchievementsController < ApiController
   end
 
   def show
-    @achievement = Achievement.find_by(id: params[:id])
-    render_not_found unless @achievement.present?
+    @achievement = Achievement.find(params[:id])
   end
 end

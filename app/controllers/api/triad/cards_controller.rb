@@ -5,7 +5,6 @@ class Api::Triad::CardsController < ApiController
   end
 
   def show
-    @card = Card.include_sources.find_by(id: params[:id])
-    render_not_found unless @card.present?
+    @card = Card.include_sources.find(params[:id])
   end
 end

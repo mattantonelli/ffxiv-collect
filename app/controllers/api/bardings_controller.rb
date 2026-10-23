@@ -5,7 +5,6 @@ class Api::BardingsController < ApiController
   end
 
   def show
-    @barding = Barding.include_sources.find_by(id: params[:id])
-    render_not_found unless @barding.present?
+    @barding = Barding.include_sources.find(params[:id])
   end
 end

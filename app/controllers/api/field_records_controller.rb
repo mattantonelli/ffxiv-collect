@@ -5,7 +5,6 @@ class Api::FieldRecordsController < ApiController
   end
 
   def show
-    @field_record = FieldRecord.include_sources.find_by(id: params[:id])
-    render_not_found unless @field_record.present?
+    @field_record = FieldRecord.include_sources.find(params[:id])
   end
 end

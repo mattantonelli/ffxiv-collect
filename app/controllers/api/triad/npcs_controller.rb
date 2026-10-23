@@ -8,8 +8,7 @@ class Api::Triad::NPCsController < ApiController
   end
 
   def show
-    @npc = NPC.includes(fixed_cards: :type, variable_cards: :type, rewards: :type).find_by(id: params[:id])
-    render_not_found unless @npc.present?
+    @npc = NPC.includes(fixed_cards: :type, variable_cards: :type, rewards: :type).find(params[:id])
   end
 
   private

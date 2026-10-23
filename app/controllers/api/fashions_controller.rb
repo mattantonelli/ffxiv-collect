@@ -5,7 +5,6 @@ class Api::FashionsController < ApiController
   end
 
   def show
-    @fashion = Fashion.include_sources.find_by(id: params[:id])
-    render_not_found unless @fashion.present?
+    @fashion = Fashion.include_sources.find(params[:id])
   end
 end

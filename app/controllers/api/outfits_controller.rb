@@ -5,7 +5,6 @@ class Api::OutfitsController < ApiController
   end
 
   def show
-    @outfit = Outfit.include_sources.find_by(id: params[:id])
-    render_not_found unless @outfit.present?
+    @outfit = Outfit.include_sources.find(params[:id])
   end
 end

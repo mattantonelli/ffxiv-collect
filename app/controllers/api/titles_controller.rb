@@ -8,8 +8,7 @@ class Api::TitlesController < ApiController
   end
 
   def show
-    @title = Title.find_by(id: params[:id])
+    @title = Title.find(params[:id])
     @owned = { @title.achievement_id.to_s => Redis.current.hget('achievements', params[:id]) }
-    render_not_found unless @title.present?
   end
 end

@@ -5,7 +5,6 @@ class Api::OccultRecordsController < ApiController
   end
 
   def show
-    @occult_record = OccultRecord.include_sources.find_by(id: params[:id])
-    render_not_found unless @occult_record.present?
+    @occult_record = OccultRecord.include_sources.find(params[:id])
   end
 end

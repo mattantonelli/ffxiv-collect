@@ -5,7 +5,6 @@ class Api::MountsController < ApiController
   end
 
   def show
-    @mount = Mount.include_sources.find_by(id: params[:id])
-    render_not_found unless @mount.present?
+    @mount = Mount.include_sources.find(params[:id])
   end
 end

@@ -4,8 +4,15 @@ class ApiController < ApplicationController
 
   before_action :set_defaults, :set_language, :set_owned
 
+  rescue_from StandardError, with: :render_server_error
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
   def render_not_found
     render json: { status: 404, error: 'Not found' }, status: :not_found
+  end
+
+  def render_server_error
+    render json: { status: 500, error: 'Server error' }, status: :internal_server_error
   end
 
   private

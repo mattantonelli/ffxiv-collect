@@ -5,7 +5,6 @@ class Api::LevesController < ApiController
   end
 
   def show
-    @leve = Leve.find_by(id: params[:id])
-    render_not_found unless @leve.present?
+    @leve = Leve.find(params[:id])
   end
 end

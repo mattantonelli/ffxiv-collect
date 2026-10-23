@@ -5,7 +5,6 @@ class Api::BeastsController < ApiController
   end
 
   def show
-    @beast = Beast.include_sources.find_by(id: params[:id])
-    render_not_found unless @beast.present?
+    @beast = Beast.include_sources.find(params[:id])
   end
 end

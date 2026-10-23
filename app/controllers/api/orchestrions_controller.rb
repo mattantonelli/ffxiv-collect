@@ -5,7 +5,6 @@ class Api::OrchestrionsController < ApiController
   end
 
   def show
-    @orchestrion = Orchestrion.find_by(id: params[:id])
-    render_not_found unless @orchestrion.present?
+    @orchestrion = Orchestrion.find(params[:id])
   end
 end

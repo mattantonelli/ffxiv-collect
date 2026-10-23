@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   SUPPORTED_LOCALES = %i(en de fr ja zh-tw).freeze
 
+  rescue_from ActiveRecord::RecordNotFound, with: -> { redirect_to not_found_path }
+
   def new_session_path(scope)
     new_user_session_path
   end

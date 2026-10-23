@@ -5,7 +5,6 @@ class Api::EmotesController < ApiController
   end
 
   def show
-    @emote = Emote.include_sources.find_by(id: params[:id])
-    render_not_found unless @emote.present?
+    @emote = Emote.include_sources.find(params[:id])
   end
 end

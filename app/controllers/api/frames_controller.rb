@@ -5,7 +5,6 @@ class Api::FramesController < ApiController
   end
 
   def show
-    @frame = Frame.find_by(id: params[:id])
-    render_not_found unless @frame.present?
+    @frame = Frame.find(params[:id])
   end
 end

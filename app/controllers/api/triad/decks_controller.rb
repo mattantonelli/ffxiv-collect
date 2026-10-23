@@ -5,8 +5,7 @@ class Api::Triad::DecksController < ApiController
   end
 
   def show
-    @deck = Deck.find_by(id: params[:id])
-    render_not_found unless @deck.present?
+    @deck = Deck.find(params[:id])
   end
 
   private

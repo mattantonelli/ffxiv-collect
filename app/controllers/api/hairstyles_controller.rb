@@ -5,7 +5,6 @@ class Api::HairstylesController < ApiController
   end
 
   def show
-    @hairstyle = Hairstyle.include_sources.find_by(id: params[:id])
-    render_not_found unless @hairstyle.present?
+    @hairstyle = Hairstyle.include_sources.find(params[:id])
   end
 end

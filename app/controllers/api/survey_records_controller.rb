@@ -5,7 +5,6 @@ class Api::SurveyRecordsController < ApiController
   end
 
   def show
-    @survey_record = SurveyRecord.find_by(id: params[:id])
-    render_not_found unless @survey_record.present?
+    @survey_record = SurveyRecord.find(params[:id])
   end
 end

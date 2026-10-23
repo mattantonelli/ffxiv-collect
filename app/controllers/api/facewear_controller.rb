@@ -5,7 +5,6 @@ class Api::FacewearController < ApiController
   end
 
   def show
-    @facewear = Facewear.include_sources.find_by(id: params[:id])
-    render_not_found unless @facewear.present?
+    @facewear = Facewear.include_sources.find(params[:id])
   end
 end

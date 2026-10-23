@@ -5,7 +5,6 @@ class Api::RelicsController < ApiController
   end
 
   def show
-    @relic = Relic.find_by(id: params[:id])
-    render_not_found unless @relic.present?
+    @relic = Relic.find(params[:id])
   end
 end

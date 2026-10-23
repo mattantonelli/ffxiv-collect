@@ -5,7 +5,6 @@ class Api::SpellsController < ApiController
   end
 
   def show
-    @spell = Spell.include_sources.find_by(id: params[:id])
-    render_not_found unless @spell.present?
+    @spell = Spell.include_sources.find(params[:id])
   end
 end

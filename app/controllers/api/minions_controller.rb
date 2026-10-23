@@ -5,7 +5,6 @@ class Api::MinionsController < ApiController
   end
 
   def show
-    @minion = Minion.include_sources.find_by(id: params[:id])
-    render_not_found unless @minion.present?
+    @minion = Minion.include_sources.find(params[:id])
   end
 end
