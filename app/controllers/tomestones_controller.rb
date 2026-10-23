@@ -2,7 +2,7 @@ class TomestonesController < ApplicationController
   include PrivateCollection
   include TomestonesHelper
 
-  before_action -> { check_privacy!(:mounts, :minions) }
+  before_action -> { check_privacy!(:mounts, :minions, :emotes) }
   skip_before_action :set_owned!, :set_ids!
 
   def index
